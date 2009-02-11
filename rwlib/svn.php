@@ -15,4 +15,6 @@
 * @filesource $URL$
 */
 
+
+echo 'Hello World';
 ?>
