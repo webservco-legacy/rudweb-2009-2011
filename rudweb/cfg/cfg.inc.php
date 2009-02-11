@@ -120,7 +120,7 @@ define('_APP_TIMEZONE','Europe/Bucharest');
 /**
  * Extensions
  */
-if(is_readable(_APP_DIR.'cfg/cfg.ext.inc.php')) {require_once(_APP_DIR.'cfg/cfg.ext.inc.php');} else {require_once('./404xxx.php'); exit;}
+if(is_readable(_APP_DIR.'cfg/cfg.ext.inc.php')) {require_once(_APP_DIR.'cfg/cfg.ext.inc.php');} else {require_once('./404.php'); exit;}
 /**
  * Engine config
  */
