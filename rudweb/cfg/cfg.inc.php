@@ -57,7 +57,7 @@ define('_APP_CFG_USERS',FALSE);
  *
  * Must end with a slash (/)
  */
-define('_APP_DIR', 'd:/home/devel/workspace/RudWEb/rudweb/');
+define('_APP_DIR', 'd:/home/devel/server/htdocs/work/rudweb/');
 /**
  * Engine path
  *
@@ -69,7 +69,7 @@ define('_RW_DIR', 'd:/home/devel/workspace/RudWEb/rwlib/');
  *
  * Must end with a slash (/)
  */
-define('_APP_WWW','http://localhost/workspace/RudWEb/rudweb/');
+define('_APP_WWW','http://localhost/work/rudweb/');
 /* ********** ********** ********** ********** ********** SEO ********** ********** ********** ********** ********** */
 /**
  * Application index
