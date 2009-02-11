@@ -61,7 +61,7 @@ define('_APP_URL_TMP', _APP_URL_VAR . 'tmp/');
 /**
  * Application content directory
  */
-define('_APP_DIR_CNT', _APP_DIR_INC . 'cnt/');
+define('_APP_DIR_CNT', _APP_DIR_INC . 'pgs/');
 /**
  * Application internationalization directory
  */

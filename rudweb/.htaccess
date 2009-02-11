@@ -1,0 +1,49 @@
+# $Id$
+#
+# $URL$
+# $Revision$
+# .htaccess file
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+<IfModule mod_rewrite.c>
+Options +FollowSymlinks
+# Turn on URL rewriting
+RewriteEngine On
+# Put your installation directory here:
+#RewriteBase /dir_name_here
+# Do not enable rewriting for files that exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Rewrite to index.php/URL
+RewriteRule ^(.*)$ index.php/$1 [PT,L]
+</IfModule>
+
+# Prevent direct file access to some files
+# tpl     - template files
+# tpl.php - parsed template files (smarty)
+# tmp     - temporary files
+# inc.php - include files
+# ext.php - extension files
+# mod.php - module files
+<FilesMatch "\.(tpl|tpl.php|tmp|inc.php|ext.php|mod.php)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+# PHP security - disable register_globals
+php_value register_globals 0
+# PHP security - disable magic_quotes
+php_value magic_quotes_gpc 0 
