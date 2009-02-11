@@ -1,0 +1,59 @@
+<?php
+/**
+ * $Id$
+ *
+ * $URL$
+ * <BR>Romanian language file (core)
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @copyright  Copyright (c) 2008, Radu Maier
+ * @license    http://opensource.org/licenses/gpl-3.0.html
+ * @version    $Revision$
+ * @since      2009-01-12 16:27:00
+ * @access     public
+ * @package    RudWEb
+ * @subpackage Internationalization
+ * @todo       stuff
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+/**
+ * Prevent direct file access
+ */
+if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
+
+/**
+ * Initialize
+ */
+$lang = array();
+
+/**
+ * User status
+ */
+$lang['USR_STATUS'][1]  = 'Neautentificat';
+$lang['USR_STATUS'][2]  = 'C&#226;mpuri necompletate';
+$lang['USR_STATUS'][3]  = 'Date incorecte';
+$lang['USR_STATUS'][4]  = 'Cont suspendat';
+$lang['USR_STATUS'][5]  = 'Autentificare reu&#351;it&#259;';
+$lang['USR_STATUS'][6]  = 'Autentificat';
+$lang['USR_STATUS'][7]  = 'Cod de verificare incorect';
+$lang['USR_STATUS'][8]  = 'Submit-uri multiple';
+$lang['USR_STATUS'][9]  = 'Atack hacker';
+/**
+ * 404 messages
+ */
+$lang['404']['TITLE']   = 'Resursa nu a fost g&#259;sit&#259;';
+$lang['404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost g&#259;sit&#259; pe acest server.';
+?>
