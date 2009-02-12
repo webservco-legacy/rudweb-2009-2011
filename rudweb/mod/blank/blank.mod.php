@@ -34,7 +34,7 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
-class rw_Mod_test extends rw_Mod_global implements rw_iMod
+class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 {
 	/**
 	 * Constructor
@@ -46,9 +46,9 @@ class rw_Mod_test extends rw_Mod_global implements rw_iMod
 		/**
 		 * Module info
 		 */
-		$about['name'] = 'test';
-		$about['desc'] = 'Test module.';
-		$about['ver']  = '15:52 2009-02-09';
+		$about['name'] = 'blank';
+		$about['desc'] = 'Blank module.';
+		$about['ver']  = '09:52 2009-02-12';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
@@ -67,7 +67,7 @@ class rw_Mod_test extends rw_Mod_global implements rw_iMod
 		$cnt = array();
 
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Test Module - Default action';
+		$cnt['skin']['title'] = 'Blank Module - Default action';
 
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();
@@ -82,7 +82,7 @@ class rw_Mod_test extends rw_Mod_global implements rw_iMod
 		$cnt = array();
 
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Test Module - testAction';
+		$cnt['skin']['title'] = 'Blank Module - testAction';
 
 		$cnt['cnt']['tpl'] = 'contact';
 		$cnt['cnt']['content'] = array();
@@ -96,7 +96,7 @@ class rw_Mod_test extends rw_Mod_global implements rw_iMod
 		$cnt = array();
 
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Test Module - testMenu';
+		$cnt['skin']['title'] = 'Blank Module - testMenu';
 
 		$cnt['cnt']['tpl'] = 'test';
 		$cnt['cnt']['content'] = array();
