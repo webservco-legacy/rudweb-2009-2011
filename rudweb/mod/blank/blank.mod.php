@@ -38,10 +38,10 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 {
 	/**
 	 * Constructor
-	 * Set module information and call parent constructor
 	 *
+	 * Set module information and call parent constructor
 	 */
-	function __construct()
+	public function __construct($lang, $db=NULL)
 	{
 		/**
 		 * Module info
@@ -53,16 +53,17 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		$about['deps'][]  = 'dep1';
-		$about['deps'][]  = 'dep2';
-		parent::__construct($about);
+		$about['deps']['cfg']  = 'dep1';
+		$about['deps']['ext']  = 'dep2';
+		$about['deps']['mod']  = 'dep3';
+		parent::__construct($about, $lang, $db);
 	}
 	/**
 	 * Default module functionality
 	 *
 	 * @return mixed result
 	 */
-	function defaultAction()
+	public function _default()
 	{
 		$cnt = array();
 
@@ -77,73 +78,15 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 	/**
 	 * Some other module functionality
 	 */
-	function testAction()
+	public function test()
 	{
 		$cnt = array();
 
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Blank Module - testAction';
+		$cnt['skin']['title'] = 'Blank Module - Test Action';
 
 		$cnt['cnt']['tpl'] = 'contact';
 		$cnt['cnt']['content'] = array();
-
-		return $cnt;
-	}
-	function testMenu()
-	{
-		global $db;
-
-		$cnt = array();
-
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Blank Module - testMenu';
-
-		$cnt['cnt']['tpl'] = 'test';
-		$cnt['cnt']['content'] = array();
-		// db_stuff start
-		if($db)
-		{
-			function pageAdmMenu($parent=0)
-			{
-				global $db;
-				$rs = $db->dbQuery("SELECT * FROM rw_ws_pages WHERE pg_parent = $parent");
-
-				while($r = $rs->dbFetchArray())
-				{
-					echo $r['pg_id'] . ' : ';
-					echo $r['pg_parent'] . ' : ';
-					echo $r['pg_level'] . ' : ';
-					for($i=1; $i<=$r['pg_level'];$i++)
-					{
-						echo 'x';
-					}
-					if($r['pg_parent'] == 0)
-					{
-						echo "<b>".$r['pg_title']."</b><br>";
-					}
-					else
-					{
-						echo $r['pg_title']."<br>";
-					}
-					//$r['pg_parent'] == 0 ? echo "<b>{$r['pg_title']}</b><br>" : echo $r['pg_title']."<br>";
-					pageAdmMenu($r['pg_id']);
-				}
-			}
-
-			pageAdmMenu();
-			trigger_error('here', E_USER_ERROR);
-
-			$rs = $db->dbQuery("SELECT pg_id, pg_title FROM rw_ws_pages");
-			$tr = $rs->dbNumRows();
-			for($i=0;$i<$tr;$i++)
-			{$cnt['cnt']['content'][$i] = $rs->dbFetchArray();}
-
-			//list($pg_id, $pg_parent, $pg_level, $pg_order, $pg_title, $pg_alias) = $rs->dbFetchResult();
-		}
-		// db_stuff end
-
-
-
 
 		return $cnt;
 	}

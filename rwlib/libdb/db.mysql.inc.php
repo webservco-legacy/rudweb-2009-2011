@@ -100,10 +100,12 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	function dbQuerySimpleSelect($columns, $table, $condition, $limit=NULL)
+	function dbQuerySimpleSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
 	{
-		$limit = isset($limit) ? ' LIMIT '.$limit : '';
-		$sql = "SELECT {$columns} FROM {$table} WHERE {$condition}{$limit}";
+		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
+		$order = (isset($order) && $order != '') ? ' ORDER BY '.$order : '';
+		$condition = (isset($condition) && $condition != '') ? ' WHERE '.$condition : '';
+		$sql = "SELECT {$columns} FROM {$table}{$condition}{$order}{$limit}";
 		return $this->dbQuery($sql);
 	}
 	/**

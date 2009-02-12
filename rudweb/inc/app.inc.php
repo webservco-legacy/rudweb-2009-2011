@@ -154,7 +154,7 @@ class app_Core extends rw_Core
 					/**
 					 * Action must not be a special method
 					 */
-					if(!ereg("^_{2}", $action))
+					if(!ereg("^_{1,2}", $action))
 					{
 						/**
 						 * Action must exist and be public
@@ -188,7 +188,7 @@ class app_Core extends rw_Core
 					/**
 					 * No action requested, load default action
 					 */
-					$cnt = $modObject->defaultAction();
+					$cnt = $modObject->_default();
 				}
 			}
 			else

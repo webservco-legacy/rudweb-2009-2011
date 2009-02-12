@@ -77,7 +77,7 @@ interface rw_iDB
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	function dbQuerySimpleSelect($columns, $table, $condition, $limit=NULL);
+	function dbQuerySimpleSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL);
 	/**
 	 * Escape a string for queries
 	 * @param string $string string to be escaped

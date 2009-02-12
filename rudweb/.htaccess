@@ -22,7 +22,7 @@ Options +FollowSymlinks
 # Turn on URL rewriting
 RewriteEngine On
 # Put your installation directory here:
-#RewriteBase /dir_name_here
+RewriteBase /workspace/RudWEb/rudweb
 # Do not enable rewriting for files that exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -50,7 +50,11 @@ interface rw_iMod
 	 *
 	 * @return mixed information about the module
 	 */
-	function modAbout();
+	public function modAbout();
+	/**
+	 * Default module functionality
+	 */
+	public function _default();
 }
 /**
  * rw_Mod_global
@@ -68,21 +72,31 @@ class rw_Mod_global
 	 */
 	public $modAbout = array();
 	/**
+	 * Internationalization
+	 */
+	public $modLang = array();
+	/**
+	 * Database connection
+	 */
+	public $modDb = NULL;
+	/**
 	 * Load the module
 	 *
 	 * @param array $modAbout module information
 	 * @return mixed result of loading
 	 */
-	function __construct($modAbout)
+	public function __construct($modAbout, $lang, $db=NULL)
 	{
 		$this->modAbout = $modAbout;
+		$this->modLang = $lang;
+		$this->modDb = $db ? $db : NULL;
 	}
 	/**
 	 * Method for displaying information about the module
 	 *
 	 * @return mixed information about the module
 	 */
-	function modAbout()
+	public function modAbout()
 	{
 		return $this->modAbout;
 	}
