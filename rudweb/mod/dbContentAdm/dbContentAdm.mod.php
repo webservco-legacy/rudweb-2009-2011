@@ -107,15 +107,17 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		if($t > 0)
 		{
 			$menu = '<ul>';
+			
 			while($r = $rs->dbFetchArray())
 			{
 				
-				$menu .= '<li><a href="new">'.'[new before]'.'</a>';
+				$menu .= '<li><a href="new">'.'[new]'.'</a>';
 				$menu .= '<li><a href="'._APP_WWW.'module/dbContentAdm/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
-				$menu .= '<li><a href="new">'.'[new after ]'.'</a>';
+				
 				$menu .= $this->_pagesMenu2($r['pg_id']);
 				$menu .= '</li>';
 			}
+			$menu .= '<li><a href="new">'.'[new]'.'</a>';
 			$menu .= '</ul>';
 		}
 
