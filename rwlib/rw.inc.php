@@ -45,6 +45,30 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Core
 {
+  /**
+   * Extension list
+   *
+   * @var array
+   */
+	public $ext = array();
+	/**
+	 * User status
+	 *
+	 * @var integer
+	 */
+	public $usr_status = 1;
+	/**
+	 * Language translations
+	 *
+	 * @var array
+	 */
+	public $lang = array();
+	/**
+	 * Database object
+	 *
+	 * @var mixed
+	 */
+	public $db = NULL;
 	/**
 	 * Initialize application
 	 *
@@ -78,6 +102,7 @@ class rw_Core
 			 * Load extensions
 			 */
 			$ext = $this->rwLoadExt($exts);
+			$this->ext = $ext;
 			/**
 			 * Load database file, if database functionality is enabled
 			 */
@@ -95,13 +120,14 @@ class rw_Core
 			 */
 			if(_APP_CFG_SESSIONS)
 			{
-				$sessions = $this->rwActivateExt($ext, 'Session');
+				$sessions = $this->rwActivateExt($ext, 'Sessions');
 				$usr_status = $sessions->rwSession($ext);
 			}
 			else
 			{
 				$usr_status = 1;
 			}
+			$this->usr_status = $usr_status;
 		}
 		catch (Exception $e)
 		{
@@ -111,13 +137,61 @@ class rw_Core
 		/**
 		 * Load language file
 		 */
+		$lang = array();
 		$ln = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
 		require_once(_RW_DIR_LANG.$ln.'/lang.inc.php');
 		require_once(_APP_DIR_LANG.$ln.'/lang.inc.php');
+		$this->lang = $lang;
 		/**
 		 * Return loaded extensions, user status, and language translations
 		 */
-		return array($ext, $usr_status, $lang);
+		return array($this->ext, $this->usr_status, $this->lang);
+	}
+	/**
+	 * Return loaded extensions
+	 *
+	 * @return array $ext loaded extensions
+	 */
+	public function rwExt()
+	{
+		return $this->ext;
+	}
+	/**
+	 * Return user status
+	 *
+	 * @return integer $usr_status user status
+	 */
+	public function rwUsrStatus()
+	{
+		return $this->usr_status;
+	}
+	/**
+	 * Return language translations
+	 *
+	 * @return array $lang language translations
+	 */
+	public function rwLang()
+	{
+		return $this->lang;
+	}
+	/**
+	 * Set global database object
+	 *
+	 * @param mixed $db database object
+	 * @return null
+	 */
+	public function rwDbSet($db)
+	{
+		$this->db = $db;
+	}
+	/**
+	 * Retrun database connection object
+	 *
+	 * @return mixed $db database object
+	 */
+	public function rwDb()
+	{
+		return $this->db;
 	}
 	/**
 	 * Main error display
@@ -192,7 +266,7 @@ class rw_Core
 	/**
 	 * Filter user input
 	 */
-	public function rwFilterInput($input,$sql=NULL,$blockTags=TRUE)
+	public function rwFilterInput($input,$blockTags=TRUE)
 	{
 		if(get_magic_quotes_gpc()) {$input = stripslashes($input);}
 		/**
@@ -210,9 +284,9 @@ class rw_Core
 			$input = str_replace('<', '&#60;', $input);
 			$input = str_replace('>', '&#62;', $input);
 		}
-		if($sql)
+		if($this->db)
 		{
-			$input = $sql->dbEscapeString($input);
+			$input = $this->db->dbEscapeString($input);
 		}
 		else
 		{

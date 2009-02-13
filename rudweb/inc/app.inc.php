@@ -51,16 +51,10 @@ class app_Core extends rw_Core
 	/**
 	 * Handle requests
 	 *
-	 * @param array $lang language object
-	 * @param array $db database connection
 	 * @return mixed result
 	 */
-	public function appProcess($lang, $db=NULL)
+	public function appProcess()
 	{
-		/**
-		 * Temporary solution for user status
-		 */
-		global $usr_status;
 		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] = 'true'))
 		{
 			/**
@@ -77,7 +71,7 @@ class app_Core extends rw_Core
 			/**
 			 * Request security check
 			 */
-			$page = $db ? $this->rwFilterInput($_GET['page'], $db) : $this->rwFilterInput($_GET['page']);
+			$page = $this->rwFilterInput($_GET['page']);
 			/**
 			 * Check if requested page exists
 			 */
@@ -115,7 +109,7 @@ class app_Core extends rw_Core
 			/**
 			 * Request security check
 			 */
-			$module = $db ? $this->rwFilterInput($_GET['module'], $db) : $this->rwFilterInput($_GET['module']);
+			$module = $this->rwFilterInput($_GET['module']);
 			/**
 			 * Check if requested module exists
 			 */
@@ -133,6 +127,7 @@ class app_Core extends rw_Core
 				/**
 				 * Check if module has it's own internationalization file corresponding to the current language.
 				 */
+				$modlang = array();
 				if(is_file(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php'))
 				{
 					/**
@@ -140,17 +135,67 @@ class app_Core extends rw_Core
 					 */
 					require_once(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php');
 				}
+				$this->lang = array_merge($this->lang, $modlang);
 				/**
 				 * Load module
 				 */
 				$modClass = 'rw_Mod_'.$module;
-				$modObject = $db ? new $modClass($lang, $db) : new $modClass($lang);
+				$modObject = new $modClass($this);
+				/**
+				 * Check module dependencies
+				 */
+				$modAbout = $modObject->modAbout();
+				$cfgDeps = count($modAbout['deps']['cfg']);
+				$extDeps = count($modAbout['deps']['ext']);
+				$modDeps = count($modAbout['deps']['mod']);
+				/**
+				 * If configuration dependencies exist check them
+				 */
+				if($cfgDeps > 0)
+				{
+					foreach($modAbout['deps']['cfg'] as $cfgDep)
+					{
+						//echo $cfgDep;
+						//echo '<br />';
+						//trigger_error('xyz', E_USER_ERROR);
+						if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
+						{
+							trigger_error('Module can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> missing.', E_USER_ERROR);
+						}
+					}
+				}
+				/**
+				 * If extensions dependecies exist, check them
+				 */
+				if($extDeps > 0)
+				{
+					foreach($modAbout['deps']['ext'] as $extDep)
+					{
+						if(!array_key_exists($extDep, $this->ext))
+						{
+							trigger_error('Module can not be loaded. Extensions dependecy <b>'.$extDep.'</b> missing.', E_USER_ERROR);
+						}
+					}
+				}
+				/**
+				 * If module dependecies exist, check them
+				 */
+				if($modDeps > 0)
+				{
+					foreach($modAbout['deps']['mod'] as $modDep)
+					{
+						if(!is_file(_APP_DIR_MOD.$modDep.'/'.$modDep.'.mod.php'))
+						{
+							trigger_error('Module can not be loaded. Modules dependecy <b>'.$extDep.'</b> missing.', E_USER_ERROR);
+						}
+					}
+				}
 				/**
 				 * Module is loaded, check action
 				 */
 				if(isset($_GET['action']))
 				{
-					$action = $db ? $this->rwFilterInput($_GET['action'], $db) : $this->rwFilterInput($_GET['action']);
+					$action = $this->rwFilterInput($_GET['action']);
 					/**
 					 * Action must not be a special method
 					 */

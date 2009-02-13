@@ -39,7 +39,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 $exts = array();
 $exts[] = 'SeoURLs';
-$exts[] = 'Thumb';
-$exts[] = 'Session';
+$exts[] = 'Sessions';
 $exts[] = 'Users';
+//$exts[] = 'Thumb';
 ?>

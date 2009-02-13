@@ -37,12 +37,13 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 if(_APP_CFG_DATABASE)
 {
 	$db = $appCore->rwDbConnect();
-	$cnt = $appCore->appProcess($lang, $db);
+	$appCore->rwDbSet($db);
+	$cnt = $appCore->appProcess();
 	$db->dbClose();
 }
 else
 {
-	$cnt = $appCore->appProcess($lang);
+	$cnt = $appCore->appProcess();
 }
 
 /**

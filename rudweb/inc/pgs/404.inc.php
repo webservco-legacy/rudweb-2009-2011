@@ -41,7 +41,7 @@ $cnt['skin']['tpl'] = 'layout';
 /*
  * Main layout page title
  */
-$cnt['skin']['title'] = $lang['404']['TITLE'];
+$cnt['skin']['title'] = $this->lang['404']['TITLE'];
 /*
  * Current content template file
  */

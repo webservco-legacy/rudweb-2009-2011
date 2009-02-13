@@ -35,7 +35,7 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
-class rw_Ext_Session extends rw_Ext_global implements rw_iExt
+class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 {
 	/**
 	 * Constructor
@@ -47,7 +47,7 @@ class rw_Ext_Session extends rw_Ext_global implements rw_iExt
 		/**
 		 * Extension info
 		 */
-		$about['name'] = 'Session';
+		$about['name'] = 'Sessions';
 		$about['desc'] = 'Provide session functionality.';
 		$about['ver']  = '09:48 2009-02-01';
 		$about['auth'] = 'Radu Maier';

@@ -46,11 +46,11 @@ define('_APP_CFG_DATABASE',TRUE);
 /**
  * Use sessions and users? (TRUE/FALSE)
  */
-define('_APP_CFG_SESSIONS',FALSE);
+define('_APP_CFG_SESSIONS',TRUE);
 /**
  * Use user authentication? (TRUE/FALSE)
  */
-define('_APP_CFG_USERS',FALSE);
+define('_APP_CFG_USERS',TRUE);
 /* ********** ********** ********** ********** ********** PATHS ********** ********** ********** ********** ********** */
 /**
  * Application path

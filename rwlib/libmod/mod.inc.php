@@ -69,27 +69,40 @@ class rw_Mod_global
 {
 	/**
 	 * Set module info
+	 * 
+	 * @var array
 	 */
 	public $modAbout = array();
 	/**
+	 * Application core object
+	 *
+	 * @var mixed
+	 */
+	public $modAppCore = NULL;
+	/**
 	 * Internationalization
+	 * 
+	 * @var array
 	 */
 	public $modLang = array();
 	/**
 	 * Database connection
+	 * 
+	 * @var mixed
 	 */
 	public $modDb = NULL;
 	/**
 	 * Load the module
 	 *
-	 * @param array $modAbout module information
+	 * @param mixed $appCore Application core object
 	 * @return mixed result of loading
 	 */
-	public function __construct($modAbout, $lang, $db=NULL)
+	public function __construct($modAbout, $appCore)
 	{
 		$this->modAbout = $modAbout;
-		$this->modLang = $lang;
-		$this->modDb = $db ? $db : NULL;
+		$this->modAppCore = $appCore;
+		$this->modLang = $this->modAppCore->rwLang();
+		$this->modDb = $this->modAppCore->rwDb();
 	}
 	/**
 	 * Method for displaying information about the module

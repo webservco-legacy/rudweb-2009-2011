@@ -41,7 +41,7 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 	 *
 	 * Set module information and call parent constructor
 	 */
-	public function __construct($lang, $db=NULL)
+	public function __construct($appCore)
 	{
 		/**
 		 * Module info
@@ -53,10 +53,10 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		$about['deps']['cfg']  = 'dep1';
-		$about['deps']['ext']  = 'dep2';
-		$about['deps']['mod']  = 'dep3';
-		parent::__construct($about, $lang, $db);
+		$about['deps']['cfg'] = array();
+		$about['deps']['ext'] = array();
+		$about['deps']['mod'] = array();
+		parent::__construct($about, $appCore);
 	}
 	/**
 	 * Default module functionality
