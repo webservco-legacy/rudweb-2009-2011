@@ -92,17 +92,26 @@ class rw_Mod_global
 	 */
 	public $modDb = NULL;
 	/**
+   * Default content values
+   *
+   * @var array
+   */
+  public $modCnt = array();
+	/**
 	 * Load the module
 	 *
 	 * @param mixed $appCore Application core object
 	 * @return mixed result of loading
 	 */
-	public function __construct($modAbout, $appCore)
+	public function __construct($modAbout, $modCnt, $appCore)
 	{
 		$this->modAbout = $modAbout;
 		$this->modAppCore = $appCore;
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
+		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		$modCnt['skin']['lang'] = $this->modLang;
+		$this->modCnt = $modCnt;
 	}
 	/**
 	 * Method for displaying information about the module

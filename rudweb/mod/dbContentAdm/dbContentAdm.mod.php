@@ -61,7 +61,16 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$about['deps']['ext'][] = 'Sessions';
 		$about['deps']['ext'][] = 'Users';
 		$about['deps']['mod']   = array();
-		parent::__construct($about, $appCore);
+		
+		$cnt['skin']['dir'] = 'admin';
+		$cnt['skin']['tpl'] = 'layout';
+		//$cnt['skin']['title'] = '';
+		//$cnt['skin']['lang'] = $this->modLang;
+		$cnt['cnt']['dir'] = 'content';
+		$cnt['cnt']['tpl'] = 'blank';
+		$cnt['cnt']['content'] = array();
+		
+		parent::__construct($about, $cnt, $appCore);
 	}
 	/**
 	 * Default module functionality
@@ -70,43 +79,49 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		$cnt = array();
+		//$cnt = $this->modCnt;
+		
+		
 
-		$cnt['skin']['dir'] = 'dbContentAdm';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
-		$cnt['skin']['lang'] = $this->modLang;
+		//$cnt['skin']['dir'] = 'dbContentAdm';
+		//$cnt['skin']['tpl'] = 'layout';
+    //$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		//$cnt['skin']['lang'] = $this->modLang;
 
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'blank';
-		$cnt['cnt']['content'] = array();
+		//$cnt['cnt']['dir'] = 'content';
+		//$cnt['cnt']['tpl'] = 'blank';
+		//$cnt['cnt']['content'] = array();
+		
+    //echo '<pre>';
+    //print_r($cnt);
+    //trigger_error('xxx', E_USER_ERROR);
 
-		return $cnt;
+		return $this->modCnt;
 	}
 	/**
 	 * Test administration menu
 	 */
 	public function menu()
 	{
-		$cnt = array();
+		//$cnt = $this->modCnt;
 
-		$cnt['skin']['dir'] = 'dbContentAdm';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-		$cnt['skin']['lang'] = $this->modLang;
+		//$cnt['skin']['dir'] = 'dbContentAdm';
+		//$cnt['skin']['tpl'] = 'layout';
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		//$cnt['skin']['lang'] = $this->modLang;
 
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'test';
-		$cnt['cnt']['content'] = array();
-		$cnt['cnt']['content']['menu'] = array();
+		//$cnt['cnt']['dir'] = 'content';
+		$this->modCnt['cnt']['tpl'] = 'test';
+		//$cnt['cnt']['content'] = array();
+		$this->modCnt['cnt']['content']['menu'] = array();
 
 		if($this->modDb)
 		{
 			$menu = $this->_pagesMenu();
-			$cnt['cnt']['content']['menu'] = $menu;
+			$this->modCnt['cnt']['content']['menu'] = $menu;
 		}
 
-		return $cnt;
+		return $this->modCnt;
 	}
 	/**
 	 * menu test

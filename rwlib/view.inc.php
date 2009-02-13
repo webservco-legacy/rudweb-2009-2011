@@ -55,12 +55,14 @@ class app_Viewer
 			$skin_dir .= '/'.$vars['dir'];
 		}
 		$skinObj->skindir($skin_dir);
+		$skinObj->compile_id = $vars['dir'];
 
 		$totalAtpl = count($atpl);
 		if($totalAtpl > 0)
 		{
 			$atplObj = rw_Skin::_load(_APP_TPL);
 			$atplObj->skindir($skin_dir);
+			$atplObj->compile_id = $vars['dir'];
 			foreach($atpl as $atplTitle=>$atplVars)
 			{
 				if(array_key_exists(0, $atplVars))
@@ -74,6 +76,7 @@ class app_Viewer
 						{
 							foreach($atplVars[$i]['vars'] as $name=>$value)
 							{
+								//$atplObj->compile_id = $atplVars[$i]['dir'];
 								$atplObj->set($name, $value);
 							}
 						}
@@ -89,6 +92,7 @@ class app_Viewer
 					{
 						foreach($atplVars['vars'] as $name=>$value)
 						{
+							//$atplObj->compile_id = $atplVars['dir'];
 							$atplObj->set($name, $value);
 						}
 					}
