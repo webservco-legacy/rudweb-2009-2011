@@ -2,16 +2,16 @@
  * $Id$
  *
  * $URL$
- * <BR>Description
+ * <BR>Main layout file
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      0000-00-00 00:00:00
+ * @since      2009-02-13 09:50:00
  * @access     public
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage Skins
  * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,70 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
-
-*}
+ *}
+{* usr_lang, app_skin_url *}
+{if $smarty.const._APP_CFG_SESSIONS}
+{assign var="app_pre" value=$smarty.const._APP_PRE}
+{assign var="usr_lang_suf" value="_usr_lang"}
+{assign var="app_lang" value=$app_pre$usr_lang_suf}
+{assign var="usr_lang" value=$smarty.session.$app_lang}
+{assign var="app_skin_suf" value="_skin_url"}
+{assign var="app_skin_ses" value=$app_pre$app_skin_suf}
+{assign var="app_skin_url" value=$smarty.session.$app_skin_ses}
+{else}
+{assign var="app_skin_url" value=$smarty.const._APP_SKIN_URL}
+{assign var="usr_lang" value=$smarty.const._APP_LANG}
+{/if}
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$usr_lang}" lang="{$usr_lang}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-language" content="{$usr_lang}" />
+  <link rel="icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
+  <link rel="shortcut icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
+  <title>{$title} .:. {$smarty.const._APP_NAME}</title>
+  <meta name="title" content="{$smarty.const._APP_NAME} {$title}" />
+  <meta name="subject" content="{$smarty.const._APP_NAME} {$title}" />
+  <meta name="description" content="{$smarty.const._APP_NAME} {$title}" />
+  <meta name="keywords" content="{$smarty.const._APP_NAME}, {$title}" />
+  <meta name="copyright" content="{$smarty.const._APP_AUTH}" />
+  <meta name="designer" content="{$smarty.const._APP_AUTH}" />
+  <meta name="publisher" content="{$smarty.const._APP_AUTH}" />
+  <meta name="author" content="{$smarty.const._APP_AUTH}" />
+  <meta name="rating" content="General" />
+  <meta name="distribution" content="Global" />
+  <meta name="robots" content="Index, Follow" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link rel="stylesheet" type="text/css" charset="utf-8" href="{$app_skin_url}styles/style.css" />
+  <script type="text/javascript" src="{$app_skin_url}scripts/script.js"></script>
+</head>
+<body>
+<div id="layout">
+  <div id="header">
+    <div id="hdr1">&#160;</div>
+    <div id="hdr2"><div id="sigla">Administrare Con&#355;inut</div></div>
+    <div id="hdr3">&#160;</div>
+  </div>
+  <div id="content">
+    <div id="left">
+      {$menu}
+    </div>
+    <div id="right">
+      &#160;
+    </div>
+    <div id="center">
+      <div id="page_title">
+        <h1>{$title}</h1>
+      </div>
+      <div id="page_content">
+        {$content}
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    {$footer}
+  </div>
+</div>
+</body>
+</html>

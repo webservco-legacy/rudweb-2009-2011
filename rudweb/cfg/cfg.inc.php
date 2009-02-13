@@ -57,13 +57,13 @@ define('_APP_CFG_USERS',FALSE);
  *
  * Must end with a slash (/)
  */
-define('_APP_DIR', 'e:/home/devel/workspace/RudWEb/rudweb/');
+define('_APP_DIR', 'd:/home/devel/workspace/RudWEb/rudweb/');
 /**
  * Engine path
  *
  * Must end with a slash (/)
  */
-define('_RW_DIR', 'e:/home/devel/workspace/RudWEb/rwlib/');
+define('_RW_DIR', 'd:/home/devel/workspace/RudWEb/rwlib/');
 /**
  * Application url
  *
@@ -110,7 +110,7 @@ define('_APP_TPL','Smarty');
 /**
  * Default skin (skin directory name)
  */
-define('_APP_SKIN','ds_winter_s');
+define('_APP_SKIN','rudweb_smarty');
 /* ********** ********** ********** ********** ********** MISC ********** ********** ********** ********** ********** */
 /**
  * Default timezone (http://www.php.net/timezones)
