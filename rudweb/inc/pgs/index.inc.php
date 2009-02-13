@@ -33,7 +33,11 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-/*
+/**
+ * Main layout template directory
+ */
+$cnt['skin']['dir'] = '';
+/**
  * Main layout template file
  */
 $cnt['skin']['tpl'] = 'layout';
@@ -41,11 +45,15 @@ $cnt['skin']['tpl'] = 'layout';
  * Main layout page title
  */
 $cnt['skin']['title'] = '';
-/*
+/**
+ * Current content template file
+ */
+$cnt['cnt']['dir'] = 'content';
+/**
  * Current content template file
  */
 $cnt['cnt']['tpl'] = 'blank';
-/*
+/**
  * Current content
  */
 $cnt['cnt']['content'] = array();
@@ -74,14 +82,14 @@ $cnt['cnt']['content'] = array();
  $cnt['atpl']['content'] = array();
 
  $cnt['atpl']['content'][0] = array();
- $cnt['atpl']['content'][0]['dir'] = 'content/';
+ $cnt['atpl']['content'][0]['dir'] = $cnt['cnt']['dir'];
  $cnt['atpl']['content'][0]['tpl'] = $cnt['cnt']['tpl'];
  $cnt['atpl']['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
  $cnt['atpl']['content'][0]['vars']['lang'] = $lang;
  $cnt['atpl']['content'][0]['vars']['usr_status'] = $usr_status;
 
  $cnt['atpl']['content'][1] = array();
- $cnt['atpl']['content'][1]['dir'] = 'content/';
+ $cnt['atpl']['content'][1]['dir'] = $cnt['cnt']['dir'];
  $cnt['atpl']['content'][1]['tpl'] = 'contact';
  $cnt['atpl']['content'][1]['vars']['cnt'] = $cnt['cnt']['content'];
  $cnt['atpl']['content'][1]['vars']['lang'] = $lang;

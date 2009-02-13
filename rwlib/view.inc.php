@@ -50,6 +50,10 @@ class app_Viewer
 		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
 		$skinObj = rw_Skin::_load(_APP_TPL);
 		$skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
+		if($vars['dir'] != '')
+		{
+			$skin_dir .= '/'.$vars['dir'];
+		}
 		$skinObj->skindir($skin_dir);
 
 		$totalAtpl = count($atpl);
@@ -73,7 +77,8 @@ class app_Viewer
 								$atplObj->set($name, $value);
 							}
 						}
-						$mainContent .= $atplObj->parse($atplVars[$i]['dir'].$atplVars[$i]['tpl'].'.tpl');
+						$atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl'; 
+						$mainContent .= $atplObj->parse($atplTpl);
 						$skinObj->set($atplTitle, $mainContent);
 					}
 				}
@@ -87,7 +92,8 @@ class app_Viewer
 							$atplObj->set($name, $value);
 						}
 					}
-					$skinObj->set($atplTitle, $atplObj->parse($atplVars['dir'].$atplVars['tpl'].'.tpl'));
+					$atplTpl = ($atplVars['dir'] != '') ? $atplVars['dir'].'/'.$atplVars['tpl'].'.tpl' : $atplVars['tpl'].'.tpl';
+					$skinObj->set($atplTitle, $atplObj->parse($atplTpl));
 				}
 			}
 		}

@@ -45,11 +45,11 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Core
 {
-  /**
-   * Extension list
-   *
-   * @var array
-   */
+	/**
+	 * Extension list
+	 *
+	 * @var array
+	 */
 	public $ext = array();
 	/**
 	 * User status

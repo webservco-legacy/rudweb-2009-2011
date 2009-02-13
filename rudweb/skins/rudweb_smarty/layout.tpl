@@ -8,7 +8,7 @@
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-02-13 09:50:00
+ * @since      2009-02-13 16:04:00
  * @access     public
  * @package    RudWEb
  * @subpackage Skins
@@ -40,6 +40,10 @@
 {assign var="app_skin_url" value=$smarty.const._APP_SKIN_URL}
 {assign var="usr_lang" value=$smarty.const._APP_LANG}
 {/if}
+{if $dir != ''}
+{assign var="dirsep" value="/"}
+{assign var="app_skin_url" value=$app_skin_url$dir$dirsep}
+{/if}
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$usr_lang}" lang="{$usr_lang}">
@@ -68,7 +72,7 @@
 <div id="layout">
   <div id="header">
     <div id="hdr1">&#160;</div>
-    <div id="hdr2"><div id="sigla">{$lang.MOD.TITLE}</div></div>
+    <div id="hdr2"><div id="sigla">{$smarty.const._APP_NAME}</div></div>
     <div id="hdr3">&#160;</div>
   </div>
   <div id="content">

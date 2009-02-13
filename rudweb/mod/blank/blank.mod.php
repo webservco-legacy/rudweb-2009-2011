@@ -67,9 +67,12 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 	{
 		$cnt = array();
 
+		$cnt['skin']['dir'] = '';
 		$cnt['skin']['tpl'] = 'layout';
 		$cnt['skin']['title'] = 'Blank Module - Default action';
+		$cnt['skin']['lang'] = $this->modLang;
 
+		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();
 
@@ -82,9 +85,12 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 	{
 		$cnt = array();
 
+		$cnt['skin']['dir'] = '';
 		$cnt['skin']['tpl'] = 'layout';
 		$cnt['skin']['title'] = 'Blank Module - Test Action';
+		$cnt['skin']['lang'] = $this->modLang;
 
+		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'contact';
 		$cnt['cnt']['content'] = array();
 

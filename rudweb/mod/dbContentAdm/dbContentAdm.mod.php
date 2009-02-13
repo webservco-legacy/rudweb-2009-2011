@@ -72,6 +72,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	{
 		$cnt = array();
 
+		$cnt['skin']['dir'] = 'dbContentAdm';
 		$cnt['skin']['tpl'] = 'layout';
 		$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$cnt['skin']['lang'] = $this->modLang;
@@ -89,16 +90,19 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	{
 		$cnt = array();
 
+		$cnt['skin']['dir'] = 'dbContentAdm';
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Database Content Administration - Menu';
+		$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$cnt['skin']['lang'] = $this->modLang;
 
+		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'test';
 		$cnt['cnt']['content'] = array();
 		$cnt['cnt']['content']['menu'] = array();
 
 		if($this->modDb)
 		{
-			$menu = $this->_pagesMenu2();
+			$menu = $this->_pagesMenu();
 			$cnt['cnt']['content']['menu'] = $menu;
 		}
 
@@ -107,7 +111,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	/**
 	 * menu test
 	 */
-	public function _pagesMenu2($parent=0)
+	public function _pagesMenu($parent=0)
 	{
 		$rs = $this->modDb->dbQuerySimpleSelect('*', 'rw_ws_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
 		$t = $rs->dbNumRows();
@@ -117,42 +121,20 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		if($t > 0)
 		{
 			$menu = '<ul>';
-				
+
 			while($r = $rs->dbFetchArray())
 			{
 
 				$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
 				$menu .= '<li><a href="'._APP_WWW.'module/dbContentAdm/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
 
-				$menu .= $this->_pagesMenu2($r['pg_id']);
+				$menu .= $this->_pagesMenu($r['pg_id']);
 				$menu .= '</li>';
 			}
 			$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
 			$menu .= '</ul>';
 		}
 
-		return $menu;
-	}
-	/**
-	 * Generate database pages menu
-	 */
-	private function _pagesMenu($parent=0)
-	{
-		$rs = $this->modDb->dbQuerySimpleSelect('*', 'rw_ws_pages', "pg_parent = $parent");
-		$t = $rs->dbNumRows();
-
-		$menu = array();
-		for($i=0;$i<$t;$i++)
-		{
-			$r = $rs->dbFetchArray();
-
-			$menu[$i]['pg_id'] = $r['pg_id'];
-			$menu[$i]['pg_parent'] = $r['pg_parent'];
-			$menu[$i]['pg_level'] = $r['pg_level'];
-			$menu[$i]['pg_title'] = $r['pg_title'];
-
-			$this->_pagesMenu($r['pg_id']);
-		}
 		return $menu;
 	}
 }

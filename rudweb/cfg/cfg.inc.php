@@ -101,7 +101,7 @@ define('_APP_PRE','test');
 /**
  * Default language
  */
-define('_APP_LANG','en');
+define('_APP_LANG','ro');
 /* ********** ********** ********** ********** ********** SKINS ********** ********** ********** ********** ********** */
 /**
  * Default template engine (Smarty/rudweb/)

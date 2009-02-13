@@ -34,7 +34,11 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-/*
+/**
+ * Main layout template directory
+ */
+$cnt['skin']['dir'] = '';
+/**
  * Main layout template file
  */
 $cnt['skin']['tpl'] = 'layout';
@@ -42,11 +46,15 @@ $cnt['skin']['tpl'] = 'layout';
  * Main layout page title
  */
 $cnt['skin']['title'] = $this->lang['404']['TITLE'];
-/*
+/**
+ * Current content template file
+ */
+$cnt['cnt']['dir'] = 'content';
+/**
  * Current content template file
  */
 $cnt['cnt']['tpl'] = '404';
-/*
+/**
  * Current content
  */
 $cnt['cnt']['content'] = array();
@@ -58,7 +66,7 @@ $cnt['cnt']['content'] = array();
  */
 /*
  $cnt['skin']['menu'] = 'MENU_REPLACEMENT_VARS';
- $cnt['skin']['content'] = 'CONTENT_REPLCEMENT_VARS';
+ $cnt['skin']['content'] = 'CONTENT_REPLACEMENT_VARS';
  $cnt['skin']['footer'] = 'FOOTER_REPLACEMENT_VARS';
  */
 /*
@@ -67,10 +75,31 @@ $cnt['cnt']['content'] = array();
  * (same sintax as in ctrl.inc)
  */
 /*
- $cnt['atpl'] = array();
  $cnt['atpl']['menu'] = array();
- $cnt['atpl']['menu']['dir'] = 'TEMPLATE_SUBDIRECTORY';
- $cnt['atpl']['menu']['tpl'] = 'TEMPLATE_FILE';
+ $cnt['atpl']['menu']['dir'] = '';
+ $cnt['atpl']['menu']['tpl'] = 'menu';
  $cnt['atpl']['menu']['vars'] = array();
+
+ $cnt['atpl']['content'] = array();
+
+ $cnt['atpl']['content'][0] = array();
+ $cnt['atpl']['content'][0]['dir'] = $cnt['cnt']['dir'];
+ $cnt['atpl']['content'][0]['tpl'] = $cnt['cnt']['tpl'];
+ $cnt['atpl']['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+ $cnt['atpl']['content'][0]['vars']['lang'] = $lang;
+ $cnt['atpl']['content'][0]['vars']['usr_status'] = $usr_status;
+
+ $cnt['atpl']['content'][1] = array();
+ $cnt['atpl']['content'][1]['dir'] = $cnt['cnt']['dir'];
+ $cnt['atpl']['content'][1]['tpl'] = 'contact';
+ $cnt['atpl']['content'][1]['vars']['cnt'] = $cnt['cnt']['content'];
+ $cnt['atpl']['content'][1]['vars']['lang'] = $lang;
+ $cnt['atpl']['content'][1]['vars']['usr_status'] = $usr_status;
+ $cnt['atpl']['content'][1]['vars']['stuff1'] = 'stuff for the second subtemplate';
+
+ $cnt['atpl']['footer'] = array();
+ $cnt['atpl']['footer']['dir'] = '';
+ $cnt['atpl']['footer']['tpl'] = 'footer';
+ $cnt['atpl']['footer']['vars'] = array();
  */
 ?>
