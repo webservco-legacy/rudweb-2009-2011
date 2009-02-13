@@ -8,7 +8,7 @@
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-02-13 16:22:00
+ * @since      2009-02-13 09:27:00
  * @access     public
  * @package    RudWEb
  * @subpackage Skins

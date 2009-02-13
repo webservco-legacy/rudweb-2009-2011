@@ -77,6 +77,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 		header("Pragma: no-cache");
 		header("Cache-Control: max-age=1, s-maxage=1, no-cache, must-revalidate");
 		/**
+		 * Default user status - not logged in
+		 */
+		$usr_status = 1;
+		/**
 		 * First load of the page?
 		 */
 		if(!isset($_SESSION[_APP_PRE.'_token']))
@@ -122,17 +126,13 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 */
 			$_SESSION[_APP_PRE.'_skin_dir'] = _APP_DIR_SKINS._APP_SKIN;
 			$_SESSION[_APP_PRE.'_skin_url'] = _APP_WWW.'skins/'._APP_SKIN.'/';
-			/**
-			 * Default user status - not logged in
-			 */
-			$usr_status = 1;
 		}
 		else
 		{
 			/**
 			 * If user is not logged in include login functionality
 			 */
-			if(!isset($_SESSION[_APP_PRE.'_auth']))
+			if(!$_SESSION[_APP_PRE.'_auth'])
 			{
 				/**
 				 * user status based on login result
@@ -143,12 +143,8 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 					$users = $core->rwActivateExt($ext, 'Users');
 					$usr_status = $users->rwLoginUser();
 				}
-				else
-				{
-					$usr_status = 1;
-				}
 			}
-			else if(isset($_SESSION[_APP_PRE.'_auth']) && $_SESSION[_APP_PRE.'_auth'] == 'ok')
+			else if($_SESSION[_APP_PRE.'_auth'])
 			{
 				/**
 				 * User status - logged in

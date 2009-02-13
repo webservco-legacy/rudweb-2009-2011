@@ -113,9 +113,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function login()
 	{
-    $this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-    $this->modCnt['cnt']['tpl'] = 'login';
-    return $this->modCnt;
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$this->modCnt['cnt']['tpl'] = 'login';
+		$cnt['cnt']['content']['usr_status'] = $this->modAppCore->usr_status;
+		return $this->modCnt;
 		//XXX
 	}
 	/**
