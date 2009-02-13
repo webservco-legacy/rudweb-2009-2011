@@ -68,7 +68,7 @@
 <div id="layout">
   <div id="header">
     <div id="hdr1">&#160;</div>
-    <div id="hdr2"><div id="sigla">Administrare Con&#355;inut</div></div>
+    <div id="hdr2"><div id="sigla">{$lang.MOD.TITLE}</div></div>
     <div id="hdr3">&#160;</div>
   </div>
   <div id="content">

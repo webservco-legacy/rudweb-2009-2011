@@ -155,9 +155,6 @@ class app_Core extends rw_Core
 				{
 					foreach($modAbout['deps']['cfg'] as $cfgDep)
 					{
-						//echo $cfgDep;
-						//echo '<br />';
-						//trigger_error('xyz', E_USER_ERROR);
 						if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
 						{
 							trigger_error('Module can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> missing.', E_USER_ERROR);

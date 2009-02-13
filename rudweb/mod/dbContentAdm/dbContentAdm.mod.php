@@ -73,8 +73,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$cnt = array();
 
 		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Database Content Administration - Default';
+		$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		$cnt['skin']['lang'] = $this->modLang;
 
+		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();
 
@@ -109,19 +111,19 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	{
 		$rs = $this->modDb->dbQuerySimpleSelect('*', 'rw_ws_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
 		$t = $rs->dbNumRows();
-		
+
 		$menu = '';
 
 		if($t > 0)
 		{
 			$menu = '<ul>';
-			
+				
 			while($r = $rs->dbFetchArray())
 			{
-				
+
 				$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
 				$menu .= '<li><a href="'._APP_WWW.'module/dbContentAdm/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
-				
+
 				$menu .= $this->_pagesMenu2($r['pg_id']);
 				$menu .= '</li>';
 			}

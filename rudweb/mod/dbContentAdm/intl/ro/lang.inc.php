@@ -33,4 +33,6 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
+
+$modlang['MOD']['TITLE'] = 'Administrare Con&#355;inut';
 ?>

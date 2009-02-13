@@ -47,11 +47,7 @@ if(is_readable('./cfg/cfg.inc.php')) {require_once('./cfg/cfg.inc.php');} else {
  * Initialize main application core
  */
 $appCore = new app_Core;
-//list($ext, $usr_status, $lang) = $appCore->rwInit($exts);
 $appCore->rwInit($exts);
-$ext = $appCore->rwExt();
-$usr_status = $appCore->rwUsrStatus();
-$lang = $appCore->rwLang();
 /**
  * Controller start
  */

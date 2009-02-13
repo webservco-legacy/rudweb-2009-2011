@@ -81,11 +81,11 @@ $atpl['menu']['vars'] = array();
 
 $atpl['content'] = array();
 $atpl['content'][0] = array();
-$atpl['content'][0]['dir'] = 'content/';
+$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
 $atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
 $atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
-$atpl['content'][0]['vars']['lang'] = $lang;
-$atpl['content'][0]['vars']['usr_status'] = $usr_status;
+$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
+$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
 
 $atpl['footer'] = array();
 $atpl['footer']['dir'] = '';
