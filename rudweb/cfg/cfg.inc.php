@@ -96,7 +96,7 @@ define('_APP_DB_NAME','test');
  */
 define('_APP_NAME','Test App');
 define('_APP_AUTH','Radu Maier');
-define('_APP_PRE','test');
+define('_APP_PRE','rudweb');
 /* ********** ********** ********** ********** ********** LANGUAGE ********** ********** ********** ********** ********** */
 /**
  * Default language

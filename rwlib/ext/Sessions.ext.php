@@ -82,6 +82,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 		if(!isset($_SESSION[_APP_PRE.'_token']))
 		{
 			/**
+			 * User authorization
+			 */
+			$_SESSION[_APP_PRE.'_auth'] = FALSE;
+			/**
 			 * Unique token for security
 			 */
 			$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));

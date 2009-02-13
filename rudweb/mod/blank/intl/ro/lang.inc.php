@@ -34,5 +34,6 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
+$modlang['MOD']['TITLE'] = 'Blank Module';
 $modlang['MOD']['DEFAULT'] = 'This is from test module romanian internationalization file.';
 ?>

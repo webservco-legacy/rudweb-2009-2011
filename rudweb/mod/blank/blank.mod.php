@@ -56,7 +56,21 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		$about['deps']['cfg'] = array();
 		$about['deps']['ext'] = array();
 		$about['deps']['mod'] = array();
-		parent::__construct($about, $appCore);
+		/**
+		 * Module default content
+		 *
+		 * $cnt['skin']['title'] added by default in parent class
+		 * $cnt['skin']['lang'] added by default in parent class
+		 */
+		$cnt['skin']['dir'] = '';
+		$cnt['skin']['tpl'] = 'layout';
+		$cnt['cnt']['dir'] = 'content';
+		$cnt['cnt']['tpl'] = 'blank';
+		$cnt['cnt']['content'] = array();
+		/**
+		 * Call parent constructor
+		 */
+		parent::__construct($about, $cnt, $appCore);
 	}
 	/**
 	 * Default module functionality
@@ -65,36 +79,15 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		$cnt = array();
-
-		$cnt['skin']['dir'] = '';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Blank Module - Default action';
-		$cnt['skin']['lang'] = $this->modLang;
-
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'blank';
-		$cnt['cnt']['content'] = array();
-
-		return $cnt;
+		return $this->modCnt;
 	}
 	/**
 	 * Some other module functionality
 	 */
 	public function test()
 	{
-		$cnt = array();
-
-		$cnt['skin']['dir'] = '';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['skin']['title'] = 'Blank Module - Test Action';
-		$cnt['skin']['lang'] = $this->modLang;
-
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'contact';
-		$cnt['cnt']['content'] = array();
-
-		return $cnt;
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - Test Action';
+		return $this->modCnt;
 	}
 }
 ?>

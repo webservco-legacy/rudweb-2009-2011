@@ -61,15 +61,20 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$about['deps']['ext'][] = 'Sessions';
 		$about['deps']['ext'][] = 'Users';
 		$about['deps']['mod']   = array();
-		
+		/**
+		 * Module default content
+		 *
+		 * $cnt['skin']['title'] added by default in parent class
+		 * $cnt['skin']['lang'] added by default in parent class
+		 */
 		$cnt['skin']['dir'] = 'admin';
 		$cnt['skin']['tpl'] = 'layout';
-		//$cnt['skin']['title'] = '';
-		//$cnt['skin']['lang'] = $this->modLang;
 		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();
-		
+		/**
+		 * Call parent constructor
+		 */
 		parent::__construct($about, $cnt, $appCore);
 	}
 	/**
@@ -79,40 +84,47 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		//$cnt = $this->modCnt;
-		
-		
-
-		//$cnt['skin']['dir'] = 'dbContentAdm';
-		//$cnt['skin']['tpl'] = 'layout';
-    //$cnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
-		//$cnt['skin']['lang'] = $this->modLang;
-
-		//$cnt['cnt']['dir'] = 'content';
-		//$cnt['cnt']['tpl'] = 'blank';
-		//$cnt['cnt']['content'] = array();
-		
-    //echo '<pre>';
-    //print_r($cnt);
-    //trigger_error('xxx', E_USER_ERROR);
-
-		return $this->modCnt;
+		if(!$_SESSION[_APP_PRE.'_auth'])
+		{
+			/**
+			 * User is not logged in
+			 */
+			return $this->login();
+		}
+		else if($_SESSION[_APP_PRE.'_usr_lvl'] < 3)
+		{
+			/**
+			 * User doesn't have proper credentials
+			 */
+			trigger_error('denied', E_USER_ERROR);
+		}
+		else
+		{
+			/**
+			 * Everything is ok
+			 */
+			trigger_error('now what?', E_USER_ERROR);
+		}
+	}
+	/**
+	 * Login method
+	 *
+	 * @return mixed modCnt content
+	 */
+	public function login()
+	{
+    $this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+    $this->modCnt['cnt']['tpl'] = 'login';
+    return $this->modCnt;
+		//XXX
 	}
 	/**
 	 * Test administration menu
 	 */
 	public function menu()
 	{
-		//$cnt = $this->modCnt;
-
-		//$cnt['skin']['dir'] = 'dbContentAdm';
-		//$cnt['skin']['tpl'] = 'layout';
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-		//$cnt['skin']['lang'] = $this->modLang;
-
-		//$cnt['cnt']['dir'] = 'content';
 		$this->modCnt['cnt']['tpl'] = 'test';
-		//$cnt['cnt']['content'] = array();
 		$this->modCnt['cnt']['content']['menu'] = array();
 
 		if($this->modDb)
@@ -124,7 +136,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		return $this->modCnt;
 	}
 	/**
-	 * menu test
+	 * Pages menu test
 	 */
 	public function _pagesMenu($parent=0)
 	{

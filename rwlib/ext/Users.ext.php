@@ -83,9 +83,9 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 					{
 						trigger_error('User functionality requires session and database functionality. Please check your configuration file!', E_USER_ERROR);
 					}
-					$login = $core->rwFilterInput($_POST[_APP_PRE.'_login'],$udb);
+					$login = $core->rwFilterInput($_POST[_APP_PRE.'_login']);
 					$pass = md5($_POST[_APP_PRE.'_pass']);
-					$captcha = strtoupper($core->rwFilterInput($_POST[_APP_PRE.'_captcha'],$udb));
+					$captcha = strtoupper($core->rwFilterInput($_POST[_APP_PRE.'_captcha']));
 					if(($login != '' && $pass != '') && $captcha != '')
 					{
 						$verif = str_split($_SESSION[_APP_PRE.'_token'], 5);
@@ -114,9 +114,9 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 									 */
 									session_regenerate_id(TRUE);
 									/**
-									 * Issue authorization
+									 * User authorization
 									 */
-									$_SESSION[_APP_PRE.'_auth'] = 'ok';
+									$_SESSION[_APP_PRE.'_auth'] = TRUE;
 									/**
 									 * Unique security token
 									 */
