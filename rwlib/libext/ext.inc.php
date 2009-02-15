@@ -73,7 +73,7 @@ class rw_Ext_global
 	 * @param aray $extAbout extension information
 	 * @return mixed result of loading
 	 */
-	function __construct($extAbout)
+	public function __construct($extAbout)
 	{
 		$this->extAbout = $extAbout;
 	}
@@ -82,7 +82,7 @@ class rw_Ext_global
 	 *
 	 * @return mixed information about the extension
 	 */
-	function extAbout()
+	public function extAbout()
 	{
 		return $this->extAbout;
 	}

@@ -69,6 +69,7 @@ catch (Exception $e)
  */
 try
 {
+	//XXX output an image or content
 	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
 	app_Viewer::_display($cnt['skin'], $atpl);
 }
