@@ -110,6 +110,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 */
 			$_SESSION[_APP_PRE.'_usr_lvl'] = 0;
 			/**
+			 * User group
+			 */
+			$_SESSION[_APP_PRE.'_usr_grp'] = 0;
+			/**
 			 * User alias
 			 */
 			$_SESSION[_APP_PRE.'_usr_alias'] = 'Guest';

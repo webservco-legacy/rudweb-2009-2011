@@ -85,64 +85,47 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		if(!$_SESSION[_APP_PRE.'_auth'])
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
 		{
-			/**
-			 * User is not logged in
-			 */
-			return $this->login();
-		}
-		else if($_SESSION[_APP_PRE.'_usr_lvl'] < 3)
-		{
-			/**
-			 * User doesn't have proper credentials
-			 */
-			trigger_error('denied', E_USER_ERROR);
+			return $auth;
 		}
 		else
 		{
-			/**
-			 * Everything is ok
-			 */
-			trigger_error('now what?', E_USER_ERROR);
+			return $this->modCnt;
 		}
-	}
-	/**
-	 * Login method
-	 *
-	 * @return mixed modCnt content
-	 */
-	public function login()
-	{
-		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-		$this->modCnt['cnt']['tpl'] = 'login';
-		$cnt['cnt']['content']['usr_status'] = $this->modAppCore->usr_status;
-		return $this->modCnt;
-		//XXX
 	}
 	/**
 	 * Test administration menu
 	 */
 	public function menu()
 	{
-		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-		$this->modCnt['cnt']['tpl'] = 'test';
-		$this->modCnt['cnt']['content']['menu'] = array();
-
-		if($this->modDb)
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
 		{
-			$menu = $this->_pagesMenu();
-			$this->modCnt['cnt']['content']['menu'] = $menu;
+			return $auth;
 		}
+		else
+		{
+			//XXX
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+			$this->modCnt['cnt']['tpl'] = 'test';
+			$this->modCnt['cnt']['content']['menu'] = array();
 
-		return $this->modCnt;
+			if($this->modDb)
+			{
+				$menu = $this->_pagesMenu();
+				$this->modCnt['cnt']['content']['menu'] = $menu;
+			}
+			return $this->modCnt;
+		}
 	}
 	/**
 	 * Pages menu test
 	 */
 	public function _pagesMenu($parent=0)
 	{
-		$rs = $this->modDb->dbQuerySimpleSelect('*', 'rw_ws_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
+		$rs = $this->modDb->dbQuerySimpleSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
 		$t = $rs->dbNumRows();
 
 		$menu = '';
@@ -155,7 +138,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			{
 
 				$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
-				$menu .= '<li><a href="'._APP_WWW.'module/dbContentAdm/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
+				$menu .= '<li><a href="'._APP_WWW.'module/'.$this->modAbout['name'].'/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
 
 				$menu .= $this->_pagesMenu($r['pg_id']);
 				$menu .= '</li>';
@@ -166,18 +149,74 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 
 		return $menu;
 	}
-	
+	/**
+	 * Authorization verification
+	 *
+	 * @return mixed
+	 */
+	public function _authVerify($requiredLevel = 0)
+	{
+		if(!$_SESSION[_APP_PRE.'_auth'])
+		{
+			/**
+			 * User is not logged in
+			 */
+			return $this->_authLogin();
+		}
+		else if($_SESSION[_APP_PRE.'_usr_lvl'] < $requiredLevel)
+		{
+			/**
+			 * User doesn't have proper credentials
+			 */
+			return $this->_authDenied();
+		}
+		else
+		{
+			/**
+			 * Everything is ok
+			 */
+			return 'ok';
+		}
+	}
+	/**
+	 * Authorization - login page
+	 *
+	 * @return mixed modCnt content
+	 */
+	public function _authLogin()
+	{
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$this->modCnt['cnt']['tpl'] = 'login';
+		$this->modCnt['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
+		return $this->modCnt;
+	}
+	/**
+	 * Authorization - access denied
+	 *
+	 * @return mixed modCnt content
+	 */
+	public function _authDenied()
+	{
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$this->modCnt['cnt']['tpl'] = 'denied';
+		return $this->modCnt;
+	}
+	/**
+	 * Generate captcha for login
+	 *
+	 * @return mixed captcha image
+	 */
 	public function captcha()
 	{
-	if(isset($_SESSION[_APP_PRE.'_token']))
-    {
-      $captchaObj = $this->modAppCore->rwActivateExt($this->modAppCore->ext, 'Captcha');
-      $this->modCnt = array();
-      $this->modCnt['type'] = 'image';
-      $this->modCnt['image'] = $captchaObj->display(); 
-    	
-    	return $this->modCnt;  
-    }
+		if(isset($_SESSION[_APP_PRE.'_token']))
+		{
+			$captchaObj = $this->modAppCore->rwActivateExt($this->modAppCore->ext, 'Captcha');
+			$this->modCnt = array();
+			$this->modCnt['type'] = 'image';
+			$this->modCnt['image'] = $captchaObj->display();
+
+			return $this->modCnt;
+		}
 	}
 }
 ?>

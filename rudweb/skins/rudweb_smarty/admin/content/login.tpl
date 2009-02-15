@@ -2,7 +2,7 @@
  * $Id$
  *
  * $URL$
- * <BR>blank template
+ * <BR>Login template
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
@@ -48,7 +48,7 @@
 </tr>
 <tr>
   <td>
-    [captcha]
+    <img src="{$cnt.captcha}" alt="" title="" />
   </td>
   <td>
     <input class="input_login" type="text" name="{$smarty.const._APP_PRE}_captcha" id="{$smarty.const._APP_PRE}_captcha" maxlength="5" value="" />

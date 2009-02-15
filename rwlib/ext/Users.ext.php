@@ -136,7 +136,11 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 									/**
 									 * User level
 									 */
-									$_SESSION[_APP_PRE.'_usr_lvl'] = $rw['usr_level'];
+									$_SESSION[_APP_PRE.'_usr_lvl'] = $rw['usr_lvl'];
+									/**
+									 * User group
+									 */
+									$_SESSION[_APP_PRE.'_usr_grp'] = $rw['usr_group'];
 									/**
 									 * User alias
 									 */
@@ -157,7 +161,7 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 									/**
 									 * Get previous login data
 									 */
-									$rL = $udb->dbQuerySimpleSelect('log_date, log_time', _APP_PRE.'_var_log', "log_id = (SELECT MAX(log_id) FROM "._APP_PRE."_var_log WHERE usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}')");
+									$rL = $udb->dbQuerySimpleSelect('login_date, login_time', _APP_PRE.'_var_logins', "login_id = (SELECT MAX(login_id) FROM "._APP_PRE."_var_logins WHERE usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}')");
 									$tL = $rL->dbNumRows();
 									if($tL == 1)
 									{
@@ -165,11 +169,11 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 										/**
 										 * Last login date
 										 */
-										$_SESSION[_APP_PRE.'_ldate'] = $rwL['log_date'];
+										$_SESSION[_APP_PRE.'_ldate'] = $rwL['login_date'];
 										/**
 										 * Last login time
 										 */
-										$_SESSION[_APP_PRE.'_ltime'] = $rwL['log_time'];
+										$_SESSION[_APP_PRE.'_ltime'] = $rwL['login_time'];
 									}
 									else
 									{
@@ -185,12 +189,12 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 									/**
 									 * Count total logins
 									 */
-									$rT = $udb->dbQuerySimpleSelect('COUNT(log_id)', _APP_PRE.'_var_log', "usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}'");
+									$rT = $udb->dbQuerySimpleSelect('COUNT(login_id)', _APP_PRE.'_var_logins', "usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}'");
 									$_SESSION[_APP_PRE.'_ltotal'] = $rT->dbFetchResult() + 1;
 									/**
 									 * Record current login
 									 */
-									$udb->dbQuery("INSERT INTO "._APP_PRE."_var_log (usr_id, log_date, log_time) VALUES('{$_SESSION[_APP_PRE.'_usr_id']}', '{$_SESSION[_APP_PRE.'_vdate']}', '{$_SESSION[_APP_PRE.'_vtime']}')");
+									$udb->dbQuery("INSERT INTO "._APP_PRE."_var_logins (usr_id, login_date, login_time) VALUES('{$_SESSION[_APP_PRE.'_usr_id']}', '{$_SESSION[_APP_PRE.'_vdate']}', '{$_SESSION[_APP_PRE.'_vtime']}')");
 									/**
 									 * Close database connection
 									 */

@@ -56,4 +56,8 @@ $lang['USR_STATUS'][9]  = 'Atack hacker';
  */
 $lang['e404']['TITLE']   = 'Resursa nu a fost g&#259;sit&#259;';
 $lang['e404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost g&#259;sit&#259; pe acest server.';
+/**
+ * Authorization
+ */
+$lang['AUTH']['DENIED'] = 'Ne pare r&#259;u, nu ave&#355;i permisiunea de a accesa aceast&#259; resurs&#259;.';
 ?>

@@ -56,4 +56,8 @@ $lang['USR_STATUS'][9]  = 'Hacker attack';
  */
 $lang['e404']['TITLE']   = 'Resource not found';
 $lang['e404']['MESSAGE'] = 'Sorry, the resource you requested was not found on this server.';
+/**
+ * Authorization
+ */
+$lang['AUTH']['DENIED'] = 'Sorry, you do not have permission to access this resource.';
 ?>
