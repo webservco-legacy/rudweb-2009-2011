@@ -64,6 +64,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * Module default content
 		 *
+		 * $cnt['type'] added by default in parent class
 		 * $cnt['skin']['title'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
 		 */
@@ -170,34 +171,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	{
 	if(isset($_SESSION[_APP_PRE.'_token']))
     {
-      ob_start();
-      $captcha = str_split(strtoupper($_SESSION[_APP_PRE.'_token']), 1);
-      
-      header("Content-type: image/png");
-      header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-      header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-      
-      $img = imagecreatetruecolor(70, 18);
-  
-      $bgc = imagecolorallocate($img, 0x11, 0x11, 0x11);
-      $fgc = imagecolorallocate($img, 0xff, 0xff, 0xff);
-      
-      $font = './ttf/VeraMono.ttf';
-  
-      imagefill($img, 0, 0, $bgc);
-  
-      imagettftext($img, 12, 10, 3, 16, $fgc, $font, $captcha['4']);
-      imagettftext($img, 12, -30, 13, 12, $fgc, $font, $captcha['3']);
-      imagettftext($img, 12, 10, 30, 16, $fgc, $font, $captcha['2']);
-      imagettftext($img, 12, -10, 40, 14, $fgc, $font, $captcha['1']);
-      imagettftext($img, 12, 10, 58, 16, $fgc, $font, $captcha['0']);
-  
-      imagepng($img);
-      $image = ob_get_contents();
-      imagedestroy($img);
-      ob_end_clean();
-  
-      return $image;  
+      $captchaObj = $this->modAppCore->rwActivateExt($this->modAppCore->ext, 'Captcha');
+      $this->modCnt = array();
+      $this->modCnt['type'] = 'image';
+      $this->modCnt['image'] = $captchaObj->display(); 
+    	
+    	return $this->modCnt;  
     }
 	}
 }

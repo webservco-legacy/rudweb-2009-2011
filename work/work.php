@@ -29,6 +29,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+
+/**
+ * Data types:
+ * 
+ * $cnt['type'] = 'text';
+ * $cnt['skin'] ...
+ * $cnt['cnt'] ...
+ * 
+ * $cnt['type'] = 'image';
+ * $cnt['image'] ...
+ * $cnt['image]['type']
+ * $cnt['image]['data']
+ * 
+ */
+
 /**
  * Dependencies
  * [] ERRORS   - NULL

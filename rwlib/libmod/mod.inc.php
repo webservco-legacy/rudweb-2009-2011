@@ -109,6 +109,7 @@ class rw_Mod_global
 		$this->modAppCore = $appCore;
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
+		$modCnt['type'] = 'text';
 		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$modCnt['skin']['lang'] = $this->modLang;
 		$this->modCnt = $modCnt;

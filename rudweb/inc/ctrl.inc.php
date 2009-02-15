@@ -74,34 +74,38 @@ $thumbs = array();
  */
 $atpl = array();
 
-$atpl['menu'] = array();
-$atpl['menu']['dir'] = '';
-$atpl['menu']['tpl'] = 'menu';
-$atpl['menu']['vars'] = array();
-
-$atpl['content'] = array();
-$atpl['content'][0] = array();
-$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
-$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
-$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
-$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
-$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
-
-$atpl['footer'] = array();
-$atpl['footer']['dir'] = '';
-$atpl['footer']['tpl'] = 'footer';
-$atpl['footer']['vars'] = array();
-$atpl['footer']['vars']['thumbs'] = $thumbs;
-
-if(array_key_exists('atpl', $cnt))
+if($cnt['type'] == 'text')
 {
-	$a_tpl = array('menu', 'content', 'footer');
-	foreach($a_tpl as $name=>$value)
+
+	$atpl['menu'] = array();
+	$atpl['menu']['dir'] = '';
+	$atpl['menu']['tpl'] = 'menu';
+	$atpl['menu']['vars'] = array();
+
+	$atpl['content'] = array();
+	$atpl['content'][0] = array();
+	$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
+	$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
+	$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+	$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
+	$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
+
+	$atpl['footer'] = array();
+	$atpl['footer']['dir'] = '';
+	$atpl['footer']['tpl'] = 'footer';
+	$atpl['footer']['vars'] = array();
+	$atpl['footer']['vars']['thumbs'] = $thumbs;
+
+	if(array_key_exists('atpl', $cnt))
 	{
-		if(array_key_exists($value, $cnt['atpl']))
+		$a_tpl = array('menu', 'content', 'footer');
+		foreach($a_tpl as $name=>$value)
 		{
-			$atpl[$value] = array();
-			$atpl[$value] = $cnt['atpl'][$value];
+			if(array_key_exists($value, $cnt['atpl']))
+			{
+				$atpl[$value] = array();
+				$atpl[$value] = $cnt['atpl'][$value];
+			}
 		}
 	}
 }

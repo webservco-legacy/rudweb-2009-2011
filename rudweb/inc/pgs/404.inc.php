@@ -35,6 +35,10 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 /**
+ * Content type
+ */
+$cnt['type'] = 'text';
+/**
  * Main layout template directory
  */
 $cnt['skin']['dir'] = '';
@@ -45,7 +49,7 @@ $cnt['skin']['tpl'] = 'layout';
 /*
  * Main layout page title
  */
-$cnt['skin']['title'] = $this->lang['404']['TITLE'];
+$cnt['skin']['title'] = $this->lang['e404']['TITLE'];
 /**
  * Current content template file
  */

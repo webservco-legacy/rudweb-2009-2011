@@ -54,6 +54,6 @@ $lang['USR_STATUS'][9]  = 'Atack hacker';
 /**
  * 404 messages
  */
-$lang['404']['TITLE']   = 'Resursa nu a fost g&#259;sit&#259;';
-$lang['404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost g&#259;sit&#259; pe acest server.';
+$lang['e404']['TITLE']   = 'Resursa nu a fost g&#259;sit&#259;';
+$lang['e404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost g&#259;sit&#259; pe acest server.';
 ?>

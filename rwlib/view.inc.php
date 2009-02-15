@@ -45,7 +45,34 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class app_Viewer
 {
-	static function _display($vars, $atpl=array())
+	public $cnt = array();
+	public $atpl = array();
+	public function __construct($cnt, $atpl=array())
+	{
+		$this->cnt = $cnt;
+		$this->atpl = $atpl;
+	}
+	public function _display()
+	{
+		switch($this->cnt['type'])
+		{
+			case 'text' :
+				{
+					$this->_displayText($this->cnt['skin'], $this->atpl);
+					break;
+				}
+			case 'image' :
+				{
+					$this->_displayImage($this->cnt['image']);
+					break;
+				}
+			default :
+				{
+					break;
+				}
+		}
+	}
+	public function _displayText($vars, $atpl=array())
 	{
 		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
 		$skinObj = rw_Skin::_load(_APP_TPL);
@@ -80,7 +107,7 @@ class app_Viewer
 								$atplObj->set($name, $value);
 							}
 						}
-						$atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl'; 
+						$atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl';
 						$mainContent .= $atplObj->parse($atplTpl);
 						$skinObj->set($atplTitle, $mainContent);
 					}
@@ -111,6 +138,24 @@ class app_Viewer
 			}
 		}
 		return $skinObj->view($vars['tpl'].'.tpl');
+	}
+	public function _displayImage($image)
+	{
+		switch($image['type'])
+		{
+			case 'png' :
+				{
+					header("Content-type: image/png");
+					header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+					header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+					break;
+				}
+			default :
+				{
+					break;
+				}
+		}
+		echo base64_decode($image['data']);
 	}
 }
 ?>

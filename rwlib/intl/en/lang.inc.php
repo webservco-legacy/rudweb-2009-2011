@@ -54,6 +54,6 @@ $lang['USR_STATUS'][9]  = 'Hacker attack';
 /**
  * 404 messages
  */
-$lang['404']['TITLE']   = 'Resource not found';
-$lang['404']['MESSAGE'] = 'Sorry, the resource you requested was not found on this server.';
+$lang['e404']['TITLE']   = 'Resource not found';
+$lang['e404']['MESSAGE'] = 'Sorry, the resource you requested was not found on this server.';
 ?>

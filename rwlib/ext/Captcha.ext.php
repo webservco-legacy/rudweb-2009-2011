@@ -92,7 +92,9 @@ class rw_Ext_Captcha extends rw_Ext_global implements rw_iExt
       imagedestroy($img);
       ob_end_clean();
   
-      return base64_encode($image);  
+      $im['type'] = 'png';
+      $im['data'] = base64_encode($image); 
+      return $im;  
     }
 	}
 	/**

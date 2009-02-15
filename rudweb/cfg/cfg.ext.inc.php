@@ -41,5 +41,6 @@ $exts = array();
 $exts[] = 'SeoURLs';
 $exts[] = 'Sessions';
 $exts[] = 'Users';
+$exts[] = 'Captcha';
 //$exts[] = 'Thumb';
 ?>
