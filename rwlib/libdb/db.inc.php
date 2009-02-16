@@ -57,7 +57,7 @@ interface rw_iDB
 	 * @param string $dbName Database name
 	 * @return mixed opens the connection or returns an error
 	 */
-	function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName);
+	public function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName);
 	/**
 	 * Method for raw queries
 	 *
@@ -67,7 +67,7 @@ interface rw_iDB
 	 * @param string $sql Query to be executed
 	 * @return mixed query result
 	 */
-	function dbQuery($sql);
+	public function dbQuery($sql);
 	/**
 	 * Method for simple select queries
 	 * Creates sql query based on input and calls dbQuery
@@ -77,7 +77,16 @@ interface rw_iDB
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	function dbQuerySimpleSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL);
+	public function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL);
+	/**
+	 * Method for data insertion
+	 *
+	 * @param mixed $table
+	 * @param mixed $columns
+	 * @param mixed $values
+	 * @return mixed query result
+	 */
+	public function dbInsert($table, $columns=NULL, $values);
 	/**
 	 * Escape a string for queries
 	 * @param string $string string to be escaped

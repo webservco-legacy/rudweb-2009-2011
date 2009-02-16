@@ -9,10 +9,11 @@
 -- --------------------------------------------------------------------------------
 -- USERS
 -- --------------------------------------------------------------------------------
-DROP TABLE IF EXISTS rudweb_set_usr;
-CREATE TABLE rudweb_set_usr (
+DROP TABLE IF EXISTS rudweb_usr_users;
+CREATE TABLE rudweb_usr_users (
   -- IDENTIFICATION
   usr_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  grp_id MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 1,
   usr_name VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL,
   usr_mail VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL,
   usr_pass VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
@@ -24,21 +25,42 @@ CREATE TABLE rudweb_set_usr (
   -- usr_address VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   -- usr_country VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   -- SETTINGS
-  usr_skin VARCHAR(15) COLLATE utf8_unicode_ci NOT NULL,
-  usr_lang CHAR(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
+  usr_skin VARCHAR(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'rudweb_smarty',
+  usr_lang CHAR(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ro',
   -- ADMIN
-  usr_lvl TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
-  usr_group MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  usr_status TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  usr_disabled TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   usr_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   usr_notes VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  usr_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   usr_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  usr_created_date DATE NOT NULL DEFAULT '0000-00-00',
-  usr_created_time TIME NOT NULL DEFAULT '00:00:00',
-  -- usr_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  -- usr_deleted_date DATE NOT NULL DEFAULT '0000-00-00',
-  -- usr_deleted_time TIME NOT NULL DEFAULT '00:00:00',
+  usr_modified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  usr_modified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  usr_deleted_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',  
+  usr_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (usr_id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------------------------------
+-- GROUPS
+-- --------------------------------------------------------------------------------
+DROP TABLE IF EXISTS rudweb_usr_groups;
+CREATE TABLE rudweb_usr_groups (
+  -- IDENTIFICATION
+  grp_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  grp_lvl TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,  
+  -- INFORMATION
+  grp_name VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL,
+  grp_dsc VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  -- ADMIN
+  grp_disabled TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  grp_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  grp_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
+  grp_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  grp_modified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',  
+  grp_modified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  grp_deleted_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  grp_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (grp_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------------------------------
@@ -48,8 +70,7 @@ DROP TABLE IF EXISTS rudweb_var_logins;
 CREATE TABLE rudweb_var_logins (
   login_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   usr_id MEDIUMINT(5) UNSIGNED NOT NULL,
-  login_date DATE NOT NULL DEFAULT '0000-00-00',
-  login_time TIME NOT NULL DEFAULT '00:00:00',
+  login_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (login_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
@@ -77,24 +98,23 @@ CREATE TABLE rudweb_web_pages (
   pg_template VARCHAR(20) COLLATE utf8_unicode_ci NOT NULL,
   -- SETTINGS
   pg_menu TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
-  pg_show TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  pg_disabled TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   pg_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   pg_group MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  pg_start DATE NOT NULL DEFAULT '0000-00-00',
-  pg_end DATE NOT NULL DEFAULT '0000-00-00',
+  pg_start DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  pg_end DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   pg_comments TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   pg_search TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   pg_statistics TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   -- STATISTICS
+  page_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   page_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  page_created_date DATE NOT NULL DEFAULT '0000-00-00',
-  page_created_time TIME NOT NULL DEFAULT '00:00:00',
+  page_modified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   page_modified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  page_modified_date DATE NOT NULL DEFAULT '0000-00-00',
-  page_modified_time TIME NOT NULL DEFAULT '00:00:00',
+  page_verified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   page_verified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
-  page_verified_date DATE NOT NULL DEFAULT '0000-00-00',
-  page_verified_time TIME NOT NULL DEFAULT '00:00:00',
+  page_deleted_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  page_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
   page_version MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (pg_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

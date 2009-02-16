@@ -101,8 +101,7 @@ class rw_Core
 			/**
 			 * Load extensions
 			 */
-			$ext = $this->rwLoadExt($exts);
-			$this->ext = $ext;
+			$this->ext = $this->rwLoadExt($exts);
 			/**
 			 * Load database file, if database functionality is enabled
 			 */
@@ -113,15 +112,15 @@ class rw_Core
 			/**
 			 * SEO URLS
 			 */
-			$seoURLs = $this->rwActivateExt($ext, 'SeoURLs');
+			$seoURLs = $this->rwActivateExt('SeoURLs');
 			$seoURLs->seoURLs();
 			/**
 			 * Initialize session and user authentication
 			 */
 			if(_APP_CFG_SESSIONS)
 			{
-				$sessions = $this->rwActivateExt($ext, 'Sessions');
-				$usr_status = $sessions->rwSession($ext);
+				$sessions = $this->rwActivateExt('Sessions');
+				$usr_status = $sessions->rwSession();
 			}
 			else
 			{
@@ -143,9 +142,9 @@ class rw_Core
 		require_once(_APP_DIR_LANG.$ln.'/lang.inc.php');
 		$this->lang = $lang;
 		/**
-		 * Return loaded extensions, user status, and language translations
+		 * Return ok
 		 */
-		return array($this->ext, $this->usr_status, $this->lang);
+		return;
 	}
 	/**
 	 * Return loaded extensions
@@ -371,12 +370,43 @@ class rw_Core
 	 *
 	 * @return mixed result
 	 */
-	public function rwActivateExt($extList, $extName)
+	public function rwActivateExt($extName)
 	{
-		if(array_key_exists($extName, $extList))
+		if(array_key_exists($extName, $this->ext))
 		{
 			$class = 'rw_Ext_'.$extName;
-			return new $class();
+			$extObj = new $class($this);
+			$extAbout = $extObj->extAbout();
+			$cfgDeps = count($extAbout['deps']['cfg']);
+			$extDeps = count($extAbout['deps']['ext']);
+			/**
+			 * If configuration dependencies exist solve them
+			 */
+			if($cfgDeps > 0)
+			{
+				foreach($extAbout['deps']['cfg'] as $cfgDep)
+				{
+					if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
+					{
+						trigger_error('Extension <b>'. $extName .'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
+					}
+				}
+			}
+			/**
+			 * If extensions dependecies exist, slove them
+			 */
+			if($extDeps > 0)
+			{
+				foreach($extAbout['deps']['ext'] as $extDep)
+				{
+					if(!array_key_exists($extDep, $this->ext))
+					{
+						trigger_error('Extension <b>'.$extName.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
+					}
+				}
+			}
+			return $extObj;
+
 		}
 		else
 		{

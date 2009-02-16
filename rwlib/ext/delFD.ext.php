@@ -57,7 +57,7 @@ class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 	 *
 	 * @return null
 	 */
-	function __construct()
+	public function __construct($appCore)
 	{
 		/**
 		 * Total directories processed
@@ -81,7 +81,9 @@ class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		parent::__construct($about);
+		$about['deps']['cfg'] = array();
+		$about['deps']['ext'] = array();
+		parent::__construct($about, $appCore);
 	}
 	/**
 	 * Main extension functionality
@@ -92,7 +94,7 @@ class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 	 * @param boolean $deldirs whether or not to delete the subdirectories
 	 * @return boolean result
 	 */
-	function delFD($dir, $age=0, $subdirs=TRUE, $deldirs=TRUE)
+	public function delFD($dir, $age=0, $subdirs=TRUE, $deldirs=TRUE)
 	{
 		if(is_dir($dir))
 		{

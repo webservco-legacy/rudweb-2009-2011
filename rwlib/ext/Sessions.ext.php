@@ -42,7 +42,7 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 	 * Set extension information and call parent constructor
 	 *
 	 */
-	function __construct()
+	function __construct($appCore)
 	{
 		/**
 		 * Extension info
@@ -54,7 +54,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		parent::__construct($about);
+		$about['deps']['cfg'] = array();
+		$about['deps']['cfg'][] = 'Sessions';
+    $about['deps']['ext'] = array();
+		parent::__construct($about, $appCore);
 	}
 	/**
 	 * Start session
@@ -62,7 +65,7 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 	 * @param array $ext loaded extensions
 	 * @return $usr_status user status
 	 */
-	public function rwSession($ext)
+	public function rwSession()
 	{
 		/**
 		 * Headers and stuff
@@ -94,13 +97,9 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 */
 			$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
 			/**
-			 * Visit date
-			 */
-			$_SESSION[_APP_PRE.'_vdate'] = date("Y-m-d");
-			/**
 			 * Visit time
 			 */
-			$_SESSION[_APP_PRE.'_vtime'] = date("H:i:s");
+			$_SESSION[_APP_PRE.'_vtime'] = date("Y-m-d H:i:s");
 			/**
 			 * User id
 			 */
@@ -110,7 +109,7 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 */
 			$_SESSION[_APP_PRE.'_usr_lvl'] = 0;
 			/**
-			 * User group
+			 * User group id
 			 */
 			$_SESSION[_APP_PRE.'_usr_grp'] = 0;
 			/**
@@ -121,6 +120,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 * User full name
 			 */
 			$_SESSION[_APP_PRE.'_usr_name'] = 'Anonymous';
+			/**
+			 * User group name
+			 */
+			$_SESSION[_APP_PRE.'_usr_grp_name'] = 'Guests';
 			/**
 			 * Default language
 			 */
@@ -143,9 +146,8 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 				 */
 				if(_APP_CFG_USERS)
 				{
-					$core = new rw_Core;
-					$users = $core->rwActivateExt($ext, 'Users');
-					$usr_status = $users->rwLoginUser();
+					$users = $this->extCore->rwActivateExt('Users');
+					$usr_status = $users->usrAuth();
 				}
 			}
 			else if($_SESSION[_APP_PRE.'_auth'])

@@ -157,7 +157,7 @@ class app_Core extends rw_Core
 				$extDeps = count($modAbout['deps']['ext']);
 				$modDeps = count($modAbout['deps']['mod']);
 				/**
-				 * If configuration dependencies exist check them
+				 * If configuration dependencies exist solve them
 				 */
 				if($cfgDeps > 0)
 				{
@@ -165,12 +165,12 @@ class app_Core extends rw_Core
 					{
 						if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
 						{
-							trigger_error('Module can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> missing.', E_USER_ERROR);
+							trigger_error('Module <b>'.$module.'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
 						}
 					}
 				}
 				/**
-				 * If extensions dependecies exist, check them
+				 * If extensions dependecies exist, solve them
 				 */
 				if($extDeps > 0)
 				{
@@ -178,12 +178,12 @@ class app_Core extends rw_Core
 					{
 						if(!array_key_exists($extDep, $this->ext))
 						{
-							trigger_error('Module can not be loaded. Extensions dependecy <b>'.$extDep.'</b> missing.', E_USER_ERROR);
+							trigger_error('Module <b>'.$module.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
 						}
 					}
 				}
 				/**
-				 * If module dependecies exist, check them
+				 * If module dependecies exist, solve them
 				 */
 				if($modDeps > 0)
 				{
@@ -191,7 +191,7 @@ class app_Core extends rw_Core
 					{
 						if(!is_file(_APP_DIR_MOD.$modDep.'/'.$modDep.'.mod.php'))
 						{
-							trigger_error('Module can not be loaded. Modules dependecy <b>'.$extDep.'</b> missing.', E_USER_ERROR);
+							trigger_error('Module <b>'.$module.'</b> can not be loaded. Modules dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
 						}
 					}
 				}

@@ -85,6 +85,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
+		//XXX groups and stuff in authVerify
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
 		{
@@ -154,7 +155,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed
 	 */
-	public function _authVerify($requiredLevel = 0)
+	public function _authVerify($requiredLevel=0, $requiredGroup=NULL)
 	{
 		if(!$_SESSION[_APP_PRE.'_auth'])
 		{
@@ -163,19 +164,39 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			return $this->_authLogin();
 		}
-		else if($_SESSION[_APP_PRE.'_usr_lvl'] < $requiredLevel)
-		{
-			/**
-			 * User doesn't have proper credentials
-			 */
-			return $this->_authDenied();
-		}
 		else
 		{
+			if($_SESSION[_APP_PRE.'_usr_lvl'] == 5)
+			{
+				/**
+				 * User is root, total access
+				 */
+				return 'ok';
+			}
 			/**
-			 * Everything is ok
+			 * User is logged in, check access level and group user belongs to
 			 */
-			return 'ok';
+			if($requiredGroup)
+			{
+				if($_SESSION[_APP_PRE.'_usr_grp'] != $requiredGroup)
+				{
+					/**
+					 * User doesn't belong to the required group
+					 */
+					return $this->_authDenied();
+				}
+			}
+			if($_SESSION[_APP_PRE.'_usr_lvl'] < $requiredLevel)
+			{
+				/**
+				 * User doesn't have proper access level
+				 */
+				return $this->_authDenied();
+			}
+			/**
+			 * If we get to this part, everything must be ok
+			 */
+			return 'ok';	
 		}
 	}
 	/**
@@ -210,7 +231,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	{
 		if(isset($_SESSION[_APP_PRE.'_token']))
 		{
-			$captchaObj = $this->modAppCore->rwActivateExt($this->modAppCore->ext, 'Captcha');
+			$captchaObj = $this->modAppCore->rwActivateExt('Captcha');
 			$this->modCnt = array();
 			$this->modCnt['type'] = 'image';
 			$this->modCnt['image'] = $captchaObj->display();

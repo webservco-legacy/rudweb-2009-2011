@@ -44,7 +44,7 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 	 * Set extension information and call parent constructor
 	 *
 	 */
-	function __construct()
+	function __construct($appCore)
 	{
 		/**
 		 * Extension info
@@ -56,166 +56,103 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		$about['deps'][]  = 'Session';
-		parent::__construct($about);
+		$about['deps']['cfg']  = array();
+		$about['deps']['cfg'][]  = 'Database';
+		$about['deps']['cfg'][]  = 'Sessions';
+		$about['deps']['cfg'][]  = 'Users';
+		$about['deps']['ext']  = array();
+		$about['deps']['ext'][]  = 'Sessions';
+		$about['deps']['ext'][]  = 'Captcha';
+		parent::__construct($about, $appCore);
 	}
 	/**
 	 * Login functionality
 	 *
-	 * Requires: USERS, DATABASE, SESSIONS
-	 *
 	 * @return mixed result
 	 */
-	public function rwLoginUser()
+	public function usrAuth()
 	{
+		/**
+		 * Check for authentication request
+		 */
 		if((isset($_POST[_APP_PRE.'_login']) && isset($_POST[_APP_PRE.'_pass'])) && isset($_POST[_APP_PRE.'_captcha']))
 		{
+			/**
+			 * Check if tokens exist
+			 */
 			if(isset($_SESSION[_APP_PRE.'_token']) && isset($_POST[_APP_PRE.'_token']))
 			{
+				/**
+				 * Check for token match
+				 */
 				if($_POST[_APP_PRE.'_token'] === $_SESSION[_APP_PRE.'_token'])
 				{
-					$core = new rw_Core;
-					if(_APP_CFG_DATABASE && _APP_CFG_SESSIONS)
-					{
-						$udb = $core->rwDbConnect();
-					}
-					else
-					{
-						trigger_error('User functionality requires session and database functionality. Please check your configuration file!', E_USER_ERROR);
-					}
-					$login = $core->rwFilterInput($_POST[_APP_PRE.'_login']);
+					/**
+					 * Sanitize post data
+					 */
+					$login = $this->extCore->rwFilterInput($_POST[_APP_PRE.'_login']);
 					$pass = md5($_POST[_APP_PRE.'_pass']);
-					$captcha = strtoupper($core->rwFilterInput($_POST[_APP_PRE.'_captcha']));
+					$captcha = strtoupper($this->extCore->rwFilterInput($_POST[_APP_PRE.'_captcha']));
+					/**
+					 * Check for empty fields
+					 */
 					if(($login != '' && $pass != '') && $captcha != '')
 					{
-						$verif = str_split($_SESSION[_APP_PRE.'_token'], 5);
-						$verif = strtoupper(strrev($verif[0]));
-						if($captcha == $verif)
+						/**
+						 * Verify security code
+						 */
+						$captchaObj = $this->extCore->rwActivateExt('Captcha');
+						$verif = $captchaObj->verify($captcha);
+
+						if($verif)
 						{
-							$r = $udb->dbQuerySimpleSelect('*', _APP_PRE.'_set_usr', "usr_mail = '{$login}' AND usr_pass = '{$pass}'", '1');
+							/**
+							 * Check if user exists
+							 */
+							$r = $this->extDb->dbSelect(array('usr_id', 'grp_id', 'usr_name', 'usr_fname', 'usr_lname', 'usr_skin', 'usr_lang', 'usr_disabled'), _APP_PRE.'_usr_users', array("usr_mail = '{$login}'", "usr_pass = '{$pass}'", "usr_deleted = '0'"), NULL, 1);
 							$t = $r->dbNumRows();
 							if($t == 1)
 							{
 								/**
-								 * We have a match, log in the user
+								 * We have a match...
 								 */
 								$rw = $r->dbFetchArray();
-								if($rw['usr_status'] == 0)
+								/**
+								 * Check if group exists
+								 */
+								$r2 = $this->extDb->dbSelect(array('grp_id', 'grp_lvl', 'grp_name', 'grp_disabled'), _APP_PRE.'_usr_groups', array("grp_id = '{$rw['grp_id']}'", "grp_deleted = '0'"), NULL, 1);
+								$t2 = $r2->dbNumRows();
+								if($t2 == 1)
 								{
 									/**
-									 * Account is suspended
+									 * Group exists and is not disabled
 									 */
-									return 4;
+									$rw2 = $r2->dbFetchArray();
+									/**
+									 * Check if user or group is suspended
+									 */
+									if($rw['usr_disabled'] == 1 || $rw2['grp_disabled'] == 1)
+									{
+										/**
+										 * User or group is suspended
+										 */
+										return $this->_errSuspended();
+
+									}
+									else
+									{
+										/**
+										 * Everything seems ok, log in the user
+										 */
+										$this->_usrLogin($rw, $rw2);
+									}
 								}
 								else
 								{
 									/**
-									 * Keep existing data but get a new session id
+									 * No group data available
 									 */
-									session_regenerate_id(TRUE);
-									/**
-									 * User authorization
-									 */
-									$_SESSION[_APP_PRE.'_auth'] = TRUE;
-									/**
-									 * Unique security token
-									 */
-									$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-									/**
-									 * Visit date
-									 */
-									$_SESSION[_APP_PRE.'_vdate'] = date("Y-m-d");
-									/**
-									 * Visit time
-									 */
-									$_SESSION[_APP_PRE.'_vtime'] = date("H:i:s");
-									/**
-									 * User id
-									 */
-									$_SESSION[_APP_PRE.'_usr_id'] = $rw['usr_id'];
-									/**
-									 * User level
-									 */
-									$_SESSION[_APP_PRE.'_usr_lvl'] = $rw['usr_lvl'];
-									/**
-									 * User group
-									 */
-									$_SESSION[_APP_PRE.'_usr_grp'] = $rw['usr_group'];
-									/**
-									 * User alias
-									 */
-									$_SESSION[_APP_PRE.'_usr_alias'] = $rw['usr_name'];
-									/**
-									 * User full name
-									 */
-									$_SESSION[_APP_PRE.'_usr_name'] = $rw['usr_fname'] . ' ' . $rw['usr_lname'];
-									/**
-									 * Default language
-									 */
-									$_SESSION[_APP_PRE.'_usr_lang'] = $rw['usr_lang'];
-									/**
-									 * Default skin
-									 */
-									$_SESSION[_APP_PRE.'_skin_dir'] = _APP_DIR_SKINS.$rw['usr_skin'];
-									$_SESSION[_APP_PRE.'_skin_url'] = _APP_WWW.'skins/'.$rw['usr_skin'].'/';
-									/**
-									 * Get previous login data
-									 */
-									$rL = $udb->dbQuerySimpleSelect('login_date, login_time', _APP_PRE.'_var_logins', "login_id = (SELECT MAX(login_id) FROM "._APP_PRE."_var_logins WHERE usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}')");
-									$tL = $rL->dbNumRows();
-									if($tL == 1)
-									{
-										$rwL = $rL->dbFetchArray();
-										/**
-										 * Last login date
-										 */
-										$_SESSION[_APP_PRE.'_ldate'] = $rwL['login_date'];
-										/**
-										 * Last login time
-										 */
-										$_SESSION[_APP_PRE.'_ltime'] = $rwL['login_time'];
-									}
-									else
-									{
-										/**
-										 * Last login date (this is the first login)
-										 */
-										$_SESSION[_APP_PRE.'_ldate'] = '0000-00-00';
-										/**
-										 * Last login time
-										 */
-										$_SESSION[_APP_PRE.'_ltime'] = '0000-00-00';
-									}
-									/**
-									 * Count total logins
-									 */
-									$rT = $udb->dbQuerySimpleSelect('COUNT(login_id)', _APP_PRE.'_var_logins', "usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}'");
-									$_SESSION[_APP_PRE.'_ltotal'] = $rT->dbFetchResult() + 1;
-									/**
-									 * Record current login
-									 */
-									$udb->dbQuery("INSERT INTO "._APP_PRE."_var_logins (usr_id, login_date, login_time) VALUES('{$_SESSION[_APP_PRE.'_usr_id']}', '{$_SESSION[_APP_PRE.'_vdate']}', '{$_SESSION[_APP_PRE.'_vtime']}')");
-									/**
-									 * Close database connection
-									 */
-									$udb->dbClose();
-									/**
-									 * Redirect to the same page we came from to avoid double submit
-									 */
-									if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
-									{
-										$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-									}
-									else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
-									{
-										$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-									}
-									else
-									{
-										$redirect = _APP_URL;
-									}
-									header("Location: ".$redirect);
-									exit;
+									return $this->_errNoGroup();
 								}
 							}
 							else
@@ -223,9 +160,7 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 								/**
 								 * Invalid login
 								 */
-								session_regenerate_id(TRUE);
-								$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-								return 3;
+								return $this->_errInvalidData();
 							}
 						}
 						else
@@ -233,9 +168,7 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 							/**
 							 * Invalid security code
 							 */
-							session_regenerate_id(TRUE);
-							$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-							return 7;
+							return $this->_errInvalidSecurityCode();
 						}
 					}
 					else
@@ -243,45 +176,149 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 						/**
 						 * Empty fields
 						 */
-						session_regenerate_id(TRUE);
-						$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-						return 2;
+						return $this->_errEmptyFields();
 					}
 				}
 				else
 				{
 					/**
-					 * Multiple submits ???
+					 * Token dowsn't match, multiple submits ?
 					 */
-					session_regenerate_id(TRUE);
-					$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-					return 8;
+					return $this->_errMultipleSubmits();
 				}
 			}
 			else
 			{
 				/**
-				 * Hacker attack
+				 * Tokens don't exist, hacker attack ?
 				 */
-				session_regenerate_id(TRUE);
-				$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
-				return 9;
+				return $this->_errHackerAttack();
 			}
 		}
 		else
 		{
 			/**
-			 * Not submitted
+			 * No authentication request
 			 */
-			return 1;
+			return $this->_errNoSubmit();
 		}
+	}
+	/**
+	 * Login method
+	 *
+	 * @param array $usr user data
+	 * @param array $grp group data
+	 */
+	private function _usrLogin($usr, $grp)
+	{
+		/**
+		 * Keep existing data but get a new session id
+		 */
+		session_regenerate_id(TRUE);
+		/**
+		 * User authorization
+		 */
+		$_SESSION[_APP_PRE.'_auth'] = TRUE;
+		/**
+		 * Unique security token
+		 */
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		/**
+		 * Visit time
+		 */
+		$_SESSION[_APP_PRE.'_vtime'] = date("Y-m-d H:i:s");
+		/**
+		 * User id
+		 */
+		$_SESSION[_APP_PRE.'_usr_id'] = $usr['usr_id'];
+		/**
+		 * User level
+		 */
+		$_SESSION[_APP_PRE.'_usr_lvl'] = $grp['grp_lvl'];
+		/**
+		 * User group id
+		 */
+		$_SESSION[_APP_PRE.'_usr_grp'] = $usr['grp_id'];
+		/**
+		 * User alias
+		 */
+		$_SESSION[_APP_PRE.'_usr_alias'] = $usr['usr_name'];
+		/**
+		 * User full name
+		 */
+		$_SESSION[_APP_PRE.'_usr_name'] = $usr['usr_fname'] . ' ' . $usr['usr_lname'];
+		/**
+		 * User group name
+		 */
+		$_SESSION[_APP_PRE.'_usr_grp_name'] = $grp['grp_name'];
+		/**
+		 * Default language
+		 */
+		$_SESSION[_APP_PRE.'_usr_lang'] = $usr['usr_lang'];
+		/**
+		 * Default skin
+		 */
+		$_SESSION[_APP_PRE.'_skin_dir'] = _APP_DIR_SKINS.$usr['usr_skin'];
+		$_SESSION[_APP_PRE.'_skin_url'] = _APP_WWW.'skins/'.$usr['usr_skin'].'/';
+		/**
+		 * Get last login time
+		 */
+		$rl1 = $this->extDb->dbSelect("MAX(login_id)", _APP_PRE.'_var_logins', "usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}'", NULL, 1);
+		$lid = $rl1->dbFetchResult();
+		if($lid)
+		{
+			$rl2 = $this->extDb->dbSelect('login_time', _APP_PRE.'_var_logins', "login_id = {$lid}", NULL, 1);
+			$ltime = $rl2->dbFetchResult();
+			if($ltime)
+			{
+				$_SESSION[_APP_PRE.'_ltime'] = $ltime;
+			}
+			else
+			{
+				$_SESSION[_APP_PRE.'_ltime'] = NULL;
+			}
+		}
+		else
+		{
+			$_SESSION[_APP_PRE.'_ltime'] = NULL;
+		}
+		/**
+		 * Count total logins
+		 */
+		$rl3 = $this->extDb->dbSelect('COUNT(login_id)', _APP_PRE.'_var_logins', "usr_id = '{$_SESSION[_APP_PRE.'_usr_id']}'", NULL, NULL);
+		$_SESSION[_APP_PRE.'_ltotal'] = $rl3->dbFetchResult() + 1;
+		/**
+		 * Record current login
+		 */
+		$this->extDb->dbInsert(_APP_PRE.'_var_logins', 'usr_id', $_SESSION[_APP_PRE.'_usr_id']);
+		/**
+		 * Close database connection
+		 */
+		$this->extDb->dbClose();
+		/**
+		 * Redirect to the same page we came from to avoid double submit
+		 */
+		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		}
+		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+		}
+		else
+		{
+			$redirect = _APP_URL;
+		}
+		header("Location: ".$redirect);
+		exit;
 	}
 	/**
 	 * Logout functionality
 	 *
-	 * Requires: USERS, SESSIONS
+	 * @return mixed result
 	 */
-	public function rwLogoutUser()
+	public function usrLogout()
 	{
 		if(_APP_CFG_SESSIONS === TRUE)
 		{
@@ -304,6 +341,90 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 		}
 		header("Location: "._APP_WWW);
 		exit;
+	}
+	/**
+	 * Login error - no reques
+	 *
+	 * @return integer user status
+	 */
+	private function _errNoSubmit()
+	{
+		return 1;
+	}
+	/**
+	 * Login error - user or group disabled
+	 *
+	 * @return integer user status
+	 */
+	private function _errSuspended()
+	{
+		return 4;
+	}
+	/**
+	 * Login error - no group info
+	 *
+	 * @return integer user status
+	 */
+	private function _errNoGroup()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 3;
+	}
+	/**
+	 * Login error - invalid data
+	 *
+	 * @return integer user status
+	 */
+	private function _errInvalidData()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 3;
+	}
+	/**
+	 * Login error - invalid security code
+	 *
+	 * @return integer user status
+	 */
+	private function _errInvalidSecurityCode()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 7;
+	}
+	/**
+	 * Login error - empty fields
+	 *
+	 * @return integer user status
+	 */
+	private function _errEmptyFields()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 2;
+	}
+	/**
+	 * Login error - multiple submits
+	 *
+	 * @return integer user status
+	 */
+	private function _errMultipleSubmits()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 8;
+	}
+	/**
+	 * Login error - hacker attack
+	 *
+	 * @return integer user status
+	 */
+	private function _errHackerAttack()
+	{
+		session_regenerate_id(TRUE);
+		$_SESSION[_APP_PRE.'_token'] = md5(uniqid(rand(), TRUE));
+		return 9;
 	}
 }
 ?>

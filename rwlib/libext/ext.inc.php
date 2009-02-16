@@ -50,7 +50,7 @@ interface rw_iExt
 	 *
 	 * @return mixed information about the extension
 	 */
-	function extAbout();
+	public function extAbout();
 }
 /**
  * rw_Ext_global
@@ -68,14 +68,28 @@ class rw_Ext_global
 	 */
 	public $extAbout = array();
 	/**
+	 * Application core object
+	 *
+	 * @var mixed
+	 */
+	public $extCore = NULL;
+	/**
+	 * Database connection
+	 *
+	 * @var mixed
+	 */
+	public $extDb = NULL;
+	/**
 	 * Load the extension and set it to global or local
 	 *
 	 * @param aray $extAbout extension information
 	 * @return mixed result of loading
 	 */
-	public function __construct($extAbout)
+	public function __construct($extAbout, $appCore)
 	{
 		$this->extAbout = $extAbout;
+		$this->extCore = $appCore;
+		$this->extDb = $this->extCore->rwDbConnect();
 	}
 	/**
 	 * Method for displaying information about the extension

@@ -46,7 +46,7 @@ class rw_Ext_SeoURLs extends rw_Ext_global implements rw_iExt
 	 * Set extension information and call parent constructor
 	 *
 	 */
-	function __construct()
+	function __construct($appCore)
 	{
 		/**
 		 * Extension info
@@ -58,9 +58,9 @@ class rw_Ext_SeoURLs extends rw_Ext_global implements rw_iExt
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-		$about['deps'][]  = 'dep1';
-		$about['deps'][]  = 'dep2';
-		parent::__construct($about);
+		$about['deps']['cfg'] = array();
+    $about['deps']['ext'] = array();
+		parent::__construct($about, $appCore);
 	}
 	/**
 	 * Main extension functionality

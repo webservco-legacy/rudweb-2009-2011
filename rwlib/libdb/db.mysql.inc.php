@@ -100,12 +100,77 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	function dbQuerySimpleSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
+	function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
 	{
 		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
-		$order = (isset($order) && $order != '') ? ' ORDER BY '.$order : '';
-		$condition = (isset($condition) && $condition != '') ? ' WHERE '.$condition : '';
-		$sql = "SELECT {$columns} FROM {$table}{$condition}{$order}{$limit}";
+		if($order)
+		{
+			$ord = ' ORDER BY ';
+			if(is_array($order))
+			{
+				$ord .= implode(', ', $order);
+			}
+			else
+			{
+				$ord .= $order;
+			}
+		}
+		else
+		{
+			$ord = '';
+		}
+		if($condition)
+		{
+			$cond = ' WHERE ';
+			if(is_array($condition))
+			{
+				$cond .= implode(' AND ', $condition);
+			}
+			else
+			{
+				$cond .= $condition;
+			}
+		}
+		else
+		{
+			$cond = '';
+		}
+		if(is_array($columns))
+		{
+			$columns = implode(', ', $columns);
+		}
+		$sql = "SELECT {$columns} FROM {$table}{$cond}{$ord}{$limit}";
+		return $this->dbQuery($sql);
+	}
+	function dbInsert($table, $columns=NULL, $data)
+	{
+		if($columns)
+		{
+			$cols = '(';
+			if(is_array($columns))
+			{
+				$cols .= implode(', ', $columns);
+			}
+			else
+			{
+				$cols .= $columns;
+			}
+			$cols .= ')';
+		}
+		else
+		{
+			$cols = '';
+		}
+		if(is_array($data))
+		{
+			$values = array();
+			foreach($values as $value)
+			{
+				$val[] = "'".$value."'";
+			}
+			$data = implode(', ', $val);
+		}
+		$sql = "INSERT INTO {$table}{$cols} VALUES($data)";
 		return $this->dbQuery($sql);
 	}
 	/**
