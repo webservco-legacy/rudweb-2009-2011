@@ -85,7 +85,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		//XXX groups and stuff in authVerify
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
 		{
