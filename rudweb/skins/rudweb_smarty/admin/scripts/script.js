@@ -27,3 +27,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+ function toggleTRows(thisname) {
+  tr=document.getElementsByTagName('tr')
+  for (i=0;i<tr.length;i++){
+    if (tr[i].getAttribute(thisname)){
+      if ( tr[i].style.display=='none' ){
+        tr[i].style.display = '';
+      }
+      else {
+        tr[i].style.display = 'none';
+      }
+    }
+  }
+}

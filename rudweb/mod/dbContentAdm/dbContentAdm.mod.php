@@ -95,10 +95,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
-	/**
-	 * Test administration menu
-	 */
-	public function menu()
+	public function pages()
 	{
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
@@ -107,25 +104,74 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			//XXX
+			/**
+			 * Authorization ok, proceed.
+			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-			$this->modCnt['cnt']['tpl'] = 'test';
-			$this->modCnt['cnt']['content']['menu'] = array();
-
-			if($this->modDb)
-			{
-				$menu = $this->_pagesMenu();
-				$this->modCnt['cnt']['content']['menu'] = $menu;
-			}
+			$this->modCnt['cnt']['tpl'] = 'pages';
+			$this->modCnt['cnt']['content']['pages'] = $this->_pagesList();
 			return $this->modCnt;
 		}
 	}
 	/**
-	 * Pages menu test
+	 * Generate pages list for administration
 	 */
-	public function _pagesMenu($parent=0)
+	public function _pagesList($parent=0)
 	{
-		$rs = $this->modDb->dbQuerySimpleSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
+		//XXX
+		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
+		$t = $rs->dbNumRows();
+
+		$menu = '';
+
+		if($t > 0)
+		{
+			//$menu = '<table border="1">';
+			$menu = '';
+
+			while($r = $rs->dbFetchArray())
+			{
+
+				//$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
+				//$menu .= '<li><a href="'._APP_WWW.'module/'.$this->modAbout['name'].'/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
+				//$menu .= $this->_pagesList($r['pg_id']);
+				//$menu .= '</li>';
+				//XXX JavaScript Show/Hide around here
+				$menu .= "\n".'<tr';
+				if($r['pg_level'] > 0)
+				{
+					$menu .= ' title="'.$r['pg_title'].'"';
+				}
+				$menu .= '>';
+				$menu .= '<td class="pages_cr">'.$r['pg_level'].'</td>';
+				$menu .= '<td class="pages_cr_tt">';
+				for($i=0;$i<$r['pg_level'];$i++)
+				{
+					$menu .= '&#160;&#160;&#160;';
+				}
+				$menu .= '&#160;';
+				$menu .= $r['pg_title'].'</td>';
+				$menu .= '<td class="pages_cr">'.$r['pg_template'] . '</td>';
+				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
+				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
+				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
+				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
+				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
+				$menu .= '<td class="pages_cr">';
+				$menu .= 'Move Hide Edit Delete';
+				$menu .= '</td>';
+				$menu .= '</tr>';
+				$menu .= $this->_pagesList($r['pg_id']);
+			}
+			//$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
+			//$menu .= '</table>';
+		}
+
+		return $menu;
+	}
+	public function _pagesMenuOLD($parent=0)
+	{
+		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
 		$t = $rs->dbNumRows();
 
 		$menu = '';
@@ -140,7 +186,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
 				$menu .= '<li><a href="'._APP_WWW.'module/'.$this->modAbout['name'].'/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
 
-				$menu .= $this->_pagesMenu($r['pg_id']);
+				$menu .= $this->_pagesMenuOLD($r['pg_id']);
 				$menu .= '</li>';
 			}
 			$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
@@ -195,7 +241,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * If we get to this part, everything must be ok
 			 */
-			return 'ok';	
+			return 'ok';
 		}
 	}
 	/**

@@ -72,6 +72,16 @@ a:hover, a:active {background: transparent; text-decoration: none; font-weight: 
 #page_title          {margin: 0px; padding: 0px; border: 0px;}
 #page_content        {margin: 0px; padding: 10px; border: 0px; min-height: 400px;}
 * html #page_content {height: 400px;}
+.pages {width: 100%;}
+.pages_lvl {width: 40px;}
+.pages_tt {}
+.pages_tpl {width: 100px;}
+.pages_mnu {width: 50px;}
+.pages_act {width: 50px;}
+.pages_auth {width: 100px;}
+.pages_grp {width: 100px;}
+.pages_itm {width: 70px;}
+.pages_op {width: 100px;}
 /* ********** ********** ********** ********** ********** CONTENT END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** LEFT START ********** ********** ********** ********** ********** */
@@ -96,7 +106,11 @@ a:hover,a:active {color: #111111;}
 /* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** BORDERS START ********** ********** ********** ********** ********** */
-
+.pages {border: 0px}
+.pages_hr {border-top: 1px solid #111111; border-bottom: 1px solid #111111;}
+.pages_cr {border-bottom: 1px solid #111111;}
+.pages_cr_tt {border-bottom: 1px solid #111111; border-left: 1px solid #111111;}
+.pages_tt {border-left: 1px solid #111111;}
 /* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
@@ -110,4 +124,7 @@ table, input, select {font-family: Verdana, serif; font-size: 12px;}
 #footer              {text-align: center;}
 a:link, a:visited,
 a:hover, a:active    {background: transparent; text-decoration: none; font-weight: bold;}
+.pages_hr            {text-align: center; font-weight: bold;}
+.pages_cr            {text-align: center;}
+.pages_cr_tt         {text-align: left;}
 /* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */

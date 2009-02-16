@@ -31,13 +31,14 @@ RewriteRule ^(.*)$ index.php/$1 [PT,L]
 </IfModule>
 
 # Prevent direct file access to some files
+# log     - log files
 # tpl     - template files
 # tpl.php - parsed template files (smarty)
 # tmp     - temporary files
 # inc.php - include files
 # ext.php - extension files
 # mod.php - module files
-<FilesMatch "\.(tpl|tpl.php|tmp|inc.php|ext.php|mod.php)$">
+<FilesMatch "\.(log|tpl|tpl.php|tmp|inc.php|ext.php|mod.php)$">
   Order allow,deny
   Deny from all
   Satisfy All
