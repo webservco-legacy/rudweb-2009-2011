@@ -175,11 +175,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_group'].'</td>';
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$pages .= '<td class="pages_cr">';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGES']['VIEW'].'" />' . '</a>';
+        $pages .= '&#160;';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
+        $pages .= '&#160;';
+        $pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
 				$pages .= '&#160;';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_go.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
-				$pages .= '&#160;';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/delete.png" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGES']['DELETE'].'" />' . '</a>';
+				
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_delete.png" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGES']['DELETE'].'" />' . '</a>';
 				$pages .= '</td>';
 				$pages .= '</tr>';
 				$pages .= $this->formatPages($itemId, $data);

@@ -45,6 +45,7 @@ $lang['MOD']['ADMIN']['DELETE'] = '&#350;terge';
  * Pages administration
  */
 $lang['MOD']['PAGES']['ADD'] = 'Adaug&#259; Pagina';
+$modlang['MOD']['PAGES']['VIEW'] = 'Vizualizeaz&#259; Pagina';
 $modlang['MOD']['PAGES']['EDIT'] = 'Editeaz&#259; Pagina';
 $modlang['MOD']['PAGES']['DELETE'] = '&#350;terge Pagina';
 $modlang['MOD']['PAGES']['ORDER'] = 'Schimb&#259; Ordinea';

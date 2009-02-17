@@ -46,6 +46,7 @@ $modlang['MOD']['ADMIN']['DELETE'] = 'Delete';
  * Pages administration
  */
 $modlang['MOD']['PAGES']['ADD'] = 'Add Page';
+$modlang['MOD']['PAGES']['VIEW'] = 'View Page';
 $modlang['MOD']['PAGES']['EDIT'] = 'Edit Page';
 $modlang['MOD']['PAGES']['DELETE'] = 'Delete Page';
 $modlang['MOD']['PAGES']['ORDER'] = 'Change Order';
