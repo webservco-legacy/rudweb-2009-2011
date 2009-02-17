@@ -35,4 +35,29 @@
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 $modlang['MOD']['TITLE'] = 'Administrare Con&#355;inut';
+/**
+ * Administration stuff
+ */
+$lang['MOD']['ADMIN']['ADD'] = 'Adaug&#259;';
+$lang['MOD']['ADMIN']['EDIT'] = 'Editeaz&#259;';
+$lang['MOD']['ADMIN']['DELETE'] = '&#350;terge';
+/**
+ * Pages administration
+ */
+$lang['MOD']['PAGES']['ADD'] = 'Adaug&#259; Pagina';
+$modlang['MOD']['PAGES']['EDIT'] = 'Editeaz&#259; Pagina';
+$modlang['MOD']['PAGES']['DELETE'] = '&#350;terge Pagina';
+$modlang['MOD']['PAGES']['ORDER'] = 'Schimb&#259; Ordinea';
+$modlang['MOD']['PAGES']['TITLE'] = 'Titlu';
+$modlang['MOD']['PAGES']['TEMPLATE'] = 'Template';
+$modlang['MOD']['PAGES']['MENU'] = 'Meniu';
+$modlang['MOD']['PAGES']['ACTIVE'] = 'Activ';
+$modlang['MOD']['PAGES']['AUTHOR'] = 'Autor';
+$modlang['MOD']['PAGES']['GROUP'] = 'Grup';
+$modlang['MOD']['PAGES']['ITEMS'] = 'Articole';
+$modlang['MOD']['PAGES']['ACTIONS'] = 'Ac&#355;iuni';
+/**
+ * Content administration
+ */
+$modlang['MOD']['CNT']['ADD'] = 'Adaug&#259; Con&#355;inut';
 ?>

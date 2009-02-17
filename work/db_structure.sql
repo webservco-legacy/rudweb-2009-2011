@@ -118,3 +118,38 @@ CREATE TABLE rudweb_web_pages (
   pg_version MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (pg_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------------------------------
+-- CONTENT
+-- --------------------------------------------------------------------------------
+DROP TABLE IF EXISTS rudweb_web_content;
+CREATE TABLE rudweb_web_content (
+  -- IDENTIFICATION
+  cnt_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- LOCATION
+  pg_id MEDIUMINT(5) UNSIGNED NOT NULL,
+  cnt_order MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  -- MAIN
+  cnt_type VARCHAR(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text',
+  cnt_body MEDIUMTEXT COLLATE utf8_unicode_ci NOT NULL,
+  cnt_resource MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_template VARCHAR(20) COLLATE utf8_unicode_ci NOT NULL,
+  -- SETTINGS
+  cnt_disabled TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_start DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  cnt_end DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  cnt_search TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_statistics TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  -- STATISTICS
+  cnt_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
+  cnt_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_modified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  cnt_modified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_verified_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  cnt_verified_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_deleted_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  cnt_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  cnt_version MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (cnt_id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

@@ -35,4 +35,30 @@
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 $modlang['MOD']['TITLE'] = 'Content Administration';
+
+/**
+ * Administration stuff
+ */
+$modlang['MOD']['ADMIN']['ADD'] = 'Add';
+$modlang['MOD']['ADMIN']['EDIT'] = 'Edit';
+$modlang['MOD']['ADMIN']['DELETE'] = 'Delete';
+/**
+ * Pages administration
+ */
+$modlang['MOD']['PAGES']['ADD'] = 'Add Page';
+$modlang['MOD']['PAGES']['EDIT'] = 'Edit Page';
+$modlang['MOD']['PAGES']['DELETE'] = 'Delete Page';
+$modlang['MOD']['PAGES']['ORDER'] = 'Change Order';
+$modlang['MOD']['PAGES']['TITLE'] = 'Title';
+$modlang['MOD']['PAGES']['TEMPLATE'] = 'Template';
+$modlang['MOD']['PAGES']['MENU'] = 'Menu';
+$modlang['MOD']['PAGES']['ACTIVE'] = 'Active';
+$modlang['MOD']['PAGES']['AUTHOR'] = 'Author';
+$modlang['MOD']['PAGES']['GROUP'] = 'Group';
+$modlang['MOD']['PAGES']['ITEMS'] = 'Items';
+$modlang['MOD']['PAGES']['ACTIONS'] = 'Actions';
+/**
+ * Content administration
+ */
+$modlang['MOD']['CNT']['ADD'] = 'Add Content';
 ?>

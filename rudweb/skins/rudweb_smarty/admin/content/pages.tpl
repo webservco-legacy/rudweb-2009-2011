@@ -27,20 +27,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
- <a href="JavaScript:toggleTRows('title');">toggle</a>
+<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
+<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
+<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
 <table class="pages" cellspacing="0">
 <tr>
-  <td class="pages_hr pages_lvl">Level</td>
-  <td class="pages_hr pages_tt">Title</td>
-  <td class="pages_hr pages_tpl">Template</td>
-  <td class="pages_hr pages_mnu">Menu</td>
-  <td class="pages_hr pages_act">Active</td>
-  <td class="pages_hr pages_auth">Author</td>
-  <td class="pages_hr pages_grp">Group</td>
-  <td class="pages_hr pages_itm">Items</td>
-  <td class="pages_hr pages_op">Operations</td>
+  <td class="pages_hr pages_lvl">&#160;</td>
+  <td class="pages_hr pages_tt">{$lang.MOD.PAGES.TITLE}</td>
+  <td class="pages_hr pages_tpl">{$lang.MOD.PAGES.TEMPLATE}</td>
+  <td class="pages_hr pages_mnu">{$lang.MOD.PAGES.MENU}</td>
+  <td class="pages_hr pages_act">{$lang.MOD.PAGES.ACTIVE}</td>
+  <td class="pages_hr pages_auth">{$lang.MOD.PAGES.AUTHOR}</td>
+  <td class="pages_hr pages_grp">{$lang.MOD.PAGES.GROUP}</td>
+  <td class="pages_hr pages_itm">{$lang.MOD.PAGES.ITEMS}</td>
+  <td class="pages_hr pages_op">{$lang.MOD.PAGES.ACTIONS}</td>
 </tr>
 {$cnt.pages}
 </table>
 <script type="text/javascript" language="JavaScript">toggleTRows('title');</script>
-<a href="JavaScript:toggleTRows('title');">toggle</a>
+
+<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
+<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
+<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;

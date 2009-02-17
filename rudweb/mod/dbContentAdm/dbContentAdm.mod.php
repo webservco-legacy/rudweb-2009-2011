@@ -109,91 +109,84 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
 			$this->modCnt['cnt']['tpl'] = 'pages';
-			$this->modCnt['cnt']['content']['pages'] = $this->_pagesList();
+
+			//http://crisp.tweakblogs.net/
+			/**
+			* Prepare pages array
+			*/
+			$pageData = array();
+			$pageData['items'] = array();
+			$pageData['parents'] = array();
+			/**
+			 * Get data
+			 */
+			$rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title, pg_alias, pg_template, pg_menu, pg_disabled, pg_created_user', _APP_PRE.'_web_pages', NULL, 'pg_parent, pg_title', NULL);
+			$t = $rs->dbNumRows();
+			if($t>0)
+			{
+				while($pageItem = $rs->dbFetchArray())
+				{
+					/**
+					 * Author and group
+					 */
+					$rs2 = $this->modDb->dbSelect('A.usr_name as pg_author, B.grp_name as pg_group', _APP_PRE.'_usr_users AS A, '._APP_PRE.'_usr_groups AS B', "A.usr_id = '{$pageItem['pg_created_user']}' AND A.grp_id = B.grp_id", NULL, NULL);
+					$t2 = $rs2->dbNumRows();
+					$r2 = $rs2->dbFetchArray();
+					$pageItem['pg_author'] = $r2['pg_author'];
+					$pageItem['pg_group']  = $r2['pg_group'];
+					/**
+					 * Content items
+					 */
+					$rs3 = $this->modDb->dbSelect('COUNT(cnt_id)', _APP_PRE.'_web_content', "pg_id={$pageItem['pg_id']}", NULL, NULL);
+					$pageItem['pg_items'] = $rs3->dbFetchResult();
+					$pageData['items'][$pageItem['pg_id']] = $pageItem;
+					$pageData['parents'][$pageItem['pg_parent']][] = $pageItem['pg_id'];
+				}
+			}
+			$this->modCnt['cnt']['content']['pages'] = $this->formatPages(0, $pageData);
 			return $this->modCnt;
 		}
 	}
-	/**
-	 * Generate pages list for administration
-	 */
-	public function _pagesList($parent=0)
+	public function formatPages($parent, $data)
 	{
-		//XXX
-		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
-		$t = $rs->dbNumRows();
-
-		$menu = '';
-
-		if($t > 0)
+		$pages = '';
+		if(isset($data['parents'][$parent]))
 		{
-			//$menu = '<table border="1">';
-			$menu = '';
-
-			while($r = $rs->dbFetchArray())
+			$i = 1;
+			foreach($data['parents'][$parent] as $itemId)
 			{
-
-				//$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
-				//$menu .= '<li><a href="'._APP_WWW.'module/'.$this->modAbout['name'].'/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
-				//$menu .= $this->_pagesList($r['pg_id']);
-				//$menu .= '</li>';
-				//XXX JavaScript Show/Hide around here
-				$menu .= "\n".'<tr';
-				if($r['pg_level'] > 0)
+				$pages .= "\n".'<tr';
+				if($data['items'][$itemId]['pg_level'] > 0)
 				{
-					$menu .= ' title="'.$r['pg_title'].'"';
+					$pages .= ' title="'.$data['items'][$itemId]['pg_level'].'"';
 				}
-				$menu .= '>';
-				$menu .= '<td class="pages_cr">'.$r['pg_level'].'</td>';
-				$menu .= '<td class="pages_cr_tt">';
-				for($i=0;$i<$r['pg_level'];$i++)
+				$pages .= '>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_level'].'.'.$i.'</td>';
+				$pages .= '<td class="pages_cr_tt">';
+				for($i=0;$i<$data['items'][$itemId]['pg_level'];$i++)
 				{
-					$menu .= '&#160;&#160;&#160;';
+					$pages .= '&#160;&#160;&#160;';
 				}
-				$menu .= '&#160;';
-				$menu .= $r['pg_title'].'</td>';
-				$menu .= '<td class="pages_cr">'.$r['pg_template'] . '</td>';
-				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
-				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
-				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
-				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
-				$menu .= '<td class="pages_cr">'.'&#160;'. '</td>';
-				$menu .= '<td class="pages_cr">';
-				$menu .= 'Move Hide Edit Delete';
-				$menu .= '</td>';
-				$menu .= '</tr>';
-				$menu .= $this->_pagesList($r['pg_id']);
+				$pages .= $data['items'][$itemId]['pg_title'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_template'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_menu'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_disabled'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_author'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_group'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
+				$pages .= '<td class="pages_cr">';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
+				$pages .= '&#160;';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_go.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
+				$pages .= '&#160;';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/delete.png" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGES']['DELETE'].'" />' . '</a>';
+				$pages .= '</td>';
+				$pages .= '</tr>';
+				$pages .= $this->formatPages($itemId, $data);
+				$i++;
 			}
-			//$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
-			//$menu .= '</table>';
 		}
-
-		return $menu;
-	}
-	public function _pagesMenuOLD($parent=0)
-	{
-		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_parent = $parent", 'pg_order ASC', NULL);
-		$t = $rs->dbNumRows();
-
-		$menu = '';
-
-		if($t > 0)
-		{
-			$menu = '<ul>';
-
-			while($r = $rs->dbFetchArray())
-			{
-
-				$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
-				$menu .= '<li><a href="'._APP_WWW.'module/'.$this->modAbout['name'].'/action/modPage/id/'.$r['pg_id'].'">'.$r['pg_title'].'</a>';
-
-				$menu .= $this->_pagesMenuOLD($r['pg_id']);
-				$menu .= '</li>';
-			}
-			$menu .= '<li><a href="new">'.'[new]'.'</a></li>';
-			$menu .= '</ul>';
-		}
-
-		return $menu;
+		return $pages;
 	}
 	/**
 	 * Authorization verification

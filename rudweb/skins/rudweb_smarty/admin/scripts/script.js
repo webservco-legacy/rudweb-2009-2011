@@ -40,3 +40,21 @@
     }
   }
 }
+function toggleTRowGroups(thisname, thisvalue)
+{
+  tr=document.getElementsByTagName('tr');
+  for(i=0;i<tr.length;i++)
+  {
+    if(tr[i].getAttribute(thisname)>=thisvalue)
+    {
+      if(tr[i].style.display=='none')
+      {
+        tr[i].style.display='';
+      }
+      else
+      {
+        tr[i].style.display='none';
+      }
+    }
+  }
+}
