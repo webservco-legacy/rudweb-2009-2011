@@ -34,9 +34,6 @@
 <tr>
   <td class="pages_hr pages_lvl">&#160;</td>
   <td class="pages_hr pages_tt">{$lang.MOD.PAGES.TITLE}</td>
-  <td class="pages_hr pages_tpl">{$lang.MOD.PAGES.TEMPLATE}</td>
-  <td class="pages_hr pages_mnu">{$lang.MOD.PAGES.MENU}</td>
-  <td class="pages_hr pages_act">{$lang.MOD.PAGES.ACTIVE}</td>
   <td class="pages_hr pages_auth">{$lang.MOD.PAGES.AUTHOR}</td>
   <td class="pages_hr pages_grp">{$lang.MOD.PAGES.GROUP}</td>
   <td class="pages_hr pages_itm">{$lang.MOD.PAGES.ITEMS}</td>

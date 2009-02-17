@@ -95,6 +95,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	/**
+	 * Pages administration
+	 *
+	 * Displays a list of all the pages.
+	 *
+	 * @return mixed result
+	 */
 	public function pages()
 	{
 		$auth = $this->_authVerify(3);
@@ -109,18 +116,16 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
 			$this->modCnt['cnt']['tpl'] = 'pages';
-
-			//http://crisp.tweakblogs.net/
 			/**
-			* Prepare pages array
-			*/
+			 * Prepare pages array
+			 */
 			$pageData = array();
 			$pageData['items'] = array();
 			$pageData['parents'] = array();
 			/**
 			 * Get data
 			 */
-			$rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title, pg_alias, pg_template, pg_menu, pg_disabled, pg_created_user', _APP_PRE.'_web_pages', NULL, 'pg_parent, pg_title', NULL);
+			$rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title, pg_alias, pg_group, pg_created_user', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_usr_lang']}' AND pg_deleted = '0'", 'pg_parent, pg_title', NULL);
 			$t = $rs->dbNumRows();
 			if($t>0)
 			{
@@ -129,11 +134,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Author and group
 					 */
-					$rs2 = $this->modDb->dbSelect('A.usr_name as pg_author, B.grp_name as pg_group', _APP_PRE.'_usr_users AS A, '._APP_PRE.'_usr_groups AS B', "A.usr_id = '{$pageItem['pg_created_user']}' AND A.grp_id = B.grp_id", NULL, NULL);
+					$rs2 = $this->modDb->dbSelect('A.usr_name as pg_author, B.grp_name as pg_group', _APP_PRE."_usr_users AS A left join "._APP_PRE."_usr_groups as B on (B.grp_id = '{$pageItem['pg_group']}')", "A.usr_id = '{$pageItem['pg_created_user']}'", NULL, NULL);
 					$t2 = $rs2->dbNumRows();
 					$r2 = $rs2->dbFetchArray();
 					$pageItem['pg_author'] = $r2['pg_author'];
-					$pageItem['pg_group']  = $r2['pg_group'];
+					$pageItem['pg_group_name']  = $r2['pg_group'];
 					/**
 					 * Content items
 					 */
@@ -143,11 +148,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$pageData['parents'][$pageItem['pg_parent']][] = $pageItem['pg_id'];
 				}
 			}
-			$this->modCnt['cnt']['content']['pages'] = $this->formatPages(0, $pageData);
+			$this->modCnt['cnt']['content']['pages'] = $this->_formatPages(0, $pageData);
 			return $this->modCnt;
 		}
 	}
-	public function formatPages($parent, $data)
+	/**
+	 * Format pages list for viewer
+	 *
+	 * @param integer $parent parent id
+	 * @param array $data page information
+	 * @return mixed html data for viewer
+	 */
+	private function _formatPages($parent, $data)
 	{
 		$pages = '';
 		if(isset($data['parents'][$parent]))
@@ -168,28 +180,52 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$pages .= '&#160;&#160;&#160;';
 				}
 				$pages .= $data['items'][$itemId]['pg_title'].'</td>';
-				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_template'].'</td>';
-				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_menu'].'</td>';
-				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_disabled'].'</td>';
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_author'].'</td>';
-				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_group'].'</td>';
+				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_group_name'].'</td>';
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$pages .= '<td class="pages_cr">';
-				$pages .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGES']['VIEW'].'" />' . '</a>';
-        $pages .= '&#160;';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
-        $pages .= '&#160;';
-        $pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGES']['VIEW'].'" />' . '</a>';
 				$pages .= '&#160;';
-				
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
+				$pages .= '&#160;';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
+				$pages .= '&#160;';
+
 				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_delete.png" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGES']['DELETE'].'" />' . '</a>';
 				$pages .= '</td>';
 				$pages .= '</tr>';
-				$pages .= $this->formatPages($itemId, $data);
+				$pages .= $this->_formatPages($itemId, $data);
 				$i++;
 			}
 		}
 		return $pages;
+	}
+	public function page_edit()
+	{
+		$pg_id = (isset($_GET['id']) && (int)$this->modAppCore->rwFilterInput($_GET['id']) != 0) ? $this->modAppCore->rwFilterInput($_GET['id']) : NULL;
+		if(!$pg_id)
+		{
+			trigger_error('invalid page id', E_USER_ERROR);
+		}
+		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$auth = $this->_authVerify(3, $r['pg_group']);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			//XXX
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+			$this->modCnt['cnt']['tpl'] = 'page_edit';
+			return $this->modCnt;
+		}
 	}
 	/**
 	 * Authorization verification

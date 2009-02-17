@@ -100,7 +100,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
+	function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL, $x=0)
 	{
 		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
 		if($order)
@@ -140,6 +140,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 			$columns = implode(', ', $columns);
 		}
 		$sql = "SELECT {$columns} FROM {$table}{$cond}{$ord}{$limit}";
+		if($x==1){trigger_error($sql, E_USER_ERROR);}
 		return $this->dbQuery($sql);
 	}
 	function dbInsert($table, $columns=NULL, $data)
