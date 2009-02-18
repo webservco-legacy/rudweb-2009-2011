@@ -65,6 +65,17 @@ $modlang['MOD']['PAGES']['PAGE_KEYWORDS']    = 'Cuvinte Cheie Pagin&#259;';
 $modlang['MOD']['PAGES']['PAGE_DESCRIPTION'] = 'Descriere Pagin&#259;';
 $modlang['MOD']['PAGES']['PAGE_TEMPLATE']    = 'Template Pagin&#259;';
 /**
+ * Pages administration messages
+ */
+$modlang['MOD']['PAGES']['MSG'][0]['tt'] = '';
+$modlang['MOD']['PAGES']['MSG'][0]['tp'] = 'msg';
+$modlang['MOD']['PAGES']['MSG'][1]['tt'] = 'C&#226;mpul Titlu este gol.';
+$modlang['MOD']['PAGES']['MSG'][1]['tp'] = 'err';
+$modlang['MOD']['PAGES']['MSG'][2]['tt'] = 'C&#226;mpul Template este gol.';
+$modlang['MOD']['PAGES']['MSG'][2]['tp'] = 'err';
+$modlang['MOD']['PAGES']['MSG'][3]['tt'] = 'Actualizarea a fost realizat&#259; cu succes.';
+$modlang['MOD']['PAGES']['MSG'][3]['tp'] = 'ok';
+/**
  * Content administration
  */
 $modlang['MOD']['CONTENT']['ADD']            = 'Adaug&#259; Con&#355;inut';

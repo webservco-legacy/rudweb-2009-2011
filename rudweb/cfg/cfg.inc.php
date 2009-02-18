@@ -57,13 +57,13 @@ define('_APP_CFG_USERS',TRUE);
  *
  * Must end with a slash (/)
  */
-define('_APP_DIR', 'd:/home/devel/workspace/RudWEb/rudweb/');
+define('_APP_DIR', 'e:/home/devel/workspace/RudWEb/rudweb/');
 /**
  * Engine path
  *
  * Must end with a slash (/)
  */
-define('_RW_DIR', 'd:/home/devel/workspace/RudWEb/rwlib/');
+define('_RW_DIR', 'e:/home/devel/workspace/RudWEb/rwlib/');
 /**
  * Application url
  *

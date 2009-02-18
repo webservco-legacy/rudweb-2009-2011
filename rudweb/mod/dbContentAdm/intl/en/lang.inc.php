@@ -65,6 +65,17 @@ $modlang['MOD']['PAGES']['PAGE_KEYWORDS']    = 'Page Keywords';
 $modlang['MOD']['PAGES']['PAGE_DESCRIPTION'] = 'Page Description';
 $modlang['MOD']['PAGES']['PAGE_TEMPLATE']    = 'Page Template';
 /**
+ * Pages administration messages
+ */
+$modlang['MOD']['PAGES']['MSG'][0]['tt'] = '';
+$modlang['MOD']['PAGES']['MSG'][0]['tp'] = 'msg';
+$modlang['MOD']['PAGES']['MSG'][1]['tt'] = 'Title field is empty.';
+$modlang['MOD']['PAGES']['MSG'][1]['tp'] = 'err';
+$modlang['MOD']['PAGES']['MSG'][2]['tt'] = 'Template field is empty.';
+$modlang['MOD']['PAGES']['MSG'][2]['tp'] = 'err';
+$modlang['MOD']['PAGES']['MSG'][3]['tt'] = 'Update was successful.';
+$modlang['MOD']['PAGES']['MSG'][3]['tp'] = 'ok';
+/**
  * Content administration
  */
 $modlang['MOD']['CONTENT']['ADD']            = 'Add Content';
