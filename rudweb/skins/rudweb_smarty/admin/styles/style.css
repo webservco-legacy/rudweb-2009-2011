@@ -103,6 +103,9 @@ html, body       {background-color: #81A594; color: #111111;}
 #page_content    {background: transparent; color: #111111;}
 a:link,a:visited {color: #111111;}
 a:hover,a:active {color: #111111;}
+#page_edit {text-align: center;}
+.page_edit_page {background-color: #cccccc; text-align: center;}
+#page_edit_content {background-color: #FFCCCC; text-align: center;}
 /* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** BORDERS START ********** ********** ********** ********** ********** */

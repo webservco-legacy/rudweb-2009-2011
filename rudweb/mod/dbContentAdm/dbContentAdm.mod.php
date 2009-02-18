@@ -207,25 +207,100 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		{
 			trigger_error('invalid page id', E_USER_ERROR);
 		}
-		$rs = $this->modDb->dbSelect('*', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$rs = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
 			trigger_error("page doesn't exist", E_USER_ERROR);
 		}
-		$r = $rs->dbFetchArray();
-		$auth = $this->_authVerify(3, $r['pg_group']);
+		$pg_group = $rs->dbFetchResult();
+		$auth = $this->_authVerify(3, $pg_group);
 		if($auth !== 'ok')
 		{
 			return $auth;
 		}
 		else
 		{
-			//XXX
+			$msg = 'x';
+
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
 			$this->modCnt['cnt']['tpl'] = 'page_edit';
+			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
+			if(isset($_POST['pg_id']) && ($_POST['pg_id'] == $pg_id))
+			{
+				$err = 0;
+				//$pg_data = array('pg_title'=>'','pg_kw'=>'','pg_dsc'=>'','pg_template'=>'');
+				if(isset($_POST['pg_title']))    {$this->modCnt['cnt']['content']['page_title']    = $this->modAppCore->rwFilterInput($_POST['pg_title']);}
+				if(isset($_POST['pg_kw']))       {$this->modCnt['cnt']['content']['page_kw']       = $this->modAppCore->rwFilterInput($_POST['pg_kw']);}
+				if(isset($_POST['pg_dsc']))      {$this->modCnt['cnt']['content']['page_dsc']      = $this->modAppCore->rwFilterInput($_POST['pg_dsc']);}
+				if(isset($_POST['pg_template'])) {$this->modCnt['cnt']['content']['page_template'] = $this->modAppCore->rwFilterInput($_POST['pg_template']);}
+
+				if($this->modCnt['cnt']['content']['page_title'] == '')      {$err = 1;	$msg = 'blank title';}
+				else if($this->modCnt['cnt']['content']['page_template'] == '') {$err = 1;	$msg = 'blank template';}
+				if($err == 0)
+				{
+					//XXX update table;
+					$msg = 'ok';
+					//XXX this doesn't work as expected (adds more and more $add) ???
+					$this->_selfRedirect('msg/' . $msg);
+				}
+			}
+			/**
+			 * Page data
+			 */
+			$rs = $this->modDb->dbSelect('pg_title, pg_kw, pg_dsc, pg_template, pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+			$t = $rs->dbNumRows();
+			if($t != 1)
+			{
+				trigger_error("page doesn't exist", E_USER_ERROR);
+			}
+			$r = $rs->dbFetchArray();
+			/**
+			 * Page content
+			 */
+			$rsc = $this->modDb->dbSelect('cnt_id, cnt_order, cnt_type, cnt_template', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_disabled = '0'", 'cnt_order', NULL);
+			$tc  = $rsc->dbNumRows();
+			$page_content = array();
+			if($tc>0)
+			{
+				while($rc = $rsc->dbFetchArray())
+				{
+					$page_content[] = $rc;
+				}
+			}
+			$this->modCnt['cnt']['content']['page_title'] = $r['pg_title'];
+			$this->modCnt['cnt']['content']['page_kw'] = $r['pg_kw'];
+			$this->modCnt['cnt']['content']['page_dsc'] = $r['pg_dsc'];
+			$this->modCnt['cnt']['content']['page_template'] = $r['pg_template'];
+
+			$this->modCnt['cnt']['content']['page_content'] = $page_content;
+
+			$this->modCnt['cnt']['content']['page_msg'] = $msg;
+
 			return $this->modCnt;
+			//XXX
 		}
+	}
+	private function _selfRedirect($add=NULL)
+	{
+		/**
+		 * Redirect to the same page we came from to avoid double submit
+		 */
+		$add = ($add != NULL) ? '/'.$add : '';
+		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].$add;
+		}
+		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'].$add;
+		}
+		else
+		{
+			$redirect = _APP_URL;
+		}
+		header("Location: ".$redirect);
+		exit;
 	}
 	/**
 	 * Authorization verification

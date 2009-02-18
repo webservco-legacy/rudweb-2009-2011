@@ -27,7 +27,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_login_form" id="{$smarty.const._APP_PRE}_login_form" ACTION="" METHOD="post">
+<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_login_form" id="{$smarty.const._APP_PRE}_login_form" action="" method="post">
 <table border="1">
 <tr>
   <td>

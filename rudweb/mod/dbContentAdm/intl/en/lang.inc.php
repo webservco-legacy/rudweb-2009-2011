@@ -33,33 +33,47 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-
+/**
+ * Module title
+ */
 $modlang['MOD']['TITLE'] = 'Content Administration';
-
 /**
  * Administration stuff
  */
-$modlang['MOD']['ADMIN']['ADD'] = 'Add';
-$modlang['MOD']['ADMIN']['EDIT'] = 'Edit';
+$modlang['MOD']['ADMIN']['ADD']    = 'Add';
+$modlang['MOD']['ADMIN']['EDIT']   = 'Edit';
 $modlang['MOD']['ADMIN']['DELETE'] = 'Delete';
+$modlang['MOD']['ADMIN']['SAVE']   = 'Save';
 /**
  * Pages administration
  */
-$modlang['MOD']['PAGES']['ADD'] = 'Add Page';
-$modlang['MOD']['PAGES']['VIEW'] = 'View Page';
-$modlang['MOD']['PAGES']['EDIT'] = 'Edit Page';
-$modlang['MOD']['PAGES']['DELETE'] = 'Delete Page';
-$modlang['MOD']['PAGES']['ORDER'] = 'Change Order';
-$modlang['MOD']['PAGES']['TITLE'] = 'Title';
-$modlang['MOD']['PAGES']['TEMPLATE'] = 'Template';
-$modlang['MOD']['PAGES']['MENU'] = 'Menu';
-$modlang['MOD']['PAGES']['ACTIVE'] = 'Active';
-$modlang['MOD']['PAGES']['AUTHOR'] = 'Author';
-$modlang['MOD']['PAGES']['GROUP'] = 'Group';
-$modlang['MOD']['PAGES']['ITEMS'] = 'Items';
-$modlang['MOD']['PAGES']['ACTIONS'] = 'Actions';
+$modlang['MOD']['PAGES']['ADD']              = 'Add Page';
+$modlang['MOD']['PAGES']['VIEW']             = 'View Page';
+$modlang['MOD']['PAGES']['EDIT']             = 'Edit Page';
+$modlang['MOD']['PAGES']['DELETE']           = 'Delete Page';
+$modlang['MOD']['PAGES']['ORDER']            = 'Change Order';
+$modlang['MOD']['PAGES']['TITLE']            = 'Title';
+$modlang['MOD']['PAGES']['TEMPLATE']         = 'Template';
+$modlang['MOD']['PAGES']['MENU']             = 'Menu';
+$modlang['MOD']['PAGES']['ACTIVE']           = 'Active';
+$modlang['MOD']['PAGES']['AUTHOR']           = 'Author';
+$modlang['MOD']['PAGES']['GROUP']            = 'Group';
+$modlang['MOD']['PAGES']['ITEMS']            = 'Items';
+$modlang['MOD']['PAGES']['ACTIONS']          = 'Actions';
+$modlang['MOD']['PAGES']['PAGE_TITLE']       = 'Page Title';
+$modlang['MOD']['PAGES']['PAGE_KEYWORDS']    = 'Page Keywords';
+$modlang['MOD']['PAGES']['PAGE_DESCRIPTION'] = 'Page Description';
+$modlang['MOD']['PAGES']['PAGE_TEMPLATE']    = 'Page Template';
 /**
  * Content administration
  */
-$modlang['MOD']['CNT']['ADD'] = 'Add Content';
+$modlang['MOD']['CONTENT']['ADD']            = 'Add Content';
+$modlang['MOD']['CONTENT']['ADD_TEXT']       = 'Add Text Content';
+$modlang['MOD']['CONTENT']['ADD_HTML']       = 'Add HTML Content';
+$modlang['MOD']['CONTENT']['EDIT']           = 'Edit Content';
+$modlang['MOD']['CONTENT']['DELETE']         = 'Delete Content';
+$modlang['MOD']['CONTENT']['ORDER']          = 'Change Order';
+$modlang['MOD']['CONTENT']['TYPE']           = 'Type';
+$modlang['MOD']['CONTENT']['TEMPLATE']       = 'Template';
+$modlang['MOD']['CONTENT']['ACTIONS']        = 'Actions';
 ?>

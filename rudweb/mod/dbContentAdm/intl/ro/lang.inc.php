@@ -33,32 +33,47 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-
+/**
+ * Module title
+ */
 $modlang['MOD']['TITLE'] = 'Administrare Con&#355;inut';
 /**
  * Administration stuff
  */
-$lang['MOD']['ADMIN']['ADD'] = 'Adaug&#259;';
-$lang['MOD']['ADMIN']['EDIT'] = 'Editeaz&#259;';
-$lang['MOD']['ADMIN']['DELETE'] = '&#350;terge';
+$modlang['MOD']['ADMIN']['ADD']    = 'Adaug&#259;';
+$modlang['MOD']['ADMIN']['EDIT']   = 'Editeaz&#259;';
+$modlang['MOD']['ADMIN']['DELETE'] = '&#350;terge';
+$modlang['MOD']['ADMIN']['SAVE']   = 'Salveaz&#259;';
 /**
  * Pages administration
  */
-$lang['MOD']['PAGES']['ADD'] = 'Adaug&#259; Pagina';
-$modlang['MOD']['PAGES']['VIEW'] = 'Vizualizeaz&#259; Pagina';
-$modlang['MOD']['PAGES']['EDIT'] = 'Editeaz&#259; Pagina';
-$modlang['MOD']['PAGES']['DELETE'] = '&#350;terge Pagina';
-$modlang['MOD']['PAGES']['ORDER'] = 'Schimb&#259; Ordinea';
-$modlang['MOD']['PAGES']['TITLE'] = 'Titlu';
-$modlang['MOD']['PAGES']['TEMPLATE'] = 'Template';
-$modlang['MOD']['PAGES']['MENU'] = 'Meniu';
-$modlang['MOD']['PAGES']['ACTIVE'] = 'Activ';
-$modlang['MOD']['PAGES']['AUTHOR'] = 'Autor';
-$modlang['MOD']['PAGES']['GROUP'] = 'Grup';
-$modlang['MOD']['PAGES']['ITEMS'] = 'Articole';
-$modlang['MOD']['PAGES']['ACTIONS'] = 'Ac&#355;iuni';
+$modlang['MOD']['PAGES']['ADD']              = 'Adaug&#259; Pagina';
+$modlang['MOD']['PAGES']['VIEW']             = 'Vizualizeaz&#259; Pagina';
+$modlang['MOD']['PAGES']['EDIT']             = 'Editeaz&#259; Pagina';
+$modlang['MOD']['PAGES']['DELETE']           = '&#350;terge Pagina';
+$modlang['MOD']['PAGES']['ORDER']            = 'Schimb&#259; Ordinea';
+$modlang['MOD']['PAGES']['TITLE']            = 'Titlu';
+$modlang['MOD']['PAGES']['TEMPLATE']         = 'Template';
+$modlang['MOD']['PAGES']['MENU']             = 'Meniu';
+$modlang['MOD']['PAGES']['ACTIVE']           = 'Activ';
+$modlang['MOD']['PAGES']['AUTHOR']           = 'Autor';
+$modlang['MOD']['PAGES']['GROUP']            = 'Grup';
+$modlang['MOD']['PAGES']['ITEMS']            = 'Articole';
+$modlang['MOD']['PAGES']['ACTIONS']          = 'Ac&#355;iuni';
+$modlang['MOD']['PAGES']['PAGE_TITLE']       = 'Titlu Pagin&#259;';
+$modlang['MOD']['PAGES']['PAGE_KEYWORDS']    = 'Cuvinte Cheie Pagin&#259;';
+$modlang['MOD']['PAGES']['PAGE_DESCRIPTION'] = 'Descriere Pagin&#259;';
+$modlang['MOD']['PAGES']['PAGE_TEMPLATE']    = 'Template Pagin&#259;';
 /**
  * Content administration
  */
-$modlang['MOD']['CNT']['ADD'] = 'Adaug&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['ADD']            = 'Adaug&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['ADD_TEXT']       = 'Adaug&#259; Con&#355;inut Text';
+$modlang['MOD']['CONTENT']['ADD_HTML']       = 'Adaug&#259; Con&#355;inut HTML';
+$modlang['MOD']['CONTENT']['EDIT']           = 'Editeaz&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['DELETE']         = '&#350;terge Con&#355;inut';
+$modlang['MOD']['CONTENT']['ORDER']          = 'Schimb&#259; Ordinea';
+$modlang['MOD']['CONTENT']['TYPE']           = 'Tip';
+$modlang['MOD']['CONTENT']['TEMPLATE']       = 'Template';
+$modlang['MOD']['CONTENT']['ACTIONS']        = 'Ac&#355;iuni';
 ?>
