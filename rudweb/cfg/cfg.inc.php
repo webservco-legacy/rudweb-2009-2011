@@ -51,19 +51,23 @@ define('_APP_CFG_SESSIONS',TRUE);
  * Use user authentication? (TRUE/FALSE)
  */
 define('_APP_CFG_USERS',TRUE);
+/**
+ * Use fake file extensions (TRUE/FALSE)
+ */
+define('_APP_CFG_FAKEXT', TRUE);
 /* ********** ********** ********** ********** ********** PATHS ********** ********** ********** ********** ********** */
 /**
  * Application path
  *
  * Must end with a slash (/)
  */
-define('_APP_DIR', 'e:/home/devel/workspace/RudWEb/rudweb/');
+define('_APP_DIR', 'd:/home/devel/workspace/RudWEb/rudweb/');
 /**
  * Engine path
  *
  * Must end with a slash (/)
  */
-define('_RW_DIR', 'e:/home/devel/workspace/RudWEb/rwlib/');
+define('_RW_DIR', 'd:/home/devel/workspace/RudWEb/rwlib/');
 /**
  * Application url
  *

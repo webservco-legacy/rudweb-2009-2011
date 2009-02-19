@@ -263,72 +263,6 @@ class rw_Core
 		}
 	}
 	/**
-	 * Filter user input
-	 */
-	public function rwFilterInput($input,$blockTags=TRUE)
-	{
-		if(get_magic_quotes_gpc()) {$input = stripslashes($input);}
-		/**
-		 * Unwanted chars
-		 */
-		$unwanted = array('\\', '');
-		$input = str_replace($unwanted, ' ', $input);
-		/**
-		 * Block tags
-		 */
-		if($blockTags === TRUE)
-		{
-			$input = str_replace('&lt;', '&#60;', $input);
-			$input = str_replace('&gt;', '&#62;', $input);
-			$input = str_replace('<', '&#60;', $input);
-			$input = str_replace('>', '&#62;', $input);
-		}
-		if($this->db)
-		{
-			$input = $this->db->dbEscapeString($input);
-		}
-		else
-		{
-			/**
-			 * The string will not be used in a query so we just strip any nasty characters
-			 */
-			$bad = array();
-			$bad[] = '`';
-			$bad[] = "'";
-			$bad[] = '"';
-			$bad[] = '\\\b';
-			$bad[] = '\\\n';
-			$bad[] = '\\\r';
-			$bad[] = '\\\t';
-			$bad[] = '\?';
-			$bad[] = '!';
-			$bad[] = '\~';
-			$bad[] = '\@';
-			$bad[] = '\#';
-			$bad[] = '\$';
-			$bad[] = '\%';
-			$bad[] = '\^';
-			$bad[] = '\&';
-			$bad[] = '\*';
-			$bad[] = '\(';
-			$bad[] = '\)';
-			$bad[] = '\-';
-			$bad[] = '\+';
-			$bad[] = '\=';
-			$bad[] = '\{';
-			$bad[] = '\[';
-			$bad[] = '\}';
-			$bad[] = '\]';
-			$bad[] = '\:';
-			$bad[] = '\;';
-			$bad[] = '\,';
-			$bad[] = '\.';
-			$bad[] = '\|';
-			$input = str_replace($bad, '', $input);
-		}
-		return trim($input);
-	}
-	/**
 	 * Check for a valid email address
 	 */
 	public function rwCheckEmail($email)
@@ -412,6 +346,103 @@ class rw_Core
 		{
 			trigger_error('Extension '.$extName.' is not loaded.', E_USER_ERROR);
 		}
+	}
+	/**
+	 * Filter user input
+	 *
+	 * @param string $input
+	 * @param boolean $blockTags
+	 * @return string filtered input
+	 */
+	public function rwFilterInput($input,$blockTags=TRUE)
+	{
+		if(get_magic_quotes_gpc()) {$input = stripslashes($input);}
+		/**
+		 * Unwanted chars
+		 */
+		$unwanted = array('\\', '');
+		$input = str_replace($unwanted, ' ', $input);
+		/**
+		 * Block tags
+		 */
+		if($blockTags === TRUE)
+		{
+			$input = str_replace('&lt;', '&#60;', $input);
+			$input = str_replace('&gt;', '&#62;', $input);
+			$input = str_replace('<', '&#60;', $input);
+			$input = str_replace('>', '&#62;', $input);
+		}
+		if($this->db)
+		{
+			$input = $this->db->dbEscapeString($input);
+		}
+		else
+		{
+			/**
+			 * The string will not be used in a query so we just strip any nasty characters
+			 */
+			$bad = array();
+			$bad[] = '`';
+			$bad[] = "'";
+			$bad[] = '"';
+			$bad[] = '\\\b';
+			$bad[] = '\\\n';
+			$bad[] = '\\\r';
+			$bad[] = '\\\t';
+			$bad[] = '\?';
+			$bad[] = '!';
+			$bad[] = '\~';
+			$bad[] = '\@';
+			$bad[] = '\#';
+			$bad[] = '\$';
+			$bad[] = '\%';
+			$bad[] = '\^';
+			$bad[] = '\&';
+			$bad[] = '\*';
+			$bad[] = '\(';
+			$bad[] = '\)';
+			$bad[] = '\-';
+			$bad[] = '\+';
+			$bad[] = '\=';
+			$bad[] = '\{';
+			$bad[] = '\[';
+			$bad[] = '\}';
+			$bad[] = '\]';
+			$bad[] = '\:';
+			$bad[] = '\;';
+			$bad[] = '\,';
+			$bad[] = '\.';
+			$bad[] = '\|';
+			$input = str_replace($bad, '', $input);
+		}
+		return trim($input);
+	}
+	/**
+	 * Remove fake file extension from requests
+	 *
+	 * @param string $request request
+	 * @return string $request processed request
+	 */
+	private function _removeFakeExt($request)
+	{
+		if(_APP_CFG_FAKEXT)
+		{
+			$request = substr($request, 0, strlen($request)-strlen(strstr($request,'.')));
+		}
+		return $request;
+	}
+	/**
+	 * Filter request
+	 *
+	 * @param string $request request
+	 * @param boolean $blockTags
+	 * @return string $request filtered request
+	 */
+	public function rwFilterRequest($request,$blockTags=TRUE)
+	{
+		$request = $this->rwFilterInput($request,$blockTags);
+		$request = $this->_removeFakeExt($request);
+		return $request;
 	}
 }
 ?>

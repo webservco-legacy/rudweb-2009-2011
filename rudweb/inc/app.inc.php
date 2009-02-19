@@ -69,22 +69,18 @@ class app_Core extends rw_Core
 			 */
 			$cnt = array();
 			/**
-			 * Request security check
+			 * Request security check and fake extension remover
 			 */
-			$page = $this->rwFilterInput($_GET['page']);
-			/**
-			 * Remove fake file extension
-			 */
-			$page = substr($page, 0, strlen($page)-strlen(strstr($page,'.')));
+			$page = $this->rwFilterRequest($_GET['page']);
 			/**
 			 * Check if requested page exists
 			 */
-			if($page != '' && is_file(_APP_DIR_CNT.$page.'.inc.php'))
+			if($page != '' && is_file(_APP_DIR_PAGE.$page.'.inc.php'))
 			{
 				/**
 				 * Load page.
 				 */
-				require_once(_APP_DIR_CNT.$page.'.inc.php');
+				require_once(_APP_DIR_PAGE.$page.'.inc.php');
 			}
 			else
 			{
@@ -111,13 +107,9 @@ class app_Core extends rw_Core
 			 */
 			$cnt = array();
 			/**
-			 * Request security check
+			 * Request security check and fake extension remover
 			 */
-			$module = $this->rwFilterInput($_GET['module']);
-			/**
-			 * Remove fake file extension
-			 */
-			$module = substr($module, 0, strlen($module)-strlen(strstr($module,'.')));
+			$module = $this->rwFilterRequest($_GET['module']);
 			/**
 			 * Check if requested module exists
 			 */
@@ -200,11 +192,10 @@ class app_Core extends rw_Core
 				 */
 				if(isset($_GET['action']))
 				{
-					$action = $this->rwFilterInput($_GET['action']);
 					/**
-					 * Remove fake file extension
+					 * Request security check and fake extension remover
 					 */
-					$action = substr($action, 0, strlen($action)-strlen(strstr($action,'.')));
+					$action = $this->rwFilterRequest($_GET['action']);
 					/**
 					 * Action must not be a special method
 					 */
@@ -259,7 +250,14 @@ class app_Core extends rw_Core
 			/**
 			 * No request, load default content
 			 */
-			require_once(_APP_DIR_CNT.'index.inc.php');
+			if(is_file(_APP_DIR_PAGE.'index.inc.php'))
+			{
+				require_once(_APP_DIR_PAGE.'index.inc.php');
+			}
+			else
+			{
+				require_once(_APP_DIR_CNT.'index.inc.php');
+			}
 			return $cnt;
 		}
 	}
