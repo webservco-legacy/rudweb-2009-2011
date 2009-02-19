@@ -444,5 +444,20 @@ class rw_Core
 		$request = $this->_removeFakeExt($request);
 		return $request;
 	}
+	public function rwFormatAlias($title)
+	{
+		/**
+		 * Basic filtering
+		 */
+		$title = $this->rwFilterInput($title);
+		/**
+		 * Converteste diacritice in litere simple
+		 */
+		/**
+		 * Convert spaces to _
+		 */
+		$title = eregi_replace(' ','_',$title);
+		//XXX
+	}
 }
 ?>

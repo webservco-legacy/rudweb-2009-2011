@@ -175,6 +175,67 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 		return $this->dbQuery($sql);
 	}
 	/**
+	 * Method for data update
+	 *
+	 * @param string $table
+	 * @param mixed $data
+	 * @param mixed $condition
+	 * @param mixed $order
+	 * @param mixed $limit
+	 * @return mixed result
+	 */
+	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL)
+	{
+		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
+		if($order)
+		{
+			$ord = ' ORDER BY ';
+			if(is_array($order))
+			{
+				$ord .= implode(', ', $order);
+			}
+			else
+			{
+				$ord .= $order;
+			}
+		}
+		else
+		{
+			$ord = '';
+		}
+		if($condition)
+		{
+			$cond = ' WHERE ';
+			if(is_array($condition))
+			{
+				$cond .= implode(' AND ', $condition);
+			}
+			else
+			{
+				$cond .= $condition;
+			}
+		}
+		else
+		{
+			$cond = '';
+		}
+		if(is_array($data))
+		{
+			$values = array();
+			foreach($data as $column=>$value)
+			{
+				$values[] = $column . " = '" . $value . "'";
+			}
+			$data = implode(', ', $values);
+		}
+		else
+		{
+			$data = NULL;
+		}
+		$sql = "UPDATE {$table} SET {$data}{$cond}{$ord}{$limit}";
+		return $this->dbQuery($sql);
+	}
+	/**
 	 * Escape a string for queries
 	 * @param string $string string to be escaped
 	 * @return string $string escaped string

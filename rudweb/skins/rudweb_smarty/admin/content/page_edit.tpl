@@ -52,11 +52,12 @@
   <td class="page_edit_form_b"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></td>
  </tr>
  <tr>
-  <td class="page_edit_form_a">{$cnt.page_msg}</td>
+  <td class="page_edit_form_a">&#160;</td>
   <td class="page_edit_form_b"><input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></td>
  </tr>
  </table>
   </form>
+  <div class="{$cnt.page_msg.tp}">{$cnt.page_msg.tt}</div>
 </div>
 <div id="page_edit_content">
 <table class="page_edit_content">

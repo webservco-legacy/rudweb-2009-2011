@@ -45,43 +45,23 @@ else
 {
 	$cnt = $appCore->appProcess();
 }
-
 /**
- * Thumbnails
- *
- * MEDIACONTENT ONLY.
- * Should be in each individual page
- * and returned by appProcess,
- * (used in conjunction with template override)
- * but placed here to use global
- */
-$thumbs = array();
-/*
- $thumb = $appCore->rwActivateExt($ext, 'Thumb');
- $thumb->set_cacheDir(_APP_DIR_TMP);
- $thumb->set_maxSize(120);
- $thumb->set_thumbFormat(1); //png = 0, jpeg = 1, gif = 2
- $thumbs['nota_de_plata'] = $thumb->thumb(_APP_DIR_VAR.'flash/nota_de_plata.jpg');
- $thumbs['iaht_club_1']   = $thumb->thumb(_APP_DIR_VAR.'flash/iaht_club_1.jpg');
- $thumbs['iaht_club_2']   = $thumb->thumb(_APP_DIR_VAR.'flash/iaht_club_2.jpg');
- $thumbs['iaht_club_3']   = $thumb->thumb(_APP_DIR_VAR.'flash/iaht_club_3.jpg');
- $thumbs['iaht_club_4']   = $thumb->thumb(_APP_DIR_VAR.'flash/iaht_club_4.jpg');
- $thumbs['iaht_club_5']   = $thumb->thumb(_APP_DIR_VAR.'flash/iaht_club_5.jpg');
- */
-
-/**
- * Aditional templates
+ * Additional templates
  */
 $atpl = array();
 
 if($cnt['type'] == 'text')
 {
-
+	/**
+	 * Menu
+	 */
 	$atpl['menu'] = array();
 	$atpl['menu']['dir'] = '';
 	$atpl['menu']['tpl'] = 'menu';
 	$atpl['menu']['vars'] = array();
-
+	/**
+	 * Actual content
+	 */
 	$atpl['content'] = array();
 	$atpl['content'][0] = array();
 	$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
@@ -89,13 +69,16 @@ if($cnt['type'] == 'text')
 	$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
 	$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
 	$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
-
+	/**
+	 * Footer
+	 */
 	$atpl['footer'] = array();
 	$atpl['footer']['dir'] = '';
 	$atpl['footer']['tpl'] = 'footer';
 	$atpl['footer']['vars'] = array();
-	$atpl['footer']['vars']['thumbs'] = $thumbs;
-
+	/**
+	 * Override additional templates
+	 */
 	if(array_key_exists('atpl', $cnt))
 	{
 		$a_tpl = array('menu', 'content', 'footer');

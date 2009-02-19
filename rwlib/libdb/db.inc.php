@@ -88,35 +88,46 @@ interface rw_iDB
 	 */
 	public function dbInsert($table, $columns=NULL, $values);
 	/**
+	 * Method for data update
+	 *
+	 * @param string $table
+	 * @param mixed $data
+	 * @param mixed $condition
+	 * @param mixed $order
+	 * @param mixed $limit
+	 * @return mixed result
+	 */
+	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL);
+	/**
 	 * Escape a string for queries
 	 * @param string $string string to be escaped
 	 * @return string $string escaped string
 	 */
-	function dbEscapeString($string);
+	public function dbEscapeString($string);
 	/**
 	 * Method for closing database connection
 	 *
 	 * @return mixed result of connection closing
 	 */
-	function dbClose();
+	public function dbClose();
 	/**
 	 * Returns an array corresponding to a fetched row.
 	 *
 	 * @param mixed $result The result of the query.
 	 * @return array
 	 */
-	function dbFetchArray($result);
+	public function dbFetchArray($result);
 	/**
 	 * Test
 	 */
-	function dbFetchResult($result, $row, $field);
+	public function dbFetchResult($result, $row, $field);
 	/**
 	 * Returns the number of rows returned by a query result
 	 *
 	 * @param mixed $result The result of the query.
 	 * @return integer Number of rows
 	 */
-	function dbNumRows($result);
+	public function dbNumRows($result);
 }
 /**
  * rw_DB_global

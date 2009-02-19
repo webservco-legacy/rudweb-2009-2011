@@ -221,13 +221,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			//XXX check for numeric value!
-			$msg_id = (isset($_GET['msg']) && is_numeric($_GET['msg'])) ? $this->modAppCore->rwFilterInput($_GET['msg']) : 0;
+			$msg_id = (isset($_GET['msg']) && (int)$this->modAppCore->rwFilterInput($_GET['msg']) != 0) ? $this->modAppCore->rwFilterInput($_GET['msg']) : 0;
 
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
 			$this->modCnt['cnt']['tpl'] = 'page_edit';
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
-				
 			/**
 			 * Page data
 			 */
@@ -246,7 +244,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			if(isset($_POST['pg_id']) && ($_POST['pg_id'] == $pg_id))
 			{
 				$err = 0;
-				//$pg_data = array('pg_title'=>'','pg_kw'=>'','pg_dsc'=>'','pg_template'=>'');
 				if(isset($_POST['pg_title']))    {$this->modCnt['cnt']['content']['page_title']    = $this->modAppCore->rwFilterInput($_POST['pg_title']);}
 				if(isset($_POST['pg_kw']))       {$this->modCnt['cnt']['content']['page_kw']       = $this->modAppCore->rwFilterInput($_POST['pg_kw']);}
 				if(isset($_POST['pg_dsc']))      {$this->modCnt['cnt']['content']['page_dsc']      = $this->modAppCore->rwFilterInput($_POST['pg_dsc']);}
@@ -255,18 +252,26 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				if($this->modCnt['cnt']['content']['page_title'] == '')
 				{
 					$err = 1;	$msg_id = 1;
-					//$this->_selfRedirect('msg/' . $msg, 'msg');
 				}
 				else if($this->modCnt['cnt']['content']['page_template'] == '') {
 					$err = 1;	$msg_id = 2;
-					//$this->_selfRedirect('msg/' . $msg, 'msg');
 				}
 				if($err == 0)
 				{
 					//XXX update table;
+					$data['pg_title']         = '';
+					$data['pg_alias']         = ''; // rwFormatAlias
+					$data['pg_kw']            = '';
+					$data['pg_dsc']           = '';
+					$data['pg_template']      = '';
+					$data['pg_modified_time'] = '';
+					$data['pg_modified_user'] = '';
+					$data['pg_modified_time'] = '';
+					$data['pg_version']       = '';
+					$this->modDb->dbUpdate(_APP_PRE.'_web_pages');
 					$msg_id = 3;
-					//XXX this doesn't work as expected (adds more and more $add) ???
-					$this->_selfRedirect('msg/' . $msg, 'msg');
+					//XXX perhaps find another way than to send message through get?
+					$this->_selfRedirect('msg/' . $msg_id, 'msg');
 				}
 			}
 			/**
