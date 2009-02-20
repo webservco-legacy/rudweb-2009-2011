@@ -30,16 +30,16 @@
 <a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
 <a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
 <a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
-<table class="pages" cellspacing="0">
+<table class="page_list" cellspacing="0">
 <tr>
-  <td class="pages_hr pages_lvl">&#160;</td>
-  <td class="pages_hr pages_tt">{$lang.MOD.PAGE.TITLE}</td>
-  <td class="pages_hr pages_auth">{$lang.MOD.PAGE.AUTHOR}</td>
-  <td class="pages_hr pages_grp">{$lang.MOD.PAGE.GROUP}</td>
-  <td class="pages_hr pages_itm">{$lang.MOD.PAGE.ITEMS}</td>
-  <td class="pages_hr pages_op">{$lang.MOD.PAGE.ACTIONS}</td>
+  <td class="page_list_hr pages_lvl">&#160;</td>
+  <td class="page_list_hr pages_tt">{$lang.MOD.PAGE.TITLE}</td>
+  <td class="page_list_hr pages_auth">{$lang.MOD.PAGE.AUTHOR}</td>
+  <td class="page_list_hr pages_grp">{$lang.MOD.PAGE.GROUP}</td>
+  <td class="page_list_hr pages_itm">{$lang.MOD.PAGE.ITEMS}</td>
+  <td class="page_list_hr pages_op">{$lang.MOD.PAGE.ACTIONS}</td>
 </tr>
-{$cnt.pages}
+{$cnt.page_list}
 </table>
 <script type="text/javascript" language="JavaScript">toggleTRows('title');</script>
 
