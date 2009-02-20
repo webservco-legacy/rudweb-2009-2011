@@ -263,13 +263,6 @@ class rw_Core
 		}
 	}
 	/**
-	 * Check for a valid email address
-	 */
-	public function rwCheckEmail($email)
-	{
-		return(preg_match("/^[-_.[:alnum:]]+@((([[:alnum:]]|[[:alnum:]][[:alnum:]-]*[[:alnum:]])\.)+(ad|ae|aero|af|ag|ai|al|am|an|ao|aq|ar|arpa|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|biz|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|coop|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|in|info|int|io|iq|ir|is|it|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|museum|mv|mw|mx|my|mz|na|name|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|pro|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)$|(([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\.){3}([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5]))$/i", $email));
-	}
-	/**
 	 * Load extensions.
 	 *
 	 * @return mixed loaded extensions
@@ -360,8 +353,8 @@ class rw_Core
 		/**
 		 * Unwanted chars
 		 */
-		$unwanted = array('\\', '');
-		$input = str_replace($unwanted, ' ', $input);
+		$unwanted = array('\\');
+		$input = str_replace($unwanted, '', $input);
 		/**
 		 * Block tags
 		 */
@@ -381,41 +374,50 @@ class rw_Core
 			/**
 			 * The string will not be used in a query so we just strip any nasty characters
 			 */
-			$bad = array();
-			$bad[] = '`';
-			$bad[] = "'";
-			$bad[] = '"';
-			$bad[] = '\\\b';
-			$bad[] = '\\\n';
-			$bad[] = '\\\r';
-			$bad[] = '\\\t';
-			$bad[] = '\?';
-			$bad[] = '!';
-			$bad[] = '\~';
-			$bad[] = '\@';
-			$bad[] = '\#';
-			$bad[] = '\$';
-			$bad[] = '\%';
-			$bad[] = '\^';
-			$bad[] = '\&';
-			$bad[] = '\*';
-			$bad[] = '\(';
-			$bad[] = '\)';
-			$bad[] = '\-';
-			$bad[] = '\+';
-			$bad[] = '\=';
-			$bad[] = '\{';
-			$bad[] = '\[';
-			$bad[] = '\}';
-			$bad[] = '\]';
-			$bad[] = '\:';
-			$bad[] = '\;';
-			$bad[] = '\,';
-			$bad[] = '\.';
-			$bad[] = '\|';
-			$input = str_replace($bad, '', $input);
+			$input = $this->rwRemoveBadChars($input);
+
 		}
 		return trim($input);
+	}
+	/**
+	 * Remove problem characters from a string
+	 *
+	 * @param string $string input string
+	 * @return string parsed string
+	 */
+	public function rwRemoveBadChars($string)
+	{
+		$bad = array(
+    '`', "'", '"',
+    '\\\b', '\\\n', '\\\r', '\\\t',
+    '\?', '!', '\~', '\@', '\#', '\$', '\%', '\^', '\&', '\*',
+    '\(', '\)', '\-', '\+', '\=', '\{', '\[', '\}', '\]',
+    '\:', '\;', '\,', '\.', '\|', '\\'
+    );
+    $string = str_replace($bad, '', $string);
+    return $string;
+	}
+	/**
+	 * Check for a valid email address
+	 *
+	 * @param string $string
+	 * @return boolean result
+	 */
+	public function rwCheckEmail($string)
+	{
+		return(preg_match("/^[-_.[:alnum:]]+@((([[:alnum:]]|[[:alnum:]][[:alnum:]-]*[[:alnum:]])\.)+(ad|ae|aero|af|ag|ai|al|am|an|ao|aq|ar|arpa|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|biz|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|coop|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|in|info|int|io|iq|ir|is|it|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|museum|mv|mw|mx|my|mz|na|name|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|pro|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)$|(([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\.){3}([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5]))$/i", $string));
+	}
+	/**
+	 * Check for a valid integer
+	 *
+	 * Zero-padding allowed
+	 *
+	 * @param string $string
+	 * @return boolean result
+	 */
+	public function rwCheckInt($string)
+	{
+		return(preg_match("/^[0-9]*$/", $string));
 	}
 	/**
 	 * Remove fake file extension from requests
@@ -423,7 +425,7 @@ class rw_Core
 	 * @param string $request request
 	 * @return string $request processed request
 	 */
-	private function _removeFakeExt($request)
+	private function _rwRemoveFakeExt($request)
 	{
 		if(_APP_CFG_FAKEXT)
 		{
@@ -441,9 +443,100 @@ class rw_Core
 	public function rwFilterRequest($request,$blockTags=TRUE)
 	{
 		$request = $this->rwFilterInput($request,$blockTags);
-		$request = $this->_removeFakeExt($request);
+		$request = $this->_rwRemoveFakeExt($request);
 		return $request;
 	}
+	/**
+	 * Convert UTF-8 characters to latin ones
+	 *
+	 * All credit for this function goes to
+	 * http://www.phpro.org/examples/Decode-Utf8.html
+	 *
+	 * @param string $string
+	 * @return string converted string
+	 */
+	public function rwUTF2Latin($string)
+	{
+		$utf = array(
+    'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ă', 'Ą',
+    'Ç', 'Ć', 'Č', 'Œ',
+    'Ď', 'Đ',
+    'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ă', 'ą',
+    'ç', 'ć', 'č', 'œ',
+    'ď', 'đ',
+    'È', 'É', 'Ê', 'Ë', 'Ę', 'Ě',
+    'Ğ',
+    'Ì', 'Í', 'Î', 'Ï', 'İ',
+    'Ĺ', 'Ľ', 'Ł',
+    'è', 'é', 'ê', 'ë', 'ę', 'ě',
+    'ğ',
+    'ì', 'í', 'î', 'ï', 'ı',
+    'ĺ', 'ľ', 'ł',
+    'Ñ', 'Ń', 'Ň',
+    'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ő',
+    'Ŕ', 'Ř',
+    'Ś', 'Ş', 'Š',
+    'ñ', 'ń', 'ň',
+    'ò', 'ó', 'ô', 'ö', 'ø', 'ő',
+    'ŕ', 'ř',
+    'ś', 'ş', 'š',
+    'Ţ', 'Ť',
+    'Ù', 'Ú', 'Û', 'Ų', 'Ü', 'Ů', 'Ű',
+    'Ý', 'ß',
+    'Ź', 'Ż', 'Ž',
+    'ţ', 'ť',
+    'ù', 'ú', 'û', 'ų', 'ü', 'ů', 'ű',
+    'ý', 'ÿ',
+    'ź', 'ż', 'ž',
+    'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
+    'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'р',
+    'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я',
+    'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'
+    );
+    $latin = array(
+    'A', 'A', 'A', 'A', 'A', 'A', 'AE', 'A', 'A',
+    'C', 'C', 'C', 'CE',
+    'D', 'D',
+    'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'a', 'a',
+    'c', 'c', 'c', 'ce',
+    'd', 'd',
+    'E', 'E', 'E', 'E', 'E', 'E',
+    'G',
+    'I', 'I', 'I', 'I', 'I',
+    'L', 'L', 'L',
+    'e', 'e', 'e', 'e', 'e', 'e',
+    'g',
+    'i', 'i', 'i', 'i', 'i',
+    'l', 'l', 'l',
+    'N', 'N', 'N',
+    'O', 'O', 'O', 'O', 'O', 'O', 'O',
+    'R', 'R',
+    'S', 'S', 'S',
+    'n', 'n', 'n',
+    'o', 'o', 'o', 'o', 'o', 'o',
+    'r', 'r',
+    's', 's', 's',
+    'T', 'T',
+    'U', 'U', 'U', 'U', 'U', 'U', 'U',
+    'Y', 'Y',
+    'Z', 'Z', 'Z',
+    't', 't',
+    'u', 'u', 'u', 'u', 'u', 'u', 'u',
+    'y', 'y',
+    'z', 'z', 'z',
+    'A', 'B', 'B', 'r', 'A', 'E', 'E', 'X', '3', 'N', 'N', 'K', 'N', 'M', 'H', 'O', 'N', 'P',
+    'a', 'b', 'b', 'r', 'a', 'e', 'e', 'x', '3', 'n', 'n', 'k', 'n', 'm', 'h', 'o', 'p',
+    'C', 'T', 'Y', 'O', 'X', 'U', 'u', 'W', 'W', 'b', 'b', 'b', 'E', 'O', 'R',
+    'c', 't', 'y', 'o', 'x', 'u', 'u', 'w', 'w', 'b', 'b', 'b', 'e', 'o', 'r'
+    );
+    return str_replace($utf, $latin, $string);
+	}
+	/**
+	 * Format title alias
+	 *
+	 * @param string $title
+	 * @return string formatted title
+	 */
 	public function rwFormatAlias($title)
 	{
 		/**
@@ -451,13 +544,45 @@ class rw_Core
 		 */
 		$title = $this->rwFilterInput($title);
 		/**
-		 * Converteste diacritice in litere simple
+		 * Remove nasy characters
 		 */
+		$title = $this->rwRemoveBadChars($title);
+		/**
+		 * Convert UTF characters to latin ones
+		 */
+		$title = $this->rwUTF2Latin($title);
+		/**
+		 * Make lowercase string and trim it.
+		 */
+		$title=trim(strtolower($title));
 		/**
 		 * Convert spaces to _
 		 */
 		$title = eregi_replace(' ','_',$title);
-		//XXX
+
+		return $title;
+	}
+	/**
+	 * Self redirect to avoid double submits
+	 * 
+	 * @return null
+	 */
+	public function rwSelfRedirect()
+	{
+		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		}
+		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
+		{
+			$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+		}
+		else
+		{
+			$redirect = _APP_URL;
+		}
+		header("Location: ".$redirect);
+		exit;
 	}
 }
 ?>

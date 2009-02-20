@@ -184,7 +184,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	 * @param mixed $limit
 	 * @return mixed result
 	 */
-	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL)
+	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL, $x=0)
 	{
 		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
 		if($order)
@@ -224,7 +224,16 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 			$values = array();
 			foreach($data as $column=>$value)
 			{
-				$values[] = $column . " = '" . $value . "'";
+				if(preg_match("/^{.*}$/", $value))
+				{
+					$value = str_replace(array('{', '}'), '', $value);
+					$values[] = $column . " = " . $value;
+				}
+				else
+				{
+					$values[] = $column . " = '" . $value . "'";
+				}
+				
 			}
 			$data = implode(', ', $values);
 		}
@@ -233,6 +242,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 			$data = NULL;
 		}
 		$sql = "UPDATE {$table} SET {$data}{$cond}{$ord}{$limit}";
+		if($x==1){trigger_error($sql, E_USER_ERROR);}
 		return $this->dbQuery($sql);
 	}
 	/**

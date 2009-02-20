@@ -102,7 +102,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed result
 	 */
-	public function pages()
+	public function page_list()
 	{
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
@@ -114,8 +114,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Authorization ok, proceed.
 			 */
-			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-			$this->modCnt['cnt']['tpl'] = 'pages';
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['ADMIN'];
+			$this->modCnt['cnt']['tpl'] = 'page_list';
 			/**
 			 * Prepare pages array
 			 */
@@ -153,6 +153,236 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 	}
 	/**
+	 * Edit page
+	 *
+	 * @return mixed content
+	 */
+	public function page_edit()
+	{
+		$pg_id = (isset($_GET['id']) && (int)$this->modAppCore->rwFilterInput($_GET['id']) !== 0) ? $this->modAppCore->rwFilterInput($_GET['id']) : NULL;
+		if(!$pg_id)
+		{
+			trigger_error('invalid page id', E_USER_ERROR);
+		}
+		$rs = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$pg_group = $rs->dbFetchResult();
+		$auth = $this->_authVerify(3, $pg_group);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Authorization passed, do the stuff
+			 */
+			/**
+			 * Default values, if no form is processed
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+			$this->modCnt['cnt']['tpl'] = 'page_edit';
+			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
+			/**
+			 * Page data
+			 */
+			$rs = $this->modDb->dbSelect('pg_title, pg_kw, pg_dsc, pg_template, pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+			$t = $rs->dbNumRows();
+			if($t != 1)
+			{
+				trigger_error("page doesn't exist", E_USER_ERROR);
+			}
+			$r = $rs->dbFetchArray();
+			$this->modCnt['cnt']['content']['page_title'] = $r['pg_title'];
+			$this->modCnt['cnt']['content']['page_kw'] = $r['pg_kw'];
+			$this->modCnt['cnt']['content']['page_dsc'] = $r['pg_dsc'];
+			$this->modCnt['cnt']['content']['page_template'] = $r['pg_template'];
+			$this->modCnt['cnt']['content']['page_err'] = array();
+			/**
+			 * Page content
+			 */
+			$rsc = $this->modDb->dbSelect('cnt_id, cnt_order, cnt_type, cnt_template', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_disabled = '0'", 'cnt_order', NULL);
+			$tc  = $rsc->dbNumRows();
+			$page_content = array();
+			if($tc>0)
+			{
+				while($rc = $rsc->dbFetchArray())
+				{
+					$page_content[] = $rc;
+				}
+			}
+			$this->modCnt['cnt']['content']['page_content'] = $page_content;
+			/**
+			 * If form is sent, process request
+			 */
+			if(isset($_POST['pg_id']) && ($_POST['pg_id'] == $pg_id))
+			{
+				/**
+				 * Form data that should be processed
+				 */
+				$form = array();
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TITLE'],'name'=>'pg_title','type'=>'text','req'=>TRUE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_KEYWORDS'],'name'=>'pg_kw','type'=>'text','req'=>FALSE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_DESCRIPTION'],'name'=>'pg_dsc','type'=>'text','req'=>FALSE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TEMPLATE'],'name'=>'pg_template','type'=>'text','req'=>TRUE);
+				/**
+				 * Process form
+				 */
+				list($err, $dataForm) = $this->_processForm($form);
+				/**
+				 * validateFormData
+				 */
+				$te = count($err);
+				if($te > 0)
+				{
+					/**
+					 * Errors occured
+					 */
+					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : $r['pg_title'];
+					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : $r['pg_kw'];
+					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : $r['pg_dsc'];
+					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : $r['pg_template'];
+					$this->modCnt['cnt']['content']['page_err'] = $err;
+					return $this->modCnt;
+				}
+				else
+				{
+					/**
+					 * Additional data for the db
+					 */
+					$data = array();
+					$data['pg_alias'] = $this->modAppCore->rwFormatAlias($dataForm['pg_title']);
+					$data['pg_modified_time'] = date('Y-m-d H:i:s');
+					$data['pg_modified_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+					$data['pg_version'] = '{pg_version+1}';
+					/**
+					 * Total data for the db
+					 */
+					$dataUpdate = array_merge($dataForm, $data);
+
+					if($this->modDb->dbUpdate(_APP_PRE.'_web_pages', $dataUpdate, 'pg_id = '.$pg_id, NULL, 1))
+					{
+						/**
+						 * Update successfull, redirect to mesage page
+						 *
+						 * get parameters: type of update, id of page
+						 */
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/page/id/'.$pg_id);
+						exit;
+					}
+					else
+					{
+						/**
+						 * Needs work...
+						 */
+						trigger_error('update error', E_USER_ERROR);
+					}
+				}
+			}
+			else
+			{
+				/**
+				 * No post, normal view
+				 */
+				return $this->modCnt;
+			}
+		}
+	}
+	/**
+	 * Successful action message page
+	 *
+	 * @return mixed result
+	 */
+	public function action_ok()
+	{
+		$res = array('page', 'content');
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else if(isset($_GET['type']) && (isset($_GET['resource']) && (in_array($_GET['resource'], $res) && (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])))))
+		{
+			/**
+			 * If post data exists, do a self redirect to avoid double submits
+			 */
+			$post = count($_POST);
+			if($post > 0)
+			{
+				$this->modAppCore->rwSelfRedirect();
+			}
+			/**
+			 * Format resource name for internationalization
+			 */
+			$res_intl = strtoupper($_GET['resource']);
+			switch($_GET['type'])
+			{
+				case 'add' :
+					{
+						/**
+						 * Data was added, go back to resource list
+						 */
+						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['ADD_OK'];
+						break;
+					}
+				case 'edit' :
+					{
+						/**
+						 * Data was edited, go back to edited resource
+						 */
+						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['EDIT_OK'];
+						break;
+					}
+				case 'remove' :
+					{
+						/**
+						 * Data was removed, go back to resource list
+						 */
+						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['REMOVE_OK'];
+						break;
+					}
+				default :
+					{
+						return $this->_authDenied();
+						break;
+					}
+			}
+			$this->modCnt['cnt']['tpl'] = 'action_ok';
+			return $this->modCnt;
+		}
+		else
+		{
+			return $this->_authDenied();
+		}
+	}
+	/**
+	 * Generate captcha for login
+	 *
+	 * @return mixed captcha image
+	 */
+	public function captcha()
+	{
+		if(isset($_SESSION[_APP_PRE.'_token']))
+		{
+			$captchaObj = $this->modAppCore->rwActivateExt('Captcha');
+			$this->modCnt = array();
+			$this->modCnt['type'] = 'image';
+			$this->modCnt['image'] = $captchaObj->display();
+
+			return $this->modCnt;
+		}
+	}
+	/**
 	 * Format pages list for viewer
 	 *
 	 * @param integer $parent parent id
@@ -184,14 +414,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_group_name'].'</td>';
 				$pages .= '<td class="pages_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$pages .= '<td class="pages_cr">';
-				$pages .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGES']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGES']['VIEW'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
 				$pages .= '&#160;';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGES']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGES']['ORDER'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGE']['ORDER'].'" />' . '</a>';
 				$pages .= '&#160;';
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGES']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGES']['EDIT'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
 				$pages .= '&#160;';
 
-				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_delete.png" title="'.$this->modLang['MOD']['PAGES']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGES']['DELETE'].'" />' . '</a>';
+				$pages .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_delete.png" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGE']['DELETE'].'" />' . '</a>';
 				$pages .= '</td>';
 				$pages .= '</tr>';
 				$pages .= $this->_formatPages($itemId, $data);
@@ -200,128 +430,73 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		return $pages;
 	}
-	public function page_edit()
+	/**
+	 * Process a form sent through post
+	 *
+	 * Please note that the parameter is
+	 * the form data that SHOULD PE PROCESSED,
+	 * not the form itself, which the method
+	 * gets form $_POST.
+	 *
+	 * @param array $form
+	 * @return array errors and processed form data
+	 */
+	private function _processForm($form)
 	{
-		$pg_id = (isset($_GET['id']) && (int)$this->modAppCore->rwFilterInput($_GET['id']) != 0) ? $this->modAppCore->rwFilterInput($_GET['id']) : NULL;
-		if(!$pg_id)
+		$err = array();
+		$data = array();
+		foreach($form as $id)
 		{
-			trigger_error('invalid page id', E_USER_ERROR);
-		}
-		$rs = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
-		$t = $rs->dbNumRows();
-		if($t != 1)
-		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
-		}
-		$pg_group = $rs->dbFetchResult();
-		$auth = $this->_authVerify(3, $pg_group);
-		if($auth !== 'ok')
-		{
-			return $auth;
-		}
-		else
-		{
-			$msg_id = (isset($_GET['msg']) && (int)$this->modAppCore->rwFilterInput($_GET['msg']) != 0) ? $this->modAppCore->rwFilterInput($_GET['msg']) : 0;
-
-			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
-			$this->modCnt['cnt']['tpl'] = 'page_edit';
-			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
-			/**
-			 * Page data
-			 */
-			$rs = $this->modDb->dbSelect('pg_title, pg_kw, pg_dsc, pg_template, pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
-			$t = $rs->dbNumRows();
-			if($t != 1)
+			if(isset($_POST[$id['name']]))
 			{
-				trigger_error("page doesn't exist", E_USER_ERROR);
-			}
-			$r = $rs->dbFetchArray();
-			$this->modCnt['cnt']['content']['page_title'] = $r['pg_title'];
-			$this->modCnt['cnt']['content']['page_kw'] = $r['pg_kw'];
-			$this->modCnt['cnt']['content']['page_dsc'] = $r['pg_dsc'];
-			$this->modCnt['cnt']['content']['page_template'] = $r['pg_template'];
-
-			if(isset($_POST['pg_id']) && ($_POST['pg_id'] == $pg_id))
-			{
-				$err = 0;
-				if(isset($_POST['pg_title']))    {$this->modCnt['cnt']['content']['page_title']    = $this->modAppCore->rwFilterInput($_POST['pg_title']);}
-				if(isset($_POST['pg_kw']))       {$this->modCnt['cnt']['content']['page_kw']       = $this->modAppCore->rwFilterInput($_POST['pg_kw']);}
-				if(isset($_POST['pg_dsc']))      {$this->modCnt['cnt']['content']['page_dsc']      = $this->modAppCore->rwFilterInput($_POST['pg_dsc']);}
-				if(isset($_POST['pg_template'])) {$this->modCnt['cnt']['content']['page_template'] = $this->modAppCore->rwFilterInput($_POST['pg_template']);}
-
-				if($this->modCnt['cnt']['content']['page_title'] == '')
+				$data[$id['name']] = $this->modAppCore->rwFilterInput($_POST[$id['name']]);
+				if($id['req'])
 				{
-					$err = 1;	$msg_id = 1;
+					if($data[$id['name']] == '')
+					{
+						$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_EMPTY'];
+					}
 				}
-				else if($this->modCnt['cnt']['content']['page_template'] == '') {
-					$err = 1;	$msg_id = 2;
-				}
-				if($err == 0)
+				switch($id['type'])
 				{
-					//XXX update table;
-					$data['pg_title']         = '';
-					$data['pg_alias']         = ''; // rwFormatAlias
-					$data['pg_kw']            = '';
-					$data['pg_dsc']           = '';
-					$data['pg_template']      = '';
-					$data['pg_modified_time'] = '';
-					$data['pg_modified_user'] = '';
-					$data['pg_modified_time'] = '';
-					$data['pg_version']       = '';
-					$this->modDb->dbUpdate(_APP_PRE.'_web_pages');
-					$msg_id = 3;
-					//XXX perhaps find another way than to send message through get?
-					$this->_selfRedirect('msg/' . $msg_id, 'msg');
+					case 'text' :
+						{
+							break;
+						}
+					case 'email' :
+						{
+							if($data[$id['name']] != '' && !$this->modAppCore->rwCheckEmail($data[$id['name']]))
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							break;
+						}
+					case 'int' :
+						{
+							if($data[$id['name']] != '' && !$this->modAppCore->rwCheckInt($data[$id['name']]))
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							break;
+						}
 				}
 			}
-			/**
-			 * Page content
-			 */
-			$rsc = $this->modDb->dbSelect('cnt_id, cnt_order, cnt_type, cnt_template', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_disabled = '0'", 'cnt_order', NULL);
-			$tc  = $rsc->dbNumRows();
-			$page_content = array();
-			if($tc>0)
+			else
 			{
-				while($rc = $rsc->dbFetchArray())
+				if($id['req'])
 				{
-					$page_content[] = $rc;
+					$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_EMPTY'];
 				}
 			}
-
-			$this->modCnt['cnt']['content']['page_content'] = $page_content;
-
-			$this->modCnt['cnt']['content']['page_msg'] = $this->modLang['MOD']['PAGES']['MSG'][$msg_id];
-
-			return $this->modCnt;
-			//XXX
 		}
-	}
-	private function _selfRedirect($add=NULL, $remove=NULL)
-	{
-		$add = ($add != NULL) ? '/'.$add : '';
-		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
-		{
-			$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].$add;
-		}
-		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
-		{
-			$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'].$add;
-		}
-		else
-		{
-			$redirect = _APP_URL;
-		}
-		$redirect = ($remove != NULL) ? substr($redirect, 0, strlen($redirect)-(strlen(strstr($redirect,$remove))+1)) : $redirect;
-		$redirect .= $add;
-		header("Location: ".$redirect);
-		exit;
+		return array($err, $data);
 	}
 	/**
 	 * Authorization verification
 	 *
 	 * @return mixed
 	 */
-	public function _authVerify($requiredLevel=0, $requiredGroup=NULL)
+	private function _authVerify($requiredLevel=0, $requiredGroup=NULL)
 	{
 		if(!$_SESSION[_APP_PRE.'_auth'])
 		{
@@ -370,9 +545,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed modCnt content
 	 */
-	public function _authLogin()
+	private function _authLogin()
 	{
-		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['AUTH']['LOGIN_TT'];
 		$this->modCnt['cnt']['tpl'] = 'login';
 		$this->modCnt['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
 		return $this->modCnt;
@@ -382,28 +557,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed modCnt content
 	 */
-	public function _authDenied()
+	private function _authDenied()
 	{
-		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['AUTH']['DENIED_TT'];
 		$this->modCnt['cnt']['tpl'] = 'denied';
 		return $this->modCnt;
 	}
-	/**
-	 * Generate captcha for login
-	 *
-	 * @return mixed captcha image
-	 */
-	public function captcha()
-	{
-		if(isset($_SESSION[_APP_PRE.'_token']))
-		{
-			$captchaObj = $this->modAppCore->rwActivateExt('Captcha');
-			$this->modCnt = array();
-			$this->modCnt['type'] = 'image';
-			$this->modCnt['image'] = $captchaObj->display();
 
-			return $this->modCnt;
-		}
-	}
 }
 ?>

@@ -75,12 +75,12 @@ class app_Core extends rw_Core
 			/**
 			 * Check if requested page exists
 			 */
-			if($page != '' && is_file(_APP_DIR_PAGE.$page.'.inc.php'))
+			if($page != '' && is_file(_APP_DIR_PG.$page.'.inc.php'))
 			{
 				/**
 				 * Load page.
 				 */
-				require_once(_APP_DIR_PAGE.$page.'.inc.php');
+				require_once(_APP_DIR_PG.$page.'.inc.php');
 			}
 			else
 			{
@@ -250,9 +250,9 @@ class app_Core extends rw_Core
 			/**
 			 * No request, load default content
 			 */
-			if(is_file(_APP_DIR_PAGE.'index.inc.php'))
+			if(is_file(_APP_DIR_PG.'index.inc.php'))
 			{
-				require_once(_APP_DIR_PAGE.'index.inc.php');
+				require_once(_APP_DIR_PG.'index.inc.php');
 			}
 			else
 			{

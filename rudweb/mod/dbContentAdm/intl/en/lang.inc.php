@@ -47,37 +47,28 @@ $modlang['MOD']['ADMIN']['SAVE']   = 'Save';
 /**
  * Pages administration
  */
-$modlang['MOD']['PAGES']['ADD']              = 'Add Page';
-$modlang['MOD']['PAGES']['VIEW']             = 'View Page';
-$modlang['MOD']['PAGES']['EDIT']             = 'Edit Page';
-$modlang['MOD']['PAGES']['DELETE']           = 'Delete Page';
-$modlang['MOD']['PAGES']['ORDER']            = 'Change Order';
-$modlang['MOD']['PAGES']['TITLE']            = 'Title';
-$modlang['MOD']['PAGES']['TEMPLATE']         = 'Template';
-$modlang['MOD']['PAGES']['MENU']             = 'Menu';
-$modlang['MOD']['PAGES']['ACTIVE']           = 'Active';
-$modlang['MOD']['PAGES']['AUTHOR']           = 'Author';
-$modlang['MOD']['PAGES']['GROUP']            = 'Group';
-$modlang['MOD']['PAGES']['ITEMS']            = 'Items';
-$modlang['MOD']['PAGES']['ACTIONS']          = 'Actions';
-$modlang['MOD']['PAGES']['PAGE_TITLE']       = 'Page Title';
-$modlang['MOD']['PAGES']['PAGE_KEYWORDS']    = 'Page Keywords';
-$modlang['MOD']['PAGES']['PAGE_DESCRIPTION'] = 'Page Description';
-$modlang['MOD']['PAGES']['PAGE_TEMPLATE']    = 'Page Template';
-/**
- * Pages administration messages
- */
-$modlang['MOD']['PAGES']['MSG'][0]['tt'] = '';
-$modlang['MOD']['PAGES']['MSG'][0]['tp'] = 'msg';
-$modlang['MOD']['PAGES']['MSG'][1]['tt'] = 'Title field is empty.';
-$modlang['MOD']['PAGES']['MSG'][1]['tp'] = 'err';
-$modlang['MOD']['PAGES']['MSG'][2]['tt'] = 'Template field is empty.';
-$modlang['MOD']['PAGES']['MSG'][2]['tp'] = 'err';
-$modlang['MOD']['PAGES']['MSG'][3]['tt'] = 'Update was successful.';
-$modlang['MOD']['PAGES']['MSG'][3]['tp'] = 'ok';
+$modlang['MOD']['PAGE']['ADMIN']            = 'Pages Administration';
+$modlang['MOD']['PAGE']['ADD']              = 'Add Page';
+$modlang['MOD']['PAGE']['VIEW']             = 'View Page';
+$modlang['MOD']['PAGE']['EDIT']             = 'Edit Page';
+$modlang['MOD']['PAGE']['DELETE']           = 'Delete Page';
+$modlang['MOD']['PAGE']['ORDER']            = 'Change Order';
+$modlang['MOD']['PAGE']['TITLE']            = 'Title';
+$modlang['MOD']['PAGE']['TEMPLATE']         = 'Template';
+$modlang['MOD']['PAGE']['MENU']             = 'Menu';
+$modlang['MOD']['PAGE']['ACTIVE']           = 'Active';
+$modlang['MOD']['PAGE']['AUTHOR']           = 'Author';
+$modlang['MOD']['PAGE']['GROUP']            = 'Group';
+$modlang['MOD']['PAGE']['ITEMS']            = 'Items';
+$modlang['MOD']['PAGE']['ACTIONS']          = 'Actions';
+$modlang['MOD']['PAGE']['PAGE_TITLE']       = 'Page Title';
+$modlang['MOD']['PAGE']['PAGE_KEYWORDS']    = 'Page Keywords';
+$modlang['MOD']['PAGE']['PAGE_DESCRIPTION'] = 'Page Description';
+$modlang['MOD']['PAGE']['PAGE_TEMPLATE']    = 'Page Template';
 /**
  * Content administration
  */
+$modlang['MOD']['CONTENT']['ADMIN']          = 'Content Administration';
 $modlang['MOD']['CONTENT']['ADD']            = 'Add Content';
 $modlang['MOD']['CONTENT']['ADD_TEXT']       = 'Add Text Content';
 $modlang['MOD']['CONTENT']['ADD_HTML']       = 'Add HTML Content';

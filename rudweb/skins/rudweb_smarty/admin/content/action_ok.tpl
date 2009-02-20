@@ -8,7 +8,7 @@
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-02-16 16:45:00
+ * @since      2009-02-20 15:28:00
  * @access     public
  * @package    RudWEb
  * @subpackage Skins
@@ -27,22 +27,4 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
-<table class="pages" cellspacing="0">
-<tr>
-  <td class="pages_hr pages_lvl">&#160;</td>
-  <td class="pages_hr pages_tt">{$lang.MOD.PAGES.TITLE}</td>
-  <td class="pages_hr pages_auth">{$lang.MOD.PAGES.AUTHOR}</td>
-  <td class="pages_hr pages_grp">{$lang.MOD.PAGES.GROUP}</td>
-  <td class="pages_hr pages_itm">{$lang.MOD.PAGES.ITEMS}</td>
-  <td class="pages_hr pages_op">{$lang.MOD.PAGES.ACTIONS}</td>
-</tr>
-{$cnt.pages}
-</table>
-<script type="text/javascript" language="JavaScript">toggleTRows('title');</script>
-
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
+<a href="{$cnt.return_link}" title="{$cnt.return_title}" alt="{$cnt.return_title}">{$cnt.return_title}</a>

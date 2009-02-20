@@ -59,5 +59,17 @@ $lang['e404']['MESSAGE'] = 'Sorry, the resource you requested was not found on t
 /**
  * Authorization
  */
-$lang['AUTH']['DENIED'] = 'Sorry, you do not have permission to access this resource.';
+$lang['AUTH']['LOGIN_TT']   = 'Login.';
+$lang['AUTH']['LOGIN_MSG']  = 'Please login to access this resource.';
+$lang['AUTH']['DENIED_TT']  = 'Access denied..';
+$lang['AUTH']['DENIED_MSG'] = 'Sorry, you do not have permission to access this resource.';
+/**
+ * Form validation
+ */
+$lang['FORM']['FIELD']     = 'Field "';
+$lang['FORM']['IS_EMPTY']  = '" is empty.';
+$lang['FORM']['IS_IVALID'] = '" is invalid.';
+$lang['FORM']['ADD_OK']    = 'Add action was successfull!';
+$lang['FORM']['EDIT_OK']   = 'Edit action was successfull!';
+$lang['FORM']['REMOVE_OK'] = 'Remove action was successfull!';
 ?>

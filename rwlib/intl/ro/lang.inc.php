@@ -59,5 +59,17 @@ $lang['e404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost 
 /**
  * Authorization
  */
-$lang['AUTH']['DENIED'] = 'Ne pare r&#259;u, nu ave&#355;i permisiunea de a accesa aceast&#259; resurs&#259;.';
+$lang['AUTH']['LOGIN_TT']   = 'Autentificare.';
+$lang['AUTH']['LOGIN_MSG']  = 'Pentru a putea accesa aceast&#259; resurs&#259;, v&#259; rug&#259;m s&#259; v&#259; autentifica&#355;i.';
+$lang['AUTH']['DENIED_TT']  = 'Accesul interzis.';
+$lang['AUTH']['DENIED_MSG'] = 'Ne pare r&#259;u, nu ave&#355;i permisiunea de a accesa aceast&#259; resurs&#259;.';
+/**
+ * Form validation
+ */
+$lang['FORM']['FIELD']     = 'C&#226;mpul "';
+$lang['FORM']['IS_EMPTY']  = '" este gol.';
+$lang['FORM']['IS_IVALID'] = '" este invalid.';
+$lang['FORM']['ADD_OK']    = 'Ac&#355;iunea de ad&#259;ugare a fost realizat&#259; cu succes!';
+$lang['FORM']['EDIT_OK']   = 'Ac&#355;iunea de editare a fost realizat&#259; cu succes!';
+$lang['FORM']['REMOVE_OK'] = 'Ac&#355;iunea de &#351;tergere a fost realizat&#259; cu succes!';
 ?>

@@ -33,22 +33,22 @@
  <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_edit_form" id="{$smarty.const._APP_PRE}_page_edit_form" action="" method="post">
  <table class="page_edit_page">
  <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGES.PAGE_TITLE}</td>
+  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_TITLE}</td>
   <td class="page_edit_form_b">
   <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.page_id}" />
   <input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
   </td>
  </tr>
  <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGES.PAGE_KEYWORDS}</td>
+  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_KEYWORDS}</td>
   <td class="page_edit_form_b"><input class="page_kw" type="text" name="pg_kw" id="pg_kw" maxlength="255" value="{$cnt.page_kw}" /></td>
  </tr>
  <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGES.PAGE_DESCRIPTION}</td>
+  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_DESCRIPTION}</td>
   <td class="page_edit_form_b"><input class="page_dsc" type="text" name="pg_dsc" id="pg_dsc" maxlength="255" value="{$cnt.page_dsc}" /></td>
  </tr>
  <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGES.PAGE_TEMPLATE}</td>
+  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_TEMPLATE}</td>
   <td class="page_edit_form_b"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></td>
  </tr>
  <tr>
@@ -57,7 +57,11 @@
  </tr>
  </table>
   </form>
-  <div class="{$cnt.page_msg.tp}">{$cnt.page_msg.tt}</div>
+  <div class="page_edit_errors">
+  {foreach from=$cnt.page_err item=err}
+  {$err}<br />
+  {/foreach}
+  </div>
 </div>
 <div id="page_edit_content">
 <table class="page_edit_content">
