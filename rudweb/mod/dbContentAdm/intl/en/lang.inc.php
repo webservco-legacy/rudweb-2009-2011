@@ -40,10 +40,12 @@ $modlang['MOD']['TITLE'] = 'Content Administration';
 /**
  * Administration stuff
  */
-$modlang['MOD']['ADMIN']['ADD']    = 'Add';
-$modlang['MOD']['ADMIN']['EDIT']   = 'Edit';
-$modlang['MOD']['ADMIN']['DELETE'] = 'Delete';
-$modlang['MOD']['ADMIN']['SAVE']   = 'Save';
+$modlang['MOD']['ADMIN']['ADD']      = 'Add';
+$modlang['MOD']['ADMIN']['EDIT']     = 'Edit';
+$modlang['MOD']['ADMIN']['DELETE']   = 'Delete';
+$modlang['MOD']['ADMIN']['SAVE']     = 'Save';
+$modlang['MOD']['ADMIN']['CANCEL']   = 'Cancel';
+$modlang['MOD']['ADMIN']['CONTINUE'] = 'Continue';
 /**
  * Pages administration
  */
@@ -55,6 +57,10 @@ $modlang['MOD']['PAGE']['ADD_INSIDE']       = 'Add Page Inside';
 $modlang['MOD']['PAGE']['VIEW']             = 'View Page';
 $modlang['MOD']['PAGE']['EDIT']             = 'Edit Page';
 $modlang['MOD']['PAGE']['DELETE']           = 'Delete Page';
+$modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Are you sure you want to delete this page?';
+$modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Page content will also be deleted.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Page contains other pages.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Can not delete page.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Change Order';
 $modlang['MOD']['PAGE']['TITLE']            = 'Title';
 $modlang['MOD']['PAGE']['TEMPLATE']         = 'Template';

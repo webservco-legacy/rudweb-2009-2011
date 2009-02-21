@@ -468,6 +468,84 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 	}
 	/**
+	 * Delete page
+	 *
+	 */
+	public function page_delete()
+	{
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Check if page exists and get page title.
+			 */
+			$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+			if(!$pg_id)
+			{
+				return $this->_authDenied();
+			}
+			$rs = $this->modDb->dbSelect('pg_title', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+			$t = $rs->dbNumRows();
+			if($t != 1)
+			{
+				trigger_error("page doesn't exist", E_USER_ERROR);
+			}
+			$pg_title = $rs->dbFetchResult();
+			
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['DELETE'];
+			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
+      $this->modCnt['cnt']['content']['page_title'] = $pg_title;
+      
+			$rc = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_pages', "pg_parent = '{$pg_id}'", NULL, NULL);
+			$tc = $rc->dbNumRows();
+			if($tc > 0)
+			{
+				$this->modCnt['cnt']['tpl'] = 'page_delete_denied';
+				return $this->modCnt;
+			}
+			
+			$this->modCnt['cnt']['tpl'] = 'page_delete';
+
+			$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
+			if($delete)
+			{
+				/**
+				 * Delete the page and redirect
+				 */
+				$dataUpdate['page_deleted'] = 1;
+				$dataUpdate['page_deleted_time'] = date('Y-m-d H:i:s');
+				$dataUpdate['page_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+				/**
+				 * //XXX also delete content
+				 */
+				trigger_error('still working on it...', E_USER_ERROR);
+				if($this->modDb->dbUpdate(_APP_PRE.'_web_pages', $dataUpdate, 'pg_id = '.$pg_id, NULL, 1))
+				{
+					/**
+					 * Select all content belonging to this page and delete it.
+					 */
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/page/id/'.$pg_id);
+					exit;
+				}
+				else
+				{
+					trigger_error('delete error', E_USER_ERROR);
+				}
+			}
+			else
+			{
+				/**
+				 * Display message
+				 */
+				return $this->modCnt;
+			}
+		}
+	}
+	/**
 	 * Successful action message page
 	 *
 	 * @return mixed result
@@ -601,8 +679,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_add/parent/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_inside.png" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" />' . '</a>';
 				$page_list .= '&#160;';
 				$page_list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_view.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
-				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_change_order.png" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGE']['ORDER'].'" />' . '</a>';
 				$page_list .= '&#160;';
 				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
 				$page_list .= '&#160;';

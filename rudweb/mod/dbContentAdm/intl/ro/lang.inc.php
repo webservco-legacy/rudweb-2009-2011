@@ -40,10 +40,12 @@ $modlang['MOD']['TITLE'] = 'Administrare Con&#355;inut';
 /**
  * Administration stuff
  */
-$modlang['MOD']['ADMIN']['ADD']    = 'Adaug&#259;';
-$modlang['MOD']['ADMIN']['EDIT']   = 'Editeaz&#259;';
-$modlang['MOD']['ADMIN']['DELETE'] = '&#350;terge';
-$modlang['MOD']['ADMIN']['SAVE']   = 'Salveaz&#259;';
+$modlang['MOD']['ADMIN']['ADD']      = 'Adaug&#259;';
+$modlang['MOD']['ADMIN']['EDIT']     = 'Editeaz&#259;';
+$modlang['MOD']['ADMIN']['DELETE']   = '&#350;terge';
+$modlang['MOD']['ADMIN']['SAVE']     = 'Salveaz&#259;';
+$modlang['MOD']['ADMIN']['CANCEL']   = 'Renun&#355;&#259;';
+$modlang['MOD']['ADMIN']['CONTINUE'] = 'Continuare';
 /**
  * Pages administration
  */
@@ -54,7 +56,11 @@ $modlang['MOD']['PAGE']['ADD_AFTER']        = 'Adaug&#259; Pagin&#259; Dup&#259;
 $modlang['MOD']['PAGE']['ADD_INSIDE']       = 'Adaug&#259; Pagin&#259; &#206;n&#259;untru';
 $modlang['MOD']['PAGE']['VIEW']             = 'Vizualizare Pagin&#259;';
 $modlang['MOD']['PAGE']['EDIT']             = 'Editare Pagin&#259;';
-$modlang['MOD']['PAGE']['DELETE']           = '&#350;terge Pagina';
+$modlang['MOD']['PAGE']['DELETE']           = '&#350;tergere Pagin&#259;';
+$modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Sigur &#351;terge&#355;i aceast&#259; pagin&#259;?';
+$modlang['MOD']['PAGE']['DELETE_CONFIRM_2'] = 'Con&#355;inutul paginii va fi de asemenea &#351;ters.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Pagina con&#355;ine alte pagini.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = '&#350;tergerea nu poate fi realizat&#259;.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Schimb&#259; Ordinea';
 $modlang['MOD']['PAGE']['TITLE']            = 'Titlu';
 $modlang['MOD']['PAGE']['TEMPLATE']         = 'Template';

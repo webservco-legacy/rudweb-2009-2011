@@ -27,8 +27,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{debug}
- <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_new_form" id="{$smarty.const._APP_PRE}_page_new_form" action="" method="post">
+{*debug*}
+<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_new_form" id="{$smarty.const._APP_PRE}_page_new_form" action="" method="post">
  <table class="page_new">
  <tr>
   <td class="page_new_form_a">{$lang.MOD.PAGE.PAGE_TITLE}</td>
@@ -55,3 +55,8 @@
  </tr>
  </table>
 </form>
+  <div class="page_edit_errors">
+  {foreach from=$cnt.page_err item=err}
+  {$err}<br />
+  {/foreach}
+  </div>
