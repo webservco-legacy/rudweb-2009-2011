@@ -495,11 +495,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				trigger_error("page doesn't exist", E_USER_ERROR);
 			}
 			$pg_title = $rs->dbFetchResult();
-			
+
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['DELETE'];
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
-      $this->modCnt['cnt']['content']['page_title'] = $pg_title;
-      
+			$this->modCnt['cnt']['content']['page_title'] = $pg_title;
+
 			$rc = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_pages', "pg_parent = '{$pg_id}'", NULL, NULL);
 			$tc = $rc->dbNumRows();
 			if($tc > 0)
@@ -507,7 +507,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$this->modCnt['cnt']['tpl'] = 'page_delete_denied';
 				return $this->modCnt;
 			}
-			
+
 			$this->modCnt['cnt']['tpl'] = 'page_delete';
 
 			$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
@@ -516,18 +516,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Delete the page and redirect
 				 */
-				$dataUpdate['page_deleted'] = 1;
-				$dataUpdate['page_deleted_time'] = date('Y-m-d H:i:s');
-				$dataUpdate['page_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
-				/**
-				 * //XXX also delete content
-				 */
-				trigger_error('still working on it...', E_USER_ERROR);
+				$dataUpdate['pg_deleted'] = 1;
+				$dataUpdate['pg_deleted_time'] = date('Y-m-d H:i:s');
+				$dataUpdate['pg_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
 				if($this->modDb->dbUpdate(_APP_PRE.'_web_pages', $dataUpdate, 'pg_id = '.$pg_id, NULL, 1))
 				{
 					/**
-					 * Select all content belonging to this page and delete it.
+					 * Also delete content
 					 */
+					$cntUpdate['cnt_deleted'] = 1;
+					$cntUpdate['cnt_deleted_time'] = date('Y-m-d H:i:s');
+					$cntUpdate['cnt_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+					$this->modDb->dbUpdate(_APP_PRE.'_web_content', $cntUpdate, 'pg_id = '.$pg_id, NULL, 1);
 					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/page/id/'.$pg_id);
 					exit;
 				}
