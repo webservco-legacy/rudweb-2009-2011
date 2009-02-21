@@ -88,6 +88,12 @@ interface rw_iDB
 	 */
 	public function dbInsert($table, $columns=NULL, $values);
 	/**
+	 * Method for getting the last inserted id
+	 *
+	 * @return mixed result
+	 */
+	public function dbLastInsertId();
+	/**
 	 * Method for data update
 	 *
 	 * @param string $table
@@ -97,6 +103,7 @@ interface rw_iDB
 	 * @param mixed $limit
 	 * @return mixed result
 	 */
+
 	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL);
 	/**
 	 * Escape a string for queries

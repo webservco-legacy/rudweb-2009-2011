@@ -164,14 +164,32 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 		}
 		if(is_array($data))
 		{
-			$values = array();
-			foreach($values as $value)
+			/*
+			 $values = array();
+			 foreach($values as $value)
+			 {
+				$val[] = "'".$value."'";
+				}
+				$data = implode(', ', $val);
+				*/
+			$col = array();
+			$val = array();
+			foreach($data as $column => $value)
 			{
+				$col[] = $column;
 				$val[] = "'".$value."'";
 			}
-			$data = implode(', ', $val);
+			$cols = '(';
+			$cols .= implode(', ', $col);
+			$cols .= ')';
+			$data  = implode(', ', $val);
 		}
 		$sql = "INSERT INTO {$table}{$cols} VALUES($data)";
+		return $this->dbQuery($sql);
+	}
+	public function dbLastInsertId()
+	{
+		$sql = "SELECT LAST_INSERT_ID()";
 		return $this->dbQuery($sql);
 	}
 	/**
@@ -233,7 +251,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 				{
 					$values[] = $column . " = '" . $value . "'";
 				}
-				
+
 			}
 			$data = implode(', ', $values);
 		}

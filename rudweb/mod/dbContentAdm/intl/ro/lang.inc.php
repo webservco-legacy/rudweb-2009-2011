@@ -47,10 +47,13 @@ $modlang['MOD']['ADMIN']['SAVE']   = 'Salveaz&#259;';
 /**
  * Pages administration
  */
-$modlang['MOD']['PAGE']['ADMIN']             = 'Administrare Pagini';
-$modlang['MOD']['PAGE']['ADD']              = 'Adaug&#259; Pagina';
-$modlang['MOD']['PAGE']['VIEW']             = 'Vizualizeaz&#259; Pagina';
-$modlang['MOD']['PAGE']['EDIT']             = 'Editeaz&#259; Pagina';
+$modlang['MOD']['PAGE']['ADMIN']            = 'Administrare Pagini';
+$modlang['MOD']['PAGE']['ADD']              = 'Adaug&#259; Pagin&#259;';
+$modlang['MOD']['PAGE']['ADD_BEFORE']       = 'Adaug&#259; Pagin&#259; &#206;nainte';
+$modlang['MOD']['PAGE']['ADD_AFTER']        = 'Adaug&#259; Pagin&#259; Dup&#259;';
+$modlang['MOD']['PAGE']['ADD_INSIDE']       = 'Adaug&#259; Pagin&#259; &#206;n&#259;untru';
+$modlang['MOD']['PAGE']['VIEW']             = 'Vizualizare Pagin&#259;';
+$modlang['MOD']['PAGE']['EDIT']             = 'Editare Pagin&#259;';
 $modlang['MOD']['PAGE']['DELETE']           = '&#350;terge Pagina';
 $modlang['MOD']['PAGE']['ORDER']            = 'Schimb&#259; Ordinea';
 $modlang['MOD']['PAGE']['TITLE']            = 'Titlu';

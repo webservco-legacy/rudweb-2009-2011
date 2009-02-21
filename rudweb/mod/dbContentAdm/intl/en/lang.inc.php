@@ -49,6 +49,9 @@ $modlang['MOD']['ADMIN']['SAVE']   = 'Save';
  */
 $modlang['MOD']['PAGE']['ADMIN']            = 'Pages Administration';
 $modlang['MOD']['PAGE']['ADD']              = 'Add Page';
+$modlang['MOD']['PAGE']['ADD_BEFORE']       = 'Add Page Before';
+$modlang['MOD']['PAGE']['ADD_AFTER']        = 'Add Page After';
+$modlang['MOD']['PAGE']['ADD_INSIDE']       = 'Add Page Inside';
 $modlang['MOD']['PAGE']['VIEW']             = 'View Page';
 $modlang['MOD']['PAGE']['EDIT']             = 'Edit Page';
 $modlang['MOD']['PAGE']['DELETE']           = 'Delete Page';

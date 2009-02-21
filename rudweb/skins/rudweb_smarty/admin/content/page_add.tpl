@@ -27,18 +27,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
-<table class="page_list" cellspacing="0">
+<table class="page_list_add" cellspacing="0">
+{foreach from=$cnt.page_list_add item=item}
 <tr>
-  <td class="page_list_hr pages_lvl">&#160;</td>
-  <td class="page_list_hr pages_tt">{$lang.MOD.PAGE.TITLE}</td>
+  <td>
+  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/page_new/parent/{$cnt.page_parent}/order/{$item.pg_order}" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
+  </td>
 </tr>
-{$cnt.page_list_add}
+<tr>
+<td>{$item.pg_title}</td>
+</tr>
+{/foreach}
+<tr>
+  <td>
+  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/page_new/parent/{$cnt.page_parent}/order/0" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
+  </td>
+</tr>
 </table>
-<script type="text/javascript" language="JavaScript">toggleTRows('title');</script>
-
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;

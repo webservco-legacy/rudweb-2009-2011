@@ -152,54 +152,182 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
- /**
-  * Page add (list)
-  *
-  * Displays a list of all the pages
-  * with placeholders to add new pages
-  * 
-  * @return mixed result
-  */
-	public function page_list_add()
-  {
-    $auth = $this->_authVerify(3);
-    if($auth !== 'ok')
-    {
-      return $auth;
-    }
-    else
-    {
-      /**
-       * Authorization ok, proceed.
-       */
-      $this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['ADD'];
-      $this->modCnt['cnt']['tpl'] = 'page_list_add';
-      /**
-       * Prepare pages array
-       */
-      $pageData = array();
-      $pageData['items'] = array();
-      $pageData['parents'] = array();
-      /**
-       * Get data
-       */
-      $rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_usr_lang']}' AND pg_deleted = '0'", 'pg_parent, pg_order, pg_title', NULL);
-      $t = $rs->dbNumRows();
-      if($t>0)
-      {
-        while($pageItem = $rs->dbFetchArray())
-        {
-          /**
-           * Content items
-           */
-          $pageData['items'][$pageItem['pg_id']] = $pageItem;
-          $pageData['parents'][$pageItem['pg_parent']][] = $pageItem['pg_id'];
-        }
-      }
-      $this->modCnt['cnt']['content']['page_list_add'] = $this->_formatPagesAdd(0, $pageData);
-      return $this->modCnt;
-    }
-  }
+	/**
+	 * Page add (list)
+	 *
+	 * Displays a list of all the pages
+	 * with placeholders to add new pages
+	 *
+	 * @return mixed result
+	 */
+	public function page_add()
+	{
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Get page level
+			 */
+			$pg_parent = (isset($_GET['parent']) && $this->modAppCore->rwCheckInt($_GET['parent'])) ? $_GET['parent'] : NULL;
+			$pg_level = NULL;
+			if($pg_parent == 0)
+			{
+				$pg_level = 1;
+			}
+			else{
+				$rp = $this->modDb->dbSelect('pg_level', _APP_PRE.'_web_pages', "pg_id = '{$pg_parent}'", NULL, 1);
+				$tp = $rp->dbNumRows();
+				$pg_level = ($tp > 0) ? ($rp->dbFetchResult())+1 : NULL;
+			}
+			if($pg_parent == NULL || $pg_level == NULL)
+			{
+				return $this->_authDenied();
+			}
+			/**
+			 * Authorization ok, proceed.
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['ADD'];
+			$this->modCnt['cnt']['tpl'] = 'page_add';
+			/**
+			 * Get data
+			 */
+			$rs = $this->modDb->dbSelect('pg_order, pg_title', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_usr_lang']}' AND pg_deleted = '0' AND pg_parent = '{$pg_parent}'", 'pg_parent, pg_order, pg_title', NULL);
+			$t = $rs->dbNumRows();
+			$this->modCnt['cnt']['content']['page_list_add'] = array();
+			if($t>0)
+			{
+				while($pageItem = $rs->dbFetchArray())
+				{
+					/**
+					 * Content items
+					 */
+					$this->modCnt['cnt']['content']['page_list_add'][] = $pageItem;
+				}
+			}
+			$this->modCnt['cnt']['content']['page_parent'] = $pg_parent;
+			return $this->modCnt;
+		}
+	}
+	/**
+	 * Page new
+	 *
+	 * @return mixed result
+	 */
+	public function page_new()
+	{
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			$pg_parent = (isset($_GET['parent']) && $this->modAppCore->rwCheckInt($_GET['parent'])) ? $_GET['parent'] : NULL;
+			$pg_order = (isset($_GET['order']) && $this->modAppCore->rwCheckInt($_GET['order'])) ? $_GET['order'] : NULL;
+			if($pg_parent == NULL || $pg_order == NULL)
+			{
+				return $this->_authDenied();
+			}
+			/**
+			 * Default values, when form is not submitted
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['ADD'];
+			$this->modCnt['cnt']['tpl'] = 'page_new';
+
+			$this->modCnt['cnt']['content']['page_title'] = '';
+			$this->modCnt['cnt']['content']['page_kw'] = '';
+			$this->modCnt['cnt']['content']['page_dsc'] = '';
+			$this->modCnt['cnt']['content']['page_template'] = '';
+			$this->modCnt['cnt']['content']['page_err'] = array();
+			/**
+			 * If form is sent, process request
+			 */
+			if(isset($_POST['pg_title']))
+			{
+				/**
+				 * Form data that should be processed
+				 */
+				$form = array();
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TITLE'],'name'=>'pg_title','type'=>'text','req'=>TRUE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_KEYWORDS'],'name'=>'pg_kw','type'=>'text','req'=>FALSE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_DESCRIPTION'],'name'=>'pg_dsc','type'=>'text','req'=>FALSE);
+				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TEMPLATE'],'name'=>'pg_template','type'=>'text','req'=>TRUE);
+				/**
+				 * Process form
+				 */
+				list($err, $dataForm) = $this->_processForm($form);
+				/**
+				 * validateFormData
+				 */
+				$te = count($err);
+				if($te > 0)
+				{
+					/**
+					 * Errors occured
+					 */
+					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : $r['pg_title'];
+					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : $r['pg_kw'];
+					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : $r['pg_dsc'];
+					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : $r['pg_template'];
+					$this->modCnt['cnt']['content']['page_err'] = $err;
+					return $this->modCnt;
+				}
+				else
+				{
+					/**
+					 * Additional data for the db
+					 */
+					$data = array();
+					$data['pg_ln'] = $_SESSION[_APP_PRE.'_usr_lang'];
+					$data['pg_parent'] = $pg_parent;
+					$rl = $this->modDb->dbSelect('pg_level', _APP_PRE.'_web_pages', "pg_id = '{$pg_parent}'", NULL, 1);
+					$tl = $rl->dbNumRows();
+					$data['pg_level'] = ($tl>0) ? ($rl->dbFetchResult()+1) : 0;
+					$ro = $this->modDb->dbSelect('MAX(pg_order)', _APP_PRE.'_web_pages', "pg_parent = '{$pg_parent}'", NULL, 1);
+					$to = $ro->dbNumRows();
+					$data['pg_order'] = ($pg_order == 0) ? ($ro->dbFetchResult()+1) : $pg_order;
+					$data['pg_alias'] = $this->modAppCore->rwFormatAlias($dataForm['pg_title']);
+					$data['pg_menu'] = 1;
+					$data['pg_created_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+					$data['pg_version'] = 1;
+					/**
+					 * Total data for the db
+					 */
+					$dataInsert = array_merge($dataForm, $data);
+					if($this->modDb->dbInsert(_APP_PRE.'_web_pages', NULL, $dataInsert))
+					{
+						/**
+						 * Insert successfull, redirect to mesage page
+						 *
+						 * get parameters: type of action, id of page
+						 */
+						$ri = $this->modDb->dbLastInsertId();
+						$pg_id = $ri->dbFetchResult();
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/page/id/'.$pg_id);
+						exit;
+					}
+					else
+					{
+						/**
+						 * Needs work...
+						 */
+						trigger_error('insert error', E_USER_ERROR);
+					}
+				}
+			}
+			else
+			{
+				/**
+				 * No post, initial view
+				 */
+				return $this->modCnt;
+			}
+		}
+	}
 	/**
 	 * Edit page
 	 *
@@ -207,10 +335,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function page_edit()
 	{
-		$pg_id = (isset($_GET['id']) && (int)$this->modAppCore->rwFilterInput($_GET['id']) !== 0) ? $this->modAppCore->rwFilterInput($_GET['id']) : NULL;
+		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
 		if(!$pg_id)
 		{
-			trigger_error('invalid page id', E_USER_ERROR);
+			return $this->_authDenied();
 		}
 		$rs = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
 		$t = $rs->dbNumRows();
@@ -232,7 +360,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
-			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . __FUNCTION__;
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['EDIT'];
 			$this->modCnt['cnt']['tpl'] = 'page_edit';
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
 			/**
@@ -262,8 +390,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				{
 					$page_content[] = $rc;
 				}
+				$this->modCnt['cnt']['content']['page_content'] = $page_content;
 			}
-			$this->modCnt['cnt']['content']['page_content'] = $page_content;
 			/**
 			 * If form is sent, process request
 			 */
@@ -311,13 +439,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					 * Total data for the db
 					 */
 					$dataUpdate = array_merge($dataForm, $data);
-
 					if($this->modDb->dbUpdate(_APP_PRE.'_web_pages', $dataUpdate, 'pg_id = '.$pg_id, NULL, 1))
 					{
 						/**
 						 * Update successfull, redirect to mesage page
 						 *
-						 * get parameters: type of update, id of page
+						 * get parameters: type of action, id of page
 						 */
 						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/page/id/'.$pg_id);
 						exit;
@@ -374,9 +501,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was added, go back to resource list
 						 */
+						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['ADD_OK'];
+
 						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
-						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['ADD_OK'];
+
+						//$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						//$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+
 						break;
 					}
 				case 'edit' :
@@ -462,13 +594,19 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_group_name'].'</td>';
 				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$page_list .= '<td class="page_list_cr">';
-				$page_list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_go.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_new/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.$data['items'][$itemId]['pg_order'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_before.png" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_cascade.png" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGE']['ORDER'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_new/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.(($data['items'][$itemId]['pg_order'])+1).'" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_after.png" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_add/parent/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_inside.png" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/application_delete.png" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGE']['DELETE'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_view.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
+				$page_list .= '&#160;';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_order/group/'.$data['items'][$itemId]['pg_parent'].'" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_change_order.png" title="'.$this->modLang['MOD']['PAGE']['ORDER'].'" alt="'.$this->modLang['MOD']['PAGE']['ORDER'].'" />' . '</a>';
+				$page_list .= '&#160;';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
+				$page_list .= '&#160;';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/page_delete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_delete.png" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGE']['DELETE'].'" />' . '</a>';
 				$page_list .= '</td>';
 				$page_list .= '</tr>';
 				$page_list .= $this->_formatPages($itemId, $data);
@@ -477,42 +615,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		return $page_list;
 	}
- /**
-   * Format pages list for viewer (add page section)
-   *
-   * @param integer $parent parent id
-   * @param array $data page information
-   * @return mixed html data for viewer
-   */
-  private function _formatPagesAdd($parent, $data)
-  {
-    //XXX
-  	$page_list = '';
-    if(isset($data['parents'][$parent]))
-    {
-      $i = 1;
-      foreach($data['parents'][$parent] as $itemId)
-      {
-        $page_list .= "\n".'<tr';
-        if($data['items'][$itemId]['pg_level'] > 0)
-        {
-          $page_list .= ' title="'.$data['items'][$itemId]['pg_level'].'"';
-        }
-        $page_list .= '>';
-        $page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_level'].'.'.$i.'</td>';
-        $page_list .= '<td class="page_list_cr_tt">';
-        for($i=0;$i<$data['items'][$itemId]['pg_level'];$i++)
-        {
-          $page_list .= '&#160;&#160;&#160;';
-        }
-        $page_list .= $data['items'][$itemId]['pg_title'].'</td>';
-        $page_list .= '</tr>';
-        $page_list .= $this->_formatPagesAdd($itemId, $data);
-        $i++;
-      }
-    }
-    return $page_list;
-  }
 	/**
 	 * Process a form sent through post
 	 *
@@ -646,6 +748,5 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['cnt']['tpl'] = 'denied';
 		return $this->modCnt;
 	}
-
 }
 ?>
