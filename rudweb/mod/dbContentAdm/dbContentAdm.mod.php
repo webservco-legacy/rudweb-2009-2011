@@ -335,6 +335,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function page_edit()
 	{
+		//XXX
 		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
 		if(!$pg_id)
 		{
@@ -550,6 +551,70 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed result
 	 */
+	public function content_edit()
+	{
+		/**
+		 * Get content id
+		 */
+		$cnt_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		if(!$cnt_id)
+		{
+			return $this->_authDenied();
+		}
+		/**
+		 * Select basic information about content
+		 */
+		$rs = $this->modDb->dbSelect('pg_id, cnt_type', _APP_PRE.'_web_content', "cnt_id = '{$cnt_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("content doesn't exist", E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$pg_id = $r['pg_id'];
+		$cnt_type = $r['cnt_type'];
+		/*
+		 * Check group rights
+		 */
+		$rp = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$tp = $rp->dbNumRows();
+		if($tp != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$pg_group = $rp->dbFetchResult();
+		$auth = $this->_authVerify(3, $pg_group);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Everything is in place, proceed
+			 */
+			switch($cnt_type)
+			{
+				case 'text' :
+					{
+						break;
+					}
+				case 'html' :
+					{
+						break;
+					}
+				default :
+					{
+						break;
+					}
+			}
+			//XXX
+		}
+	}
+	private function _textEdit()
+	{
+		//XXX
+	}
 	public function action_ok()
 	{
 		$res = array('page', 'content');
