@@ -50,7 +50,7 @@ if(is_readable('./cfg/cfg.ini'))
 	define('_RW_DIR',$cfg['Paths']['Engine']);
 	define('_APP_DIR',$cfg['Paths']['App']);
 	define('_APP_WWW',$cfg['Paths']['AppURL']);
-	define('_APP_INDEX',$cfg['Defaults']['FullSEO'] ? TRUE : FALSE);
+	define('_APP_INDEX',$cfg['Defaults']['FullSEO'] ? '' : 'index.php/');
 
 	define('_APP_DB_TYPE',$cfg['Database']['Type']);
 	define('_APP_DB_HOST',$cfg['Database']['Host']);
