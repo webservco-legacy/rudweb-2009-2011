@@ -76,9 +76,9 @@
   <td class="page_edit_content_1">&#160;</td>
   <td class="page_edit_content_1">&#160;</td>
   <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_add/id/{$cnt.page_id}/type/text/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_add/id/{$cnt.page_id}/type/text/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_add/id/{$cnt.page_id}/type/html/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_add/id/{$cnt.page_id}/type/html/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
   </td>
 </tr>
 <tr>
@@ -89,9 +89,9 @@
   {$item.cnt_template}
   </td>
   <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_edit/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.EDIT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_edit.png" title="{$lang.MOD.CONTENT.EDIT}" alt="{$lang.MOD.CONTENT.EDIT}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_edit/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.EDIT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_edit.png" title="{$lang.MOD.CONTENT.EDIT}" alt="{$lang.MOD.CONTENT.EDIT}"></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_delete/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.DELETE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_delete.png" title="{$lang.MOD.CONTENT.DELETE}" alt="{$lang.MOD.CONTENT.DELETE}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_delete/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.DELETE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_delete.png" title="{$lang.MOD.CONTENT.DELETE}" alt="{$lang.MOD.CONTENT.DELETE}"></a>
   </td>
 </tr>
 {/foreach}
@@ -100,9 +100,9 @@
   <td class="page_edit_content_1">&#160;</td>
   <td class="page_edit_content_2">&#160;</td>
   <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_add/id/{$cnt.page_id}/type/text/order/0" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_add/id/{$cnt.page_id}/type/text/order/0" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbConentAdm/action/content_add/id/{$cnt.page_id}/type/html/order/0" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_add/id/{$cnt.page_id}/type/html/order/0" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
   </td>
 </tr>
 </table>

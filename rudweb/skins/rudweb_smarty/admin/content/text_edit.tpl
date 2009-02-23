@@ -27,4 +27,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{debug}
+<div id="page_edit">
+<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_edit_form" id="{$smarty.const._APP_PRE}_content_edit_form" action="" method="post">
+<table class="content_edit_page">
+ <tr>
+  <td class="content_edit_form_a">{$lang.MOD.CONTENT.CONTENT_BODY}</td>
+  <td class="content_edit_form_b">
+  <input type="hidden" name="cnt_id" id="cnt_id" value="{$cnt.cnt_id}" />
+  <textarea class="content_body" name="cnt_body" id="cnt_body">{$cnt.cnt_body}</textarea>
+  </td>
+ </tr>
+ <tr>
+  <td class="content_edit_form_a">{$lang.MOD.CONTENT.CONTENT_TEMPLATE}</td>
+  <td class="content_edit_form_b"><input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></td>
+ </tr>
+ <tr>
+  <td class="content_edit_form_a">&#160;</td>
+  <td class="content_edit_form_b"><input class="content_save" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></td>
+ </tr>
+ </table>
+</form>
+
+ <div class="content_edit_errors">
+  {foreach from=$cnt.cnt_err item=err}
+  {$err}<br />
+  {/foreach}
+  </div>
+</div>

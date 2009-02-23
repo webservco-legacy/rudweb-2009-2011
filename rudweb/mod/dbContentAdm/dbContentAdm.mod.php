@@ -248,9 +248,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			if(isset($_POST['pg_title']))
 			{
+				//XXX
 				/**
-				 * Form data that should be processed
-				 */
+				* Form data that should be processed
+				*/
 				$form = array();
 				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TITLE'],'name'=>'pg_title','type'=>'text','req'=>TRUE);
 				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_KEYWORDS'],'name'=>'pg_kw','type'=>'text','req'=>FALSE);
@@ -261,7 +262,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				list($err, $dataForm) = $this->_processForm($form);
 				/**
-				 * validateFormData
+				 * Validate Form Data
 				 */
 				$te = count($err);
 				if($te > 0)
@@ -269,10 +270,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Errors occured
 					 */
-					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : $r['pg_title'];
-					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : $r['pg_kw'];
-					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : $r['pg_dsc'];
-					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : $r['pg_template'];
+					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : '';
+					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : '';
+					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : '';
+					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : '';
 					$this->modCnt['cnt']['content']['page_err'] = $err;
 					return $this->modCnt;
 				}
@@ -335,7 +336,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function page_edit()
 	{
-		//XXX
 		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
 		if(!$pg_id)
 		{
@@ -411,7 +411,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				list($err, $dataForm) = $this->_processForm($form);
 				/**
-				 * validateFormData
+				 * Validate Form Data
 				 */
 				$te = count($err);
 				if($te > 0)
@@ -597,23 +597,242 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			{
 				case 'text' :
 					{
+						return $this->_textEdit($cnt_id);
 						break;
 					}
 				case 'html' :
 					{
+						return $this->_authDenied();
 						break;
 					}
 				default :
 					{
+						return $this->_authDenied();
 						break;
 					}
 			}
-			//XXX
 		}
 	}
-	private function _textEdit()
+	public function content_add()
+	{
+		/**
+		 * Check that parent page exists
+		 * and user has the right to add content
+		 */
+		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		$cnt_type = (isset($_GET['type'])) ? $_GET['type'] : NULL;
+		$cnt_order = (isset($_GET['order']) && $this->modAppCore->rwCheckInt($_GET['order'])) ? $_GET['order'] : NULL;
+		if(!$pg_id || !$cnt_type)
+		{
+			return $this->_authDenied();
+		}
+		$rp = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$tp = $rp->dbNumRows();
+		if($tp != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$pg_group = $rp->dbFetchResult();
+		$auth = $this->_authVerify(3, $pg_group);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			if(!$cnt_order)
+			{
+				return $this->_authDenied();
+			}
+			/**
+			 * Everything is ok, proceed
+			 */
+			switch($cnt_type)
+			{
+				case 'text' :
+					{
+						return $this->_textAdd($pg_id, $cnt_order);
+						break;
+					}
+				case 'html' :
+					{
+						return $this->_authDenied();
+						break;
+					}
+				default :
+					{
+						return $this->_authDenied();
+						break;
+					}
+			}
+		}
+	}
+	private function _textAdd($pg_id, $cnt_order)
 	{
 		//XXX
+		/**
+		* Default values, when form is not submitted
+		*/
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['ADD'];
+		$this->modCnt['cnt']['tpl'] = 'text_new';
+
+		$this->modCnt['cnt']['content']['cnt_body'] = '';
+		$this->modCnt['cnt']['content']['cnt_template'] = '';
+		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		/**
+		 * If form is sent, process request
+		 */
+		if(isset($_POST['cnt_body']))
+		{
+			/**
+			 * Form data that should be processed
+			 */
+			$form = array();
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_BODY'],'name'=>'cnt_body','type'=>'text','req'=>TRUE);
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_TEMPLATE'],'name'=>'cnt_template','type'=>'text','req'=>TRUE);
+			/**
+			 * Process form
+			 */
+			list($err, $dataForm) = $this->_processForm($form);
+			/**
+			 * Validate Form Data
+			 */
+			$te = count($err);
+			if($te > 0)
+			{
+				/**
+				 * Errors occured
+				 */
+				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
+				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
+				$this->modCnt['cnt']['content']['cnt_err'] = $err;
+				return $this->modCnt;
+			}
+			else
+			{
+				/**
+				 * Additional data for the db
+				 */
+				$data = array();
+				$data['pg_id'] = $pg_id;
+
+
+				$ro = $this->modDb->dbSelect('MAX(cnt_order)', _APP_PRE.'_web_content', "pg_id = '{$pg_id}'", NULL, 1);
+				$to = $ro->dbNumRows();
+				$data['cnt_order'] = ($cnt_order == 0) ? ($ro->dbFetchResult()+1) : $cnt_order;
+				$data['cnt_type'] = 'text';
+				$data['cnt_created_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+				$data['cnt_version'] = 1;
+				/**
+				 * Total data for the db
+				 */
+				$dataInsert = array_merge($dataForm, $data);
+				if($this->modDb->dbInsert(_APP_PRE.'_web_content', NULL, $dataInsert))
+				{
+					/**
+					 * Insert successfull, redirect to mesage page
+					 *
+					 * get parameters: type of action, id of page
+					 */
+					$ri = $this->modDb->dbLastInsertId();
+					$cnt_id = $ri->dbFetchResult();
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/content/id/'.$cnt_id);
+					exit;
+				}
+				else
+				{
+					/**
+					 * Needs work...
+					 */
+					trigger_error('insert error', E_USER_ERROR);
+				}
+			}
+		}
+		else
+		{
+			/**
+			 * No post, initial view
+			 */
+			return $this->modCnt;
+		}
+	}
+	private function _textEdit($cnt_id)
+	{
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['EDIT'];
+		$this->modCnt['cnt']['tpl'] = 'text_edit';
+		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
+		/**
+		 * Content data
+		 */
+		$rs = $this->modDb->dbSelect('cnt_body, cnt_template', _APP_PRE.'_web_content', "cnt_id = '{$cnt_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("content doesn't exist", E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$this->modCnt['cnt']['content']['cnt_body'] = $r['cnt_body'];
+		$this->modCnt['cnt']['content']['cnt_template'] = $r['cnt_template'];
+		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		if(isset($_POST['cnt_id']) && ($_POST['cnt_id'] == $cnt_id))
+		{
+			/**
+			 * Form data that should be processed
+			 */
+			$form = array();
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_BODY'],'name'=>'cnt_body','type'=>'text','req'=>TRUE);
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_TEMPLATE'],'name'=>'cnt_template','type'=>'text','req'=>TRUE);
+			/**
+			 * Process form
+			 */
+			list($err, $dataForm) = $this->_processForm($form);
+			/**
+			 * Validate Form Data
+			 */
+			$te = count($err);
+			if($te > 0)
+			{
+				/**
+				 * Errors occured
+				 */
+				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : $r['cnt_body'];
+				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : $r['cnt_template'];
+				$this->modCnt['cnt']['content']['cnt_err'] = $err;
+				return $this->modCnt;
+			}
+			/**
+			 * Additional data for the db
+			 */
+			$data = array();
+			$data['cnt_modified_time'] = date('Y-m-d H:i:s');
+			$data['cnt_modified_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+			$data['cnt_version'] = '{cnt_version+1}';
+			/**
+			 * Total data for the db
+			 */
+			$dataUpdate = array_merge($dataForm, $data);
+			if($this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, 'cnt_id = '.$cnt_id, NULL, 1))
+			{
+				/**
+				 * Update successfull, redirect to mesage page
+				 *
+				 * get parameters: type of action, id of page
+				 */
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/content/id/'.$cnt_id);
+				exit;
+			}
+			else
+			{
+				/**
+				 * Needs work...
+				 */
+				trigger_error('update error', E_USER_ERROR);
+			}
+		}
+		else
+		{
+			return $this->modCnt;
+		}
 	}
 	public function action_ok()
 	{

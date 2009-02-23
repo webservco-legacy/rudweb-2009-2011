@@ -77,14 +77,16 @@ $modlang['MOD']['PAGE']['PAGE_TEMPLATE']    = 'Page Template';
 /**
  * Content administration
  */
-$modlang['MOD']['CONTENT']['ADMIN']          = 'Content Administration';
-$modlang['MOD']['CONTENT']['ADD']            = 'Add Content';
-$modlang['MOD']['CONTENT']['ADD_TEXT']       = 'Add Text Content';
-$modlang['MOD']['CONTENT']['ADD_HTML']       = 'Add HTML Content';
-$modlang['MOD']['CONTENT']['EDIT']           = 'Edit Content';
-$modlang['MOD']['CONTENT']['DELETE']         = 'Delete Content';
-$modlang['MOD']['CONTENT']['ORDER']          = 'Change Order';
-$modlang['MOD']['CONTENT']['TYPE']           = 'Type';
-$modlang['MOD']['CONTENT']['TEMPLATE']       = 'Template';
-$modlang['MOD']['CONTENT']['ACTIONS']        = 'Actions';
+$modlang['MOD']['CONTENT']['ADMIN']            = 'Content Administration';
+$modlang['MOD']['CONTENT']['ADD']              = 'Add Content';
+$modlang['MOD']['CONTENT']['ADD_TEXT']         = 'Add Text Content';
+$modlang['MOD']['CONTENT']['ADD_HTML']         = 'Add HTML Content';
+$modlang['MOD']['CONTENT']['EDIT']             = 'Edit Content';
+$modlang['MOD']['CONTENT']['DELETE']           = 'Delete Content';
+$modlang['MOD']['CONTENT']['ORDER']            = 'Change Order';
+$modlang['MOD']['CONTENT']['TYPE']             = 'Type';
+$modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';
+$modlang['MOD']['CONTENT']['ACTIONS']          = 'Actions';
+$modlang['MOD']['CONTENT']['CONTENT_BODY']     = 'Content';
+$modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Content Template';
 ?>

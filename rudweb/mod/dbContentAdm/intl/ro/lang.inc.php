@@ -77,14 +77,16 @@ $modlang['MOD']['PAGE']['PAGE_TEMPLATE']    = 'Template Pagin&#259;';
 /**
  * Content administration
  */
-$modlang['MOD']['CONTENT']['ADMIN']          = 'Administrare Con&#355;inut';
-$modlang['MOD']['CONTENT']['ADD']            = 'Adaug&#259; Con&#355;inut';
-$modlang['MOD']['CONTENT']['ADD_TEXT']       = 'Adaug&#259; Con&#355;inut Text';
-$modlang['MOD']['CONTENT']['ADD_HTML']       = 'Adaug&#259; Con&#355;inut HTML';
-$modlang['MOD']['CONTENT']['EDIT']           = 'Editeaz&#259; Con&#355;inut';
-$modlang['MOD']['CONTENT']['DELETE']         = '&#350;terge Con&#355;inut';
-$modlang['MOD']['CONTENT']['ORDER']          = 'Schimb&#259; Ordinea';
-$modlang['MOD']['CONTENT']['TYPE']           = 'Tip';
-$modlang['MOD']['CONTENT']['TEMPLATE']       = 'Template';
-$modlang['MOD']['CONTENT']['ACTIONS']        = 'Ac&#355;iuni';
+$modlang['MOD']['CONTENT']['ADMIN']            = 'Administrare Con&#355;inut';
+$modlang['MOD']['CONTENT']['ADD']              = 'Adaug&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['ADD_TEXT']         = 'Adaug&#259; Con&#355;inut Text';
+$modlang['MOD']['CONTENT']['ADD_HTML']         = 'Adaug&#259; Con&#355;inut HTML';
+$modlang['MOD']['CONTENT']['EDIT']             = 'Editeaz&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['DELETE']           = '&#350;terge Con&#355;inut';
+$modlang['MOD']['CONTENT']['ORDER']            = 'Schimb&#259; Ordinea';
+$modlang['MOD']['CONTENT']['TYPE']             = 'Tip';
+$modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';
+$modlang['MOD']['CONTENT']['ACTIONS']          = 'Ac&#355;iuni';
+$modlang['MOD']['CONTENT']['CONTENT_BODY']     = 'Con&#355;inut';
+$modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Template Con&#355;inut';
 ?>
