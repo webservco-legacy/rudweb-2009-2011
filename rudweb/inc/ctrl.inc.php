@@ -150,9 +150,9 @@ try
 		/**
 		 * Load custom configuration
 		 */
-		if(is_readable(_APP_DIR.'cfg/cfg.atpl.inc.php'))
+		if(is_readable(_APP_DIR.'cfg/atpl.inc.php'))
 		{
-			require_once(_APP_DIR.'cfg/cfg.atpl.inc.php');
+			require_once(_APP_DIR.'cfg/atpl.inc.php');
 		}
 		/**
 		 * Override additional templates

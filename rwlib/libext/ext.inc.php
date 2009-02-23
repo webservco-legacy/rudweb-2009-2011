@@ -89,7 +89,7 @@ class rw_Ext_global
 	{
 		$this->extAbout = $extAbout;
 		$this->extCore = $appCore;
-		$this->extDb = $this->extCore->rwDbConnect();
+		$this->extDb = _APP_CFG_DATABASE ? $this->extCore->rwDbConnect() : NULL;
 	}
 	/**
 	 * Method for displaying information about the extension
