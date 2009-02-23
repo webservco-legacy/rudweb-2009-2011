@@ -27,4 +27,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<a href="{$cnt.return_link}" title="{$cnt.return_title}" alt="{$cnt.return_title}">{$cnt.return_title}</a>
+{foreach from=$cnt item=link}
+<a href="{$link.return_link}" title="{$link.return_title}" alt="{$link.return_title}">{$link.return_title}</a>
+<br />
+{/foreach}

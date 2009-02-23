@@ -83,6 +83,7 @@ $modlang['MOD']['CONTENT']['ADD_TEXT']         = 'Adaug&#259; Con&#355;inut Text
 $modlang['MOD']['CONTENT']['ADD_HTML']         = 'Adaug&#259; Con&#355;inut HTML';
 $modlang['MOD']['CONTENT']['EDIT']             = 'Editeaz&#259; Con&#355;inut';
 $modlang['MOD']['CONTENT']['DELETE']           = '&#350;terge Con&#355;inut';
+$modlang['MOD']['CONTENT']['DELETE_CONFIRM']   = 'Sigur &#351;terge&#355;i acest con&#355;inut?';
 $modlang['MOD']['CONTENT']['ORDER']            = 'Schimb&#259; Ordinea';
 $modlang['MOD']['CONTENT']['TYPE']             = 'Tip';
 $modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';

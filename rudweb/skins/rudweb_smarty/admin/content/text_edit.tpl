@@ -27,9 +27,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<div id="page_edit">
+<div id="text_edit">
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_edit_form" id="{$smarty.const._APP_PRE}_content_edit_form" action="" method="post">
-<table class="content_edit_page">
+<table class="content_edit_text">
  <tr>
   <td class="content_edit_form_a">{$lang.MOD.CONTENT.CONTENT_BODY}</td>
   <td class="content_edit_form_b">

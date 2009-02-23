@@ -142,7 +142,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Content items
 					 */
-					$rs3 = $this->modDb->dbSelect('COUNT(cnt_id)', _APP_PRE.'_web_content', "pg_id={$pageItem['pg_id']}", NULL, NULL);
+					$rs3 = $this->modDb->dbSelect('COUNT(cnt_id)', _APP_PRE.'_web_content', "pg_id={$pageItem['pg_id']} AND cnt_deleted = '0'", NULL, NULL);
 					$pageItem['pg_items'] = $rs3->dbFetchResult();
 					$pageData['items'][$pageItem['pg_id']] = $pageItem;
 					$pageData['parents'][$pageItem['pg_parent']][] = $pageItem['pg_id'];
@@ -382,7 +382,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Page content
 			 */
-			$rsc = $this->modDb->dbSelect('cnt_id, cnt_order, cnt_type, cnt_template', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_disabled = '0'", 'cnt_order', NULL);
+			$rsc = $this->modDb->dbSelect('cnt_id, cnt_order, cnt_type, cnt_template', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_deleted = '0'", 'cnt_order', NULL);
 			$tc  = $rsc->dbNumRows();
 			$page_content = array();
 			if($tc>0)
@@ -474,7 +474,21 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function page_delete()
 	{
-		$auth = $this->_authVerify(3);
+		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		if(!$pg_id)
+		{
+			return $this->_authDenied();
+		}
+		$rs = $this->modDb->dbSelect('pg_group, pg_title', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$pg_group = $r['pg_group'];
+		$pg_title = $r['pg_title'];
+		$auth = $this->_authVerify(3, $pg_group);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -482,26 +496,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		else
 		{
 			/**
-			 * Check if page exists and get page title.
+			 * Everything is ok, proceed.
 			 */
-			$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
-			if(!$pg_id)
-			{
-				return $this->_authDenied();
-			}
-			$rs = $this->modDb->dbSelect('pg_title', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
-			$t = $rs->dbNumRows();
-			if($t != 1)
-			{
-				trigger_error("page doesn't exist", E_USER_ERROR);
-			}
-			$pg_title = $rs->dbFetchResult();
-
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['DELETE'];
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
 			$this->modCnt['cnt']['content']['page_title'] = $pg_title;
 
-			$rc = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_pages', "pg_parent = '{$pg_id}'", NULL, NULL);
+			$rc = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_pages', "pg_parent = '{$pg_id}' AND pg_deleted = '0'", NULL, NULL);
 			$tc = $rc->dbNumRows();
 			if($tc > 0)
 			{
@@ -517,6 +518,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Delete the page and redirect
 				 */
+				//XXX
 				$dataUpdate['pg_deleted'] = 1;
 				$dataUpdate['pg_deleted_time'] = date('Y-m-d H:i:s');
 				$dataUpdate['pg_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
@@ -547,9 +549,68 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 	}
 	/**
-	 * Successful action message page
+	 * Add content
 	 *
-	 * @return mixed result
+	 * @return mixed content
+	 */
+	public function content_add()
+	{
+		/**
+		 * Check that parent page exists
+		 * and user has the right to add content
+		 */
+		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		$cnt_type = (isset($_GET['type'])) ? $_GET['type'] : NULL;
+		$cnt_order = (isset($_GET['order']) && $this->modAppCore->rwCheckInt($_GET['order'])) ? $_GET['order'] : NULL;
+		if(!$pg_id || !$cnt_type)
+		{
+			return $this->_authDenied();
+		}
+		$rp = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		$tp = $rp->dbNumRows();
+		if($tp != 1)
+		{
+			trigger_error("page doesn't exist", E_USER_ERROR);
+		}
+		$pg_group = $rp->dbFetchResult();
+		$auth = $this->_authVerify(3, $pg_group);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			if($cnt_order == NULL)
+			{
+				return $this->_authDenied();
+			}
+			/**
+			 * Everything is ok, proceed
+			 */
+			switch($cnt_type)
+			{
+				case 'text' :
+					{
+						return $this->_textAdd($pg_id, $cnt_order);
+						break;
+					}
+				case 'html' :
+					{
+						return $this->_authDenied();
+						break;
+					}
+				default :
+					{
+						return $this->_authDenied();
+						break;
+					}
+			}
+		}
+	}
+	/**
+	 * Edit content
+	 *
+	 * @return mixed content
 	 */
 	public function content_edit()
 	{
@@ -613,19 +674,31 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
-	public function content_add()
+	public function content_delete()
 	{
 		/**
-		 * Check that parent page exists
-		 * and user has the right to add content
+		 * Get content id
 		 */
-		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
-		$cnt_type = (isset($_GET['type'])) ? $_GET['type'] : NULL;
-		$cnt_order = (isset($_GET['order']) && $this->modAppCore->rwCheckInt($_GET['order'])) ? $_GET['order'] : NULL;
-		if(!$pg_id || !$cnt_type)
+		$cnt_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		if(!$cnt_id)
 		{
 			return $this->_authDenied();
 		}
+		/**
+		 * Select basic information about content
+		 */
+		$rs = $this->modDb->dbSelect('pg_id, cnt_type', _APP_PRE.'_web_content', "cnt_id = '{$cnt_id}'", NULL, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error("content doesn't exist", E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$pg_id = $r['pg_id'];
+		$cnt_type = $r['cnt_type'];
+		/*
+		 * Check group rights
+		 */
 		$rp = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
 		$tp = $rp->dbNumRows();
 		if($tp != 1)
@@ -640,18 +713,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			if(!$cnt_order)
-			{
-				return $this->_authDenied();
-			}
 			/**
-			 * Everything is ok, proceed
+			 * Everything is in place, proceed
 			 */
 			switch($cnt_type)
 			{
 				case 'text' :
 					{
-						return $this->_textAdd($pg_id, $cnt_order);
+						return $this->_textDelete($cnt_id, $pg_id);
 						break;
 					}
 				case 'html' :
@@ -667,23 +736,34 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
+	/**
+	 * Add content - text
+	 *
+	 * @param integer $pg_id id of containing page
+	 * @param integer $cnt_order content order
+	 * @return mixed content
+	 */
 	private function _textAdd($pg_id, $cnt_order)
 	{
-		//XXX
 		/**
-		* Default values, when form is not submitted
-		*/
+		 * Default values, when form is not submitted
+		 */
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['ADD'];
 		$this->modCnt['cnt']['tpl'] = 'text_new';
 
+		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
 		$this->modCnt['cnt']['content']['cnt_body'] = '';
 		$this->modCnt['cnt']['content']['cnt_template'] = '';
 		$this->modCnt['cnt']['content']['cnt_err'] = array();
 		/**
 		 * If form is sent, process request
 		 */
-		if(isset($_POST['cnt_body']))
+		//if(isset($_POST['cnt_body']))
+		if(isset($_POST['pg_id']) && $_POST['pg_id'] == $pg_id)
 		{
+			/**
+			 * Check page id
+			 */
 			/**
 			 * Form data that should be processed
 			 */
@@ -715,8 +795,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				$data = array();
 				$data['pg_id'] = $pg_id;
-
-
 				$ro = $this->modDb->dbSelect('MAX(cnt_order)', _APP_PRE.'_web_content', "pg_id = '{$pg_id}'", NULL, 1);
 				$to = $ro->dbNumRows();
 				$data['cnt_order'] = ($cnt_order == 0) ? ($ro->dbFetchResult()+1) : $cnt_order;
@@ -756,6 +834,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	/**
+	 * Edit content - page
+	 *
+	 * @param integer $cnt_id content id
+	 * @return mixed content
+	 */
 	private function _textEdit($cnt_id)
 	{
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['EDIT'];
@@ -834,6 +918,53 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	/**
+	 * Delete content - page
+	 *
+	 * @param integer $cnt_id content id
+	 * @return mixed content
+	 */
+	private function _textDelete($cnt_id, $pg_id)
+	{
+		//XXX
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['DELETE'];
+		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
+		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
+
+		$this->modCnt['cnt']['tpl'] = 'content_delete';
+
+		$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
+		if($delete)
+		{
+			/**
+			 * Delete the content and redirect
+			 */
+			$dataUpdate['cnt_deleted'] = 1;
+			$dataUpdate['cnt_deleted_time'] = date('Y-m-d H:i:s');
+			$dataUpdate['cnt_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+			if($this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, 'cnt_id = '.$cnt_id, NULL, 1))
+			{
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/content/id/'.$cnt_id);
+				exit;
+			}
+			else
+			{
+				trigger_error('delete error', E_USER_ERROR);
+			}
+		}
+		else
+		{
+			/**
+			 * Display message
+			 */
+			return $this->modCnt;
+		}
+	}
+	/**
+	 * Successfull action message
+	 *
+	 * @return mixed content
+	 */
 	public function action_ok()
 	{
 		$res = array('page', 'content');
@@ -865,11 +996,17 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['ADD_OK'];
 
-						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
-						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
-
-						//$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						//$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						if($_GET['resource'] == 'content')
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+						}
+						else
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+						}
+						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
 
 						break;
 					}
@@ -878,9 +1015,20 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was edited, go back to edited resource
 						 */
-						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['EDIT_OK'];
+
+						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						if($_GET['resource'] == 'content')
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+						}
+						else
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+						}
+						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+
 						break;
 					}
 				case 'remove' :
@@ -888,9 +1036,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was removed, go back to resource list
 						 */
-						$this->modCnt['cnt']['content']['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
-						$this->modCnt['cnt']['content']['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['REMOVE_OK'];
+
+						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						if($_GET['resource'] == 'content')
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+						}
+						else
+						{
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+						}
+
 						break;
 					}
 				default :

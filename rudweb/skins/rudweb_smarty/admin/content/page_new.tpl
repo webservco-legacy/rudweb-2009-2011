@@ -33,7 +33,6 @@
  <tr>
   <td class="page_new_form_a">{$lang.MOD.PAGE.PAGE_TITLE}</td>
   <td class="page_new_form_b">
-  <input type="hidden" name="" id="" value="" />
   <input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
   </td>
  </tr>

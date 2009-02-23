@@ -83,6 +83,7 @@ $modlang['MOD']['CONTENT']['ADD_TEXT']         = 'Add Text Content';
 $modlang['MOD']['CONTENT']['ADD_HTML']         = 'Add HTML Content';
 $modlang['MOD']['CONTENT']['EDIT']             = 'Edit Content';
 $modlang['MOD']['CONTENT']['DELETE']           = 'Delete Content';
+$modlang['MOD']['CONTENT']['DELETE_CONFIRM']   = 'Are you sure you want to delete this content?';
 $modlang['MOD']['CONTENT']['ORDER']            = 'Change Order';
 $modlang['MOD']['CONTENT']['TYPE']             = 'Type';
 $modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';
