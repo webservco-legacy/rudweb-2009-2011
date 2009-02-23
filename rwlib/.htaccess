@@ -21,10 +21,3 @@
 Order deny,allow
 Deny from all
 Satisfy All
-
-# allow access to x.php files
-<FilesMatch "\.(x.php)$">
-  Order allow,deny
-  Allow from all
-  Satisfy All
-</FilesMatch> 
