@@ -51,179 +51,237 @@ class app_Core extends rw_Core
 	/**
 	 * Handle requests
 	 *
-	 * @return mixed result
+	 * @return mixed content
 	 */
 	public function appProcess()
 	{
+		/**
+		 * Open database connection, if enabled
+		 */
+		if(_APP_CFG_DATABASE)
+		{
+			$this->rwDbSet($this->rwDbConnect());
+		}
+		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
+		 * Handle logout
+		 */
 		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] = 'true'))
 		{
-			/**
-			 * Logout user
-			 */
 			$this->rwLogoutUser();
 		}
+		/**
+		 * Handle page requests
+		 */
 		else if(isset($_GET['page']))
 		{
-			/**
-			 * Normal content from files
-			 */
-			$cnt = array();
-			/**
-			 * Request security check and fake extension remover
-			 */
-			$page = $this->rwFilterRequest($_GET['page']);
-			/**
-			 * Check if requested page exists
-			 */
-			if($page != '' && is_file(_APP_DIR_PG.$page.'.inc.php'))
-			{
-				/**
-				 * Load page.
-				 */
-				require_once(_APP_DIR_PG.$page.'.inc.php');
-			}
-			else
-			{
-				/**
-				 * Page doesn't exist, go to 404 page
-				 */
-				require_once(_APP_DIR_CNT.'404.inc.php');
-			}
-			return $cnt;
+			$cnt = $this->_appProcessPage();
 		}
+		/**
+		 * Handle content requests
+		 */
 		else if(isset($_GET['content']))
 		{
-			/**
-			 * Content from database (shortcut to a module /content/ID_AND_NAME = /module/dbContent/action/display/content/ID_AND_NAME)
-			 * Usual module checks, then translate request and pass it on.
-			 * Not implemented yet.
-			 */
-			trigger_error('content functionality not implemented', E_USER_ERROR);
+			$cnt = $this->_appProcessContent();
 		}
+		/**
+		 * Handle module requests
+		 */
 		else if(isset($_GET['module']))
 		{
+			$cnt = $this->_appProcessModule();
+		}
+		/**
+		 * No special request, load default content
+		 */
+		else
+		{
+			$cnt = $this->_appProcessDefault();
+		}
+		/**
+		 * Close database connection, if opened.
+		 */
+		if($this->db)
+		{
+			$this->db->dbClose();
+		}
+		return $cnt;
+	}
+	/**
+	 * Handle page requests
+	 *
+	 * @return mixed content
+	 */
+	private function _appProcessPage()
+	{
+		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
+		 * Request security check and fake extension remover
+		 */
+		$page = $this->rwFilterRequest($_GET['page']);
+		/**
+		 * Check if requested page exists
+		 */
+		if($page != '' && is_file(_APP_DIR_PG.$page.'.inc.php'))
+		{
 			/**
-			 * Content from a module
+			 * Load page.
 			 */
-			$cnt = array();
+			require_once(_APP_DIR_PG.$page.'.inc.php');
+		}
+		else
+		{
 			/**
-			 * Request security check and fake extension remover
+			 * Page doesn't exist, go to 404 page
 			 */
-			$module = $this->rwFilterRequest($_GET['module']);
+			require_once(_APP_DIR_CNT.'404.inc.php');
+		}
+		return $cnt;
+	}
+	/**
+	 * Handle content requests
+	 *
+	 * @return mixed content
+	 */
+	private function _appProcessContent()
+	{
+		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
+		 * Content from database (shortcut to a module /content/ID_AND_NAME = /module/dbContent/action/display/content/ID_AND_NAME)
+		 * Usual module checks, then translate request and pass it on.
+		 * Not implemented yet.
+		 */
+		trigger_error('content functionality not implemented', E_USER_ERROR);
+	}
+	/**
+	 * Handle module requests
+	 *
+	 * @return mixed content
+	 */
+	private function _appProcessModule()
+	{
+		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
+		 * Request security check and fake extension remover
+		 */
+		$module = $this->rwFilterRequest($_GET['module']);
+		/**
+		 * Check if requested module exists
+		 */
+		if($module != '' && is_file(_APP_DIR_MOD.$module.'/'.$module.'.mod.php'))
+		{
 			/**
-			 * Check if requested module exists
+			 * Load module file
 			 */
-			if($module != '' && is_file(_APP_DIR_MOD.$module.'/'.$module.'.mod.php'))
+			require_once(_RW_DIR_LIB_MOD.'mod.inc.php');
+			require_once(_APP_DIR_MOD.$module.'/'.$module.'.mod.php');
+			/**
+			 * Get current language
+			 */
+			$ln = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
+			/**
+			 * Check if module has it's own internationalization file corresponding to the current language.
+			 */
+			$modlang = array();
+			if(is_file(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php'))
 			{
 				/**
-				 * Load module file
+				 * Add module internationalization to the current one.
 				 */
-				require_once(_RW_DIR_LIB_MOD.'mod.inc.php');
-				require_once(_APP_DIR_MOD.$module.'/'.$module.'.mod.php');
-				/**
-				 * Get current language
-				 */
-				$ln = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
-				/**
-				 * Check if module has it's own internationalization file corresponding to the current language.
-				 */
-				$modlang = array();
-				if(is_file(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php'))
+				require_once(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php');
+			}
+			$this->lang = array_merge($this->lang, $modlang);
+			/**
+			 * Load module
+			 */
+			$modClass = 'rw_Mod_'.$module;
+			$modObject = new $modClass($this);
+			/**
+			 * Check module dependencies
+			 */
+			$modAbout = $modObject->modAbout();
+			$cfgDeps = count($modAbout['deps']['cfg']);
+			$extDeps = count($modAbout['deps']['ext']);
+			$modDeps = count($modAbout['deps']['mod']);
+			/**
+			 * If configuration dependencies exist solve them
+			 */
+			if($cfgDeps > 0)
+			{
+				foreach($modAbout['deps']['cfg'] as $cfgDep)
 				{
-					/**
-					 * Add module internationalization to the current one.
-					 */
-					require_once(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php');
-				}
-				$this->lang = array_merge($this->lang, $modlang);
-				/**
-				 * Load module
-				 */
-				$modClass = 'rw_Mod_'.$module;
-				$modObject = new $modClass($this);
-				/**
-				 * Check module dependencies
-				 */
-				$modAbout = $modObject->modAbout();
-				$cfgDeps = count($modAbout['deps']['cfg']);
-				$extDeps = count($modAbout['deps']['ext']);
-				$modDeps = count($modAbout['deps']['mod']);
-				/**
-				 * If configuration dependencies exist solve them
-				 */
-				if($cfgDeps > 0)
-				{
-					foreach($modAbout['deps']['cfg'] as $cfgDep)
+					if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
 					{
-						if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
-						{
-							trigger_error('Module <b>'.$module.'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
-						}
+						trigger_error('Module <b>'.$module.'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
 					}
 				}
-				/**
-				 * If extensions dependecies exist, solve them
-				 */
-				if($extDeps > 0)
+			}
+			/**
+			 * If extensions dependecies exist, solve them
+			 */
+			if($extDeps > 0)
+			{
+				foreach($modAbout['deps']['ext'] as $extDep)
 				{
-					foreach($modAbout['deps']['ext'] as $extDep)
+					if(!array_key_exists($extDep, $this->ext))
 					{
-						if(!array_key_exists($extDep, $this->ext))
-						{
-							trigger_error('Module <b>'.$module.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
-						}
+						trigger_error('Module <b>'.$module.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
 					}
 				}
-				/**
-				 * If module dependecies exist, solve them
-				 */
-				if($modDeps > 0)
+			}
+			/**
+			 * If module dependecies exist, solve them
+			 */
+			if($modDeps > 0)
+			{
+				foreach($modAbout['deps']['mod'] as $modDep)
 				{
-					foreach($modAbout['deps']['mod'] as $modDep)
+					if(!is_file(_APP_DIR_MOD.$modDep.'/'.$modDep.'.mod.php'))
 					{
-						if(!is_file(_APP_DIR_MOD.$modDep.'/'.$modDep.'.mod.php'))
-						{
-							trigger_error('Module <b>'.$module.'</b> can not be loaded. Modules dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
-						}
+						trigger_error('Module <b>'.$module.'</b> can not be loaded. Modules dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
 					}
 				}
+			}
+			/**
+			 * Module is loaded, check action
+			 */
+			if(isset($_GET['action']))
+			{
 				/**
-				 * Module is loaded, check action
+				 * Request security check and fake extension remover
 				 */
-				if(isset($_GET['action']))
+				$action = $this->rwFilterRequest($_GET['action']);
+				/**
+				 * Action must not be a special method
+				 */
+				if(!ereg("^_{1,2}", $action))
 				{
 					/**
-					 * Request security check and fake extension remover
+					 * Action must exist and be public
 					 */
-					$action = $this->rwFilterRequest($_GET['action']);
-					/**
-					 * Action must not be a special method
-					 */
-					if(!ereg("^_{1,2}", $action))
+					if(method_exists($modObject, $action) && is_callable(array($modObject, $action)))
 					{
 						/**
-						 * Action must exist and be public
+						 * Call the action
 						 */
-						if(method_exists($modObject, $action) && is_callable(array($modObject, $action)))
-						{
-							/**
-							 * Call the action
-							 */
-							$cnt = $modObject->$action();
-							return $cnt;
-						}
-						else
-						{
-							/**
-							 * Action doesn't exist or is restricted, go to 404 page
-							 */
-							require_once(_APP_DIR_CNT.'404.inc.php');
-						}
+						$cnt = $modObject->$action();
 					}
 					else
 					{
 						/**
-						 * Action is a special one, go to 404 page
+						 * Action doesn't exist or is restricted, go to 404 page
 						 */
 						require_once(_APP_DIR_CNT.'404.inc.php');
 					}
@@ -231,35 +289,51 @@ class app_Core extends rw_Core
 				else
 				{
 					/**
-					 * No action requested, load default action
+					 * Action is a special one, go to 404 page
 					 */
-					$cnt = $modObject->_default();
+					require_once(_APP_DIR_CNT.'404.inc.php');
 				}
 			}
 			else
 			{
 				/**
-				 * Requested module doesn't exist, go to 404 page
+				 * No action requested, load default action
 				 */
-				require_once(_APP_DIR_CNT.'404.inc.php');
+				$cnt = $modObject->_default();
 			}
-			return $cnt;
 		}
 		else
 		{
 			/**
-			 * No request, load default content
+			 * Requested module doesn't exist, go to 404 page
 			 */
-			if(is_file(_APP_DIR_PG.'index.inc.php'))
-			{
-				require_once(_APP_DIR_PG.'index.inc.php');
-			}
-			else
-			{
-				require_once(_APP_DIR_CNT.'index.inc.php');
-			}
-			return $cnt;
+			require_once(_APP_DIR_CNT.'404.inc.php');
 		}
+		return $cnt;
+	}
+	/**
+	 * Default, no request
+	 *
+	 * @return mixed content
+	 */
+	private function _appProcessDefault()
+	{
+		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
+		 * No request, load default content
+		 */
+		if(is_file(_APP_DIR_PG.'index.inc.php'))
+		{
+			require_once(_APP_DIR_PG.'index.inc.php');
+		}
+		else
+		{
+			require_once(_APP_DIR_CNT.'index.inc.php');
+		}
+		return $cnt;
 	}
 }
 ?>

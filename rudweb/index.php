@@ -36,40 +36,23 @@
 define('_RW_VALID', TRUE);
 
 /**
- * Load configuration files
+ * Load Controller
  */
-if(is_readable('./cfg/cfg.inc.php')) {require_once('./cfg/cfg.inc.php');} else {
-	$location = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/\\') . '/' . '404.php';
-	header("Location: http://$location");
+if(is_readable('./inc/ctrl.inc.php'))
+{
+	require_once('./inc/ctrl.inc.php');
+}
+else
+{
+	require_once('./404.php');
 	exit;
 }
 /**
- * Initialize main application core
- */
-$appCore = new app_Core;
-$appCore->rwInit($exts);
-/**
- * Controller start
+ * Load viewer
  */
 try
 {
-	if(is_readable(_APP_DIR_INC.'ctrl.inc.php')) {require_once(_APP_DIR_INC.'ctrl.inc.php');} else {trigger_error('controller missing', E_USER_ERROR);}
-}
-catch (Exception $e)
-{
-	echo $appCore->rwErr($e);
-	exit;
-}
-/**
- * Controller end
- */
-
-/**
- * Viewer start
- */
-try
-{
-  if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
+	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
 	$viewer = new app_Viewer($cnt, $atpl);
 	$viewer->_display();
 }
@@ -79,7 +62,7 @@ catch (Exception $e)
 	exit;
 }
 /**
- * Viewer end
+ * Restore error handler
  */
 rw_Error_handler::restore();
 ?>
