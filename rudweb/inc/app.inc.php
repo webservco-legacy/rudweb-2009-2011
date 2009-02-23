@@ -60,7 +60,8 @@ class app_Core extends rw_Core
 		 */
 		if(_APP_CFG_DATABASE)
 		{
-			$this->rwDbSet($this->rwDbConnect());
+			$db = $this->rwDbConnect();
+			$this->rwDbSet($db);
 		}
 		/**
 		 * Initialize content
