@@ -772,7 +772,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 * Form data that should be processed
 			 */
 			$form = array();
-			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_BODY'],'name'=>'cnt_body','type'=>'text','req'=>TRUE);
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_BODY'],'name'=>'cnt_body','type'=>'html','req'=>TRUE);
 			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_TEMPLATE'],'name'=>'cnt_template','type'=>'text','req'=>TRUE);
 			/**
 			 * Process form
@@ -1252,7 +1252,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		{
 			if(isset($_POST[$id['name']]))
 			{
-				$data[$id['name']] = $this->modAppCore->rwFilterInput($_POST[$id['name']]);
+				$blockTags = ($id['type'] == 'html') ? FALSE : TRUE;
+				$data[$id['name']] = $this->modAppCore->rwFilterInput($_POST[$id['name']], $blockTags);
 				if($id['req'])
 				{
 					if($data[$id['name']] == '')
@@ -1262,10 +1263,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				}
 				switch($id['type'])
 				{
-					case 'text' :
-						{
-							break;
-						}
 					case 'email' :
 						{
 							if($data[$id['name']] != '' && !$this->modAppCore->rwCheckEmail($data[$id['name']]))
@@ -1280,6 +1277,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
 							}
+							break;
+						}
+					default :
+						{
 							break;
 						}
 				}

@@ -365,6 +365,7 @@ class rw_Core
 			$input = str_replace('<', '&#60;', $input);
 			$input = str_replace('>', '&#62;', $input);
 		}
+
 		if($this->db)
 		{
 			$input = $this->db->dbEscapeString($input);
@@ -378,6 +379,66 @@ class rw_Core
 
 		}
 		return trim($input);
+	}
+	/**
+	 * Strip all tags
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripTags($input)
+	{
+		return preg_replace('/<(.|\s)*?\>/', '', $input);
+	}
+	/**
+	 * Strip php code
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripPhp($input)
+	{
+		return preg_replace('/<\?(.|\s)*?>/', '', $input);
+	}
+	/**
+	 * Strip Smarty varaibles
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripSmartyVars($input)
+	{
+		return preg_replace('/{\$(.|\s)*?}/', '', $input);
+	}
+	/**
+	 * Strip Smarty code
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripSmartyCode($input)
+	{
+		return preg_replace('/{(.|\s)*?}/', '', $input);
+	}
+	/**
+	 * Strip scripting code
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripScript($input)
+	{
+		return preg_replace('/<script(.|\s)*?\/script>/', '', $input);
+	}
+	/**
+	 * Strip HTML comments
+	 *
+	 * @param string $input
+	 * @return string filtered input
+	 */
+	public function rwStripHTMLComments($input)
+	{
+		return preg_replace('/<!--(.|\s)*?-->/', '', $input);
 	}
 	/**
 	 * Remove problem characters from a string
@@ -564,7 +625,7 @@ class rw_Core
 	}
 	/**
 	 * Self redirect to avoid double submits
-	 * 
+	 *
 	 * @return null
 	 */
 	public function rwSelfRedirect()
