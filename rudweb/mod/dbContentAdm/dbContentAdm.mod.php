@@ -248,10 +248,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			if(isset($_POST['pg_title']))
 			{
-				//XXX
 				/**
-				* Form data that should be processed
-				*/
+				 * Form data that should be processed
+				 */
 				$form = array();
 				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_TITLE'],'name'=>'pg_title','type'=>'text','req'=>TRUE);
 				$form[]= array('title'=>$this->modLang['MOD']['PAGE']['PAGE_KEYWORDS'],'name'=>'pg_kw','type'=>'text','req'=>FALSE);
@@ -518,7 +517,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Delete the page and redirect
 				 */
-				//XXX
 				$dataUpdate['pg_deleted'] = 1;
 				$dataUpdate['pg_deleted_time'] = date('Y-m-d H:i:s');
 				$dataUpdate['pg_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
@@ -596,7 +594,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					}
 				case 'html' :
 					{
-						return $this->_authDenied();
+						return $this->_htmlAdd($pg_id, $cnt_order);
 						break;
 					}
 				default :
@@ -734,6 +732,105 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						break;
 					}
 			}
+		}
+	}
+	/**
+	 * Add content - html
+	 *
+	 * @param integer $pg_id id of containing page
+	 * @param unknown_type $cnt_order content order
+	 * @return mixed content
+	 */
+	private function _htmlAdd($pg_id, $cnt_order)
+	{
+		/**
+		 * Default values, when form is not submitted
+		 */
+		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['ADD'];
+		$this->modCnt['cnt']['tpl'] = 'html_new';
+
+		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
+		$this->modCnt['cnt']['content']['cnt_body'] = '';
+		$this->modCnt['cnt']['content']['cnt_template'] = '';
+		$this->modCnt['cnt']['content']['cnt_err'] = array();
+
+		/**
+		 * If form is sent, process request
+		 */
+		//if(isset($_POST['cnt_body']))
+		if(isset($_POST['pg_id']) && $_POST['pg_id'] == $pg_id)
+		{
+			/**
+			 * Check page id
+			 */
+			/**
+			 * Form data that should be processed
+			 */
+			$form = array();
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_BODY'],'name'=>'cnt_body','type'=>'text','req'=>TRUE);
+			$form[]= array('title'=>$this->modLang['MOD']['CONTENT']['CONTENT_TEMPLATE'],'name'=>'cnt_template','type'=>'text','req'=>TRUE);
+			/**
+			 * Process form
+			 */
+			list($err, $dataForm) = $this->_processForm($form);
+			/**
+			 * Validate Form Data
+			 */
+			$te = count($err);
+			if($te > 0)
+			{
+				/**
+				 * Errors occured
+				 */
+				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
+				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
+				$this->modCnt['cnt']['content']['cnt_err'] = $err;
+				return $this->modCnt;
+			}
+			else
+			{
+				/**
+				 * Additional data for the db
+				 */
+				$data = array();
+				$data['pg_id'] = $pg_id;
+				$ro = $this->modDb->dbSelect('MAX(cnt_order)', _APP_PRE.'_web_content', "pg_id = '{$pg_id}'", NULL, 1);
+				$to = $ro->dbNumRows();
+				$data['cnt_order'] = ($cnt_order == 0) ? ($ro->dbFetchResult()+1) : $cnt_order;
+				$data['cnt_type'] = 'html';
+				$data['cnt_created_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+				$data['cnt_version'] = 1;
+				/**
+				 * Total data for the db
+				 */
+				$dataInsert = array_merge($dataForm, $data);
+				if($this->modDb->dbInsert(_APP_PRE.'_web_content', NULL, $dataInsert))
+				{
+					/**
+					 * Insert successfull, redirect to mesage page
+					 *
+					 * get parameters: type of action, id of page
+					 */
+					$ri = $this->modDb->dbLastInsertId();
+					$cnt_id = $ri->dbFetchResult();
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/content/id/'.$cnt_id);
+					exit;
+				}
+				else
+				{
+					/**
+					 * Needs work...
+					 */
+					trigger_error('insert error', E_USER_ERROR);
+				}
+			}
+		}
+		else
+		{
+			/**
+			 * No post, initial view
+			 */
+			return $this->modCnt;
 		}
 	}
 	/**
@@ -926,7 +1023,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _textDelete($cnt_id, $pg_id)
 	{
-		//XXX
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['DELETE'];
 		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
 		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
