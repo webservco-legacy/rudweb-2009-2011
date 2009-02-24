@@ -153,3 +153,29 @@ CREATE TABLE rudweb_web_content (
   cnt_version MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (cnt_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------------------------------
+-- PICTURES
+-- --------------------------------------------------------------------------------
+DROP TABLE IF EXISTS rudweb_web_pictures;
+CREATE TABLE rudweb_web_pictures (
+  -- IDENTIFICATION
+  pic_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- LOCATION
+  pic_dir VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  pic_file VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
+  -- MAIN
+  pic_title VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
+  pic_alias VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
+  pic_alt VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  -- SETTINGS
+  pic_width MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
+  pic_height MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
+  pic_deleted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  -- STATISTICS
+  pic_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
+  pic_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  pic_deleted_time DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  pic_deleted_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (pic_id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

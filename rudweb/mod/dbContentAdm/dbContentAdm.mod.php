@@ -734,7 +734,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
-	/**
+public function imageBrowser()
+{
+	return $this->modCnt;	
+}
+/**
 	 * Add content - html
 	 *
 	 * @param integer $pg_id id of containing page
