@@ -36,12 +36,35 @@
   <td class="content_edit_form_b">
   <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.pg_id}" />
   <textarea class="content_body" name="cnt_body" id="cnt_body">{$cnt.cnt_body}</textarea>
+  {if $cnt.rte eq "FCKeditor"}
   <script type="text/javascript" src="{$smarty.const._APP_WWW}3rdparty/fckeditor/fckeditor.js"></script>
   <script type="text/javascript">
     var oFCKeditor = new FCKeditor( 'cnt_body' ) ;
     oFCKeditor.BasePath = "{$smarty.const._APP_WWW}3rdparty/fckeditor/" ;
+    oFCKeditor.Config['CustomConfigurationsPath'] = "{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}/admin/scripts/fckconfig.js";
+    //oFCKeditor.Config['EditorAreaCSS'] = "{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}/admin/styles/fckeditor.css";
+    oFCKeditor.Width = "600";
+    oFCKeditor.Height = "300";
+    oFCKeditor.Config['SkinPath'] = "{$smarty.const._APP_WWW}3rdparty/fckskins/famfamfamAluminum/";
+    
     oFCKeditor.ReplaceTextarea() ;
   </script>
+  {elseif $cnt.rte eq "TinyMCE"}
+  <script type="text/javascript" src="{$smarty.const._APP_WWW}3rdparty/tiny_mce/tiny_mce.js"></script>
+  {literal}
+  <script type="text/javascript">
+    tinyMCE.init({
+    mode : "textareas"
+    });
+  </script>
+  {/literal}
+  {else}
+  {/if}
+  
+  
+  
+  
+  
   </td>
  </tr>
  <tr>

@@ -753,6 +753,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['cnt']['content']['cnt_body'] = '';
 		$this->modCnt['cnt']['content']['cnt_template'] = '';
 		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		/**
+		 * Rich text editor to use
+		 * FCKeditor, TinyMCE, or blank
+		 */
+		$this->modCnt['cnt']['content']['rte'] = 'FCKeditor';
 
 		/**
 		 * If form is sent, process request
