@@ -360,6 +360,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
+			//XXX
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['EDIT'];
 			$this->modCnt['cnt']['tpl'] = 'page_edit';
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
@@ -734,11 +735,68 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
-public function imageBrowser()
-{
-	return $this->modCnt;	
-}
-/**
+	public function imageBrowser()
+	{
+		$pic_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
+		if(!$pic_label)
+		{
+			return $this->_authDenied();
+		}
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Everything is ok, proceed
+			 */
+			/**
+			 * Default values, if no form is processed
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['BROWSER'];
+			$this->modCnt['cnt']['tpl'] = 'image_browser';
+			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
+			/**
+			 * Process form
+			 */
+			//XXX
+			
+			
+			/**
+			 * Get all labels
+			 */
+			$rl = $this->modDb->dbSelect('DISTINCT pg_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL);
+			$tl = $rl->dbNumRows();
+			$this->modCnt['cnt']['content']['pic_labels'] = array();
+			if($tl>0)
+			{
+				while($r = $rl->dbFetchArray())
+				{
+					$this->modCnt['cnt']['content']['pic_labels'][] = $r;
+				}
+			}
+			/**
+			 * Pictures data
+			 */
+			$rs = $this->modDb->dbSelect('pic_id, pic_title, pic_width, pic_height', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_label = '{$pic_label}'", NULL);
+			$t = $rs->dbNumRows();
+			$this->modCnt['cnt']['content']['pic_list'] = array();
+			if($t > 0)
+			{
+				while($r = $rs->dbFetchArray())
+				{
+					/**
+					 * Get image information
+					 */
+					$this->modCnt['cnt']['content']['pic_list'][] = $r;
+				}
+			}
+			return $this->modCnt;
+		}
+	}
+	/**
 	 * Add content - html
 	 *
 	 * @param integer $pg_id id of containing page
