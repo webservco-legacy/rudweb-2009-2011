@@ -55,11 +55,11 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 	/**
 	 * Thumbnail image format
 	 *
-	 * 0 - png
-	 * 1 - jpg
-	 * 2 - gif
+	 * 3 - png
+	 * 2 - jpg
+	 * 1 - gif
 	 */
-	public $thumbFormat = 0;
+	public $thumbFormat = 3;
 	/**
 	 * Constructor
 	 * Set extension information and call parent constructor
@@ -165,21 +165,21 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 			 */
 			switch($this->thumbFormat)
 			{
-				case 0  :
+				case 3  :
 					{
 						/**
 						 * Create PNG image with best compression
 						 */
 						imagepng($newsizeimage, NULL, 9); break;
 					}
-				case 1  :
+				case 2  :
 					{
 						/**
 						 * Create JPEG image with best quality
 						 */
 						imagejpeg($newsizeimage, NULL, 100); break;
 					}
-				case 2  :
+				case 1  :
 					{
 						/**
 						 * Create GIF

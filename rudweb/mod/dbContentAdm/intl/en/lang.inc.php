@@ -90,4 +90,16 @@ $modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';
 $modlang['MOD']['CONTENT']['ACTIONS']          = 'Actions';
 $modlang['MOD']['CONTENT']['CONTENT_BODY']     = 'Content';
 $modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Content Template';
+/**
+ * Image administration
+ */
+$modlang['MOD']['IMAGE']['ADMIN']       = 'Image Administration';
+$modlang['MOD']['IMAGE']['IMAGE_LABEL'] = 'Image Label';
+$modlang['MOD']['IMAGE']['IMAGE_TITLE'] = 'Image Title';
+$modlang['MOD']['IMAGE']['IMAGE_FILE']  = 'Image File';
+/**
+ * Thumbnail administration
+ */
+$modlang['MOD']['THUMB']['ADMIN']  = 'Thumbnail Administration';
+$modlang['MOD']['THUMB']['CREATE'] = 'Create Thumbnail';
 ?>

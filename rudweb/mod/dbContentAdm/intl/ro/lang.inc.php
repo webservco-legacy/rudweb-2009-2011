@@ -90,4 +90,16 @@ $modlang['MOD']['CONTENT']['TEMPLATE']         = 'Template';
 $modlang['MOD']['CONTENT']['ACTIONS']          = 'Ac&#355;iuni';
 $modlang['MOD']['CONTENT']['CONTENT_BODY']     = 'Con&#355;inut';
 $modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Template Con&#355;inut';
+/**
+ * Image administration
+ */
+$modlang['MOD']['IMAGE']['ADMIN']       = 'Administrare Imagini';
+$modlang['MOD']['IMAGE']['IMAGE_LABEL'] = 'Etichet&#259; Imagine';
+$modlang['MOD']['IMAGE']['IMAGE_TITLE'] = 'Titlu Imagine';
+$modlang['MOD']['IMAGE']['IMAGE_FILE']  = 'Fi&#351;ier Imagine';
+/**
+ * Thumbnail administration
+ */
+$modlang['MOD']['THUMB']['ADMIN']  = 'Administrare Thumbnail';
+$modlang['MOD']['THUMB']['CREATE'] = 'Creare Thumbnail';
 ?>

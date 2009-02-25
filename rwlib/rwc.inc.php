@@ -51,6 +51,14 @@ define('_APP_DIR_VAR', _APP_DIR . 'var/');
  */
 define('_APP_URL_VAR', _APP_WWW . 'var/');
 /**
+ * Application pictures directory
+ */
+define('_APP_DIR_PIC', _APP_DIR_VAR . 'images/');
+/**
+ * Application pictures url
+ */
+define('_APP_URL_PIC', _APP_URL_VAR . 'images/');
+/**
  * Application temp directory
  */
 define('_APP_DIR_TMP', _APP_DIR_VAR . 'tmp/');

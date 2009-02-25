@@ -162,11 +162,11 @@ CREATE TABLE rudweb_web_pictures (
   -- IDENTIFICATION
   pic_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   -- LOCATION
-  pic_label VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pictures',
-  pic_file VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
   -- MAIN
+  pic_label VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pictures',  
   pic_title VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
-  pic_alias VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
+  pic_file VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
+  pic_type TINYINT(1) UNSIGNED NOT NULL,
   pic_width MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
   pic_height MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
   -- SETTINGS

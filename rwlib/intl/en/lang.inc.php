@@ -66,10 +66,24 @@ $lang['AUTH']['DENIED_MSG'] = 'Sorry, you do not have permission to access this 
 /**
  * Form validation
  */
-$lang['FORM']['FIELD']     = 'Field "';
-$lang['FORM']['IS_EMPTY']  = '" is empty.';
-$lang['FORM']['IS_IVALID'] = '" is invalid.';
-$lang['FORM']['ADD_OK']    = 'Add action was successfull!';
-$lang['FORM']['EDIT_OK']   = 'Edit action was successfull!';
+$lang['FORM']['FIELD']      = 'Field "';
+$lang['FORM']['IS_EMPTY']   = '" is empty.';
+$lang['FORM']['IS_INVALID'] = '" is invalid.';
+
+$lang['FORM']['FILE_ERR']   = 'Upload error at "';
+$lang['FORM']['FILE_EMPTY'] = '". No file uploaded.';
+$lang['FORM']['FILE_8']     = '". File upload stopped by extension.';
+$lang['FORM']['FILE_7']     = '". Failed to write file to disk.';
+$lang['FORM']['FILE_6']     = '". Missing a temporary folder.';
+$lang['FORM']['FILE_4']     = '". No file uploaded.';
+$lang['FORM']['FILE_3']     = '". Partial upload.';
+$lang['FORM']['FILE_2']     = '". File exceeds maximum allowed size.';
+$lang['FORM']['FILE_1']     = '". File exceeds maximum allowed size.';
+$lang['FORM']['FILE_TYPE']  = '". File type is not allowed.';
+$lang['FORM']['FILE_FORM']  = '". File was not sent by form.';
+$lang['FORM']['FILE_SAVE']  = '". Error saving file.';
+
+$lang['FORM']['ADD_OK']     = 'Add action was successfull!';
+$lang['FORM']['EDIT_OK']    = 'Edit action was successfull!';
 $lang['FORM']['REMOVE_OK'] = 'Remove action was successfull!';
 ?>

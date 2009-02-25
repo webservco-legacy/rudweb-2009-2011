@@ -66,10 +66,24 @@ $lang['AUTH']['DENIED_MSG'] = 'Ne pare r&#259;u, nu ave&#355;i permisiunea de a 
 /**
  * Form validation
  */
-$lang['FORM']['FIELD']     = 'C&#226;mpul "';
-$lang['FORM']['IS_EMPTY']  = '" este gol.';
-$lang['FORM']['IS_IVALID'] = '" este invalid.';
-$lang['FORM']['ADD_OK']    = 'Ac&#355;iunea de ad&#259;ugare a fost realizat&#259; cu succes!';
-$lang['FORM']['EDIT_OK']   = 'Ac&#355;iunea de editare a fost realizat&#259; cu succes!';
+$lang['FORM']['FIELD']      = 'C&#226;mpul "';
+$lang['FORM']['IS_EMPTY']   = '" este gol.';
+$lang['FORM']['IS_INVALID'] = '" este invalid.';
+
+$lang['FORM']['FILE_ERR']   = 'Eroare de upload la "';
+$lang['FORM']['FILE_EMPTY'] = '". Nici un fi&#351;ier trimis.';
+$lang['FORM']['FILE_8']     = '". File upload stopped by extension.';
+$lang['FORM']['FILE_7']     = '". Failed to write file to disk.';
+$lang['FORM']['FILE_6']     = '". Missing a temporary folder.';
+$lang['FORM']['FILE_4']     = '". Nici un fi&#351;ier trimis.';
+$lang['FORM']['FILE_3']     = '". Upload par&#355;ial.';
+$lang['FORM']['FILE_2']     = '". Fi&#351;ierul dep&#259;&#351;e&#351;te dimensiunea maxim&#259; admis&#259;.';
+$lang['FORM']['FILE_1']     = '". Fi&#351;ierul dep&#259;&#351;e&#351;te dimensiunea maxim&#259; admis&#259;.';
+$lang['FORM']['FILE_TYPE']  = '". Tipul fi&#351;ierului nu este permis.';
+$lang['FORM']['FILE_FORM']  = '". Fi&#351;ierul nu a fost trimis prin formular.';
+$lang['FORM']['FILE_SAVE']  = '". Eroare la salvarea fi&#351;ierului.';
+
+$lang['FORM']['ADD_OK']     = 'Ac&#355;iunea de ad&#259;ugare a fost realizat&#259; cu succes!';
+$lang['FORM']['EDIT_OK']    = 'Ac&#355;iunea de editare a fost realizat&#259; cu succes!';
 $lang['FORM']['REMOVE_OK'] = 'Ac&#355;iunea de &#351;tergere a fost realizat&#259; cu succes!';
 ?>

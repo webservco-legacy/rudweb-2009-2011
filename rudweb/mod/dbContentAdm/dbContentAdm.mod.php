@@ -360,7 +360,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
-			//XXX
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['EDIT'];
 			$this->modCnt['cnt']['tpl'] = 'page_edit';
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
@@ -431,6 +430,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Additional data for the db
 					 */
+					//XXX
 					$data = array();
 					$data['pg_alias'] = $this->modAppCore->rwFormatAlias($dataForm['pg_title']);
 					$data['pg_modified_time'] = date('Y-m-d H:i:s');
@@ -735,7 +735,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
-	public function imageBrowser()
+	public function thumbnailAdmin()
+	{
+		//XXX Thumbnail administration
+	}
+	public function imageAdmin()
 	{
 		$pic_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
 		if(!$pic_label)
@@ -755,19 +759,83 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
-			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['BROWSER'];
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['ADMIN'];
 			$this->modCnt['cnt']['tpl'] = 'image_browser';
 			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
+			$this->modCnt['cnt']['content']['pic_list'] = array();
+			$this->modCnt['cnt']['content']['form']['pic_label'] = 'pictures';
+			$this->modCnt['cnt']['content']['form']['pic_title'] = '';
+			$this->modCnt['cnt']['content']['form_err'] = array();
 			/**
 			 * Process form
 			 */
-			//XXX
-			
-			
+			if(isset($_POST['image_save']))
+			{
+				/**
+				 * Image data that should pe processed
+				 */
+				$upload = array();
+				$upload[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_FILE'],'name'=>'pic_file','type'=>'picture','req'=>TRUE);
+				/**
+				 * Form data that should be processed
+				 */
+				$form = array();
+				$form[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_LABEL'],'name'=>'pic_label','type'=>'text','req'=>TRUE);
+				$form[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_TITLE'],'name'=>'pic_title','type'=>'text','req'=>TRUE);
+				/**
+				 * Process image data
+				 */
+				list($errUpload, $dataUpload) = $this->_processUpload($upload);
+				/**
+				 * Process form data
+				 */
+				list($errForm, $dataForm) = $this->_processForm($form);
+				/**
+				 * Check for errors
+				 */
+				$err = array_merge($errUpload, $errForm);
+				$te = count($err);
+				if($te>0)
+				{
+					/**
+					 * Errors occured, break operation
+					 */
+					$this->modCnt['cnt']['content']['form']['pic_label'] = isset($_POST['pic_label']) ? $_POST['pic_label'] : 'pictures';
+					$this->modCnt['cnt']['content']['form']['pic_title'] = isset($_POST['pic_title']) ? $_POST['pic_title'] : '';
+					$this->modCnt['cnt']['content']['form_err'] = $err;
+					return $this->modCnt;
+				}
+				else
+				{
+					/**
+					 * Upload ok, data ok.
+					 * Add to database
+					 */
+					$dataDb['pic_group'] = $_SESSION[_APP_PRE.'_usr_grp'];
+					$dataDb['pic_created_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+					$data = array_merge($dataForm, $dataUpload, $dataDb);
+					if($this->modDb->dbInsert(_APP_PRE.'_web_pictures', NULL, $data))
+					{
+						/**
+						 * Insert successfull, redirect to same page
+						 * with new label
+						 */
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/imageAdmin/label/'.$dataForm['pic_label']);
+						exit;
+					}
+					else
+					{
+						/**
+						 * Needs work...
+						 */
+						trigger_error('insert error', E_USER_ERROR);
+					}
+				}
+			}
 			/**
 			 * Get all labels
 			 */
-			$rl = $this->modDb->dbSelect('DISTINCT pg_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL);
+			$rl = $this->modDb->dbSelect('DISTINCT pic_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL);
 			$tl = $rl->dbNumRows();
 			$this->modCnt['cnt']['content']['pic_labels'] = array();
 			if($tl>0)
@@ -780,18 +848,26 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Pictures data
 			 */
-			$rs = $this->modDb->dbSelect('pic_id, pic_title, pic_width, pic_height', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_label = '{$pic_label}'", NULL);
+			$rs = $this->modDb->dbSelect('pic_id, pic_title, pic_file, pic_type, pic_width, pic_height', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_label = '{$pic_label}'", NULL);
 			$t = $rs->dbNumRows();
-			$this->modCnt['cnt']['content']['pic_list'] = array();
+			$pic_list = array();
 			if($t > 0)
 			{
+				
+				$thumb = $this->modAppCore->rwActivateExt('Thumb');
+        $thumb->set_cacheDir(_APP_DIR_TMP);
+        $thumb->set_maxSize(120);
+        $thumb->set_thumbFormat(3); //png = 3, jpeg = 2, gif = 1
 				while($r = $rs->dbFetchArray())
 				{
 					/**
 					 * Get image information
 					 */
-					$this->modCnt['cnt']['content']['pic_list'][] = $r;
+					$r['pic_ext'] = image_type_to_extension($r['pic_type'], TRUE);
+					$r['pic_preview'] = $thumb->thumb(_APP_DIR_PIC.$r['pic_file'].$r['pic_ext']);
+					$pic_list[] = $r;
 				}
+				$this->modCnt['cnt']['content']['pic_list'] = $pic_list;
 			}
 			return $this->modCnt;
 		}
@@ -1352,6 +1428,135 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				if($id['req'])
 				{
 					$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_EMPTY'];
+				}
+			}
+		}
+		return array($err, $data);
+	}
+	/**
+	 * Process file uploads sent through form
+	 *
+	 * Please note that the parameter is
+	 * the form data that SHOULD PE PROCESSED,
+	 * not the form itself, which the method
+	 * gets form $_FILES.
+	 *
+	 * @param array $form
+	 * @return array errors and processed form data
+	 */
+	private function _processUpload($upload)
+	{
+		//XXX
+		$err = array();
+		$data = array();
+		$file_types = array();
+		$file_types['picture'] = array("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif");
+		foreach($upload as $id)
+		{
+			if(isset($_FILES[$id['name']]))
+			{
+				$file_type  = $_FILES[$id['name']]['type'];
+				$file_size  = $_FILES[$id['name']]['size'];
+				$file_tname = $_FILES[$id['name']]['tmp_name'];
+				$file_error = $_FILES[$id['name']]['error'];
+				/**
+				 * Check general file stuff
+				 */
+				switch($file_error)
+				{
+					case 8 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_8'];
+							break;
+						}
+					case 7 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_7'];
+							break;
+						}
+					case 6 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_6'];
+							break;
+						}
+					case 4 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_4'];
+							break;
+						}
+					case 3 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_3'];
+							break;
+						}
+					case 2 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_2'];
+							break;
+						}
+					case 1 :
+						{
+							$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_1'];
+							break;
+						}
+					case 0 :
+						{
+							/**
+							 * Check that file was uploaded
+							 */
+							if(!is_uploaded_file($file_tname))
+							{
+								$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_FORM'];
+								break;
+							}
+							/**
+							 * File uploaded ok,
+							 * check type
+							 */
+							if(!in_array($file_type, $file_types[$id['type']]))
+							{
+								$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_TYPE'];
+								break;
+							}
+							switch($id['type'])
+							{
+								case 'picture' :
+									{
+										$info = getimagesize($file_tname);
+										if(!in_array($info['mime'], $file_types[$id['type']]))
+										{
+											$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_TYPE'];
+											break;
+										}
+										/**
+										 * If we got here
+										 * everything must be ok.
+										 * Try to store the image
+										 */
+										$file_hash = md5_file($file_tname);
+										$file_ext = image_type_to_extension($info['2'], TRUE);
+										$file_path = _APP_DIR_PIC.$file_hash.$file_ext;
+										if(!move_uploaded_file($file_tname, $file_path))
+										{
+											$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_SAVE'];
+											break;
+										}
+										$data['pic_file']   = $file_hash;
+										$data['pic_type']   = $info['2'];
+										$data['pic_width']  = $info['0'];
+										$data['pic_height'] = $info['1'];
+										break;
+									}
+							}
+							break;
+						}
+				}
+			}
+			else
+			{
+				if($id['req'])
+				{
+					$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_EMPTY'];
 				}
 			}
 		}
