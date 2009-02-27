@@ -82,8 +82,10 @@ a:hover, a:active {background: transparent; text-decoration: none; font-weight: 
 .page_list_grp {width: 100px;}
 .page_list_itm {width: 70px;}
 .page_list_op {width: 100px;}
-.image_admin_list_pic {float: left; clear: none; width: 150px; height: 150px; margin-left: 1px; background-color: #cccccc;}
+.image_admin_list_pic {float: left; clear: none; width: 150px; height: 260px; margin-left: 1px; margin-top: 1px; background-color: #cccccc;}
 .image_admin_list_clear {clear: both;}
+.thumb_admin_list_pic {float: left; clear: none; width: 150px; height: 260px; margin-left: 1px; margin-top: 1px; background-color: #cccccc;}
+.thumb_admin_list_clear {clear: both;}
 /* ********** ********** ********** ********** ********** CONTENT END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** LEFT START ********** ********** ********** ********** ********** */
@@ -133,4 +135,5 @@ a:hover, a:active     {background: transparent; text-decoration: none; font-weig
 .page_list_cr         {text-align: center;}
 .page_list_cr_tt      {text-align: left;}
 .image_admin_list_pic {text-align: center;}
+.thumb_admin_list_pic {text-align: center;}
 /* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */

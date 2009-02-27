@@ -93,16 +93,20 @@ $modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Content Template';
 /**
  * Image administration
  */
-$modlang['MOD']['IMAGE']['ADMIN']       = 'Image Administration';
-$modlang['MOD']['IMAGE']['IMAGE_LABEL'] = 'Image Label';
-$modlang['MOD']['IMAGE']['IMAGE_TITLE'] = 'Image Title';
-$modlang['MOD']['IMAGE']['IMAGE_FILE']  = 'Image File';
-$modlang['MOD']['IMAGE']['ADD_FCK']     = 'Add to FCKeditor';
+$modlang['MOD']['IMAGE']['ADMIN']        = 'Image Administration';
+$modlang['MOD']['IMAGE']['IMAGE_LABELS'] = 'Image Labels';
+$modlang['MOD']['IMAGE']['IMAGE_LABEL']  = 'Image Label';
+$modlang['MOD']['IMAGE']['IMAGE_TITLE']  = 'Image Title';
+$modlang['MOD']['IMAGE']['IMAGE_FILE']   = 'Image File';
+$modlang['MOD']['IMAGE']['ADD_FCK']      = 'Add to FCKeditor';
+$modlang['MOD']['IMAGE']['SIZE']         = 'Size';
+$modlang['MOD']['IMAGE']['TYPE']         = 'Type';
 /**
  * Thumbnail administration
  */
-$modlang['MOD']['THUMB']['ADMIN']      = 'Thumbnail Administration';
-$modlang['MOD']['THUMB']['CREATE']     = 'Create Thumbnail';
-$modlang['MOD']['THUMB']['THUMB_SIZE'] = 'Thumbnail Size';
-$modlang['MOD']['THUMB']['ADD_FCK']    = 'Add to FCKeditor';
+$modlang['MOD']['THUMB']['ADMIN']        = 'Thumbnail Administration';
+$modlang['MOD']['THUMB']['CREATE']       = 'Create Thumbnail';
+$modlang['MOD']['THUMB']['THUMB_SIZE']   = 'Thumbnail Size';
+$modlang['MOD']['THUMB']['ADD_FCK']      = 'Add to FCKeditor';
+$modlang['MOD']['THUMB']['THUMB_LABELS'] = 'Thumbnail Labels';
 ?>

@@ -27,8 +27,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{debug}
+{*debug*}
+<div id="image_admin_thumbs">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailAdmin/label/{$cnt.pic_label}" title="{$lang.MOD.THUMB.ADMIN}">{$lang.MOD.THUMB.ADMIN}</a>
+</div>
 <div id="image_admin_labels">
+{$lang.MOD.IMAGE.IMAGE_LABELS}:
+{foreach from=$cnt.pic_labels item=label}
+&#160;
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageAdmin/label/{$label.pic_label}" title="{$label.pic_label}">{$label.pic_label}</a>
+{/foreach}
 </div>
 <div id="image_admin_list">
 {foreach from=$cnt.pic_list item=img}
@@ -37,7 +45,9 @@
 <br />
 {$img.pic_title}
 <br />
-{$img.pic_width} x {$img.pic_height}
+{$lang.MOD.IMAGE.SIZE}: {$img.pic_width} x {$img.pic_height}
+<br />
+{$lang.MOD.IMAGE.TYPE}: {$img.pic_ext}
 <br />
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_thumb_new_form" id="{$smarty.const._APP_PRE}_thumb_new_form" action="" method="post">
 <input type="hidden" name="pic_id" value="{$img.pic_id}" />

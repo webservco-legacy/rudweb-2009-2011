@@ -661,6 +661,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					}
 				case 'html' :
 					{
+						//XXX
 						return $this->_authDenied();
 						break;
 					}
@@ -734,9 +735,74 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
+	/**
+	 * Thumbnail administration
+	 *
+	 * @return mixed content
+	 */
 	public function thumbnailAdmin()
 	{
-		//XXX Thumbnail administration
+		$thumb_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
+		if(!$thumb_label)
+		{
+			return $this->_authDenied();
+		}
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Everything is ok, proceed
+			 */
+			/**
+			 * Default values
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['THUMB']['ADMIN'];
+			$this->modCnt['cnt']['tpl'] = 'thumbnail_browser';
+			$this->modCnt['cnt']['content']['thumb_label'] = $thumb_label;
+			$this->modCnt['cnt']['content']['thumb_list'] = array();
+
+			/**
+			 * Get all labels
+			 */
+			$rl = $this->modDb->dbSelect('DISTINCT thumb_label', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL, NULL);
+			$tl = $rl->dbNumRows();
+			$this->modCnt['cnt']['content']['thumb_labels'] = array();
+			if($tl>0)
+			{
+				while($r = $rl->dbFetchArray())
+				{
+					$this->modCnt['cnt']['content']['thumb_labels'][] = $r;
+				}
+			}
+			/**
+			 * Thumbnails data
+			 */
+			$rs = $this->modDb->dbSelect('thumb_id, thumb_title, thumb_file, thumb_type, thumb_width, thumb_height', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND thumb_label = '{$thumb_label}'", NULL, NULL);
+			$t = $rs->dbNumRows();
+			$thumb_list = array();
+			if($t > 0)
+			{
+				$thumb = $this->modAppCore->rwActivateExt('Thumb');
+				$thumb->set_cacheDir(_APP_DIR_TMP);
+				$thumb->set_maxSize(120);
+				$thumb->set_thumbFormat(3); //png = 3, jpeg = 2, gif = 1
+				while($r = $rs->dbFetchArray())
+				{
+					/**
+					 * Get image information
+					 */
+					$r['thumb_ext']  = image_type_to_extension($r['thumb_type'], TRUE);
+					$r['thumb_preview'] = $thumb->thumb(_APP_DIR_THUMB.$r['thumb_file'].$r['thumb_ext']);
+					$thumb_list[] = $r;
+				}
+				$this->modCnt['cnt']['content']['thumb_list'] = $thumb_list;
+			}
+			return $this->modCnt;
+		}
 	}
 	public function imageAdmin()
 	{
@@ -947,7 +1013,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$pic_list = array();
 			if($t > 0)
 			{
-
 				$thumb = $this->modAppCore->rwActivateExt('Thumb');
 				$thumb->set_cacheDir(_APP_DIR_TMP);
 				$thumb->set_maxSize(120);
@@ -957,7 +1022,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Get image information
 					 */
-					$r['pic_ext'] = image_type_to_extension($r['pic_type'], TRUE);
+					$r['pic_ext']  = image_type_to_extension($r['pic_type'], TRUE);
 					$r['pic_preview'] = $thumb->thumb(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']);
 					$pic_list[] = $r;
 				}
@@ -1140,12 +1205,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				if($this->modDb->dbInsert(_APP_PRE.'_web_content', NULL, $dataInsert))
 				{
 					/**
-					 * Insert successfull, redirect to mesage page
+					 * Insert successfull, update order and redirect to mesage page
 					 *
 					 * get parameters: type of action, id of page
 					 */
 					$ri = $this->modDb->dbLastInsertId();
 					$cnt_id = $ri->dbFetchResult();
+					$dataUpdate['cnt_order'] = '{cnt_order+1}';
+					$this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, "pg_id = {$data['pg_id']} AND cnt_id != '{$cnt_id}' AND cnt_order >= '{$data['cnt_order']}'", NULL, NULL);
 					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/content/id/'.$cnt_id);
 					exit;
 				}
@@ -1330,7 +1397,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
+							$t = $ri->dbNumRows();
+							$pg_id = 0;
+							if($t == 1)
+							{
+								$pg_id = $ri->dbFetchResult();
+							}
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$pg_id;
 						}
 						else
 						{
@@ -1351,7 +1425,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
+							$t = $ri->dbNumRows();
+							$pg_id = 0;
+							if($t == 1)
+							{
+								$pg_id = $ri->dbFetchResult();
+							}
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$pg_id;
 						}
 						else
 						{
@@ -1372,7 +1453,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$_GET['id'];
+							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
+							$t = $ri->dbNumRows();
+							$pg_id = 0;
+							if($t == 1)
+							{
+								$pg_id = $ri->dbFetchResult();
+							}
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/page_edit/id/'.$pg_id;
 						}
 						else
 						{
