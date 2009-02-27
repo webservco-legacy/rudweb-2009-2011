@@ -46,10 +46,14 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 {
 	/**
 	 * Cache directory for thumbnails
+	 *
+	 * @var string
 	 */
 	public $cacheDir;
 	/**
 	 * Maximum thumbnail size (width or height)
+	 *
+	 * @var integer;
 	 */
 	public $maxSize = '80';
 	/**
@@ -58,8 +62,28 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 	 * 3 - png
 	 * 2 - jpg
 	 * 1 - gif
+	 *
+	 * @var integer
 	 */
 	public $thumbFormat = 3;
+	/**
+	 * Thumbnail file name suffix
+	 *
+	 * @var string
+	 */
+	public $thumbSuffix = NULL;
+	/**
+	 * Use file extension for thumbnail file
+	 *
+	 * @var boolean
+	 */
+	public $thumbUseExt = FALSE;
+	/**
+	 * File extension for thumbnail file
+	 *
+	 * @var string
+	 */
+	public $thumbExt = NULL;
 	/**
 	 * Constructor
 	 * Set extension information and call parent constructor
@@ -76,9 +100,9 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
-    $about['deps'] = array();
-    $about['deps']['cfg'] = array();
-    $about['deps']['ext'] = array();
+		$about['deps'] = array();
+		$about['deps']['cfg'] = array();
+		$about['deps']['ext'] = array();
 		parent::__construct($about, $appCore);
 	}
 	/**
@@ -99,11 +123,12 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 		/**
 		 * Set new image name
 		 */
-		$newimage_name= md5_file($img);
+		$newimage_name= md5_file($img).$this->thumbSuffix;
 		/**
 		 * Set new image full path
 		 */
-		$cached = $this->cacheDir.$newimage_name;
+		$this->thumbExt = $this->thumbUseExt ? image_type_to_extension($this->thumbFormat, TRUE) : NULL;
+		$cached = $this->cacheDir.$newimage_name.$this->thumbExt;
 		/**
 		 * If thumbnail doesn't already exist, attempt to create it.
 		 */
@@ -250,6 +275,26 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 	public function set_thumbFormat($thumbFormat)
 	{
 		$this->thumbFormat = $thumbFormat;
+	}
+	/**
+	 * Set thumbnail file name suffix
+	 *
+	 * @param string $thumbSuffix suffix
+	 */
+	public function set_thumbSuffix($thumbSuffix)
+	{
+		$this->thumbSuffix = $thumbSuffix;
+	}
+	/**
+	 * Set wether or not to use
+	 * an extension to the thumbnail
+	 * file name
+	 *
+	 * @param unknown_type $thumbUseExt
+	 */
+	public function set_thumbUseExt($thumbUseExt)
+	{
+		$this->thumbUseExt = $thumbUseExt;
 	}
 }
 ?>

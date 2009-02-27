@@ -27,7 +27,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{*debug*}
+{debug}
 <div id="image_admin_labels">
 </div>
 <div id="image_admin_list">
@@ -40,15 +40,19 @@
 {$img.pic_width} x {$img.pic_height}
 <br />
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_thumb_new_form" id="{$smarty.const._APP_PRE}_thumb_new_form" action="" method="post">
+<input type="hidden" name="pic_id" value="{$img.pic_id}" />
+{$lang.MOD.THUMB.THUMB_SIZE}
+&#160;
 <input class="thumb_size" type="text" name="thumb_size" id="thumb_size" maxlength="4" value="{$cnt.form.thumb_size}" />
 &#160;
 <input class="thumb_save" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMB.CREATE}" />
 </form>
-{*$img.pic_id*}
-{*$img.pic_file*}
+<br />
+<a href="JavaScript:addToFCK('{$smarty.const._APP_URL_IMG}{$img.pic_file}{$img.pic_ext}', '{$img.pic_width}', '{$img.pic_height}', '{$img.pic_title}')" title="{$lang.MOD.IMAGE.ADD_FCK}">{$lang.MOD.IMAGE.ADD_FCK}</a>
 </div>
 {/foreach}
 <div class="image_admin_list_clear">
+</div>
 </div>
 <div id="image_admin_upload">
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_image_new_form" id="{$smarty.const._APP_PRE}_image_new_form" action="" method="post">

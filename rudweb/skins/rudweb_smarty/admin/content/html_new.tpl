@@ -50,7 +50,7 @@
     oFCKeditor.Config['SkinPath'] = "{$smarty.const._APP_WWW}3rdparty/fckskins/famfamfamAluminum/";
     oFCKeditor.Config['AutoDetectLanguage']  = false ;
     oFCKeditor.Config['DefaultLanguage']   = '{php}echo $_SESSION[_APP_PRE.'_usr_lang'];{/php}' ;
-    oFCKeditor.Config['ImageBrowserURL']   = "{$smarty.const._APP_URL}module/dbContentAdm/action/imageBrowser" ;
+    oFCKeditor.Config['ImageBrowserURL']   = "{$smarty.const._APP_URL}module/dbContentAdm/action/imageAdmin" ;
     
     oFCKeditor.ReplaceTextarea() ;
   </script>

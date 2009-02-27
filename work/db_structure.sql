@@ -176,3 +176,27 @@ CREATE TABLE rudweb_web_pictures (
   pic_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (pic_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------------------------------
+-- THUMBNAILS
+-- --------------------------------------------------------------------------------
+DROP TABLE IF EXISTS rudweb_web_thumbs;
+CREATE TABLE rudweb_web_thumbs (
+  -- IDENTIFICATION
+  thumb_id MEDIUMINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  pic_id MEDIUMINT(5) UNSIGNED NOT NULL,
+  -- LOCATION
+  -- MAIN
+  thumb_label VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pictures',  
+  thumb_title VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
+  thumb_file VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
+  thumb_type TINYINT(1) UNSIGNED NOT NULL,
+  thumb_width MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
+  thumb_height MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
+  -- SETTINGS
+  thumb_group MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  -- STATISTICS
+  thumb_created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
+  thumb_created_user MEDIUMINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (thumb_id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

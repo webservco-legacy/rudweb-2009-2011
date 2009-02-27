@@ -97,9 +97,12 @@ $modlang['MOD']['IMAGE']['ADMIN']       = 'Administrare Imagini';
 $modlang['MOD']['IMAGE']['IMAGE_LABEL'] = 'Etichet&#259; Imagine';
 $modlang['MOD']['IMAGE']['IMAGE_TITLE'] = 'Titlu Imagine';
 $modlang['MOD']['IMAGE']['IMAGE_FILE']  = 'Fi&#351;ier Imagine';
+$modlang['MOD']['IMAGE']['ADD_FCK']     = 'Adaug&#259; la FCKeditor';
 /**
  * Thumbnail administration
  */
-$modlang['MOD']['THUMB']['ADMIN']  = 'Administrare Thumbnail';
-$modlang['MOD']['THUMB']['CREATE'] = 'Creare Thumbnail';
+$modlang['MOD']['THUMB']['ADMIN']      = 'Administrare Thumbnail';
+$modlang['MOD']['THUMB']['CREATE']     = 'Creare Thumbnail';
+$modlang['MOD']['THUMB']['THUMB_SIZE'] = 'M&#259;rime thumbnail';
+$modlang['MOD']['THUMB']['ADD_FCK']    = 'Adaug&#259; la FCKeditor';
 ?>

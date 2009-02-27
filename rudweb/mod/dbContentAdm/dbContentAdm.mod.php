@@ -775,7 +775,93 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$this->modCnt['cnt']['content']['form_err'][] = $this->modLang['FORM']['FILE_ERR'].$this->modLang['MOD']['IMAGE']['IMAGE_FILE'].$this->modLang['FORM']['FILE_1'];
 			}
 			/**
-			 * Process form
+			 * Process thumbnail creation form
+			 */
+			if(isset($_POST['thumb_save']))
+			{
+				/**
+				 * Form data that should be processed
+				 */
+				$form = array();
+				$form[] = array('title'=>'pic_id','name'=>'pic_id','type'=>'int','req'=>TRUE);
+				$form[] = array('title'=>$this->modLang['MOD']['THUMB']['THUMB_SIZE'],'name'=>'thumb_size','type'=>'number','req'=>TRUE);
+				/**
+				 * Process form data
+				 */
+				list($errForm, $dataForm) = $this->_processForm($form);
+				$te = count($errForm);
+				if($te>0)
+				{
+					/**
+					 * Errors occured, break operation
+					 */
+					$this->modCnt['cnt']['content']['form']['thumb_size'] = isset($_POST['thumb_size']) ? $_POST['thumb_size'] : '150';
+					$this->modCnt['cnt']['content']['form_err'] = $err;
+					return $this->modCnt;
+				}
+				else
+				{
+					/**
+					 * Data ok, do the stuff
+					 */
+					/**
+					 * Get image data
+					 */
+					$ri = $this->modDb->dbSelect('pic_title, pic_file, pic_type, pic_width, pic_height, pic_group', _APP_PRE.'_web_pictures', "pic_id = '{$dataForm['pic_id']}'", NULL, 1);
+					$ti = $ri->dbNumRows();
+					if($ti != 1)
+					{
+						trigger_error('image doesn\'t exist', E_USER_ERROR);
+					}
+					$r=$ri->dbFetchArray();
+
+					// generate thumbnail of desired size
+					$thumb = $this->modAppCore->rwActivateExt('Thumb');
+					$thumb->set_cacheDir(_APP_DIR_THUMB);
+					$thumb->set_maxSize($dataForm['thumb_size']);
+					$thumb->set_thumbFormat($r['pic_type']);
+					$thumb->set_thumbSuffix('_'.$dataForm['thumb_size']);
+					$thumb->set_thumbUseExt(TRUE);
+					$r['pic_ext'] = image_type_to_extension($r['pic_type'], TRUE);
+					if(!is_file(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']))
+					{
+						trigger_error('image doesn\'t exist', E_USER_ERROR);
+					}
+					$dataDb['pic_id'] = $dataForm['pic_id'];
+					$dataDb['thumb_label'] = $pic_label;
+					$dataDb['thumb_title'] = $r['pic_title'];
+					$dataDb['thumb_file'] = $thumb->thumb(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']);
+					$dataDb['thumb_type'] = $r['pic_type'];
+					$thumbExt = image_type_to_extension($dataDb['thumb_type'], TRUE);
+					if(!is_file(_APP_DIR_THUMB.$dataDb['thumb_file'].$thumbExt))
+					{
+						trigger_error('thumbnail not created', E_USER_ERROR);
+					}
+					$info = getimagesize(_APP_DIR_THUMB.$dataDb['thumb_file'].$thumbExt);
+					$dataDb['thumb_width'] = $info['0'];
+					$dataDb['thumb_height'] = $info['1'];
+					$dataDb['thumb_group'] = $r['pic_group'];
+					$dataDb['thumb_created_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+					if($this->modDb->dbInsert(_APP_PRE.'_web_thumbs', NULL, $dataDb))
+					{
+						/**
+						 * Insert successfull, redirect to thumbnail page
+						 * with new label
+						 */
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailAdmin/label/'.$dataDb['thumb_label']);
+						exit;
+					}
+					else
+					{
+						/**
+						 * Needs work...
+						 */
+						trigger_error('insert error', E_USER_ERROR);
+					}
+				}
+			}
+			/**
+			 * Process image form
 			 */
 			if(isset($_POST['image_save']))
 			{
@@ -872,7 +958,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					 * Get image information
 					 */
 					$r['pic_ext'] = image_type_to_extension($r['pic_type'], TRUE);
-					$r['pic_preview'] = $thumb->thumb(_APP_DIR_PIC.$r['pic_file'].$r['pic_ext']);
+					$r['pic_preview'] = $thumb->thumb(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']);
 					$pic_list[] = $r;
 				}
 				$this->modCnt['cnt']['content']['pic_list'] = $pic_list;
@@ -904,11 +990,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * FCKeditor, TinyMCE, or blank
 		 */
 		$this->modCnt['cnt']['content']['rte'] = 'FCKeditor';
-
 		/**
 		 * If form is sent, process request
 		 */
-		//if(isset($_POST['cnt_body']))
 		if(isset($_POST['pg_id']) && $_POST['pg_id'] == $pg_id)
 		{
 			/**
@@ -1425,6 +1509,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							}
 							break;
 						}
+					case 'number' :
+						{
+							if($data[$id['name']] != '' && (!$this->modAppCore->rwCheckInt($data[$id['name']]) && !is_numeric($data[$id['name']]) ))
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							break;
+						}
 					default :
 						{
 							break;
@@ -1454,7 +1546,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _processUpload($upload)
 	{
-		//XXX
 		$err = array();
 		$data = array();
 		$file_types = array();
@@ -1544,7 +1635,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 										 */
 										$file_hash = md5_file($file_tname);
 										$file_ext = image_type_to_extension($info['2'], TRUE);
-										$file_path = _APP_DIR_PIC.$file_hash.$file_ext;
+										$file_path = _APP_DIR_IMG.$file_hash.$file_ext;
 										if(!move_uploaded_file($file_tname, $file_path))
 										{
 											$err[] = $this->modLang['FORM']['FILE_ERR'].$id['title'].$this->modLang['FORM']['FILE_SAVE'];

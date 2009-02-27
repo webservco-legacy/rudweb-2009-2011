@@ -53,11 +53,19 @@ define('_APP_URL_VAR', _APP_WWW . 'var/');
 /**
  * Application pictures directory
  */
-define('_APP_DIR_PIC', _APP_DIR_VAR . 'images/');
+define('_APP_DIR_IMG', _APP_DIR_VAR . 'images/');
 /**
  * Application pictures url
  */
-define('_APP_URL_PIC', _APP_URL_VAR . 'images/');
+define('_APP_URL_IMG', _APP_URL_VAR . 'images/');
+/**
+ * Application thumbnails directory
+ */
+define('_APP_DIR_THUMB', _APP_DIR_VAR . 'thumbs/');
+/**
+ * Application thumbnails url
+ */
+define('_APP_URL_THUMB', _APP_URL_VAR . 'thumbs/');
 /**
  * Application temp directory
  */

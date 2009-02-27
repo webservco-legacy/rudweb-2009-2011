@@ -27,7 +27,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
- function toggleTRows(thisname) {
+function toggleTRows(thisname) {
   tr=document.getElementsByTagName('tr')
   for (i=0;i<tr.length;i++){
     if (tr[i].getAttribute(thisname)){
@@ -56,5 +56,18 @@ function toggleTRowGroups(thisname, thisvalue)
         tr[i].style.display='none';
       }
     }
+  }
+}
+function addToFCK(url, width, height, alt)
+{
+  var url = (url == null) ? null : url;
+  var width = (width == null) ? null : width;
+  var height = (height == null) ? null : height;
+  var alt = (alt == null) ? null : alt;
+  if(window.opener && (url != null))
+  {
+    window.opener.SetUrl(url, width, height, alt);
+    //window.opener.SetUrl(url) ;
+    window.close() ;
   }
 }
