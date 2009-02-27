@@ -430,7 +430,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Additional data for the db
 					 */
-					//XXX
 					$data = array();
 					$data['pg_alias'] = $this->modAppCore->rwFormatAlias($dataForm['pg_title']);
 					$data['pg_modified_time'] = date('Y-m-d H:i:s');
@@ -763,19 +762,23 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$this->modCnt['cnt']['tpl'] = 'image_browser';
 			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
 			$this->modCnt['cnt']['content']['pic_list'] = array();
+			$this->modCnt['cnt']['content']['form']['thumb_size'] = '150';
 			$this->modCnt['cnt']['content']['form']['pic_label'] = 'pictures';
 			$this->modCnt['cnt']['content']['form']['pic_title'] = '';
 			$this->modCnt['cnt']['content']['form_err'] = array();
+			/**
+			 * POST Content-length PHP "bug"
+			 */
+			$error = function_exists('error_get_last') ? error_get_last() : NULL;
+			if(is_array($error) && (FALSE !== strpos($error['message'], 'POST Content-Length of')))
+			{
+				$this->modCnt['cnt']['content']['form_err'][] = $this->modLang['FORM']['FILE_ERR'].$this->modLang['MOD']['IMAGE']['IMAGE_FILE'].$this->modLang['FORM']['FILE_1'];
+			}
 			/**
 			 * Process form
 			 */
 			if(isset($_POST['image_save']))
 			{
-				/**
-				 * Image data that should pe processed
-				 */
-				$upload = array();
-				$upload[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_FILE'],'name'=>'pic_file','type'=>'picture','req'=>TRUE);
 				/**
 				 * Form data that should be processed
 				 */
@@ -783,17 +786,22 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$form[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_LABEL'],'name'=>'pic_label','type'=>'text','req'=>TRUE);
 				$form[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_TITLE'],'name'=>'pic_title','type'=>'text','req'=>TRUE);
 				/**
-				 * Process image data
+				 * Image data that should pe processed
 				 */
-				list($errUpload, $dataUpload) = $this->_processUpload($upload);
+				$upload = array();
+				$upload[]= array('title'=>$this->modLang['MOD']['IMAGE']['IMAGE_FILE'],'name'=>'pic_file','type'=>'picture','req'=>TRUE);
 				/**
 				 * Process form data
 				 */
 				list($errForm, $dataForm) = $this->_processForm($form);
 				/**
+				 * Process image data
+				 */
+				list($errUpload, $dataUpload) = $this->_processUpload($upload);
+				/**
 				 * Check for errors
 				 */
-				$err = array_merge($errUpload, $errForm);
+				$err = array_merge($errForm, $errUpload);
 				$te = count($err);
 				if($te>0)
 				{
@@ -853,11 +861,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$pic_list = array();
 			if($t > 0)
 			{
-				
+
 				$thumb = $this->modAppCore->rwActivateExt('Thumb');
-        $thumb->set_cacheDir(_APP_DIR_TMP);
-        $thumb->set_maxSize(120);
-        $thumb->set_thumbFormat(3); //png = 3, jpeg = 2, gif = 1
+				$thumb->set_cacheDir(_APP_DIR_TMP);
+				$thumb->set_maxSize(120);
+				$thumb->set_thumbFormat(3); //png = 3, jpeg = 2, gif = 1
 				while($r = $rs->dbFetchArray())
 				{
 					/**
@@ -1451,6 +1459,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$data = array();
 		$file_types = array();
 		$file_types['picture'] = array("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif");
+
 		foreach($upload as $id)
 		{
 			if(isset($_FILES[$id['name']]))

@@ -40,13 +40,12 @@
 {$img.pic_width} x {$img.pic_height}
 <br />
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_thumb_new_form" id="{$smarty.const._APP_PRE}_thumb_new_form" action="" method="post">
-<input class="thumb_size" type="text" name="thumb_size" id="thumb_size" maxlength="4" value="" />
+<input class="thumb_size" type="text" name="thumb_size" id="thumb_size" maxlength="4" value="{$cnt.form.thumb_size}" />
 &#160;
 <input class="thumb_save" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMB.CREATE}" />
 </form>
 {*$img.pic_id*}
 {*$img.pic_file*}
-
 </div>
 {/foreach}
 <div class="image_admin_list_clear">
@@ -84,10 +83,3 @@
   {/foreach}
 </div>
 </div>
-{php}
-echo '<pre>';
-print_r($_POST);
-echo '<hr>';
-print_r($_FILES);
-echo '</pre>';
-{/php}
