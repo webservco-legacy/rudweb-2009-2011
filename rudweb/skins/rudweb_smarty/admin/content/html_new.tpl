@@ -87,8 +87,3 @@
   {/foreach}
   </div>
 </div>
-<pre>
-{php}
-print_r($_POST);
-{/php}
-</pre>

@@ -31,8 +31,10 @@
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_edit_form" id="{$smarty.const._APP_PRE}_content_edit_form" action="" method="post">
 <table class="content_edit_html">
  <tr>
-  <td class="content_edit_form_a">{$lang.MOD.CONTENT.CONTENT_BODY}</td>
+  <td class="content_edit_form_a">&#160;</td>
   <td class="content_edit_form_b">
+  {$lang.MOD.CONTENT.CONTENT_BODY}
+  <br />
   <input type="hidden" name="cnt_id" id="cnt_id" value="{$cnt.cnt_id}" />
   <textarea class="content_body" name="cnt_body" id="cnt_body">{$cnt.cnt_body}</textarea>
     {if $cnt.rte eq "FCKeditor"}
@@ -66,8 +68,11 @@
   </td>
  </tr>
  <tr>
-  <td class="content_edit_form_a">{$lang.MOD.CONTENT.CONTENT_TEMPLATE}</td>
-  <td class="content_edit_form_b"><input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></td>
+  <td class="content_edit_form_a">&#160;</td>
+  <td class="content_edit_form_b">
+  {$lang.MOD.CONTENT.CONTENT_TEMPLATE}
+  <br />
+  <input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></td>
  </tr>
  <tr>
   <td class="content_edit_form_a">&#160;</td>
@@ -82,9 +87,3 @@
   {/foreach}
   </div>
 </div>
-
-<pre>
-{php}
-print_r($_POST);
-{/php}
-</pre>

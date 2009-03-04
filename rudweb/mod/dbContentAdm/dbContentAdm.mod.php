@@ -674,6 +674,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 		}
 	}
+	/**
+	 * Delete content
+	 *
+	 * @return mixed content
+	 */
 	public function content_delete()
 	{
 		/**
@@ -805,6 +810,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	/**
+	 * Image administration
+	 *
+	 * @return mixed content
+	 */
 	public function imageAdmin()
 	{
 		$pic_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
