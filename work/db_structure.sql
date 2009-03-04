@@ -189,7 +189,7 @@ CREATE TABLE rudweb_web_thumbs (
   -- MAIN
   thumb_label VARCHAR(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pictures',  
   thumb_title VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL,
-  thumb_file VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
+  thumb_file VARCHAR(37) COLLATE utf8_unicode_ci NOT NULL,
   thumb_type TINYINT(1) UNSIGNED NOT NULL,
   thumb_width MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,
   thumb_height MEDIUMINT(4) UNSIGNED NOT NULL DEFAULT 0,

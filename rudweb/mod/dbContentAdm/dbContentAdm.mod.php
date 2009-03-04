@@ -939,7 +939,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				}
 			}
 			/**
-			 * Process image form
+			 * Process image add form
 			 */
 			if(isset($_POST['image_save']))
 			{
@@ -1004,6 +1004,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					}
 				}
 			}
+			/**
+			 * Process image delete form
+			 */
+			//XXX
 			/**
 			 * Get all labels
 			 */
