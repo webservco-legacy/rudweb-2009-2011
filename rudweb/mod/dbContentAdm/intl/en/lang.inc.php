@@ -108,9 +108,9 @@ $modlang['MOD']['IMAGE']['TYPE']            = 'Type';
 /**
  * Thumbnail administration
  */
-$modlang['MOD']['THUMB']['ADMIN']        = 'Thumbnail Administration';
-$modlang['MOD']['THUMB']['CREATE']       = 'Create Thumbnail';
-$modlang['MOD']['THUMB']['THUMB_SIZE']   = 'Thumbnail Size';
-$modlang['MOD']['THUMB']['ADD_FCK']      = 'Add to FCKeditor';
-$modlang['MOD']['THUMB']['THUMB_LABELS'] = 'Thumbnail Labels';
+$modlang['MOD']['THUMBNAIL']['ADMIN']        = 'Thumbnail Administration';
+$modlang['MOD']['THUMBNAIL']['CREATE']       = 'Create Thumbnail';
+$modlang['MOD']['THUMBNAIL']['THUMB_SIZE']   = 'Thumbnail Size';
+$modlang['MOD']['THUMBNAIL']['ADD_FCK']      = 'Add to FCKeditor';
+$modlang['MOD']['THUMBNAIL']['THUMB_LABELS'] = 'Thumbnail Labels';
 ?>

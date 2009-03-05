@@ -29,7 +29,7 @@
  *}
 {*debug*}
 <div id="image_admin_thumbs">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailList/label/{$cnt.pic_label}" title="{$lang.MOD.THUMB.ADMIN}">{$lang.MOD.THUMB.ADMIN}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailList/label/{$cnt.pic_label}" title="{$lang.MOD.THUMBNAIL.ADMIN}">{$lang.MOD.THUMBNAIL.ADMIN}</a>
 </div>
 <div id="image_admin_labels">
 {$lang.MOD.IMAGE.IMAGE_LABELS}:
@@ -51,11 +51,11 @@
 <br />
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_thumb_new_form" id="{$smarty.const._APP_PRE}_thumb_new_form" action="" method="post">
 <input type="hidden" name="pic_id" value="{$img.pic_id}" />
-{$lang.MOD.THUMB.THUMB_SIZE}
+{$lang.MOD.THUMBNAIL.THUMB_SIZE}
 &#160;
 <input class="thumb_size" type="text" name="thumb_size" id="thumb_size" maxlength="4" value="{$cnt.form.thumb_size}" />
 &#160;
-<input class="thumb_save" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMB.CREATE}" />
+<input class="thumb_save" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMBNAIL.CREATE}" />
 </form>
 <br />
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.pic_id}/type/image" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>

@@ -33,4 +33,4 @@
 <br />
 {$lang.MOD.IMAGE.DELETE_DENIED_2}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List" title="{$lang.MOD.ADMIN.CONTINUE}">{$lang.MOD.ADMIN.CONTINUE}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$lang.MOD.ADMIN.CONTINUE}">{$lang.MOD.ADMIN.CONTINUE}</a>

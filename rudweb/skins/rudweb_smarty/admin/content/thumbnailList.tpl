@@ -32,7 +32,7 @@
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageList/label/{$cnt.thumb_label}" title="{$lang.MOD.IMAGE.ADMIN}">{$lang.MOD.IMAGE.ADMIN}</a>
 </div>
 <div id="thumb_admin_labels">
-{$lang.MOD.THUMB.THUMB_LABELS}:
+{$lang.MOD.THUMBNAIL.THUMB_LABELS}:
 {foreach from=$cnt.thumb_labels item=label}
 &#160;
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailList/label/{$label.thumb_label}" title="{$label.thumb_label}">{$label.thumb_label}</a>
@@ -49,9 +49,9 @@
 <br />
 {$lang.MOD.IMAGE.TYPE}: {$thumb.thumb_ext}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.thumb_id}/type/thumbnail" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$thumb.thumb_id}/type/thumbnail" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
 <br />
-<a href="JavaScript:addToFCK('{$smarty.const._APP_URL_THUMB}{$thumb.thumb_file}{$thumb.thumb_ext}', '{$thumb.thumb_width}', '{$thumb.thumb_height}', '{$thumb.thumb_title}')" title="{$lang.MOD.THUMB.ADD_FCK}">{$lang.MOD.THUMB.ADD_FCK}</a>
+<a href="JavaScript:addToFCK('{$smarty.const._APP_URL_THUMB}{$thumb.thumb_file}{$thumb.thumb_ext}', '{$thumb.thumb_width}', '{$thumb.thumb_height}', '{$thumb.thumb_title}')" title="{$lang.MOD.THUMBNAIL.ADD_FCK}">{$lang.MOD.THUMBNAIL.ADD_FCK}</a>
 </div>
 {/foreach}
 <div class="thumb_admin_list_clear">

@@ -33,4 +33,4 @@
 <br />
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$cnt.image_id}/type/{$cnt.image_type}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
 &#160;
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>

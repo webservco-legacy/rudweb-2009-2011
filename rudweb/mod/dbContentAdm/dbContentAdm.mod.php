@@ -785,7 +785,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values
 			 */
-			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['THUMB']['ADMIN'];
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['THUMBNAIL']['ADMIN'];
 			$this->modCnt['cnt']['tpl'] = 'thumbnailList';
 			$this->modCnt['cnt']['content']['thumb_label'] = $thumb_label;
 			$this->modCnt['cnt']['content']['thumb_list'] = array();
@@ -880,7 +880,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				$form = array();
 				$form[] = array('title'=>'pic_id','name'=>'pic_id','type'=>'int','req'=>TRUE);
-				$form[] = array('title'=>$this->modLang['MOD']['THUMB']['THUMB_SIZE'],'name'=>'thumb_size','type'=>'number','req'=>TRUE);
+				$form[] = array('title'=>$this->modLang['MOD']['THUMBNAIL']['THUMB_SIZE'],'name'=>'thumb_size','type'=>'number','req'=>TRUE);
 				/**
 				 * Process form data
 				 */
@@ -1101,7 +1101,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * Check image
 		 */
-		$rs = $this->modDb->dbSelect("{$img_prefix}group, {$img_prefix}label, {$img_prefix}title, {$img_prefix}file, {$img_prefix}type", $img_table, "{$img_prefix}id = '{$img_id}' AND {$img_prefix}deleted = '0'", NULL, 1, 1);
+		$rs = $this->modDb->dbSelect("{$img_prefix}group, {$img_prefix}label, {$img_prefix}title, {$img_prefix}file, {$img_prefix}type", $img_table, "{$img_prefix}id = '{$img_id}' AND {$img_prefix}deleted = '0'", NULL, 1);
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
@@ -1136,6 +1136,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['DELETE'];
 			$this->modCnt['cnt']['content']['image_id']    = $img_id;
 			$this->modCnt['cnt']['content']['image_title'] = $img_title;
+			$this->modCnt['cnt']['content']['image_label'] = $img_label;
 			$this->modCnt['cnt']['content']['image_type']  = $img_type;
 			/**
 			 * Check if image is used in content
@@ -1181,7 +1182,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					 */
 					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/remove/resource/'.$img_type.'/id/'.$img_id);
 					exit;
-					//XXX
 				}
 				else
 				{
