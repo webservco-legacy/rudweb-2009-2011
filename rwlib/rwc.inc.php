@@ -75,6 +75,10 @@ define('_APP_DIR_TMP', _APP_DIR_VAR . 'tmp/');
  */
 define('_APP_URL_TMP', _APP_URL_VAR . 'tmp/');
 /**
+ * Application trash directory
+ */
+define('_APP_DIR_TRASH', _APP_DIR_VAR . 'trash/');
+/**
  * Application content directory
  */
 define('_APP_DIR_CNT', _APP_DIR_INC . 'cnt/');

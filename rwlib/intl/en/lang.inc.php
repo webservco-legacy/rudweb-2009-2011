@@ -85,5 +85,5 @@ $lang['FORM']['FILE_SAVE']  = '". Error saving file.';
 
 $lang['FORM']['ADD_OK']     = 'Add action was successfull!';
 $lang['FORM']['EDIT_OK']    = 'Edit action was successfull!';
-$lang['FORM']['REMOVE_OK'] = 'Remove action was successfull!';
+$lang['FORM']['REMOVE_OK']  = 'Remove action was successfull!';
 ?>

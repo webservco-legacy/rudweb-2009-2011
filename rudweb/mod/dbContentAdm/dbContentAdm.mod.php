@@ -476,12 +476,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function pageDelete()
 	{
+		/**
+		 * Get page id
+		 */
 		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
 		if(!$pg_id)
 		{
 			return $this->_authDenied();
 		}
-		$rs = $this->modDb->dbSelect('pg_group, pg_title', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
+		/**
+		 * Check page
+		 */
+		$rs = $this->modDb->dbSelect('pg_group, pg_title', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}' AND pg_deleted = '0'", NULL, 1);
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
@@ -490,6 +496,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$r = $rs->dbFetchArray();
 		$pg_group = $r['pg_group'];
 		$pg_title = $r['pg_title'];
+		/**
+		 * Verify rights
+		 */
 		$auth = $this->_authVerify(3, $pg_group);
 		if($auth !== 'ok')
 		{
@@ -503,7 +512,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['DELETE'];
 			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
 			$this->modCnt['cnt']['content']['page_title'] = $pg_title;
-
+			/**
+			 * Check if page contains other pages
+			 */
 			$rc = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_pages', "pg_parent = '{$pg_id}' AND pg_deleted = '0'", NULL, NULL);
 			$tc = $rc->dbNumRows();
 			if($tc > 0)
@@ -511,9 +522,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$this->modCnt['cnt']['tpl'] = 'pageDeleteDenied';
 				return $this->modCnt;
 			}
-
+			/**
+			 * Ok to go forward, set template.
+			 */
 			$this->modCnt['cnt']['tpl'] = 'pageDelete';
-
+			/**
+			 * If user is sure to delete, do it
+			 */
 			$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
 			if($delete)
 			{
@@ -537,13 +552,16 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				}
 				else
 				{
+					/**
+					 * Needs work
+					 */
 					trigger_error('delete error', E_USER_ERROR);
 				}
 			}
 			else
 			{
 				/**
-				 * Display message
+				 * Display are you sure message
 				 */
 				return $this->modCnt;
 			}
@@ -747,7 +765,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed content
 	 */
-	public function thumbnailAdmin()
+	public function thumbnailList()
 	{
 		$thumb_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
 		if(!$thumb_label)
@@ -768,7 +786,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 * Default values
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['THUMB']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'thumbnailAdmin';
+			$this->modCnt['cnt']['tpl'] = 'thumbnailList';
 			$this->modCnt['cnt']['content']['thumb_label'] = $thumb_label;
 			$this->modCnt['cnt']['content']['thumb_list'] = array();
 
@@ -816,7 +834,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed content
 	 */
-	public function imageAdmin()
+	public function imageList()
 	{
 		$pic_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
 		if(!$pic_label)
@@ -837,7 +855,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 * Default values, if no form is processed
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'imageAdmin';
+			$this->modCnt['cnt']['tpl'] = 'imageList';
 			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
 			$this->modCnt['cnt']['content']['pic_list'] = array();
 			$this->modCnt['cnt']['content']['form']['thumb_size'] = '150';
@@ -926,7 +944,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 * Insert successfull, redirect to thumbnail page
 						 * with new label
 						 */
-						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailAdmin/label/'.$dataDb['thumb_label']);
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailList/label/'.$dataDb['thumb_label']);
 						exit;
 					}
 					else
@@ -992,7 +1010,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 * Insert successfull, redirect to same page
 						 * with new label
 						 */
-						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/imageAdmin/label/'.$dataForm['pic_label']);
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/imageList/label/'.$dataForm['pic_label']);
 						exit;
 					}
 					else
@@ -1005,12 +1023,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				}
 			}
 			/**
-			 * Process image delete form
+			 * Get all labels
 			 */
-			//XXX
-			/**
-			* Get all labels
-			*/
 			$rl = $this->modDb->dbSelect('DISTINCT pic_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_deleted = '0'", NULL);
 			$tl = $rl->dbNumRows();
 			$this->modCnt['cnt']['content']['pic_labels'] = array();
@@ -1049,7 +1063,142 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	}
 	public function imageDelete()
 	{
-		//XXX
+		/**
+		 * Get image type and id
+		 */
+		$img_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
+		$img_types = array('image', 'thumbnail');
+		$img_type = (isset($_GET['type']) && in_array($_GET['type'], $img_types)) ? $_GET['type'] : NULL;
+		if(!$img_id || !$img_type)
+		{
+			return $this->_authDenied();
+		}
+
+		/**
+		 * Set image type
+		 */
+		switch($img_type)
+		{
+			case 'image' :
+				{
+					$img_table = _APP_PRE.'_web_pictures';
+					$img_prefix = 'pic_';
+					$img_dir = _APP_DIR_IMG;
+					break;
+				}
+			case 'thumbnail' :
+				{
+					$img_table = _APP_PRE.'_web_thumbs';
+					$img_prefix = 'thumb_';
+					$img_dir = _APP_DIR_THUMB;
+					break;
+				}
+			default :
+				{
+					break;
+				}
+		}
+		/**
+		 * Check image
+		 */
+		$rs = $this->modDb->dbSelect("{$img_prefix}group, {$img_prefix}label, {$img_prefix}title, {$img_prefix}file, {$img_prefix}type", $img_table, "{$img_prefix}id = '{$img_id}' AND {$img_prefix}deleted = '0'", NULL, 1, 1);
+		$t = $rs->dbNumRows();
+		if($t != 1)
+		{
+			trigger_error('image doesn\'t exist', E_USER_ERROR);
+		}
+		$r = $rs->dbFetchArray();
+		$img_group = $r[$img_prefix.'group'];
+		$img_label = $r[$img_prefix.'label'];
+		$img_title = $r[$img_prefix.'title'];
+		$img_file  = $r[$img_prefix.'file'];
+		$img_ext   = image_type_to_extension($r[$img_prefix.'type'], TRUE);
+		/**
+		 * Check "physical" image
+		 */
+		if(!is_file($img_dir.$img_file.$img_ext))
+		{
+			trigger_error('image doesn\'t exist', E_USER_ERROR);
+		}
+		/**
+		 * Verify user rights
+		 */
+		$auth = $this->_authVerify(3, $img_group);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
+		else
+		{
+			/**
+			 * Everything is ok, proceed.
+			 */
+			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['DELETE'];
+			$this->modCnt['cnt']['content']['image_id']    = $img_id;
+			$this->modCnt['cnt']['content']['image_title'] = $img_title;
+			$this->modCnt['cnt']['content']['image_type']  = $img_type;
+			/**
+			 * Check if image is used in content
+			 */
+			$rc = $this->modDb->dbSelect('cnt_id, pg_id', _APP_PRE.'_web_content', "cnt_body REGEXP '{$img_file}' AND cnt_deleted = '0'", NULL, NULL);
+			$tc = $rc->dbNumRows();
+			if($tc > 0)
+			{
+				$this->modCnt['cnt']['content']['items'] = $tc;
+				$this->modCnt['cnt']['tpl'] = 'imageDeleteDenied';
+				return $this->modCnt;
+			}
+			/**
+			 * Ok to go forward, set template.
+			 */
+			$this->modCnt['cnt']['tpl'] = 'imageDelete';
+			/**
+			 * If user is sure to delete, do it
+			 */
+			$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
+			if($delete)
+			{
+				/**
+				 * Delete the image and redirect
+				 */
+				$dataUpdate[$img_prefix.'deleted'] = 1;
+				$dataUpdate[$img_prefix.'deleted_time'] = date('Y-m-d H:i:s');
+				$dataUpdate[$img_prefix.'deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
+				if($this->modDb->dbUpdate($img_table, $dataUpdate, "{$img_prefix}id = '{$img_id}'", NULL, 1))
+				{
+					/**
+					 * Move physical image to trash.
+					 */
+					if(!rename($img_dir.$img_file.$img_ext, _APP_DIR_TRASH.$img_file.$img_ext))
+					{
+						/**
+						 * Needs work
+						 */
+						trigger_error('delete error', E_USER_ERROR);
+					}
+					/**
+					 * Redirect to action ok message
+					 */
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/remove/resource/'.$img_type.'/id/'.$img_id);
+					exit;
+					//XXX
+				}
+				else
+				{
+					/**
+					 * Needs work
+					 */
+					trigger_error('delete error', E_USER_ERROR);
+				}
+			}
+			else
+			{
+				/**
+				 * Display are you sure message
+				 */
+				return $this->modCnt;
+			}
+		}
 	}
 	/**
 	 * Successfull action message
@@ -1058,7 +1207,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function actionOk()
 	{
-		$res = array('page', 'content');
+		$res = array('page', 'content', 'image', 'thumbnail');
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
 		{
@@ -1157,7 +1306,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
 
 						break;

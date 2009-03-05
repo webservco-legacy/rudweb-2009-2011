@@ -85,5 +85,5 @@ $lang['FORM']['FILE_SAVE']  = '". Eroare la salvarea fi&#351;ierului.';
 
 $lang['FORM']['ADD_OK']     = 'Ac&#355;iunea de ad&#259;ugare a fost realizat&#259; cu succes!';
 $lang['FORM']['EDIT_OK']    = 'Ac&#355;iunea de editare a fost realizat&#259; cu succes!';
-$lang['FORM']['REMOVE_OK'] = 'Ac&#355;iunea de &#351;tergere a fost realizat&#259; cu succes!';
+$lang['FORM']['REMOVE_OK']  = 'Ac&#355;iunea de &#351;tergere a fost realizat&#259; cu succes!';
 ?>

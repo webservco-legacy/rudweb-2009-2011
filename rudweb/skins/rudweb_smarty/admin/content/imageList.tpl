@@ -29,13 +29,13 @@
  *}
 {*debug*}
 <div id="image_admin_thumbs">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailAdmin/label/{$cnt.pic_label}" title="{$lang.MOD.THUMB.ADMIN}">{$lang.MOD.THUMB.ADMIN}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailList/label/{$cnt.pic_label}" title="{$lang.MOD.THUMB.ADMIN}">{$lang.MOD.THUMB.ADMIN}</a>
 </div>
 <div id="image_admin_labels">
 {$lang.MOD.IMAGE.IMAGE_LABELS}:
 {foreach from=$cnt.pic_labels item=label}
 &#160;
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageAdmin/label/{$label.pic_label}" title="{$label.pic_label}">{$label.pic_label}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageList/label/{$label.pic_label}" title="{$label.pic_label}">{$label.pic_label}</a>
 {/foreach}
 </div>
 <div id="image_admin_list">

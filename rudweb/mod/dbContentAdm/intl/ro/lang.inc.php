@@ -60,7 +60,7 @@ $modlang['MOD']['PAGE']['DELETE']           = '&#350;tergere Pagin&#259;';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Sigur &#351;terge&#355;i aceast&#259; pagin&#259;?';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_2'] = 'Con&#355;inutul paginii va fi de asemenea &#351;ters.';
 $modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Pagina con&#355;ine alte pagini.';
-$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = '&#350;tergerea nu poate fi realizat&#259;.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Pagina nu poate fi &#351;tears&#259;.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Schimb&#259; Ordinea';
 $modlang['MOD']['PAGE']['TITLE']            = 'Titlu';
 $modlang['MOD']['PAGE']['TEMPLATE']         = 'Template';
@@ -93,14 +93,18 @@ $modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Template Con&#355;inut';
 /**
  * Image administration
  */
-$modlang['MOD']['IMAGE']['ADMIN']        = 'Administrare Imagini';
-$modlang['MOD']['IMAGE']['IMAGE_LABELS'] = 'Etichete Imagine';
-$modlang['MOD']['IMAGE']['IMAGE_LABEL']  = 'Etichet&#259; Imagine';
-$modlang['MOD']['IMAGE']['IMAGE_TITLE']  = 'Titlu Imagine';
-$modlang['MOD']['IMAGE']['IMAGE_FILE']   = 'Fi&#351;ier Imagine';
-$modlang['MOD']['IMAGE']['ADD_FCK']      = 'Adaug&#259; la FCKeditor';
-$modlang['MOD']['IMAGE']['SIZE']         = 'M&#259;rime';
-$modlang['MOD']['IMAGE']['TYPE']         = 'Tip';
+$modlang['MOD']['IMAGE']['ADMIN']           = 'Administrare Imagini';
+$modlang['MOD']['IMAGE']['DELETE']          = '&#350;tergere Imagine';
+$modlang['MOD']['IMAGE']['DELETE_CONFIRM']  = 'Sigur &#351;terge&#355;i aceast&#259; imagine?';
+$modlang['MOD']['IMAGE']['DELETE_DENIED_1'] = 'Exist&#259; articole de con&#355;inut ce folosesc aceast&#259; imagine.';
+$modlang['MOD']['IMAGE']['DELETE_DENIED_2'] = 'Imaginea nu poate fi &#351;tears&#259;.';
+$modlang['MOD']['IMAGE']['IMAGE_LABELS']    = 'Etichete Imagine';
+$modlang['MOD']['IMAGE']['IMAGE_LABEL']     = 'Etichet&#259; Imagine';
+$modlang['MOD']['IMAGE']['IMAGE_TITLE']     = 'Titlu Imagine';
+$modlang['MOD']['IMAGE']['IMAGE_FILE']      = 'Fi&#351;ier Imagine';
+$modlang['MOD']['IMAGE']['ADD_FCK']         = 'Adaug&#259; la FCKeditor';
+$modlang['MOD']['IMAGE']['SIZE']            = 'M&#259;rime';
+$modlang['MOD']['IMAGE']['TYPE']            = 'Tip';
 /**
  * Thumbnail administration
  */

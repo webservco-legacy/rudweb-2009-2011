@@ -60,7 +60,7 @@ $modlang['MOD']['PAGE']['DELETE']           = 'Delete Page';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Are you sure you want to delete this page?';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Page content will also be deleted.';
 $modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Page contains other pages.';
-$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Can not delete page.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Page can not be deleted.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Change Order';
 $modlang['MOD']['PAGE']['TITLE']            = 'Title';
 $modlang['MOD']['PAGE']['TEMPLATE']         = 'Template';
@@ -93,14 +93,18 @@ $modlang['MOD']['CONTENT']['CONTENT_TEMPLATE'] = 'Content Template';
 /**
  * Image administration
  */
-$modlang['MOD']['IMAGE']['ADMIN']        = 'Image Administration';
-$modlang['MOD']['IMAGE']['IMAGE_LABELS'] = 'Image Labels';
-$modlang['MOD']['IMAGE']['IMAGE_LABEL']  = 'Image Label';
-$modlang['MOD']['IMAGE']['IMAGE_TITLE']  = 'Image Title';
-$modlang['MOD']['IMAGE']['IMAGE_FILE']   = 'Image File';
-$modlang['MOD']['IMAGE']['ADD_FCK']      = 'Add to FCKeditor';
-$modlang['MOD']['IMAGE']['SIZE']         = 'Size';
-$modlang['MOD']['IMAGE']['TYPE']         = 'Type';
+$modlang['MOD']['IMAGE']['ADMIN']           = 'Image Administration';
+$modlang['MOD']['IMAGE']['DELETE']          = 'Delete Image';
+$modlang['MOD']['IMAGE']['DELETE_CONFIRM']  = 'Are you sure you want to delete this image?';
+$modlang['MOD']['IMAGE']['DELETE_DENIED_1'] = 'There are content items which use this image.';
+$modlang['MOD']['IMAGE']['DELETE_DENIED_2'] = 'Image can not be deleted.';
+$modlang['MOD']['IMAGE']['IMAGE_LABELS']    = 'Image Labels';
+$modlang['MOD']['IMAGE']['IMAGE_LABEL']     = 'Image Label';
+$modlang['MOD']['IMAGE']['IMAGE_TITLE']     = 'Image Title';
+$modlang['MOD']['IMAGE']['IMAGE_FILE']      = 'Image File';
+$modlang['MOD']['IMAGE']['ADD_FCK']         = 'Add to FCKeditor';
+$modlang['MOD']['IMAGE']['SIZE']            = 'Size';
+$modlang['MOD']['IMAGE']['TYPE']            = 'Type';
 /**
  * Thumbnail administration
  */
