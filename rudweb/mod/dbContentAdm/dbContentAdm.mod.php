@@ -105,7 +105,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 *
 	 * @return mixed result
 	 */
-	public function page_list()
+	public function pageList()
 	{
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
@@ -118,7 +118,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 * Authorization ok, proceed.
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['PAGE']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'page_list';
+			$this->modCnt['cnt']['tpl'] = 'pageList';
 			/**
 			 * Prepare pages array
 			 */
