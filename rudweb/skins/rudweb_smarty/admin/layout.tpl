@@ -53,14 +53,14 @@
   <link rel="icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
   <link rel="shortcut icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
   <title>{$title} .:. {$smarty.const._APP_NAME}</title>
-  <meta name="title" content="{$smarty.const._APP_NAME} {$title}" />
-  <meta name="subject" content="{$smarty.const._APP_NAME} {$title}" />
-  <meta name="description" content="{$smarty.const._APP_NAME} {$title}" />
-  <meta name="keywords" content="{$smarty.const._APP_NAME}, {$title}" />
-  <meta name="copyright" content="{$smarty.const._APP_AUTH}" />
-  <meta name="designer" content="{$smarty.const._APP_AUTH}" />
-  <meta name="publisher" content="{$smarty.const._APP_AUTH}" />
-  <meta name="author" content="{$smarty.const._APP_AUTH}" />
+  <meta name="title" content="{$title}" />
+  <meta name="subject" content="{$meta.subject}" />
+  <meta name="description" content="{$meta.description}" />
+  <meta name="keywords" content="{$meta.keywords}" />
+  <meta name="copyright" content="{$meta.copyright}" />
+  <meta name="designer" content="{$meta.designer}" />
+  <meta name="publisher" content="{$meta.publisher}" />
+  <meta name="author" content="{$meta.author}" />
   <meta name="rating" content="General" />
   <meta name="distribution" content="Global" />
   <meta name="robots" content="Index, Follow" />

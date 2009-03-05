@@ -278,6 +278,15 @@ class app_Core extends rw_Core
 						 * Call the action
 						 */
 						$cnt = $modObject->$action();
+						/**
+						 * "Trigger" 404 from inside the module.
+						 *
+						 * Use "return FALSE" in module action.
+						 */
+						if(FALSE === $cnt)
+						{
+							require_once(_APP_DIR_CNT.'404.inc.php');
+						}
 					}
 					else
 					{

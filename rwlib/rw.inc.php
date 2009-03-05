@@ -624,6 +624,22 @@ class rw_Core
 		return $title;
 	}
 	/**
+	 * Get page id and alias from request
+	 *
+	 * @param string $request
+	 * @return array data
+	 */
+	public function rwStripAlias($request)
+	{
+		$delimiter = '-';
+		if(FALSE !== strpos($request, $delimiter))
+		{
+			$data = explode($delimiter, $request, 2);
+			return $data;
+		}
+		return FALSE;
+	}
+	/**
 	 * Self redirect to avoid double submits
 	 *
 	 * @return null

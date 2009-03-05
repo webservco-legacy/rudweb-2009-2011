@@ -69,7 +69,7 @@ class rw_Mod_global
 {
 	/**
 	 * Set module info
-	 * 
+	 *
 	 * @var array
 	 */
 	public $modAbout = array();
@@ -81,22 +81,22 @@ class rw_Mod_global
 	public $modAppCore = NULL;
 	/**
 	 * Internationalization
-	 * 
+	 *
 	 * @var array
 	 */
 	public $modLang = array();
 	/**
 	 * Database connection
-	 * 
+	 *
 	 * @var mixed
 	 */
 	public $modDb = NULL;
 	/**
-   * Default content values
-   *
-   * @var array
-   */
-  public $modCnt = array();
+	 * Default content values
+	 *
+	 * @var array
+	 */
+	public $modCnt = array();
 	/**
 	 * Load the module
 	 *
@@ -110,7 +110,17 @@ class rw_Mod_global
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
 		$modCnt['type'] = 'text';
+		$modCnt['skin']['dir'] = '';
+    $modCnt['skin']['tpl'] = 'layout';
 		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		$modCnt['skin']['meta'] = array();
+		$modCnt['skin']['meta']['subject'] = _APP_NAME;
+		$modCnt['skin']['meta']['description'] = _APP_NAME;
+		$modCnt['skin']['meta']['keywords'] = _APP_NAME.', '.$modCnt['skin']['title'];
+		$modCnt['skin']['meta']['copyright'] = _APP_AUTH;
+		$modCnt['skin']['meta']['designer'] = _APP_AUTH;
+		$modCnt['skin']['meta']['publisher'] = _APP_AUTH;
+		$modCnt['skin']['meta']['author'] = _APP_AUTH;
 		$modCnt['skin']['lang'] = $this->modLang;
 		$this->modCnt = $modCnt;
 	}

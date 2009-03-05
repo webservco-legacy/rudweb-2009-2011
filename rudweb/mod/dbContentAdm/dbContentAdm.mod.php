@@ -33,7 +33,10 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-
+/**
+ * Module class
+ *
+ */
 class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 {
 	/**
@@ -68,11 +71,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * Module default content
 		 *
 		 * $cnt['type'] added by default in parent class
+		 * $cnt['skin']['dir'] added by default in parent class
+		 * $cnt['skin']['tpl'] added by default in parent class
 		 * $cnt['skin']['title'] added by default in parent class
+		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
 		 */
 		$cnt['skin']['dir'] = 'admin';
-		$cnt['skin']['tpl'] = 'layout';
 		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();
@@ -338,11 +343,17 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function pageEdit()
 	{
+		/**
+		 * Get page id
+		 */
 		$pg_id = (isset($_GET['id']) && $this->modAppCore->rwCheckInt($_GET['id'])) ? $_GET['id'] : NULL;
 		if(!$pg_id)
 		{
 			return $this->_authDenied();
 		}
+		/**
+		 * Check page
+		 */
 		$rs = $this->modDb->dbSelect('pg_group', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, 1);
 		$t = $rs->dbNumRows();
 		if($t != 1)
@@ -350,6 +361,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			trigger_error("page doesn't exist", E_USER_ERROR);
 		}
 		$pg_group = $rs->dbFetchResult();
+		/**
+		 * Verify authorization
+		 */
 		$auth = $this->_authVerify(3, $pg_group);
 		if($auth !== 'ok')
 		{
@@ -1073,7 +1087,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		{
 			return $this->_authDenied();
 		}
-
 		/**
 		 * Set image type
 		 */
