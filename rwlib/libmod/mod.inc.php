@@ -110,8 +110,6 @@ class rw_Mod_global
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
 		$modCnt['type'] = 'text';
-		$modCnt['skin']['dir'] = '';
-    $modCnt['skin']['tpl'] = 'layout';
 		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$modCnt['skin']['meta'] = array();
 		$modCnt['skin']['meta']['subject'] = _APP_NAME;

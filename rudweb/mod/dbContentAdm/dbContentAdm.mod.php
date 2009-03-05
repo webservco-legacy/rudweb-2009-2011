@@ -78,6 +78,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * $cnt['skin']['lang'] added by default in parent class
 		 */
 		$cnt['skin']['dir'] = 'admin';
+		$cnt['skin']['tpl'] = 'layout';
 		$cnt['cnt']['dir'] = 'content';
 		$cnt['cnt']['tpl'] = 'blank';
 		$cnt['cnt']['content'] = array();

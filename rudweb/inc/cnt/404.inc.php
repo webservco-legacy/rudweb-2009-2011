@@ -50,6 +50,17 @@ $cnt['skin']['tpl'] = 'layout';
  * Main layout page title
  */
 $cnt['skin']['title'] = $this->lang['e404']['TITLE'];
+/*
+ * Main layout page meta
+ */
+$cnt['skin']['meta'] = array();
+$cnt['skin']['meta']['subject'] = _APP_NAME;
+$cnt['skin']['meta']['description'] = _APP_NAME;
+$cnt['skin']['meta']['keywords'] = _APP_NAME.', '.$cnt['skin']['title'];
+$cnt['skin']['meta']['copyright'] = _APP_AUTH;
+$cnt['skin']['meta']['designer'] = _APP_AUTH;
+$cnt['skin']['meta']['publisher'] = _APP_AUTH;
+$cnt['skin']['meta']['author'] = _APP_AUTH;
 /**
  * Current content template file
  */

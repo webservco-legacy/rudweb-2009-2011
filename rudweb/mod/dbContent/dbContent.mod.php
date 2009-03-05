@@ -77,6 +77,8 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
 		 */
+		$cnt['skin']['dir'] = '';
+		$cnt['skin']['tpl'] = 'layout';
 		$cnt['cnt'][0]['dir'] = 'content';
 		$cnt['cnt'][0]['tpl'] = 'blank';
 		$cnt['cnt'][0]['content'] = array();
@@ -125,6 +127,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		/**
 		 * Set content template vars
 		 */
+		$rc = $this->modDb->dbSelect("cnt_type, cnt_body, cnt_resource, cnt_template", _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_deleted = '0'", 'cnt_order', NULL, 1);
 		//XXX
 		return $this->modCnt;
 	}
