@@ -33,6 +33,6 @@
 <br />
 {$lang.MOD.PAGE.DELETE_CONFIRM_2}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_delete/id/{$cnt.page_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageDelete/id/{$cnt.page_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
 &#160;
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_list" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>

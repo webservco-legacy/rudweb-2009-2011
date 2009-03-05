@@ -31,7 +31,7 @@
 {foreach from=$cnt.page_list_add item=item}
 <tr>
   <td>
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_new/parent/{$cnt.page_parent}/order/{$item.pg_order}" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/{$item.pg_order}" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
   </td>
 </tr>
 <tr>
@@ -40,7 +40,7 @@
 {/foreach}
 <tr>
   <td>
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_new/parent/{$cnt.page_parent}/order/0" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/0" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}"></a>
   </td>
 </tr>
 </table>

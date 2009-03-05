@@ -33,4 +33,4 @@
 <br />
 {$lang.MOD.PAGE.DELETE_DENIED_2}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_list" title="{$lang.MOD.ADMIN.CONTINUE}">{$lang.MOD.ADMIN.CONTINUE}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CONTINUE}">{$lang.MOD.ADMIN.CONTINUE}</a>

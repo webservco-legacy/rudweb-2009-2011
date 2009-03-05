@@ -29,6 +29,6 @@
  *}
 {$lang.MOD.CONTENT.DELETE_CONFIRM}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/content_delete/id/{$cnt.cnt_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$cnt.cnt_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
 &#160;
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/page_edit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>

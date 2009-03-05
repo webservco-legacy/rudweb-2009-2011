@@ -1,7 +1,7 @@
 {**
  * $Id$
  *
- * $URL$
+ * $URL
  * <BR>Page new template
  *
  * @author     Radu Maier <radu@rudisoft.net>
