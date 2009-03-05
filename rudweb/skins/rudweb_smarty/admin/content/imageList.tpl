@@ -58,6 +58,8 @@
 <input class="thumb_save" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMB.CREATE}" />
 </form>
 <br />
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.pic_id}/type/image" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<br />
 <a href="JavaScript:addToFCK('{$smarty.const._APP_URL_IMG}{$img.pic_file}{$img.pic_ext}', '{$img.pic_width}', '{$img.pic_height}', '{$img.pic_title}')" title="{$lang.MOD.IMAGE.ADD_FCK}">{$lang.MOD.IMAGE.ADD_FCK}</a>
 </div>
 {/foreach}

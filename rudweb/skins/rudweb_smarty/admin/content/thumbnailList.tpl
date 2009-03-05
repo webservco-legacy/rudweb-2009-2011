@@ -49,6 +49,8 @@
 <br />
 {$lang.MOD.IMAGE.TYPE}: {$thumb.thumb_ext}
 <br />
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.thumb_id}/type/thumbnail" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<br />
 <a href="JavaScript:addToFCK('{$smarty.const._APP_URL_THUMB}{$thumb.thumb_file}{$thumb.thumb_ext}', '{$thumb.thumb_width}', '{$thumb.thumb_height}', '{$thumb.thumb_title}')" title="{$lang.MOD.THUMB.ADD_FCK}">{$lang.MOD.THUMB.ADD_FCK}</a>
 </div>
 {/foreach}
