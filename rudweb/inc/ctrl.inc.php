@@ -35,37 +35,124 @@
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 /**
- * Configuration file
+ * Set configuration options
  */
 $cfg = array();
 if(is_readable('./cfg/cfg.ini'))
 {
+	/**
+	 * Parse configuration file
+	 */
 	$cfg = parse_ini_file('./cfg/cfg.ini', TRUE);
+	/**
+	 * Report application errors
+	 *
+	 */
 	define('_APP_CFG_ERRORS',$cfg['Config']['Errors'] ? TRUE : FALSE);
+	/**
+	 * Use database
+	 *
+	 */
 	define('_APP_CFG_DATABASE',$cfg['Config']['Database'] ? TRUE : FALSE);
+	/**
+	 * Use sessions and users
+	 *
+	 */
 	define('_APP_CFG_SESSIONS',$cfg['Config']['Sessions'] ? TRUE : FALSE);
+	/**
+	 * Use user authentication
+	 *
+	 */
 	define('_APP_CFG_USERS',$cfg['Config']['Users'] ? TRUE : FALSE);
+	/**
+	 * Use fake file extension for URL's
+	 *
+	 */
 	define('_APP_CFG_FAKEXT',$cfg['Config']['Fakext'] ? TRUE : FALSE);
-
+	/**
+	 * Engine path
+	 *
+	 */
 	define('_RW_DIR',$cfg['Paths']['Engine']);
+	/**
+	 * Application path
+	 *
+	 */
 	define('_APP_DIR',$cfg['Paths']['App']);
+	/**
+	 * Application URL
+	 *
+	 */
 	define('_APP_WWW',$cfg['Paths']['AppURL']);
+	/**
+	 * Full SEO
+	 *
+	 */
 	define('_APP_INDEX',$cfg['Defaults']['FullSEO'] ? '' : 'index.php/');
-
+	/**
+	 * Database type
+	 *
+	 */
 	define('_APP_DB_TYPE',$cfg['Database']['Type']);
+	/**
+	 * Database host
+	 *
+	 */
 	define('_APP_DB_HOST',$cfg['Database']['Host']);
+	/**
+	 * Database port
+	 *
+	 */
 	define('_APP_DB_PORT',$cfg['Database']['Port']);
+	/**
+	 * Database user
+	 *
+	 */
 	define('_APP_DB_USER',$cfg['Database']['User']);
+	/**
+	 * Database password
+	 *
+	 */
 	define('_APP_DB_PASS',$cfg['Database']['Pass']);
+	/**
+	 * Database name
+	 *
+	 */
 	define('_APP_DB_NAME',$cfg['Database']['Name']);
-
+	/**
+	 * Application name
+	 *
+	 */
 	define('_APP_NAME',$cfg['AppInfo']['Name']);
+	/**
+	 * Application author
+	 *
+	 */
 	define('_APP_AUTH',$cfg['AppInfo']['Author']);
+	/**
+	 * Application prefix
+	 *
+	 */
 	define('_APP_PRE',$cfg['AppInfo']['Prefix']);
-
+	/**
+	 * Default language
+	 *
+	 */
 	define('_APP_LANG',$cfg['Defaults']['Language']);
+	/**
+	 * Default template engine
+	 *
+	 */
 	define('_APP_TPL',$cfg['Defaults']['TemplateEngine']);
+	/**
+	 * Default skin
+	 *
+	 */
 	define('_APP_SKIN',$cfg['Defaults']['Skin']);
+	/**
+	 * Default time zone
+	 *
+	 */
 	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
 }
 else
@@ -134,12 +221,39 @@ try
 		 * Actual content
 		 */
 		$atpl['content'] = array();
-		$atpl['content'][0] = array();
-		$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
-		$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
-		$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
-		$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
-		$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
+		/**
+		 * Check for multiple content items
+		 */
+		if(array_key_exists(0, $cnt['cnt']))
+		{
+			foreach($cnt['cnt'] as $index=>$data)
+			{
+				if($appCore->rwCheckInt($index))
+				{
+					/**
+					 * Multiple content items
+					 */
+					$atpl['content'][$index] = array();
+					$atpl['content'][$index]['dir'] = $cnt['cnt'][$index]['dir'];
+					$atpl['content'][$index]['tpl'] = $cnt['cnt'][$index]['tpl'];
+					$atpl['content'][$index]['vars']['cnt'] = $cnt['cnt'][$index]['content'];
+					$atpl['content'][$index]['vars']['lang'] = $appCore->rwLang();
+					$atpl['content'][$index]['vars']['usr_status'] = $appCore->rwUsrStatus();
+				}
+			}
+		}
+		else
+		{
+			/**
+			 * Only one content item
+			 */
+			$atpl['content'][0] = array();
+			$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
+			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
+			$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+			$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
+			$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
+		}
 		/**
 		 * Footer
 		 */
