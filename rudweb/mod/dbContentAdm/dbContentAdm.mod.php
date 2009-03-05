@@ -310,7 +310,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$ri = $this->modDb->dbLastInsertId();
 						$pg_id = $ri->dbFetchResult();
-						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/page/id/'.$pg_id);
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/add/resource/page/id/'.$pg_id);
 						exit;
 					}
 					else
@@ -449,7 +449,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 *
 						 * get parameters: type of action, id of page
 						 */
-						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/page/id/'.$pg_id);
+						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/edit/resource/page/id/'.$pg_id);
 						exit;
 					}
 					else
@@ -532,7 +532,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$cntUpdate['cnt_deleted_time'] = date('Y-m-d H:i:s');
 					$cntUpdate['cnt_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
 					$this->modDb->dbUpdate(_APP_PRE.'_web_content', $cntUpdate, 'pg_id = '.$pg_id, NULL, 1);
-					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/page/id/'.$pg_id);
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/remove/resource/page/id/'.$pg_id);
 					exit;
 				}
 				else
@@ -775,7 +775,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Get all labels
 			 */
-			$rl = $this->modDb->dbSelect('DISTINCT thumb_label', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL, NULL);
+			$rl = $this->modDb->dbSelect('DISTINCT thumb_label', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND thumb_deleted = '0'", NULL, NULL);
 			$tl = $rl->dbNumRows();
 			$this->modCnt['cnt']['content']['thumb_labels'] = array();
 			if($tl>0)
@@ -788,7 +788,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Thumbnails data
 			 */
-			$rs = $this->modDb->dbSelect('thumb_id, thumb_title, thumb_file, thumb_type, thumb_width, thumb_height', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND thumb_label = '{$thumb_label}'", NULL, NULL);
+			$rs = $this->modDb->dbSelect('thumb_id, thumb_title, thumb_file, thumb_type, thumb_width, thumb_height', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND thumb_label = '{$thumb_label}' AND thumb_deleted = '0'", NULL, NULL);
 			$t = $rs->dbNumRows();
 			$thumb_list = array();
 			if($t > 0)
@@ -885,7 +885,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Get image data
 					 */
-					$ri = $this->modDb->dbSelect('pic_title, pic_file, pic_type, pic_width, pic_height, pic_group', _APP_PRE.'_web_pictures', "pic_id = '{$dataForm['pic_id']}'", NULL, 1);
+					$ri = $this->modDb->dbSelect('pic_title, pic_file, pic_type, pic_width, pic_height, pic_group', _APP_PRE.'_web_pictures', "pic_id = '{$dataForm['pic_id']}' AND pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_deleted = '0'", NULL, 1);
 					$ti = $ri->dbNumRows();
 					if($ti != 1)
 					{
@@ -1009,9 +1009,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			//XXX
 			/**
-			 * Get all labels
-			 */
-			$rl = $this->modDb->dbSelect('DISTINCT pic_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}'", NULL);
+			* Get all labels
+			*/
+			$rl = $this->modDb->dbSelect('DISTINCT pic_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_deleted = '0'", NULL);
 			$tl = $rl->dbNumRows();
 			$this->modCnt['cnt']['content']['pic_labels'] = array();
 			if($tl>0)
@@ -1024,7 +1024,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Pictures data
 			 */
-			$rs = $this->modDb->dbSelect('pic_id, pic_title, pic_file, pic_type, pic_width, pic_height', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_label = '{$pic_label}'", NULL);
+			$rs = $this->modDb->dbSelect('pic_id, pic_title, pic_file, pic_type, pic_width, pic_height', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_label = '{$pic_label}' AND pic_deleted = '0'", NULL);
 			$t = $rs->dbNumRows();
 			$pic_list = array();
 			if($t > 0)
@@ -1047,12 +1047,16 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	public function imageDelete()
+	{
+		//XXX
+	}
 	/**
 	 * Successfull action message
 	 *
 	 * @return mixed content
 	 */
-	public function action_ok()
+	public function actionOk()
 	{
 		$res = array('page', 'content');
 		$auth = $this->_authVerify(3);
@@ -1164,7 +1168,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						break;
 					}
 			}
-			$this->modCnt['cnt']['tpl'] = 'action_ok';
+			$this->modCnt['cnt']['tpl'] = 'actionOk';
 			return $this->modCnt;
 		}
 		else
@@ -1271,7 +1275,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					 */
 					$ri = $this->modDb->dbLastInsertId();
 					$cnt_id = $ri->dbFetchResult();
-					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/content/id/'.$cnt_id);
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/add/resource/content/id/'.$cnt_id);
 					exit;
 				}
 				else
@@ -1365,7 +1369,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 *
 				 * get parameters: type of action, id of page
 				 */
-				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/content/id/'.$cnt_id);
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/edit/resource/content/id/'.$cnt_id);
 				exit;
 			}
 			else
@@ -1407,7 +1411,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$dataUpdate['cnt_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
 			if($this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, 'cnt_id = '.$cnt_id, NULL, 1))
 			{
-				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/content/id/'.$cnt_id);
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/remove/resource/content/id/'.$cnt_id);
 				exit;
 			}
 			else
@@ -1503,7 +1507,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$cnt_id = $ri->dbFetchResult();
 					$dataUpdate['cnt_order'] = '{cnt_order+1}';
 					$this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, "pg_id = {$data['pg_id']} AND cnt_id != '{$cnt_id}' AND cnt_order >= '{$data['cnt_order']}'", NULL, NULL);
-					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/add/resource/content/id/'.$cnt_id);
+					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/add/resource/content/id/'.$cnt_id);
 					exit;
 				}
 				else
@@ -1591,7 +1595,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 *
 				 * get parameters: type of action, id of page
 				 */
-				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/edit/resource/content/id/'.$cnt_id);
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/edit/resource/content/id/'.$cnt_id);
 				exit;
 			}
 			else
@@ -1633,7 +1637,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$dataUpdate['cnt_deleted_user'] = $_SESSION[_APP_PRE.'_usr_id'];
 			if($this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, 'cnt_id = '.$cnt_id, NULL, 1))
 			{
-				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/action_ok/type/remove/resource/content/id/'.$cnt_id);
+				header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/remove/resource/content/id/'.$cnt_id);
 				exit;
 			}
 			else
