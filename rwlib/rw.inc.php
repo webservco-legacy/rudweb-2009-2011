@@ -631,13 +631,21 @@ class rw_Core
 	 */
 	public function rwStripAlias($request)
 	{
+		$data = array();
+		$data[0] = NULL;
+		$data[1] = NULL;
 		$delimiter = '-';
 		if(FALSE !== strpos($request, $delimiter))
 		{
 			$data = explode($delimiter, $request, 2);
-			return $data;
 		}
-		return FALSE;
+		else
+		{
+			$data[0] = $this->rwCheckInt($request) ? $request : NULL;
+		}
+		$data[0] = $this->rwFilterInput($data[0]);
+		$data[1] = $this->rwFilterInput($data[1]);
+		return $data;
 	}
 	/**
 	 * Self redirect to avoid double submits

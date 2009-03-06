@@ -148,6 +148,10 @@ class app_Core extends rw_Core
 	/**
 	 * Handle content requests
 	 *
+	 * Display content from database
+	 * (shortcut to a module:
+	 * /content/ID[-ALIAS] => /module/dbContent/action/pageDisplay/id/ID)
+	 *
 	 * @return mixed content
 	 */
 	private function _appProcessContent()
@@ -157,11 +161,28 @@ class app_Core extends rw_Core
 		 */
 		$cnt = array();
 		/**
-		 * Content from database (shortcut to a module /content/ID_AND_NAME = /module/dbContent/action/display/content/ID_AND_NAME)
-		 * Usual module checks, then translate request and pass it on.
-		 * Not implemented yet.
+		* Get page id
+		*/
+		$pg = $this->rwStripAlias($_GET['content']);
+		$pg_id = (!$pg[0]) ? 0 : $pg[0];
+		if($pg_id == 0)
+		{
+			/**
+			 * Invalid page id, go to 404 page
+			 */
+			require_once(_APP_DIR_CNT.'404.inc.php');
+			return $cnt;
+		}
+		/**
+		 * Rewrite get request.
 		 */
-		trigger_error('content functionality not implemented', E_USER_ERROR);
+		$_GET['module'] = 'dbContent';
+		$_GET['action'] = 'pageDisplay';
+		$_GET['id'] = $pg_id;
+		/**
+		 * Process module
+		 */
+		return $this->_appProcessModule();
 	}
 	/**
 	 * Handle module requests

@@ -1264,10 +1264,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
 						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 
 						break;
 					}
@@ -1292,10 +1292,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_list';
+							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
 						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'_edit/id/'.$_GET['id'];
+						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 
 						break;
 					}

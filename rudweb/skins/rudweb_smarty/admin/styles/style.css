@@ -88,6 +88,57 @@ a:hover, a:active {background: transparent; text-decoration: none; font-weight: 
 .thumb_admin_list_clear {clear: both;}
 /* ********** ********** ********** ********** ********** CONTENT END ********** ********** ********** ********** ********** */
 
+/* ********** ********** ********** ********** ********** CONTENT BODY START ********** ********** ********** ********** ********** */
+.Bold          {font-weight: bold;}
+.Italic        {font-style: italic;}
+.Underline     {text-decoration: underline;}
+.StrikeThrough {text-decoration: line-through;}
+.Subscript     {vertical-align: sub; font-size: smaller;}
+.Superscript   {vertical-align: super; font-size: smaller;}
+
+.FontColor1 {color: #ff9900;}
+.FontColor2 {color: #0066cc;}
+.FontColor3 {color: #ff0000;}
+.FontColor1BG {background-color: #ff9900;}
+.FontColor2BG {background-color: #0066cc;}
+.FontColor3BG {background-color: #ff0000;}
+
+.FontArial   {font-family: 'Comic Sans MS';}
+.FontVerdana {font-family: 'Comic Sans MS';}
+.FontTimes   {font-family: 'Times New Roman';}
+.FontCourier {font-family: 'Courier New';}
+.FontSmaller {font-size: smaller;}
+.FontLarger  {font-size: larger;}
+.FontSmall   {font-size: 10px;}
+.FontBig     {font-size: 14px;}
+.Indent1 {margin-left: 40px;}
+.Indent2 {margin-left: 80px;}
+.Indent3 {margin-left: 120px;}
+.JustifyLeft {text-align: left;}
+.JustifyRight {text-align: right;}
+.JustifyCenter {text-align: center;}
+.JustifyFull {text-align: justify;}
+
+code
+{
+  font-family: courier, monospace;
+  background-color: #eeeeee;
+  padding-left: 1px;
+  padding-right: 1px;
+  border: #c0c0c0 1px solid;
+}
+kbd
+{
+  padding: 0px 1px 0px 1px;
+  border-width: 1px 2px 2px 1px;
+  border-style: solid;
+}
+blockquote
+{
+  color: #808080;
+}
+/* ********** ********** ********** ********** ********** CONTENT BODY END ********** ********** ********** ********** ********** */
+
 /* ********** ********** ********** ********** ********** LEFT START ********** ********** ********** ********** ********** */
 /* ********** ********** ********** ********** ********** LEFT END ********** ********** ********** ********** ********** */
 

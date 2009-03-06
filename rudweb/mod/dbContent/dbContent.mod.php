@@ -72,7 +72,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 *
 		 * $cnt['type'] added by default in parent class
 		 * $cnt['skin']['dir'] added by default in parent class
-     * $cnt['skin']['tpl'] added by default in parent class
+		 * $cnt['skin']['tpl'] added by default in parent class
 		 * $cnt['skin']['title'] added by default in parent class
 		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
@@ -127,8 +127,40 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		/**
 		 * Set content template vars
 		 */
-		$rc = $this->modDb->dbSelect("cnt_type, cnt_body, cnt_resource, cnt_template", _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_deleted = '0'", 'cnt_order', NULL, 1);
-		//XXX
+		$rc = $this->modDb->dbSelect("cnt_type, cnt_body, cnt_resource, cnt_template", _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_deleted = '0'", 'cnt_order', NULL);
+		$tc = $rc->dbNumRows();
+		if($tc > 0)
+		{
+			$i = 0;
+			while($c = $rc->dbFetchArray())
+			{
+				$this->modCnt['cnt'][$i]['dir'] = 'content';
+				$this->modCnt['cnt'][$i]['tpl'] = $c['cnt_template'];
+				switch($c['cnt_type'])
+				{
+					case 'text' :
+						{
+							$this->modCnt['cnt'][$i]['content']['body'] = nl2br($c['cnt_body']);
+							break;
+						}
+					case 'html' :
+						{
+							$this->modCnt['cnt'][$i]['content']['body'] = $c['cnt_body'];
+							break;
+						}
+					default :
+						{
+							break;
+						}
+				}
+				$i++;
+				//XXX
+			}
+			//echo '<pre>';
+			//var_dump($this->modCnt);
+			//print_r($this->modCnt);
+			//trigger_error('here', E_USER_ERROR);
+		}
 		return $this->modCnt;
 	}
 }
