@@ -189,6 +189,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 			else if($pg_parent == NULL)
 			{
+				$pg_parent = 0;
 				$pg_level = 0;
 			}
 			else{
