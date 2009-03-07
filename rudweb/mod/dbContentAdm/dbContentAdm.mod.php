@@ -187,11 +187,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			{
 				$pg_level = 1;
 			}
-			else if($pg_parent == NULL)
-			{
-				$pg_parent = 0;
-				$pg_level = 0;
-			}
 			else{
 				$rp = $this->modDb->dbSelect('pg_level', _APP_PRE.'_web_pages', "pg_id = '{$pg_parent}'", NULL, 1);
 				$tp = $rp->dbNumRows();
