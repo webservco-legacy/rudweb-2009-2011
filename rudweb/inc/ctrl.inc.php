@@ -154,6 +154,14 @@ if(is_readable('./cfg/cfg.ini'))
 	 *
 	 */
 	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
+	/**
+	 * Default content type
+	 */
+	define('_APP_CONTENT_TYPE',$cfg['Defaults']['ContentType'] ? $cfg['Defaults']['ContentType'] : 'page');
+	/**
+	 * Default content id
+	 */
+	define('_APP_CONTENT_ID', $cfg['Defaults']['ContentId'] ? $cfg['Defaults']['ContentId'] : 'index');
 }
 else
 {

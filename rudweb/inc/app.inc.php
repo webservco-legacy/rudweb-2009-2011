@@ -161,8 +161,8 @@ class app_Core extends rw_Core
 		 */
 		$cnt = array();
 		/**
-		* Get page id
-		*/
+		 * Get page id
+		 */
 		$pg = $this->rwStripAlias($_GET['content']);
 		$pg_id = (!$pg[0]) ? 0 : $pg[0];
 		if($pg_id == 0)
@@ -354,15 +354,43 @@ class app_Core extends rw_Core
 		 */
 		$cnt = array();
 		/**
-		 * No request, load default content
+		 * Default content from config
 		 */
-		if(is_file(_APP_DIR_PG.'index.inc.php'))
+		switch(_APP_CONTENT_TYPE)
 		{
-			require_once(_APP_DIR_PG.'index.inc.php');
-		}
-		else
-		{
-			require_once(_APP_DIR_CNT.'index.inc.php');
+			case 'page' :
+				{
+					/**
+					 * Rewrite get request
+					 */
+					$_GET['page'] = _APP_CONTENT_ID;
+					return $this->_appProcessPage();
+					break;
+				}
+			case 'content' :
+				{
+					/**
+					 * Rewrite get request
+					 */
+					$_GET['content'] = _APP_CONTENT_ID;
+					return $this->_appProcessContent();
+					break;
+				}
+			default :
+				{
+					/**
+					 * No request, no config, load default content
+					 */
+					if(is_file(_APP_DIR_PG.'index.inc.php'))
+					{
+						require_once(_APP_DIR_PG.'index.inc.php');
+					}
+					else
+					{
+						require_once(_APP_DIR_CNT.'index.inc.php');
+					}
+					break;
+				}
 		}
 		return $cnt;
 	}
