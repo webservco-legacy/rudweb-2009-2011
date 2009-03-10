@@ -48,7 +48,7 @@ html, body      {margin: 0; padding: 0; border: 0; height: 100%;}
 * html #center0 {margin-left: 207px; margin-right: 207px;}
 
 #cnt1           {clear: both; width: 100%; margin: auto; display: table;}
-#left1          {float: left; width: 190px; padding: 0px; overflow: auto; min-height: 50px;}
+#left1          {float: left; width: 190px; padding: 0px; min-height: 50px;}
 * html #left1   {margin-right: -3px; height: 50px;}
 #right1         {float: right; width: 200px; padding: 0px; overflow: auto;}
 * html #right1  {margin-left: -3px;}
@@ -164,8 +164,8 @@ html, body  {background-color: #E8E8FC; color: #333333;}
 #hdr, #cnt0 {background-color: #006666;}
 #header {color: #EEEEEE;}
 #center1 {background-color: #FFFFFF;}
-a:link,a:visited {color: #111111;}
-a:hover,a:active {color: #111111;}
+a:link,a:visited {color: #333333;}
+a:hover,a:active {color: #333333;}
 /* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** IMAGES START ********** ********** ********** ********** ********** */

@@ -70,9 +70,10 @@ class app_Core extends rw_Core
 		/**
 		 * Handle logout
 		 */
-		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] = 'true'))
+		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] == 'true'))
 		{
-			$this->rwLogoutUser();
+			$usr = $this->rwActivateExt('Users');
+			return $usr->usrLogout();
 		}
 		/**
 		 * Handle page requests

@@ -225,6 +225,7 @@ try
 		$atpl['menu']['dir'] = '';
 		$atpl['menu']['tpl'] = 'menu';
 		$atpl['menu']['vars'] = array();
+		$atpl['menu']['vars']['lang'] = $appCore->rwLang();
 		/**
 		 * Actual content
 		 */
@@ -269,6 +270,7 @@ try
 		$atpl['footer']['dir'] = '';
 		$atpl['footer']['tpl'] = 'footer';
 		$atpl['footer']['vars'] = array();
+		$atpl['footer']['vars']['lang'] = $appCore->rwLang();
 		/**
 		 * Load custom configuration
 		 */

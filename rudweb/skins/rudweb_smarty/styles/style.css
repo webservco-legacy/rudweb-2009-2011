@@ -164,8 +164,8 @@ html, body  {background-color: #E8E8FC; color: #333333;}
 #hdr, #cnt0 {background-color: #006666;}
 #header {color: #EEEEEE;}
 #center1 {background-color: #FFFFFF;}
-a:link,a:visited {color: #111111;}
-a:hover,a:active {color: #111111;}
+a:link,a:visited {color: #333333;}
+a:hover,a:active {color: #333333;}
 /* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** IMAGES START ********** ********** ********** ********** ********** */

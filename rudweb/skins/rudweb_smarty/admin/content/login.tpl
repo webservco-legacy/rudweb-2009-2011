@@ -33,7 +33,7 @@
 <table border="1">
 <tr>
   <td>
-    User name:
+    {$lang.AUTH.USER_NAME}:&#160;
   </td>
   <td>
     <input type="hidden" NAME="{$smarty.const._APP_PRE}_token" VALUE="{php}echo $_SESSION[_APP_PRE.'_token'];{/php}">
@@ -42,7 +42,7 @@
 </tr>
 <tr>
   <td>
-    Password
+    {$lang.AUTH.PASSWORD}:&#160;
   </td>
   <td>
     <input class="input_login" type="password" name="{$smarty.const._APP_PRE}_pass" id="{$smarty.const._APP_PRE}_pass" maxlength="30" value="" />
@@ -61,14 +61,8 @@
     &#160;
   </td>
   <td>
-    <input type="submit" class="login_submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="Submit" />
+    <input type="submit" class="login_submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$lang.AUTH.LOGIN_TT}" />
   </td>
 </tr>
 </table>
 </form>
-<pre>
-
-{php}print_r($_SESSION){/php}
-{php}print_r($_POST){/php}
-{$usr_status}
-</pre>

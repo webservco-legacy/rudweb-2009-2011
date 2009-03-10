@@ -59,7 +59,10 @@ $lang['e404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost 
 /**
  * Authorization
  */
-$lang['AUTH']['LOGIN_TT']   = 'Autentificare.';
+$lang['AUTH']['USER_NAME']  = 'Nume Utilizator';
+$lang['AUTH']['PASSWORD']   = 'Parola';
+$lang['AUTH']['LOGIN_TT']   = 'Autentificare';
+$lang['AUTH']['LOGOUT']     = '&#206;nchidere sesiune';
 $lang['AUTH']['LOGIN_MSG']  = 'Pentru a putea accesa aceast&#259; resurs&#259;, v&#259; rug&#259;m s&#259; v&#259; autentifica&#355;i.';
 $lang['AUTH']['DENIED_TT']  = 'Accesul interzis.';
 $lang['AUTH']['DENIED_MSG'] = 'Ne pare r&#259;u, nu ave&#355;i permisiunea de a accesa aceast&#259; resurs&#259;.';
