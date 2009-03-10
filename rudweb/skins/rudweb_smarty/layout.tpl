@@ -70,29 +70,63 @@
 </head>
 <body>
 <div id="layout">
-  <div id="header">
-    <div id="hdr1">&#160;</div>
-    <div id="hdr2"><div id="sigla">{$smarty.const._APP_NAME}</div></div>
+  <div id="hdr">
+    <div id="hdr1">
+      <a href="{$smarty.const._APP_WWW}"><img id="logo" src="{$app_skin_url}graphics/logo.png" alt="{$smarty.const._APP_NAME} Logo" longdesc="{$smarty.const._APP_NAME} Logo" /></a>
+    </div>
+    <div id="hdr2"><div id="header">{$smarty.const._APP_NAME}</div></div>
     <div id="hdr3">&#160;</div>
   </div>
-  <div id="content">
-    <div id="left">
-      {$menu}
-    </div>
-    <div id="right">
-      &#160;
-    </div>
-    <div id="center">
-      <div id="page_title">
-        <h1>{$title}</h1>
+    <div id="cnt0">
+      <div id="left0">
+        &#160;
       </div>
-      <div id="page_content">
-        {$content}
+      <div id="right0">
+        &#160;
+      </div>
+      <div id="center0">
+        &#160;
+      </div>
+  </div>
+  <div id="cnt1">
+    <div id="left1">
+      <div id="left">
+        {$menu}
+      </div>
+    </div>
+    <div id="right1">
+      <div id="right">
+      &#160;
+      </div>
+    </div>
+    <div id="center1">
+      <div id="center_space1">&#160;</div>
+      <div id="center_content">
+        <div id="page_title">
+          <h1>{$title}</h1>
+        </div>
+        <div id="page_content"><!-- max 363 lines -->
+          {$content}
+        </div>
+        <div class="clear"></div>
       </div>
     </div>
   </div>
-  <div id="footer">
-    {$footer}
+  <div id="cnt2">
+      <div id="left2">
+        &#160;
+      </div>
+      <div id="right2">
+        &#160;
+      </div>
+      <div id="center2">
+        &#160;
+      </div>
+  </div>
+  <div id="ftr">
+    <div id="footer">
+      {$footer}
+    </div>
   </div>
 </div>
 </body>
