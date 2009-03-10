@@ -72,7 +72,7 @@
 <div id="layout">
   <div id="hdr">
     <div id="hdr1">
-      <a href="{$smarty.const._APP_WWW}"><img id="logo" src="{$app_skin_url}graphics/logo.png" alt="{$smarty.const._APP_NAME} Logo" longdesc="{$smarty.const._APP_NAME} Logo" /></a>
+      &#160;
     </div>
     <div id="hdr2"><div id="header">{$lang.MOD.TITLE} .:. {$smarty.const._APP_NAME}</div></div>
     <div id="hdr3">&#160;</div>
