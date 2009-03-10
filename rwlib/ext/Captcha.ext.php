@@ -73,8 +73,8 @@ class rw_Ext_Captcha extends rw_Ext_global implements rw_iExt
 
 			$img = imagecreatetruecolor(70, 18);
 
-			$bgc = imagecolorallocate($img, 0x11, 0x11, 0x11);
-			$fgc = imagecolorallocate($img, 0xff, 0xff, 0xff);
+			$bgc = imagecolorallocate($img, 0xff, 0xff, 0xff);
+			$fgc = imagecolorallocate($img, 0x99, 0x99, 0x99);
 
 			$font = _RW_DIR_LIB . '3rdparty/ttf/' . 'VeraMono.ttf';
 
