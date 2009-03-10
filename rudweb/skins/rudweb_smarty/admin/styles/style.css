@@ -189,8 +189,8 @@ a:hover,a:active {color: #333333;}
 /* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
-html, body,
-table, input, select       {font-family: Verdana, serif; font-size: 90%;}
+html, body {font-family: Verdana, serif; font-size: 90%;}
+table, td, input, select   {font-size: 100%;}
 #header                    {font-size: 110%; font-weight: bold;}
 #page_title                {text-align: left;}
 #page_content              {text-align: justify; line-height: 150%;}
@@ -204,6 +204,23 @@ table, input, select       {font-family: Verdana, serif; font-size: 90%;}
 /* ********** ********** ********** ********** ********** ADMIN ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** CONTENT START ********** ********** ********** ********** ********** */
+input {text-align: center; background-color: #FFFFFF; color: #333333; border: 1px solid #666666;}
+.login {text-align: center;}
+.login_form {width: 320px; text-align: center; margin: auto; border: 1px solid #666666;}
+.login0 {clear: both; height: 1px; font-size: 1%; margin: 0px; overflow: hidden;}
+.login1 {width: 160px; padding: 10px 0px 10px 0px; float: left; text-align: right; margin: auto;}
+* html .login1 {margin-bottom: -7px;}
+.login2 {padding: 10px 10px 10px 0px; float: left; text-align: right; margin: auto;}
+* html .login2 {margin-right: -3px; margin-bottom: -7px;}
+.login3 {width: 320px; padding: 10px 0px 10px 0px; margin: auto;}
+
+.input_user {width: 127px;}
+.input_password {width: 127px;}
+.captcha {vertical-align: middle;}
+.input_captcha {width: 40px; vertical-align: middle;}
+.login_submit {width: 130px;}
+* html .login_submit {width: 127px;}
+
 .page_list {width: 100%;}
 .page_list_lvl {width: 40px;}
 .page_list_tt {}

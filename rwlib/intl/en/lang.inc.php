@@ -61,6 +61,7 @@ $lang['e404']['MESSAGE'] = 'Sorry, the resource you requested was not found on t
  */
 $lang['AUTH']['USER_NAME']  = 'User Name';
 $lang['AUTH']['PASSWORD']   = 'Password';
+$lang['AUTH']['CAPTCHA']    = 'Security Code';
 $lang['AUTH']['LOGIN_TT']   = 'Login';
 $lang['AUTH']['LOGOUT']     = 'Logout';
 $lang['AUTH']['LOGIN_MSG']  = 'Please login to access this resource.';

@@ -27,42 +27,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
- {$lang.AUTH.LOGIN_MSG}
- <br />
+<div class="login">
+<p> 
+{$lang.AUTH.LOGIN_MSG}
+</p> 
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_login_form" id="{$smarty.const._APP_PRE}_login_form" action="" method="post">
-<table border="1">
-<tr>
-  <td>
+<div class="login_form">  
+  <div class="login1">
     {$lang.AUTH.USER_NAME}:&#160;
-  </td>
-  <td>
+  </div>
+  <div class="login2">
     <input type="hidden" NAME="{$smarty.const._APP_PRE}_token" VALUE="{php}echo $_SESSION[_APP_PRE.'_token'];{/php}">
-    <input class="input_login" type="text" name="{$smarty.const._APP_PRE}_login" id="{$smarty.const._APP_PRE}_login" maxlength="30" value="" />
-  </td>
-</tr>
-<tr>
-  <td>
+    <input class="input_user" type="text" name="{$smarty.const._APP_PRE}_login" id="{$smarty.const._APP_PRE}_login" maxlength="30" value="" />
+  </div>
+  <div class="login0">&#160;</div>
+  <div class="login1">
     {$lang.AUTH.PASSWORD}:&#160;
-  </td>
-  <td>
-    <input class="input_login" type="password" name="{$smarty.const._APP_PRE}_pass" id="{$smarty.const._APP_PRE}_pass" maxlength="30" value="" />
-  </td>
-</tr>
-<tr>
-  <td>
-    <img src="{$cnt.captcha}" alt="" title="" />
-  </td>
-  <td>
-    <input class="input_login" type="text" name="{$smarty.const._APP_PRE}_captcha" id="{$smarty.const._APP_PRE}_captcha" maxlength="5" value="" />
-  </td>
-</tr>
-<tr>
-  <td>
-    &#160;
-  </td>
-  <td>
+  </div>
+  <div class="login2">
+    <input class="input_password" type="password" name="{$smarty.const._APP_PRE}_pass" id="{$smarty.const._APP_PRE}_pass" maxlength="30" value="" />
+  </div>
+  <div class="login0">&#160;</div>
+  <div class="login1">
+    {$lang.AUTH.CAPTCHA}:&#160;
+  </div>
+  <div class="login2">
+    <img class="captcha" src="{$cnt.captcha}" alt="" title="" />
+    =
+    <input class="input_captcha" type="text" name="{$smarty.const._APP_PRE}_captcha" id="{$smarty.const._APP_PRE}_captcha" maxlength="5" value="" />
+  </div>
+  <div class="login0">&#160;</div>
+  <div class="login3">
     <input type="submit" class="login_submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$lang.AUTH.LOGIN_TT}" />
-  </td>
-</tr>
-</table>
+  </div>
+</div>
 </form>
+</div>
