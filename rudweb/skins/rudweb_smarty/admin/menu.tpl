@@ -27,16 +27,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
- {php}
- if($_SESSION[_APP_PRE.'_usr_lvl'] >= 3)
- {
- {/php}
- <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList">{$lang.MOD.PAGE.ADMIN}</a><br />
- <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageList">{$lang.MOD.IMAGE.ADMIN}</a><br />
- <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailList">{$lang.MOD.THUMBNAIL.ADMIN}</a><br />
- <a href="{$smarty.const._APP_URL}logout/true">{$lang.AUTH.LOGOUT}</a>
- {php}
- }
- {/php}
- 
+<div class="adminMenu"> 
+<a href="{$smarty.const._APP_URL}module/dbContentAdm" title="{$lang.MOD.TITLE}" alt="{$lang.MOD.TITLE}">{$lang.MOD.TITLE}</a>
+<br />
+{foreach from=$adminMenu item=link}
+&#160;&#160;&#160;<a href="{$link.link}" title="{$link.title}" alt="{$link.title}">{$link.title}</a>
+<br />
+{/foreach}
+</div>
  

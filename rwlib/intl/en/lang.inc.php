@@ -59,6 +59,7 @@ $lang['e404']['MESSAGE'] = 'Sorry, the resource you requested was not found on t
 /**
  * Authorization
  */
+$lang['AUTH']['STATUS']     = 'Status';
 $lang['AUTH']['USER_NAME']  = 'User Name';
 $lang['AUTH']['PASSWORD']   = 'Password';
 $lang['AUTH']['CAPTCHA']    = 'Security Code';

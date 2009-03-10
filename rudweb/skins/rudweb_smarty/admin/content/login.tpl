@@ -31,6 +31,9 @@
 <p> 
 {$lang.AUTH.LOGIN_MSG}
 </p> 
+<p> 
+{$lang.AUTH.STATUS}:&#160;{$lang.USR_STATUS.$usr_status}
+</p> 
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_login_form" id="{$smarty.const._APP_PRE}_login_form" action="" method="post">
 <div class="login_form">  
   <div class="login1">

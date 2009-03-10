@@ -213,13 +213,14 @@ input {text-align: center; background-color: #FFFFFF; color: #333333; border: 1p
 .login2 {padding: 10px 10px 10px 0px; float: left; text-align: right; margin: auto;}
 * html .login2 {margin-right: -3px; margin-bottom: -7px;}
 .login3 {width: 320px; padding: 10px 0px 10px 0px; margin: auto;}
-
 .input_user {width: 127px;}
 .input_password {width: 127px;}
 .captcha {vertical-align: middle;}
 .input_captcha {width: 40px; vertical-align: middle;}
 .login_submit {width: 130px;}
 * html .login_submit {width: 127px;}
+
+.adminMenu {line-height: 180%;}
 
 .page_list {width: 100%;}
 .page_list_lvl {width: 40px;}

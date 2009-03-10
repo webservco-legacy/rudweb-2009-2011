@@ -86,6 +86,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * Call parent constructor
 		 */
 		parent::__construct($about, $cnt, $appCore);
+		$this->_makeMenu();
 	}
 	/**
 	 * Default module functionality
@@ -94,6 +95,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
+		//$this->_makeMenu();
 		$auth = $this->_authVerify(3);
 		if($auth !== 'ok')
 		{
@@ -2137,6 +2139,48 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['AUTH']['DENIED_TT'];
 		$this->modCnt['cnt']['tpl'] = 'denied';
 		return $this->modCnt;
+	}
+	/**
+	 * Create administration menu
+	 *
+	 * @return mixed result
+	 */
+	private function _makeMenu()
+	{
+		//XXX
+		/**
+		* Menu
+		*/
+		$this->modCnt['atpl']['menu'] = array();
+		$this->modCnt['atpl']['menu']['dir'] = '';
+		$this->modCnt['atpl']['menu']['tpl'] = 'menu';
+		$this->modCnt['atpl']['menu']['vars'] = array();
+		$this->modCnt['atpl']['menu']['vars']['lang'] = $this->modAppCore->rwLang();
+		$this->modCnt['atpl']['menu']['vars']['adminMenu'] = array();
+
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return false;
+		}
+		else
+		{
+			$adminMenu[0]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageList';
+			$adminMenu[0]['title'] = $this->modLang['MOD']['PAGE']['ADMIN'];
+
+			$adminMenu[1]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/imageList';
+			$adminMenu[1]['title'] = $this->modLang['MOD']['IMAGE']['ADMIN'];
+
+			$adminMenu[2]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailList';
+			$adminMenu[2]['title'] = $this->modLang['MOD']['THUMBNAIL']['ADMIN'];
+
+			$adminMenu[3]['link'] = _APP_URL.'logout/true';
+			$adminMenu[3]['title'] = $this->modLang['AUTH']['LOGOUT'];
+
+			$this->modCnt['atpl']['menu']['vars']['adminMenu'] = $adminMenu;
+
+			return true;
+		}
 	}
 }
 ?>

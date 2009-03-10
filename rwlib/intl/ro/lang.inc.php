@@ -59,6 +59,7 @@ $lang['e404']['MESSAGE'] = 'Ne pare r&#259;u, resursa solicitat&#259; nu a fost 
 /**
  * Authorization
  */
+$lang['AUTH']['STATUS']     = 'Status';
 $lang['AUTH']['USER_NAME']  = 'Nume Utilizator';
 $lang['AUTH']['PASSWORD']   = 'Parola';
 $lang['AUTH']['CAPTCHA']    = 'Cod de securitate';
