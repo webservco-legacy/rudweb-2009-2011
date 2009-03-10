@@ -172,7 +172,7 @@ a:hover,a:active {color: #333333;}
 #hdr {background-image: url('../graphics/hdr.png'); background-position: top left; background-repeat: repeat;}
 
 #cnt0 {background-image: url('../graphics/right0.png'); background-position: top right; background-repeat: no-repeat;}
-#left0 {background-image: url('../graphics/left0.png'); background-position: top right; background-repeat: no-repeat;}
+#left0 {background-image: url('../graphics/left0a.png'); background-position: top right; background-repeat: no-repeat;}
 #center0 {background-image: url('../graphics/center0.png'); background-position: top left; background-repeat: repeat-x;}
 
 #cnt1 {background-image: url('../graphics/content.png'); background-position: top right; background-repeat: no-repeat;}
