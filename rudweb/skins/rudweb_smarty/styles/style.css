@@ -48,7 +48,7 @@ html, body      {margin: 0; padding: 0; border: 0; height: 100%;}
 * html #center0 {margin-left: 207px; margin-right: 207px;}
 
 #cnt1           {clear: both; width: 100%; margin: auto; display: table;}
-#left1          {float: left; width: 190px; padding: 0px; overflow: auto; min-height: 50px;}
+#left1          {float: left; width: 190px; padding: 0px; min-height: 50px;}
 * html #left1   {margin-right: -3px; height: 50px;}
 #right1         {float: right; width: 200px; padding: 0px; overflow: auto;}
 * html #right1  {margin-left: -3px;}
@@ -189,8 +189,8 @@ a:hover,a:active {color: #333333;}
 /* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
-html, body,
-table, input, select       {font-family: Verdana, serif; font-size: 90%;}
+html, body                 {font-family: Verdana, serif; font-size: 90%;}
+table, td, input, select   {font-size: 100%;}
 #header                    {font-size: 110%; font-weight: bold;}
 #page_title                {text-align: left;}
 #page_content              {text-align: justify; line-height: 150%;}
@@ -199,7 +199,3 @@ table, input, select       {font-family: Verdana, serif; font-size: 90%;}
 #left0, #right0, #center0,
 #left2, #right2, #center2  {font-size: 1%;}
 /* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */
-
-/* ********** ********** ********** ********** ********** ADMIN START ********** ********** ********** ********** ********** */
-
-/* ********** ********** ********** ********** ********** ADMIN END ********** ********** ********** ********** ********** */
