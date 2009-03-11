@@ -221,6 +221,10 @@ input {text-align: center; background-color: #FFFFFF; color: #333333; border: 1p
 * html .login_submit {width: 127px;}
 
 .adminMenu {line-height: 180%;}
+a.adminMenu1:link,a.adminMenu1:visited {}
+a.adminMenu1:hover,a.adminMenu1:active {}
+a.adminMenu2:link,a.adminMenu2:visited {font-size: 90%;}
+a.adminMenu2:hover,a.adminMenu2:active {font-size: 90%;}
 
 .page_list {width: 100%;}
 .page_list_lvl {width: 40px;}
