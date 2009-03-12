@@ -27,8 +27,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
+ <div class="pageAction">
+<div class="cancel">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a>
+</div>
 {$lang.MOD.CONTENT.DELETE_CONFIRM}
 <br />
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$cnt.cnt_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
-&#160;
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}">{$lang.MOD.ADMIN.CANCEL}</a>
+<a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$cnt.cnt_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+</div>

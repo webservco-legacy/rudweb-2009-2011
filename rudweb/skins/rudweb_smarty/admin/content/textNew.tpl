@@ -27,8 +27,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{*debug*}
-<div id="text_edit">
+
+<div class="pageAction">
+<div class="cancel">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+
+<div class="page_form">
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_new_form" id="{$smarty.const._APP_PRE}_content_new_form" action="" method="post">
 <table class="content_edit_text">
  <tr>
@@ -49,9 +53,15 @@
  </table>
 </form>
 
- <div class="content_edit_errors">
+<div class="content_edit_errors">
   {foreach from=$cnt.cnt_err item=err}
   {$err}<br />
   {/foreach}
-  </div>
 </div>
+
+</div>
+
+</div>
+ 
+ 
+

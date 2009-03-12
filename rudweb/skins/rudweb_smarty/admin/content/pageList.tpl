@@ -27,12 +27,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;
 <table class="page_list" cellspacing="0">
 <tr>
-  <td class="page_list_hr pages_lvl">&#160;</td>
+  <td class="page_list_hr pages_lvl"><a href="JavaScript:toggleTRows('title');" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_toggle.png" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}" /></a></td>
   <td class="page_list_hr pages_tt">{$lang.MOD.PAGE.TITLE}</td>
   <td class="page_list_hr pages_auth">{$lang.MOD.PAGE.AUTHOR}</td>
   <td class="page_list_hr pages_grp">{$lang.MOD.PAGE.GROUP}</td>
@@ -41,8 +38,3 @@
 </tr>
 {$cnt.page_list}
 </table>
-<script type="text/javascript" language="JavaScript">toggleTRows('title');</script>
-
-<a href="JavaScript:toggleTRows('title');">[toggle]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '1');">[toggle 1]</a>&#160;
-<a href="JavaScript:toggleTRowGroups('title', '2');">[toggle 2]</a>&#160;

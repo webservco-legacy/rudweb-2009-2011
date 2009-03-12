@@ -59,7 +59,7 @@ $modlang['MOD']['PAGE']['EDIT']             = 'Edit Page';
 $modlang['MOD']['PAGE']['DELETE']           = 'Delete Page';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Are you sure you want to delete this page?';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Page content will also be deleted.';
-$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Page contains other pages.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Page contains extra pages.';
 $modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Page can not be deleted.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Change Order';
 $modlang['MOD']['PAGE']['TITLE']            = 'Title';
@@ -74,6 +74,7 @@ $modlang['MOD']['PAGE']['PAGE_TITLE']       = 'Page Title';
 $modlang['MOD']['PAGE']['PAGE_KEYWORDS']    = 'Page Keywords';
 $modlang['MOD']['PAGE']['PAGE_DESCRIPTION'] = 'Page Description';
 $modlang['MOD']['PAGE']['PAGE_TEMPLATE']    = 'Page Template';
+$modlang['MOD']['PAGE']['TOGGLE']           = 'Show / Hide Extra Pages';
 /**
  * Content administration
  */

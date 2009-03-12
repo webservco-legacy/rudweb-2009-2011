@@ -68,6 +68,8 @@ $lang['AUTH']['LOGOUT']     = 'Logout';
 $lang['AUTH']['LOGIN_MSG']  = 'Please login to access this resource.';
 $lang['AUTH']['DENIED_TT']  = 'Access denied..';
 $lang['AUTH']['DENIED_MSG'] = 'Sorry, you do not have permission to access this resource.';
+$lang['AUTH']['ALEVEL']     = 'Access level';
+$lang['AUTH']['GROUP']      = 'Group';
 /**
  * Form validation
  */

@@ -1846,8 +1846,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$page_list .= '&#160;&#160;&#160;';
 				}
 				$page_list .= $data['items'][$itemId]['pg_title'].'</td>';
+				$group = ($data['items'][$itemId]['pg_group_name']) ? $data['items'][$itemId]['pg_group_name'] : '&#160;';
 				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_author'].'</td>';
-				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_group_name'].'</td>';
+				$page_list .= '<td class="page_list_cr">'. $group.'</td>';
 				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$page_list .= '<td class="page_list_cr">';
 				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageNew/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.$data['items'][$itemId]['pg_order'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_before.png" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" />' . '</a>';
@@ -2165,17 +2166,21 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
+			/**
+			 * Page administration
+			 */
 			$adminMenu[0]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageList';
 			$adminMenu[0]['title'] = $this->modLang['MOD']['PAGE']['ADMIN'];
-
+			/**
+			 * Image administration
+			 */
 			$adminMenu[1]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/imageList';
 			$adminMenu[1]['title'] = $this->modLang['MOD']['IMAGE']['ADMIN'];
-
+			/**
+			 * Thumbnail administration
+			 */
 			$adminMenu[2]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailList';
 			$adminMenu[2]['title'] = $this->modLang['MOD']['THUMBNAIL']['ADMIN'];
-
-			$adminMenu[3]['link'] = _APP_URL.'logout/true';
-			$adminMenu[3]['title'] = $this->modLang['AUTH']['LOGOUT'];
 
 			$this->modCnt['atpl']['menu']['vars']['adminMenu'] = $adminMenu;
 

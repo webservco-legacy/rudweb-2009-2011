@@ -27,35 +27,57 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{*debug*}
-<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_new_form" id="{$smarty.const._APP_PRE}_page_new_form" action="" method="post">
- <table class="page_new">
- <tr>
-  <td class="page_new_form_a">{$lang.MOD.PAGE.PAGE_TITLE}</td>
-  <td class="page_new_form_b">
-  <input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
-  </td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_KEYWORDS}</td>
-  <td class="page_edit_form_b"><input class="page_kw" type="text" name="pg_kw" id="pg_kw" maxlength="255" value="{$cnt.page_kw}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_DESCRIPTION}</td>
-  <td class="page_edit_form_b"><input class="page_dsc" type="text" name="pg_dsc" id="pg_dsc" maxlength="255" value="{$cnt.page_dsc}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_TEMPLATE}</td>
-  <td class="page_edit_form_b"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">&#160;</td>
-  <td class="page_edit_form_b"><input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></td>
- </tr>
- </table>
+<div class="pageAction">
+<div class="cancel">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<div class="page_form">
+<form enctype="multipart/form-data" name="page_new_form" id="page_new_form" action="" method="post">
+
+<div class="clearthis">&#160;</div>
+
+<div class="page_input1">
+{$lang.MOD.PAGE.PAGE_TITLE}:
+</div>
+<div class="page_input2">
+<input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
+</div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input1">
+{$lang.MOD.PAGE.PAGE_KEYWORDS}:
+</div>
+<div class="page_input2">
+<input class="page_kw" type="text" name="pg_kw" id="pg_kw" maxlength="255" value="{$cnt.page_kw}" />
+</div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input1">
+{$lang.MOD.PAGE.PAGE_DESCRIPTION}:
+</div>
+<div class="page_input2">
+<input class="page_dsc" type="text" name="pg_dsc" id="pg_dsc" maxlength="255" value="{$cnt.page_dsc}" />
+</div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input1">
+{$lang.MOD.PAGE.PAGE_TEMPLATE}:
+</div>
+<div class="page_input2">
+<input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" />
+</div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input3">
+<input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" />
+</div>
+<div class="clearthis">&#160;</div>
+
 </form>
-  <div class="page_edit_errors">
-  {foreach from=$cnt.page_err item=err}
-  {$err}<br />
-  {/foreach}
-  </div>
+</div>
+
+<div class="page_edit_errors">
+{foreach from=$cnt.page_err item=err}
+{$err}<br />
+{/foreach}
+</div>
+</div>

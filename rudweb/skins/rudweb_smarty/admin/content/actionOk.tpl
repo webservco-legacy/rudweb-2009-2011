@@ -27,7 +27,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
+<div class="pageAction">
+<div class="cancel">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a>
+</div>
+
 {foreach from=$cnt item=link}
-<a href="{$link.return_link}" title="{$link.return_title}" alt="{$link.return_title}">{$link.return_title}</a>
-<br />
+<a class="actionButton" href="{$link.return_link}" title="{$link.return_title}">{$link.return_title}</a>
+&#160;
 {/foreach}
+
+</div>
+ 
+ 

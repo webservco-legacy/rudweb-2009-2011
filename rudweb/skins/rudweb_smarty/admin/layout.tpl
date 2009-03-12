@@ -96,7 +96,17 @@
     </div>
     <div id="right1">
       <div id="right">
-      &#160;
+        <div id="user">
+        <b>{php}echo $_SESSION[_APP_PRE.'_usr_alias'];{/php}</b>&#160;({php}echo $_SESSION[_APP_PRE.'_usr_name'];{/php})
+        <br />
+        {$lang.AUTH.ALEVEL}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_lvl'];{/php}
+        <br />
+        {$lang.AUTH.GROUP}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_grp_name'];{/php}
+        {php}if($_SESSION[_APP_PRE.'_auth'] == 1) {{/php}
+        <br />
+        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$lang.AUTH.LOGOUT}" alt="{$lang.AUTH.LOGOUT}">{$lang.AUTH.LOGOUT}</a>
+        {php}}{/php}
+        </div>
       </div>
     </div>
     <div id="center1">

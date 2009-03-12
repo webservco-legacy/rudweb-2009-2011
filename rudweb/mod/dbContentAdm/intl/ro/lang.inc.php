@@ -59,7 +59,7 @@ $modlang['MOD']['PAGE']['EDIT']             = 'Editare Pagin&#259;';
 $modlang['MOD']['PAGE']['DELETE']           = '&#350;tergere Pagin&#259;';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_1'] = 'Sigur &#351;terge&#355;i aceast&#259; pagin&#259;?';
 $modlang['MOD']['PAGE']['DELETE_CONFIRM_2'] = 'Con&#355;inutul paginii va fi de asemenea &#351;ters.';
-$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Pagina con&#355;ine alte pagini.';
+$modlang['MOD']['PAGE']['DELETE_DENIED_1']  = 'Pagina con&#355;ine pagini suplimentare.';
 $modlang['MOD']['PAGE']['DELETE_DENIED_2']  = 'Pagina nu poate fi &#351;tears&#259;.';
 $modlang['MOD']['PAGE']['ORDER']            = 'Schimb&#259; Ordinea';
 $modlang['MOD']['PAGE']['TITLE']            = 'Titlu';
@@ -74,6 +74,7 @@ $modlang['MOD']['PAGE']['PAGE_TITLE']       = 'Titlu Pagin&#259;';
 $modlang['MOD']['PAGE']['PAGE_KEYWORDS']    = 'Cuvinte Cheie Pagin&#259;';
 $modlang['MOD']['PAGE']['PAGE_DESCRIPTION'] = 'Descriere Pagin&#259;';
 $modlang['MOD']['PAGE']['PAGE_TEMPLATE']    = 'Template Pagin&#259;';
+$modlang['MOD']['PAGE']['TOGGLE']           = 'Afi&#351;eaz&#259; / Ascunde Pagini Suplimentare';
 /**
  * Content administration
  */
@@ -81,7 +82,7 @@ $modlang['MOD']['CONTENT']['ADMIN']            = 'Administrare Con&#355;inut';
 $modlang['MOD']['CONTENT']['ADD']              = 'Adaug&#259; Con&#355;inut';
 $modlang['MOD']['CONTENT']['ADD_TEXT']         = 'Adaug&#259; Con&#355;inut Text';
 $modlang['MOD']['CONTENT']['ADD_HTML']         = 'Adaug&#259; Con&#355;inut HTML';
-$modlang['MOD']['CONTENT']['EDIT']             = 'Editeaz&#259; Con&#355;inut';
+$modlang['MOD']['CONTENT']['EDIT']             = 'Editare Con&#355;inut';
 $modlang['MOD']['CONTENT']['DELETE']           = '&#350;terge Con&#355;inut';
 $modlang['MOD']['CONTENT']['DELETE_CONFIRM']   = 'Sigur &#351;terge&#355;i acest con&#355;inut?';
 $modlang['MOD']['CONTENT']['ORDER']            = 'Schimb&#259; Ordinea';

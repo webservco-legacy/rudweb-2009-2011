@@ -89,16 +89,19 @@
       </div>
   </div>
   <div id="cnt1">
+    
     <div id="left1">
       <div id="left">
         {$menu}
       </div>
     </div>
+    
     <div id="right1">
       <div id="right">
       &#160;
       </div>
     </div>
+    
     <div id="center1">
       <div id="center_space1">&#160;</div>
       <div id="center_content">
@@ -111,6 +114,7 @@
         <div class="clear"></div>
       </div>
     </div>
+    
   </div>
   <div id="cnt2">
       <div id="left2">

@@ -27,84 +27,100 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{*debug*}
-<div id="page_edit">
- <div id="page_edit_page">
+<div class="pageAction">
+  <div class="cancel">
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+ 
+ 
+ <div class="page_form">
+ <div class="hdtxt">{$lang.MOD.PAGE.EDIT}</div> 
+ 
  <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_edit_form" id="{$smarty.const._APP_PRE}_page_edit_form" action="" method="post">
- <table class="page_edit_page">
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_TITLE}</td>
-  <td class="page_edit_form_b">
-  <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.page_id}" />
-  <input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
-  </td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_KEYWORDS}</td>
-  <td class="page_edit_form_b"><input class="page_kw" type="text" name="pg_kw" id="pg_kw" maxlength="255" value="{$cnt.page_kw}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_DESCRIPTION}</td>
-  <td class="page_edit_form_b"><input class="page_dsc" type="text" name="pg_dsc" id="pg_dsc" maxlength="255" value="{$cnt.page_dsc}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">{$lang.MOD.PAGE.PAGE_TEMPLATE}</td>
-  <td class="page_edit_form_b"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></td>
- </tr>
- <tr>
-  <td class="page_edit_form_a">&#160;</td>
-  <td class="page_edit_form_b"><input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></td>
- </tr>
- </table>
-  </form>
-  <div class="page_edit_errors">
+ 
+ <div class="clearthis">&#160;</div>
+ 
+ 
+  <div class="page_input1">{$lang.MOD.PAGE.PAGE_TITLE}:</div>
+  <div class="page_input2">
+    <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.page_id}" />
+    <input class="page_title" type="text" name="pg_title" id="pg_title" maxlength="150" value="{$cnt.page_title}" />
+  </div>
+  <div class="clearthis">&#160;</div>
+ 
+  <div class="page_input1">{$lang.MOD.PAGE.PAGE_KEYWORDS}:</div>
+  <div class="page_input2"><input class="page_kw" type="text" name="pg_kw" id="pg_kw" maxlength="255" value="{$cnt.page_kw}" /></div>
+  <div class="clearthis">&#160;</div>
+ 
+  <div class="page_input1">{$lang.MOD.PAGE.PAGE_DESCRIPTION}:</div>
+  <div class="page_input2"><input class="page_dsc" type="text" name="pg_dsc" id="pg_dsc" maxlength="255" value="{$cnt.page_dsc}" /></div>
+  <div class="clearthis">&#160;</div>
+ 
+  <div class="page_input1">{$lang.MOD.PAGE.PAGE_TEMPLATE}:</div>
+  <div class="page_input2"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></div>
+  <div class="clearthis">&#160;</div>
+ 
+  <div class="page_input3"><input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
+  <div class="clearthis">&#160;</div>
+ </form>
+ 
+ <div class="page_edit_errors">
   {foreach from=$cnt.page_err item=err}
   {$err}<br />
   {/foreach}
   </div>
-</div>
-<div id="page_edit_content">
-<table class="page_edit_content">
+
+
+ <div class="page_form2">
+    
+ <div class="hdtxt">{$lang.MOD.CONTENT.EDIT}</div>
+ 
+ 
+ <table class="content_list" cellspacing="0">
 <tr>
-  <td class="page_edit_content_h1">{$lang.MOD.CONTENT.TYPE}</td>
-  <td class="page_edit_content_h2">{$lang.MOD.CONTENT.TEMPLATE}</td>
-  <td class="page_edit_content_h3">{$lang.MOD.CONTENT.ACTIONS}</td>
+  <td class="content_list_hdr">{$lang.MOD.CONTENT.TYPE}</td>
+  <td class="content_list_hdr">{$lang.MOD.CONTENT.TEMPLATE}</td>
+  <td class="content_list_hdr">{$lang.MOD.CONTENT.ACTIONS}</td>
 </tr>
 {if !empty($cnt.page_content)}
 {foreach from=$cnt.page_content item=item}
 <tr>
-  <td class="page_edit_content_1">&#160;</td>
-  <td class="page_edit_content_1">&#160;</td>
-  <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/text/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
+  <td class="content_list_cnt">&#160;</td>
+  <td class="content_list_cnt">&#160;</td>
+  <td class="content_list_cnt">
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/text/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}" /></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/html/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/html/order/{$item.cnt_order}" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}" /></a>
   </td>
 </tr>
 <tr>
-  <td class="page_edit_content_1">
+  <td class="content_list_cnt">
   {$item.cnt_type}
   </td>
-  <td class="page_edit_content_2">
+  <td class="content_list_cnt">
   {$item.cnt_template}
   </td>
-  <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentEdit/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.EDIT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_edit.png" title="{$lang.MOD.CONTENT.EDIT}" alt="{$lang.MOD.CONTENT.EDIT}"></a>
+  <td class="content_list_cnt">
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentEdit/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.EDIT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_edit.png" title="{$lang.MOD.CONTENT.EDIT}" alt="{$lang.MOD.CONTENT.EDIT}" /></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.DELETE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_delete.png" title="{$lang.MOD.CONTENT.DELETE}" alt="{$lang.MOD.CONTENT.DELETE}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$item.cnt_id}" title="{$lang.MOD.CONTENT.DELETE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_delete.png" title="{$lang.MOD.CONTENT.DELETE}" alt="{$lang.MOD.CONTENT.DELETE}" /></a>
   </td>
 </tr>
 {/foreach}
 {/if}
 <tr>
-  <td class="page_edit_content_1">&#160;</td>
-  <td class="page_edit_content_2">&#160;</td>
-  <td class="page_edit_content_3">
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/text/order/0" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}"></a>
+  <td class="content_list_cnt">&#160;</td>
+  <td class="content_list_cnt">&#160;</td>
+  <td class="content_list_cnt">
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/text/order/0" title="{$lang.MOD.CONTENT.ADD_TEXT}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/text_add.png" title="{$lang.MOD.CONTENT.ADD_TEXT}" alt="{$lang.MOD.CONTENT.ADD_TEXT}" /></a>
   &#160;
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/html/order/0" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}"></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentAdd/id/{$cnt.page_id}/type/html/order/0" title="{$lang.MOD.CONTENT.ADD_HTML}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/html_add.png" title="{$lang.MOD.CONTENT.ADD_HTML}" alt="{$lang.MOD.CONTENT.ADD_HTML}" /></a>
   </td>
 </tr>
 </table>
-</div>
+
+ </div>
+  
+ </div>
+
+ 
 </div>
