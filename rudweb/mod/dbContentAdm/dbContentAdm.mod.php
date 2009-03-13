@@ -694,12 +694,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			{
 				case 'text' :
 					{
-						return $this->_textEdit($cnt_id);
+						return $this->_textEdit($pg_id, $cnt_id);
 						break;
 					}
 				case 'html' :
 					{
-						return $this->_htmlEdit($cnt_id);
+						return $this->_htmlEdit($pg_id, $cnt_id);
 						break;
 					}
 				default :
@@ -1375,7 +1375,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 
 		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
 		$this->modCnt['cnt']['content']['cnt_body'] = '';
-		$this->modCnt['cnt']['content']['cnt_template'] = '';
+		$this->modCnt['cnt']['content']['cnt_template'] = 'cntHTML';
 		$this->modCnt['cnt']['content']['cnt_err'] = array();
 		/**
 		 * Rich text editor to use
@@ -1463,13 +1463,15 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	/**
 	 * Edit content - html
 	 *
+	 * @param integer $pg_id id of containing pages
 	 * @param integer $cnt_id content id
 	 * @return mixed content
 	 */
-	private function _htmlEdit($cnt_id)
+	private function _htmlEdit($pg_id, $cnt_id)
 	{
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['EDIT'];
 		$this->modCnt['cnt']['tpl'] = 'htmlEdit';
+		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
 		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
 		/**
 		 * Content data
@@ -1609,7 +1611,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 
 		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
 		$this->modCnt['cnt']['content']['cnt_body'] = '';
-		$this->modCnt['cnt']['content']['cnt_template'] = '';
+		$this->modCnt['cnt']['content']['cnt_template'] = 'cntText';
 		$this->modCnt['cnt']['content']['cnt_err'] = array();
 		/**
 		 * If form is sent, process request
@@ -1695,13 +1697,15 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	/**
 	 * Edit content - text
 	 *
+	 * @param integer $pg_id id of containing page
 	 * @param integer $cnt_id content id
 	 * @return mixed content
 	 */
-	private function _textEdit($cnt_id)
+	private function _textEdit($pg_id, $cnt_id)
 	{
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['CONTENT']['EDIT'];
 		$this->modCnt['cnt']['tpl'] = 'textEdit';
+		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
 		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
 		/**
 		 * Content data

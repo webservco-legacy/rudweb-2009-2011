@@ -191,8 +191,8 @@ a:hover,a:active {color: #333333;}
 /* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
-html, body                 {font-family: Verdana, serif; font-size: 90%;}
-table, td, input, select   {font-size: 100%;}
+html, body                 {font-family: Verdana, sans-serif; font-size: 90%;}
+table, td, input, select, textarea  {font-family: Verdana, sans-serif; font-size: 100%;}
 #header                    {font-size: 110%; font-weight: bold;}
 #page_title                {text-align: left;}
 #page_content              {text-align: justify; line-height: 150%;}
@@ -208,7 +208,8 @@ table, td, input, select   {font-size: 100%;}
 /* ********** ********** ********** ********** ********** CONTENT START ********** ********** ********** ********** ********** */
 #page_content {text-align: center;}
 .hdtxt {text-align: left; font-weight: bold;}
-input {text-align: center; background-color: #FFFFFF; color: #333333; border: 1px solid #666666;}
+input, textarea {text-align: center; background-color: #FFFFFF; color: #333333; border: 1px solid #666666;}
+.content_body {text-align: left; width: 430px; height: 280px;}
 .login {text-align: center;}
 .login_form {width: 320px; text-align: center; margin: auto; border: 1px solid #666666;}
 .login0 {clear: both; height: 1px; font-size: 1%; margin: 0px; overflow: hidden;}
@@ -236,6 +237,7 @@ a.actionButton:active {padding: 3px 5px 3px 5px; border: 1px solid #666666; line
 .pageAddList {text-align: left;}
 
 .page_form {display: inline-block; width: 80%; padding: 10px; text-align: center; margin: 0 auto;}
+.content_form {display: inline-block; width: 96%; padding: 0px; text-align: center; margin: 0 auto;}
 .page_form2 {display: inline-block; width: 100%; padding: 0px; text-align: center; margin: 0 auto;}
 .clearthis {
 float: left;
@@ -247,6 +249,7 @@ overflow: hidden;
 .page_input1 {width: 45%; padding: 5px 5px 5px 0px; float: left; text-align: right; margin: auto; overflow: hidden;}
 .page_input2 {width: 45%; float: left; padding: 5px 10px 5px 0px; text-align: left; margin: auto; overflow: hidden;}
 .page_input3 {float: left; width: 100%; padding: 5px 0px 5px 0px; margin: auto;}
+.page_input4 {float: left; width: 100%; padding: 0px 0px 0px 0px; margin: 0 auto;}
 
 
 .page_edit_content {}

@@ -105,12 +105,12 @@ FCKConfig.CustomStyles =
   ['Source','-','Save','Preview'],
   ['Cut','Copy','Paste','PasteText','PasteWord'],
   ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-  ['Link','Unlink','Anchor'],
+  ['Link','Unlink'],
   '/',
   ['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote','CreateDiv'],
   ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
   ['TextColor','BGColor'],
-  ['Image','Table','Rule','Smiley','SpecialChar','PageBreak'],
+  ['Image','Table','Rule','Smiley','SpecialChar'],
   '/',
   ['FontFormat','FontName','FontSize']
 ] ;

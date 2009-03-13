@@ -27,15 +27,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{*debug*}
-<div id="html_edit">
+<div class="pageAction">
+<div class="cancel">
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+
+<div class="content_form">
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_new_form" id="{$smarty.const._APP_PRE}_content_new_form" action="" method="post">
-<table class="content_edit_html">
- <tr>
-  <td class="content_edit_form_a">&#160;</td>
-  <td class="content_edit_form_b">
-  {$lang.MOD.CONTENT.CONTENT_BODY}<br />
-  <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.pg_id}" />
+<div class="clearthis">&#160;</div>
+
+<div class="page_input4">
+{$lang.MOD.CONTENT.CONTENT_BODY}:<br />
+ <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.pg_id}" />
   <textarea class="content_body" name="cnt_body" id="cnt_body">{$cnt.cnt_body}</textarea>
   {if $cnt.rte eq "FCKeditor"}
   <script type="text/javascript" src="{$smarty.const._APP_WWW}3rdparty/fckeditor/fckeditor.js"></script>
@@ -44,8 +46,8 @@
     oFCKeditor.BasePath = "{$smarty.const._APP_WWW}3rdparty/fckeditor/" ;
     oFCKeditor.Config['CustomConfigurationsPath'] = "{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}/admin/scripts/fckconfig.js";
     oFCKeditor.Config['EditorAreaCSS'] = "{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}/admin/styles/fckeditor.css";
-    oFCKeditor.Width = "460";
-    oFCKeditor.Height = "300";
+    oFCKeditor.Width = "430";
+    oFCKeditor.Height = "400";
     oFCKeditor.ToolbarSet = "rudweb";
     oFCKeditor.Config['SkinPath'] = "{$smarty.const._APP_WWW}3rdparty/fckskins/famfamfamAluminum/";
     oFCKeditor.Config['AutoDetectLanguage']  = false ;
@@ -65,25 +67,24 @@
   {/literal}
   {else}
   {/if}
-  </td>
- </tr>
- <tr>
-  <td class="content_edit_form_a">&#160;</td>
-  <td class="content_edit_form_b">
-  {$lang.MOD.CONTENT.CONTENT_TEMPLATE}<br />
-  <input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" />
-  </td>
- </tr>
- <tr>
-  <td class="content_edit_form_a">&#160;</td>
-  <td class="content_edit_form_b"><input class="content_save" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></td>
- </tr>
- </table>
+</div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input1">{$lang.MOD.CONTENT.CONTENT_TEMPLATE}:</div>
+<div class="page_input2"><input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></div>
+<div class="clearthis">&#160;</div>
+
+<div class="page_input3"><input class="content_save" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
+<div class="clearthis">&#160;</div>
+
 </form>
 
- <div class="content_edit_errors">
+<div class="content_edit_errors">
   {foreach from=$cnt.cnt_err item=err}
   {$err}<br />
   {/foreach}
-  </div>
+</div>
+
+</div>
+
 </div>
