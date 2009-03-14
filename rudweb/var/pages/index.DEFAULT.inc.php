@@ -36,16 +36,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 /**
  * Content type
  */
-$cnt['type'] = 'text';
-
-/**
- * Skin settings
- *
- * Please set these in skin.inc.php
- * in configuration directory.
- * Only set them here if you want to
- * override them
- */
+//$cnt['type'] = 'text';
 /**
  * Main layout template directory
  */
