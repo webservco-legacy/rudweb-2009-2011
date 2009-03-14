@@ -35,7 +35,10 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
-
+/**
+ * Content type
+ */
+$cnt['type'] = 'text';
 /**
  * Main layout template directory
  */
