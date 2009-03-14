@@ -71,3 +71,14 @@ function addToFCK(url, width, height, alt)
     window.close() ;
   }
 }
+function jsCancel(url)
+{
+  if(window.opener)
+  {
+    window.close();
+  }
+  else
+  {
+    window.location = url;
+  }
+}

@@ -897,22 +897,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				$form = array();
 				$form[] = array('title'=>'pic_id','name'=>'pic_id','type'=>'int','req'=>TRUE);
-				$form[] = array('title'=>$this->modLang['MOD']['THUMBNAIL']['THUMB_SIZE'],'name'=>'thumb_size','type'=>'number','req'=>TRUE);
+				$form[] = array('title'=>$this->modLang['MOD']['THUMBNAIL']['THUMB_SIZE'],'name'=>'thumb_size','type'=>'numberNotNull','req'=>TRUE);
 				/**
 				 * Process form data
 				 */
 				list($errForm, $dataForm) = $this->_processForm($form);
 				$te = count($errForm);
-				if($te>0)
-				{
-					/**
-					 * Errors occured, break operation
-					 */
-					$this->modCnt['cnt']['content']['form']['thumb_size'] = isset($_POST['thumb_size']) ? $_POST['thumb_size'] : '150';
-					$this->modCnt['cnt']['content']['form_err'] = $err;
-					return $this->modCnt;
-				}
-				else
+				if($te == 0)
 				{
 					/**
 					 * Data ok, do the stuff
@@ -972,6 +963,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						trigger_error('insert error', E_USER_ERROR);
 					}
 				}
+				else
+				{
+					/**
+					 * Errors occured
+					 */
+					$this->modCnt['cnt']['content']['form']['thumb_size'] = isset($_POST['thumb_size']) ? $_POST['thumb_size'] : '150';
+					$this->modCnt['cnt']['content']['form_err'] = $errForm;
+				}
 			}
 			/**
 			 * Process image add form
@@ -1002,17 +1001,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				$err = array_merge($errForm, $errUpload);
 				$te = count($err);
-				if($te>0)
-				{
-					/**
-					 * Errors occured, break operation
-					 */
-					$this->modCnt['cnt']['content']['form']['pic_label'] = isset($_POST['pic_label']) ? $_POST['pic_label'] : 'pictures';
-					$this->modCnt['cnt']['content']['form']['pic_title'] = isset($_POST['pic_title']) ? $_POST['pic_title'] : '';
-					$this->modCnt['cnt']['content']['form_err'] = $err;
-					return $this->modCnt;
-				}
-				else
+				if($te == 0)
 				{
 					/**
 					 * Upload ok, data ok.
@@ -1037,6 +1026,15 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						trigger_error('insert error', E_USER_ERROR);
 					}
+				}
+				else
+				{
+					/**
+					 * Errors occured
+					 */
+					$this->modCnt['cnt']['content']['form']['pic_label'] = isset($_POST['pic_label']) ? $_POST['pic_label'] : 'pictures';
+					$this->modCnt['cnt']['content']['form']['pic_title'] = isset($_POST['pic_title']) ? $_POST['pic_title'] : '';
+					$this->modCnt['cnt']['content']['form_err'] = $err;
 				}
 			}
 			/**
@@ -1843,7 +1841,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$page_list .= ' title="'.$data['items'][$itemId]['pg_level'].'"';
 				}
 				$page_list .= '>';
-				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_level'].'.'.$i.'</td>';
+				$page_list .= '<td class="page_list_lvl page_list_cr">'. $data['items'][$itemId]['pg_level'].'.'.$i.'</td>';
 				$page_list .= '<td class="page_list_cr_tt">';
 				for($i=0;$i<$data['items'][$itemId]['pg_level'];$i++)
 				{
@@ -1855,17 +1853,17 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$page_list .= '<td class="page_list_cr">'. $group.'</td>';
 				$page_list .= '<td class="page_list_cr">'. $data['items'][$itemId]['pg_items'] .'</td>';
 				$page_list .= '<td class="page_list_cr">';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageNew/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.$data['items'][$itemId]['pg_order'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_before.png" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageNew/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.$data['items'][$itemId]['pg_order'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_before.png" title="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_BEFORE'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageNew/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.(($data['items'][$itemId]['pg_order'])+1).'" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_after.png" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageNew/parent/'.$data['items'][$itemId]['pg_parent'].'/order/'.(($data['items'][$itemId]['pg_order'])+1).'" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_after.png" title="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_AFTER'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageAdd/parent/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_inside.png" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageAdd/parent/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_add_inside.png" title="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" alt="'.$this->modLang['MOD']['PAGE']['ADD_INSIDE'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_view.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" target="website">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_view.png" title="'.$this->modLang['MOD']['PAGE']['VIEW'].'" alt="'.$this->modLang['MOD']['PAGE']['VIEW'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_edit.png" title="'.$this->modLang['MOD']['PAGE']['EDIT'].'" alt="'.$this->modLang['MOD']['PAGE']['EDIT'].'" />' . '</a>';
 				$page_list .= '&#160;';
-				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageDelete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'">' . '<img src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_delete.png" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGE']['DELETE'].'" />' . '</a>';
+				$page_list .= '<a href="'._APP_URL.'module/'.$this->modAbout['name'].'/action/pageDelete/id/'.$data['items'][$itemId]['pg_id'].'" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'">' . '<img class="page_list_act_img" src="'.$_SESSION[_APP_PRE.'_skin_url'].'admin/graphics/icons/page_delete.png" title="'.$this->modLang['MOD']['PAGE']['DELETE'].'" alt="'.$this->modLang['MOD']['PAGE']['DELETE'].'" />' . '</a>';
 				$page_list .= '</td>';
 				$page_list .= '</tr>';
 				$page_list .= $this->_formatPages($itemId, $data);
@@ -1920,9 +1918,33 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							}
 							break;
 						}
+					case 'intNotNull' :
+						{
+							if($data[$id['name']] == 0)
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							else if($data[$id['name']] != '' && (!$this->modAppCore->rwCheckInt($data[$id['name']])))
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							break;
+						}
 					case 'number' :
 						{
 							if($data[$id['name']] != '' && (!$this->modAppCore->rwCheckInt($data[$id['name']]) && !is_numeric($data[$id['name']]) ))
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							break;
+						}
+					case 'numberNotNull' :
+						{
+							if($data[$id['name']] == 0)
+							{
+								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
+							}
+							else if($data[$id['name']] != '' && (!$this->modAppCore->rwCheckInt($data[$id['name']]) && (!is_numeric($data[$id['name']]))))
 							{
 								$err[] = $this->modLang['FORM']['FIELD'].$id['title'].$this->modLang['FORM']['IS_INVALID'];
 							}
@@ -2152,10 +2174,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _makeMenu()
 	{
-		//XXX
 		/**
-		* Menu
-		*/
+		 * Menu
+		 */
 		$this->modCnt['atpl']['menu'] = array();
 		$this->modCnt['atpl']['menu']['dir'] = '';
 		$this->modCnt['atpl']['menu']['tpl'] = 'menu';

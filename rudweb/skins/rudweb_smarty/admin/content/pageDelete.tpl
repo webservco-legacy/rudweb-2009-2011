@@ -29,8 +29,7 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a>
-</div>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
 <h3>{$cnt.page_title}</h3>
 {$lang.MOD.PAGE.DELETE_CONFIRM_1}
 <br />

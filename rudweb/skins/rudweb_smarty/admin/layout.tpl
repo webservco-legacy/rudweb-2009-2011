@@ -104,7 +104,7 @@
         {$lang.AUTH.GROUP}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_grp_name'];{/php}
         {php}if($_SESSION[_APP_PRE.'_auth'] == 1) {{/php}
         <br />
-        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$lang.AUTH.LOGOUT}" alt="{$lang.AUTH.LOGOUT}">{$lang.AUTH.LOGOUT}</a>
+        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$lang.AUTH.LOGOUT}">{$lang.AUTH.LOGOUT}</a>
         {php}}{/php}
         </div>
       </div>

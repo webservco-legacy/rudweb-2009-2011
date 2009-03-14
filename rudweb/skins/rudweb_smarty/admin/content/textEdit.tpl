@@ -30,12 +30,17 @@
 
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
 
 <div class="content_form">
-<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_edit_form" id="{$smarty.const._APP_PRE}_content_edit_form" action="" method="post">
-<div class="clearthis">&#160;</div>
 
+<div class="formErrors">
+  {foreach from=$cnt.cnt_err item=err}
+  {$err}<br />
+  {/foreach}
+</div>
+<div class="clearthis">&#160;</div>
+<form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_edit_form" id="{$smarty.const._APP_PRE}_content_edit_form" action="" method="post">
 <div class="page_input4">
 {$lang.MOD.CONTENT.CONTENT_BODY}:<br />
 <input type="hidden" name="cnt_id" id="cnt_id" value="{$cnt.cnt_id}" />
@@ -47,17 +52,10 @@
 <div class="page_input2"><input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></div>
 <div class="clearthis">&#160;</div>
 
-<div class="page_input3"><input class="content_save" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
+<div class="page_input3"><input class="submit" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
 <div class="clearthis">&#160;</div>
 
 </form>
-
-<div class="content_edit_errors">
-  {foreach from=$cnt.cnt_err item=err}
-  {$err}<br />
-  {/foreach}
-</div>
-
 </div>
 
 </div> 

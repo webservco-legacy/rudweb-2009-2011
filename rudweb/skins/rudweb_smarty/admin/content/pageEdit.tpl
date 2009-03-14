@@ -35,11 +35,14 @@
  <div class="page_form">
  <div class="hdtxt">{$lang.MOD.PAGE.EDIT}</div> 
  
- <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_edit_form" id="{$smarty.const._APP_PRE}_page_edit_form" action="" method="post">
+ <div class="formErrors">
+ {foreach from=$cnt.page_err item=err}
+ {$err}<br />
+ {/foreach}
+ </div>
  
  <div class="clearthis">&#160;</div>
- 
- 
+ <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_page_edit_form" id="{$smarty.const._APP_PRE}_page_edit_form" action="" method="post">
   <div class="page_input1">{$lang.MOD.PAGE.PAGE_TITLE}:</div>
   <div class="page_input2">
     <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.page_id}" />
@@ -59,17 +62,10 @@
   <div class="page_input2"><input class="page_template" type="text" name="pg_template" id="pg_template" maxlength="20" value="{$cnt.page_template}" /></div>
   <div class="clearthis">&#160;</div>
  
-  <div class="page_input3"><input class="page_save" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
+  <div class="page_input3"><input class="submit" type="submit" name="pg_save" id="pg_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
   <div class="clearthis">&#160;</div>
  </form>
  
- <div class="page_edit_errors">
-  {foreach from=$cnt.page_err item=err}
-  {$err}<br />
-  {/foreach}
-  </div>
-
-
  <div class="page_form2">
     
  <div class="hdtxt">{$lang.MOD.CONTENT.EDIT}</div>

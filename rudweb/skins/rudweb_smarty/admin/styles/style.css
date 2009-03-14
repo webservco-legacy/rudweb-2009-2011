@@ -40,26 +40,25 @@ html, body      {margin: 0; padding: 0; border: 0; height: 100%;}
 #hdr3           {height: 70px;}
 
 #cnt0           {clear: both; width: 100%; margin: auto; display: table;}
-#left0          {float: left; clear: none; width: 210px; height: 10px; padding: 0px;}
+#left0          {float: left; width: 210px; height: 10px; padding: 0px;}
 * html #left0   {margin-right: -3px;}
-#right0         {float: right; clear: none; width: 210px; height: 10px; padding: 0px;}
+#right0         {float: right; width: 210px; height: 10px; padding: 0px;}
 * html #right0  {margin-left: -3px;}
 #center0        {margin-left: 210px; margin-right: 210px; height: 10px; padding: 0px;}
 * html #center0 {margin-left: 207px; margin-right: 207px;}
 
 #cnt1           {clear: both; width: 100%; margin: auto; display: table;}
-#left1          {float: left; clear: none; width: 190px; padding: 0px; min-height: 50px;}
+#left1          {float: left; width: 190px; padding: 0px; min-height: 50px;}
 * html #left1   {margin-right: -3px; height: 50px;}
-#right1         {float: right; clear: none; width: 200px; padding: 0px; overflow: auto;}
+#right1         {float: right; width: 200px; padding: 0px; overflow: auto;}
 * html #right1  {margin-left: -3px;}
 #center1        {margin-left: 190px; margin-right: 200px;}
 * html #center1 {margin-left: 187px; margin-right: 197px; /* ie 5-6 hack for table 100% */ width: 100%; height:1% /* end ie */}
-.clear          {clear:both;  margin: 0; padding: 0; height:1px; overflow:hidden; font-size: 1px;}
 
 #cnt2           {clear: both; width: 100%; margin: auto; display: table; padding-bottom: 40px;}
-#left2          {float: left; clear: none; width: 210px; height: 20px; padding: 0px;}
+#left2          {float: left; width: 210px; height: 20px; padding: 0px;}
 * html #left2   {margin-right: -3px;}
-#right2         {float: right; clear: none; width: 210px; height: 20px; padding: 0px;}
+#right2         {float: right; width: 210px; height: 20px; padding: 0px;}
 * html #right2  {margin-left: -3px;}
 #center2        {margin-left: 210px; margin-right: 210px; height: 20px; padding: 0px;}
 * html #center2 {margin-left: 207px; margin-right: 207px;}
@@ -93,8 +92,6 @@ a:hover, a:active {background: transparent; text-decoration: none; font-weight: 
 #left {margin: 25px 0px 0px 10px;}
 #right {margin: 25px 10px 0px 10px;}
 #center_space1       {margin: 0px; padding: 0px 0px 0px 10px; border: 0px; height: 1px;}
-/* XXX */
-#center_content {}
 #page_title          {margin: 0px; padding: 0px 0px 0px 10px; border: 0px;}
 #page_content        {margin: 0px; padding: 10px 5px 10px 20px; border: 0px; min-height: 230px;}
 * html #page_content {height: 240px;}
@@ -168,6 +165,7 @@ html, body  {background-color: #E8E8FC; color: #333333;}
 #center1 {background-color: #FFFFFF;}
 a:link,a:visited {color: #333333;}
 a:hover,a:active {color: #333333;}
+.error {color: #990000;}
 /* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** IMAGES START ********** ********** ********** ********** ********** */
@@ -200,18 +198,32 @@ table, td, input, select, textarea  {font-family: Verdana, sans-serif; font-size
 #center_space1, 
 #left0, #right0, #center0,
 #left2, #right2, #center2  {font-size: 1%;}
+.error {font-weight: bold; text-align: center;}
 /* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** ADMIN ********** ********** ********** ********** ********** */
 /* ********** ********** ********** ********** ********** ADMIN ********** ********** ********** ********** ********** */
 
-/* ********** ********** ********** ********** ********** CONTENT START ********** ********** ********** ********** ********** */
+/* ********** ********** ********** ********** **********  EXTRA START ********** ********** ********** ********** ********** */
 #page_content {text-align: center;}
-.hdtxt {text-align: left; font-weight: bold;}
+#user {margin-left: 5px; margin-top: 30px; font-size: 80%; line-height: 150%;}
+.cancel {width: 16px; float: right;}
+a.actionButton:link,
+a.actionButton:visited,
+a.actionButton:hover,
+a.actionButton:active {padding: 3px 5px 3px 5px; border: 1px solid #666666; line-height: 300%; font-weight: normal;}
+.clearthis {float: left; clear: none; width: 100%; height: 1px; overflow: hidden;}
+/* ********** ********** ********** ********** **********  EXTRA END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** FORMS START ********** ********** ********** ********** ********** */
 input, textarea {text-align: center; background-color: #FFFFFF; color: #333333; border: 1px solid #666666;}
-.content_body {text-align: left; width: 430px; height: 280px;}
-.login {text-align: center;}
-.login_form {width: 320px; text-align: center; margin: auto; border: 1px solid #666666;}
+.submit {cursor: pointer;}
+.formErrors {font-weight: bold; color: #990000; text-align: center;}
+.thumb_size {width: 30px;}
+/* ********** ********** ********** ********** ********** FORMS END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** LOGIN START ********** ********** ********** ********** ********** */
+.login_form {width: 320px; text-align: center; margin: 0 auto; margin-bottom: 10px; border: 1px solid #666666;}
 .login0 {clear: both; height: 1px; font-size: 1%; margin: 0px; overflow: hidden;}
 .login1 {width: 160px; padding: 10px 0px 10px 0px; float: left; text-align: right; margin: auto;}
 * html .login1 {margin-bottom: -7px;}
@@ -222,52 +234,39 @@ input, textarea {text-align: center; background-color: #FFFFFF; color: #333333; 
 .input_password {width: 127px;}
 .captcha {vertical-align: middle;}
 .input_captcha {width: 40px; vertical-align: middle;}
-.login_submit {width: 130px;}
-* html .login_submit {width: 127px;}
+/* ********** ********** ********** ********** ********** LOGIN END ********** ********** ********** ********** ********** */
 
-#user {margin-left: 5px; margin-top: 30px; font-size: 80%; line-height: 150%;}
-.toggle {font-size: 80%;}
-.pageAction {width: 80%; float: none; padding: 10px 10px 10px 26px; border: 1px solid #666666; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
-.cancel {width: 16px; float: right;}
-a.actionButton:link,
-a.actionButton:visited,
-a.actionButton:hover,
-a.actionButton:active {padding: 3px 5px 3px 5px; border: 1px solid #666666; line-height: 300%; font-weight: normal;}
-.page_new, .page_edit_page {margin: auto;}
-.pageAddList {text-align: left;}
-
-.page_form {display: inline-block; width: 80%; padding: 10px; text-align: center; margin: 0 auto;}
-.content_form {display: inline-block; width: 96%; padding: 0px; text-align: center; margin: 0 auto;}
-.page_form2 {display: inline-block; width: 100%; padding: 0px; text-align: center; margin: 0 auto;}
-.clearthis {
-float: left;
-clear: none;
-width: 100%;
-height: 1px;
-overflow: hidden;
-}
-.page_input1 {width: 45%; padding: 5px 5px 5px 0px; float: left; text-align: right; margin: auto; overflow: hidden;}
-.page_input2 {width: 45%; float: left; padding: 5px 10px 5px 0px; text-align: left; margin: auto; overflow: hidden;}
-.page_input3 {float: left; width: 100%; padding: 5px 0px 5px 0px; margin: auto;}
-.page_input4 {float: left; width: 100%; padding: 0px 0px 0px 0px; margin: 0 auto;}
-
-
-.page_edit_content {}
-.content_list {border: 0px; margin: 0 auto;}
-.content_list_hdr {padding: 2px 5px 2px 5px; font-weight: bold; border-bottom: 1px solid #666666;}
-.content_list_cnt {padding: 2px 5px 2px 5px;}
-
-ul.pageAddList  {padding: 0px; margin: 0px 0px 0px 15px; list-style-type: none;}
-ul.pageAddList li {padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;}
-
+/* ********** ********** ********** ********** ********** MENU START ********** ********** ********** ********** ********** */
 .adminMenu {line-height: 180%;}
 a.adminMenu1:link,a.adminMenu1:visited {}
 a.adminMenu1:hover,a.adminMenu1:active {}
 a.adminMenu2:link,a.adminMenu2:visited {font-size: 90%;}
 a.adminMenu2:hover,a.adminMenu2:active {font-size: 90%;}
+/* ********** ********** ********** ********** ********** MENU END ********** ********** ********** ********** ********** */
 
-.page_list {width: 100%;}
-.page_list_lvl {width: 40px;}
+/* ********** ********** ********** ********** ********** PAGES START ********** ********** ********** ********** ********** */
+.hdtxt {text-align: left; font-weight: bold;}
+.content_body {text-align: left; width: 430px; height: 280px;}
+.toggle {font-size: 80%;}
+.pageAction {width: 80%; float: none; padding: 10px 10px 10px 26px; border: 1px solid #666666; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
+.pageList {width: 100%; float: none; padding: 0px 0px 0px 0px; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
+.page_new, .page_edit_page {margin: auto;}
+.pageAddList {text-align: left;}
+.page_form {display: inline-block; width: 80%; padding: 10px; text-align: center; margin: 0 auto;}
+.content_form {display: inline-block; width: 96%; padding: 0px; text-align: center; margin: 0 auto;}
+.page_form2 {display: inline-block; width: 100%; padding: 0px; text-align: center; margin: 0 auto;}
+.page_input1 {width: 45%; padding: 5px 5px 5px 0px; float: left; text-align: right; margin: auto; overflow: hidden;}
+.page_input2 {width: 45%; float: left; padding: 5px 10px 5px 0px; text-align: left; margin: auto; overflow: hidden;}
+.page_input3 {float: left; width: 100%; padding: 5px 0px 5px 0px; margin: auto;}
+.page_input4 {float: left; width: 100%; padding: 0px 0px 0px 0px; margin: 0 auto;}
+.page_edit_content {}
+.content_list {border: 0px; margin: 0 auto;}
+.content_list_hdr {padding: 2px 5px 2px 5px; font-weight: bold; border-bottom: 1px solid #666666;}
+.content_list_cnt {padding: 2px 5px 2px 5px;}
+ul.pageAddList  {padding: 0px; margin: 0px 0px 0px 15px; list-style-type: none;}
+ul.pageAddList li {padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;}
+.page_list {width: 100%; border: 0; font-size: 90%;}
+.page_list_lvl {width: 30px; font-size: 80%;}
 .page_list_tt {}
 .page_list_tpl {width: 100px;}
 .page_list_mnu {width: 50px;}
@@ -275,28 +274,24 @@ a.adminMenu2:hover,a.adminMenu2:active {font-size: 90%;}
 .page_list_auth {width: 100px;}
 .page_list_grp {width: 100px;}
 .page_list_itm {width: 70px;}
-.page_list_op {width: 100px;}
-.image_admin_list_pic {float: left; clear: none; width: 150px; height: 260px; margin-left: 1px; margin-top: 1px; background-color: #cccccc;}
-.image_admin_list_clear {clear: both;}
-.thumb_admin_list_pic {float: left; clear: none; width: 150px; height: 260px; margin-left: 1px; margin-top: 1px; background-color: #cccccc;}
-.thumb_admin_list_clear {clear: both;}
-/* ********** ********** ********** ********** ********** CONTENT END ********** ********** ********** ********** ********** */
-
-/* ********** ********** ********** ********** ********** COLORS START ********** ********** ********** ********** ********** */
-/* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
-
-/* ********** ********** ********** ********** ********** BORDERS START ********** ********** ********** ********** ********** */
-.page_list {border: 0px}
-.page_list_hr {border-top: 1px solid #666666; border-bottom: 1px solid #666666;}
-.page_list_cr {border-bottom: 1px solid #666666;}
-.page_list_cr_tt {border-bottom: 1px solid #666666; border-left: 1px solid #666666;}
+.page_list_op {width: 130px;}
+.page_list_left {}
+.page_list_right {}
+.page_list_hr {text-align: center; font-weight: bold;}
+.page_list_cr {text-align: center; border-top: 1px solid #666666; font-size: 90%;}
+.page_list_cr_tt {text-align: left; border-top: 1px solid #666666; border-left: 1px solid #666666;}
 .page_list_tt {border-left: 1px solid #666666;}
-/* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
+.page_list_act_img {vertical-align: middle;}
+/* ********** ********** ********** ********** ********** PAGES END ********** ********** ********** ********** ********** */
 
-/* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
-.page_list_hr         {text-align: center; font-weight: bold;}
-.page_list_cr         {text-align: center;}
-.page_list_cr_tt      {text-align: left;}
-.image_admin_list_pic {text-align: center;}
-.thumb_admin_list_pic {text-align: center;}
-/* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */
+/* ********** ********** ********** ********** ********** IMAGES START ********** ********** ********** ********** ********** */
+.imageList {width: 96%; float: none; padding: 10px 10px 10px 10px; border: 1px solid #666666; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
+.imageListLinks {text-align: left; font-size: 90%; margin-bottom: 10px;}
+.imageListLabels {font-size: 90%; border: 1px solid #666666; margin-bottom: 10px;}
+.imageListImages {display: inline-block; width: 100%; padding: 0px 0px 0px 0px; text-align: center; margin: 0 auto; font-size: 90%;}
+.imageListImage {float: left; clear: none; width: 170px; height: 310px; margin-right: 10px; margin-bottom: 10px;}
+.imageListImage {border-top: 1px solid #666666; border-right: 1px solid #666666; border-bottom: 1px solid #666666; border-left: 1px solid #666666;}
+.imageListPreview {float: none; width: 100%; height: 120px; margin: 0 auto;}
+.imageListUpload {padding: 10px 10px 10px 10px; border: 1px solid #666666; text-align: center; line-height: 180%; margin: 0 auto;}
+.imageUpload {margin: 0 auto;}
+/* ********** ********** ********** ********** ********** IMAGES END ********** ********** ********** ********** ********** */

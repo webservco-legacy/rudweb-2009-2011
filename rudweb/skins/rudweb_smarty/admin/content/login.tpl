@@ -27,7 +27,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-<div class="login">
+<div class="pageAction">
+<div class="cancel">
+  <a href="{$smarty.const._APP_WWW}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
 <p> 
 {$lang.AUTH.LOGIN_MSG}
 </p> 
@@ -55,13 +57,13 @@
     {$lang.AUTH.CAPTCHA}:&#160;
   </div>
   <div class="login2">
-    <img class="captcha" src="{$cnt.captcha}" alt="" title="" />
+    <img class="captcha" src="{$cnt.captcha}" alt="{$lang.AUTH.CAPTCHA}" title="{$lang.AUTH.CAPTCHA}" />
     =
     <input class="input_captcha" type="text" name="{$smarty.const._APP_PRE}_captcha" id="{$smarty.const._APP_PRE}_captcha" maxlength="5" value="" />
   </div>
   <div class="login0">&#160;</div>
   <div class="login3">
-    <input type="submit" class="login_submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$lang.AUTH.LOGIN_TT}" />
+    <input type="submit" class="login_submit submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$lang.AUTH.LOGIN_TT}" />
   </div>
 </div>
 </form>
