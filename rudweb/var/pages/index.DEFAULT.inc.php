@@ -37,29 +37,38 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  * Content type
  */
 $cnt['type'] = 'text';
+
+/**
+ * Skin settings
+ *
+ * Please set these in skin.inc.php
+ * in configuration directory.
+ * Only set them here if you want to
+ * override them
+ */
 /**
  * Main layout template directory
  */
-$cnt['skin']['dir'] = '';
+//$cnt['skin']['dir'] = '';
 /**
  * Main layout template file
  */
-$cnt['skin']['tpl'] = 'layout';
+//$cnt['skin']['tpl'] = 'layout';
 /*
  * Main layout page title
  */
-$cnt['skin']['title'] = '';
+//$cnt['skin']['title'] = '';
 /*
  * Main layout page meta
  */
-$cnt['skin']['meta'] = array();
-$cnt['skin']['meta']['subject'] = _APP_NAME;
-$cnt['skin']['meta']['description'] = _APP_NAME;
-$cnt['skin']['meta']['keywords'] = _APP_NAME.', '.$cnt['skin']['title'];
-$cnt['skin']['meta']['copyright'] = _APP_AUTH;
-$cnt['skin']['meta']['designer'] = _APP_AUTH;
-$cnt['skin']['meta']['publisher'] = _APP_AUTH;
-$cnt['skin']['meta']['author'] = _APP_AUTH;
+//$cnt['skin']['meta'] = array();
+//$cnt['skin']['meta']['subject'] = _APP_NAME;
+//$cnt['skin']['meta']['description'] = _APP_NAME;
+//$cnt['skin']['meta']['keywords'] = _APP_NAME;
+//$cnt['skin']['meta']['copyright'] = _APP_AUTH;
+//$cnt['skin']['meta']['designer'] = _APP_AUTH;
+//$cnt['skin']['meta']['publisher'] = _APP_AUTH;
+//$cnt['skin']['meta']['author'] = _APP_AUTH;
 /**
  * Current content template file
  */

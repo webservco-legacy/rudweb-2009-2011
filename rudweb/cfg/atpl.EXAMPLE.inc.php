@@ -12,7 +12,7 @@
  * @since      2009-02-23 14:44:00
  * @access     public
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage App
  * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify

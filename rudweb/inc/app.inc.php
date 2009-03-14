@@ -128,6 +128,10 @@ class app_Core extends rw_Core
 		 */
 		$page = $this->rwFilterRequest($_GET['page']);
 		/**
+		 * Default skin variables
+		 */
+		require_once(_APP_DIR.'cfg/skin.inc.php');
+		/**
 		 * Check if requested page exists
 		 */
 		if($page != '' && is_file(_APP_DIR_PG.$page.'.inc.php'))
