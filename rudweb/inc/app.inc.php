@@ -120,14 +120,6 @@ class app_Core extends rw_Core
 	private function _appProcessPage()
 	{
 		/**
-		 * Initialize content
-		 */
-		$cnt = array();
-		/**
-		 * Default skin variables
-		 */
-		require_once(_APP_DIR.'cfg/skin.inc.php');
-		/**
 		 * Request security check and fake extension remover
 		 */
 		$page = $this->rwFilterRequest($_GET['page']);
@@ -162,14 +154,6 @@ class app_Core extends rw_Core
 	private function _appProcessContent()
 	{
 		/**
-		 * Initialize content
-		 */
-		$cnt = array();
-		/**
-		 * Default skin variables
-		 */
-		require_once(_APP_DIR.'cfg/skin.inc.php');
-		/**
 		 * Get page id
 		 */
 		$pg = $this->rwStripAlias($_GET['content']);
@@ -200,14 +184,6 @@ class app_Core extends rw_Core
 	 */
 	private function _appProcessModule()
 	{
-		/**
-		 * Initialize content
-		 */
-		$cnt = array();
-		/**
-		 * Default skin variables
-		 */
-		require_once(_APP_DIR.'cfg/skin.inc.php');
 		/**
 		 * Request security check and fake extension remover
 		 */
@@ -362,14 +338,6 @@ class app_Core extends rw_Core
 	 */
 	private function _appProcessDefault()
 	{
-		/**
-		 * Initialize content
-		 */
-		$cnt = array();
-		/**
-		 * Default skin variables
-		 */
-		require_once(_APP_DIR.'cfg/skin.inc.php');
 		/**
 		 * Default content from config
 		 */

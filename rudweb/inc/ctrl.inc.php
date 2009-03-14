@@ -162,6 +162,59 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Default content id
 	 */
 	define('_APP_CONTENT_ID', $cfg['Defaults']['ContentId'] ? $cfg['Defaults']['ContentId'] : 'index');
+	/**
+	 * Initialize content
+	 */
+	$cnt = array();
+	/**
+	 * Default page content type
+	 */
+	$cnt['type'] = $cfg['SkinDefaults']['CntType'] ? $cfg['SkinDefaults']['CntType'] : 'text';
+	/**
+	 * Main layout template directory.
+	 */
+	$cnt['skin']['dir'] = $cfg['SkinDefaults']['SkinDir'] ? $cfg['SkinDefaults']['SkinDir'] : '';
+	/**
+	 * Main layout template file
+	 */
+	$cnt['skin']['tpl'] = $cfg['SkinDefaults']['SkinTpl'] ? $cfg['SkinDefaults']['SkinTpl'] : 'layout';
+	/**
+	 * Main layout page title
+	 */
+	$cnt['skin']['title'] = $cfg['SkinDefaults']['PageTitle'] ? $cfg['SkinDefaults']['PageTitle'] : '';
+	/**
+	 * Meta Data
+	 */
+	$cnt['skin']['meta'] = array();
+	/**
+	 * Meta Subject
+	 */
+	$cnt['skin']['meta']['subject'] = $cfg['SkinDefaults']['MetaSubject'] ? $cfg['SkinDefaults']['MetaSubject'] : _APP_NAME;
+	/**
+	 * Meta Description
+	 */
+	$cnt['skin']['meta']['description'] = $cfg['SkinDefaults']['MetaDescription'] ? $cfg['SkinDefaults']['MetaDescription'] : _APP_NAME;
+	/**
+	 * Meta Keywords
+	 */
+	$cnt['skin']['meta']['keywords'] = $cfg['SkinDefaults']['MetaKeywords'] ? $cfg['SkinDefaults']['MetaKeywords'] : _APP_NAME;
+	/**
+	 * Meta Copyright
+	 */
+	$cnt['skin']['meta']['copyright'] = $cfg['SkinDefaults']['MetaCopyright'] ? $cfg['SkinDefaults']['MetaCopyright'] : _APP_AUTH;
+	/**
+	 * Meta Designer
+	 */
+	$cnt['skin']['meta']['designer'] = $cfg['SkinDefaults']['MetaDesigner'] ? $cfg['SkinDefaults']['MetaDesigner'] : _APP_AUTH;
+	/**
+	 * Meta Publisher
+	 */
+	$cnt['skin']['meta']['publisher'] = $cfg['SkinDefaults']['MetaPublisher'] ? $cfg['SkinDefaults']['MetaPublisher'] : _APP_AUTH;
+	/**
+	 * Meta Author
+	 */
+	$cnt['skin']['meta']['author'] = $cfg['SkinDefaults']['MetaAuthor'] ? $cfg['SkinDefaults']['MetaAuthor'] : _APP_AUTH;
+	//XXX
 }
 else
 {
