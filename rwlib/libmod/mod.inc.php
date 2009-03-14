@@ -114,7 +114,7 @@ class rw_Mod_global
 		$modCnt['skin']['meta'] = array();
 		$modCnt['skin']['meta']['subject'] = _APP_NAME;
 		$modCnt['skin']['meta']['description'] = _APP_NAME;
-		$modCnt['skin']['meta']['keywords'] = _APP_NAME.', '.$modCnt['skin']['title'];
+		$modCnt['skin']['meta']['keywords'] = _APP_NAME;
 		$modCnt['skin']['meta']['copyright'] = _APP_AUTH;
 		$modCnt['skin']['meta']['designer'] = _APP_AUTH;
 		$modCnt['skin']['meta']['publisher'] = _APP_AUTH;
