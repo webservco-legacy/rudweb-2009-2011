@@ -851,6 +851,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	public function imageListPop()
+	{
+		$this->modCnt['skin']['tpl'] = 'layoutPop';
+		return $this->imageList();
+		//XXX
+	}
 	/**
 	 * Image administration
 	 *
