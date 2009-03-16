@@ -372,7 +372,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * Verify authorization
 		 */
-		$auth = $this->_authVerify(3, $pg_group);
+		$auth = $this->_authVerify(2, $pg_group);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -685,7 +685,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			trigger_error("page doesn't exist", E_USER_ERROR);
 		}
 		$pg_group = $rp->dbFetchResult();
-		$auth = $this->_authVerify(3, $pg_group);
+		$auth = $this->_authVerify(2, $pg_group);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -789,24 +789,21 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function thumbnailListPop()
 	{
-		$this->modCnt = $this->thumbnailList();
-		$this->modCnt['skin']['tpl'] = 'layoutPop';
-		$this->modCnt['cnt']['tpl'] = 'thumbnailListPop';
-		return $this->modCnt;
+		return $this->thumbnailList(TRUE);
 	}
 	/**
 	 * Thumbnail administration
 	 *
 	 * @return mixed content
 	 */
-	public function thumbnailList()
+	public function thumbnailList($pop=FALSE)
 	{
 		$thumb_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
 		if(!$thumb_label)
 		{
 			return $this->_authDenied();
 		}
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -821,6 +818,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['THUMBNAIL']['ADMIN'];
 			$this->modCnt['cnt']['tpl'] = 'thumbnailList';
+			if($pop)
+			{
+				$this->modCnt['skin']['tpl'] = 'layoutPop';
+				$this->modCnt['cnt']['tpl'] = 'thumbnailListPop';
+			}
 			$this->modCnt['cnt']['content']['thumb_label'] = $thumb_label;
 			$this->modCnt['cnt']['content']['thumb_list'] = array();
 
@@ -870,24 +872,21 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function imageListPop()
 	{
-		$this->modCnt = $this->imageList();
-		$this->modCnt['skin']['tpl'] = 'layoutPop';
-		$this->modCnt['cnt']['tpl'] = 'imageListPop';
-		return $this->modCnt;
+		return $this->imageList(TRUE);
 	}
 	/**
 	 * Image administration
 	 *
 	 * @return mixed content
 	 */
-	public function imageList()
+	public function imageList($pop=FALSE)
 	{
 		$pic_label = (isset($_GET['label']) && $this->modAppCore->rwFilterInput($_GET['label']) != '') ? $this->modAppCore->rwFilterInput($_GET['label']) : 'pictures';
 		if(!$pic_label)
 		{
 			return $this->_authDenied();
 		}
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -902,6 +901,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['MOD']['IMAGE']['ADMIN'];
 			$this->modCnt['cnt']['tpl'] = 'imageList';
+			if($pop)
+			{
+				$this->modCnt['skin']['tpl'] = 'layoutPop';
+				$this->modCnt['cnt']['tpl'] = 'imageListPop';
+			}
 			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
 			$this->modCnt['cnt']['content']['pic_list'] = array();
 			$this->modCnt['cnt']['content']['form']['thumb_size'] = '150';
@@ -921,6 +925,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			if(isset($_POST['thumb_save']))
 			{
+				/**
+				 * Verify authorization again
+				 */
+				$auth = $this->_authVerify(3);
+				if($auth !== 'ok')
+				{
+					return $auth;
+				}
 				/**
 				 * Form data that should be processed
 				 */
@@ -1006,6 +1018,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			if(isset($_POST['image_save']))
 			{
+				/**
+				 * Verify authorization again
+				 */
+				$auth = $this->_authVerify(3);
+				if($auth !== 'ok')
+				{
+					return $auth;
+				}
 				/**
 				 * Form data that should be processed
 				 */
@@ -1107,6 +1127,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	}
 	public function imageDelete()
 	{
+		/**
+		 * Verify authorization again
+		 */
+		$auth = $this->_authVerify(3);
+		if($auth !== 'ok')
+		{
+			return $auth;
+		}
 		/**
 		 * Get image type and id
 		 */
@@ -1251,7 +1279,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	public function actionOk()
 	{
 		$res = array('page', 'content', 'image', 'thumbnail');
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return $auth;
