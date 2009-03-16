@@ -1349,7 +1349,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		if(isset($_SESSION[_APP_PRE.'_token']))
 		{
 			$captchaObj = $this->modAppCore->rwActivateExt('Captcha');
-			$this->modCnt = array();
 			$this->modCnt['type'] = 'image';
 			$this->modCnt['image'] = $captchaObj->display();
 

@@ -110,6 +110,7 @@ class rw_Mod_global
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
 		$modCnt['type'] = 'text';
+		$modCnt['skin'] = array();
 		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$modCnt['skin']['meta'] = array();
 		$modCnt['skin']['meta']['subject'] = _APP_NAME;
@@ -120,6 +121,7 @@ class rw_Mod_global
 		$modCnt['skin']['meta']['publisher'] = _APP_AUTH;
 		$modCnt['skin']['meta']['author'] = _APP_AUTH;
 		$modCnt['skin']['lang'] = $this->modLang;
+		$modCnt['cnt'] = array();
 		$this->modCnt = $modCnt;
 	}
 	/**
