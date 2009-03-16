@@ -218,7 +218,6 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Initialize actual content
 	 */
 	$cnt1['cnt'] = array();
-	//XXX
 }
 else
 {
@@ -271,9 +270,20 @@ try
 	$cnt = array_merge($cnt1, $cnt2);
 	$cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
 	$cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
-	/**
-	 * Global additional templates
+	/*
+	 echo '<pre>';
+	 print_r($cnt1);
+	 echo '<hr />';
+	 print_r($cnt2);
+	 echo '<hr />';
+	 print_r($cnt);
+	 echo '<hr />';
+	 trigger_error('here', E_USER_ERROR);
 	 */
+	//XXX
+	/**
+	* Global additional templates
+	*/
 	$atpl = array();
 	/**
 	 * If normal content, set it,
@@ -319,6 +329,12 @@ try
 			/**
 			 * Only one content item
 			 */
+			/*
+			 echo '<pre>';
+			 print_r($cnt);
+			 trigger_error('here', E_USER_ERROR);
+			 */
+			//XXX
 			$atpl['content'][0] = array();
 			$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
 			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];

@@ -68,6 +68,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$about['deps']['ext'][] = 'Users';
 		$about['deps']['mod']   = array();
 		/**
+		 * These must be declared
+		 */
+		$cnt['skin'] = array();
+		$cnt['skin']['meta'] = array();
+		$cnt['cnt'] = array();
+		/**
 		 * Module default content
 		 *
 		 * $cnt['type'] added by default in parent class
@@ -2153,6 +2159,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['AUTH']['LOGIN_TT'];
 		$this->modCnt['cnt']['tpl'] = 'login';
 		$this->modCnt['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
+		//XXX
 		return $this->modCnt;
 	}
 	/**

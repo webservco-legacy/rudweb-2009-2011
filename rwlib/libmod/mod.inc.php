@@ -109,20 +109,34 @@ class rw_Mod_global
 		$this->modAppCore = $appCore;
 		$this->modLang = $this->modAppCore->rwLang();
 		$this->modDb = $this->modAppCore->rwDb();
-		$modCnt['type'] = 'text';
-		$modCnt['skin'] = array();
-		$modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'];
-		$modCnt['skin']['meta'] = array();
-		$modCnt['skin']['meta']['subject'] = _APP_NAME;
-		$modCnt['skin']['meta']['description'] = _APP_NAME;
-		$modCnt['skin']['meta']['keywords'] = _APP_NAME;
-		$modCnt['skin']['meta']['copyright'] = _APP_AUTH;
-		$modCnt['skin']['meta']['designer'] = _APP_AUTH;
-		$modCnt['skin']['meta']['publisher'] = _APP_AUTH;
-		$modCnt['skin']['meta']['author'] = _APP_AUTH;
-		$modCnt['skin']['lang'] = $this->modLang;
-		$modCnt['cnt'] = array();
-		$this->modCnt = $modCnt;
+		/**
+		 * Default values.
+		 * These can be overridden by modules
+		 */
+		$cnt1['type'] = 'text';
+		$cnt1['skin'] = array();
+		$cnt1['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		$cnt1['skin']['meta'] = array();
+		$cnt1['skin']['meta']['subject'] = _APP_NAME;
+		$cnt1['skin']['meta']['description'] = _APP_NAME;
+		$cnt1['skin']['meta']['keywords'] = _APP_NAME;
+		$cnt1['skin']['meta']['copyright'] = _APP_AUTH;
+		$cnt1['skin']['meta']['designer'] = _APP_AUTH;
+		$cnt1['skin']['meta']['publisher'] = _APP_AUTH;
+		$cnt1['skin']['meta']['author'] = _APP_AUTH;
+		$cnt1['skin']['lang'] = $this->modLang;
+		$cnt1['cnt'] = array();
+		/**
+		 * Join with values from module.
+		 */
+		$cnt = array_merge($cnt1, $modCnt);
+		$cnt['skin'] = array_merge($cnt1['skin'], $modCnt['skin']);
+		$cnt['skin']['meta'] = array_merge($cnt1['skin']['meta'], $modCnt['skin']['meta']);
+		$cnt['cnt']  = array_merge($cnt1['cnt'], $modCnt['cnt']);
+		/**
+		 * Set default values
+		 */
+		$this->modCnt = $cnt;
 	}
 	/**
 	 * Method for displaying information about the module

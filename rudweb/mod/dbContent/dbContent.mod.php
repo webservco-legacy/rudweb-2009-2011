@@ -68,6 +68,12 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		//$about['deps']['ext'][] = 'Users';
 		$about['deps']['mod']   = array();
 		/**
+		 * These must be declared
+		 */
+		$cnt['skin'] = array();
+		$cnt['skin']['meta'] = array();
+		$cnt['cnt'] = array();
+		/**
 		 * Module default content
 		 *
 		 * $cnt['type'] added by default in parent class
