@@ -83,23 +83,33 @@ class app_Core extends rw_Core
 			$cnt = $this->_appProcessPage();
 		}
 		/**
+		 * Handle administration requests
+		 */
+		else if(isset($_GET['admin']))
+		{
+			switch($_GET['admin'])
+			{
+				case 'content' :
+					{
+						/**
+						 * Content administration
+						 */
+						$cnt = $this->_appProcessAdminContent();
+						break;
+					}
+				default :
+					{
+						$cnt = $this->_appProcessAdminContent();
+						break;
+					}
+			}
+		}
+		/**
 		 * Handle content requests
 		 */
 		else if(isset($_GET['content']))
 		{
-			/**
-			 * Handle content admin request
-			 */
-			if($_GET['content'] == 'admin')
-			{
-				$cnt = $this->_appProcessContentAdmin();
-			}
-			else {
-				/**
-				 * Display content request
-				 */
-				$cnt = $this->_appProcessContent();
-			}
+			$cnt = $this->_appProcessContent();
 		}
 		/**
 		 * Handle module requests
@@ -197,7 +207,7 @@ class app_Core extends rw_Core
 	 *
 	 * @return mixed content
 	 */
-	private function _appProcessContentAdmin()
+	private function _appProcessAdminContent()
 	{
 		/**
 		 * Rewrite get request
