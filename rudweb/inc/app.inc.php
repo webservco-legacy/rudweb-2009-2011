@@ -94,10 +94,12 @@ class app_Core extends rw_Core
 			{
 				$cnt = $this->_appProcessContentAdmin();
 			}
-			/**
-			 * Display content request
-			 */
-			$cnt = $this->_appProcessContent();
+			else {
+				/**
+				 * Display content request
+				 */
+				$cnt = $this->_appProcessContent();
+			}
 		}
 		/**
 		 * Handle module requests
