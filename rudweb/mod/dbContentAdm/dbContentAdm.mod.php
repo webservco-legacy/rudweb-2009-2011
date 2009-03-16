@@ -783,6 +783,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 	}
 	/**
+	 * Thumbnail administration (popup)
+	 *
+	 * @return mixed content
+	 */
+	public function thumbnailListPop()
+	{
+		$this->modCnt = $this->thumbnailList();
+		$this->modCnt['skin']['tpl'] = 'layoutPop';
+		$this->modCnt['cnt']['tpl'] = 'thumbnailListPop';
+		return $this->modCnt;
+	}
+	/**
 	 * Thumbnail administration
 	 *
 	 * @return mixed content
@@ -862,7 +874,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['skin']['tpl'] = 'layoutPop';
 		$this->modCnt['cnt']['tpl'] = 'imageListPop';
 		return $this->modCnt;
-		//XXX
 	}
 	/**
 	 * Image administration
