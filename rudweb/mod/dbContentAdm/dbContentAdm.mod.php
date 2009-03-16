@@ -1847,7 +1847,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				$page_list .= '>';
 				$page_list .= '<td class="page_list_lvl page_list_cr">'. $data['items'][$itemId]['pg_level'].'.'.$i.'</td>';
 				$page_list .= '<td class="page_list_cr_tt">';
-				for($i=0;$i<$data['items'][$itemId]['pg_level'];$i++)
+				for($j=0;$j<$data['items'][$itemId]['pg_level'];$j++)
 				{
 					$page_list .= '&#160;&#160;&#160;';
 				}
