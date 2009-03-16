@@ -64,6 +64,10 @@ class app_Core extends rw_Core
 			$this->rwDbSet($db);
 		}
 		/**
+		 * Initialize content
+		 */
+		$cnt = array();
+		/**
 		 * Handle logout
 		 */
 		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] == 'true'))
