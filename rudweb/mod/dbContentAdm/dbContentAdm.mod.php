@@ -101,8 +101,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		//$this->_makeMenu();
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -121,7 +120,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	public function pageList()
 	{
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return $auth;
@@ -258,7 +257,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$this->modCnt['cnt']['content']['page_title'] = '';
 			$this->modCnt['cnt']['content']['page_kw'] = '';
 			$this->modCnt['cnt']['content']['page_dsc'] = '';
-			$this->modCnt['cnt']['content']['page_template'] = '';
+			$this->modCnt['cnt']['content']['page_template'] = 'layout';
 			$this->modCnt['cnt']['content']['page_err'] = array();
 			/**
 			 * If form is sent, process request
@@ -2159,7 +2158,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['AUTH']['LOGIN_TT'];
 		$this->modCnt['cnt']['tpl'] = 'login';
 		$this->modCnt['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
-		//XXX
 		return $this->modCnt;
 	}
 	/**
@@ -2190,7 +2188,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$this->modCnt['atpl']['menu']['vars']['lang'] = $this->modAppCore->rwLang();
 		$this->modCnt['atpl']['menu']['vars']['adminMenu'] = array();
 
-		$auth = $this->_authVerify(3);
+		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
 		{
 			return false;
