@@ -70,47 +70,8 @@
 </head>
 <body>
 <div id="layout">
-  <div id="hdr">
-    <div id="hdr1">
-      &#160;
-    </div>
-    <div id="hdr2"><div id="header">{$lang.MOD.TITLE} .:. {$smarty.const._APP_NAME}</div></div>
-    <div id="hdr3">&#160;</div>
-  </div>
-    <div id="cnt0">
-      <div id="left0">
-        &#160;
-      </div>
-      <div id="right0">
-        &#160;
-      </div>
-      <div id="center0">
-        &#160;
-      </div>
-  </div>
-  <div id="cnt1">
-    <div id="left1">
-      <div id="left">
-        {$menu}
-      </div>
-    </div>
-    <div id="right1">
-      <div id="right">
-        <div id="user">
-        <b>{php}echo $_SESSION[_APP_PRE.'_usr_alias'];{/php}</b>&#160;({php}echo $_SESSION[_APP_PRE.'_usr_name'];{/php})
-        <br />
-        {$lang.AUTH.ALEVEL}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_lvl'];{/php}
-        <br />
-        {$lang.AUTH.GROUP}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_grp_name'];{/php}
-        {php}if($_SESSION[_APP_PRE.'_auth'] == 1) {{/php}
-        <br />
-        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$lang.AUTH.LOGOUT}">{$lang.AUTH.LOGOUT}</a>
-        {php}}{/php}
-        </div>
-      </div>
-    </div>
-    <div id="center1">
-      <div id="center_space1">&#160;</div>
+  <div id="cntPop">
+    
       <div id="center_content">
         <div id="page_title">
           <h1>{$title}</h1>
@@ -120,23 +81,7 @@
         </div>
         <div class="clear"></div>
       </div>
-    </div>
-  </div>
-  <div id="cnt2">
-      <div id="left2">
-        &#160;
-      </div>
-      <div id="right2">
-        &#160;
-      </div>
-      <div id="center2">
-        &#160;
-      </div>
-  </div>
-  <div id="ftr">
-    <div id="footer">
-      {$footer}
-    </div>
+    
   </div>
 </div>
 </body>

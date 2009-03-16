@@ -851,10 +851,17 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			return $this->modCnt;
 		}
 	}
+	/**
+	 * Image administration (popup)
+	 *
+	 * @return mixed content
+	 */
 	public function imageListPop()
 	{
+		$this->modCnt = $this->imageList();
 		$this->modCnt['skin']['tpl'] = 'layoutPop';
-		return $this->imageList();
+		$this->modCnt['cnt']['tpl'] = 'imageListPop';
+		return $this->modCnt;
 		//XXX
 	}
 	/**
