@@ -87,6 +87,16 @@ class app_Core extends rw_Core
 		 */
 		else if(isset($_GET['content']))
 		{
+			/**
+			 * Handle content admin request
+			 */
+			if($_GET['content'] == 'admin')
+			{
+				$cnt = $this->_appProcessContentAdmin();
+			}
+			/**
+			 * Display content request
+			 */
 			$cnt = $this->_appProcessContent();
 		}
 		/**
@@ -172,6 +182,25 @@ class app_Core extends rw_Core
 		$_GET['module'] = 'dbContent';
 		$_GET['action'] = 'pageDisplay';
 		$_GET['id'] = $pg_id;
+		/**
+		 * Process module
+		 */
+		return $this->_appProcessModule();
+	}
+	/**
+	 * Handle content admin requests
+	 *
+	 * Redirect to dbContentAdm module:
+	 * /content/admin => /module/dbContentAdm
+	 *
+	 * @return mixed content
+	 */
+	private function _appProcessContentAdmin()
+	{
+		/**
+		 * Rewrite get request
+		 */
+		$_GET['module'] = 'dbContentAdm';
 		/**
 		 * Process module
 		 */
