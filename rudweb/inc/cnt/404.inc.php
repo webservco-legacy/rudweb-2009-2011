@@ -34,18 +34,21 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
+// START CONTENT TYPE AND SKIN DATA
+// Content type and skin data are set in the main configuration file.
+// You can override them here or on individual pages
 /**
  * Content type
  */
-$cnt['type'] = 'text';
+//$cnt['type'] = 'text';
 /**
  * Main layout template directory
  */
-$cnt['skin']['dir'] = '';
+//$cnt['skin']['dir'] = '';
 /**
  * Main layout template file
  */
-$cnt['skin']['tpl'] = 'layout';
+//$cnt['skin']['tpl'] = 'layout';
 /*
  * Main layout page title
  */
@@ -53,14 +56,16 @@ $cnt['skin']['title'] = $this->lang['e404']['TITLE'];
 /*
  * Main layout page meta
  */
-$cnt['skin']['meta'] = array();
-$cnt['skin']['meta']['subject'] = _APP_NAME;
-$cnt['skin']['meta']['description'] = _APP_NAME;
-$cnt['skin']['meta']['keywords'] = _APP_NAME.', '.$cnt['skin']['title'];
-$cnt['skin']['meta']['copyright'] = _APP_AUTH;
-$cnt['skin']['meta']['designer'] = _APP_AUTH;
-$cnt['skin']['meta']['publisher'] = _APP_AUTH;
-$cnt['skin']['meta']['author'] = _APP_AUTH;
+//$cnt['skin']['meta'] = array();
+//$cnt['skin']['meta']['subject'] = _APP_NAME;
+//$cnt['skin']['meta']['description'] = _APP_NAME;
+//$cnt['skin']['meta']['keywords'] = _APP_NAME.', '.$cnt['skin']['title'];
+//$cnt['skin']['meta']['copyright'] = _APP_AUTH;
+//$cnt['skin']['meta']['designer'] = _APP_AUTH;
+//$cnt['skin']['meta']['publisher'] = _APP_AUTH;
+//$cnt['skin']['meta']['author'] = _APP_AUTH;
+// END CONTENT TYPE AND SKIN DATA
+
 /**
  * Current content template file
  */

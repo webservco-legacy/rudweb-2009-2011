@@ -33,6 +33,10 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
+
+// START CONTENT TYPE AND SKIN DATA
+// Content type and skin data are set in the main configuration file.
+// You can override them here or on individual pages
 /**
  * Content type
  */
@@ -60,6 +64,8 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 //$cnt['skin']['meta']['designer'] = _APP_AUTH;
 //$cnt['skin']['meta']['publisher'] = _APP_AUTH;
 //$cnt['skin']['meta']['author'] = _APP_AUTH;
+// END CONTENT TYPE AND SKIN DATA
+
 /**
  * Current content template file
  */
