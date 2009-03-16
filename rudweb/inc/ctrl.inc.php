@@ -214,6 +214,10 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Meta Author
 	 */
 	$cnt1['skin']['meta']['author'] = $cfg['SkinDefaults']['MetaAuthor'] ? $cfg['SkinDefaults']['MetaAuthor'] : _APP_AUTH;
+	/**
+	 * Initialize actual content
+	 */
+	$cnt1['cnt'] = array();
 	//XXX
 }
 else
