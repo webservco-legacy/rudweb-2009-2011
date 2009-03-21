@@ -413,6 +413,7 @@ class app_Core extends rw_Core
 					}
 					else
 					{
+						//XXX
 						require_once(_APP_DIR_CNT.'index.inc.php');
 					}
 					break;
