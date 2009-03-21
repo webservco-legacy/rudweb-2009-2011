@@ -154,34 +154,47 @@ if(is_readable('./cfg/cfg.ini'))
 	 *
 	 */
 	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
+/**
+   * Initialize content
+   */
+  $cnt1 = array();	
+/**
+	 * Based on initial default language, set localized defaults
+	 */
+	$cfg2 = array();
+	if(is_readable('./cfg/cfg.'._APP_LANG.'.ini'))
+	{
+		/**
+   * Parse configuration file
+   */
+  $cfg2 = parse_ini_file('./cfg/cfg.'._APP_LANG.'.ini', TRUE);
+		//XXX
+	}
+	//XXX
 	/**
 	 * Default content type
 	 */
-	define('_APP_CONTENT_TYPE',$cfg['Defaults']['ContentType'] ? $cfg['Defaults']['ContentType'] : 'page');
+	define('_APP_CONTENT_TYPE',$cfg2['Language']['ContentType'] ? $cfg2['Language']['ContentType'] : 'page');
 	/**
 	 * Default content id
 	 */
-	define('_APP_CONTENT_ID', $cfg['Defaults']['ContentId'] ? $cfg['Defaults']['ContentId'] : 'index');
-	/**
-	 * Initialize content
-	 */
-	$cnt1 = array();
+	define('_APP_CONTENT_ID', $cfg2['Language']['ContentId'] ? $cfg2['Language']['ContentId'] : 'index');
 	/**
 	 * Default page content type
 	 */
-	$cnt1['type'] = $cfg['SkinDefaults']['CntType'] ? $cfg['SkinDefaults']['CntType'] : 'text';
+	$cnt1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
 	/**
 	 * Main layout template directory.
 	 */
-	$cnt1['skin']['dir'] = $cfg['SkinDefaults']['SkinDir'] ? $cfg['SkinDefaults']['SkinDir'] : '';
+	$cnt1['skin']['dir'] = $cfg['Defaults']['SkinDir'] ? $cfg['Defaults']['SkinDir'] : '';
 	/**
 	 * Main layout template file
 	 */
-	$cnt1['skin']['tpl'] = $cfg['SkinDefaults']['SkinTpl'] ? $cfg['SkinDefaults']['SkinTpl'] : 'layout';
+	$cnt1['skin']['tpl'] = $cfg['Defaults']['SkinTpl'] ? $cfg['Defaults']['SkinTpl'] : 'layout';
 	/**
 	 * Main layout page title
 	 */
-	$cnt1['skin']['title'] = $cfg['SkinDefaults']['PageTitle'] ? $cfg['SkinDefaults']['PageTitle'] : '';
+	$cnt1['skin']['title'] = $cfg2['Language']['PageTitle'] ? $cfg2['Language']['PageTitle'] : '';
 	/**
 	 * Meta Data
 	 */
@@ -189,31 +202,31 @@ if(is_readable('./cfg/cfg.ini'))
 	/**
 	 * Meta Subject
 	 */
-	$cnt1['skin']['meta']['subject'] = $cfg['SkinDefaults']['MetaSubject'] ? $cfg['SkinDefaults']['MetaSubject'] : _APP_NAME;
+	$cnt1['skin']['meta']['subject'] = $cfg2['Language']['MetaSubject'] ? $cfg2['Language']['MetaSubject'] : _APP_NAME;
 	/**
 	 * Meta Description
 	 */
-	$cnt1['skin']['meta']['description'] = $cfg['SkinDefaults']['MetaDescription'] ? $cfg['SkinDefaults']['MetaDescription'] : _APP_NAME;
+	$cnt1['skin']['meta']['description'] = $cfg2['Language']['MetaDescription'] ? $cfg2['Language']['MetaDescription'] : _APP_NAME;
 	/**
 	 * Meta Keywords
 	 */
-	$cnt1['skin']['meta']['keywords'] = $cfg['SkinDefaults']['MetaKeywords'] ? $cfg['SkinDefaults']['MetaKeywords'] : _APP_NAME;
+	$cnt1['skin']['meta']['keywords'] = $cfg2['Language']['MetaKeywords'] ? $cfg2['Language']['MetaKeywords'] : _APP_NAME;
 	/**
 	 * Meta Copyright
 	 */
-	$cnt1['skin']['meta']['copyright'] = $cfg['SkinDefaults']['MetaCopyright'] ? $cfg['SkinDefaults']['MetaCopyright'] : _APP_AUTH;
+	$cnt1['skin']['meta']['copyright'] = $cfg2['Language']['MetaCopyright'] ? $cfg2['Language']['MetaCopyright'] : _APP_AUTH;
 	/**
 	 * Meta Designer
 	 */
-	$cnt1['skin']['meta']['designer'] = $cfg['SkinDefaults']['MetaDesigner'] ? $cfg['SkinDefaults']['MetaDesigner'] : _APP_AUTH;
+	$cnt1['skin']['meta']['designer'] = $cfg2['Language']['MetaDesigner'] ? $cfg2['Language']['MetaDesigner'] : _APP_AUTH;
 	/**
 	 * Meta Publisher
 	 */
-	$cnt1['skin']['meta']['publisher'] = $cfg['SkinDefaults']['MetaPublisher'] ? $cfg['SkinDefaults']['MetaPublisher'] : _APP_AUTH;
+	$cnt1['skin']['meta']['publisher'] = $cfg2['Language']['MetaPublisher'] ? $cfg2['Language']['MetaPublisher'] : _APP_AUTH;
 	/**
 	 * Meta Author
 	 */
-	$cnt1['skin']['meta']['author'] = $cfg['SkinDefaults']['MetaAuthor'] ? $cfg['SkinDefaults']['MetaAuthor'] : _APP_AUTH;
+	$cnt1['skin']['meta']['author'] = $cfg2['Language']['MetaAuthor'] ? $cfg2['Language']['MetaAuthor'] : _APP_AUTH;
 	/**
 	 * Initialize actual content
 	 */
