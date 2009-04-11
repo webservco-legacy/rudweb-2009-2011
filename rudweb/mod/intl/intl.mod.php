@@ -54,7 +54,9 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
 		$about['deps']['cfg'] = array();
+		$about['deps']['cfg'][] = 'Sessions';
 		$about['deps']['ext'] = array();
+		$about['deps']['ext'][] = 'Sessions';
 		$about['deps']['mod'] = array();
 		/**
 		 * These must be declared
@@ -81,6 +83,8 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		 * Call parent constructor
 		 */
 		parent::__construct($about, $cnt, $appCore);
+		$intl = $this->modAppCore->rwActivateExt('Intl');
+		$this->modCnt['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality
@@ -108,7 +112,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	}
 	/**
 	 * Actual functionality of the module.
-	 * 
+	 *
 	 * Sets the new language and
 	 * redirects to a new location.
 	 * Possible values for $target:
@@ -198,14 +202,14 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 			exit;
 		}
 	}
-	 /**
-   * Set language for user.
-   * Needs user and database functinality
-   * //XXX
-   * public function setUser()
-   * 
-   * Set default language.
-   * public function setDefault()
-   */
+	/**
+	 * Set language for user.
+	 * Needs user and database functinality
+	 * //XXX
+	 * public function setUser()
+	 *
+	 * Set default language.
+	 * public function setDefault()
+	 */
 }
 ?>

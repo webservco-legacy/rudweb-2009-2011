@@ -152,6 +152,7 @@ blockquote
 /* ********** ********** ********** ********** ********** LEFT END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** RIGHT START ********** ********** ********** ********** ********** */
+#langMenu {margin-left: 5px; margin-top: 30px; text-align: right;}
 /* ********** ********** ********** ********** ********** RIGHT END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** FOOTER START ********** ********** ********** ********** ********** */
@@ -206,7 +207,7 @@ table, td, input, select, textarea  {font-family: Verdana, sans-serif; font-size
 /* ********** ********** ********** ********** **********  EXTRA START ********** ********** ********** ********** ********** */
 #cntPop {clear: both; width: 100%; margin: auto; display: table; background-color: #FFFFFF;}
 #page_content {text-align: center;}
-#user {margin-left: 5px; margin-top: 30px; font-size: 80%; line-height: 150%;}
+#user {margin-left: 5px; font-size: 80%; line-height: 150%;}
 .cancel {width: 16px; float: right;}
 a.actionButton:link,
 a.actionButton:visited,

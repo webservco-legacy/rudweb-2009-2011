@@ -68,6 +68,11 @@ class app_Core extends rw_Core
 		 */
 		$cnt = array();
 		/**
+		 * Language menu
+		 */
+		$intl = $this->rwActivateExt('Intl');
+    //$cnt['skin']['langs'] = $intl->intlMenu();
+		/**
 		 * Handle logout
 		 */
 		if(_APP_CFG_USERS && (isset($_GET['logout']) && $_GET['logout'] == 'true'))
@@ -81,6 +86,7 @@ class app_Core extends rw_Core
 		else if(isset($_GET['page']))
 		{
 			$cnt = $this->_appProcessPage();
+			$cnt['skin']['langs'] = $intl->intlMenu();
 		}
 		/**
 		 * Handle administration requests
@@ -109,6 +115,7 @@ class app_Core extends rw_Core
 		else
 		{
 			$cnt = $this->_appProcessDefault();
+			$cnt['skin']['langs'] = $intl->intlMenu();
 		}
 		/**
 		 * Close database connection, if opened.

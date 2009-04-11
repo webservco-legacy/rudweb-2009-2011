@@ -62,10 +62,9 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		$about['deps']['cfg']   = array();
 		$about['deps']['cfg'][] = 'Database';
 		$about['deps']['cfg'][] = 'Sessions';
-		//$about['deps']['cfg'][] = 'Users';
 		$about['deps']['ext']   = array();
 		$about['deps']['ext'][] = 'Sessions';
-		//$about['deps']['ext'][] = 'Users';
+		$about['deps']['ext'][] = 'Intl';
 		$about['deps']['mod']   = array();
 		/**
 		 * These must be declared
@@ -92,6 +91,8 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 * Call parent constructor
 		 */
 		parent::__construct($about, $cnt, $appCore);
+		$intl = $this->modAppCore->rwActivateExt('Intl');
+		$this->modCnt['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality
@@ -160,12 +161,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 						}
 				}
 				$i++;
-				//XXX
 			}
-			//echo '<pre>';
-			//var_dump($this->modCnt);
-			//print_r($this->modCnt);
-			//trigger_error('here', E_USER_ERROR);
 		}
 		return $this->modCnt;
 	}

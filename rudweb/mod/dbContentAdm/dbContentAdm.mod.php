@@ -66,6 +66,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$about['deps']['ext']   = array();
 		$about['deps']['ext'][] = 'Sessions';
 		$about['deps']['ext'][] = 'Users';
+		$about['deps']['ext'][] = 'Intl';
 		$about['deps']['mod']   = array();
 		/**
 		 * These must be declared
@@ -93,6 +94,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 */
 		parent::__construct($about, $cnt, $appCore);
 		$this->_makeMenu();
+		$intl = $this->modAppCore->rwActivateExt('Intl');
+		$this->modCnt['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality
@@ -847,6 +850,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$thumb_list = array();
 			if($t > 0)
 			{
+				//xxx
 				$thumb = $this->modAppCore->rwActivateExt('Thumb');
 				$thumb->set_cacheDir(_APP_DIR_TMP);
 				$thumb->set_maxSize(120);

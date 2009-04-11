@@ -28,9 +28,3 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
 <!-- BLANK -->
-<pre>
-{php}
-print_r($_SESSION);
-print_r($_SERVER);
-{/php}
-</pre>

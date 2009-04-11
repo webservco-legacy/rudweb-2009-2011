@@ -4,7 +4,6 @@
  *
  * $URL$
  * <BR>Provide session functionality.
- * <BR>Requires: _APP_CFG_SESSIONS
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
@@ -49,7 +48,7 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 		 */
 		$about['name'] = 'Sessions';
 		$about['desc'] = 'Provide session functionality.';
-		$about['ver']  = '09:48 2009-02-01';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';

@@ -98,7 +98,17 @@
     
     <div id="right1">
       <div id="right">
-      &#160;
+        {php}if($_SESSION) {{/php}
+        <div id="langMenu">
+          {foreach from=$langs item=ln}
+          {if $ln.link == 0}
+          <img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}graphics/intl/{$ln.lang}.gif" title="{$ln.lang}" alt="{$ln.lang}" />
+          {else}
+          <a href="{$ln.url}" title="{$ln.lang}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}graphics/intl/{$ln.lang}.gif" title="{$ln.lang}" alt="{$ln.lang}" /></a>
+          {/if}
+          {/foreach}
+        </div>
+        {php}}{/php}
       </div>
     </div>
     

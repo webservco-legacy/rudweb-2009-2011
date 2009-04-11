@@ -76,7 +76,7 @@ class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 		 */
 		$about['name'] = 'delFD';
 		$about['desc'] = 'Delete files and directories.';
-		$about['ver']  = '15:24 2009-01-27';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';

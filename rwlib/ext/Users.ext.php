@@ -4,9 +4,6 @@
  *
  * $URL$
  * <BR>Provide user functionality.
- * <BR>Requires: _APP_CFG_DATABASE
- * <BR>Requires: _APP_CFG_SESSIONS
- * <BR>Requires: _APP_CFG_USERS
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
@@ -51,7 +48,7 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 		 */
 		$about['name'] = 'Users';
 		$about['desc'] = 'Provide user functionality.';
-		$about['ver']  = '10:19 2009-02-01';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';

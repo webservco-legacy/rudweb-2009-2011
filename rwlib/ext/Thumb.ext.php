@@ -96,7 +96,7 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 		 */
 		$about['name'] = 'Thumb';
 		$about['desc'] = 'Create image thumbnails.';
-		$about['ver']  = '13:25 2009-01-28';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';

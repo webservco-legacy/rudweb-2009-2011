@@ -53,7 +53,7 @@ class rw_Ext_SeoURLs extends rw_Ext_global implements rw_iExt
 		 */
 		$about['name'] = 'SeoURSs';
 		$about['desc'] = 'Soft-create SEO urls.';
-		$about['ver']  = '15:27 2009-01-27';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
