@@ -48,7 +48,7 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		 */
 		$about['name'] = 'blank';
 		$about['desc'] = 'Blank module.';
-		$about['ver']  = '09:52 2009-02-12';
+		$about['ver']  = '$Revision$';
 		$about['auth'] = 'Radu Maier';
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
@@ -65,7 +65,11 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		/**
 		 * Module default content
 		 *
+		 * $cnt['type'] added by default in parent class
+		 * $cnt['skin']['dir'] added by default in parent class
+		 * $cnt['skin']['tpl'] added by default in parent class
 		 * $cnt['skin']['title'] added by default in parent class
+		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
 		 */
 		$cnt['skin']['dir'] = '';
