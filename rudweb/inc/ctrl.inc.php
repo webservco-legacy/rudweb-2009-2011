@@ -154,26 +154,26 @@ if(is_readable('./cfg/cfg.ini'))
 	 *
 	 */
 	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
-/**
-   * Initialize content
-   */
-  $cnt1 = array();	
-/**
+	/**
+	 * Initialize content
+	 */
+	$cnt1 = array();
+	/**
 	 * Based on initial default language, set localized defaults
 	 */
 	$cfg2 = array();
 	if(is_readable('./cfg/cfg.'._APP_LANG.'.ini'))
 	{
 		/**
-   * Parse configuration file
-   */
-  $cfg2 = parse_ini_file('./cfg/cfg.'._APP_LANG.'.ini', TRUE);
+		 * Parse configuration file
+		 */
+		$cfg2 = parse_ini_file('./cfg/cfg.'._APP_LANG.'.ini', TRUE);
 		//XXX
 	}
 	//XXX
 	/**
-	 * Default content type
-	 */
+	* Default content type
+	*/
 	define('_APP_CONTENT_TYPE',$cfg2['Language']['ContentType'] ? $cfg2['Language']['ContentType'] : 'page');
 	/**
 	 * Default content id
