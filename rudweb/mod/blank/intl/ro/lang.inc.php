@@ -37,5 +37,5 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 /**
  * Module title
  */
-$modlang['MOD']['TITLE'] = 'Blank Module';
+$modlang['MOD']['TITLE'] = 'Modul Blank';
 ?>
