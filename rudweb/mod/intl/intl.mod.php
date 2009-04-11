@@ -46,7 +46,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
     /**
      * Module info
      */
-    $about['name'] = 'Internationalization';
+    $about['name'] = 'intl';
     $about['desc'] = 'Internationalization module.';
     $about['ver']  = '$Revision$';
     $about['auth'] = 'Radu Maier';
@@ -89,7 +89,15 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
    */
   public function _default()
   {
-    return $this->modCnt;
+    if(isset($_GET['ln']))
+    {
+    	$_SESSION[_APP_PRE.'_usr_lang'] = $_GET['ln'];
+    //header("Location: "._APP_URL.'module/'.$this->modAbout['name']);
+    header("Location: "._APP_WWW);
+    exit;
+    }
+  	
+  	return $this->modCnt;
   }
 }
 ?>

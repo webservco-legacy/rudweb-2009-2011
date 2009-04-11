@@ -87,22 +87,7 @@ class app_Core extends rw_Core
 		 */
 		else if(isset($_GET['admin']))
 		{
-			switch($_GET['admin'])
-			{
-				case 'content' :
-					{
-						/**
-						 * Content administration
-						 */
-						$cnt = $this->_appProcessAdminContent();
-						break;
-					}
-				default :
-					{
-						$cnt = $this->_appProcessAdminContent();
-						break;
-					}
-			}
+			$cnt = $this->_appProcessAdmin();
 		}
 		/**
 		 * Handle content requests
@@ -198,6 +183,25 @@ class app_Core extends rw_Core
 		 * Process module
 		 */
 		return $this->_appProcessModule();
+	}
+	private function _appProcessAdmin()
+	{
+		switch($_GET['admin'])
+		{
+			case 'content' :
+				{
+					/**
+					 * Content administration
+					 */
+					return $this->_appProcessAdminContent();
+          break;
+				}
+			default :
+				{
+					require_once(_APP_DIR_CNT.'404.inc.php');
+					return $cnt;
+				}
+		}
 	}
 	/**
 	 * Handle content admin requests
@@ -413,7 +417,6 @@ class app_Core extends rw_Core
 					}
 					else
 					{
-						//XXX
 						require_once(_APP_DIR_CNT.'index.inc.php');
 					}
 					break;
