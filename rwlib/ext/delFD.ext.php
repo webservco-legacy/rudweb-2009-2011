@@ -102,7 +102,7 @@ class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 			{
 				while (FALSE !== ($file = readdir($dh)))
 				{
-					if($file != "." && $file != "..")
+					if($file != '.' && $file != '..')
 					{
 						if(is_file($dir.$file) && (filemtime($dir.$file) < (time()-$age)))
 						{

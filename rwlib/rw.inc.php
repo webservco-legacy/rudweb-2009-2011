@@ -669,5 +669,48 @@ class rw_Core
 		header("Location: ".$redirect);
 		exit;
 	}
+	/**
+	 * List directories and files in a directory.
+	 *
+	 * @param string $dir path to directory
+	 * @param boolean $dirs show directories
+	 * @param unknown_type $files show files
+	 * @return array list of results
+	 */
+	public function rwLsDir($dir, $dirs=TRUE, $files=FALSE)
+	{
+		$slash = ($dir[strlen($dir)-1]) != '/' ? FALSE : TRUE;
+		$dir = $slash ? $dir : $dir.'/';
+		$list = array('d'=>array(), 'f'=>array());
+		$i = 0;
+		$j = 0;
+		if(is_dir($dir))
+		{
+			if($dh = opendir($dir))
+			{
+				while (FALSE !== ($file = readdir($dh)))
+				{
+					if($file != '.' && $file != '..')
+					{
+						if(strpos($file, '.') !== 0)
+						{
+							if($dirs && is_dir($dir.$file))
+							{
+								$list['d'][$i] = $file;
+								$i++;
+							}
+							if($files && is_file($dir.$file))
+							{
+								$list['f'][$j] = $file;
+								$j++;
+							}
+						}
+					}
+				}
+				closedir($dh);
+			}
+		}
+		return $list;
+	}
 }
 ?>

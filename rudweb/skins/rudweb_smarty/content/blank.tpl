@@ -30,6 +30,7 @@
 <!-- BLANK -->
 <pre>
 {php}
-var_dump($_SESSION);
+print_r($_SESSION);
+print_r($_SERVER);
 {/php}
 </pre>

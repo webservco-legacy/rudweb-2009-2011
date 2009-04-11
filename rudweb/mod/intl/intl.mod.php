@@ -36,68 +36,176 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 {
-  /**
-   * Constructor
-   *
-   * Set module information and call parent constructor
+	/**
+	 * Constructor
+	 *
+	 * Set module information and call parent constructor
+	 */
+	public function __construct($appCore)
+	{
+		/**
+		 * Module info
+		 */
+		$about['name'] = 'intl';
+		$about['desc'] = 'Internationalization module.';
+		$about['ver']  = '$Revision$';
+		$about['auth'] = 'Radu Maier';
+		$about['web']  = 'http://www.rudisoft.net';
+		$about['mail'] = 'rudisoft@rudisoft.net';
+		$about['deps'] = array();
+		$about['deps']['cfg'] = array();
+		$about['deps']['ext'] = array();
+		$about['deps']['mod'] = array();
+		/**
+		 * These must be declared
+		 */
+		$cnt['skin'] = array();
+		$cnt['skin']['meta'] = array();
+		$cnt['cnt'] = array();
+		/**
+		 * Module default content
+		 *
+		 * $cnt['type'] added by default in parent class
+		 * $cnt['skin']['dir'] added by default in parent class
+		 * $cnt['skin']['tpl'] added by default in parent class
+		 * $cnt['skin']['title'] added by default in parent class
+		 * $cnt['skin']['meta'] added by default in parent class
+		 * $cnt['skin']['lang'] added by default in parent class
+		 */
+		$cnt['skin']['dir'] = '';
+		$cnt['skin']['tpl'] = 'layout';
+		$cnt['cnt']['dir'] = 'content';
+		$cnt['cnt']['tpl'] = 'blank';
+		$cnt['cnt']['content'] = array();
+		/**
+		 * Call parent constructor
+		 */
+		parent::__construct($about, $cnt, $appCore);
+	}
+	/**
+	 * Default module functionality
+	 *
+	 * @return mixed result
+	 */
+	public function _default()
+	{
+		return $this->modCnt;
+	}
+	/**
+	 * Set language for current session.
+	 *
+	 * @return mixed result
+	 */
+	public function setSession()
+	{
+		$list     = $this->modAppCore->rwLsDir(_APP_DIR_LANG);
+		$langList = $list['d'];
+		$newLang  = (isset($_GET['ln']) && in_array($_GET['ln'], $langList)) ? $_GET['ln'] : _APP_LANG;
+		$target   = (isset($_GET['red'])) ? $this->modAppCore->rwFilterRequest($_GET['red']) : NULL;
+		$var      = (isset($_GET['var'])) ? $this->modAppCore->rwFilterRequest($_GET['var']) : NULL;
+
+		return $this->_intl($newLang, $target, $var);
+	}
+	/**
+	 * Actual functionality of the module.
+	 * 
+	 * Sets the new language and
+	 * redirects to a new location.
+	 * Possible values for $target:
+	 * home = home page
+	 * pg = page
+	 * cnt = content
+	 * mod = module
+	 * ref = referer
+	 * BLANK = ref
+	 * Possible values for $var
+	 * page name
+	 * content id
+	 * module name and variables (to pass multiple arguments use "-" instead of "/")
+	 * //XXX still need to test this
+	 * blank (for "home", "ref" and BLANK)
+	 *
+	 * @param string $newLang new language
+	 * @param string $target where to redirect
+	 * @param string $var what to append to the redirection URL
+	 */
+	private function _intl($newLang=NULL, $target=NULL, $var=NULL)
+	{
+		$ref = (array_key_exists('HTTP_REFERER', $_SERVER) && $_SERVER['HTTP_REFERER'] != '') ? $_SERVER['HTTP_REFERER'] : NULL;
+
+		$location = $ref ? $ref : _APP_WWW;
+
+		if($newLang == $_SESSION[_APP_PRE.'_usr_lang'])
+		{
+			header("Location: ".$location);
+			exit;
+		}
+		else
+		{
+			/**
+			 * Set new language
+			 */
+			$_SESSION[_APP_PRE.'_usr_lang'] = $newLang;
+			/**
+			 * Where to redirect
+			 */
+			if($target)
+			{
+				switch($target)
+				{
+					case 'home' :
+						{
+							$location = _APP_WWW;
+							break;
+						}
+					case 'pg' :
+						{
+							if($var)
+							{
+								$location = _APP_URL . 'page/'.$var;
+							}
+							break;
+						}
+					case 'cnt' :
+						{
+							if($var)
+							{
+								$location = _APP_URL . 'content/'.$var;
+							}
+							break;
+						}
+					case 'mod' :
+						{
+							if($var)
+							{
+								//XXX
+								$var = str_replace('-', '/', $var);
+								$location = _APP_URL . 'module/'.$var;
+							}
+							break;
+						}
+					case 'ref' :
+						{
+							break;
+						}
+					default :
+						{
+							break;
+						}
+				}
+			}
+			header("Location: ".$location);
+			exit;
+		}
+	}
+	 /**
+   * Set language for user.
+   * Needs user and database functinality
+   * //XXX
+   * public function setUser()
+   * 
+   * Set default language.
+   * public function setDefault()
    */
-  public function __construct($appCore)
-  {
-    /**
-     * Module info
-     */
-    $about['name'] = 'intl';
-    $about['desc'] = 'Internationalization module.';
-    $about['ver']  = '$Revision$';
-    $about['auth'] = 'Radu Maier';
-    $about['web']  = 'http://www.rudisoft.net';
-    $about['mail'] = 'rudisoft@rudisoft.net';
-    $about['deps'] = array();
-    $about['deps']['cfg'] = array();
-    $about['deps']['ext'] = array();
-    $about['deps']['mod'] = array();
-    /**
-     * These must be declared
-     */
-    $cnt['skin'] = array();
-    $cnt['skin']['meta'] = array();
-    $cnt['cnt'] = array();
-    /**
-     * Module default content
-     *
-     * $cnt['type'] added by default in parent class
-     * $cnt['skin']['dir'] added by default in parent class
-     * $cnt['skin']['tpl'] added by default in parent class
-     * $cnt['skin']['title'] added by default in parent class
-     * $cnt['skin']['meta'] added by default in parent class
-     * $cnt['skin']['lang'] added by default in parent class
-     */
-    $cnt['skin']['dir'] = '';
-    $cnt['skin']['tpl'] = 'layout';
-    $cnt['cnt']['dir'] = 'content';
-    $cnt['cnt']['tpl'] = 'blank';
-    $cnt['cnt']['content'] = array();
-    /**
-     * Call parent constructor
-     */
-    parent::__construct($about, $cnt, $appCore);
-  }
-  /**
-   * Default module functionality
-   *
-   * @return mixed result
-   */
-  public function _default()
-  {
-    if(isset($_GET['ln']))
-    {
-    	$_SESSION[_APP_PRE.'_usr_lang'] = $_GET['ln'];
-    //header("Location: "._APP_URL.'module/'.$this->modAbout['name']);
-    header("Location: "._APP_WWW);
-    exit;
-    }
-  	
-  	return $this->modCnt;
-  }
 }
 ?>
