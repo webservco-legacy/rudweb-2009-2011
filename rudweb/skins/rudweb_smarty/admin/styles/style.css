@@ -238,11 +238,11 @@ input, textarea {text-align: center; background-color: #FFFFFF; color: #333333; 
 /* ********** ********** ********** ********** ********** LOGIN END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** MENU START ********** ********** ********** ********** ********** */
-.adminMenu {line-height: 180%;}
+.adminMenu {line-height: 150%;}
 a.adminMenu1:link,a.adminMenu1:visited {}
 a.adminMenu1:hover,a.adminMenu1:active {}
-a.adminMenu2:link,a.adminMenu2:visited {font-size: 90%;}
-a.adminMenu2:hover,a.adminMenu2:active {font-size: 90%;}
+a.adminMenu2:link,a.adminMenu2:visited {font-size: 85%;}
+a.adminMenu2:hover,a.adminMenu2:active {font-size: 85%;}
 /* ********** ********** ********** ********** ********** MENU END ********** ********** ********** ********** ********** */
 
 /* ********** ********** ********** ********** ********** PAGES START ********** ********** ********** ********** ********** */
@@ -251,6 +251,9 @@ a.adminMenu2:hover,a.adminMenu2:active {font-size: 90%;}
 .toggle {font-size: 80%;}
 .pageAction {width: 80%; float: none; padding: 10px 10px 10px 26px; border: 1px solid #666666; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
 .pageList {width: 100%; float: none; padding: 0px 0px 0px 0px; text-align: center; line-height: 180%; margin: 0 auto; display: block;}
+.pageListLang {float: none; padding: 0px 0px 0px 0px; text-align: left; line-height: 180%; margin: 0 auto; margin-bottom: 15px; border: 0px solid #666666; display: block;}
+.pageListLang1 {float: left;}
+.pageListLang2 {float: right;}
 .page_new, .page_edit_page {margin: auto;}
 .pageAddList {text-align: left;}
 .page_form {display: inline-block; width: 80%; padding: 10px; text-align: center; margin: 0 auto;}

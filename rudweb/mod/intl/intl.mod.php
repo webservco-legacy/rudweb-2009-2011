@@ -108,7 +108,22 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		$target   = (isset($_GET['red'])) ? $this->modAppCore->rwFilterRequest($_GET['red']) : NULL;
 		$var      = (isset($_GET['var'])) ? $this->modAppCore->rwFilterRequest($_GET['var']) : NULL;
 
-		return $this->_intl($newLang, $target, $var);
+		return $this->_intl('usr', $newLang, $target, $var);
+	}
+	/**
+	 * Set language for current content (administration).
+	 *
+	 * @return mixed result
+	 */
+	public function setContent()
+	{
+		$list     = $this->modAppCore->rwLsDir(_APP_DIR_LANG);
+		$langList = $list['d'];
+		$newLang  = (isset($_GET['ln']) && in_array($_GET['ln'], $langList)) ? $_GET['ln'] : _APP_LANG;
+		$target   = (isset($_GET['red'])) ? $this->modAppCore->rwFilterRequest($_GET['red']) : NULL;
+		$var      = (isset($_GET['var'])) ? $this->modAppCore->rwFilterRequest($_GET['var']) : NULL;
+
+		return $this->_intl('cnt', $newLang, $target, $var);
 	}
 	/**
 	 * Actual functionality of the module.
@@ -133,13 +148,16 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	 * @param string $target where to redirect
 	 * @param string $var what to append to the redirection URL
 	 */
-	private function _intl($newLang=NULL, $target=NULL, $var=NULL)
+	private function _intl($type='usr', $newLang=NULL, $target=NULL, $var=NULL)
 	{
 		$ref = (array_key_exists('HTTP_REFERER', $_SERVER) && $_SERVER['HTTP_REFERER'] != '') ? $_SERVER['HTTP_REFERER'] : NULL;
 
 		$location = $ref ? $ref : _APP_WWW;
+		
+		$typeList = array('usr', 'cnt');
+    $type = (in_array($type, $typeList)) ? $type : 'usr';
 
-		if($newLang == $_SESSION[_APP_PRE.'_usr_lang'])
+		if($newLang == $_SESSION[_APP_PRE.'_'.$type.'_lang'])
 		{
 			header("Location: ".$location);
 			exit;
@@ -149,7 +167,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 			/**
 			 * Set new language
 			 */
-			$_SESSION[_APP_PRE.'_usr_lang'] = $newLang;
+			$_SESSION[_APP_PRE.'_'.$type.'_lang'] = $newLang;
 			/**
 			 * Where to redirect
 			 */

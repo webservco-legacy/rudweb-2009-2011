@@ -128,6 +128,10 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 			 */
 			$_SESSION[_APP_PRE.'_usr_lang'] = _APP_LANG;
 			/**
+			 * Content language
+			 */
+			$_SESSION[_APP_PRE.'_cnt_lang'] = _APP_LANG;
+			/**
 			 * Default skin
 			 */
 			$_SESSION[_APP_PRE.'_skin_dir'] = _APP_DIR_SKINS._APP_SKIN;

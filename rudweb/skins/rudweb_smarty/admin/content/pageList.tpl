@@ -28,7 +28,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
 <div class="pageList">
- <table class="page_list" cellspacing="0">
+<div class="pageListLang">
+<div class="pageListLang1">
+{$lang.MOD.LANG.LANG}: <img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}.gif" title="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" alt="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" /> 
+</div>
+<div class="pageListLang2">
+{$lang.MOD.LANG.LANGS}:
+{foreach from=$cnt.langsCnt item=ln}
+{if $ln.link == 0}
+<img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{$ln.lang}.gif" title="{$ln.lang}" alt="{$ln.lang}" />
+{else}
+<a href="{$ln.url}" title="{$ln.lang}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{$ln.lang}.gif" title="{$ln.lang}" alt="{$ln.lang}" /></a>
+{/if}
+{/foreach}
+</div>
+<br />
+</div>
+{if $cnt.page_list != ''}
+<table class="page_list" cellspacing="0">
 <tr>
   <td class="page_list_hr page_list_lvl"><a href="JavaScript:toggleTRows('title');" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_toggle.png" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}" /></a></td>
   <td class="page_list_hr page_list_tt">{$lang.MOD.PAGE.TITLE}</td>
@@ -39,4 +56,7 @@
 </tr>
 {$cnt.page_list}
 </table>
+{else}
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/0/order/0" title="{$lang.MOD.PAGE.ADD_FIRST}">{$lang.MOD.PAGE.ADD_FIRST}</a>
+{/if}
 </div>

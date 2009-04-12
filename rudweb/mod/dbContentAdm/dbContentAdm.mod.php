@@ -95,7 +95,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		parent::__construct($about, $cnt, $appCore);
 		$this->_makeMenu();
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modCnt['skin']['langs'] = $intl->intlMenu();
+		$this->modCnt['skin']['langs']    = $intl->intlMenu();
+		$this->modCnt['cnt']['content']['langsCnt'] = $intl->intlMenu('cnt');
 	}
 	/**
 	 * Default module functionality
@@ -144,7 +145,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Get data
 			 */
-			$rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title, pg_alias, pg_group, pg_created_user', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_usr_lang']}' AND pg_deleted = '0'", 'pg_parent, pg_order, pg_title', NULL);
+			$rs = $this->modDb->dbSelect('pg_id, pg_parent, pg_level, pg_order, pg_title, pg_alias, pg_group, pg_created_user', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_cnt_lang']}' AND pg_deleted = '0'", 'pg_parent, pg_order, pg_title', NULL);
 			$t = $rs->dbNumRows();
 			if($t>0)
 			{
@@ -214,7 +215,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Get data
 			 */
-			$rs = $this->modDb->dbSelect('pg_order, pg_title', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_usr_lang']}' AND pg_deleted = '0' AND pg_parent = '{$pg_parent}'", 'pg_parent, pg_order, pg_title', NULL);
+			$rs = $this->modDb->dbSelect('pg_order, pg_title', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_cnt_lang']}' AND pg_deleted = '0' AND pg_parent = '{$pg_parent}'", 'pg_parent, pg_order, pg_title', NULL);
 			$t = $rs->dbNumRows();
 			$this->modCnt['cnt']['content']['page_list_add'] = array();
 			if($t>0)
@@ -301,12 +302,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					 * Additional data for the db
 					 */
 					$data = array();
-					$data['pg_ln'] = $_SESSION[_APP_PRE.'_usr_lang'];
+					$data['pg_ln'] = $_SESSION[_APP_PRE.'_cnt_lang'];
 					$data['pg_parent'] = $pg_parent;
 					$rl = $this->modDb->dbSelect('pg_level', _APP_PRE.'_web_pages', "pg_id = '{$pg_parent}'", NULL, 1);
 					$tl = $rl->dbNumRows();
 					$data['pg_level'] = ($tl>0) ? ($rl->dbFetchResult()+1) : 0;
-					$ro = $this->modDb->dbSelect('MAX(pg_order)', _APP_PRE.'_web_pages', "pg_parent = '{$pg_parent}'", NULL, 1);
+					$ro = $this->modDb->dbSelect('MAX(pg_order)', _APP_PRE.'_web_pages', "pg_parent = '{$pg_parent}' AND pg_ln = '{$_SESSION[_APP_PRE.'_cnt_lang']}'", NULL, 1);
 					$to = $ro->dbNumRows();
 					$data['pg_order'] = ($pg_order == 0) ? ($ro->dbFetchResult()+1) : $pg_order;
 					$data['pg_alias'] = $this->modAppCore->rwFormatAlias($dataForm['pg_title']);
@@ -1311,7 +1312,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['ADD_OK'];
 
-						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1321,15 +1322,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
-						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
-
+						$this->modCnt['cnt']['content']['link'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						$this->modCnt['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 						break;
 					}
 				case 'edit' :
@@ -1339,7 +1339,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['EDIT_OK'];
 
-						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1349,14 +1349,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
-						$this->modCnt['cnt']['content'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
+						$this->modCnt['cnt']['content']['link'][1]['return_title'] = $this->modLang['MOD'][$res_intl]['EDIT'];
+						$this->modCnt['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 
 						break;
 					}
@@ -1367,7 +1367,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - ' . $this->modLang['FORM']['REMOVE_OK'];
 
-						$this->modCnt['cnt']['content'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
+						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLang['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1377,11 +1377,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
 
 						break;

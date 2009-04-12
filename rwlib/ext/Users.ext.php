@@ -253,6 +253,10 @@ class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 		 */
 		$_SESSION[_APP_PRE.'_usr_lang'] = $usr['usr_lang'];
 		/**
+		 * Content language
+		 */
+		$_SESSION[_APP_PRE.'_cnt_lang'] = $usr['usr_lang'];
+		/**
 		 * Default skin
 		 */
 		$_SESSION[_APP_PRE.'_skin_dir'] = _APP_DIR_SKINS.$usr['usr_skin'];

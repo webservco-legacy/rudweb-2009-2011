@@ -50,6 +50,7 @@ $modlang['MOD']['ADMIN']['CONTINUE'] = 'Continuare';
  * Pages administration
  */
 $modlang['MOD']['PAGE']['ADMIN']            = 'Administrare Pagini';
+$modlang['MOD']['PAGE']['ADD_FIRST']        = 'Adaug&#259; Prima Pagin&#259;';
 $modlang['MOD']['PAGE']['ADD']              = 'Adaug&#259; Pagin&#259;';
 $modlang['MOD']['PAGE']['ADD_BEFORE']       = 'Adaug&#259; Pagin&#259; &#206;nainte';
 $modlang['MOD']['PAGE']['ADD_AFTER']        = 'Adaug&#259; Pagin&#259; Dup&#259;';
@@ -114,4 +115,9 @@ $modlang['MOD']['THUMBNAIL']['CREATE']       = 'Creare Thumbnail';
 $modlang['MOD']['THUMBNAIL']['THUMB_SIZE']   = 'M&#259;rime thumbnail';
 $modlang['MOD']['THUMBNAIL']['ADD_FCK']      = 'Adaug&#259; la FCKeditor';
 $modlang['MOD']['THUMBNAIL']['THUMB_LABELS'] = 'Etichete Thumbnail';
+/**
+ * Languages
+ */
+$modlang['MOD']['LANG']['LANG']  = 'Limba curent&#259; con&#355;inut';
+$modlang['MOD']['LANG']['LANGS'] = 'Limbi disponibile con&#355;inut';
 ?>

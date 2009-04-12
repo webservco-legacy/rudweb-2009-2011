@@ -64,17 +64,41 @@ class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 	 *
 	 * @return array language menu
 	 */
-	public function intlMenu($target=NULL)
+	public function intlMenu($type='usr', $target=NULL)
 	{
 		$list     = $this->extCore->rwLsDir(_APP_DIR_LANG);
 		$langList = $list['d'];
-		$total = count($langList);
-		$langs = array();
+		$total    = count($langList);
+		$langs    = array();
+		$typeList = array('usr', 'cnt');
+		$type = (in_array($type, $typeList)) ? $type : 'usr';
+		/*
+		echo $type;
+		trigger_error('xxx', E_USER_ERROR);
+		exit;
+		*/
+		switch($type)
+		{
+			case 'cnt' :
+				{
+					$action = 'setContent';
+					break;
+				}
+			case 'usr' :
+				{
+					
+				}
+			default :
+				{
+					$action = 'setSession';
+					break;
+				}
+		}
 		for($i=0;$i<$total;$i++)
 		{
 			$target = $target ? '/target/'.$target : '';
-			$langs[$i]['link'] = ($langList[$i] == $_SESSION[_APP_PRE.'_usr_lang']) ? 0 : 1;
-			$langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_usr_lang']) ? '' : _APP_URL.'module/intl/action/setSession/ln/'.$langList[$i].$target;
+			$langs[$i]['link'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? 0 : 1;
+			$langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? '' : _APP_URL.'module/intl/action/'.$action.'/ln/'.$langList[$i].$target;
 			$langs[$i]['lang'] = $langList[$i];
 		}
 		return $langs;
