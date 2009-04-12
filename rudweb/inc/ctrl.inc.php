@@ -158,7 +158,9 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Initialize content
 	 */
 	$cnt1 = array();
-	/**
+	
+//XXX FROM HERE
+/**
 	 * Based on initial default language, set localized defaults
 	 */
 	$cfg2 = array();
@@ -168,9 +170,7 @@ if(is_readable('./cfg/cfg.ini'))
 		 * Parse configuration file
 		 */
 		$cfg2 = parse_ini_file('./cfg/cfg.'._APP_LANG.'.ini', TRUE);
-		//XXX
 	}
-	//XXX
 	/**
 	* Default content type
 	*/
@@ -231,6 +231,7 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Initialize actual content
 	 */
 	$cnt1['cnt'] = array();
+	//XXX TO HERE
 }
 else
 {
@@ -273,7 +274,11 @@ $appCore->rwInit($exts);
 
 try
 {
-	/**
+/**
+ * cnt1 should be here //XXX
+ */	
+	
+/**
 	 * Page content
 	 */
 	$cnt2 = $appCore->appProcess();
@@ -283,17 +288,6 @@ try
 	$cnt = array_merge($cnt1, $cnt2);
 	$cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
 	$cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
-	/*
-	 echo '<pre>';
-	 print_r($cnt1);
-	 echo '<hr />';
-	 print_r($cnt2);
-	 echo '<hr />';
-	 print_r($cnt);
-	 echo '<hr />';
-	 trigger_error('here', E_USER_ERROR);
-	 */
-	//XXX
 	/**
 	* Global additional templates
 	*/
@@ -312,6 +306,19 @@ try
 		$atpl['menu']['tpl'] = 'menu';
 		$atpl['menu']['vars'] = array();
 		$atpl['menu']['vars']['lang'] = $appCore->rwLang();
+		/**
+		 * Dynamic content menu
+		 */
+		//
+		$atpl['menu']['vars']['cntMenu'] = NULL;
+		if(array_key_exists('cntMenu', $appCore->ext))
+		{
+			/**
+			 * If extension is present, attempt to load dynamic menu
+			 */
+			$cntMenuObj = $appCore->rwActivateExt('cntMenu');
+			$atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu();
+		}
 		/**
 		 * Actual content
 		 */
@@ -342,12 +349,6 @@ try
 			/**
 			 * Only one content item
 			 */
-			/*
-			 echo '<pre>';
-			 print_r($cnt);
-			 trigger_error('here', E_USER_ERROR);
-			 */
-			//XXX
 			$atpl['content'][0] = array();
 			$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
 			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];

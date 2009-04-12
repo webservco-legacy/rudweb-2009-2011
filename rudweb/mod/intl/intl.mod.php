@@ -177,7 +177,20 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 				{
 					case 'home' :
 						{
-							$location = _APP_WWW;
+							/**
+							 * Redirect to the inital page of the current language
+							 */
+							$cfg = parse_ini_file(_APP_DIR.'cfg/cfg.'.$newLang.'.ini', TRUE);
+							$contentType = $cfg['Language']['ContentType'] ? $cfg['Language']['ContentType'] : NULL;
+							$contentId = $cfg['Language']['ContentId'] ? $cfg['Language']['ContentId'] : NULL;
+							if(!$contentType && !$contentId)
+							{
+								$location = _APP_WWW;
+							}
+							else
+							{
+								$location = _APP_URL.$contentType.'/'.$contentId;
+							}
 							break;
 						}
 					case 'pg' :

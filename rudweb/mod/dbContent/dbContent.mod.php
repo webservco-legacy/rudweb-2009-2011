@@ -92,7 +92,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 */
 		parent::__construct($about, $cnt, $appCore);
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modCnt['skin']['langs'] = $intl->intlMenu();
+		$this->modCnt['skin']['langs'] = $intl->intlMenu('usr', 'home');
 	}
 	/**
 	 * Default module functionality

@@ -72,11 +72,6 @@ class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 		$langs    = array();
 		$typeList = array('usr', 'cnt');
 		$type = (in_array($type, $typeList)) ? $type : 'usr';
-		/*
-		echo $type;
-		trigger_error('xxx', E_USER_ERROR);
-		exit;
-		*/
 		switch($type)
 		{
 			case 'cnt' :
@@ -96,9 +91,9 @@ class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 		}
 		for($i=0;$i<$total;$i++)
 		{
-			$target = $target ? '/target/'.$target : '';
+			$red = $target ? '/red/'.$target : '';
 			$langs[$i]['link'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? 0 : 1;
-			$langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? '' : _APP_URL.'module/intl/action/'.$action.'/ln/'.$langList[$i].$target;
+			$langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? '' : _APP_URL.'module/intl/action/'.$action.'/ln/'.$langList[$i].$red;
 			$langs[$i]['lang'] = $langList[$i];
 		}
 		return $langs;

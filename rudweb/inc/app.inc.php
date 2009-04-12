@@ -48,7 +48,8 @@ if(is_readable(_RW_DIR_LIB.'rw.inc.php')) {require_once(_RW_DIR_LIB.'rw.inc.php'
  */
 class app_Core extends rw_Core
 {
-	/**
+public $intl = NULL;	
+/**
 	 * Handle requests
 	 *
 	 * @return mixed content
@@ -70,8 +71,7 @@ class app_Core extends rw_Core
 		/**
 		 * Language menu
 		 */
-		$intl = $this->rwActivateExt('Intl');
-    //$cnt['skin']['langs'] = $intl->intlMenu();
+		$this->intl = $this->rwActivateExt('Intl');
 		/**
 		 * Handle logout
 		 */
@@ -86,7 +86,7 @@ class app_Core extends rw_Core
 		else if(isset($_GET['page']))
 		{
 			$cnt = $this->_appProcessPage();
-			$cnt['skin']['langs'] = $intl->intlMenu();
+			$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 		}
 		/**
 		 * Handle administration requests
@@ -115,7 +115,7 @@ class app_Core extends rw_Core
 		else
 		{
 			$cnt = $this->_appProcessDefault();
-			$cnt['skin']['langs'] = $intl->intlMenu();
+			$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 		}
 		/**
 		 * Close database connection, if opened.
@@ -348,6 +348,7 @@ class app_Core extends rw_Core
 						if(FALSE === $cnt)
 						{
 							require_once(_APP_DIR_CNT.'404.inc.php');
+							$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 						}
 					}
 					else

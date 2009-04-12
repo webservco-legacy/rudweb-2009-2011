@@ -139,6 +139,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Prepare pages array
 			 */
+			//XXX
 			$pageData = array();
 			$pageData['items'] = array();
 			$pageData['parents'] = array();
