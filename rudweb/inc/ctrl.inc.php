@@ -154,26 +154,67 @@ if(is_readable('./cfg/cfg.ini'))
 	 *
 	 */
 	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
+}
+else
+{
+	require_once('./404.php');
+	exit;
+}
+/**
+ * Extensions
+ */
+$exts = array_keys($cfg['Extensions']);
+/**
+ * Engine configuration
+ */
+if(is_readable(_RW_DIR.'rwc.inc.php'))
+{
+	require_once(_RW_DIR.'rwc.inc.php');
+}
+else
+{
+	require_once('./404.php');
+	exit;
+}
+/**
+ * Core
+ */
+if(is_readable(_APP_DIR_INC.'app.inc.php'))
+{
+	require_once(_APP_DIR_INC.'app.inc.php');
+}
+else
+{
+	require_once('./404.php');
+	exit;
+}
+/**
+ * Initialize main application core
+ */
+$appCore = new app_Core;
+$appCore->rwInit($exts);
+
+try
+{
 	/**
 	 * Initialize content
 	 */
 	$cnt1 = array();
-	
-//XXX FROM HERE
-/**
-	 * Based on initial default language, set localized defaults
+	/**
+	 * Set localized defaults for current language
 	 */
+	$ln = (_APP_CFG_SESSIONS && $_SESSION[_APP_PRE.'_usr_lang']) ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
 	$cfg2 = array();
-	if(is_readable('./cfg/cfg.'._APP_LANG.'.ini'))
+	if(is_readable('./cfg/cfg.'.$ln.'.ini'))
 	{
 		/**
 		 * Parse configuration file
 		 */
-		$cfg2 = parse_ini_file('./cfg/cfg.'._APP_LANG.'.ini', TRUE);
+		$cfg2 = parse_ini_file('./cfg/cfg.'.$ln.'.ini', TRUE);
 	}
 	/**
-	* Default content type
-	*/
+	 * Default content type
+	 */
 	define('_APP_CONTENT_TYPE',$cfg2['Language']['ContentType'] ? $cfg2['Language']['ContentType'] : 'page');
 	/**
 	 * Default content id
@@ -231,54 +272,8 @@ if(is_readable('./cfg/cfg.ini'))
 	 * Initialize actual content
 	 */
 	$cnt1['cnt'] = array();
-	//XXX TO HERE
-}
-else
-{
-	require_once('./404.php');
-	exit;
-}
-/**
- * Extensions
- */
-$exts = array_keys($cfg['Extensions']);
-/**
- * Engine configuration
- */
-if(is_readable(_RW_DIR.'rwc.inc.php'))
-{
-	require_once(_RW_DIR.'rwc.inc.php');
-}
-else
-{
-	require_once('./404.php');
-	exit;
-}
-/**
- * Core
- */
-if(is_readable(_APP_DIR_INC.'app.inc.php'))
-{
-	require_once(_APP_DIR_INC.'app.inc.php');
-}
-else
-{
-	require_once('./404.php');
-	exit;
-}
-/**
- * Initialize main application core
- */
-$appCore = new app_Core;
-$appCore->rwInit($exts);
 
-try
-{
-/**
- * cnt1 should be here //XXX
- */	
-	
-/**
+	/**
 	 * Page content
 	 */
 	$cnt2 = $appCore->appProcess();
@@ -289,8 +284,8 @@ try
 	$cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
 	$cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
 	/**
-	* Global additional templates
-	*/
+	 * Global additional templates
+	 */
 	$atpl = array();
 	/**
 	 * If normal content, set it,
