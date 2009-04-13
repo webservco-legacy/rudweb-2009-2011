@@ -301,6 +301,7 @@ try
 		$atpl['menu']['tpl'] = 'menu';
 		$atpl['menu']['vars'] = array();
 		$atpl['menu']['vars']['lang'] = $appCore->rwLang();
+		$atpl['menu']['vars']['langAdm'] = $appCore->rwLangAdm();
 		/**
 		 * Dynamic content menu
 		 */
@@ -335,6 +336,7 @@ try
 					$atpl['content'][$index]['tpl'] = $cnt['cnt'][$index]['tpl'];
 					$atpl['content'][$index]['vars']['cnt'] = $cnt['cnt'][$index]['content'];
 					$atpl['content'][$index]['vars']['lang'] = $appCore->rwLang();
+					$atpl['content'][$index]['vars']['langAdm'] = $appCore->rwLangAdm();
 					$atpl['content'][$index]['vars']['usr_status'] = $appCore->rwUsrStatus();
 				}
 			}
@@ -349,6 +351,7 @@ try
 			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
 			$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
 			$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
+			$atpl['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
 			$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
 		}
 		/**
@@ -359,6 +362,7 @@ try
 		$atpl['footer']['tpl'] = 'footer';
 		$atpl['footer']['vars'] = array();
 		$atpl['footer']['vars']['lang'] = $appCore->rwLang();
+		$atpl['footer']['vars']['langAdm'] = $appCore->rwLangAdm();
 		/**
 		 * Load custom configuration
 		 */

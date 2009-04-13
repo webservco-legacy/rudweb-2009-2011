@@ -64,6 +64,12 @@ class rw_Core
 	 */
 	public $lang = array();
 	/**
+	 * Language translations (admin)
+	 *
+	 * @var array
+	 */
+	public $langAdm = array();
+	/**
 	 * Database object
 	 *
 	 * @var mixed
@@ -142,6 +148,14 @@ class rw_Core
 		require_once(_APP_DIR_LANG.$ln.'/lang.inc.php');
 		$this->lang = $lang;
 		/**
+		 * Load language file (admin)
+		 */
+		$lang = array();
+		$lnAdm = _APP_CFG_SESIONS ? $_SESSION[_APP_PRE.'_adm_lang'] : _APP_LANG;
+		require_once(_RW_DIR_LANG.$lnAdm.'/lang.inc.php');
+    require_once(_APP_DIR_LANG.$lnAdm.'/lang.inc.php');
+    $this->langAdm = $lang;
+		/**
 		 * Return ok
 		 */
 		return;
@@ -172,6 +186,15 @@ class rw_Core
 	public function rwLang()
 	{
 		return $this->lang;
+	}
+	/**
+	 * Return language translations (admin)
+	 *
+	 * @return array $lanfAdm language translations (admin)
+	 */
+	public function rwLangAdm()
+	{
+		return $this->langAdm;
 	}
 	/**
 	 * Set global database object

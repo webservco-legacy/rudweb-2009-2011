@@ -267,6 +267,22 @@ public $intl = NULL;
 			}
 			$this->lang = array_merge($this->lang, $modlang);
 			/**
+			 * Get current language (admin)
+			 */
+			$lnAdm = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_adm_lang'] : _APP_LANG;
+			/**
+       * Check if module has it's own internationalization file corresponding to the current language.
+       */
+			$modlang = array();
+      if(is_file(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php'))
+      {
+        /**
+         * Add module internationalization to the current one.
+         */
+        require_once(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php');
+      }
+      $this->langAdm = array_merge($this->langAdm, $modlang);
+			/**
 			 * Load module
 			 */
 			$modClass = 'rw_Mod_'.$module;

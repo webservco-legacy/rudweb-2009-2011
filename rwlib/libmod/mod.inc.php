@@ -86,6 +86,12 @@ class rw_Mod_global
 	 */
 	public $modLang = array();
 	/**
+	 * Internationalization (admin)
+	 *
+	 * @var array
+	 */
+	public $modLangAdm = array();
+	/**
 	 * Database connection
 	 *
 	 * @var mixed
@@ -108,6 +114,7 @@ class rw_Mod_global
 		$this->modAbout = $modAbout;
 		$this->modAppCore = $appCore;
 		$this->modLang = $this->modAppCore->rwLang();
+		$this->modLangAdm = $this->modAppCore->rwLangAdm();
 		$this->modDb = $this->modAppCore->rwDb();
 		/**
 		 * Default values.
@@ -125,6 +132,7 @@ class rw_Mod_global
 		$cnt1['skin']['meta']['publisher'] = _APP_AUTH;
 		$cnt1['skin']['meta']['author'] = _APP_AUTH;
 		$cnt1['skin']['lang'] = $this->modLang;
+		$cnt1['skin']['langAdm'] = $this->modLangAdm;
 		$cnt1['cnt'] = array();
 		/**
 		 * Join with values from module.

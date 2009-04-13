@@ -81,6 +81,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 * $cnt['skin']['title'] added by default in parent class
 		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
+		 * $cnt['skin']['langAdm'] added by default in parent class
 		 */
 		$cnt['skin']['dir'] = '';
 		$cnt['skin']['tpl'] = 'layout';

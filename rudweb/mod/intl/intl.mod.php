@@ -73,6 +73,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		 * $cnt['skin']['title'] added by default in parent class
 		 * $cnt['skin']['meta'] added by default in parent class
 		 * $cnt['skin']['lang'] added by default in parent class
+		 * $cnt['skin']['langAdm'] added by default in parent class
 		 */
 		$cnt['skin']['dir'] = '';
 		$cnt['skin']['tpl'] = 'layout';
@@ -109,6 +110,21 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		$var      = (isset($_GET['var'])) ? $this->modAppCore->rwFilterRequest($_GET['var']) : NULL;
 
 		return $this->_intl('usr', $newLang, $target, $var);
+	}
+	/**
+	 * Set language for current session (admin)
+	 *
+	 * @return mixed result
+	 */
+	public function setSessionAdm()
+	{
+		$list     = $this->modAppCore->rwLsDir(_APP_DIR_LANG);
+		$langList = $list['d'];
+		$newLang  = (isset($_GET['ln']) && in_array($_GET['ln'], $langList)) ? $_GET['ln'] : _APP_LANG;
+		$target   = (isset($_GET['red'])) ? $this->modAppCore->rwFilterRequest($_GET['red']) : NULL;
+		$var      = (isset($_GET['var'])) ? $this->modAppCore->rwFilterRequest($_GET['var']) : NULL;
+
+		return $this->_intl('adm', $newLang, $target, $var);
 	}
 	/**
 	 * Set language for current content (administration).
@@ -153,9 +169,9 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		$ref = (array_key_exists('HTTP_REFERER', $_SERVER) && $_SERVER['HTTP_REFERER'] != '') ? $_SERVER['HTTP_REFERER'] : NULL;
 
 		$location = $ref ? $ref : _APP_WWW;
-		
-		$typeList = array('usr', 'cnt');
-    $type = (in_array($type, $typeList)) ? $type : 'usr';
+
+		$typeList = array('usr', 'adm', 'cnt');
+		$type = (in_array($type, $typeList)) ? $type : 'usr';
 
 		if($newLang == $_SESSION[_APP_PRE.'_'.$type.'_lang'])
 		{

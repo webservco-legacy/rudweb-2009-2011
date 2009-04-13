@@ -70,7 +70,7 @@ class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 		$langList = $list['d'];
 		$total    = count($langList);
 		$langs    = array();
-		$typeList = array('usr', 'cnt');
+		$typeList = array('usr', 'adm', 'cnt');
 		$type = (in_array($type, $typeList)) ? $type : 'usr';
 		switch($type)
 		{
@@ -79,9 +79,14 @@ class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 					$action = 'setContent';
 					break;
 				}
+			case 'adm' :
+				{
+					$action = 'setSessionAdm';
+					break;
+				}
 			case 'usr' :
 				{
-					
+
 				}
 			default :
 				{

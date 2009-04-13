@@ -59,7 +59,7 @@ $cnt['cnt'] = array();
 /*
  * Main layout page title
  */
-$cnt['skin']['title'] = $this->lang['e404']['TITLE'];
+$cnt['skin']['title'] = (_APP_CFG_SESSIONS && $_SESSION[_APP_PRE.'_usr_lvl'] >= 2) ? $this->langAdm['e404']['TITLE'] : $this->lang['e404']['TITLE'];
 /*
  * Main layout page meta
  */
@@ -110,18 +110,20 @@ $cnt['cnt']['content'] = array();
  $cnt['atpl']['content'] = array();
 
  $cnt['atpl']['content'][0] = array();
- $cnt['atpl']['content'][0]['dir'] = $cnt['cnt']['dir'];
- $cnt['atpl']['content'][0]['tpl'] = $cnt['cnt']['tpl'];
- $cnt['atpl']['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
- $cnt['atpl']['content'][0]['vars']['lang'] = $lang;
- $cnt['atpl']['content'][0]['vars']['usr_status'] = $usr_status;
+ $cnt['atpl']['content'][0]['dir'] = $cnt['cnt'][0]['dir'];
+ $cnt['atpl']['content'][0]['tpl'] = $cnt['cnt'][0]['tpl'];
+ $cnt['atpl']['content'][0]['vars']['cnt'] = $cnt['cnt'][0]['content'];
+ $cnt['atpl']['content'][0]['vars']['lang'] = $appCore->rwLang();
+ $cnt['atpl']['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
+ $cnt['atpl']['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
 
  $cnt['atpl']['content'][1] = array();
- $cnt['atpl']['content'][1]['dir'] = $cnt['cnt']['dir'];
- $cnt['atpl']['content'][1]['tpl'] = 'contact';
- $cnt['atpl']['content'][1]['vars']['cnt'] = $cnt['cnt']['content'];
- $cnt['atpl']['content'][1]['vars']['lang'] = $lang;
- $cnt['atpl']['content'][1]['vars']['usr_status'] = $usr_status;
+ $cnt['atpl']['content'][1]['dir'] = $cnt['cnt'][1]['dir'];
+ $cnt['atpl']['content'][1]['tpl'] = $cnt['cnt'][1]['tpl'];
+ $cnt['atpl']['content'][1]['vars']['cnt'] = $cnt['cnt'][1]['content'];
+ $cnt['atpl']['content'][1]['vars']['lang'] = $appCore->rwLang();
+ $cnt['atpl']['content'][1]['vars']['langAdm'] = $appCore->rwLangAdm();
+ $cnt['atpl']['content'][1]['vars']['usr_status'] = $appCore->rwUsrStatus();
  $cnt['atpl']['content'][1]['vars']['stuff1'] = 'stuff for the second subtemplate';
 
  $cnt['atpl']['footer'] = array();
