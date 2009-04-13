@@ -29,8 +29,8 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
-{$lang.MOD.CONTENT.DELETE_CONFIRM}
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
+{$langAdm.MOD.CONTENT.DELETE_CONFIRM}
 <br />
-<a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$cnt.cnt_id}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/contentDelete/id/{$cnt.cnt_id}/delete/true" title="{$langAdm.MOD.ADMIN.DELETE}">{$langAdm.MOD.ADMIN.DELETE}</a>
 </div>

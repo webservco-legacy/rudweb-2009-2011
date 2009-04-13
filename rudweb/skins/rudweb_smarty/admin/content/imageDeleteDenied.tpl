@@ -29,10 +29,10 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 
 <h3>{$cnt.image_title}</h3>
-{$lang.MOD.IMAGE.DELETE_DENIED_1} ({$cnt.items})
+{$langAdm.MOD.IMAGE.DELETE_DENIED_1} ({$cnt.items})
 <br />
-{$lang.MOD.IMAGE.DELETE_DENIED_2}
+{$langAdm.MOD.IMAGE.DELETE_DENIED_2}
 </div>

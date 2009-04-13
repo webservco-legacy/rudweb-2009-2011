@@ -29,17 +29,17 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-  <a href="{$smarty.const._APP_WWW}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+  <a href="{$smarty.const._APP_WWW}" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 <p> 
-{$lang.AUTH.LOGIN_MSG}
+{$langAdm.AUTH.LOGIN_MSG}
 </p> 
 <p> 
-{$lang.AUTH.STATUS}:&#160;{$lang.USR_STATUS.$usr_status}
+{$langAdm.AUTH.STATUS}:&#160;{$langAdm.USR_STATUS.$usr_status}
 </p> 
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_login_form" id="{$smarty.const._APP_PRE}_login_form" action="" method="post">
 <div class="login_form">  
   <div class="login1">
-    {$lang.AUTH.USER_NAME}:&#160;
+    {$langAdm.AUTH.USER_NAME}:&#160;
   </div>
   <div class="login2">
     <input type="hidden" NAME="{$smarty.const._APP_PRE}_token" VALUE="{php}echo $_SESSION[_APP_PRE.'_token'];{/php}">
@@ -47,23 +47,23 @@
   </div>
   <div class="login0">&#160;</div>
   <div class="login1">
-    {$lang.AUTH.PASSWORD}:&#160;
+    {$langAdm.AUTH.PASSWORD}:&#160;
   </div>
   <div class="login2">
     <input class="input_password" type="password" name="{$smarty.const._APP_PRE}_pass" id="{$smarty.const._APP_PRE}_pass" maxlength="30" value="" />
   </div>
   <div class="login0">&#160;</div>
   <div class="login1">
-    {$lang.AUTH.CAPTCHA}:&#160;
+    {$langAdm.AUTH.CAPTCHA}:&#160;
   </div>
   <div class="login2">
-    <img class="captcha" src="{$cnt.captcha}" alt="{$lang.AUTH.CAPTCHA}" title="{$lang.AUTH.CAPTCHA}" />
+    <img class="captcha" src="{$cnt.captcha}" alt="{$langAdm.AUTH.CAPTCHA}" title="{$langAdm.AUTH.CAPTCHA}" />
     =
     <input class="input_captcha" type="text" name="{$smarty.const._APP_PRE}_captcha" id="{$smarty.const._APP_PRE}_captcha" maxlength="5" value="" />
   </div>
   <div class="login0">&#160;</div>
   <div class="login3">
-    <input type="submit" class="login_submit submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$lang.AUTH.LOGIN_TT}" />
+    <input type="submit" class="login_submit submit" name="{$smarty.const._APP_PRE}_submit" id="{$smarty.const._APP_PRE}_submit" value="{$langAdm.AUTH.LOGIN_TT}" />
   </div>
 </div>
 </form>

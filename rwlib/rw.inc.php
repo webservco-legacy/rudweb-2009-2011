@@ -144,16 +144,16 @@ class rw_Core
 		 */
 		$lang = array();
 		$ln = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
-		require_once(_RW_DIR_LANG.$ln.'/lang.inc.php');
-		require_once(_APP_DIR_LANG.$ln.'/lang.inc.php');
+		require(_RW_DIR_LANG.$ln.'/lang.inc.php');
+		require(_APP_DIR_LANG.$ln.'/lang.inc.php');
 		$this->lang = $lang;
 		/**
 		 * Load language file (admin)
 		 */
 		$lang = array();
-		$lnAdm = _APP_CFG_SESIONS ? $_SESSION[_APP_PRE.'_adm_lang'] : _APP_LANG;
-		require_once(_RW_DIR_LANG.$lnAdm.'/lang.inc.php');
-    require_once(_APP_DIR_LANG.$lnAdm.'/lang.inc.php');
+		$lnAdm = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_adm_lang'] : _APP_LANG;
+		require(_RW_DIR_LANG.$lnAdm.'/lang.inc.php');
+    require(_APP_DIR_LANG.$lnAdm.'/lang.inc.php');
     $this->langAdm = $lang;
 		/**
 		 * Return ok

@@ -29,10 +29,10 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/{$cnt.image_type}List/label/{$cnt.image_label}" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 
 <h3>{$cnt.image_title}</h3>
-{$lang.MOD.IMAGE.DELETE_CONFIRM}
+{$langAdm.MOD.IMAGE.DELETE_CONFIRM}
 <br />
-<a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$cnt.image_id}/type/{$cnt.image_type}/delete/true" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+<a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$cnt.image_id}/type/{$cnt.image_type}/delete/true" title="{$langAdm.MOD.ADMIN.DELETE}">{$langAdm.MOD.ADMIN.DELETE}</a>
 </div>

@@ -29,13 +29,13 @@
  *}
 <div class="imageList">
 <div class="cancel">
-<a href="JavaScript:jsCancel('{$smarty.const._APP_URL}module/dbContentAdm/')" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="JavaScript:jsCancel('{$smarty.const._APP_URL}module/dbContentAdm/')" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 
 <div class="imageListLinks">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageListPop/label/{$cnt.thumb_label}" title="{$lang.MOD.IMAGE.ADMIN}">{$lang.MOD.IMAGE.ADMIN}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageListPop/label/{$cnt.thumb_label}" title="{$langAdm.MOD.IMAGE.ADMIN}">{$langAdm.MOD.IMAGE.ADMIN}</a>
 </div>
 <div class="imageListLabels">
-{$lang.MOD.THUMBNAIL.THUMB_LABELS}:<br />
+{$langAdm.MOD.THUMBNAIL.THUMB_LABELS}:<br />
 {foreach from=$cnt.thumb_labels item=label}
 &#160;
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailListPop/label/{$label.thumb_label}" title="{$label.thumb_label}">{$label.thumb_label}</a>
@@ -49,13 +49,13 @@
     <div class="imageListPreview">
     <img src="{$smarty.const._APP_URL_TMP}{$thumb.thumb_preview}" title="{$thumb.thumb_title}" alt="{$thumb.thumb_title}" />
     </div>
-    {$lang.MOD.IMAGE.SIZE}: {$thumb.thumb_width} x {$thumb.thumb_height}
+    {$langAdm.MOD.IMAGE.SIZE}: {$thumb.thumb_width} x {$thumb.thumb_height}
     <br />
-    {$lang.MOD.IMAGE.TYPE}: {$thumb.thumb_ext}
+    {$langAdm.MOD.IMAGE.TYPE}: {$thumb.thumb_ext}
     <br />
-    <a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$thumb.thumb_id}/type/thumbnail" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+    <a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$thumb.thumb_id}/type/thumbnail" title="{$langAdm.MOD.ADMIN.DELETE}">{$langAdm.MOD.ADMIN.DELETE}</a>
     <br />
-    <a class="actionButton" href="JavaScript:addToFCK('{$smarty.const._APP_URL_THUMB}{$thumb.thumb_file}{$thumb.thumb_ext}', '{$thumb.thumb_width}', '{$thumb.thumb_height}', '{$thumb.thumb_title}')" title="{$lang.MOD.THUMBNAIL.ADD_FCK}">{$lang.MOD.THUMBNAIL.ADD_FCK}</a>
+    <a class="actionButton" href="JavaScript:addToFCK('{$smarty.const._APP_URL_THUMB}{$thumb.thumb_file}{$thumb.thumb_ext}', '{$thumb.thumb_width}', '{$thumb.thumb_height}', '{$thumb.thumb_title}')" title="{$langAdm.MOD.THUMBNAIL.ADD_FCK}">{$langAdm.MOD.THUMBNAIL.ADD_FCK}</a>
   </div>
 {/foreach}
 <div class="clearthis">&#160;</div>

@@ -85,11 +85,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * $cnt['skin']['lang'] added by default in parent class
 		 * $cnt['skin']['langAdm'] added by default in parent class
 		 */
-		/**
-		 * Override the one in the parent class
-		 * because we need it to be for the admin module.
-		 */
-		$cnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'];
 		$cnt['skin']['dir'] = 'admin';
 		$cnt['skin']['tpl'] = 'layout';
 		$cnt['cnt']['dir'] = 'content';
@@ -100,8 +95,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 */
 		parent::__construct($about, $cnt, $appCore);
 		$this->_makeMenu();
+
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modCnt['skin']['langs']    = $intl->intlMenu('adm');
+		/**
+		 * Override title in the parent class
+		 * because we need it to be for admin.
+		 */
+		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'];
+		$this->modCnt['skin']['langs'] = $intl->intlMenu('adm');
 		$this->modCnt['cnt']['content']['langsCnt'] = $intl->intlMenu('cnt');
 	}
 	/**
@@ -145,7 +146,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Prepare pages array
 			 */
-			//XXX
 			$pageData = array();
 			$pageData['items'] = array();
 			$pageData['parents'] = array();
@@ -334,6 +334,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						 */
 						$ri = $this->modDb->dbLastInsertId();
 						$pg_id = $ri->dbFetchResult();
+						$dataUpdate['pg_order'] = '{pg_order+1}';
+						$this->modDb->dbUpdate(_APP_PRE.'_web_pages', $dataUpdate, "pg_ln = '{$data['pg_ln']}' AND pg_id != '{$pg_id}' AND pg_order >= '{$data['pg_order']}'", NULL, NULL);
 						header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/add/resource/page/id/'.$pg_id);
 						exit;
 					}
@@ -1499,12 +1501,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				if($this->modDb->dbInsert(_APP_PRE.'_web_content', NULL, $dataInsert))
 				{
 					/**
-					 * Insert successfull, redirect to mesage page
+					 * Insert successfull, update order and redirect to mesage page
 					 *
 					 * get parameters: type of action, id of page
 					 */
 					$ri = $this->modDb->dbLastInsertId();
 					$cnt_id = $ri->dbFetchResult();
+					$dataUpdate['cnt_order'] = '{cnt_order+1}';
+					$this->modDb->dbUpdate(_APP_PRE.'_web_content', $dataUpdate, "pg_id = {$data['pg_id']} AND cnt_id != '{$cnt_id}' AND cnt_order >= '{$data['cnt_order']}'", NULL, NULL);
 					header("Location: "._APP_URL.'module/'.$this->modAbout['name'].'/action/actionOk/type/add/resource/content/id/'.$cnt_id);
 					exit;
 				}
@@ -1681,7 +1685,6 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * If form is sent, process request
 		 */
-		//if(isset($_POST['cnt_body']))
 		if(isset($_POST['pg_id']) && $_POST['pg_id'] == $pg_id)
 		{
 			/**
@@ -1718,7 +1721,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				 */
 				$data = array();
 				$data['pg_id'] = $pg_id;
-				$ro = $this->modDb->dbSelect('MAX(cnt_order)', _APP_PRE.'_web_content', "pg_id = '{$pg_id}'", NULL, 1);
+				$ro = $this->modDb->dbSelect('MAX(cnt_order)', _APP_PRE.'_web_content', "pg_id = '{$pg_id}' AND cnt_deleted = '0'", NULL, 1);
 				$to = $ro->dbNumRows();
 				$data['cnt_order'] = ($cnt_order == 0) ? ($ro->dbFetchResult()+1) : $cnt_order;
 				$data['cnt_type'] = 'text';

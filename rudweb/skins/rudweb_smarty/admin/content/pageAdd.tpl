@@ -29,18 +29,18 @@
  *}
 <div class="pageAction">
   <div class="cancel">
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageList" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
   
   <div class="page_form">
   <ul class="pageAddList">
   {foreach from=$cnt.page_list_add item=item}
   <li>
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/{$item.pg_order}" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}" /></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/{$item.pg_order}" title="{$langAdm.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$langAdm.MOD.PAGE.ADD}" alt="{$langAdm.MOD.PAGE.ADD}" /></a>
   </li>
   <li>{$item.pg_title}</li>
   {/foreach} 
   <li>
-  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/0" title="{$lang.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$lang.MOD.PAGE.ADD}" alt="{$lang.MOD.PAGE.ADD}" /></a>
+  <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/{$cnt.page_parent}/order/0" title="{$langAdm.MOD.PAGE.ADD}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_add.png" title="{$langAdm.MOD.PAGE.ADD}" alt="{$langAdm.MOD.PAGE.ADD}" /></a>
   </li>
   </ul>
   </div>

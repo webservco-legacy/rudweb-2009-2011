@@ -30,10 +30,10 @@
 <div class="pageList">
 <div class="pageListLang">
 <div class="pageListLang1">
-{$lang.MOD.LANG.LANG}: <img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}.gif" title="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" alt="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" /> 
+{$langAdm.MOD.LANG.LANG}: <img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}.gif" title="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" alt="{php}echo $_SESSION[_APP_PRE.'_cnt_lang'];{/php}" /> 
 </div>
 <div class="pageListLang2">
-{$lang.MOD.LANG.LANGS}:
+{$langAdm.MOD.LANG.LANGS}:
 {foreach from=$cnt.langsCnt item=ln}
 {if $ln.link == 0}
 <img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/intl/{$ln.lang}.gif" title="{$ln.lang}" alt="{$ln.lang}" />
@@ -47,16 +47,16 @@
 {if $cnt.page_list != ''}
 <table class="page_list" cellspacing="0">
 <tr>
-  <td class="page_list_hr page_list_lvl"><a href="JavaScript:toggleTRows('title');" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_toggle.png" title="{$lang.MOD.PAGE.TOGGLE}" alt="{$lang.MOD.PAGE.TOGGLE}" /></a></td>
-  <td class="page_list_hr page_list_tt">{$lang.MOD.PAGE.TITLE}</td>
-  <td class="page_list_hr page_list_auth">{$lang.MOD.PAGE.AUTHOR}</td>
-  <td class="page_list_hr page_list_grp">{$lang.MOD.PAGE.GROUP}</td>
-  <td class="page_list_hr page_list_itm">{$lang.MOD.PAGE.ITEMS}</td>
-  <td class="page_list_hr page_list_op">{$lang.MOD.PAGE.ACTIONS}</td>
+  <td class="page_list_hr page_list_lvl"><a href="JavaScript:toggleTRows('title');" title="{$langAdm.MOD.PAGE.TOGGLE}" alt="{$langAdm.MOD.PAGE.TOGGLE}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/page_toggle.png" title="{$langAdm.MOD.PAGE.TOGGLE}" alt="{$langAdm.MOD.PAGE.TOGGLE}" /></a></td>
+  <td class="page_list_hr page_list_tt">{$langAdm.MOD.PAGE.TITLE}</td>
+  <td class="page_list_hr page_list_auth">{$langAdm.MOD.PAGE.AUTHOR}</td>
+  <td class="page_list_hr page_list_grp">{$langAdm.MOD.PAGE.GROUP}</td>
+  <td class="page_list_hr page_list_itm">{$langAdm.MOD.PAGE.ITEMS}</td>
+  <td class="page_list_hr page_list_op">{$langAdm.MOD.PAGE.ACTIONS}</td>
 </tr>
 {$cnt.page_list}
 </table>
 {else}
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/0/order/0" title="{$lang.MOD.PAGE.ADD_FIRST}">{$lang.MOD.PAGE.ADD_FIRST}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageNew/parent/0/order/0" title="{$langAdm.MOD.PAGE.ADD_FIRST}">{$langAdm.MOD.PAGE.ADD_FIRST}</a>
 {/if}
 </div>

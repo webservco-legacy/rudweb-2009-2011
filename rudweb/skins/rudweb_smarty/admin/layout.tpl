@@ -27,18 +27,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{* usr_lang, app_skin_url *}
+{* adm_lang, app_skin_url *}
 {if $smarty.const._APP_CFG_SESSIONS}
 {assign var="app_pre" value=$smarty.const._APP_PRE}
-{assign var="usr_lang_suf" value="_usr_lang"}
-{assign var="app_lang" value=$app_pre$usr_lang_suf}
-{assign var="usr_lang" value=$smarty.session.$app_lang}
+{assign var="adm_lang_suf" value="_adm_lang"}
+{assign var="adm_lang" value=$app_pre$adm_lang_suf}
+{assign var="adm_lang" value=$smarty.session.$adm_lang}
 {assign var="app_skin_suf" value="_skin_url"}
 {assign var="app_skin_ses" value=$app_pre$app_skin_suf}
 {assign var="app_skin_url" value=$smarty.session.$app_skin_ses}
 {else}
 {assign var="app_skin_url" value=$smarty.const._APP_SKIN_URL}
-{assign var="usr_lang" value=$smarty.const._APP_LANG}
+{assign var="adm_lang" value=$smarty.const._APP_LANG}
 {/if}
 {if $dir != ''}
 {assign var="dirsep" value="/"}
@@ -46,10 +46,10 @@
 {/if}
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$usr_lang}" lang="{$usr_lang}">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$adm_lang}" lang="{$adm_lang}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="content-language" content="{$usr_lang}" />
+  <meta http-equiv="content-language" content="{$adm_lang}" />
   <link rel="icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
   <link rel="shortcut icon" type="image/ico" href="{$app_skin_url}graphics/favicon.ico" />
   <title>{$title} .:. {$smarty.const._APP_NAME}</title>
@@ -74,7 +74,7 @@
     <div id="hdr1">
       &#160;
     </div>
-    <div id="hdr2"><div id="header">{$lang.MOD.TITLE} .:. {$smarty.const._APP_NAME}</div></div>
+    <div id="hdr2"><div id="header">{$langAdm.MOD.TITLE} .:. {$smarty.const._APP_NAME}</div></div>
     <div id="hdr3">&#160;</div>
   </div>
     <div id="cnt0">
@@ -108,12 +108,12 @@
         <div id="user">
         <b>{php}echo $_SESSION[_APP_PRE.'_usr_alias'];{/php}</b>&#160;({php}echo $_SESSION[_APP_PRE.'_usr_name'];{/php})
         <br />
-        {$lang.AUTH.ALEVEL}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_lvl'];{/php}
+        {$langAdm.AUTH.ALEVEL}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_lvl'];{/php}
         <br />
-        {$lang.AUTH.GROUP}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_grp_name'];{/php}
+        {$langAdm.AUTH.GROUP}:&#160;{php}echo $_SESSION[_APP_PRE.'_usr_grp_name'];{/php}
         {php}if($_SESSION[_APP_PRE.'_auth'] == 1) {{/php}
         <br />
-        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$lang.AUTH.LOGOUT}">{$lang.AUTH.LOGOUT}</a>
+        <a class="" href="{$smarty.const._APP_URL}logout/true" title="{$langAdm.AUTH.LOGOUT}">{$langAdm.AUTH.LOGOUT}</a>
         {php}}{/php}
         </div>
       </div>

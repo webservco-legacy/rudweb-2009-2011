@@ -29,7 +29,7 @@
  *}
 <div class="pageAction">
 <div class="cancel">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/pageEdit/id/{$cnt.pg_id}" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 
 <div class="content_form">
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_content_new_form" id="{$smarty.const._APP_PRE}_content_new_form" action="" method="post">
@@ -42,7 +42,7 @@
   {/foreach}
   </div>
   <div class="clearthis">&#160;</div>
-  {$lang.MOD.CONTENT.CONTENT_BODY}:<br />
+  {$langAdm.MOD.CONTENT.CONTENT_BODY}:<br />
   <input type="hidden" name="pg_id" id="pg_id" value="{$cnt.pg_id}" />
   <textarea class="content_body" name="cnt_body" id="cnt_body">{$cnt.cnt_body}</textarea>
   {if $cnt.rte eq "FCKeditor"}
@@ -57,7 +57,7 @@
     oFCKeditor.ToolbarSet = "rudweb";
     oFCKeditor.Config['SkinPath'] = "{$smarty.const._APP_WWW}3rdparty/fckskins/famfamfamAluminum/";
     oFCKeditor.Config['AutoDetectLanguage']  = false ;
-    oFCKeditor.Config['DefaultLanguage']   = '{php}echo $_SESSION[_APP_PRE.'_usr_lang'];{/php}' ;
+    oFCKeditor.Config['DefaultLanguage']   = '{php}echo $_SESSION[_APP_PRE.'_adm_lang'];{/php}' ;
     oFCKeditor.Config['ImageBrowserURL']   = "{$smarty.const._APP_URL}module/dbContentAdm/action/imageListPop" ;
     
     oFCKeditor.ReplaceTextarea() ;
@@ -76,11 +76,11 @@
 </div>
 <div class="clearthis">&#160;</div>
 
-<div class="page_input1">{$lang.MOD.CONTENT.CONTENT_TEMPLATE}:</div>
+<div class="page_input1">{$langAdm.MOD.CONTENT.CONTENT_TEMPLATE}:</div>
 <div class="page_input2"><input class="content_template" type="text" name="cnt_template" id="cnt_template" maxlength="20" value="{$cnt.cnt_template}" /></div>
 <div class="clearthis">&#160;</div>
 
-<div class="page_input3"><input class="submit" type="submit" name="cnt_save" id="cnt_save" value="{$lang.MOD.ADMIN.SAVE}" /></div>
+<div class="page_input3"><input class="submit" type="submit" name="cnt_save" id="cnt_save" value="{$langAdm.MOD.ADMIN.SAVE}" /></div>
 <div class="clearthis">&#160;</div>
 
 </form>

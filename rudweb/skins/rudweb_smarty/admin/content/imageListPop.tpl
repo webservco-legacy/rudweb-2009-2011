@@ -29,7 +29,7 @@
  *}
 <div class="imageList">
 <div class="cancel">
-<a href="JavaScript:jsCancel('{$smarty.const._APP_URL}module/dbContentAdm/')" title="{$lang.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$lang.MOD.ADMIN.CANCEL}" alt="{$lang.MOD.ADMIN.CANCEL}" /></a></div>
+<a href="JavaScript:jsCancel('{$smarty.const._APP_URL}module/dbContentAdm/')" title="{$langAdm.MOD.ADMIN.CANCEL}"><img src="{php}echo $_SESSION[_APP_PRE.'_skin_url'];{/php}admin/graphics/icons/cancel.png" title="{$langAdm.MOD.ADMIN.CANCEL}" alt="{$langAdm.MOD.ADMIN.CANCEL}" /></a></div>
 
 <div class="formErrors">
   {foreach from=$cnt.form_err item=err}
@@ -37,10 +37,10 @@
   {/foreach}
 </div>
 <div class="imageListLinks">
-<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailListPop/label/{$cnt.pic_label}" title="{$lang.MOD.THUMBNAIL.ADMIN}">{$lang.MOD.THUMBNAIL.ADMIN}</a>
+<a href="{$smarty.const._APP_URL}module/dbContentAdm/action/thumbnailListPop/label/{$cnt.pic_label}" title="{$langAdm.MOD.THUMBNAIL.ADMIN}">{$langAdm.MOD.THUMBNAIL.ADMIN}</a>
 </div>
 <div class="imageListLabels">
-{$lang.MOD.IMAGE.IMAGE_LABELS}:<br />
+{$langAdm.MOD.IMAGE.IMAGE_LABELS}:<br />
 {foreach from=$cnt.pic_labels item=label}
 &#160;
 <a href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageListPop/label/{$label.pic_label}" title="{$label.pic_label}">{$label.pic_label}</a>
@@ -53,21 +53,21 @@
     <div class="imageListPreview">
     <img src="{$smarty.const._APP_URL_TMP}{$img.pic_preview}" title="{$img.pic_title}" alt="{$img.pic_title}" />
     </div>
-    {$lang.MOD.IMAGE.SIZE}: {$img.pic_width} x {$img.pic_height}
+    {$langAdm.MOD.IMAGE.SIZE}: {$img.pic_width} x {$img.pic_height}
     <br />
-    {$lang.MOD.IMAGE.TYPE}: {$img.pic_ext}
+    {$langAdm.MOD.IMAGE.TYPE}: {$img.pic_ext}
     <br />
     <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_thumb_new_form_{$img.pic_id}" id="{$smarty.const._APP_PRE}_thumb_new_form_{$img.pic_id}" action="" method="post">
     <input type="hidden" name="pic_id" id="pic_id" value="{$img.pic_id}" />
-    {$lang.MOD.THUMBNAIL.THUMB_SIZE}:
+    {$langAdm.MOD.THUMBNAIL.THUMB_SIZE}:
     <input class="thumb_size" type="text" name="thumb_size" id="thumb_size" maxlength="4" value="{$cnt.form.thumb_size}" />
     <br />
-    <input class="submit" type="submit" name="thumb_save" id="thumb_save" value="{$lang.MOD.THUMBNAIL.CREATE}" />
+    <input class="submit" type="submit" name="thumb_save" id="thumb_save" value="{$langAdm.MOD.THUMBNAIL.CREATE}" />
     </form>
     <br />
-    <a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.pic_id}/type/image" title="{$lang.MOD.ADMIN.DELETE}">{$lang.MOD.ADMIN.DELETE}</a>
+    <a class="actionButton" href="{$smarty.const._APP_URL}module/dbContentAdm/action/imageDelete/id/{$img.pic_id}/type/image" title="{$langAdm.MOD.ADMIN.DELETE}">{$langAdm.MOD.ADMIN.DELETE}</a>
     <br />
-    <a class="actionButton" href="JavaScript:addToFCK('{$smarty.const._APP_URL_IMG}{$img.pic_file}{$img.pic_ext}', '{$img.pic_width}', '{$img.pic_height}', '{$img.pic_title}')" title="{$lang.MOD.IMAGE.ADD_FCK}">{$lang.MOD.IMAGE.ADD_FCK}</a>
+    <a class="actionButton" href="JavaScript:addToFCK('{$smarty.const._APP_URL_IMG}{$img.pic_file}{$img.pic_ext}', '{$img.pic_width}', '{$img.pic_height}', '{$img.pic_title}')" title="{$langAdm.MOD.IMAGE.ADD_FCK}">{$langAdm.MOD.IMAGE.ADD_FCK}</a>
   </div>
 {/foreach}
 <div class="clearthis">&#160;</div>
@@ -79,9 +79,9 @@
 <form enctype="multipart/form-data" name="{$smarty.const._APP_PRE}_image_new_form" id="{$smarty.const._APP_PRE}_image_new_form" action="" method="post">
 <table class="imageUpload">
 <tr>
-  <td class="imageUpload_a">{$lang.MOD.IMAGE.IMAGE_LABEL}</td>
-  <td class="imageUpload_a">{$lang.MOD.IMAGE.IMAGE_TITLE}</td>
-  <td class="imageUpload_a">{$lang.MOD.IMAGE.IMAGE_FILE}</td>
+  <td class="imageUpload_a">{$langAdm.MOD.IMAGE.IMAGE_LABEL}</td>
+  <td class="imageUpload_a">{$langAdm.MOD.IMAGE.IMAGE_TITLE}</td>
+  <td class="imageUpload_a">{$langAdm.MOD.IMAGE.IMAGE_FILE}</td>
   <td class="imageUpload_a">&#160;</td>
 </tr>
 <tr>
@@ -97,7 +97,7 @@
   </td>
   <td class="imageUpload_a">&#160;</td>
   <td class="imageUpload_b">
-  <input class="submit" type="submit" name="image_save" id="image_save" value="{$lang.MOD.ADMIN.SAVE}" />
+  <input class="submit" type="submit" name="image_save" id="image_save" value="{$langAdm.MOD.ADMIN.SAVE}" />
   </td>  
 </tr>
 </table>

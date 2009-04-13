@@ -48,8 +48,8 @@ if(is_readable(_RW_DIR_LIB.'rw.inc.php')) {require_once(_RW_DIR_LIB.'rw.inc.php'
  */
 class app_Core extends rw_Core
 {
-public $intl = NULL;	
-/**
+	public $intl = NULL;
+	/**
 	 * Handle requests
 	 *
 	 * @return mixed content
@@ -201,11 +201,12 @@ public $intl = NULL;
 					 * Content administration
 					 */
 					return $this->_appProcessAdminContent();
-          break;
+					break;
 				}
 			default :
 				{
 					require_once(_APP_DIR_CNT.'404.inc.php');
+					$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 					return $cnt;
 				}
 		}
@@ -263,7 +264,7 @@ public $intl = NULL;
 				/**
 				 * Add module internationalization to the current one.
 				 */
-				require_once(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php');
+				require(_APP_DIR_MOD.$module.'/intl/'.$ln.'/lang.inc.php');
 			}
 			$this->lang = array_merge($this->lang, $modlang);
 			/**
@@ -271,17 +272,17 @@ public $intl = NULL;
 			 */
 			$lnAdm = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_adm_lang'] : _APP_LANG;
 			/**
-       * Check if module has it's own internationalization file corresponding to the current language.
-       */
+			 * Check if module has it's own internationalization file corresponding to the current language.
+			 */
 			$modlang = array();
-      if(is_file(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php'))
-      {
-        /**
-         * Add module internationalization to the current one.
-         */
-        require_once(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php');
-      }
-      $this->langAdm = array_merge($this->langAdm, $modlang);
+			if(is_file(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php'))
+			{
+				/**
+				 * Add module internationalization to the current one.
+				 */
+				require(_APP_DIR_MOD.$module.'/intl/'.$lnAdm.'/lang.inc.php');
+			}
+			$this->langAdm = array_merge($this->langAdm, $modlang);
 			/**
 			 * Load module
 			 */

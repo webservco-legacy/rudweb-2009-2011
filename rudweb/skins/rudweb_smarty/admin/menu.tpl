@@ -28,7 +28,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
 <div class="adminMenu"> 
-<a class="adminMenu1" href="{$smarty.const._APP_URL}module/dbContentAdm" title="{$lang.MOD.TITLE}">{$lang.MOD.TITLE}</a>
+<a class="adminMenu1" href="{$smarty.const._APP_URL}module/dbContentAdm" title="{$langAdm.MOD.TITLE}">{$langAdm.MOD.TITLE}</a>
 <br />
 {foreach from=$adminMenu item=link}
 &#160;&#160;<a class="adminMenu2" href="{$link.link}" title="{$link.title}">{$link.title}</a>
