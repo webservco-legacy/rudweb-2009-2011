@@ -154,6 +154,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		/**
 		 * Set page template vars
 		 */
+		$this->modCnt['id'] = $pg_id;
 		$this->modCnt['skin']['tpl'] = $r['pg_template'];
 		$this->modCnt['skin']['title'] = $r['pg_title'];
 		$this->modCnt['skin']['meta']['subject'] = $r['pg_dsc'] != '' ? $r['pg_dsc'] : $this->modCnt['skin']['meta']['subject'];
@@ -191,7 +192,6 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 				$i++;
 			}
 		}
-
 
 		return $this->modCnt;
 	}

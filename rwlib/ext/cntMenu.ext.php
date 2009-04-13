@@ -37,6 +37,12 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 {
 	/**
+	 * Current page id
+	 *
+	 * @var integer
+	 */
+	public $pg_id = 0;
+	/**
 	 * Constructor
 	 * Set extension information and call parent constructor
 	 *
@@ -63,8 +69,12 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 	 *
 	 * @return mixed result
 	 */
-	public function makeCntMenu($parent=0)
+	public function makeCntMenu($pg_id = 0, $parent=0)
 	{
+		/**
+		 * Set page id
+		 */
+		$this->pg_id = $pg_id;
 		/**
 		 * Initialize menu
 		 */
@@ -72,7 +82,7 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 		/**
 		 * Initialize menu data
 		 */
-		$menuData = array('items'=>array(), 'parents'=>array());
+		$menuData = array('items'=>array(), 'parents'=>array(), 'active'=>array());
 		/**
 		 * Get data from db
 		 */
@@ -85,6 +95,11 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 			 */
 			while($menuItem = $rs->dbFetchArray())
 			{
+				if($menuItem['pg_id'] == $this->pg_id)
+				{
+					$active = $this->_getActive($pg_id, TRUE);
+					$menuData['active'] = explode(',', $active);
+				}
 				$menuData['items'][$menuItem['pg_id']] = $menuItem;
 				$menuData['parents'][$menuItem['pg_parent']][] = $menuItem['pg_id'];
 			}
@@ -103,6 +118,45 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 		return $menu;
 	}
 	/**
+	 * Get active links for menu
+	 *
+	 * @param integer $pg_id id of current page
+	 * @param boolean $start if this is the first loop
+	 * @return string list of active pages
+	 */
+	private function _getActive($pg_id, $start=FALSE)
+	{
+		/**
+		 * Could not make this as an array :-(
+		 *
+		 * Initialize string
+		 */
+		$active = $start ? $pg_id : '';
+		/**
+		 * Get parent for current id
+		 */
+		$rs = $this->extDb->dbSelect('pg_parent', _APP_PRE.'_web_pages', "pg_id = '{$pg_id}'", NULL, NULL);
+		$t = $rs->dbNumRows();
+		if($t>0)
+		{
+			/**
+			 * If we got something, check to see if it's null (0)
+			 */
+			$parent = $rs->dbFetchArray();
+			if($parent['pg_parent'] != 0)
+			{
+				/**
+				 * We have a valid value
+				 * so we add it to the string and start/continue to loop.
+				 */
+				$active .= ',';
+				$active .= $parent['pg_parent'];
+				$active .= $this->_getActive($parent['pg_parent']);
+			}
+		}
+		return $active;
+	}
+	/**
 	 * Format menu data
 	 *
 	 * @param integer $parent parent id
@@ -116,31 +170,37 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 		{
 			$i = 1;
 			$list .= '<ul>';
-      foreach($data['parents'][$parent] as $itemId)
-      {
-      	$list .= '<li>';
-      	$list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$data['items'][$itemId]['pg_title'].'">';
-      	$list .= $data['items'][$itemId]['pg_title'];
-      	$list .= '</a>';
-      	$list .= '</li>';
-      	if($levels)
-      	{
-      		$list .= $this->_formatList($itemId, $data, TRUE);
-      	}
-      	$i++;
-      }
-      $list .= '</ul>';
+			foreach($data['parents'][$parent] as $itemId)
+			{
+				$list .= '<li class="';
+				if($data['items'][$itemId]['pg_id'] == $data['active'][0])
+				{
+					$list .= 'cntMenuActivePage';
+				}
+				else if(($data['items'][$itemId]['pg_id'] != $data['active'][0]) && in_array($data['items'][$itemId]['pg_id'], $data['active']))
+				{
+					$list .= 'cntMenuActiveParent';
+				}
+				else
+				{
+					$list .= 'cntMenu';
+				}
+				$list .= '">';
+				$list .= '<a href="'._APP_URL.'content/'.$data['items'][$itemId]['pg_id'].'-'.$data['items'][$itemId]['pg_alias'].'" title="'.$data['items'][$itemId]['pg_title'].'">';
+				$list .= $data['items'][$itemId]['pg_title'];
+				$list .= '</a>';
+				$list .= '</li>';
+				if($levels)
+				{
+					$list .= $this->_formatList($itemId, $data, TRUE);
+				}
+				$i++;
+			}
+			$list .= '</ul>';
 		}
 		$list .= '';
-		
+
 		return $list;
-		
-		/*
-		 echo '<pre>';
-		 print_r($menuData);
-		 trigger_error('xxx', E_USER_ERROR);
-		 */
-		//XXX
 	}
 }
 ?>

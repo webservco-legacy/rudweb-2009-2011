@@ -272,7 +272,10 @@ try
 	 * Initialize actual content
 	 */
 	$cnt1['cnt'] = array();
-
+	/**
+	 * Initialize content id
+	 */
+	$cnt1['id'] = 0;
 	/**
 	 * Page content
 	 */
@@ -305,7 +308,6 @@ try
 		/**
 		 * Dynamic content menu
 		 */
-		//
 		$atpl['menu']['vars']['cntMenu'] = NULL;
 		if(array_key_exists('cntMenu', $appCore->ext))
 		{
@@ -313,7 +315,7 @@ try
 			 * If extension is present, attempt to load dynamic menu
 			 */
 			$cntMenuObj = $appCore->rwActivateExt('cntMenu');
-			$atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu();
+			$atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu($cnt['id']);
 		}
 		/**
 		 * Actual content
