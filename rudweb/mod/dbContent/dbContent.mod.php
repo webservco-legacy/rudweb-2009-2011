@@ -120,9 +120,36 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
+			/**
+			 * Page doesn't exist for current language.
+			 * Check if page exist for another language.
+			 * If it does, switch language and continue.
+			 */
+			/**
+			 * Get language list
+			 */
+			$list     = $this->modAppCore->rwLsDir(_APP_DIR_LANG);
+			$langList = array_diff($list['d'], array($_SESSION[_APP_PRE.'_usr_lang']));
+			foreach($langList as $lang)
+			{
+				$rs2[$lang] = $this->modDb->dbSelect("pg_title, pg_alias, pg_kw, pg_dsc, pg_template", _APP_PRE.'_web_pages', "pg_id = '{$pg_id}' AND pg_ln = '$lang' AND pg_deleted = '0'", NULL, 1);
+				$t2[$lang] = $rs2[$lang]->dbNumRows();
+				if($t2[$lang] == 1)
+				{
+					/**
+					 * This page exists, but for a different language.
+					 * Do a redirect
+					 */
+					$r[$lang] = $rs2[$lang]->dbFetchArray();
+					$location = _APP_URL.'module/intl/action/setSession/ln/'.$lang.'/red/cnt/var/'.$pg_id.'-'.$r[$lang]['pg_alias'];
+					header("Location: ".$location);
+					exit;
+				}
+			}
 			return FALSE;
 		}
 		$r = $rs->dbFetchArray();
+
 		/**
 		 * Set page template vars
 		 */
@@ -163,6 +190,8 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 				$i++;
 			}
 		}
+
+
 		return $this->modCnt;
 	}
 }
