@@ -91,6 +91,11 @@
  *
  *error handler:
  *http://snippets.dzone.com/posts/show/1617
+ * 
+ * menu:
+ * http://pixelspread.com/blog/289/css-drop-down-menu
+ * ie6 fix for menu:
+ * http://www.xs4all.nl/~peterned/csshover.html
  *
  *$rs = $db->dbQuery("SELECT cod, descriere FROM tmp_asesoft_prod WHERE producator = 'TOSHIBA'");
  *list($cod, $descriere) = $rs->dbFetchRow();

@@ -82,6 +82,8 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		 * Call parent constructor
 		 */
 		parent::__construct($about, $cnt, $appCore);
+		$intl = $this->modAppCore->rwActivateExt('Intl');
+    $this->modCnt['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality

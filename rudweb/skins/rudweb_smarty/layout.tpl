@@ -66,6 +66,9 @@
   <meta name="robots" content="Index, Follow" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <link rel="stylesheet" type="text/css" charset="utf-8" href="{$app_skin_url}styles/style.css" />
+  <!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" charset="utf-8" href="{$app_skin_url}styles/styleIE.css" />
+  <![endif]-->
   <script type="text/javascript" src="{$app_skin_url}scripts/script.js"></script>
 </head>
 <body>
