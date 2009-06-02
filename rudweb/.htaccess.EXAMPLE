@@ -48,4 +48,7 @@ RewriteRule ^(.*)$ index.php/$1 [PT,L]
 # PHP security - disable register_globals
 php_value register_globals 0
 # PHP security - disable magic_quotes
-php_value magic_quotes_gpc 0 
+php_value magic_quotes_gpc 0
+
+# send the correct MIME type for htc files
+AddType text/x-component .htc
