@@ -30,6 +30,15 @@
  */
 
 /**
+ * Notes:
+ * 
+ * This is a raw extension tester.
+ * Do not delete until sucessfully implemented as a module, etc.
+ * 
+ * Currently it works on the delFD extension. 
+ */
+
+/**
  * Prevent unauthorized access to other files
  */
 define('_RW_VALID', TRUE);
