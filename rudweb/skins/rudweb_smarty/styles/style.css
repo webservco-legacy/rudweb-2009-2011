@@ -317,3 +317,9 @@ a:link.cntMenuLink, a:visited.cntMenuLink, a:hover.cntMenuLink, a:active.cntMenu
 /* MENU FONTS END */
 
 /* ********** ********** ********** ********** ********** MENU END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** ERROR START ********** ********** ********** ********** ********** */
+.err {font-size: 90%;}
+.err pre {font-family: Verdana, sans-serif; font-size: 80%;}
+.errtxt {color: #990000; text-align: center; background-color: #EEEEEE;}
+/* ********** ********** ********** ********** ********** ERROR END ********** ********** ********** ********** ********** */

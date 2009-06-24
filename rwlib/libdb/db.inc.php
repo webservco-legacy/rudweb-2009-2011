@@ -125,7 +125,12 @@ interface rw_iDB
 	 */
 	public function dbFetchArray($result);
 	/**
-	 * Test
+	 * Returns a query result
+	 *
+	 * @param mixed $result result object
+	 * @param int $row row number
+	 * @param int $field field number
+	 * @return mixed result
 	 */
 	public function dbFetchResult($result, $row, $field);
 	/**
@@ -243,7 +248,11 @@ class rw_DB_result
 		return $this->_dbObject->dbFetchArray($this->_result);
 	}
 	/**
-	 * Test
+	 * Returns a query result
+	 *
+	 * @param int $row row number
+	 * @param int $field field number
+	 * @return mixed result
 	 */
 	function dbFetchResult($row=0, $field=0)
 	{

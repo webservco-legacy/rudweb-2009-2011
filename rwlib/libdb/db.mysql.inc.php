@@ -59,14 +59,17 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	 */
 	function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName)
 	{
-		$link = mysql_connect($dbHost.':'.$dbPort, $dbUser, $dbPass);
-		if($link)
+		$link = @mysql_connect($dbHost.':'.$dbPort, $dbUser, $dbPass);
+		if(!$link)
 		{
-			mysql_select_db($dbName, $link);
-			$this->_connection = $link;
-			$this->dbQuery("SET NAMES 'utf8'", FALSE);
+			trigger_error('<u>Database Error</u>: Could not connect to Database Server.<br />Please check your connection settings.', E_USER_ERROR);
 		}
-		// else error
+		if(!mysql_select_db($dbName, $link))
+		{
+			trigger_error('<u>Database Error</u>: Could not open Database <b>'.$dbName.'</b>.<br />Please check that the specified database exists and that you have enough privileges to access it.', E_USER_ERROR);
+		}
+		$this->_connection = $link;
+		$this->dbQuery("SET NAMES 'utf8'", FALSE);
 	}
 	/**
 	 * Method for raw queries
@@ -82,6 +85,10 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 	{
 		$s = $stats ? microtime(TRUE) : 0;
 		$result = mysql_query($sql, $this->_connection);
+		if(!$result)
+		{
+			trigger_error('<u>Database Error</u>: '.mysql_error().' ('.mysql_errno().')');
+		}
 		$e = $stats ? microtime(TRUE) : 0;
 
 		if($stats) {
@@ -292,7 +299,12 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 		return mysql_fetch_array($result, MYSQL_ASSOC);
 	}
 	/**
-	 * Testing
+	 * Returns a query result
+	 *
+	 * @param mixed $result result object
+	 * @param int $row row number
+	 * @param int $field field number
+	 * @return mixed result
 	 */
 	function dbFetchResult($result, $row, $field)
 	{

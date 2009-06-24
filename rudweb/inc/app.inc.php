@@ -57,12 +57,22 @@ class app_Core extends rw_Core
 	public function appProcess()
 	{
 		/**
-		 * Open database connection, if enabled
+		 * Check if database is enabled
 		 */
 		if(_APP_CFG_DATABASE)
 		{
+			/**
+			 * Initiate database connection
+			 */
 			$db = $this->rwDbConnect();
+			/**
+			 * Set database object
+			 */
 			$this->rwDbSet($db);
+			/**
+			 * Perform database checks
+			 */
+			//$this->rwDbCheck();
 		}
 		/**
 		 * Initialize content
