@@ -61,31 +61,31 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		/**
 		 * These must be declared
 		 */
-		$cnt['skin'] = array();
-		$cnt['skin']['meta'] = array();
-		$cnt['cnt'] = array();
+		$out['skin'] = array();
+		$out['skin']['meta'] = array();
+		$out['cnt'] = array();
 		/**
-		 * Module default content
+		 * Module default output
 		 *
-		 * $cnt['type'] added by default in parent class
-		 * $cnt['skin']['dir'] added by default in parent class
-		 * $cnt['skin']['tpl'] added by default in parent class
-		 * $cnt['skin']['title'] added by default in parent class
-		 * $cnt['skin']['meta'] added by default in parent class
-		 * $cnt['skin']['lang'] added by default in parent class
-		 * $cnt['skin']['langAdm'] added by default in parent class
+		 * $out['type'] added by default in parent class
+		 * $out['skin']['dir'] added by default in parent class
+		 * $out['skin']['tpl'] added by default in parent class
+		 * $out['skin']['title'] added by default in parent class
+		 * $out['skin']['meta'] added by default in parent class
+		 * $out['skin']['lang'] added by default in parent class
+		 * $out['skin']['langAdm'] added by default in parent class
 		 */
-		$cnt['skin']['dir'] = '';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'blank';
-		$cnt['cnt']['content'] = array();
+		$out['skin']['dir'] = '';
+		$out['skin']['tpl'] = 'layout';
+		$out['cnt']['dir'] = 'content';
+		$out['cnt']['tpl'] = 'blank';
+		$out['cnt']['content'] = array();
 		/**
 		 * Call parent constructor
 		 */
-		parent::__construct($about, $cnt, $appCore);
+		parent::__construct($about, $out, $appCore);
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modCnt['skin']['langs'] = $intl->intlMenu();
+		$this->modOut['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality
@@ -94,7 +94,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		return $this->modCnt;
+		return $this->modOut;
 	}
 	/**
 	 * Set language for current session.
@@ -251,7 +251,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	}
 	/**
 	 * Set language for user.
-	 * Needs user and database functinality
+	 * Needs user and database functionality
 	 * //XXX
 	 * public function setUser()
 	 *

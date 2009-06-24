@@ -45,25 +45,25 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class app_Viewer
 {
-	public $cnt = array();
+	public $out = array();
 	public $atpl = array();
-	public function __construct($cnt, $atpl=array())
+	public function __construct($out, $atpl=array())
 	{
-		$this->cnt = $cnt;
+		$this->out = $out;
 		$this->atpl = $atpl;
 	}
 	public function _display()
 	{
-		switch($this->cnt['type'])
+		switch($this->out['type'])
 		{
 			case 'text' :
 				{
-					$this->_displayText($this->cnt['skin'], $this->atpl);
+					$this->_displayText($this->out['skin'], $this->atpl);
 					break;
 				}
 			case 'image' :
 				{
-					$this->_displayImage($this->cnt['image']);
+					$this->_displayImage($this->out['image']);
 					break;
 				}
 			default :

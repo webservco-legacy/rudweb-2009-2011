@@ -95,7 +95,7 @@
     
     <div id="left1">
       <div id="left">
-        {$menu}
+        {$header}
       </div>
     </div>
     

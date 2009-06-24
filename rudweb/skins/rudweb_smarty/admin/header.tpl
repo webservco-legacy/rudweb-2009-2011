@@ -2,13 +2,13 @@
  * $Id$
  *
  * $URL$
- * <BR>Menu template
+ * <BR>Header template
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-02-13 09:23:00
+ * @since      2009-02-13 16:23:00
  * @access     public
  * @package    RudWEb
  * @subpackage Skins
@@ -27,10 +27,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *}
-{if $cntMenu != ''}
-<div class="cntMenuContainer">
-<div class="cntMenu">
-{$cntMenu}
+<div class="adminMenu"> 
+<a class="adminMenu1" href="{$smarty.const._APP_URL}module/dbContentAdm" title="{$langAdm.MOD.TITLE}">{$langAdm.MOD.TITLE}</a>
+<br />
+{foreach from=$adminMenu item=link}
+&#160;&#160;<a class="adminMenu2" href="{$link.link}" title="{$link.title}">{$link.title}</a>
+<br />
+{/foreach}
 </div>
-</div>
-{/if}

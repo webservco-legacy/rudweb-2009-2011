@@ -71,29 +71,29 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * These must be declared
 		 */
-		$cnt['skin'] = array();
-		$cnt['skin']['meta'] = array();
-		$cnt['cnt'] = array();
+		$out['skin'] = array();
+		$out['skin']['meta'] = array();
+		$out['cnt'] = array();
 		/**
 		 * Module default content
 		 *
-		 * $cnt['type'] added by default in parent class
-		 * $cnt['skin']['dir'] added by default in parent class
-		 * $cnt['skin']['tpl'] added by default in parent class
-		 * $cnt['skin']['title'] added by default in parent class
-		 * $cnt['skin']['meta'] added by default in parent class
-		 * $cnt['skin']['lang'] added by default in parent class
-		 * $cnt['skin']['langAdm'] added by default in parent class
+		 * $out['type'] added by default in parent class
+		 * $out['skin']['dir'] added by default in parent class
+		 * $out['skin']['tpl'] added by default in parent class
+		 * $out['skin']['title'] added by default in parent class
+		 * $out['skin']['meta'] added by default in parent class
+		 * $out['skin']['lang'] added by default in parent class
+		 * $out['skin']['langAdm'] added by default in parent class
 		 */
-		$cnt['skin']['dir'] = 'admin';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'blank';
-		$cnt['cnt']['content'] = array();
+		$out['skin']['dir'] = 'admin';
+		$out['skin']['tpl'] = 'layout';
+		$out['cnt']['dir'] = 'content';
+		$out['cnt']['tpl'] = 'blank';
+		$out['cnt']['content'] = array();
 		/**
 		 * Call parent constructor
 		 */
-		parent::__construct($about, $cnt, $appCore);
+		parent::__construct($about, $out, $appCore);
 		$this->_makeMenu();
 
 		$intl = $this->modAppCore->rwActivateExt('Intl');
@@ -101,9 +101,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * Override title in the parent class
 		 * because we need it to be for admin.
 		 */
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'];
-		$this->modCnt['skin']['langs'] = $intl->intlMenu('adm');
-		$this->modCnt['cnt']['content']['langsCnt'] = $intl->intlMenu('cnt');
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'];
+		$this->modOut['skin']['langs'] = $intl->intlMenu('adm');
+		$this->modOut['cnt']['content']['langsCnt'] = $intl->intlMenu('cnt');
 	}
 	/**
 	 * Default module functionality
@@ -119,7 +119,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -141,8 +141,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Authorization ok, proceed.
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'pageList';
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADMIN'];
+			$this->modOut['cnt']['tpl'] = 'pageList';
 			/**
 			 * Prepare pages array
 			 */
@@ -175,8 +175,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$pageData['parents'][$pageItem['pg_parent']][] = $pageItem['pg_id'];
 				}
 			}
-			$this->modCnt['cnt']['content']['page_list'] = $this->_formatPages(0, $pageData);
-			return $this->modCnt;
+			$this->modOut['cnt']['content']['page_list'] = $this->_formatPages(0, $pageData);
+			return $this->modOut;
 		}
 	}
 	/**
@@ -217,14 +217,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Authorization ok, proceed.
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADD'];
-			$this->modCnt['cnt']['tpl'] = 'pageAdd';
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADD'];
+			$this->modOut['cnt']['tpl'] = 'pageAdd';
 			/**
 			 * Get data
 			 */
 			$rs = $this->modDb->dbSelect('pg_order, pg_title', _APP_PRE.'_web_pages', "pg_ln = '{$_SESSION[_APP_PRE.'_cnt_lang']}' AND pg_deleted = '0' AND pg_parent = '{$pg_parent}'", 'pg_parent, pg_order, pg_title', NULL);
 			$t = $rs->dbNumRows();
-			$this->modCnt['cnt']['content']['page_list_add'] = array();
+			$this->modOut['cnt']['content']['page_list_add'] = array();
 			if($t>0)
 			{
 				while($pageItem = $rs->dbFetchArray())
@@ -232,11 +232,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Content items
 					 */
-					$this->modCnt['cnt']['content']['page_list_add'][] = $pageItem;
+					$this->modOut['cnt']['content']['page_list_add'][] = $pageItem;
 				}
 			}
-			$this->modCnt['cnt']['content']['page_parent'] = $pg_parent;
-			return $this->modCnt;
+			$this->modOut['cnt']['content']['page_parent'] = $pg_parent;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -262,14 +262,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, when form is not submitted
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADD'];
-			$this->modCnt['cnt']['tpl'] = 'pageNew';
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['ADD'];
+			$this->modOut['cnt']['tpl'] = 'pageNew';
 
-			$this->modCnt['cnt']['content']['page_title'] = '';
-			$this->modCnt['cnt']['content']['page_kw'] = '';
-			$this->modCnt['cnt']['content']['page_dsc'] = '';
-			$this->modCnt['cnt']['content']['page_template'] = 'layout';
-			$this->modCnt['cnt']['content']['page_err'] = array();
+			$this->modOut['cnt']['content']['page_title'] = '';
+			$this->modOut['cnt']['content']['page_kw'] = '';
+			$this->modOut['cnt']['content']['page_dsc'] = '';
+			$this->modOut['cnt']['content']['page_template'] = 'layout';
+			$this->modOut['cnt']['content']['page_err'] = array();
 			/**
 			 * If form is sent, process request
 			 */
@@ -296,12 +296,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Errors occured
 					 */
-					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : '';
-					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : '';
-					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : '';
-					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : '';
-					$this->modCnt['cnt']['content']['page_err'] = $err;
-					return $this->modCnt;
+					$this->modOut['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : '';
+					$this->modOut['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : '';
+					$this->modOut['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : '';
+					$this->modOut['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : '';
+					$this->modOut['cnt']['content']['page_err'] = $err;
+					return $this->modOut;
 				}
 				else
 				{
@@ -353,7 +353,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * No post, initial view
 				 */
-				return $this->modCnt;
+				return $this->modOut;
 			}
 		}
 	}
@@ -398,9 +398,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['EDIT'];
-			$this->modCnt['cnt']['tpl'] = 'pageEdit';
-			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['EDIT'];
+			$this->modOut['cnt']['tpl'] = 'pageEdit';
+			$this->modOut['cnt']['content']['page_id'] = $pg_id;
 			/**
 			 * Page data
 			 */
@@ -411,11 +411,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				trigger_error("page doesn't exist", E_USER_ERROR);
 			}
 			$r = $rs->dbFetchArray();
-			$this->modCnt['cnt']['content']['page_title'] = $r['pg_title'];
-			$this->modCnt['cnt']['content']['page_kw'] = $r['pg_kw'];
-			$this->modCnt['cnt']['content']['page_dsc'] = $r['pg_dsc'];
-			$this->modCnt['cnt']['content']['page_template'] = $r['pg_template'];
-			$this->modCnt['cnt']['content']['page_err'] = array();
+			$this->modOut['cnt']['content']['page_title'] = $r['pg_title'];
+			$this->modOut['cnt']['content']['page_kw'] = $r['pg_kw'];
+			$this->modOut['cnt']['content']['page_dsc'] = $r['pg_dsc'];
+			$this->modOut['cnt']['content']['page_template'] = $r['pg_template'];
+			$this->modOut['cnt']['content']['page_err'] = array();
 			/**
 			 * Page content
 			 */
@@ -428,7 +428,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				{
 					$page_content[] = $rc;
 				}
-				$this->modCnt['cnt']['content']['page_content'] = $page_content;
+				$this->modOut['cnt']['content']['page_content'] = $page_content;
 			}
 			/**
 			 * If form is sent, process request
@@ -456,12 +456,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Errors occured
 					 */
-					$this->modCnt['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : $r['pg_title'];
-					$this->modCnt['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : $r['pg_kw'];
-					$this->modCnt['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : $r['pg_dsc'];
-					$this->modCnt['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : $r['pg_template'];
-					$this->modCnt['cnt']['content']['page_err'] = $err;
-					return $this->modCnt;
+					$this->modOut['cnt']['content']['page_title'] = isset($_POST['pg_title']) ? $_POST['pg_title'] : $r['pg_title'];
+					$this->modOut['cnt']['content']['page_kw'] = isset($_POST['pg_kw']) ? $_POST['pg_kw'] : $r['pg_kw'];
+					$this->modOut['cnt']['content']['page_dsc'] = isset($_POST['pg_dsc']) ? $_POST['pg_dsc'] : $r['pg_dsc'];
+					$this->modOut['cnt']['content']['page_template'] = isset($_POST['pg_template']) ? $_POST['pg_template'] : $r['pg_template'];
+					$this->modOut['cnt']['content']['page_err'] = $err;
+					return $this->modOut;
 				}
 				else
 				{
@@ -501,7 +501,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * No post, normal view
 				 */
-				return $this->modCnt;
+				return $this->modOut;
 			}
 		}
 	}
@@ -544,9 +544,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Everything is ok, proceed.
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['DELETE'];
-			$this->modCnt['cnt']['content']['page_id'] = $pg_id;
-			$this->modCnt['cnt']['content']['page_title'] = $pg_title;
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['PAGE']['DELETE'];
+			$this->modOut['cnt']['content']['page_id'] = $pg_id;
+			$this->modOut['cnt']['content']['page_title'] = $pg_title;
 			/**
 			 * Check if page contains other pages
 			 */
@@ -554,13 +554,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$tc = $rc->dbNumRows();
 			if($tc > 0)
 			{
-				$this->modCnt['cnt']['tpl'] = 'pageDeleteDenied';
-				return $this->modCnt;
+				$this->modOut['cnt']['tpl'] = 'pageDeleteDenied';
+				return $this->modOut;
 			}
 			/**
 			 * Ok to go forward, set template.
 			 */
-			$this->modCnt['cnt']['tpl'] = 'pageDelete';
+			$this->modOut['cnt']['tpl'] = 'pageDelete';
 			/**
 			 * If user is sure to delete, do it
 			 */
@@ -598,7 +598,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Display are you sure message
 				 */
-				return $this->modCnt;
+				return $this->modOut;
 			}
 		}
 	}
@@ -829,27 +829,27 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['THUMBNAIL']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'thumbnailList';
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['THUMBNAIL']['ADMIN'];
+			$this->modOut['cnt']['tpl'] = 'thumbnailList';
 			if($pop)
 			{
-				$this->modCnt['skin']['tpl'] = 'layoutPop';
-				$this->modCnt['cnt']['tpl'] = 'thumbnailListPop';
+				$this->modOut['skin']['tpl'] = 'layoutPop';
+				$this->modOut['cnt']['tpl'] = 'thumbnailListPop';
 			}
-			$this->modCnt['cnt']['content']['thumb_label'] = $thumb_label;
-			$this->modCnt['cnt']['content']['thumb_list'] = array();
+			$this->modOut['cnt']['content']['thumb_label'] = $thumb_label;
+			$this->modOut['cnt']['content']['thumb_list'] = array();
 
 			/**
 			 * Get all labels
 			 */
 			$rl = $this->modDb->dbSelect('DISTINCT thumb_label', _APP_PRE.'_web_thumbs', "thumb_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND thumb_deleted = '0'", NULL, NULL);
 			$tl = $rl->dbNumRows();
-			$this->modCnt['cnt']['content']['thumb_labels'] = array();
+			$this->modOut['cnt']['content']['thumb_labels'] = array();
 			if($tl>0)
 			{
 				while($r = $rl->dbFetchArray())
 				{
-					$this->modCnt['cnt']['content']['thumb_labels'][] = $r;
+					$this->modOut['cnt']['content']['thumb_labels'][] = $r;
 				}
 			}
 			/**
@@ -874,9 +874,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$r['thumb_preview'] = $thumb->thumb(_APP_DIR_THUMB.$r['thumb_file'].$r['thumb_ext']);
 					$thumb_list[] = $r;
 				}
-				$this->modCnt['cnt']['content']['thumb_list'] = $thumb_list;
+				$this->modOut['cnt']['content']['thumb_list'] = $thumb_list;
 			}
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -913,26 +913,26 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Default values, if no form is processed
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['IMAGE']['ADMIN'];
-			$this->modCnt['cnt']['tpl'] = 'imageList';
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['IMAGE']['ADMIN'];
+			$this->modOut['cnt']['tpl'] = 'imageList';
 			if($pop)
 			{
-				$this->modCnt['skin']['tpl'] = 'layoutPop';
-				$this->modCnt['cnt']['tpl'] = 'imageListPop';
+				$this->modOut['skin']['tpl'] = 'layoutPop';
+				$this->modOut['cnt']['tpl'] = 'imageListPop';
 			}
-			$this->modCnt['cnt']['content']['pic_label'] = $pic_label;
-			$this->modCnt['cnt']['content']['pic_list'] = array();
-			$this->modCnt['cnt']['content']['form']['thumb_size'] = '150';
-			$this->modCnt['cnt']['content']['form']['pic_label'] = 'pictures';
-			$this->modCnt['cnt']['content']['form']['pic_title'] = '';
-			$this->modCnt['cnt']['content']['form_err'] = array();
+			$this->modOut['cnt']['content']['pic_label'] = $pic_label;
+			$this->modOut['cnt']['content']['pic_list'] = array();
+			$this->modOut['cnt']['content']['form']['thumb_size'] = '150';
+			$this->modOut['cnt']['content']['form']['pic_label'] = 'pictures';
+			$this->modOut['cnt']['content']['form']['pic_title'] = '';
+			$this->modOut['cnt']['content']['form_err'] = array();
 			/**
 			 * POST Content-length PHP "bug"
 			 */
 			$error = function_exists('error_get_last') ? error_get_last() : NULL;
 			if(is_array($error) && (FALSE !== strpos($error['message'], 'POST Content-Length of')))
 			{
-				$this->modCnt['cnt']['content']['form_err'][] = $this->modLangAdm['FORM']['FILE_ERR'].$this->modLangAdm['MOD']['IMAGE']['IMAGE_FILE'].$this->modLangAdm['FORM']['FILE_1'];
+				$this->modOut['cnt']['content']['form_err'][] = $this->modLangAdm['FORM']['FILE_ERR'].$this->modLangAdm['MOD']['IMAGE']['IMAGE_FILE'].$this->modLangAdm['FORM']['FILE_1'];
 			}
 			/**
 			 * Process thumbnail creation form
@@ -1023,8 +1023,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Errors occured
 					 */
-					$this->modCnt['cnt']['content']['form']['thumb_size'] = isset($_POST['thumb_size']) ? $_POST['thumb_size'] : '150';
-					$this->modCnt['cnt']['content']['form_err'] = $errForm;
+					$this->modOut['cnt']['content']['form']['thumb_size'] = isset($_POST['thumb_size']) ? $_POST['thumb_size'] : '150';
+					$this->modOut['cnt']['content']['form_err'] = $errForm;
 				}
 			}
 			/**
@@ -1095,9 +1095,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					/**
 					 * Errors occured
 					 */
-					$this->modCnt['cnt']['content']['form']['pic_label'] = isset($_POST['pic_label']) ? $_POST['pic_label'] : 'pictures';
-					$this->modCnt['cnt']['content']['form']['pic_title'] = isset($_POST['pic_title']) ? $_POST['pic_title'] : '';
-					$this->modCnt['cnt']['content']['form_err'] = $err;
+					$this->modOut['cnt']['content']['form']['pic_label'] = isset($_POST['pic_label']) ? $_POST['pic_label'] : 'pictures';
+					$this->modOut['cnt']['content']['form']['pic_title'] = isset($_POST['pic_title']) ? $_POST['pic_title'] : '';
+					$this->modOut['cnt']['content']['form_err'] = $err;
 				}
 			}
 			/**
@@ -1105,12 +1105,12 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			 */
 			$rl = $this->modDb->dbSelect('DISTINCT pic_label', _APP_PRE.'_web_pictures', "pic_group = '{$_SESSION[_APP_PRE.'_usr_grp']}' AND pic_deleted = '0'", NULL);
 			$tl = $rl->dbNumRows();
-			$this->modCnt['cnt']['content']['pic_labels'] = array();
+			$this->modOut['cnt']['content']['pic_labels'] = array();
 			if($tl>0)
 			{
 				while($r = $rl->dbFetchArray())
 				{
-					$this->modCnt['cnt']['content']['pic_labels'][] = $r;
+					$this->modOut['cnt']['content']['pic_labels'][] = $r;
 				}
 			}
 			/**
@@ -1134,9 +1134,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$r['pic_preview'] = $thumb->thumb(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']);
 					$pic_list[] = $r;
 				}
-				$this->modCnt['cnt']['content']['pic_list'] = $pic_list;
+				$this->modOut['cnt']['content']['pic_list'] = $pic_list;
 			}
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	public function imageDelete()
@@ -1218,11 +1218,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Everything is ok, proceed.
 			 */
-			$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['IMAGE']['DELETE'];
-			$this->modCnt['cnt']['content']['image_id']    = $img_id;
-			$this->modCnt['cnt']['content']['image_title'] = $img_title;
-			$this->modCnt['cnt']['content']['image_label'] = $img_label;
-			$this->modCnt['cnt']['content']['image_type']  = $img_type;
+			$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['IMAGE']['DELETE'];
+			$this->modOut['cnt']['content']['image_id']    = $img_id;
+			$this->modOut['cnt']['content']['image_title'] = $img_title;
+			$this->modOut['cnt']['content']['image_label'] = $img_label;
+			$this->modOut['cnt']['content']['image_type']  = $img_type;
 			/**
 			 * Check if image is used in content
 			 */
@@ -1230,14 +1230,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$tc = $rc->dbNumRows();
 			if($tc > 0)
 			{
-				$this->modCnt['cnt']['content']['items'] = $tc;
-				$this->modCnt['cnt']['tpl'] = 'imageDeleteDenied';
-				return $this->modCnt;
+				$this->modOut['cnt']['content']['items'] = $tc;
+				$this->modOut['cnt']['tpl'] = 'imageDeleteDenied';
+				return $this->modOut;
 			}
 			/**
 			 * Ok to go forward, set template.
 			 */
-			$this->modCnt['cnt']['tpl'] = 'imageDelete';
+			$this->modOut['cnt']['tpl'] = 'imageDelete';
 			/**
 			 * If user is sure to delete, do it
 			 */
@@ -1281,7 +1281,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Display are you sure message
 				 */
-				return $this->modCnt;
+				return $this->modOut;
 			}
 		}
 	}
@@ -1319,9 +1319,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was added, go back to resource list
 						 */
-						$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['ADD_OK'];
+						$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['ADD_OK'];
 
-						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
+						$this->modOut['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1331,14 +1331,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
-						$this->modCnt['cnt']['content']['link'][1]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
+						$this->modOut['cnt']['content']['link'][1]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['EDIT'];
+						$this->modOut['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 						break;
 					}
 				case 'edit' :
@@ -1346,9 +1346,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was edited, go back to edited resource
 						 */
-						$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['EDIT_OK'];
+						$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['EDIT_OK'];
 
-						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
+						$this->modOut['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1358,14 +1358,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
-						$this->modCnt['cnt']['content']['link'][1]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['EDIT'];
-						$this->modCnt['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
+						$this->modOut['cnt']['content']['link'][1]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['EDIT'];
+						$this->modOut['cnt']['content']['link'][1]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'Edit/id/'.$_GET['id'];
 
 						break;
 					}
@@ -1374,9 +1374,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						/**
 						 * Data was removed, go back to resource list
 						 */
-						$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['REMOVE_OK'];
+						$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['FORM']['REMOVE_OK'];
 
-						$this->modCnt['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
+						$this->modOut['cnt']['content']['link'][0]['return_title'] = $this->modLangAdm['MOD'][$res_intl]['ADMIN'];
 						if($_GET['resource'] == 'content')
 						{
 							$ri = $this->modDb->dbSelect('pg_id', _APP_PRE.'_web_content', "cnt_id = '{$_GET['id']}'", NULL, 1);
@@ -1386,11 +1386,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 							{
 								$pg_id = $ri->dbFetchResult();
 							}
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/pageEdit/id/'.$pg_id;
 						}
 						else
 						{
-							$this->modCnt['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
+							$this->modOut['cnt']['content']['link'][0]['return_link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/'.$_GET['resource'].'List';
 						}
 
 						break;
@@ -1401,8 +1401,8 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 						break;
 					}
 			}
-			$this->modCnt['cnt']['tpl'] = 'actionOk';
-			return $this->modCnt;
+			$this->modOut['cnt']['tpl'] = 'actionOk';
+			return $this->modOut;
 		}
 		else
 		{
@@ -1419,10 +1419,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		if(isset($_SESSION[_APP_PRE.'_token']))
 		{
 			$captchaObj = $this->modAppCore->rwActivateExt('Captcha');
-			$this->modCnt['type'] = 'image';
-			$this->modCnt['image'] = $captchaObj->display();
+			$this->modOut['type'] = 'image';
+			$this->modOut['image'] = $captchaObj->display();
 
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1437,18 +1437,18 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * Default values, when form is not submitted
 		 */
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['ADD'];
-		$this->modCnt['cnt']['tpl'] = 'htmlNew';
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['ADD'];
+		$this->modOut['cnt']['tpl'] = 'htmlNew';
 
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
-		$this->modCnt['cnt']['content']['cnt_body'] = '';
-		$this->modCnt['cnt']['content']['cnt_template'] = 'cntHTML';
-		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['cnt']['content']['cnt_body'] = '';
+		$this->modOut['cnt']['content']['cnt_template'] = 'cntHTML';
+		$this->modOut['cnt']['content']['cnt_err'] = array();
 		/**
 		 * Rich text editor to use
 		 * FCKeditor, TinyMCE, or blank
 		 */
-		$this->modCnt['cnt']['content']['rte'] = 'FCKeditor';
+		$this->modOut['cnt']['content']['rte'] = 'FCKeditor';
 		/**
 		 * If form is sent, process request
 		 */
@@ -1476,10 +1476,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Errors occured
 				 */
-				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
-				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
-				$this->modCnt['cnt']['content']['cnt_err'] = $err;
-				return $this->modCnt;
+				$this->modOut['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
+				$this->modOut['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
+				$this->modOut['cnt']['content']['cnt_err'] = $err;
+				return $this->modOut;
 			}
 			else
 			{
@@ -1526,7 +1526,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * No post, initial view
 			 */
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1538,10 +1538,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _htmlEdit($pg_id, $cnt_id)
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['EDIT'];
-		$this->modCnt['cnt']['tpl'] = 'htmlEdit';
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
-		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['EDIT'];
+		$this->modOut['cnt']['tpl'] = 'htmlEdit';
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['cnt']['content']['cnt_id'] = $cnt_id;
 		/**
 		 * Content data
 		 */
@@ -1552,14 +1552,14 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			trigger_error("content doesn't exist", E_USER_ERROR);
 		}
 		$r = $rs->dbFetchArray();
-		$this->modCnt['cnt']['content']['cnt_body'] = $r['cnt_body'];
-		$this->modCnt['cnt']['content']['cnt_template'] = $r['cnt_template'];
-		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		$this->modOut['cnt']['content']['cnt_body'] = $r['cnt_body'];
+		$this->modOut['cnt']['content']['cnt_template'] = $r['cnt_template'];
+		$this->modOut['cnt']['content']['cnt_err'] = array();
 		/**
 		 * Rich text editor to use
 		 * FCKeditor, TinyMCE, or blank
 		 */
-		$this->modCnt['cnt']['content']['rte'] = 'FCKeditor';
+		$this->modOut['cnt']['content']['rte'] = 'FCKeditor';
 
 		if(isset($_POST['cnt_id']) && ($_POST['cnt_id'] == $cnt_id))
 		{
@@ -1582,10 +1582,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Errors occured
 				 */
-				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : $r['cnt_body'];
-				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : $r['cnt_template'];
-				$this->modCnt['cnt']['content']['cnt_err'] = $err;
-				return $this->modCnt;
+				$this->modOut['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : $r['cnt_body'];
+				$this->modOut['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : $r['cnt_template'];
+				$this->modOut['cnt']['content']['cnt_err'] = $err;
+				return $this->modOut;
 			}
 			/**
 			 * Additional data for the db
@@ -1618,7 +1618,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1630,11 +1630,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _htmlDelete($cnt_id, $pg_id)
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['DELETE'];
-		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['DELETE'];
+		$this->modOut['cnt']['content']['cnt_id'] = $cnt_id;
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
 
-		$this->modCnt['cnt']['tpl'] = 'contentDelete';
+		$this->modOut['cnt']['tpl'] = 'contentDelete';
 
 		$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
 		if($delete)
@@ -1660,7 +1660,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Display message
 			 */
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1675,13 +1675,13 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		/**
 		 * Default values, when form is not submitted
 		 */
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['ADD'];
-		$this->modCnt['cnt']['tpl'] = 'textNew';
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['ADD'];
+		$this->modOut['cnt']['tpl'] = 'textNew';
 
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
-		$this->modCnt['cnt']['content']['cnt_body'] = '';
-		$this->modCnt['cnt']['content']['cnt_template'] = 'cntText';
-		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['cnt']['content']['cnt_body'] = '';
+		$this->modOut['cnt']['content']['cnt_template'] = 'cntText';
+		$this->modOut['cnt']['content']['cnt_err'] = array();
 		/**
 		 * If form is sent, process request
 		 */
@@ -1709,10 +1709,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Errors occured
 				 */
-				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
-				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
-				$this->modCnt['cnt']['content']['cnt_err'] = $err;
-				return $this->modCnt;
+				$this->modOut['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : '';
+				$this->modOut['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : '';
+				$this->modOut['cnt']['content']['cnt_err'] = $err;
+				return $this->modOut;
 			}
 			else
 			{
@@ -1759,7 +1759,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * No post, initial view
 			 */
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1771,10 +1771,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _textEdit($pg_id, $cnt_id)
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['EDIT'];
-		$this->modCnt['cnt']['tpl'] = 'textEdit';
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
-		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['EDIT'];
+		$this->modOut['cnt']['tpl'] = 'textEdit';
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['cnt']['content']['cnt_id'] = $cnt_id;
 		/**
 		 * Content data
 		 */
@@ -1785,9 +1785,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			trigger_error("content doesn't exist", E_USER_ERROR);
 		}
 		$r = $rs->dbFetchArray();
-		$this->modCnt['cnt']['content']['cnt_body'] = $r['cnt_body'];
-		$this->modCnt['cnt']['content']['cnt_template'] = $r['cnt_template'];
-		$this->modCnt['cnt']['content']['cnt_err'] = array();
+		$this->modOut['cnt']['content']['cnt_body'] = $r['cnt_body'];
+		$this->modOut['cnt']['content']['cnt_template'] = $r['cnt_template'];
+		$this->modOut['cnt']['content']['cnt_err'] = array();
 		if(isset($_POST['cnt_id']) && ($_POST['cnt_id'] == $cnt_id))
 		{
 			/**
@@ -1809,10 +1809,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				/**
 				 * Errors occured
 				 */
-				$this->modCnt['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : $r['cnt_body'];
-				$this->modCnt['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : $r['cnt_template'];
-				$this->modCnt['cnt']['content']['cnt_err'] = $err;
-				return $this->modCnt;
+				$this->modOut['cnt']['content']['cnt_body'] = isset($_POST['cnt_body']) ? $_POST['cnt_body'] : $r['cnt_body'];
+				$this->modOut['cnt']['content']['cnt_template'] = isset($_POST['cnt_template']) ? $_POST['cnt_template'] : $r['cnt_template'];
+				$this->modOut['cnt']['content']['cnt_err'] = $err;
+				return $this->modOut;
 			}
 			/**
 			 * Additional data for the db
@@ -1845,7 +1845,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		}
 		else
 		{
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -1857,11 +1857,11 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	 */
 	private function _textDelete($cnt_id, $pg_id)
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['DELETE'];
-		$this->modCnt['cnt']['content']['cnt_id'] = $cnt_id;
-		$this->modCnt['cnt']['content']['pg_id'] = $pg_id;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['MOD']['CONTENT']['DELETE'];
+		$this->modOut['cnt']['content']['cnt_id'] = $cnt_id;
+		$this->modOut['cnt']['content']['pg_id'] = $pg_id;
 
-		$this->modCnt['cnt']['tpl'] = 'contentDelete';
+		$this->modOut['cnt']['tpl'] = 'contentDelete';
 
 		$delete = (isset($_GET['delete']) && $_GET['delete'] == 'true') ? TRUE : FALSE;
 		if($delete)
@@ -1887,7 +1887,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			/**
 			 * Display message
 			 */
-			return $this->modCnt;
+			return $this->modOut;
 		}
 	}
 	/**
@@ -2217,25 +2217,25 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	/**
 	 * Authorization - login page
 	 *
-	 * @return mixed modCnt content
+	 * @return mixed modOut output
 	 */
 	private function _authLogin()
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['AUTH']['LOGIN_TT'];
-		$this->modCnt['cnt']['tpl'] = 'login';
-		$this->modCnt['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
-		return $this->modCnt;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['AUTH']['LOGIN_TT'];
+		$this->modOut['cnt']['tpl'] = 'login';
+		$this->modOut['cnt']['content']['captcha'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/captcha.png';
+		return $this->modOut;
 	}
 	/**
 	 * Authorization - access denied
 	 *
-	 * @return mixed modCnt content
+	 * @return mixed modOut output
 	 */
 	private function _authDenied()
 	{
-		$this->modCnt['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['AUTH']['DENIED_TT'];
-		$this->modCnt['cnt']['tpl'] = 'denied';
-		return $this->modCnt;
+		$this->modOut['skin']['title'] = $this->modLangAdm['MOD']['TITLE'] . ' - ' . $this->modLangAdm['AUTH']['DENIED_TT'];
+		$this->modOut['cnt']['tpl'] = 'denied';
+		return $this->modOut;
 	}
 	/**
 	 * Create administration menu
@@ -2245,15 +2245,15 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 	private function _makeMenu()
 	{
 		/**
-		 * Menu
+		 * Header
 		 */
-		$this->modCnt['atpl']['menu'] = array();
-		$this->modCnt['atpl']['menu']['dir'] = '';
-		$this->modCnt['atpl']['menu']['tpl'] = 'menu';
-		$this->modCnt['atpl']['menu']['vars'] = array();
-		$this->modCnt['atpl']['menu']['vars']['lang'] = $this->modAppCore->rwLang();
-		$this->modCnt['atpl']['menu']['vars']['langAdm'] = $this->modAppCore->rwLangAdm();
-		$this->modCnt['atpl']['menu']['vars']['adminMenu'] = array();
+		$this->modOut['atpl']['header'] = array();
+		$this->modOut['atpl']['header']['dir'] = '';
+		$this->modOut['atpl']['header']['tpl'] = 'header';
+		$this->modOut['atpl']['header']['vars'] = array();
+		$this->modOut['atpl']['header']['vars']['lang'] = $this->modAppCore->rwLang();
+		$this->modOut['atpl']['header']['vars']['langAdm'] = $this->modAppCore->rwLangAdm();
+		$this->modOut['atpl']['header']['vars']['adminMenu'] = array();
 
 		$auth = $this->_authVerify(2);
 		if($auth !== 'ok')
@@ -2278,7 +2278,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$adminMenu[2]['link'] = _APP_URL.'module/'.$this->modAbout['name'].'/action/thumbnailList';
 			$adminMenu[2]['title'] = $this->modLangAdm['MOD']['THUMBNAIL']['ADMIN'];
 
-			$this->modCnt['atpl']['menu']['vars']['adminMenu'] = $adminMenu;
+			$this->modOut['atpl']['menu']['vars']['adminMenu'] = $adminMenu;
 
 			return true;
 		}

@@ -69,31 +69,31 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		/**
 		 * These must be declared
 		 */
-		$cnt['skin'] = array();
-		$cnt['skin']['meta'] = array();
-		$cnt['cnt'] = array();
+		$out['skin'] = array();
+		$out['skin']['meta'] = array();
+		$out['cnt'] = array();
 		/**
 		 * Module default content
 		 *
-		 * $cnt['type'] added by default in parent class
-		 * $cnt['skin']['dir'] added by default in parent class
-		 * $cnt['skin']['tpl'] added by default in parent class
-		 * $cnt['skin']['title'] added by default in parent class
-		 * $cnt['skin']['meta'] added by default in parent class
-		 * $cnt['skin']['lang'] added by default in parent class
-		 * $cnt['skin']['langAdm'] added by default in parent class
+		 * $out['type'] added by default in parent class
+		 * $out['skin']['dir'] added by default in parent class
+		 * $out['skin']['tpl'] added by default in parent class
+		 * $out['skin']['title'] added by default in parent class
+		 * $out['skin']['meta'] added by default in parent class
+		 * $out['skin']['lang'] added by default in parent class
+		 * $out['skin']['langAdm'] added by default in parent class
 		 */
-		$cnt['skin']['dir'] = '';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['cnt'][0]['dir'] = 'content';
-		$cnt['cnt'][0]['tpl'] = 'blank';
-		$cnt['cnt'][0]['content'] = array();
+		$out['skin']['dir'] = '';
+		$out['skin']['tpl'] = 'layout';
+		$out['cnt'][0]['dir'] = 'content';
+		$out['cnt'][0]['tpl'] = 'blank';
+		$out['cnt'][0]['content'] = array();
 		/**
 		 * Call parent constructor
 		 */
-		parent::__construct($about, $cnt, $appCore);
+		parent::__construct($about, $out, $appCore);
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modCnt['skin']['langs'] = $intl->intlMenu('usr', 'home');
+		$this->modOut['skin']['langs'] = $intl->intlMenu('usr', 'home');
 	}
 	/**
 	 * Default module functionality
@@ -102,7 +102,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 	 */
 	public function _default()
 	{
-		return $this->modCnt;
+		return $this->modOut;
 	}
 	public function pageDisplay()
 	{
@@ -154,12 +154,12 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		/**
 		 * Set page template vars
 		 */
-		$this->modCnt['id'] = $pg_id;
-		$this->modCnt['skin']['tpl'] = $r['pg_template'];
-		$this->modCnt['skin']['title'] = $r['pg_title'];
-		$this->modCnt['skin']['meta']['subject'] = $r['pg_dsc'] != '' ? $r['pg_dsc'] : $this->modCnt['skin']['meta']['subject'];
-		$this->modCnt['skin']['meta']['description'] = $r['pg_dsc'] != '' ? $r['pg_dsc'] : $this->modCnt['skin']['meta']['description'];
-		$this->modCnt['skin']['meta']['keywords'] = $r['pg_kw'] != '' ? $r['pg_kw'] : $this->modCnt['skin']['meta']['keywords'];
+		$this->modOut['id'] = $pg_id;
+		$this->modOut['skin']['tpl'] = $r['pg_template'];
+		$this->modOut['skin']['title'] = $r['pg_title'];
+		$this->modOut['skin']['meta']['subject'] = $r['pg_dsc'] != '' ? $r['pg_dsc'] : $this->modOut['skin']['meta']['subject'];
+		$this->modOut['skin']['meta']['description'] = $r['pg_dsc'] != '' ? $r['pg_dsc'] : $this->modOut['skin']['meta']['description'];
+		$this->modOut['skin']['meta']['keywords'] = $r['pg_kw'] != '' ? $r['pg_kw'] : $this->modOut['skin']['meta']['keywords'];
 		/**
 		 * Set content template vars
 		 */
@@ -170,18 +170,18 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 			$i = 0;
 			while($c = $rc->dbFetchArray())
 			{
-				$this->modCnt['cnt'][$i]['dir'] = 'content';
-				$this->modCnt['cnt'][$i]['tpl'] = $c['cnt_template'];
+				$this->modOut['cnt'][$i]['dir'] = 'content';
+				$this->modOut['cnt'][$i]['tpl'] = $c['cnt_template'];
 				switch($c['cnt_type'])
 				{
 					case 'text' :
 						{
-							$this->modCnt['cnt'][$i]['content']['body'] = nl2br($c['cnt_body']);
+							$this->modOut['cnt'][$i]['content']['body'] = nl2br($c['cnt_body']);
 							break;
 						}
 					case 'html' :
 						{
-							$this->modCnt['cnt'][$i]['content']['body'] = $c['cnt_body'];
+							$this->modOut['cnt'][$i]['content']['body'] = $c['cnt_body'];
 							break;
 						}
 					default :
@@ -193,7 +193,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 			}
 		}
 
-		return $this->modCnt;
+		return $this->modOut;
 	}
 }
 ?>

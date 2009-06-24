@@ -35,18 +35,18 @@
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 /**
- * Completely override menu
+ * Completely override header
  */
-//$atpl['menu'] = array();
+//$atpl['header'] = array();
 /**
  * Set directory and template
  */
-//$atpl['menu']['dir'] = '';
-//$atpl['menu']['tpl'] = 'menu';
+//$atpl['header']['dir'] = '';
+//$atpl['header']['tpl'] = 'header';
 /**
  * Completely override menu vars
  */
-//$atpl['menu']['vars'] = array();
+//$atpl['header']['vars'] = array();
 
 /**
  * Completely override actual content
@@ -56,12 +56,12 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 /**
  * Set directoy and template
  */
-//$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
-//$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
+//$atpl['content'][0]['dir'] = $out['cnt']['dir'];
+//$atpl['content'][0]['tpl'] = $out['cnt']['tpl'];
 /**
  * Actual content
  */
-//$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+//$atpl['content'][0]['vars']['cnt'] = $out['cnt']['content'];
 /**
  * Language
  */

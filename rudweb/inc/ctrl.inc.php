@@ -197,9 +197,9 @@ $appCore->rwInit($exts);
 try
 {
 	/**
-	 * Initialize content
+	 * Initialize output
 	 */
-	$cnt1 = array();
+	$out1 = array();
 	/**
 	 * Set localized defaults for current language
 	 */
@@ -223,69 +223,69 @@ try
 	/**
 	 * Default page content type
 	 */
-	$cnt1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
+	$out1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
 	/**
 	 * Main layout template directory.
 	 */
-	$cnt1['skin']['dir'] = $cfg['Defaults']['SkinDir'] ? $cfg['Defaults']['SkinDir'] : '';
+	$out1['skin']['dir'] = $cfg['Defaults']['SkinDir'] ? $cfg['Defaults']['SkinDir'] : '';
 	/**
 	 * Main layout template file
 	 */
-	$cnt1['skin']['tpl'] = $cfg['Defaults']['SkinTpl'] ? $cfg['Defaults']['SkinTpl'] : 'layout';
+	$out1['skin']['tpl'] = $cfg['Defaults']['SkinTpl'] ? $cfg['Defaults']['SkinTpl'] : 'layout';
 	/**
 	 * Main layout page title
 	 */
-	$cnt1['skin']['title'] = $cfg2['Language']['PageTitle'] ? $cfg2['Language']['PageTitle'] : '';
+	$out1['skin']['title'] = $cfg2['Language']['PageTitle'] ? $cfg2['Language']['PageTitle'] : '';
 	/**
 	 * Meta Data
 	 */
-	$cnt1['skin']['meta'] = array();
+	$out1['skin']['meta'] = array();
 	/**
 	 * Meta Subject
 	 */
-	$cnt1['skin']['meta']['subject'] = $cfg2['Language']['MetaSubject'] ? $cfg2['Language']['MetaSubject'] : _APP_NAME;
+	$out1['skin']['meta']['subject'] = $cfg2['Language']['MetaSubject'] ? $cfg2['Language']['MetaSubject'] : _APP_NAME;
 	/**
 	 * Meta Description
 	 */
-	$cnt1['skin']['meta']['description'] = $cfg2['Language']['MetaDescription'] ? $cfg2['Language']['MetaDescription'] : _APP_NAME;
+	$out1['skin']['meta']['description'] = $cfg2['Language']['MetaDescription'] ? $cfg2['Language']['MetaDescription'] : _APP_NAME;
 	/**
 	 * Meta Keywords
 	 */
-	$cnt1['skin']['meta']['keywords'] = $cfg2['Language']['MetaKeywords'] ? $cfg2['Language']['MetaKeywords'] : _APP_NAME;
+	$out1['skin']['meta']['keywords'] = $cfg2['Language']['MetaKeywords'] ? $cfg2['Language']['MetaKeywords'] : _APP_NAME;
 	/**
 	 * Meta Copyright
 	 */
-	$cnt1['skin']['meta']['copyright'] = $cfg2['Language']['MetaCopyright'] ? $cfg2['Language']['MetaCopyright'] : _APP_AUTH;
+	$out1['skin']['meta']['copyright'] = $cfg2['Language']['MetaCopyright'] ? $cfg2['Language']['MetaCopyright'] : _APP_AUTH;
 	/**
 	 * Meta Designer
 	 */
-	$cnt1['skin']['meta']['designer'] = $cfg2['Language']['MetaDesigner'] ? $cfg2['Language']['MetaDesigner'] : _APP_AUTH;
+	$out1['skin']['meta']['designer'] = $cfg2['Language']['MetaDesigner'] ? $cfg2['Language']['MetaDesigner'] : _APP_AUTH;
 	/**
 	 * Meta Publisher
 	 */
-	$cnt1['skin']['meta']['publisher'] = $cfg2['Language']['MetaPublisher'] ? $cfg2['Language']['MetaPublisher'] : _APP_AUTH;
+	$out1['skin']['meta']['publisher'] = $cfg2['Language']['MetaPublisher'] ? $cfg2['Language']['MetaPublisher'] : _APP_AUTH;
 	/**
 	 * Meta Author
 	 */
-	$cnt1['skin']['meta']['author'] = $cfg2['Language']['MetaAuthor'] ? $cfg2['Language']['MetaAuthor'] : _APP_AUTH;
+	$out1['skin']['meta']['author'] = $cfg2['Language']['MetaAuthor'] ? $cfg2['Language']['MetaAuthor'] : _APP_AUTH;
 	/**
 	 * Initialize actual content
 	 */
-	$cnt1['cnt'] = array();
+	$out1['cnt'] = array();
 	/**
 	 * Initialize content id
 	 */
-	$cnt1['id'] = 0;
+	$out1['id'] = 0;
 	/**
 	 * Page content
 	 */
-	$cnt2 = $appCore->appProcess();
+	$out2 = $appCore->appProcess();
 	/**
 	 * Merge content data
 	 */
-	$cnt = array_merge($cnt1, $cnt2);
-	$cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
-	$cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
+	$out = array_merge($out1, $out2);
+	$out['skin'] = array_merge($out1['skin'], $out2['skin']);
+	$out['cnt'] = array_merge($out1['cnt'], $out2['cnt']);
 	/**
 	 * Global additional templates
 	 */
@@ -294,28 +294,28 @@ try
 	 * If normal content, set it,
 	 * and also set additional templates
 	 */
-	if($cnt['type'] == 'text')
+	if($out['type'] == 'text')
 	{
 		/**
-		 * Menu
+		 * Header
 		 */
-		$atpl['menu'] = array();
-		$atpl['menu']['dir'] = '';
-		$atpl['menu']['tpl'] = 'menu';
-		$atpl['menu']['vars'] = array();
-		$atpl['menu']['vars']['lang'] = $appCore->rwLang();
-		$atpl['menu']['vars']['langAdm'] = $appCore->rwLangAdm();
+		$atpl['header'] = array();
+		$atpl['header']['dir'] = '';
+		$atpl['header']['tpl'] = 'header';
+		$atpl['header']['vars'] = array();
+		$atpl['header']['vars']['lang'] = $appCore->rwLang();
+		$atpl['header']['vars']['langAdm'] = $appCore->rwLangAdm();
 		/**
 		 * Dynamic content menu
 		 */
-		$atpl['menu']['vars']['cntMenu'] = NULL;
+		$atpl['header']['vars']['cntMenu'] = NULL;
 		if(array_key_exists('cntMenu', $appCore->ext))
 		{
 			/**
 			 * If extension is present, attempt to load dynamic menu
 			 */
 			$cntMenuObj = $appCore->rwActivateExt('cntMenu');
-			$atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu($cnt['id']);
+			$atpl['header']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu($out['id']);
 		}
 		/**
 		 * Actual content
@@ -324,9 +324,9 @@ try
 		/**
 		 * Check for multiple content items
 		 */
-		if(array_key_exists(0, $cnt['cnt']))
+		if(array_key_exists(0, $out['cnt']))
 		{
-			foreach($cnt['cnt'] as $index=>$data)
+			foreach($out['cnt'] as $index=>$data)
 			{
 				if($appCore->rwCheckInt($index))
 				{
@@ -334,9 +334,9 @@ try
 					 * Multiple content items
 					 */
 					$atpl['content'][$index] = array();
-					$atpl['content'][$index]['dir'] = $cnt['cnt'][$index]['dir'];
-					$atpl['content'][$index]['tpl'] = $cnt['cnt'][$index]['tpl'];
-					$atpl['content'][$index]['vars']['cnt'] = $cnt['cnt'][$index]['content'];
+					$atpl['content'][$index]['dir'] = $out['cnt'][$index]['dir'];
+					$atpl['content'][$index]['tpl'] = $out['cnt'][$index]['tpl'];
+					$atpl['content'][$index]['vars']['cnt'] = $out['cnt'][$index]['content'];
 					$atpl['content'][$index]['vars']['lang'] = $appCore->rwLang();
 					$atpl['content'][$index]['vars']['langAdm'] = $appCore->rwLangAdm();
 					$atpl['content'][$index]['vars']['usr_status'] = $appCore->rwUsrStatus();
@@ -349,9 +349,9 @@ try
 			 * Only one content item
 			 */
 			$atpl['content'][0] = array();
-			$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
-			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
-			$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+			$atpl['content'][0]['dir'] = $out['cnt']['dir'];
+			$atpl['content'][0]['tpl'] = $out['cnt']['tpl'];
+			$atpl['content'][0]['vars']['cnt'] = $out['cnt']['content'];
 			$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
 			$atpl['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
 			$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
@@ -375,15 +375,15 @@ try
 		/**
 		 * Override additional templates
 		 */
-		if(array_key_exists('atpl', $cnt))
+		if(array_key_exists('atpl', $out))
 		{
-			$a_tpl = array('menu', 'content', 'footer');
+			$a_tpl = array('header', 'content', 'footer');
 			foreach($a_tpl as $name=>$value)
 			{
-				if(array_key_exists($value, $cnt['atpl']))
+				if(array_key_exists($value, $out['atpl']))
 				{
 					$atpl[$value] = array();
-					$atpl[$value] = $cnt['atpl'][$value];
+					$atpl[$value] = $out['atpl'][$value];
 				}
 			}
 		}

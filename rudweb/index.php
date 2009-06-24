@@ -53,7 +53,7 @@ else
 try
 {
 	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
-	$viewer = new app_Viewer($cnt, $atpl);
+	$viewer = new app_Viewer($out, $atpl);
 	$viewer->_display();
 }
 catch (Exception $e)

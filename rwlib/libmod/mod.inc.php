@@ -98,18 +98,18 @@ class rw_Mod_global
 	 */
 	public $modDb = NULL;
 	/**
-	 * Default content values
+	 * Default output values
 	 *
 	 * @var array
 	 */
-	public $modCnt = array();
+	public $modOut = array();
 	/**
 	 * Load the module
 	 *
 	 * @param mixed $appCore Application core object
 	 * @return mixed result of loading
 	 */
-	public function __construct($modAbout, $modCnt, $appCore)
+	public function __construct($modAbout, $modOut, $appCore)
 	{
 		$this->modAbout = $modAbout;
 		$this->modAppCore = $appCore;
@@ -120,31 +120,31 @@ class rw_Mod_global
 		 * Default values.
 		 * These can be overridden by modules
 		 */
-		$cnt1['type'] = 'text';
-		$cnt1['skin'] = array();
-		$cnt1['skin']['title'] = $this->modLang['MOD']['TITLE'];
-		$cnt1['skin']['meta'] = array();
-		$cnt1['skin']['meta']['subject'] = _APP_NAME;
-		$cnt1['skin']['meta']['description'] = _APP_NAME;
-		$cnt1['skin']['meta']['keywords'] = _APP_NAME;
-		$cnt1['skin']['meta']['copyright'] = _APP_AUTH;
-		$cnt1['skin']['meta']['designer'] = _APP_AUTH;
-		$cnt1['skin']['meta']['publisher'] = _APP_AUTH;
-		$cnt1['skin']['meta']['author'] = _APP_AUTH;
-		$cnt1['skin']['lang'] = $this->modLang;
-		$cnt1['skin']['langAdm'] = $this->modLangAdm;
-		$cnt1['cnt'] = array();
+		$out1['type'] = 'text';
+		$out1['skin'] = array();
+		$out1['skin']['title'] = $this->modLang['MOD']['TITLE'];
+		$out1['skin']['meta'] = array();
+		$out1['skin']['meta']['subject'] = _APP_NAME;
+		$out1['skin']['meta']['description'] = _APP_NAME;
+		$out1['skin']['meta']['keywords'] = _APP_NAME;
+		$out1['skin']['meta']['copyright'] = _APP_AUTH;
+		$out1['skin']['meta']['designer'] = _APP_AUTH;
+		$out1['skin']['meta']['publisher'] = _APP_AUTH;
+		$out1['skin']['meta']['author'] = _APP_AUTH;
+		$out1['skin']['lang'] = $this->modLang;
+		$out1['skin']['langAdm'] = $this->modLangAdm;
+		$out1['cnt'] = array();
 		/**
 		 * Join with values from module.
 		 */
-		$cnt = array_merge($cnt1, $modCnt);
-		$cnt['skin'] = array_merge($cnt1['skin'], $modCnt['skin']);
-		$cnt['skin']['meta'] = array_merge($cnt1['skin']['meta'], $modCnt['skin']['meta']);
-		$cnt['cnt']  = array_merge($cnt1['cnt'], $modCnt['cnt']);
+		$out = array_merge($out1, $modOut);
+		$out['skin'] = array_merge($out1['skin'], $modOut['skin']);
+		$out['skin']['meta'] = array_merge($out1['skin']['meta'], $modOut['skin']['meta']);
+		$out['cnt']  = array_merge($out1['cnt'], $modOut['cnt']);
 		/**
 		 * Set default values
 		 */
-		$this->modCnt = $cnt;
+		$this->modOut = $out;
 	}
 	/**
 	 * Method for displaying information about the module

@@ -37,53 +37,53 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 /**
  * These must be declared
  */
-$cnt['skin'] = array();
-$cnt['cnt'] = array();
+$out['skin'] = array();
+$out['cnt'] = array();
 
-// START CONTENT TYPE AND SKIN DATA
-// Content type and skin data are set in the main configuration file.
+// START OUTPUT TYPE AND SKIN DATA
+// Output type and skin data are set in the main configuration file.
 // You can override them here or on individual pages
 /**
  * Content type
  */
-//$cnt['type'] = 'text';
+//$out['type'] = 'text';
 /**
  * Main layout template directory
  */
-//$cnt['skin']['dir'] = '';
+//$out['skin']['dir'] = '';
 /**
  * Main layout template file
  */
-//$cnt['skin']['tpl'] = 'layout';
+//$out['skin']['tpl'] = 'layout';
 /*
  * Main layout page title
  */
-//$cnt['skin']['title'] = '';
+//$out['skin']['title'] = '';
 /*
  * Main layout page meta
  */
-//$cnt['skin']['meta'] = array();
-//$cnt['skin']['meta']['subject'] = _APP_NAME;
-//$cnt['skin']['meta']['description'] = _APP_NAME;
-//$cnt['skin']['meta']['keywords'] = _APP_NAME;
-//$cnt['skin']['meta']['copyright'] = _APP_AUTH;
-//$cnt['skin']['meta']['designer'] = _APP_AUTH;
-//$cnt['skin']['meta']['publisher'] = _APP_AUTH;
-//$cnt['skin']['meta']['author'] = _APP_AUTH;
-// END CONTENT TYPE AND SKIN DATA
+//$out['skin']['meta'] = array();
+//$out['skin']['meta']['subject'] = _APP_NAME;
+//$out['skin']['meta']['description'] = _APP_NAME;
+//$out['skin']['meta']['keywords'] = _APP_NAME;
+//$out['skin']['meta']['copyright'] = _APP_AUTH;
+//$out['skin']['meta']['designer'] = _APP_AUTH;
+//$out['skin']['meta']['publisher'] = _APP_AUTH;
+//$out['skin']['meta']['author'] = _APP_AUTH;
+// END OUTPUT TYPE AND SKIN DATA
 
 /**
  * Current content template file
  */
-$cnt['cnt']['dir'] = 'content';
+$out['cnt']['dir'] = 'content';
 /**
  * Current content template file
  */
-$cnt['cnt']['tpl'] = 'blank';
+$out['cnt']['tpl'] = 'blank';
 /**
  * Current content
  */
-$cnt['cnt']['content'] = array();
+$out['cnt']['content'] = array();
 /*
  * This overrides the aditional templates in the main skin.
  * Use it in order not to display something on a certain page.
@@ -91,9 +91,9 @@ $cnt['cnt']['content'] = array();
  * but as variables to the main template.
  */
 /*
- $cnt['skin']['menu'] = 'MENU_REPLACEMENT_VARS';
- $cnt['skin']['content'] = 'CONTENT_REPLACEMENT_VARS';
- $cnt['skin']['footer'] = 'FOOTER_REPLACEMENT_VARS';
+ $out['skin']['header'] = 'HEADER_REPLACEMENT_VARS';
+ $out['skin']['content'] = 'CONTENT_REPLACEMENT_VARS';
+ $out['skin']['footer'] = 'FOOTER_REPLACEMENT_VARS';
  */
 /*
  * If you want to override the aditional templates in the main skin
@@ -101,33 +101,33 @@ $cnt['cnt']['content'] = array();
  * (same sintax as in ctrl.inc)
  */
 /*
- $cnt['atpl']['menu'] = array();
- $cnt['atpl']['menu']['dir'] = '';
- $cnt['atpl']['menu']['tpl'] = 'menu';
- $cnt['atpl']['menu']['vars'] = array();
+ $out['atpl']['header'] = array();
+ $out['atpl']['header']['dir'] = '';
+ $out['atpl']['header']['tpl'] = 'header';
+ $out['atpl']['header']['vars'] = array();
 
- $cnt['atpl']['content'] = array();
+ $out['atpl']['content'] = array();
 
- $cnt['atpl']['content'][0] = array();
- $cnt['atpl']['content'][0]['dir'] = $cnt['cnt'][0]['dir'];
- $cnt['atpl']['content'][0]['tpl'] = $cnt['cnt'][0]['tpl'];
- $cnt['atpl']['content'][0]['vars']['cnt'] = $cnt['cnt'][0]['content'];
- $cnt['atpl']['content'][0]['vars']['lang'] = $appCore->rwLang();
- $cnt['atpl']['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
- $cnt['atpl']['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
+ $out['atpl']['content'][0] = array();
+ $out['atpl']['content'][0]['dir'] = $out['cnt'][0]['dir'];
+ $out['atpl']['content'][0]['tpl'] = $out['cnt'][0]['tpl'];
+ $out['atpl']['content'][0]['vars']['cnt'] = $out['cnt'][0]['content'];
+ $out['atpl']['content'][0]['vars']['lang'] = $appCore->rwLang();
+ $out['atpl']['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
+ $out['atpl']['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
 
- $cnt['atpl']['content'][1] = array();
- $cnt['atpl']['content'][1]['dir'] = $cnt['cnt'][1]['dir'];
- $cnt['atpl']['content'][1]['tpl'] = $cnt['cnt'][1]['tpl'];
- $cnt['atpl']['content'][1]['vars']['cnt'] = $cnt['cnt'][1]['content'];
- $cnt['atpl']['content'][1]['vars']['lang'] = $appCore->rwLang();
- $cnt['atpl']['content'][1]['vars']['langAdm'] = $appCore->rwLangAdm();
- $cnt['atpl']['content'][1]['vars']['usr_status'] = $appCore->rwUsrStatus();
- $cnt['atpl']['content'][1]['vars']['stuff1'] = 'stuff for the second subtemplate';
+ $out['atpl']['content'][1] = array();
+ $out['atpl']['content'][1]['dir'] = $out['cnt'][1]['dir'];
+ $out['atpl']['content'][1]['tpl'] = $out['cnt'][1]['tpl'];
+ $out['atpl']['content'][1]['vars']['cnt'] = $out['cnt'][1]['content'];
+ $out['atpl']['content'][1]['vars']['lang'] = $appCore->rwLang();
+ $out['atpl']['content'][1]['vars']['langAdm'] = $appCore->rwLangAdm();
+ $out['atpl']['content'][1]['vars']['usr_status'] = $appCore->rwUsrStatus();
+ $out['atpl']['content'][1]['vars']['stuff1'] = 'stuff for the second subtemplate';
 
- $cnt['atpl']['footer'] = array();
- $cnt['atpl']['footer']['dir'] = '';
- $cnt['atpl']['footer']['tpl'] = 'footer';
- $cnt['atpl']['footer']['vars'] = array();
+ $out['atpl']['footer'] = array();
+ $out['atpl']['footer']['dir'] = '';
+ $out['atpl']['footer']['tpl'] = 'footer';
+ $out['atpl']['footer']['vars'] = array();
  */
 ?>

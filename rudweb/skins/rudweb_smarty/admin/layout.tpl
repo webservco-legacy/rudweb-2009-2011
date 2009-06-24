@@ -91,7 +91,7 @@
   <div id="cnt1">
     <div id="left1">
       <div id="left">
-        {$menu}
+        {$header}
       </div>
     </div>
     <div id="right1">

@@ -71,13 +71,14 @@ class app_Core extends rw_Core
 			$this->rwDbSet($db);
 			/**
 			 * Perform database checks
+			 *
+			 * $this->rwDbCheck();
 			 */
-			//$this->rwDbCheck();
 		}
 		/**
-		 * Initialize content
+		 * Initialize output
 		 */
-		$cnt = array();
+		$out = array();
 		/**
 		 * Language menu
 		 */
@@ -95,37 +96,37 @@ class app_Core extends rw_Core
 		 */
 		else if(isset($_GET['page']))
 		{
-			$cnt = $this->_appProcessPage();
-			$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
+			$out = $this->_appProcessPage();
+			$out['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 		}
 		/**
 		 * Handle administration requests
 		 */
 		else if(isset($_GET['admin']))
 		{
-			$cnt = $this->_appProcessAdmin();
+			$out = $this->_appProcessAdmin();
 		}
 		/**
 		 * Handle content requests
 		 */
 		else if(isset($_GET['content']))
 		{
-			$cnt = $this->_appProcessContent();
+			$out = $this->_appProcessContent();
 		}
 		/**
 		 * Handle module requests
 		 */
 		else if(isset($_GET['module']))
 		{
-			$cnt = $this->_appProcessModule();
+			$out = $this->_appProcessModule();
 		}
 		/**
 		 * No special request, load default content
 		 */
 		else
 		{
-			$cnt = $this->_appProcessDefault();
-			$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
+			$out = $this->_appProcessDefault();
+			$out['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 		}
 		/**
 		 * Close database connection, if opened.
@@ -134,7 +135,7 @@ class app_Core extends rw_Core
 		{
 			$this->db->dbClose();
 		}
-		return $cnt;
+		return $out;
 	}
 	/**
 	 * Handle page requests
@@ -164,7 +165,7 @@ class app_Core extends rw_Core
 			 */
 			require_once(_APP_DIR_CNT.'404.inc.php');
 		}
-		return $cnt;
+		return $out;
 	}
 	/**
 	 * Handle content requests
@@ -188,7 +189,7 @@ class app_Core extends rw_Core
 			 * Invalid page id, go to 404 page
 			 */
 			require_once(_APP_DIR_CNT.'404.inc.php');
-			return $cnt;
+			return $out;
 		}
 		/**
 		 * Rewrite get request.
@@ -216,8 +217,8 @@ class app_Core extends rw_Core
 			default :
 				{
 					require_once(_APP_DIR_CNT.'404.inc.php');
-					$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
-					return $cnt;
+					$out['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
+					return $out;
 				}
 		}
 	}
@@ -366,16 +367,16 @@ class app_Core extends rw_Core
 						/**
 						 * Call the action
 						 */
-						$cnt = $modObject->$action();
+						$out = $modObject->$action();
 						/**
 						 * "Trigger" 404 from inside the module.
 						 *
 						 * Use "return FALSE" in module action.
 						 */
-						if(FALSE === $cnt)
+						if(FALSE === $out)
 						{
 							require_once(_APP_DIR_CNT.'404.inc.php');
-							$cnt['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
+							$out['skin']['langs'] = $this->intl->intlMenu('usr', 'home');
 						}
 					}
 					else
@@ -399,7 +400,7 @@ class app_Core extends rw_Core
 				/**
 				 * No action requested, load default action
 				 */
-				$cnt = $modObject->_default();
+				$out = $modObject->_default();
 			}
 		}
 		else
@@ -409,7 +410,7 @@ class app_Core extends rw_Core
 			 */
 			require_once(_APP_DIR_CNT.'404.inc.php');
 		}
-		return $cnt;
+		return $out;
 	}
 	/**
 	 * Default, no request
@@ -457,7 +458,7 @@ class app_Core extends rw_Core
 					break;
 				}
 		}
-		return $cnt;
+		return $out;
 	}
 }
 ?>
