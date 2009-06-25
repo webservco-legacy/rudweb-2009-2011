@@ -391,7 +391,7 @@ try
 }
 catch (Exception $e)
 {
-	echo $appCore->rwErr($e);
+	echo rw_Error_handler::displayError($e);
 	exit;
 }
 ?>

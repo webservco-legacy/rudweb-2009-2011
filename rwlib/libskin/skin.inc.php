@@ -84,17 +84,10 @@ interface rw_iSkin
 class rw_Skin
 {
 	/**
-	 * Connect and open database
+	 * Load template engine
 	 *
-	 * This is where the acutal connection is initiated
-	 *
-	 * @param string $dbType Database type
-	 * @param string $dbHost Database host
-	 * @param string $dbPort Database port
-	 * @param string $dbUser Database username
-	 * @param string $dbPass Database password
-	 * @param string $dbName Database name
-	 * @return mixed opens the connection or returns an error
+	 * @param string $tplEngine
+	 * @return mixed template engine object
 	 */
 	static function _load($tplEngine = null)
 	{

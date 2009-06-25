@@ -45,13 +45,35 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class app_Viewer
 {
+	/**
+	 * Output data
+	 *
+	 * @var array
+	 */
 	public $out = array();
+	/**
+	 * Additional template data
+	 *
+	 * @var array
+	 */
 	public $atpl = array();
+	/**
+	 * Set class variables.
+	 *
+	 * @param array $out
+	 * @param array $atpl
+	 */
 	public function __construct($out, $atpl=array())
 	{
 		$this->out = $out;
 		$this->atpl = $atpl;
 	}
+	/**
+	 * Choose what to display.
+	 * 
+	 * Pass it on to the next method
+	 *
+	 */
 	public function _display()
 	{
 		switch($this->out['type'])
@@ -72,16 +94,35 @@ class app_Viewer
 				}
 		}
 	}
+	/**
+	 * Display normal output
+	 *
+	 * @param array $vars
+	 * @param array $atpl
+	 * @return mixed content to be displayed
+	 */
 	public function _displayText($vars, $atpl=array())
 	{
+		/**
+		 * Load template engine
+		 */
 		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
 		$skinObj = rw_Skin::_load(_APP_TPL);
+		/**
+		 * Get skin directory
+		 */
 		$skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
 		if($vars['dir'] != '')
 		{
 			$skin_dir .= '/'.$vars['dir'];
 		}
+		/**
+		 * Set skin directory
+		 */
 		$skinObj->skindir($skin_dir);
+		/**
+		 * Set compile_id
+		 */
 		$skinObj->compile_id = $vars['dir'];
 
 		$totalAtpl = count($atpl);
@@ -103,7 +144,10 @@ class app_Viewer
 						{
 							foreach($atplVars[$i]['vars'] as $name=>$value)
 							{
-								//$atplObj->compile_id = $atplVars[$i]['dir'];
+								/**
+								 * deprecated
+								 * $atplObj->compile_id = $atplVars[$i]['dir'];
+								 */
 								$atplObj->set($name, $value);
 							}
 						}
@@ -119,7 +163,10 @@ class app_Viewer
 					{
 						foreach($atplVars['vars'] as $name=>$value)
 						{
-							//$atplObj->compile_id = $atplVars['dir'];
+							/**
+							 * deprecated
+							 * $atplObj->compile_id = $atplVars['dir'];
+							 */
 							$atplObj->set($name, $value);
 						}
 					}
@@ -128,6 +175,7 @@ class app_Viewer
 				}
 			}
 		}
+		
 		$varsNew = array_diff_key($vars, array('tpl'=>''));
 		$totalVars = count($varsNew);
 		if($totalVars > 0)
@@ -139,6 +187,11 @@ class app_Viewer
 		}
 		return $skinObj->view($vars['tpl'].'.tpl');
 	}
+	/**
+	 * Display image output
+	 *
+	 * @param string $image
+	 */
 	public function _displayImage($image)
 	{
 		switch($image['type'])

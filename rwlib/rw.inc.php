@@ -70,6 +70,12 @@ class rw_Core
 	 */
 	public $langAdm = array();
 	/**
+	 * Error handling object
+	 *
+	 * @var mixed
+	 */
+	public $err = NULL;
+	/**
 	 * Database object
 	 *
 	 * @var mixed
@@ -136,7 +142,7 @@ class rw_Core
 		}
 		catch (Exception $e)
 		{
-			echo $this->rwErr($e);
+			echo rw_Error_handler::displayError($e);
 			exit;
 		}
 		/**
@@ -259,159 +265,6 @@ class rw_Core
 	public function rwDb()
 	{
 		return $this->db;
-	}
-	/**
-	 * Main error display
-	 *
-	 * @todo mail error info to developer
-	 * @todo write error info to log
-	 * @param mixed $e error object
-	 * @return mixed result
-	 */
-	public function rwErr($e)
-	{
-		/**
-		 * Display error message
-		 */
-		$skinURL = _APP_WWW.'skins/'._APP_SKIN.'/';
-		$err =
-'<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="content-language" content="en" />
-	<link rel="icon" type="image/ico" href="'.$skinURL.'graphics/favicon.ico" />
-	<link rel="shortcut icon" type="image/ico" href="'.$skinURL.'graphics/favicon.ico" />
-	<title>ERROR - '._APP_NAME.'</title>
-	<meta http-equiv="Content-Style-Type" content="text/css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" href="'.$skinURL.'styles/style.css" />
-	<!--[if lte IE 6]>
-	<link rel="stylesheet" type="text/css" charset="utf-8" href="'.$skinURL.'styles/styleIE.css" />
-	<![endif]-->
-	</head>
-    <body>
-    
-    <div id="layout">
-      <div id="hdr">
-        <div id="hdr1">
-          <a href="'._APP_WWW.'" title="'._APP_NAME.'"><img id="logo" src="'.$skinURL.'graphics/logo.png" alt="'._APP_NAME.' Logo" longdesc="'._APP_NAME.' Logo" /></a>
-        </div>
-        <div id="hdr2"><div id="header">'._APP_NAME.'</div></div>
-        <div id="hdr3">&#160;</div>
-      </div>
-      
-      <div id="cnt0">
-        <div id="left0">
-          &#160;
-        </div>
-        <div id="right0">
-          &#160;
-        </div>
-        <div id="center0">
-          &#160;
-        </div>
-      </div>
-      
-      <div id="cnt1">
-        <div id="left1">
-	        <div id="left">
-	          &#160;
-	        </div>
-        </div>
-        
-        
-        <div id="right1">
-          <div id="right">
-            &#160;
-          </div>
-        </div>
-        
-        <div id="center1">
-		      <div id="center_space1">&#160;</div>
-		      <div id="center_content">
-		        <div id="page_title">
-		          <h1>Oops!</h1>
-		        </div>
-		        <div id="page_content">
-		          <p>Something went wrong :-(</p>';
-
-		$err .= (_APP_CFG_ERRORS) ? $this->rwErrDev($e) :
-		'
-		<p>Don\'t worry, it\'s not your fault!</p>
-		<p><u>If you are a visitor</u>: kindly try again in a few minutes.</p>
-		<p><u>If you are the owner/maintainer</u>: please enable error reporting in your configuration file in order to see more information about what happened.</p>
-		';
-
-		$err .=
-		        '</div>
-		        <div class="clear"></div>
-		      </div>
-		    </div>
-        
-      </div>
-      
-      <div id="cnt2">
-        <div id="left2">
-          &#160;
-        </div>
-        <div id="right2">
-          &#160;
-        </div>
-        <div id="center2">
-          &#160;
-        </div>
-		  </div>
-		  
-		  <div id="ftr">
-		    <div id="footer">
-		      Copyright 2009
-		    </div>
-		  </div>
-  
-    </div>
-  </body>
-</html>';
-		return $err;
-	}
-	/**
-	 * Developer error display
-	 *
-	 * @param mixed $e error object
-	 * @return mixed result
-	 */
-	public function rwErrDev($e)
-	{
-		/**
-		 * Display detailed error information
-		 */
-		$errType = array(
-		1    => 'Fatal run-time error',
-		2    => 'Run-time warning',
-		4    => 'Compile-time parse error',
-		8    => 'Run-time notice',
-		16   => 'Fatal error that occured during PHP\'s initial startup',
-		32   => 'Warning that occured during PHP\'s initial startup',
-		64   => 'Fatal compile-time error',
-		128  => 'Compile-time warning',
-		256  => 'Engine-generated error message',
-		512  => 'Engine-generated warning message',
-		1024 => 'Engine-generated notice message',
-		2048 => 'Run-time notice',
-		4096 => 'Catchable fatal error'
-		);
-
-		$err =
-      '<div class="err">'.
-		  '<p>' . '<div class="errtxt">'. $e->getMessage() . '</div>' .
-		  '<b>Time:</b> '. date("Y-m-d H:i:s") . '<br />' .
-		  '<b>Error type:</b> '. $e->getCode() . ' (' . $errType[$e->getCode()] . ')' . '<br />' .
-		  '<b>File:</b> '. $e->getFile() . '<br /> ' .
-		  '<b>Line:</b> '. $e->getLine() . '<br /> ' .
-		  '<b>Trace:</b></p> '. '<pre>' . strip_tags($e->getTraceAsString()) . '</pre>' .
-		  '</div>'
-		  ;
-		  return $err;
 	}
 	/**
 	 * Load extensions.
