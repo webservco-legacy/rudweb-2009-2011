@@ -13,7 +13,6 @@
  * @access     public
  * @package    RudWEb
  * @subpackage Modules
- * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -122,6 +121,8 @@ class rw_Mod_global
 		 */
 		$out1['type'] = 'text';
 		$out1['skin'] = array();
+		$out1['skin']['dir'] = '';
+    $out1['skin']['tpl'] = 'layout';
 		$out1['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$out1['skin']['meta'] = array();
 		$out1['skin']['meta']['subject'] = _APP_NAME;
@@ -140,7 +141,7 @@ class rw_Mod_global
 		$out = array_merge($out1, $modOut);
 		$out['skin'] = array_merge($out1['skin'], $modOut['skin']);
 		$out['skin']['meta'] = array_merge($out1['skin']['meta'], $modOut['skin']['meta']);
-		$out['cnt']  = array_merge($out1['cnt'], $modOut['cnt']);
+		$out['cnt'] = array_merge($out1['cnt'], $modOut['cnt']);
 		/**
 		 * Set default values
 		 */

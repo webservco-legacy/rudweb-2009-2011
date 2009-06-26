@@ -13,7 +13,6 @@
  * @access     public
  * @package    RudWEb
  * @subpackage Modules
- * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,8 +74,6 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		 * $out['skin']['lang'] added by default in parent class
 		 * $out['skin']['langAdm'] added by default in parent class
 		 */
-		$out['skin']['dir'] = '';
-		$out['skin']['tpl'] = 'layout';
 		$out['cnt']['dir'] = 'content';
 		$out['cnt']['tpl'] = 'blank';
 		$out['cnt']['content'] = array();
