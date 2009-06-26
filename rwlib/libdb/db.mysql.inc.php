@@ -12,7 +12,7 @@
  * @since      2008-12-03 19:04:00
  * @access     public
  * @package    RudWEb
- * @subpackage Database
+ * @subpackage rwDb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwDb
  */
 class rw_DB_mysql extends rw_DB_global implements rw_iDB
 {

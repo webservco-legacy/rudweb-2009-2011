@@ -12,7 +12,7 @@
  * @since      2008-12-09 16:25:00
  * @access     public
  * @package    RudWEb
- * @subpackage Skins
+ * @subpackage rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwOut
  */
 class rw_Skin_smarty extends Smarty implements rw_iSkin
 {

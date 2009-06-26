@@ -12,7 +12,7 @@
  * @since      2009-01-22 20:07:00
  * @access     public
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwOut
  */
 class app_Viewer
 {

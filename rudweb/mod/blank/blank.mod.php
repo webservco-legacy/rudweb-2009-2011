@@ -12,7 +12,7 @@
  * @since      2009-02-09 15:52:00
  * @access     public
  * @package    RudWEb
- * @subpackage Modules
+ * @subpackage rwMod
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,15 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
+/**
+ * rw_Mod_blank
+ *
+ * rw_Mod_blank module
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    RudWEb
+ * @subpackage rwMod
+ */
 class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 {
 	/**

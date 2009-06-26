@@ -12,7 +12,7 @@
  * @since      2008-12-16 09:29:00
  * @access     public
  * @package    RudWEb
- * @subpackage App
+ * @subpackage rwApp
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ if(is_readable(_RW_DIR_LIB.'rw.inc.php')) {require_once(_RW_DIR_LIB.'rw.inc.php'
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwApp
  */
 class app_Core extends rw_Core
 {

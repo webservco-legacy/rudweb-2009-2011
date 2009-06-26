@@ -12,7 +12,7 @@
  * @since      2009-02-09 15:43:00
  * @access     public
  * @package    RudWEb
- * @subpackage Modules
+ * @subpackage rwMod
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Modules
+ * @subpackage rwMod
  */
 interface rw_iMod
 {
@@ -62,7 +62,7 @@ interface rw_iMod
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Modules
+ * @subpackage rwMod
  */
 class rw_Mod_global
 {

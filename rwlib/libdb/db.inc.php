@@ -12,7 +12,7 @@
  * @since      0008-12-03 18:31:00
  * @access     public
  * @package    RudWEb
- * @subpackage Database
+ * @subpackage rwDb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwDb
  */
 interface rw_iDB
 {
@@ -147,7 +147,7 @@ interface rw_iDB
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwDb
  */
 class rw_DB_global
 {
@@ -210,7 +210,7 @@ class rw_DB_global
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwDb
  */
 class rw_DB_result
 {
@@ -274,7 +274,7 @@ class rw_DB_result
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwDb
  */
 class rw_DB
 {

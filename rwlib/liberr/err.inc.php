@@ -12,7 +12,7 @@
  * @since      2008-12-08 10:58:00
  * @access     public
  * @package    RudWEb
- * @subpackage Errors
+ * @subpackage rwErr
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwErr
  */
 class rw_Error extends Exception
 {
@@ -75,7 +75,7 @@ class rw_Error extends Exception
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwErr
  */
 abstract class rw_Error_handler
 {

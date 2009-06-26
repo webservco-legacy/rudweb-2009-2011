@@ -12,7 +12,7 @@
  * @since      2009-02-01 10:19:00
  * @access     public
  * @package    RudWEb
- * @subpackage Extensions
+ * @subpackage rwExt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,15 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
+/**
+ * rw_Ext_Users
+ *
+ * rw_Ext_Users extension
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    RudWEb
+ * @subpackage rwExt
+ */
 class rw_Ext_Users extends rw_Ext_global implements rw_iExt
 {
 	/**

@@ -19,7 +19,7 @@
  * @since      2009-01-23 16:58:00
  * @access     public
  * @package    RudWEb
- * @subpackage Extensions
+ * @subpackage rwExt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,8 +40,15 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
-error_reporting(E_ALL);
-
+/**
+ * rw_Ext_delFD
+ *
+ * rw_Ext_delFD extension
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    RudWEb
+ * @subpackage rwExt
+ */
 class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 {
 	/**

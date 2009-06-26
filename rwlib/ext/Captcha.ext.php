@@ -12,7 +12,7 @@
  * @since      2009-02-14 20:14:00
  * @access     public
  * @package    RudWEb
- * @subpackage Extensions
+ * @subpackage rwExt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,15 @@
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
+/**
+ * rw_Ext_Captcha
+ *
+ * rw_Ext_Captcha extension
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    RudWEb
+ * @subpackage rwExt
+ */
 class rw_Ext_Captcha extends rw_Ext_global implements rw_iExt
 {
 	/**
@@ -52,10 +61,10 @@ class rw_Ext_Captcha extends rw_Ext_global implements rw_iExt
 		$about['web']  = 'http://www.rudisoft.net';
 		$about['mail'] = 'rudisoft@rudisoft.net';
 		$about['deps'] = array();
-    $about['deps']['cfg']  = array();
-    $about['deps']['cfg'][]  = 'Sessions';
-    $about['deps']['ext']  = array();
-    $about['deps']['ext'][]  = 'Sessions';
+		$about['deps']['cfg']  = array();
+		$about['deps']['cfg'][]  = 'Sessions';
+		$about['deps']['ext']  = array();
+		$about['deps']['ext'][]  = 'Sessions';
 		parent::__construct($about, $appCore);
 	}
 	/**

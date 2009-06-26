@@ -12,7 +12,7 @@
  * @since      2009-03-05 15:13:00
  * @access     public
  * @package    RudWEb
- * @subpackage Modules
+ * @subpackage rwMod
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +32,15 @@
  * Prevent direct file access
  */
 if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
+
 /**
- * Module class
+ * rw_Mod_dbContent
  *
+ * rw_Mod_dbContent module
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    RudWEb
+ * @subpackage rwMod
  */
 class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 {

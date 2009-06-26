@@ -12,7 +12,7 @@
  * @since      2009-01-12 16:42:00
  * @access     public
  * @package    RudWEb
- * @subpackage App
+ * @subpackage rwApp
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

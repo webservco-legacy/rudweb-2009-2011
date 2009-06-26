@@ -11,7 +11,7 @@
  * @since      2009-03-03 20:57:00
  * @access     public
  * @package    RudWEb
- * @subpackage Skins
+ * @subpackage rwSkinRwSs
  * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify

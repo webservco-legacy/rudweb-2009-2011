@@ -11,7 +11,7 @@
  * @since      2009-05-06 10:27:00
  * @access     public
  * @package    RudWEb
- * @subpackage Skins
+ * @subpackage rwSkinRwS
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

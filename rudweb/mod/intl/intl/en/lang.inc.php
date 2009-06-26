@@ -12,7 +12,7 @@
  * @since      2009-04-11 10:42:00
  * @access     public
  * @package    RudWEb
- * @subpackage Internationalization
+ * @subpackage rwInt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

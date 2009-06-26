@@ -12,7 +12,7 @@
  * @since      2009-01-14 10:40:00
  * @access     public
  * @package    RudWEb
- * @subpackage Core
+ * @subpackage rwLib
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
