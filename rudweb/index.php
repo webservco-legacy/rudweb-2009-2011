@@ -51,9 +51,9 @@ else
  */
 try
 {
-	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
+	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('<u>Engine Error</u>: Viewer is missing.');}
 	$viewer = new app_Viewer($out, $atpl);
-	$viewer->_display();
+	$viewer->display();
 }
 catch (Exception $e)
 {

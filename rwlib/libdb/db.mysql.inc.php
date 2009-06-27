@@ -61,11 +61,11 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 		$link = @mysql_connect($dbHost.':'.$dbPort, $dbUser, $dbPass);
 		if(!$link)
 		{
-			trigger_error('<u>Database Error</u>: Could not connect to Database Server.<br />Please check your connection settings.', E_USER_ERROR);
+			trigger_error('<u>Database Error</u>: Could not connect to Database Server.<br />Please check your connection settings.');
 		}
 		if(!mysql_select_db($dbName, $link))
 		{
-			trigger_error('<u>Database Error</u>: Could not open Database <b>'.$dbName.'</b>.<br />Please check that the specified database exists and that you have enough privileges to access it.', E_USER_ERROR);
+			trigger_error('<u>Database Error</u>: Could not open Database <b>'.$dbName.'</b>.<br />Please check that the specified database exists and that you have enough privileges to access it.');
 		}
 		$this->_connection = $link;
 		$this->dbQuery("SET NAMES 'utf8'", FALSE);
@@ -146,7 +146,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 			$columns = implode(', ', $columns);
 		}
 		$sql = "SELECT {$columns} FROM {$table}{$cond}{$ord}{$limit}";
-		if($x==1){trigger_error($sql, E_USER_ERROR);}
+		if($x==1){trigger_error('<u>Database Debug</u>: '.$sql);}
 		return $this->dbQuery($sql);
 	}
 	function dbInsert($table, $columns=NULL, $data)
@@ -266,7 +266,7 @@ class rw_DB_mysql extends rw_DB_global implements rw_iDB
 			$data = NULL;
 		}
 		$sql = "UPDATE {$table} SET {$data}{$cond}{$ord}{$limit}";
-		if($x==1){trigger_error($sql, E_USER_ERROR);}
+		if($x==1){trigger_error('<u>Database Debug</u>: '.$sql);}
 		return $this->dbQuery($sql);
 	}
 	/**

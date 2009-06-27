@@ -69,22 +69,23 @@ class app_Viewer
 	}
 	/**
 	 * Choose what to display.
-	 * 
+	 *
 	 * Pass it on to the next method
 	 *
 	 */
-	public function _display()
+	public function display()
 	{
 		switch($this->out['type'])
 		{
-			case 'text' :
+			case 'Smarty' :
+			case 'rudweb' :
 				{
-					$this->_displayText($this->out['skin'], $this->atpl);
+					$this->_outTpl($this->out['skin'], $this->atpl, $this->out['type']);
 					break;
 				}
 			case 'image' :
 				{
-					$this->_displayImage($this->out['image']);
+					$this->_outImg($this->out['image']);
 					break;
 				}
 			default :
@@ -93,20 +94,22 @@ class app_Viewer
 				}
 		}
 	}
+
 	/**
-	 * Display normal output
+	 * HTML + Template output
 	 *
 	 * @param array $vars
 	 * @param array $atpl
-	 * @return mixed content to be displayed
+	 * @param string $tpl
+	 * @return mixed data to be displayed
 	 */
-	public function _displayText($vars, $atpl=array())
+	private function _outTpl($vars, $atpl=array(), $tpl='rudweb')
 	{
 		/**
 		 * Load template engine
 		 */
 		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
-		$skinObj = rw_Skin::_load(_APP_TPL);
+		$skinObj = rw_Skin::_load($tpl);
 		/**
 		 * Get skin directory
 		 */
@@ -127,7 +130,7 @@ class app_Viewer
 		$totalAtpl = count($atpl);
 		if($totalAtpl > 0)
 		{
-			$atplObj = rw_Skin::_load(_APP_TPL);
+			$atplObj = rw_Skin::_load($tpl);
 			$atplObj->skindir($skin_dir);
 			$atplObj->compile_id = $vars['dir'];
 			foreach($atpl as $atplTitle=>$atplVars)
@@ -174,7 +177,7 @@ class app_Viewer
 				}
 			}
 		}
-		
+
 		$varsNew = array_diff_key($vars, array('tpl'=>''));
 		$totalVars = count($varsNew);
 		if($totalVars > 0)
@@ -187,27 +190,20 @@ class app_Viewer
 		return $skinObj->view($vars['tpl'].'.tpl');
 	}
 	/**
-	 * Display image output
+	 * Image Output
 	 *
-	 * @param string $image
+	 * Valid image types:
+	 * gif, jpeg, png
+	 * note: only tested with png
+	 *
+	 * @param array $img image data
 	 */
-	public function _displayImage($image)
+	private function _outImg($img)
 	{
-		switch($image['type'])
-		{
-			case 'png' :
-				{
-					header("Content-type: image/png");
-					header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-					header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-					break;
-				}
-			default :
-				{
-					break;
-				}
-		}
-		echo base64_decode($image['data']);
+		header("Content-type: image/".$img['type']);
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		echo base64_decode($img['data']);
 	}
 }
 ?>

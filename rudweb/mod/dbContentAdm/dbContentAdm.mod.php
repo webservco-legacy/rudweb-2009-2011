@@ -90,6 +90,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 * $out['skin']['lang'] added by default in parent class
 		 * $out['skin']['langAdm'] added by default in parent class
 		 */
+		$out['type'] = 'Smarty';
 		$out['skin']['dir'] = 'admin';
 		$out['cnt']['dir'] = 'content';
 		$out['cnt']['tpl'] = 'blank';
@@ -346,9 +347,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					else
 					{
 						/**
-						 * Needs work...
+						 * Insert error
 						 */
-						trigger_error('insert error', E_USER_ERROR);
+						trigger_error('<u>Database Error</u>: Insert query failed.');
 					}
 				}
 			}
@@ -383,7 +384,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested page does not exist.');
 		}
 		$pg_group = $rs->dbFetchResult();
 		/**
@@ -412,7 +413,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			$t = $rs->dbNumRows();
 			if($t != 1)
 			{
-				trigger_error("page doesn't exist", E_USER_ERROR);
+				trigger_error('<u>Error</u>: Requested page does not exist.');
 			}
 			$r = $rs->dbFetchArray();
 			$this->modOut['cnt']['content']['page_title'] = $r['pg_title'];
@@ -494,9 +495,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					else
 					{
 						/**
-						 * Needs work...
+						 * Update error
 						 */
-						trigger_error('update error', E_USER_ERROR);
+						trigger_error('<u>Database Error</u>: Update query failed.');
 					}
 				}
 			}
@@ -530,7 +531,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested page does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$pg_group = $r['pg_group'];
@@ -592,9 +593,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				else
 				{
 					/**
-					 * Needs work
+					 * Delete error
 					 */
-					trigger_error('delete error', E_USER_ERROR);
+					trigger_error('<u>Database Error</u>: Delete query failed.');
 				}
 			}
 			else
@@ -628,7 +629,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$tp = $rp->dbNumRows();
 		if($tp != 1)
 		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested page does not exist.');
 		}
 		$pg_group = $rp->dbFetchResult();
 		$auth = $this->_authVerify(3, $pg_group);
@@ -687,7 +688,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("content doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested content does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$pg_id = $r['pg_id'];
@@ -699,7 +700,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$tp = $rp->dbNumRows();
 		if($tp != 1)
 		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested page does not exist.');
 		}
 		$pg_group = $rp->dbFetchResult();
 		$auth = $this->_authVerify(2, $pg_group);
@@ -754,7 +755,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("content doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested content does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$pg_id = $r['pg_id'];
@@ -766,7 +767,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$tp = $rp->dbNumRows();
 		if($tp != 1)
 		{
-			trigger_error("page doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested page does not exist.');
 		}
 		$pg_group = $rp->dbFetchResult();
 		$auth = $this->_authVerify(3, $pg_group);
@@ -974,7 +975,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$ti = $ri->dbNumRows();
 					if($ti != 1)
 					{
-						trigger_error('image doesn\'t exist', E_USER_ERROR);
+						trigger_error('<u>Image Error</u>: Image reference does not exist.');
 					}
 					$r=$ri->dbFetchArray();
 
@@ -988,7 +989,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$r['pic_ext'] = image_type_to_extension($r['pic_type'], TRUE);
 					if(!is_file(_APP_DIR_IMG.$r['pic_file'].$r['pic_ext']))
 					{
-						trigger_error('image doesn\'t exist', E_USER_ERROR);
+						trigger_error('<u>Image Error</u>: Image file does not exist.');
 					}
 					$dataDb['pic_id'] = $dataForm['pic_id'];
 					$dataDb['thumb_label'] = $pic_label;
@@ -998,7 +999,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					$thumbExt = image_type_to_extension($dataDb['thumb_type'], TRUE);
 					if(!is_file(_APP_DIR_THUMB.$dataDb['thumb_file'].$thumbExt))
 					{
-						trigger_error('thumbnail not created', E_USER_ERROR);
+						trigger_error('<u>Image Error</u>: Thumbnail file creation failed.');
 					}
 					$info = getimagesize(_APP_DIR_THUMB.$dataDb['thumb_file'].$thumbExt);
 					$dataDb['thumb_width'] = $info['0'];
@@ -1017,9 +1018,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					else
 					{
 						/**
-						 * Needs work...
+						 * Insert failed
 						 */
-						trigger_error('insert error', E_USER_ERROR);
+						trigger_error('<u>Database Error</u>: Insert query failed.');
 					}
 				}
 				else
@@ -1089,9 +1090,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					else
 					{
 						/**
-						 * Needs work...
+						 * Inser failed
 						 */
-						trigger_error('insert error', E_USER_ERROR);
+						trigger_error('<u>Database Error</u>: Insert query failed.');
 					}
 				}
 				else
@@ -1194,7 +1195,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error('image doesn\'t exist', E_USER_ERROR);
+			trigger_error('<u>Image Error</u>: Image reference does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$img_group = $r[$img_prefix.'group'];
@@ -1207,7 +1208,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		 */
 		if(!is_file($img_dir.$img_file.$img_ext))
 		{
-			trigger_error('image doesn\'t exist', E_USER_ERROR);
+			trigger_error('<u>Image Error</u>: Image file does not exist.');
 		}
 		/**
 		 * Verify user rights
@@ -1262,9 +1263,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 					if(!rename($img_dir.$img_file.$img_ext, _APP_DIR_TRASH.$img_file.$img_ext))
 					{
 						/**
-						 * Needs work
+						 * Moving failed
 						 */
-						trigger_error('delete error', E_USER_ERROR);
+						trigger_error('<u>Image Error</u>: Move image to trash failed.');
 					}
 					/**
 					 * Redirect to action ok message
@@ -1275,9 +1276,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				else
 				{
 					/**
-					 * Needs work
+					 * Delete failed
 					 */
-					trigger_error('delete error', E_USER_ERROR);
+					trigger_error('<u>Database Error</u>: Delete query failed.');
 				}
 			}
 			else
@@ -1519,9 +1520,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				else
 				{
 					/**
-					 * Needs work...
+					 * Insert failed
 					 */
-					trigger_error('insert error', E_USER_ERROR);
+					trigger_error('<u>Database Error</u>: Insert query failed.');
 				}
 			}
 		}
@@ -1553,7 +1554,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("content doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested content does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$this->modOut['cnt']['content']['cnt_body'] = $r['cnt_body'];
@@ -1615,9 +1616,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			else
 			{
 				/**
-				 * Needs work...
+				 * Update failed
 				 */
-				trigger_error('update error', E_USER_ERROR);
+				trigger_error('<u>Database Error</u>: Update query failed.');
 			}
 		}
 		else
@@ -1656,7 +1657,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 			else
 			{
-				trigger_error('delete error', E_USER_ERROR);
+				/**
+				 * Delete failed
+				 */
+				trigger_error('<u>Database Error</u>: Delete query failed.');
 			}
 		}
 		else
@@ -1752,9 +1756,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 				else
 				{
 					/**
-					 * Needs work...
+					 * Insert failed
 					 */
-					trigger_error('insert error', E_USER_ERROR);
+					trigger_error('<u>Database Error</u>: Insert query failed.');
 				}
 			}
 		}
@@ -1786,7 +1790,7 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 		$t = $rs->dbNumRows();
 		if($t != 1)
 		{
-			trigger_error("content doesn't exist", E_USER_ERROR);
+			trigger_error('<u>Error</u>: Requested content does not exist.');
 		}
 		$r = $rs->dbFetchArray();
 		$this->modOut['cnt']['content']['cnt_body'] = $r['cnt_body'];
@@ -1842,9 +1846,9 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			else
 			{
 				/**
-				 * Needs work...
+				 * Update failed
 				 */
-				trigger_error('update error', E_USER_ERROR);
+				trigger_error('<u>Database Error</u>: Update query failed.');
 			}
 		}
 		else
@@ -1883,7 +1887,10 @@ class rw_Mod_dbContentAdm extends rw_Mod_global implements rw_iMod
 			}
 			else
 			{
-				trigger_error('delete error', E_USER_ERROR);
+				/**
+				 * Delete failed
+				 */
+				trigger_error('<u>Delete Error</u>: Delete query failed.');
 			}
 		}
 		else

@@ -123,11 +123,19 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 		/**
 		 * No image specified
 		 */
-		if($img == NULL) {trigger_error('Image file not specified', E_USER_ERROR); exit;}
+		if($img == NULL)
+		{
+			trigger_error('<u>Image Error</u>: Image file not specified.');
+			exit;
+		}
 		/**
 		 * File not found
 		 */
-		else if(!is_file($img)) {trigger_error('Image file not found', E_USER_ERROR); exit;}
+		else if(!is_file($img))
+		{
+			trigger_error('<u>Image Error</u>: Image file does not exist.');
+			exit;
+		}
 		/**
 		 * Set new image name
 		 */
@@ -153,10 +161,25 @@ class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 			 * Create raw image from original source
 			 */
 			switch ($old_type) {
-				case "1": {$new_image = imagecreatefromgif($img) ; break;}
-				case "2": {$new_image = imagecreatefromjpeg($img); break;}
-				case "3": {$new_image = imagecreatefrompng($img); break;}
-				default: {trigger_error('Image type not supported', E_USER_ERROR); break;}
+				case "1" :
+					{
+						$new_image = imagecreatefromgif($img);
+						break;
+					}
+				case "2" :
+					{
+						$new_image = imagecreatefromjpeg($img);
+						break;
+					}
+				case "3" :
+					{
+						$new_image = imagecreatefrompng($img);
+						break;
+					}
+				default : {
+					trigger_error('<u>Image Error</u>: Image output type not suported.');
+					break;
+				}
 			}
 			/**
 			 * Resize functionality

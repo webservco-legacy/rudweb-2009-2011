@@ -119,10 +119,10 @@ class rw_Mod_global
 		 * Default values.
 		 * These can be overridden by modules
 		 */
-		$out1['type'] = 'text';
+		$out1['type'] = 'rudweb';
 		$out1['skin'] = array();
 		$out1['skin']['dir'] = '';
-    $out1['skin']['tpl'] = 'layout';
+		$out1['skin']['tpl'] = 'layout';
 		$out1['skin']['title'] = $this->modLang['MOD']['TITLE'];
 		$out1['skin']['meta'] = array();
 		$out1['skin']['meta']['subject'] = _APP_NAME;

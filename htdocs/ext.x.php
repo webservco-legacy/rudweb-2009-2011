@@ -13,7 +13,7 @@
  * @access     public
  * @package    RudWEb
  * @subpackage rwHTD
-  *
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -30,11 +30,11 @@
 
 /**
  * Notes:
- * 
+ *
  * This is a raw extension tester.
  * Do not delete until sucessfully implemented as a module, etc.
- * 
- * Currently it works on the delFD extension. 
+ *
+ * Currently it works on the delFD extension.
  */
 
 /**

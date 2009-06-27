@@ -113,7 +113,7 @@ class rw_Skin
 			}
 			else
 			{
-				trigger_error('Template engine '.$tplEngine . ' is missing.', E_USER_ERROR);
+				trigger_error('<u>Template Engine Error</u>: Template engine '.$tplEngine . ' is missing.');
 			}
 
 			require_once(_RW_DIR_LIB_SKIN.'skin.'.$tplEngine.'.inc.php');

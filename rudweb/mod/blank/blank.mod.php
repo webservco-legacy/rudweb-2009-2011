@@ -81,6 +81,7 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		 * $out['skin']['lang'] added by default in parent class
 		 * $out['skin']['langAdm'] added by default in parent class
 		 */
+		$out['type'] = 'Smarty';
 		$out['cnt']['dir'] = 'content';
 		$out['cnt']['tpl'] = 'blank';
 		$out['cnt']['content'] = array();
@@ -89,7 +90,7 @@ class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 		 */
 		parent::__construct($about, $out, $appCore);
 		$intl = $this->modAppCore->rwActivateExt('Intl');
-    $this->modOut['skin']['langs'] = $intl->intlMenu();
+		$this->modOut['skin']['langs'] = $intl->intlMenu();
 	}
 	/**
 	 * Default module functionality

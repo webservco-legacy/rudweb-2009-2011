@@ -284,7 +284,7 @@ class rw_Core
 			}
 			else
 			{
-				trigger_error('Extension '.$extName . ' is missing.', E_USER_ERROR);
+				trigger_error('<u>Extension Error</u>: Extension '.$extName.' is missing.');
 			}
 		}
 		return $ext;
@@ -312,7 +312,7 @@ class rw_Core
 				{
 					if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
 					{
-						trigger_error('Extension <b>'. $extName .'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
+						trigger_error('<u>Extension Error</u>: Extension <b>'. $extName .'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.');
 					}
 				}
 			}
@@ -325,7 +325,7 @@ class rw_Core
 				{
 					if(!array_key_exists($extDep, $this->ext))
 					{
-						trigger_error('Extension <b>'.$extName.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
+						trigger_error('<u>Extension Error</u>: Extension <b>'. $extName .'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.');
 					}
 				}
 			}
@@ -334,7 +334,7 @@ class rw_Core
 		}
 		else
 		{
-			trigger_error('Extension '.$extName.' is not loaded.', E_USER_ERROR);
+			trigger_error('<u>Extension Error</u>: Extension <b>'. $extName .'</b> is not loaded.');
 		}
 	}
 	/**

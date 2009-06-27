@@ -63,7 +63,7 @@ class rw_Ext_Sessions extends rw_Ext_global implements rw_iExt
 		$about['deps'] = array();
 		$about['deps']['cfg'] = array();
 		$about['deps']['cfg'][] = 'Sessions';
-    $about['deps']['ext'] = array();
+		$about['deps']['ext'] = array();
 		parent::__construct($about, $appCore);
 	}
 	/**

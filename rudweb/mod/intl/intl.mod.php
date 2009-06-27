@@ -83,6 +83,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 		 * $out['skin']['lang'] added by default in parent class
 		 * $out['skin']['langAdm'] added by default in parent class
 		 */
+		$out['type'] = 'Smarty';
 		$out['cnt']['dir'] = 'content';
 		$out['cnt']['tpl'] = 'blank';
 		$out['cnt']['content'] = array();

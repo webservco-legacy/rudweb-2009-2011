@@ -46,7 +46,7 @@ $out['cnt'] = array();
 /**
  * Content type
  */
-//$out['type'] = 'text';
+//$out['type'] = 'rudweb';
 /**
  * Main layout template directory
  */

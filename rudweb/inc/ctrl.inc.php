@@ -139,11 +139,6 @@ if(is_readable('./cfg/cfg.ini'))
 	 */
 	define('_APP_LANG',$cfg['Defaults']['Language']);
 	/**
-	 * Default template engine
-	 *
-	 */
-	define('_APP_TPL',$cfg['Defaults']['TemplateEngine']);
-	/**
 	 * Default skin
 	 *
 	 */
@@ -220,9 +215,9 @@ try
 	 */
 	define('_APP_CONTENT_ID', $cfg2['Language']['ContentId'] ? $cfg2['Language']['ContentId'] : 'index');
 	/**
-	 * Default page content type
+	 * Default page output
 	 */
-	$out1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
+	$out1['type'] = $cfg['Defaults']['OutType'] ? $cfg['Defaults']['OutType'] : 'rudweb';
 	/**
 	 * Main layout template directory.
 	 */
@@ -290,10 +285,15 @@ try
 	 */
 	$atpl = array();
 	/**
-	 * If normal content, set it,
+	 * Set legal HTML template engines
+	 */
+	$htmlTpl = array('rudweb', 'Smarty');
+	/**
+	 * If HTML + template content is requested, set it,
 	 * and also set additional templates
 	 */
-	if($out['type'] == 'text')
+
+	if(in_array($out['type'], $htmlTpl))
 	{
 		/**
 		 * Header

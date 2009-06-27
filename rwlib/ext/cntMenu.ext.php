@@ -101,7 +101,7 @@ class rw_Ext_cntMenu extends rw_Ext_global implements rw_iExt
 			/**
 			 * If data exists, populate menu data array.
 			 */
-			
+				
 			while($menuItem = $rs->dbFetchArray())
 			{
 				if($menuItem['pg_id'] == $this->pg_id)

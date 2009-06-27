@@ -314,7 +314,7 @@ class app_Core extends rw_Core
 				{
 					if(TRUE !== constant('_APP_CFG_'.strtoupper($cfgDep)))
 					{
-						trigger_error('Module <b>'.$module.'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.', E_USER_ERROR);
+						trigger_error('<u>Module Error</u>: Module <b>'.$module.'</b> can not be loaded. Configuration dependecy <b>'.$cfgDep.'</b> is missing.');
 					}
 				}
 			}
@@ -327,7 +327,7 @@ class app_Core extends rw_Core
 				{
 					if(!array_key_exists($extDep, $this->ext))
 					{
-						trigger_error('Module <b>'.$module.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
+						trigger_error('<u>Module Error</u>: Module <b>'.$module.'</b> can not be loaded. Extensions dependecy <b>'.$extDep.'</b> is missing.');
 					}
 				}
 			}
@@ -340,7 +340,7 @@ class app_Core extends rw_Core
 				{
 					if(!is_file(_APP_DIR_MOD.$modDep.'/'.$modDep.'.mod.php'))
 					{
-						trigger_error('Module <b>'.$module.'</b> can not be loaded. Modules dependecy <b>'.$extDep.'</b> is missing.', E_USER_ERROR);
+						trigger_error('<u>Module Error</u>: Module <b>'.$module.'</b> can not be loaded. Modules dependecy <b>'.$extDep.'</b> is missing.');
 					}
 				}
 			}

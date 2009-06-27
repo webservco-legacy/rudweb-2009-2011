@@ -88,6 +88,7 @@ class rw_Mod_dbContent extends rw_Mod_global implements rw_iMod
 		 * $out['skin']['lang'] added by default in parent class
 		 * $out['skin']['langAdm'] added by default in parent class
 		 */
+		$out['type'] = 'Smarty';
 		$out['cnt'][0]['dir'] = 'content';
 		$out['cnt'][0]['tpl'] = 'blank';
 		$out['cnt'][0]['content'] = array();
