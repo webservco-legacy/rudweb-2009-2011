@@ -39,11 +39,20 @@
 
 /**
  * Prevent unauthorized access to other files
+ * @ignore
  */
 define('_RW_VALID', TRUE);
-
+/**
+ * @ignore
+ */
 define('_RW_DIR', 'd:/home/devel/server/htdocs/pub/temp/mvc/work/rudweb/');
+/**
+ * @ignore
+ */
 define('_RW_DIR_LIB', _RW_DIR . 'rwlib/');
+/**
+ * @ignore
+ */
 define('_APP_EXT_GLOBAL_DIR',_RW_DIR . 'ext/');
 
 /*
