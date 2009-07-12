@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2009-02-09 16:12:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwInt
+ * @package    rwInt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

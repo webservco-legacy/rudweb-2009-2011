@@ -9,10 +9,6 @@
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-03-05 13:04:00
- * @access     public
- * @package    RudWEb
- * @subpackage rwSkinRwSs
- * @todo       stuff
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

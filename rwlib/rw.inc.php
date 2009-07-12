@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2008-12-11 10:29:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwLib
+ * @package    rwLib
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +38,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  * Basic engine functions
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwLib
+ * @package    rwLib
  */
 class rw_Core
 {

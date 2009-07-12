@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2008-12-09 16:08:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwOut
+ * @package    rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +38,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  * Methods to be implemented by all skin classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwOut
+ * @package    rwOut
  */
 interface rw_iSkin
 {
@@ -77,8 +75,7 @@ interface rw_iSkin
  * Template engine switcher
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwOut
+ * @package    rwOut
  */
 class rw_Skin
 {
@@ -91,25 +88,31 @@ class rw_Skin
 	static function _load($tplEngine = null)
 	{
 		/**
-		 * Allowed template engine types
+		 * Allowed skin engines
 		 */
-		$tplEngines = array('Smarty');
-		if(in_array($tplEngine, $tplEngines))
+		$tplEngines = array();
+		$tplEngines['Smarty']['path'] = 'Smarty.class.php';
+
+		if(array_key_exists($tplEngine, $tplEngines))
 		{
 			/**
-			 * Required skin class name
+			 * Internal skin engine class name
 			 */
 			$skinClass = 'rw_Skin_'.$tplEngine;
 			/**
-			 * Include skin class
+			 * External skin engine path
 			 */
-			if(is_file(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEngine.'.class.php'))
+			$tplEnginePath = $tplEngines[$tplEngine]['path'];
+			/**
+			 * Include external skin engine file
+			 */
+			if(is_file(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
 			{
-				require_once(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEngine.'.class.php');
+				require_once(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
 			}
-			else if(is_file(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEngine.'.class.php'))
+			else if(is_file(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
 			{
-				require_once(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEngine.'.class.php');
+				require_once(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
 			}
 			else
 			{
@@ -120,16 +123,16 @@ class rw_Skin
 		}
 		else {
 			/**
-			 * Default template engine
+			 * Default skin engine
 			 */
 			$skinClass = 'rw_Skin_rudweb';
 			/**
-			 * Include skin class
+			 * Include internal skin engine class
 			 */
 			require_once(_RW_DIR_LIB_SKIN.'skin.rudweb.inc.php');
 		}
 		/**
-		 * Include skin class
+		 * Return skin engine class
 		 */
 		return new $skinClass();
 	}

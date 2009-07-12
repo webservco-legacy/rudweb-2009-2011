@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2009-02-23 14:44:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwCfg
+ * @package    rwCfg
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

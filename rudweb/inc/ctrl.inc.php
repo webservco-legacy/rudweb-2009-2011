@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2009-02-23 12:28:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwApp
+ * @package    rwApp
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -217,7 +216,7 @@ try
 	/**
 	 * Default page output
 	 */
-	$out1['type'] = $cfg['Defaults']['OutType'] ? $cfg['Defaults']['OutType'] : 'rudweb';
+	$out1['type'] = $cfg['Defaults']['OutType'] ? $cfg['Defaults']['OutType'] : '';
 	/**
 	 * Main layout template directory.
 	 */

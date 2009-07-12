@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2009-03-05 10:11:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwSec
+ * @package    rwSec
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

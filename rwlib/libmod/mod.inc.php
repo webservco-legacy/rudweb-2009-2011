@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      2009-02-09 15:43:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwMod
+ * @package    rwMod
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +38,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  * Methods to be implemented by all module classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwMod
+ * @package    rwMod
  */
 interface rw_iMod
 {
@@ -61,8 +59,7 @@ interface rw_iMod
  * Global values and methods for all module classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwMod
+ * @package    rwMod
  */
 class rw_Mod_global
 {

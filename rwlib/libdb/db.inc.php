@@ -11,8 +11,7 @@
  * @version    $Revision$
  * @since      0008-12-03 18:31:00
  * @access     public
- * @package    RudWEb
- * @subpackage rwDb
+ * @package    rwDb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +38,7 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  * Methods to be implemented by all database classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwDb
+ * @package    rwDb
  */
 interface rw_iDB
 {
@@ -146,8 +144,7 @@ interface rw_iDB
  * Global values and methods for all database classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwDb
+ * @package    rwDb
  */
 class rw_DB_global
 {
@@ -209,8 +206,7 @@ class rw_DB_global
  * Common result class for all database classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwDb
+ * @package    rwDb
  */
 class rw_DB_result
 {
@@ -273,8 +269,7 @@ class rw_DB_result
  * Database type switcher
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    RudWEb
- * @subpackage rwDb
+ * @package    rwDb
  */
 class rw_DB
 {

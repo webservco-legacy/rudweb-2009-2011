@@ -1,0 +1,38 @@
+<!-- $Id$ -->
+<!-- $Date$ -->
+<!-- $Revision$ -->
+<!-- $Author$ -->
+<!-- $URL$ -->
+<refentry id="{@id}">
+  <refnamediv>
+    <refname>RudiSoft Website Engine Documentation</refname>
+    <refpurpose>This will document the many features of RudWEb</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <author>
+      Radu Maier
+      <authorblurb>
+      {@link mailto:rudisoft@rudisoft.net rudisoft@rudisoft.net}
+      </authorblurb>
+    </author>
+  </refsynopsisdiv>
+  {@toc}
+  <refsect1 id="{@id intro}">
+    <title>Title</title>
+      <para>
+        Text.
+      </para>
+  </refsect1>
+  <refsect1 id="{@id test}">
+    <title>Subtitle</title>
+    <para>
+      Text.
+    </para>
+    <refsect2 id="{@id tester}">
+      <title>Title</title>
+      <para>
+        Text.
+      </para>
+    </refsect2>
+  </refsect1>
+</refentry>
