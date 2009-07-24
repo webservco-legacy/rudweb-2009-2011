@@ -38,15 +38,19 @@
 
 function rwPHP($content)
 {
-/**
- * This fixes some strange functionality when using inline php tags
- */
-$content = str_replace("&#8221;", '"', $content);
-/**
- * Run the php code
- */
 eval("?>\n" . $content . "<?php ");
 }
 
+/**
+ * Disable wptexturize
+ */
+remove_filter('the_content', 'wptexturize');
+/**
+ * Disable wpautop
+ */
+remove_filter('the_content', 'wpautop');
+/**
+ * Add plugin functionality
+ */
 add_filter('the_content', 'rwPHP');
 ?>
