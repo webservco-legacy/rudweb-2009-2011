@@ -32,12 +32,19 @@
  Plugin URI: http://www.rudisoft.net
  Description: Simple WordPress Plugin to run PHP Code inside a page.
  Author: Radu Maier
- Version: 1
+ Version: 0.1
  Author URI: http://www.rudisoft.net/
  */
 
 function rwPHP($content)
 {
+/**
+ * This fixes some strange functionality when using inline php tags
+ */
+$content = str_replace("&#8221;", '"', $content);
+/**
+ * Run the php code
+ */
 eval("?>\n" . $content . "<?php ");
 }
 
