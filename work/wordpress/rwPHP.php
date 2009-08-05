@@ -4,6 +4,9 @@
  *
  * $URL$
  * <BR>Simple WordPress Plugin to run PHP Code inside a page.
+ * <BR>Default WP WYSIWYG editor must be disabled.
+ * <BR>Also, wptexturize and wpautop must also be disabled.
+ * <BR>It works well with a syntax highlighting editor.
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
