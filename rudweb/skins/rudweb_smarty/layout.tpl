@@ -1,13 +1,13 @@
 {**
- * $Id$
+ * $Id: layout.tpl 194 2009-07-12 10:35:08Z rudisoft@rudisoft.net $
  *
- * $URL$
+ * $URL: https://rudweb.googlecode.com/svn/branches/rudweb-reloaded/rudweb/skins/rudweb_smarty/layout.tpl $
  * <BR>Main layout file
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
- * @version    $Revision$
+ * @version    $Revision: 194 $
  * @since      2009-02-13 16:04:00
  *
  * This program is free software; you can redistribute it and/or modify

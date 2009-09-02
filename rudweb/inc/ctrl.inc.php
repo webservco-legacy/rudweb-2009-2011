@@ -1,14 +1,14 @@
 <?php
 /**
- * $Id$
+ * $Id: ctrl.inc.php 194 2009-07-12 10:35:08Z rudisoft@rudisoft.net $
  *
- * $URL$
+ * $URL: https://rudweb.googlecode.com/svn/branches/rudweb-reloaded/rudweb/inc/ctrl.inc.php $
  * <BR>Controller
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
- * @version    $Revision$
+ * @version    $Revision: 194 $
  * @since      2009-02-23 12:28:00
  * @access     public
  * @package    rwApp

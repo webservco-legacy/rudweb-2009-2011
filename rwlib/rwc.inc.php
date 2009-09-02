@@ -1,14 +1,14 @@
 <?php
 /**
- * $Id$
+ * $Id: rwc.inc.php 194 2009-07-12 10:35:08Z rudisoft@rudisoft.net $
  *
- * $URL$
+ * $URL: https://rudweb.googlecode.com/svn/branches/rudweb-reloaded/rwlib/rwc.inc.php $
  * <BR>Engine configuration file
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
- * @version    $Revision$
+ * @version    $Revision: 194 $
  * @since      2009-01-14 10:40:00
  * @access     public
  * @package    rwLib
