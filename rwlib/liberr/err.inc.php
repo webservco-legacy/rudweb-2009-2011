@@ -242,6 +242,7 @@ abstract class rw_Error_handler
 	{
 		/**
 		 * Display detailed error information
+		 * List from http://us.php.net/manual/en/errorfunc.constants.php
 		 */
 		$errType = array(
 		1    => 'Fatal run-time error',
@@ -256,7 +257,13 @@ abstract class rw_Error_handler
 		512  => 'Engine-generated warning message',
 		1024 => 'Engine-generated notice message',
 		2048 => 'Run-time notice',
-		4096 => 'Catchable fatal error'
+		4096 => 'Catchable fatal error',
+		8192 => 'Deprecated code',
+		16384 => 'Engine generated deprecated code message',
+		2047 => 'All errors and warnings except E_STRICT PHP<52',
+		6143 => 'All errors and warnings except E_STRICT PHP52',
+		30719 => 'All errors and warnings except E_STRICT PHP53',
+		32767 => 'All errors and warnings PHP6'
 		);
 
 		$err =
