@@ -3,15 +3,15 @@
  * $Id$
  *
  * $URL$
- * <BR>RudWEb Directory Structure
+ * <BR>RudWEb Application index file
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-09-06 19:39:00
+ * @since      2009-09-07 11:46:00
  * @access     public
- * @package    rwWork
+ * @package    rwTest
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
