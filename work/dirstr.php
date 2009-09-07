@@ -26,19 +26,4 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
-
-$rwDirStr = array();
-
-$rwDirStr['core'] = 'engine directory structure';
-$rwDirStr['core']['rudweb'] = 'main engine directory';
-
-$rwDirStr['app'] = 'application directory structure';
-$rwDirStr['app']['test'] = 'test application directory';
-
-$rwDirStr['docs'] = 'documentation directory structure';
-$rwDirStr['docs']['docs'] = 'main documentation directory';
 ?>
-<pre>
-<?php print_r($rwDirStr); ?>
-</pre>
