@@ -162,7 +162,7 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	 * page name
 	 * content id
 	 * module name and variables (to pass multiple arguments use "-" instead of "/")
-	 * //XXX still need to test this
+	 * //still need to test this
 	 * blank (for "home", "ref" and BLANK)
 	 *
 	 * @param string $newLang new language
@@ -234,7 +234,6 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 						{
 							if($var)
 							{
-								//XXX
 								$var = str_replace('-', '/', $var);
 								$location = _APP_URL . 'module/'.$var;
 							}
@@ -257,7 +256,6 @@ class rw_Mod_intl extends rw_Mod_global implements rw_iMod
 	/**
 	 * Set language for user.
 	 * Needs user and database functionality
-	 * //XXX
 	 * public function setUser()
 	 *
 	 * Set default language.
