@@ -3,7 +3,7 @@
  * $Id$
  *
  * $URL$
- * <BR>RudWEb Application index file
+ * <BR>Application index file
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-07 11:46:00
  * @access     public
- * @package    rwTest
+ * @package    rwApp
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,4 +26,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/**
+ * Prevent unauthorized access to included files
+ */
+define('_RW_VALID', TRUE);
+
+/**
+ * Check if controller is readable.
+ */
+if(is_readable('./sys/app.inc.php'))
+{
+	/**
+	 * Load controller
+	 */
+	require_once('./sys/app.inc.php');
+}
+else
+{
+	/**
+	 * Display "Not Found" page
+	 */
+	require_once('./var/err/404.php');
+	/**
+	 * Stop script execution
+	 */
+	exit;
+}
 ?>
