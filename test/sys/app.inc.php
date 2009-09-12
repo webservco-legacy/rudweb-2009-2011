@@ -99,15 +99,6 @@ if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 	try
 	{
 		/**
-		 * Test database.
-		 */
-		$db = $core->rwLoadLib('db');
-		echo '<pre>';
-		var_dump($db);
-		die();
-		exit;
-
-		/**
 		 * Process
 		 */
 		$core->rwProcess();

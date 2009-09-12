@@ -91,7 +91,7 @@ interface rw_iDatabase
 	 *
 	 * @return mixed result
 	 */
-	public function dbCheckEmpty();
+	public function dbIsEmpty();
 
 	/**
 	 * Method for simple select queries.
@@ -136,7 +136,7 @@ interface rw_iDatabase
 	public function dbNumRows($result);
 
 	/**
-	 * Returns an array corresponding to a fetched row.
+	 * Returns an associative array corresponding to a fetched row.
 	 *
 	 * @param mixed $result The result of the query.
 	 * @return array
@@ -235,6 +235,13 @@ class rw_Database_global
 	protected $_queryCount = 0;
 
 	/**
+	 * Show query string instead of executing.
+	 *
+	 * @var bool $dbDebug
+	 */
+	protected $dbDebug = FALSE;
+
+	/**
 	 * Constructor.
 	 *
 	 * Sets the database parameters.
@@ -307,6 +314,23 @@ class rw_Database_global
 		 * Return result.
 		 */
 		return $this->_queryCount;
+	}
+
+	/**
+	 * Enable debug mode.
+	 *
+	 * @return mixed result
+	 */
+	public function dbDebug()
+	{
+		/**
+		 * Enable debug.
+		 */
+		$this->dbDebug = TRUE;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 }
 /**

@@ -159,6 +159,16 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbQuery($sql, $stats)
 	{
 		/**
+		 * If debug is set, we just output query.
+		 */
+		if($this->dbDebug)
+		{
+			/**
+			 * Show query as error message.
+			 */
+			trigger_error('Database::Debug - Query: '.$sql);
+		}
+		/**
 		 * Record start time if stats enabled.
 		 */
 		$s = $stats ? microtime(TRUE) : 0;
@@ -208,11 +218,37 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	 *
 	 * @return mixed result
 	 */
-	public function dbCheckEmpty()
+	public function dbIsEmpty()
 	{
 		/**
-		 * //XXX continue...
+		 * Execute query.
+		 *
+		 * Count number of tables in database.
+		 * Don't add to query statistics.
 		 */
+		$r = $this->dbQuery("SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = '".$this->dbName."'", FALSE);
+		/**
+		 * Try to get result.
+		 */
+		$t = $r->dbFetchResult();
+		/**
+		 * No result.
+		 */
+		if($t == 0)
+		{
+			/**
+			 * No tables.
+			 *
+			 * Return result.
+			 */
+			return TRUE;
+		}
+		/**
+		 * We got tables.
+		 *
+		 * Return result.
+		 */
+		return FALSE;
 	}
 
 	/**
@@ -228,8 +264,109 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
 	{
 		/**
+		 * Check if we have limit and set it.
 		 *
+		 * Otherwise limit is blank.
 		 */
+		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
+		/**
+		 * Check if we have order by.
+		 */
+		if($order)
+		{
+			/**
+			 * Init order by.
+			 */
+			$ord = ' ORDER BY ';
+			/**
+			 * Check if we have multiple values for order.
+			 */
+			if(is_array($order))
+			{
+				/**
+				 * Parse values into string.
+				 */
+				$ord .= implode(', ', $order);
+			}
+			/**
+			 * Ony one value.
+			 */
+			else
+			{
+				/**
+				 * Set order by.
+				 */
+				$ord .= $order;
+			}
+		}
+		/**
+		 * Order by not set.
+		 */
+		else
+		{
+			/**
+			 * Order by is blank.
+			 */
+			$ord = '';
+		}
+		/**
+		 * Check for where condition.
+		 */
+		if($condition)
+		{
+			/**
+			 * Init condition.
+			 */
+			$cond = ' WHERE ';
+			/**
+			 * Check if condition contains multple values.
+			 */
+			if(is_array($condition))
+			{
+				/**
+				 * Parse values as string.
+				 */
+				$cond .= implode(' AND ', $condition);
+			}
+			/**
+			 * Condition contains only one value.
+			 */
+			else
+			{
+				/**
+				 * Set condition.
+				 */
+				$cond .= $condition;
+			}
+		}
+		/**
+		 * No where condition.
+		 */
+		else
+		{
+			/**
+			 * Condition is blank.
+			 */
+			$cond = '';
+		}
+		/**
+		 * Check for multiple columns.
+		 */
+		if(is_array($columns))
+		{
+			/**
+			 * Parse values into string.
+			 */
+			$columns = implode(', ', $columns);
+		}
+		/**
+		 * Create query.
+		 */
+		$sql = "SELECT {$columns} FROM {$table}{$cond}{$ord}{$limit}";
+		/**
+		 * Return result.
+		 */
+		return $this->dbQuery($sql);
 	}
 
 	/**
@@ -243,8 +380,105 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbInsert($table, $columns=NULL, $values)
 	{
 		/**
-		 *
+		 * Check for column values.
 		 */
+		if($columns)
+		{
+			/**
+			 * Init columns.
+			 */
+			$cols = '(';
+			/**
+			 * Check for multiple column values.
+			 */
+			if(is_array($columns))
+			{
+				/**
+				 * Parse columns values as string.
+				 */
+				$cols .= implode(', ', $columns);
+			}
+			/**
+			 * Only one column value.
+			 */
+			else
+			{
+				/**
+				 * Set column value.
+				 */
+				$cols .= $columns;
+			}
+			/**
+			 * Complete column string.
+			 */
+			$cols .= ')';
+		}
+		/**
+		 * No column value.
+		 */
+		else
+		{
+			/**
+			 * Columns string is blank.
+			 * @var unknown_type
+			 */
+			$cols = '';
+		}
+		/**
+		 * Check data to be inserted.
+		 *
+		 * The data array contains both columns and values.
+		 */
+		if(is_array($data))
+		{
+			/**
+			 * Init columns.
+			 */
+			$col = array();
+			/**
+			 * Init values.
+			 */
+			$val = array();
+			/**
+			 * Split columns from values.
+			 */
+			foreach($data as $column => $value)
+			{
+				/**
+				 * Set columns.
+				 */
+				$col[] = $column;
+				/**
+				 * Set values.
+				 */
+				$val[] = "'".$value."'";
+			}
+			/**
+			 * Init columns string.
+			 */
+			$cols = '(';
+			/**
+			 * Set columns string
+			 */
+			$cols .= implode(', ', $col);
+			/**
+			 * Complete column string.
+			 */
+			$cols .= ')';
+			/**
+			 * Set data string.
+			 */
+			$data  = implode(', ', $val);
+		}
+		/**
+		 * Create query.
+		 */
+		$sql = "INSERT INTO {$table}{$cols} VALUES($data)";
+
+		/**
+		 * Return result.
+		 */
+		return $this->dbQuery($sql);
 	}
 
 	/**
@@ -260,8 +494,154 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL)
 	{
 		/**
+		 * Check if we  have limit and set it.
 		 *
+		 * Otherwise limit is blank.
 		 */
+		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
+		/**
+		 * Check if we have order by.
+		 */
+		if($order)
+		{
+			/**
+			 * Init order by.
+			 */
+			$ord = ' ORDER BY ';
+			/**
+			 * Check for multiple values.
+			 */
+			if(is_array($order))
+			{
+				/**
+				 * Parse values as string.
+				 */
+				$ord .= implode(', ', $order);
+			}
+			/**
+			 * Only one value.
+			 */
+			else
+			{
+				/**
+				 * Set order string.
+				 */
+				$ord .= $order;
+			}
+		}
+		/**
+		 * No order by.
+		 */
+		else
+		{
+			/**
+			 * Order by string is empty.
+			 */
+			$ord = '';
+		}
+		/**
+		 * Check for condition.
+		 */
+		if($condition)
+		{
+			/**
+			 * Init condition.
+			 */
+			$cond = ' WHERE ';
+			/**
+			 * Check for multiple values.
+			 */
+			if(is_array($condition))
+			{
+				/**
+				 * Parse values as string.
+				 */
+				$cond .= implode(' AND ', $condition);
+			}
+			/**
+			 * Only one value.
+			 */
+			else
+			{
+				/**
+				 * Set condition string.
+				 */
+				$cond .= $condition;
+			}
+		}
+		/**
+		 * No condition.
+		 */
+		else
+		{
+			/**
+			 * Condition is blank.
+			 */
+			$cond = '';
+		}
+		/**
+		 * Check for data.
+		 */
+		if(is_array($data))
+		{
+			/**
+			 * Init values.
+			 */
+			$values = array();
+			/**
+			 * Split columns from values.
+			 */
+			foreach($data as $column=>$value)
+			{
+				/**
+				 * Search for {VALUE}
+				 */
+				if(preg_match("/^{.*}$/", $value))
+				{
+					/**
+					 * Parse data.
+					 */
+					$value = str_replace(array('{', '}'), '', $value);
+					/**
+					 * Set individual string.
+					 */
+					$values[] = $column . " = " . $value;
+				}
+				/**
+				 * No need to parse.
+				 */
+				else
+				{
+					/**
+					 * Set individual string.
+					 */
+					$values[] = $column . " = '" . $value . "'";
+				}
+
+			}
+			/**
+			 * Set data string.
+			 */
+			$data = implode(', ', $values);
+		}
+		/**
+		 * No data.
+		 */
+		else
+		{
+			/**
+			 * Data is null.
+			 */
+			$data = NULL;
+		}
+		/**
+		 * Create query.
+		 */
+		$sql = "UPDATE {$table} SET {$data}{$cond}{$ord}{$limit}";
+		/**
+		 * Return result.
+		 */
+		return $this->dbQuery($sql);
 	}
 
 	/**
@@ -273,12 +653,13 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbNumRows($result)
 	{
 		/**
-		 *
+		 * Return result.
 		 */
+		return mysql_num_rows($result);
 	}
 
 	/**
-	 * Returns an array corresponding to a fetched row.
+	 * Returns an associative array corresponding to a fetched row.
 	 *
 	 * @param mixed $result The result of the query.
 	 * @return array
@@ -286,8 +667,9 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbFetchArray($result)
 	{
 		/**
-		 *
+		 * Return result.
 		 */
+		return mysql_fetch_array($result, MYSQL_ASSOC);
 	}
 
 	/**
@@ -301,8 +683,9 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbFetchResult($result, $row, $field)
 	{
 		/**
-		 *
+		 * Return result.
 		 */
+		return mysql_result($result, $row, $field);
 	}
 
 	/**
@@ -313,8 +696,9 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	public function dbLastInsertId()
 	{
 		/**
-		 *
+		 * Return result.
 		 */
+		return $this->dbQuery("SELECT LAST_INSERT_ID()");
 	}
 }
 ?>
