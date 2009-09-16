@@ -53,13 +53,22 @@ if (!defined('_RW_VALID'))
 class rw_Core
 {
 	/**
-	 * Error handling object.
+	 * User loadable libraries.
 	 *
-	 * One of the available libraries.
+	 * Format: name => object.
 	 *
-	 * @var mixed
+	 * @var array
 	 */
-	public $rwErr = NULL;
+	public $rwLibs = array();
+
+	/**
+	 * Available extensions.
+	 *
+	 * Format: name => object
+	 *
+	 * @var array
+	 */
+	public $rwExts = array();
 
 	/**
 	 * Database object.
@@ -69,6 +78,24 @@ class rw_Core
 	 * @var mixed
 	 */
 	public $rwDb = NULL;
+
+	/**
+	 * Error handling object.
+	 *
+	 * One of the available libraries.
+	 *
+	 * @var mixed
+	 */
+	public $rwErr = NULL;
+
+	/**
+	 * Output object.
+	 *
+	 * One of the available libraries.
+	 *
+	 * @var mixed
+	 */
+	public $rwOut = NULL;
 
 	/**
 	 * Security object.
@@ -87,8 +114,13 @@ class rw_Core
 	public function __construct()
 	{
 		/**
-		 * Do nothing.
+		 * Define user loadable libraries.
 		 */
+		$rwLibs = array('Database' => 'db',	'Error' => 'err', 'Output' => 'out', 'Security' => 'sec');
+		/**
+		 * Set user loadable libraries.
+		 */
+		$this->rwLibs = $rwLibs;
 	}
 
 	/**
@@ -105,8 +137,10 @@ class rw_Core
 		$this->_rwSetCfg($cfg);
 		/**
 		 * Load error handling library.
+		 *
+		 * From now on it will be available as $rwErr object.
 		 */
-		$this->rwErr = $this->rwLoadLib('err');
+		$this->rwLoadLib('Error');
 		/**
 		 * Initialize error handling.
 		 */
@@ -312,118 +346,346 @@ class rw_Core
 	public function rwLoadLib($lib)
 	{
 		/**
-		 * List of available libraries.
+		 * Parse library name.
 		 */
-		$libs = array(
-		'db' => 'Database',
-		'err' => 'Error',
-		'out' => 'Output',
-		'sec' => 'Security'
-		);
+		$lib = ucfirst(strtolower($lib));
 		/**
-		 * Set library path.
+		 * Check if requested library is user loadable.
 		 */
-		$libPath = _RW_DIR_LIB.$lib.'/'.$lib.'.inc.php';
-
-		/**
-		 * Check if requested library exists and is loadable.
-		 */
-		if (array_key_exists($lib, $libs) && is_readable($libPath))
+		if (array_key_exists($lib, $this->rwLibs))
 		{
 			/**
-			 * Set library class name.
+			 * Set library path.
 			 */
-			$libClass = 'rw_' . $libs[$lib];
+			$libPath = _RW_DIR_LIB.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.inc.php';
 			/**
-			 * Load library class.
+			 * Check if library exists
 			 */
-			require_once($libPath);
-			/**
-			 * Each library may have different values passed to them.
-			 */
-			switch ($lib)
+			if (is_readable($libPath))
 			{
 				/**
-				 * Database.
+				 * Set library class name.
 				 */
-				case 'db' : {
+				$libClass = 'rw_' . $lib;
+				/**
+				 * Set library object name.
+				 */
+				$libObj = 'rw'.ucfirst(strtolower($this->rwLibs[$lib]));
+				/**
+				 * Load library class.
+				 */
+				require_once($libPath);
+				/**
+				 * Each library may have different values passed to them.
+				 */
+				switch ($lib)
+				{
 					/**
-					 * Allowed database types.
+					 * Database.
 					 */
-					$dbs = array('mysql');
-					/**
-					 * Check current database type.
-					 */
-					if (in_array(_APP_DB_TYPE, $dbs))
-					{
+					case 'Database' : {
 						/**
-						 * Set new class name.
+						 * Allowed database types.
 						 */
-						$libClass .= '_' . _APP_DB_TYPE;
+						$dbs = array('mysql');
 						/**
-						 * Load database interface.
+						 * Check current database type.
 						 */
-						require_once(_RW_DIR_LIB.$lib.'/'.$lib.'.'._APP_DB_TYPE.'.inc.php');
+						if (in_array(_APP_DB_TYPE, $dbs))
+						{
+							/**
+							 * Set new class name.
+							 */
+							$libClass .= '_' . _APP_DB_TYPE;
+							/**
+							 * Load database interface.
+							 */
+							require_once(_RW_DIR_LIB.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.'._APP_DB_TYPE.'.inc.php');
+							/**
+							 * Load object.
+							 */
+							$obj = new $libClass;
+							/**
+							 * Stop execution.
+							 */
+							break;
+						}
 						/**
-						 * Load database object.
+						 * Database type is not supported.
 						 */
-						$db = new $libClass(_APP_DB_HOST, _APP_DB_PORT, _APP_DB_USER, _APP_DB_PASS, _APP_DB_NAME);
+						trigger_error('Database::Database type <b>' . _APP_DB_TYPE . '</b> not supported.', 256);
 						/**
-						 * Initiate database connection.
+						 * Stop execution.
 						 */
-						$db->dbConnect();
-						/**
-						 * Return result.
-						 */
-						return $db;
+						break;
 					}
 					/**
-					 * Database type is not supported.
+					 * Security.
 					 */
-					trigger_error('Database::Database type <b>' . _APP_DB_TYPE . '</b> not supported.', 256);
+					case 'Security' : {
+						/**
+						 * Load object.
+						 */
+						$obj = new $libClass($this->rwDb);
+						/**
+						 * Stop execution.
+						 */
+						break;
+					}
 					/**
-					 * Stop execution.
+					 * All others.
 					 */
-					break;
+					default : {
+						/**
+						 * Load object.
+						 */
+						$obj = new $libClass;
+						/**
+						 * Stop execution.
+						 */
+						break;
+					}
 				}
 				/**
-				 * Security.
+				 * Set library as engine object.
 				 */
-				case 'sec' : {
-					/**
-					 * Return result.
-					 */
-					return new $libClass($this->rwDb);
-					/**
-					 * Stop execution.
-					 */
-					break;
-				}
+				$this->$libObj = $obj;
 				/**
-				 * All others.
+				 * Return result.
 				 */
-				default : {
-					/**
-					 * Return result.
-					 */
-					return new $libClass;
-					/**
-					 * Stop execution.
-					 */
-					break;
-				}
+				return TRUE;
+			}
+			/**
+			 * Library doesnt't exist.
+			 */
+			else
+			{
+				/**
+				 * Show error message.
+				 */
+				trigger_error('Engine::Requested library <b>'.$lib.'</b> does not exist.', 256);
 			}
 		}
 		/**
-		 * Library doesn't exist or is not loadable.
+		 * Library doesn't exist or is not user loadable.
 		 */
 		else
 		{
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Engine::Requested library does not exist or is not loadable.', 256);
+			trigger_error('Engine::Requested library <b>'.$lib.'</b> does not exist or is not loadable.', 256);
 		}
+	}
+
+	/**
+	 * Load an extension.
+	 *
+	 * @param string $ext extension name
+	 * @return mixed result
+	 */
+	public function rwLoadExt($ext)
+	{
+		/**
+		 * Parse extension name.
+		 */
+		$ext = ucfirst(strtolower($ext));
+		/**
+		 * Load extension library.
+		 */
+		require_once(_RW_DIR_LIB.'ext/ext.inc.php');
+		/**
+		 * Search in local extension dir.
+		 */
+		if (is_readable(_APP_DIR.'ext/'.$ext.'.ext.php'))
+		{
+			/**
+			 * Load local extension.
+			 */
+			require_once(_APP_DIR.'ext/'.$ext.'.ext.php');
+		}
+		/**
+		 * Search in global extension dir.
+		 */
+		else if (is_readable(_RW_DIR.'ext/'.$ext.'.ext.php'))
+		{
+			/**
+			 * Load local extension.
+			 */
+			require_once(_RW_DIR.'ext/'.$ext.'.ext.php');
+		}
+		/**
+		 * Extension not found.
+		 */
+		else
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Engine::Extension <b>'.$ext.'</b> not found.');
+		}
+		/**
+		 * Check library dependencies.
+		 */
+		$missingLibDeps = $this->_rwDepLib($extAbout[$ext]['deps']['lib']);
+		/**
+		 * Check missing dependencies.
+		 */
+		if ($missingLibDeps)
+		{
+			/**
+			 * Set missing dependencies list.
+			 */
+			$missingDeps = implode (', ', $missingLibDeps);
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Extension::Extension <b>'.$ext.'</b> can not be loaded. Missing library dependencies (<b>'.$missingDeps.'</b>)', 256);
+		}
+		/**
+		 * Check extension dependencies.
+		 */
+		$missingExtDeps = $this->_rwDepExt($extAbout[$ext]['deps']['ext']);
+		/**
+		 * Check missing dependencies.
+		 */
+		if ($missingExtDeps)
+		{
+			/**
+			 * Set missing dependencies list.
+			 */
+			$missingDeps = implode (', ', $missingExtDeps);
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Extension::Extension <b>'.$ext.'</b> can not be loaded. Missing library dependencies (<b>'.$missingDeps.'</b>)', 256);
+		}
+		/**
+		 * Set extension class name.
+		 */
+		$extClass = 'rw_Extension_'.$ext;
+		/**
+		 * Load extension.
+		 */
+		$this->rwExts[$ext] = new $extClass($extAbout[$ext]);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Check for missing library dependencies.
+	 *
+	 * This method returns FALSE if there are no missing dependencies,
+	 * or an array containing the dependencies that are missing otherwise.
+	 *
+	 * @param array $deps list of dependencies to be checked.
+	 * @return boolean result
+	 */
+	private function _rwDepLib($deps)
+	{
+		/**
+		 * Init missing library deps list.
+		 */
+		$missingDeps = array();
+		/**
+		 * Check if we have library dependencies to check.
+		 */
+		if (count($deps > 0))
+		{
+			/**
+			 * Check each dependency.
+			 */
+			foreach($deps as $dep)
+			{
+				/**
+				 * Parse dependency name.
+				 */
+				$dep = ucfirst(strtolower($dep));
+				/**
+				 * Check if library is user loadable.
+				 */
+				if (array_key_exists($dep, $this->rwLibs))
+				{
+					/**
+					 * Set library object name.
+					 */
+					$libObj = 'rw'.ucfirst(strtolower($this->rwLibs[$dep]));
+					/**
+					 * Check if library is laoded.
+					 */
+					if (!$this->$libObj)
+					{
+						/**
+						 * Add to missing dependency list.
+						 */
+						$missingDeps[] = $dep;
+					}
+				}
+				/**
+				 * Library is not loadable
+				 */
+				else
+				{
+					/**
+					 * Add to missing dependency list.
+					 */
+					$missingDeps[] = $dep;
+				}
+			}
+		}
+		/**
+		 * Return result.
+		 */
+		return (count($missingDeps) > 0) ? $missingDeps : FALSE;
+	}
+
+	/**
+	 * Check for missing extension dependencies.
+	 *
+	 * This method returns FALSE if there are no missing dependencies,
+	 * or an array containing the dependencies that are missing otherwise.
+	 *
+	 * @param array $deps list of dependencies to be checked.
+	 * @return boolean result
+	 */
+	private function _rwDepExt($deps)
+	{
+		/**
+		 * Init missing library deps list.
+		 */
+		$missingDeps = array();
+		/**
+		 * Check if we have library dependencies to check.
+		 */
+		if (count($deps > 0))
+		{
+			/**
+			 * Check each dependency.
+			 */
+			foreach($deps as $dep)
+			{
+				/**
+				 * Parse dependency name.
+				 */
+				$dep = ucfirst(strtolower($dep));
+				/**
+				 * Check if extension is loaded.
+				 */
+				if (!array_key_exists($dep, $this->rwExts))
+				{
+					/**
+					 * Add to missing dependency list.
+					 */
+					$missingDeps[] = $dep;
+				}
+			}
+		}
+		/**
+		 * Return result.
+		 */
+		return (count($missingDeps) > 0) ? $missingDeps : FALSE;
 	}
 }
 ?>

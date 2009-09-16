@@ -107,9 +107,13 @@ if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 		 */
 		$core->rwPostprocess();
 		/**
-		 * Test output
+		 * XXX Test.
 		 */
-		echo 'Hello World';
+		$core->rwLoadExt('routing');
+		$core->rwExts['Routing']->doRouting();
+		echo '<pre>';
+		print_r($_GET);
+		//echo 'Hello World';
 	}
 	/**
 	 * Catch errors.

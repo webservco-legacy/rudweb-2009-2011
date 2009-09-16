@@ -47,7 +47,7 @@ RewriteRule ^(.*)$ index.php/$1 [PT,L]
 # inc.php - include files
 # ext.php - extension files
 # mod.php - module files
-<FilesMatch "\.(ini|log|tpl|tpl.php|tmp|inc.php|ext.php|mod.php)$">
+<FilesMatch "\.(ini|log|tpl|tpl.php|tmp|inc.php|cfg.php|ext.php|mod.php)$">
   Order allow,deny
   Deny from all
   Satisfy All

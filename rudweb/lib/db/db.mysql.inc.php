@@ -64,12 +64,12 @@ class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
 	 * @param string $dbName Database name
 	 * @return mixed result
 	 */
-	public function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName)
+	public function __construct()
 	{
 		/**
 		 * Call parent constructor.
 		 */
-		parent::__construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName);
+		parent::__construct(_APP_DB_HOST, _APP_DB_PORT, _APP_DB_USER, _APP_DB_PASS, _APP_DB_NAME);
 	}
 
 	/**
