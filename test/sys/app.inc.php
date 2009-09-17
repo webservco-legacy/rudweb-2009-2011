@@ -28,38 +28,118 @@
  */
 
 /**
- * Security check
+ * Security check.
  */
 if(!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page
+	 * Display "Not Found" page.
 	 */
 	require_once('./var/err/404.php');
 	/**
-	 * Stop script execution
+	 * Stop script execution.
 	 */
 	exit;
 }
 
 /**
- * Initialize configuration
+ * Initialize configuration.
  */
 $cfg = array();
 
 /**
- * Check if application configuration file is readable
+ * Check if application configuration file is readable.
  */
 if(is_readable('./etc/app.ini'))
 {
 	/**
-	 * Read configuration file
+	 * Read configuration file.
 	 */
 	$cfg = parse_ini_file('./etc/app.ini', TRUE);
 	/**
-	 * Set engine path
+	 * Set engine path.
 	 */
 	define('_RW_DIR',$cfg['Paths']['CoreDir']);
+	/**
+	 * Set application path.
+	 */
+	define('_APP_DIR',$cfg['Paths']['AppDir']);
+	/**
+	 * Set base application URL (web path).
+	 */
+	define('_APP_WWW',$cfg['Paths']['AppURL']);
+	/**
+	 * Check if FullSEO is enabled.
+	 */
+	$app_index = $cfg['Config']['FullSEO'] ? '' : 'index.php/';
+	/**
+	 * Set full application URL.
+	 */
+	define('_APP_URL', _APP_WWW . $app_index);
+	/**
+	 * Set database type.
+	 */
+	define('_APP_DB_TYPE',$cfg['Database']['Type']);
+	/**
+	 * Set database host.
+	 */
+	define('_APP_DB_HOST',$cfg['Database']['Host']);
+	/**
+	 * Set database port.
+	 */
+	define('_APP_DB_PORT',$cfg['Database']['Port']);
+	/**
+	 * Set database user.
+	 */
+	define('_APP_DB_USER',$cfg['Database']['User']);
+	/**
+	 * Set database password.
+	 */
+	define('_APP_DB_PASS',$cfg['Database']['Pass']);
+	/**
+	 * Set database name.
+	 */
+	define('_APP_DB_NAME',$cfg['Database']['Name']);
+	/**
+	 * Set application name.
+	 */
+	define('_APP_NAME',$cfg['AppInfo']['Name']);
+	/**
+	 * Set application author.
+	 */
+	define('_APP_AUTH',$cfg['AppInfo']['Author']);
+	/**
+	 * Set application prefix.
+	 */
+	define('_APP_PRE',$cfg['AppInfo']['Prefix']);
+	/**
+	 * Set default language.
+	 */
+	define('_APP_LANG',$cfg['Defaults']['Language']);
+	/**
+	 * Set default time zone.
+	 */
+	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
+	/**
+	 * Set default skin.
+	 */
+	define('_APP_SKIN',$cfg['Defaults']['Skin']);
+	/**
+	 * Set application system directory.
+	 */
+	define('_APP_DIR_SYS', _APP_DIR . 'sys/');
+	/**
+	 * Set error handling.
+	 */
+	define('_APP_ERR',$cfg['Config']['Errors'] ? TRUE : FALSE);
+	/**
+	 * Set core library path.
+	 */
+	define('_RW_DIR_LIB', _RW_DIR . 'lib/');
+	/**
+	 * Use fake file extension for URL's?
+	 */
+	define('_APP_FAKEXT',$cfg['Config']['Fakext'] ? TRUE : FALSE);
 }
 /**
  * Application configuration file is missing.
@@ -67,53 +147,87 @@ if(is_readable('./etc/app.ini'))
 else
 {
 	/**
-	 * Display "Not Found" page
+	 * Display "Not Found" page.
 	 */
 	require_once('./var/err/404.php');
 	/**
-	 * Stop script execution
+	 * Stop script execution.
 	 */
 	exit;
 }
 
 /**
- * Check if main engine class is readable
+ * Check if main engine class is readable.
  */
 if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 {
 	/**
-	 * Load main engine class
+	 * Load main engine class.
 	 */
 	require_once(_RW_DIR.'lib/rw/rw.core.inc.php');
 	/**
-	 * Initialize core
+	 * Initialize core.
 	 */
 	$core = new rw_Core;
 	/**
-	 * Preprocess
+	 * Load error handling library.
 	 */
-	$core->rwPreprocess($cfg);
+	$core->rwLoadLib('Error');
 	/**
-	 * From now on we can do try/catch
+	 * Initialize error handling.
+	 */
+	$core->rwErr->init();
+	/**
+	 * From now on we can process errors ourselves.
 	 */
 	try
 	{
 		/**
-		 * Process
+		 * Set default timezone.
 		 */
-		$core->rwProcess();
+		date_default_timezone_set(_APP_TIMEZONE);
 		/**
-		 * Postprocess
+		 * Load routing extension.
 		 */
-		$core->rwPostprocess();
+		$core->rwLoadExt('Routing');
 		/**
-		 * XXX Test.
+		 * Perform routing.
 		 */
-		$core->rwLoadExt('routing');
 		$core->rwExts['Routing']->doRouting();
+		/**
+		 * Load database library.
+		 */
+		$core->rwLoadLib('Database');
+		/**
+		 * Open database connection.
+		 */
+		$core->rwDb->dbConnect();
+		/**
+		 * Load security library.
+		 */
+		$core->rwLoadLib('Security');
+		/**
+		 * Sanitize input.
+		 * 
+		 * This filters the $_GET and $_POST arrays.
+		 * If database connection is available,
+		 * tags are not removed nor disabled from $_POST array.
+		 */
+		$core->rwSec->rwSanitizeInput();
+		/**
+		 * XXX Test start.
+		 */
 		echo '<pre>';
-		print_r($_GET);
+		var_dump($_GET);
+		echo '<hr />';
+		var_dump($_POST);
 		//echo 'Hello World';
+		/**
+		 * XXX Test end.
+		 */
+		/**
+		 * XXX Load requested module.
+		 */
 	}
 	/**
 	 * Catch errors.
@@ -138,11 +252,11 @@ if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 else
 {
 	/**
-	 * Display "Not Found" page
+	 * Display "Not Found" page.
 	 */
 	require_once('./var/err/404.php');
 	/**
-	 * Stop script execution
+	 * Stop script execution.
 	 */
 	exit;
 }

@@ -76,13 +76,45 @@ class rw_Security
 	}
 
 	/**
+	 * Sanitize input.
+	 *
+	 * @return mixed result.
+	 */
+	public function rwSanitizeInput()
+	{
+		/**
+		 * Sanitize $_GET array.
+		 */
+		$_GET = array_map(array($this, 'rwFilterRequest'), $_GET);
+		/**
+		 * Sanitize $_POST array.
+		 *
+		 * IMPORTANT: Tags are not disabled nor removed.
+		 * Further validation is required.
+		 * If database connection is not available,
+		 * filtering is done as for $_GET.
+		 */
+		$_POST = array_map(array($this, 'rwFilterPost'), $_POST);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	public function rwFilterPost($input)
+	{
+		return $this->rwFilterInput($input, FALSE, FALSE);
+	}
+
+	/**
 	 * Filter user input.
 	 *
-	 * @param string $input
-	 * @param boolean $blockTags
+	 * @param string $input input string
+	 * @param boolean $disableTags should we disable tags?
+	 * @param boolean $filterRequest is method used to filter $_GET request?
 	 * @return string filtered input
 	 */
-	public function rwFilterInput($input,$blockTags=TRUE)
+	public function rwFilterInput($input, $disableTags=TRUE, $filterRequest=FALSE)
 	{
 		/**
 		 * If magic quotes are enabled, strip slashes from input.
@@ -101,9 +133,24 @@ class rw_Security
 		 */
 		$input = str_replace($unwanted, '', $input);
 		/**
+		 * Check if the method is used to filter $_GET request,
+		 * or if a database conection is unavailable
+		 */
+		if ($filterRequest || !$this->rwDb)
+		{
+			/**
+			 * Strip known bad characters.
+			 */
+			$input = $this->_rwRemoveBadChars($input);
+			/**
+			 * Remove tags.
+			 */
+			$input = $this->_rwStripTags($input);
+		}
+		/**
 		 * Check if we should also block tags
 		 */
-		if ($blockTags === TRUE)
+		if ($disableTags === TRUE)
 		{
 			/**
 			 * Disable tags.
@@ -113,22 +160,12 @@ class rw_Security
 		/**
 		 * Check if we have an open database connection.
 		 */
-		if ($this->db)
+		if ($this->rwDb)
 		{
 			/**
 			 * Use database internal function to filter input.
 			 */
-			$input = $this->db->dbEscapeString($input);
-		}
-		/**
-		 * The string will not be used in a query.
-		 */
-		else
-		{
-			/**
-			 * Strip known bad characters.
-			 */
-			$input = $this->_rwRemoveBadChars($input);
+			$input = $this->rwDb->dbEscapeString($input);
 		}
 		/**
 		 * Return result.
@@ -140,15 +177,15 @@ class rw_Security
 	 * Filter request.
 	 *
 	 * @param string $request request
-	 * @param boolean $blockTags
+	 * @param boolean $disableTags
 	 * @return string $request filtered request
 	 */
-	public function rwFilterRequest($request,$blockTags=TRUE)
+	public function rwFilterRequest($request, $disableTags=TRUE)
 	{
 		/**
 		 * Filter input.
 		 */
-		$request = $this->rwFilterInput($request,$blockTags);
+		$request = $this->rwFilterInput($request, $disableTags, TRUE);
 		/*
 		 * Remove fake file extension.
 		 */
@@ -196,19 +233,20 @@ class rw_Security
 		 */
 		$bad = array(
 	    '`', "'", '"',
-	    '\\\b', '\\\n', '\\\r', '\\\t',
-	    '\?', '!', '\~', '\@', '\#', '\$', '\%', '\^', '\&', '\*',
-	    '\(', '\)', '\-', '\+', '\=', '\{', '\[', '\}', '\]',
-	    '\:', '\;', '\,', '\.', '\|', '\\'
-	    );
-	    /**
-	     * Remove bad chars.
-	     */
-	    $string = str_replace($bad, '', $string);
-	    /**
-	     * Return result.
-	     */
-	    return $string;
+	    "\b", "\n", "\r", "\t",
+	    '?', '!', '~', '@', '#', '%', '^', '&', '*',
+	    '-', '_', '+', '=', '[', ']',
+	    ':', ';', ',', '.', '|', '\\',
+		'{', '}', '(', ')', '$'
+		);
+		/**
+		 * Remove bad chars.
+		 */
+		$string = str_replace($bad, '', $string);
+		/**
+		 * Return result.
+		 */
+		return $string;
 	}
 
 	/**
@@ -235,6 +273,14 @@ class rw_Security
 		 * Block >.
 		 */
 		$string = str_replace('>', '&#62;', $string);
+		/**
+		 * Block <.
+		 */
+		$string = str_replace('%3C', '&#60;', $string);
+		/**
+		 * Block >.
+		 */
+		$string = str_replace('%3E', '&#62;', $string);
 		/**
 		 * Return result.
 		 */

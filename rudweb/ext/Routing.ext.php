@@ -183,7 +183,7 @@ class rw_Extension_Routing extends rw_Extension_global implements rw_iExtension
 		/**
 		 * Check for QUERY_STRING.
 		 *
-		 * In this case the request is old style (?name=value)
+		 * In this case the request is old style (?option=value)
 		 * so we need to do some rewriting.
 		 */
 		else if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '')
@@ -411,12 +411,8 @@ class rw_Extension_Routing extends rw_Extension_global implements rw_iExtension
 			/**
 			 * Fill with blanks.
 			 */
-			$v = array_pad($v, 3, '');
+			$v = array_pad($v, 3, NULL);
 		}
-		/**
-		 * Re-initialize $_GET array.
-		 */
-		$this->_initRequest();
 		/**
 		 * Create new request array.
 		 */
@@ -428,16 +424,32 @@ class rw_Extension_Routing extends rw_Extension_global implements rw_iExtension
 		 */
 		$r['action'] = ($r['action']) ? $r['action'] : 'index';
 		/**
+		 * Split the query.
+		 */
+		$q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
+		/**
 		 * Split the query and add it to the array.
+		 *
+		 * XXX Not sure wether to use this.
 		 */
-		$_GET = array_merge($r, explode('/',$r['query']));
+		//$r = array_merge($r, $q);
 		/**
-		 * XXX Remove the query from the array.
-		 */
-		//$_GET = array_diff_key($_GET, array('query' => ''));
-		/**
-		* Return result.
+		* Remove the query from the array.
+		*
+		* XXX Not sure wether to use this.
 		*/
+		//$r = array_diff_key($r, array('query' => ''));
+		/**
+		* Re-initialize $_GET array.
+		*/
+		$this->_initRequest();
+		/**
+		 * Create new $_GET array.
+		 */
+		$_GET = $r;
+		/**
+		 * Return result.
+		 */
 		return TRUE;
 	}
 }

@@ -124,220 +124,6 @@ class rw_Core
 	}
 
 	/**
-	 * Preprocess.
-	 *
-	 * @param array $cfg configuration options from ini file
-	 * @return bool result
-	 */
-	public function rwPreprocess($cfg)
-	{
-		/**
-		 * Set remaining configuration options.
-		 */
-		$this->_rwSetCfg($cfg);
-		/**
-		 * Load error handling library.
-		 *
-		 * From now on it will be available as $rwErr object.
-		 */
-		$this->rwLoadLib('Error');
-		/**
-		 * Initialize error handling.
-		 */
-		$this->rwErr->init();
-		/**
-		 * From now on we can handle errors ourselves.
-		 */
-		try
-		{
-			/**
-			 * Set default timezone.
-			 */
-			date_default_timezone_set(_APP_TIMEZONE);
-		}
-		/**
-		 * Catch errors.
-		 *
-		 * @var mixed $e error object
-		 */
-		catch(Exception $e)
-		{
-			/**
-			 * Handle errors.
-			 */
-			echo $this->rwErr->showError($e);
-			/**
-			 * Stop execution.
-			 */
-			exit;
-		}
-		/**
-		 * Return result
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * Process.
-	 *
-	 * @return mixed result
-	 */
-	public function rwProcess()
-	{
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * Postprocess.
-	 *
-	 * @return mixed result
-	 */
-	public function rwPostProcess()
-	{
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * Set configuration options.
-	 *
-	 * @param array $cfg configuration options from ini file
-	 * @return bool result
-	 */
-	private function _rwSetCfg($cfg)
-	{
-		/**
-		 * Set application path.
-		 *
-		 *  @var mixed _APP_DIR application path
-		 */
-		define('_APP_DIR',$cfg['Paths']['AppDir']);
-		/**
-		 * Set base application URL (web path).
-		 *
-		 *  @var mixed _APP_WWW application url
-		 */
-		define('_APP_WWW',$cfg['Paths']['AppURL']);
-		/**
-		 * Check if FullSEO is enabled.
-		 *
-		 * @var string $app_index index value
-		 */
-		$app_index = $cfg['Config']['FullSEO'] ? '' : 'index.php/';
-		/**
-		 * Set full application URL.
-		 *
-		 *  @var mixed _APP_URL application full URL
-		 */
-		define('_APP_URL', _APP_WWW . $app_index);
-		/**
-		 * Set database type.
-		 *
-		 * @var mixed _APP_DB_TYPE database type
-		 */
-		define('_APP_DB_TYPE',$cfg['Database']['Type']);
-		/**
-		 * Set database host.
-		 *
-		 * @var mixed _APP_DB_HOST database host
-		 */
-		define('_APP_DB_HOST',$cfg['Database']['Host']);
-		/**
-		 * Set database port.
-		 *
-		 * @var mixed _APP_DB_PORT database port
-		 */
-		define('_APP_DB_PORT',$cfg['Database']['Port']);
-		/**
-		 * Set database user.
-		 *
-		 * @var mixed _APP_DB_USER database user
-		 */
-		define('_APP_DB_USER',$cfg['Database']['User']);
-		/**
-		 * Set database password.
-		 *
-		 * @var mixed _APP_DB_PASS database password
-		 */
-		define('_APP_DB_PASS',$cfg['Database']['Pass']);
-		/**
-		 * Set database name.
-		 *
-		 * @var mixed _APP_DB_NAME database name
-		 */
-		define('_APP_DB_NAME',$cfg['Database']['Name']);
-		/**
-		 * Set application name.
-		 *
-		 * @var mixed _APP_NAME application name
-		 */
-		define('_APP_NAME',$cfg['AppInfo']['Name']);
-		/**
-		 * Set application author.
-		 *
-		 * @var mixed _APP_AUTH application author
-		 */
-		define('_APP_AUTH',$cfg['AppInfo']['Author']);
-		/**
-		 * Set application prefix.
-		 *
-		 * @var mixed _APP_PRE application prefix
-		 */
-		define('_APP_PRE',$cfg['AppInfo']['Prefix']);
-		/**
-		 * Set default language.
-		 *
-		 * @var mixed _APP_LANG default application language
-		 */
-		define('_APP_LANG',$cfg['Defaults']['Language']);
-		/**
-		 * Set default time zone.
-		 *
-		 * @var mixed _APP_TIMEZONE default application timezone
-		 */
-		define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
-		/**
-		 * Set default skin.
-		 *
-		 * @var mixed _APP_SKIN default application skin
-		 */
-		define('_APP_SKIN',$cfg['Defaults']['Skin']);
-		/**
-		 * Set application system directory.
-		 *
-		 *  @var mixed _APP_DIR_SYS application system directory
-		 */
-		define('_APP_DIR_SYS', _APP_DIR . 'sys/');
-		/**
-		 * Set error handling.
-		 *
-		 * @var mixed _APP_ERR error handling
-		 */
-		define('_APP_ERR',$cfg['Config']['Errors'] ? TRUE : FALSE);
-		/**
-		 * Set core library path.
-		 *
-		 *  @var mixed _RW_DIR_LIB core library path
-		 */
-		define('_RW_DIR_LIB', _RW_DIR . 'lib/');
-		/**
-		 * Use fake file extension for URL's?
-		 *
-		 * @var mixed _APP_FAKEXT
-		 */
-		define('_APP_FAKEXT',$cfg['Config']['Fakext'] ? TRUE : FALSE);
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
 	 * Library loader.
 	 *
 	 * @param string $lib library to be loaded
@@ -371,6 +157,20 @@ class rw_Core
 				 * Set library object name.
 				 */
 				$libObj = 'rw'.ucfirst(strtolower($this->rwLibs[$lib]));
+				/**
+				 * Check if library is aleady loaded.
+				 */
+				if($this->_rwLoadedLib($libObj))
+				{
+					/**
+					 * Show error message.
+					 */
+					trigger_error('Library::Library <b>'.$lib.'</b> is already loaded.', 256);
+					/**
+					 * Stop execution.
+					 */
+					exit;
+				}
 				/**
 				 * Load library class.
 				 */
@@ -491,6 +291,20 @@ class rw_Core
 		 */
 		$ext = ucfirst(strtolower($ext));
 		/**
+		 * Check if library is aleady loaded.
+		 */
+		if($this->_rwLoadedExt($ext))
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Extension::Extension <b>'.$ext.'</b> is already loaded.', 256);
+			/**
+			 * Stop execution.
+			 */
+			exit;
+		}
+		/**
 		 * Load extension library.
 		 */
 		require_once(_RW_DIR_LIB.'ext/ext.inc.php');
@@ -572,6 +386,56 @@ class rw_Core
 		 * Return result.
 		 */
 		return TRUE;
+	}
+
+	/**
+	 * Check if a library is loaded.
+	 *
+	 * @param string $libObj library object name
+	 *
+	 * @return boolean result
+	 */
+	private function _rwLoadedLib($libObj)
+	{
+		/**
+		 * Check if library is already loaded.
+		 */
+		if ($this->$libObj)
+		{
+			/**
+			 * return result.
+			 */
+			return TRUE;
+		}
+		/**
+		 * Return result.
+		 */
+		return FALSE;
+	}
+
+	/**
+	 * Check if an extension is loaded.
+	 *
+	 * @param string $ext extension name
+	 *
+	 * @return boolean result
+	 */
+	private function _rwLoadedExt($ext)
+	{
+		/**
+		 * Check if extension is already loaded.
+		 */
+		if (array_key_exists($ext, $this->rwExts))
+		{
+			/**
+			 * return result.
+			 */
+			return TRUE;
+		}
+		/**
+		 * Return result.
+		 */
+		return FALSE;
 	}
 
 	/**
