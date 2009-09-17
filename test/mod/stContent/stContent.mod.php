@@ -4,7 +4,6 @@
  *
  * $URL$
  * <BR>Static content module.
- * <BR>This is the default module and should always be present.
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2008, Radu Maier
@@ -115,7 +114,7 @@ class rw_Module_stContent extends rw_Module_global implements rw_iModule
 		/**
 		 * XXX Test.
 		 */
-		echo 'Hello World '.$this->request;
+		echo 'request: '.$this->request;
 	}
 }
 ?>
