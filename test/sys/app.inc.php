@@ -215,19 +215,9 @@ if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 		 */
 		$core->rwSec->rwSanitizeInput();
 		/**
-		 * XXX Test start.
+		 * Load requested module.
 		 */
-		echo '<pre>';
-		var_dump($_GET);
-		echo '<hr />';
-		var_dump($_POST);
-		//echo 'Hello World';
-		/**
-		 * XXX Test end.
-		 */
-		/**
-		 * XXX Load requested module.
-		 */
+		$core->rwLoadModule();
 	}
 	/**
 	 * Catch errors.

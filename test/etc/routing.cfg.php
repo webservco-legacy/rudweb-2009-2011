@@ -47,7 +47,7 @@ if(!defined('_RW_VALID'))
  *
  * This must be present, and always first.
  */
-$routing['index'] = 'dbContent/view/2';
+$routing['index'] = 'stContent';
 /**
  * Custom route.
  */

@@ -83,7 +83,7 @@ $extAbout['Routing']['deps']['ext'] = array();
 /**
  * rw_Extension_Routing.
  *
- * rw_Extension_Routing extension
+ * rw_Extension_Routing extension.
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwExt
@@ -113,6 +113,7 @@ class rw_Extension_Routing extends rw_Extension_global implements rw_iExtension
 	/**
 	 * Constructor.
 	 *
+	 * @param array $extAbout
 	 * @return mixed result
 	 */
 	public function __construct($extAbout)
