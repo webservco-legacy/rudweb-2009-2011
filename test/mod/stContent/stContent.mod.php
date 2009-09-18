@@ -114,7 +114,12 @@ class rw_Module_stContent extends rw_Module_global implements rw_iModule
 		/**
 		 * XXX Test.
 		 */
-		echo 'request: '.$this->request;
+		$this->rwCore->rwLoadLib('Output');
+		$cnt = array();
+		$cnt['htitle'] = 'Hello World';
+		$cnt['title'] = 'Just a title';
+		$this->rwCore->rwOut->display($cnt);
+		//echo 'request: '.$this->request;
 	}
 }
 ?>

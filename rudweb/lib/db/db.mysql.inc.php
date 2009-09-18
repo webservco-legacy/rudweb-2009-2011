@@ -50,7 +50,7 @@ if (!defined('_RW_VALID'))
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwLibDb
  */
-class rw_Database_mysql extends rw_Database_global implements rw_iDatabase
+class rw_Database_mysql extends rw_Database implements rw_iDatabase
 {
 	/**
 	 * Constructor.

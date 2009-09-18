@@ -162,14 +162,14 @@ interface rw_iDatabase
 }
 
 /**
- * rw_Database_global.
+ * rw_Database.
  *
  * Global values and methods for all database classes.
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwLibDb
  */
-class rw_Database_global
+class rw_Database
 {
 	/**
 	 * Database host.
