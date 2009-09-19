@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-07 18:06:00
  * @access     public
- * @package    rwLibCore
+ * @package    RudWEb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Basic engine functionality.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibCore
+ * @package    RudWEb
  */
 class rw_Core
 {

@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-18 12:03:00
  * @access     public
- * @package    rwLibOut
+ * @package    rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Methods to be implemented by all output classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibOut
+ * @package    rwOut
  */
 interface rw_iOutput
 {
@@ -85,7 +85,7 @@ interface rw_iOutput
  * Global values and methods for all output classes.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibOut
+ * @package    rwOut
  */
 class rw_Output
 {

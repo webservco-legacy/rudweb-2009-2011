@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-16 12:02:00
  * @access     public
- * @package    rwCfg
+ * @package    rwApp
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

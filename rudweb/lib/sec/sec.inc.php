@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-08 17:35:00
  * @access     public
- * @package    rwLibSec
+ * @package    rwSec
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if(!defined('_RW_VALID'))
  * Engine security functions.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibSec
+ * @package    rwSec
  */
 class rw_Security
 {

@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-13 18:36:00
  * @access     public
- * @package    rwLibExt
+ * @package    rwExt
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Methods to be implemented by all extension classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibExt
+ * @package    rwExt
  */
 interface rw_iExtension
 {
@@ -63,7 +63,7 @@ interface rw_iExtension
  * Global values and methods for all extension classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibExt
+ * @package    rwExt
  */
 class rw_Extension
 {

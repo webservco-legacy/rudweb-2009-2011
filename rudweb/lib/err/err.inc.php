@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-07 18:44:00
  * @access     public
- * @package    rwLibErr
+ * @package    rwErr
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Behaves like classic php errors.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibErr
+ * @package    rwErr
  */
 class rw_Error
 {
@@ -388,7 +388,7 @@ class rw_Error
  * Behaves like classic php errors.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibErr
+ * @package    rwErr
  */
 class rw_Exception extends Exception
 {

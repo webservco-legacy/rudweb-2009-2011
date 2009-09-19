@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-10 18:38:00
  * @access     public
- * @package    rwLibDb
+ * @package    rwDb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Database Class for MySQL
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibDb
+ * @package    rwDb
  */
 class rw_Database_mysql extends rw_Database implements rw_iDatabase
 {

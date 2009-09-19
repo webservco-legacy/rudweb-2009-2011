@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-18 17:44:00
  * @access     public
- * @package    rwLibOut
+ * @package    rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * RudWEb output class.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibOut
+ * @package    rwOut
  */
 class rw_Output_RudWEb implements rw_iOutput
 {

@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-08 19:01:00
  * @access     public
- * @package    rwLibDb
+ * @package    rwDb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ if (!defined('_RW_VALID'))
  * Methods to be implemented by all database classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibDb
+ * @package    rwDb
  */
 interface rw_iDatabase
 {
@@ -167,7 +167,7 @@ interface rw_iDatabase
  * Global values and methods for all database classes.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibDb
+ * @package    rwDb
  */
 class rw_Database
 {
@@ -339,7 +339,7 @@ class rw_Database
  * Common result class for all database classes.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibDb
+ * @package    rwDb
  */
 class rw_Database_result
 {

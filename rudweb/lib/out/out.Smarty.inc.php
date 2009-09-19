@@ -11,7 +11,7 @@
  * @version    $Revision$
  * @since      2009-09-18 18:18:00
  * @access     public
- * @package    rwLibOut
+ * @package    rwOut
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +44,8 @@ if (!defined('_RW_VALID'))
 
 /**
  * Set main output engine class file path.
+ *
+ * @var string
  */
 $smartyPath = 'Smarty/2.6.26/Smarty.class.php';
 
@@ -85,7 +87,7 @@ else
  * Smarty output class.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwLibOut
+ * @package    rwOut
  */
 class rw_Output_Smarty extends Smarty implements rw_iOutput
 {
