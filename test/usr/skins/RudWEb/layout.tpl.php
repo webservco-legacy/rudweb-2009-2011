@@ -29,9 +29,11 @@
 ?>
 <html>
 <head>
-	<title><?php echo $title; ?></title>
+<title><?php echo $htitle; ?></title>
 </head>
 <body>
-	<h1>Hello World!</h1>
+<h1><?php echo $title; ?></h1>
+<p>Request: <?php echo $request; ?></p>
+<?php echo $footer; ?>
 </body>
 </html>

@@ -534,7 +534,7 @@ class rw_Core
 		 */
 		$_GET = array();
 		/**
-		 * XXX If we got so far, everything must be ok.
+		 * If we got so far, everything must be ok.
 		 * Call requested action.
 		 */
 		$modObj->$act();

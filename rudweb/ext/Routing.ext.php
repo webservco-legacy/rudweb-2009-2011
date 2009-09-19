@@ -88,7 +88,7 @@ $extAbout['Routing']['deps']['ext'] = array();
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwExt
  */
-class rw_Extension_Routing extends rw_Extension_global implements rw_iExtension
+class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 {
 	/**
 	 * Default request.

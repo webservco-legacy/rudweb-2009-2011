@@ -58,14 +58,14 @@ interface rw_iExtension
 }
 
 /**
- * rw_Extension_global
+ * rw_Extension.
  *
  * Global values and methods for all extension classes
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwLibExt
  */
-class rw_Extension_global
+class rw_Extension
 {
 	/**
 	 * Extension information.

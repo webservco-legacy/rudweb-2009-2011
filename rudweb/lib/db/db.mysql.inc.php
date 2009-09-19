@@ -73,9 +73,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Initialize database connection.
-	 *
-	 * @return mixed result.
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbConnect()
 	 */
 	public function dbConnect()
 	{
@@ -120,9 +119,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Close database connection.
-	 *
-	 * @return mixed result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbDisconnect()
 	 */
 	public function dbDisconnect()
 	{
@@ -133,10 +131,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Escape a string for queries.
-	 *
-	 * @param string $string string to be escaped
-	 * @return string $string escaped string
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbEscapeString($string)
 	 */
 	public function dbEscapeString($string)
 	{
@@ -147,14 +143,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Method for raw queries.
-	 *
-	 * Executes a query and returns the result.
-	 * Counts the time the query took and increments the query counter.
-	 *
-	 * @param string $sql Query to be executed
-	 * @param boolean $stats Whether or not to record query data. Default is TRUE
-	 * @return mixed query result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbQuery($sql, $stats)
 	 */
 	public function dbQuery($sql, $stats)
 	{
@@ -214,9 +204,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Check if there are no tables in database.
-	 *
-	 * @return mixed result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbIsEmpty()
 	 */
 	public function dbIsEmpty()
 	{
@@ -252,14 +241,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Method for simple select queries.
-	 *
-	 * Creates sql query based on input and calls dbQuery.
-	 * @param mixed $columns
-	 * @param mixed $table
-	 * @param mixed $condition
-	 * @param mixed $limit
-	 * @return mixed query result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbSelect($columns, $table, $condition, $order, $limit)
 	 */
 	public function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
 	{
@@ -370,12 +353,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Method for data insertion.
-	 *
-	 * @param mixed $table
-	 * @param mixed $columns
-	 * @param mixed $values
-	 * @return mixed query result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbInsert($table, $columns, $values)
 	 */
 	public function dbInsert($table, $columns=NULL, $values)
 	{
@@ -482,14 +461,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Method for data update.
-	 *
-	 * @param string $table
-	 * @param mixed $data
-	 * @param mixed $condition
-	 * @param mixed $order
-	 * @param mixed $limit
-	 * @return mixed result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbUpdate($table, $data, $condition, $order, $limit)
 	 */
 	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL)
 	{
@@ -645,10 +618,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Returns the number of rows returned by a query result.
-	 *
-	 * @param mixed $result The result of the query.
-	 * @return integer Number of rows
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbNumRows($result)
 	 */
 	public function dbNumRows($result)
 	{
@@ -659,10 +630,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Returns an associative array corresponding to a fetched row.
-	 *
-	 * @param mixed $result The result of the query.
-	 * @return array
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbFetchArray($result)
 	 */
 	public function dbFetchArray($result)
 	{
@@ -673,12 +642,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Returns a query result.
-	 *
-	 * @param mixed $result result object
-	 * @param int $row row number
-	 * @param int $field field number
-	 * @return mixed result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbFetchResult($result, $row, $field)
 	 */
 	public function dbFetchResult($result, $row, $field)
 	{
@@ -689,9 +654,8 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	}
 
 	/**
-	 * Method for getting the last inserted id.
-	 *
-	 * @return mixed result
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbLastInsertId()
 	 */
 	public function dbLastInsertId()
 	{

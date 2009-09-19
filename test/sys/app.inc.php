@@ -208,12 +208,16 @@ if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
 		$core->rwLoadLib('Security');
 		/**
 		 * Sanitize input.
-		 * 
+		 *
 		 * This filters the $_GET and $_POST arrays.
 		 * If database connection is available,
 		 * tags are not removed nor disabled from $_POST array.
 		 */
 		$core->rwSec->rwSanitizeInput();
+		/**
+		 * Load output library.
+		 */
+		$core->rwLoadLib('Output');
 		/**
 		 * Load requested module.
 		 */

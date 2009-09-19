@@ -51,7 +51,7 @@ $routing['index'] = 'stContent';
 /**
  * Custom route.
  */
-$routing['content/{any}'] = 'dbContent/view/stuff';
+$routing['content/({any})'] = 'stContent/$1';
 /**
  * Custom route.
  */

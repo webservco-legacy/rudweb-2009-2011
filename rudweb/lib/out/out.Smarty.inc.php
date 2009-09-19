@@ -42,22 +42,42 @@ if (!defined('_RW_VALID'))
 	exit;
 }
 
+/**
+ * Set main output engine class file path.
+ */
 $smartyPath = 'Smarty/2.6.26/Smarty.class.php';
 
+
+/**
+ * Check for main output engine class file in local 3rdparty dir.
+ */
 if (is_readable(_APP_DIR.'opt/'.$smartyPath))
 {
+	/**
+	 * Load main output engine class file.
+	 */
 	require_once(_APP_DIR.'opt/'.$smartyPath);
 }
+/**
+ * Check for main output engine class file in global 3rdparty dir.
+ */
 else if (is_readable(_RW_DIR.'opt/'.$smartyPath))
 {
+	/**
+	 * Load main output engine class file.
+	 */
 	require_once(_RW_DIR.'opt/'.$smartyPath);
 }
+/**
+ * Main output engine class file not found.
+ */
 else
 {
-	trigger_error('Output::Template engine Smarty not found.', 256);
+	/**
+	 * Show error message.
+	 */
+	trigger_error('Output::Output engine Smarty not found.', 256);
 }
-
-
 
 /**
  * rw_Output_Smarty
@@ -69,33 +89,81 @@ else
  */
 class rw_Output_Smarty extends Smarty implements rw_iOutput
 {
+	/**
+	 * Constructor.
+	 *
+	 * @return mixed result
+	 */
 	public function __construct()
 	{
+		/**
+		 * Call parent constructor.
+		 */
 		parent::__construct();
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#outSkinDir($outSkinDir)
+	 */
 	public function outSkinDir($outSkinDir)
 	{
+		/**
+		 * Set application skin directory path.
+		 */
 		$this->template_dir = $outSkinDir;
+		/**
+		 * Set compile directory to application tmp directory.
+		 */
 		$this->compile_dir = _APP_DIR.'tmp/';
+		/**
+		 * Set cache directory to application tmp directory.
+		 */
 		$this->cache_dir = _APP_DIR.'tmp/';
+		/**
+		 * Set config directory to application tmp directory.
+		 */
 		$this->config_dir = _APP_DIR.'tmp/';
 	}
 
-	function set($name, $value)
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#set($name, $value)
+	 */
+	public function set($name, $value)
 	{
+		/**
+		 * Call Smarty function that handles var setting.
+		 */
 		return $this->assign($name, $value);
 	}
 
-	function parse($outTemplate)
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#parse($outTemplate, $outDisplay)
+	 */
+	public function parse($outTemplate, $outDisplay)
 	{
-		return $this->fetch($outTemplate);
+		/**
+		 * Check if we should send output to browser.
+		 */
+		if ($outDisplay)
+		{
+			/**
+			 * Call Smarty function for parsing and displaying.
+			 */
+			return $this->display($outTemplate);
+		}
+		/**
+		 * Return output, don't send it to browser.
+		 */
+		else
+		{
+			/**
+			 * Call Smarty function for parsing.
+			 */
+			return $this->fetch($outTemplate);
+		}
+
 	}
-
-	function output($outTemplate)
-	{
-		return $this->display($outTemplate);
-	}
-
-
 }

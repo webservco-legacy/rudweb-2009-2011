@@ -53,59 +53,53 @@ if (!defined('_RW_VALID'))
 interface rw_iModule
 {
 	/**
-	 * Method for displaying information about the module.
-	 *
-	 * @return mixed information about the module
-	 */
-	public function modAbout();
-	/**
 	 * Default module functionality.
 	 */
 	public function index();
 }
 
 /**
- * rw_Module_global.
+ * rw_Module.
  *
  * Global values and methods for all module classes.
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwMod
  */
-class rw_Module_global
+class rw_Module
 {
 	/**
 	 * Module information.
 	 *
-	 * @var array $modAbout
+	 * @var array
 	 */
-	public $modAbout = array();
+	protected $modAbout = array();
 
 	/**
 	 * Core object.
 	 *
-	 * @var mixed $rwCore
+	 * @var mixed
 	 */
-	public $rwCore = NULL;
-	
+	protected $rwCore = NULL;
+
 	/**
 	 * Request query.
-	 * 
-	 * @var mixed $query
+	 *
+	 * @var mixed
 	 */
-	public $request = NULL;
+	protected $modRequest = NULL;
 
 	/**
 	 * Constructor.
 	 *
-	 * Sets module information.
+	 * Sets module information, core object, request query.
 	 *
-	 * @param array $modAbout
-	 * @param mixed $rwCore
-	 * @param mixed $request
+	 * @param array $modAbout module information
+	 * @param mixed $rwCore core engine object
+	 * @param mixed $modRequest module request query
 	 * @return mixed result
 	 */
-	public function __construct($modAbout, $rwCore, $request)
+	public function __construct($modAbout, $rwCore, $modRequest)
 	{
 		/**
 		 * Set module information.
@@ -118,7 +112,7 @@ class rw_Module_global
 		/**
 		 * Set request query.
 		 */
-		$this->request = $request;
+		$this->modRequest = $modRequest;
 	}
 
 	/**
@@ -126,12 +120,66 @@ class rw_Module_global
 	 *
 	 * @return array module information
 	 */
-	public function modAbout()
+	protected function modAbout()
 	{
 		/**
 		 * Return result.
 		 */
 		return $this->modAbout;
+	}
+
+	/**
+	 * Parse output data and send it to browser.
+	 *
+	 * @param mixed $outTemplate template file to parse
+	 * @param mixed $outData data to include in template
+	 * @param mixed $outEngine output engine to use
+	 * @param mixed $outSkin application skin to use
+	 * @return mixed result
+	 */
+	protected function rwOutput($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL)
+	{
+		/**
+		 * Check if output library is loaded.
+		 */
+		if(!$this->rwCore->rwOut)
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Engine::Can not display output. Output library not loaded.', 256);
+		}
+		/**
+		 * Call output function with outDisplay set to TRUE.
+		 */
+		return $this->rwCore->rwOut->output($outTemplate, $outData, $outEngine, $outSkin, TRUE);
+	}
+
+	/**
+	 * Parse output data but don't send it to browser.
+	 *
+	 * @param mixed $outTemplate template file to parse
+	 * @param mixed $outData data to include in template
+	 * @param mixed $outEngine output engine used
+	 * @param mixed $outSkin skin used
+	 * @return mixed result
+	 */
+	protected function rwParse($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL)
+	{
+		/**
+		 * Check if output library is loaded.
+		 */
+		if(!$this->rwCore->rwOut)
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Engine::Can not parse output. Output library not loaded.', 256);
+		}
+		/**
+		 * Call output function with outDisplay set to TRUE.
+		 */
+		return $this->rwCore->rwOut->output($outTemplate, $outData, $outEngine, $outSkin, FALSE);
 	}
 }
 ?>

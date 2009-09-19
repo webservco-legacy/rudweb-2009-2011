@@ -52,45 +52,110 @@ if (!defined('_RW_VALID'))
  */
 class rw_Output_RudWEb implements rw_iOutput
 {
+	/**
+	 * Application skin directory path.
+	 *
+	 * @var string
+	 */
 	public $outSkinDir;
 
+	/**
+	 * Output data to be parsed.
+	 *
+	 * @var mixed
+	 */
 	public $outData = array();
 
+	/**
+	 * Constructor.
+	 *
+	 * @return mixed result
+	 */
 	public function __construct()
 	{
-
+		/**
+		 *
+		 */
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#outSkinDir($outSkinDir)
+	 */
 	public function outSkinDir($outSkinDir)
 	{
+		/**
+		 * Set application skin directory path.
+		 */
 		$this->outSkinDir = $outSkinDir;
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#set($name, $value)
+	 */
 	public function set($name, $value)
 	{
+		/**
+		 * Set output variables.
+		 */
 		$this->outData[$name] = $value;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
-	
-	public function parse($outTemplate, $output=FALSE)
+
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/out/rw_iOutput#parse($outTemplate, $outDisplay)
+	 */
+	public function parse($outTemplate, $outDisplay)
 	{
-		extract($this->outData);
+		/**
+		 * Turn on output buffering.
+		 */
 		ob_start();
-		include($this->outSkinDir.''.$outTemplate);
-		$out = ob_get_contents();
+		/**
+		 * Import output variables.
+		 */
+		extract($this->outData);
+		/**
+		 * Load template file.
+		 */
+		include($this->outSkinDir.$outTemplate);
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$outData = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
 		ob_end_clean();
-		if($output)
+		/**
+		 * Check if we should send output to browser.
+		 */
+		if ($outDisplay)
 		{
-			echo $out;
+			/**
+			 * Display output data.
+			 */
+			echo $outData;
+			/**
+			 * Return result.
+			 */
+			return TRUE;
 		}
+		/**
+		 * Return output, don't send it to browser.
+		 */
 		else
 		{
-			return $out;
+			/**
+			 * Return output data, don't display it.
+			 */
+			return $outData;
 		}
-	}
-	
-	public function output($outTemplate)
-	{
-		$this->parse($outTemplate, TRUE);
 	}
 }
 ?>

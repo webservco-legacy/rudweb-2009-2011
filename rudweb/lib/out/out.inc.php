@@ -52,11 +52,31 @@ if (!defined('_RW_VALID'))
  */
 interface rw_iOutput
 {
+	/**
+	 * Set application skin directory path.
+	 *
+	 * @param string $outSkinDir application skin directory name
+	 * @return mixed result
+	 */
+	public function outSkinDir($outSkinDir);
+	
+	/**
+	 * Set output variables.
+	 *
+	 * @param mixed $name variable name
+	 * @param mixed $value variable value
+	 * @return mixed result
+	 */
 	public function set($name, $value);
-	
-	public function parse($outTemplate);
-	
-	public function output($outTemplate);
+
+	/**
+	 * Parse output.
+	 *
+	 * @param string $outTemplate template file to parse
+	 * @param boolean $outDisplay send output to browser or return it?
+	 * @return mixed result
+	 */
+	public function parse($outTemplate, $outDisplay);
 }
 
 /**
@@ -69,55 +89,155 @@ interface rw_iOutput
  */
 class rw_Output
 {
+	/**
+	 * Default output engine.
+	 *
+	 * @var mixed
+	 */
 	public $outEngine = NULL;
-	
+
+	/**
+	 * Default application skin.
+	 *
+	 * @var mixed
+	 */
 	public $outSkin = NULL;
-	
+
+	/**
+	 * Default template file.
+	 *
+	 * @var mixed
+	 */
 	public $outTemplate = NULL;
-	
+
+	/**
+	 * Default output data.
+	 *
+	 * @var array
+	 */
 	public $outData = array();
-	
+
+	/**
+	 * Constructor.
+	 *
+	 * Sets default values.
+	 *
+	 * @return mixed result
+	 */
 	public function __construct()
 	{
-		//$this->outEngine = 'RudWEb';
-		$this->outEngine = 'Smarty';
-		//$this->outSkin = 'RudWEb';
-		$this->outSkin = 'RudWEb_Smarty';
+		/**
+		 * Default output engine.
+		 */
+		$this->outEngine = 'RudWEb';
+		/**
+		 * Default skin.
+		 */
+		$this->outSkin = 'RudWEb';
+		/**
+		 * Default template file.
+		 */
 		$this->outTemplate = 'layout';
+		/**
+		 * Default output data.
+		 */
+		$this->outData = array();
 	}
-	
-	
-	private function _load()
+
+	/**
+	 * Parse output
+	 *
+	 * @param mixed $outTemplate template file to parse
+	 * @param mixed $outData data to include in template
+	 * @param mixed $outEngine output engine to use
+	 * @param mixed $outSkin application skin to use
+	 * @param boolean $outDisplay send output to browser or return it?
+	 * @return mixed result
+	 */
+	public function output($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL, $outDisplay=TRUE)
 	{
-		$outClass = 'rw_Output_' . $this->outEngine;
-		require_once(_RW_DIR_LIB.'out/out.'.$this->outEngine.'.inc.php');
-		return new $outClass();
-	}
-	
-	public function display($outData)
-	{
-		$this->outData = $outData;
 		/**
-		 * Load template engine
+		 * Set output engine to be used.
+		 *
+		 * If no special request use default.
 		 */
-		$outObj = $this->_load();
+		$outEngine = $outEngine ? $outEngine : $this->outEngine;
 		/**
-		 * Set skin directory
+		 * Set application skin to be used.
+		 *
+		 * If no special request use default.
 		 */
-		$outObj->outSkinDir(_APP_DIR.'usr/skins/'.$this->outSkin.'/');
+		$outSkin = $outSkin ? $outSkin : $this->outSkin;
 		/**
-		 * Set compile id
+		 * Set template file to be parsed.
+		 *
+		 * If no special request use default.
 		 */
-		//$outObj->compile_id = 'xxx';
-		
-		foreach($this->outData as $name => $value)
+		$outTemplate = $outTemplate ? $outTemplate : $this->outTemplate;
+		/**
+		 * Set data to be parsed.
+		 *
+		 * If no special request use default.
+		 */
+		$outData = $outData ? $outData : $this->outData;
+		/**
+		 * Load output engine.
+		 */
+		$outObj = $this->_load($outEngine);
+		/**
+		 * Set application skin directory.
+		 */
+		$outObj->outSkinDir(_APP_DIR.'usr/skins/'.$outSkin.'/');
+		/**
+		 * Parse data to include in template.
+		 */
+		foreach($outData as $name => $value)
 		{
+			/**
+			 * Set data to include in template.
+			 */
 			$outObj->set($name, $value);
 		}
 		/**
-		 * Return data.
+		 * Return output data.
 		 */
-		return $outObj->output('layout'.'.tpl.php');
+		return $outObj->parse($outTemplate.'.tpl.php', $outDisplay);
+	}
+
+	/**
+	 * Load an output engine.
+	 *
+	 * @param string $outEngine output engine to be used
+	 * @return mixed result
+	 */
+	private function _load($outEngine)
+	{
+		/**
+		 * Set output engine class name.
+		 */
+		$outClass = 'rw_Output_' . $outEngine;
+		/**
+		 * Set output engine class path.
+		 */
+		$outPath = _RW_DIR_LIB.'out/out.'.$outEngine.'.inc.php';
+		/**
+		 * Check if output engine file exists.
+		 */
+		if (!is_readable($outPath))
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Output::Can not load specified output engine. File not found.', 256);
+		}
+		/**
+		 * Load output engine file.
+		 */
+		require_once($outPath);
+		/**
+		 * Return output engine class.
+		 */
+		return new $outClass();
 	}
 }
 ?>

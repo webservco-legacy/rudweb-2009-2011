@@ -91,7 +91,7 @@ $modAbout['stContent']['deps']['mod'] = array();
  * @author     Radu Maier <radu@rudisoft.net>
  * @package    rwMod
  */
-class rw_Module_stContent extends rw_Module_global implements rw_iModule
+class rw_Module_stContent extends rw_Module implements rw_iModule
 {
 	/**
 	 * Constructor.
@@ -109,17 +109,36 @@ class rw_Module_stContent extends rw_Module_global implements rw_iModule
 		parent::__construct($modAbout, $rwCore, $request);
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/mod/rw_iModule#index()
+	 */
 	public function index()
 	{
 		/**
-		 * XXX Test.
+		 * Initialize content vars.
 		 */
-		$this->rwCore->rwLoadLib('Output');
 		$cnt = array();
-		$cnt['htitle'] = 'Hello World';
-		$cnt['title'] = 'Just a title';
-		$this->rwCore->rwOut->display($cnt);
-		//echo 'request: '.$this->request;
+		/**
+		 * Set header title.
+		 */
+		$cnt['htitle'] = _APP_NAME;
+		/**
+		 * Set page title.
+		 */
+		$cnt['title'] = 'Hello World!';
+		/**
+		 * Set footer.
+		 */
+		$cnt['footer'] = $this->rwParse('footer');
+		/**
+		 * Set request variable.
+		 */
+		$cnt['request'] = $this->modRequest;
+		/**
+		 * Display output.
+		 */
+		$this->rwOutput('layout', $cnt);
 	}
 }
 ?>
