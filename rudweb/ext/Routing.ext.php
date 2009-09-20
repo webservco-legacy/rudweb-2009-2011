@@ -278,7 +278,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		/**
 		 * Open routing config file.
 		 */
-		require_once(_APP_DIR.'etc/routing.cfg.php');
+		require_once(_APP_CFG_DIR.'routing.cfg.php');
 		/**
 		 * Set default route.
 		 */

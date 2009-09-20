@@ -53,22 +53,22 @@ $smartyPath = 'Smarty/2.6.26/Smarty.class.php';
 /**
  * Check for main output engine class file in local 3rdparty dir.
  */
-if (is_readable(_APP_DIR.'opt/'.$smartyPath))
+if (is_readable(_APP_OPT_DIR.$smartyPath))
 {
 	/**
 	 * Load main output engine class file.
 	 */
-	require_once(_APP_DIR.'opt/'.$smartyPath);
+	require_once(_APP_OPT_DIR.$smartyPath);
 }
 /**
  * Check for main output engine class file in global 3rdparty dir.
  */
-else if (is_readable(_RW_DIR.'opt/'.$smartyPath))
+else if (is_readable(_RW_OPT_DIR.$smartyPath))
 {
 	/**
 	 * Load main output engine class file.
 	 */
-	require_once(_RW_DIR.'opt/'.$smartyPath);
+	require_once(_RW_OPT_DIR.$smartyPath);
 }
 /**
  * Main output engine class file not found.
@@ -117,15 +117,15 @@ class rw_Output_Smarty extends Smarty implements rw_iOutput
 		/**
 		 * Set compile directory to application tmp directory.
 		 */
-		$this->compile_dir = _APP_DIR.'tmp/';
+		$this->compile_dir = _APP_TMP_DIR;
 		/**
 		 * Set cache directory to application tmp directory.
 		 */
-		$this->cache_dir = _APP_DIR.'tmp/';
+		$this->cache_dir = _APP_TMP_DIR;
 		/**
 		 * Set config directory to application tmp directory.
 		 */
-		$this->config_dir = _APP_DIR.'tmp/';
+		$this->config_dir = _APP_TMP_DIR;
 	}
 
 	/**

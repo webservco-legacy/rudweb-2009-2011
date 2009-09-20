@@ -61,9 +61,25 @@ if(is_readable('./etc/app.ini'))
 	 */
 	define('_RW_DIR',$cfg['Paths']['CoreDir']);
 	/**
+	 * Set core configuration directory.
+	 */
+	define('_RW_CFG_DIR', _RW_DIR . 'etc/');
+	/**
+	 * Load engine paths from configuration file.
+	 */
+	require_once(_RW_CFG_DIR.'paths.cfg.php');
+	/**
 	 * Set application path.
 	 */
 	define('_APP_DIR',$cfg['Paths']['AppDir']);
+	/**
+	 * Set application configuration directory.
+	 */
+	define('_APP_CFG_DIR', _APP_DIR . 'etc/');
+	/**
+	 * Load application paths from configuration file.
+	 */
+	require_once(_APP_CFG_DIR.'paths.cfg.php');
 	/**
 	 * Set base application URL (web path).
 	 */
@@ -125,17 +141,9 @@ if(is_readable('./etc/app.ini'))
 	 */
 	define('_APP_SKIN',$cfg['Defaults']['Skin']);
 	/**
-	 * Set application system directory.
-	 */
-	define('_APP_DIR_SYS', _APP_DIR . 'sys/');
-	/**
 	 * Set error handling.
 	 */
 	define('_APP_ERR',$cfg['Config']['Errors'] ? TRUE : FALSE);
-	/**
-	 * Set core library path.
-	 */
-	define('_RW_DIR_LIB', _RW_DIR . 'lib/');
 	/**
 	 * Use fake file extension for URL's?
 	 */
@@ -159,12 +167,12 @@ else
 /**
  * Check if main engine class is readable.
  */
-if(is_readable(_RW_DIR.'lib/rw/rw.core.inc.php'))
+if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 {
 	/**
 	 * Load main engine class.
 	 */
-	require_once(_RW_DIR.'lib/rw/rw.core.inc.php');
+	require_once(_RW_LIB_DIR.'rw/rw.core.inc.php');
 	/**
 	 * Initialize core.
 	 */

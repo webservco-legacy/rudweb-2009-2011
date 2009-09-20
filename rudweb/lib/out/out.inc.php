@@ -59,7 +59,7 @@ interface rw_iOutput
 	 * @return mixed result
 	 */
 	public function outSkinDir($outSkinDir);
-	
+
 	/**
 	 * Set output variables.
 	 *
@@ -187,7 +187,7 @@ class rw_Output
 		/**
 		 * Set application skin directory.
 		 */
-		$outObj->outSkinDir(_APP_DIR.'usr/skins/'.$outSkin.'/');
+		$outObj->outSkinDir(_APP_SKIN_DIR.$outSkin.'/');
 		/**
 		 * Parse data to include in template.
 		 */
@@ -219,7 +219,7 @@ class rw_Output
 		/**
 		 * Set output engine class path.
 		 */
-		$outPath = _RW_DIR_LIB.'out/out.'.$outEngine.'.inc.php';
+		$outPath = _RW_LIB_DIR.'out/out.'.$outEngine.'.inc.php';
 		/**
 		 * Check if output engine file exists.
 		 */

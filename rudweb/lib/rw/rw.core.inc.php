@@ -143,7 +143,7 @@ class rw_Core
 			/**
 			 * Set library path.
 			 */
-			$libPath = _RW_DIR_LIB.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.inc.php';
+			$libPath = _RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.inc.php';
 			/**
 			 * Check if library exists
 			 */
@@ -200,7 +200,7 @@ class rw_Core
 							/**
 							 * Load database interface.
 							 */
-							require_once(_RW_DIR_LIB.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.'._APP_DB_TYPE.'.inc.php');
+							require_once(_RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.'._APP_DB_TYPE.'.inc.php');
 							/**
 							 * Load object.
 							 */
@@ -307,26 +307,26 @@ class rw_Core
 		/**
 		 * Load extension library.
 		 */
-		require_once(_RW_DIR_LIB.'ext/ext.inc.php');
+		require_once(_RW_LIB_DIR.'ext/ext.inc.php');
 		/**
 		 * Search in local extension dir.
 		 */
-		if (is_readable(_APP_DIR.'ext/'.$ext.'.ext.php'))
+		if (is_readable(_APP_EXT_DIR.$ext.'.ext.php'))
 		{
 			/**
 			 * Load local extension.
 			 */
-			require_once(_APP_DIR.'ext/'.$ext.'.ext.php');
+			require_once(_APP_EXT_DIR.$ext.'.ext.php');
 		}
 		/**
 		 * Search in global extension dir.
 		 */
-		else if (is_readable(_RW_DIR.'ext/'.$ext.'.ext.php'))
+		else if (is_readable(_RW_EXT_DIR.$ext.'.ext.php'))
 		{
 			/**
 			 * Load local extension.
 			 */
-			require_once(_RW_DIR.'ext/'.$ext.'.ext.php');
+			require_once(_RW_EXT_DIR.$ext.'.ext.php');
 		}
 		/**
 		 * Extension not found.
@@ -410,7 +410,7 @@ class rw_Core
 		/**
 		 * Module path.
 		 */
-		$modPath = _APP_DIR.'mod/'.$mod.'/';
+		$modPath = _APP_MOD_DIR.$mod.'/';
 		/**
 		 * Module file.
 		 */
@@ -432,7 +432,7 @@ class rw_Core
 		/**
 		 * Load module library.
 		 */
-		require_once(_RW_DIR_LIB.'mod/mod.inc.php');
+		require_once(_RW_LIB_DIR.'mod/mod.inc.php');
 		/**
 		 * Load module.
 		 */
@@ -736,7 +736,7 @@ class rw_Core
 				/**
 				 * Check if module exists.
 				 */
-				if (!is_readable(_APP_DIR.'mod/'.$dep.'/'.$dep.'.mod.php'))
+				if (!is_readable(_APP_MOD_DIR.$dep.'/'.$dep.'.mod.php'))
 				{
 					/**
 					 * Add to missing dependency list.
