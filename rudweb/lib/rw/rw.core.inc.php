@@ -350,7 +350,7 @@ class rw_Core
 			/**
 			 * Set missing dependencies list.
 			 */
-			$missingDeps = implode (', ', $missingLibDeps);
+			$missingDeps = implode(', ', $missingLibDeps);
 			/**
 			 * Show error message.
 			 */
@@ -368,7 +368,7 @@ class rw_Core
 			/**
 			 * Set missing dependencies list.
 			 */
-			$missingDeps = implode (', ', $missingExtDeps);
+			$missingDeps = implode(', ', $missingExtDeps);
 			/**
 			 * Show error message.
 			 */
@@ -449,7 +449,7 @@ class rw_Core
 			/**
 			 * Set missing dependencies list.
 			 */
-			$missingDeps = implode (', ', $missingLibDeps);
+			$missingDeps = implode(', ', $missingLibDeps);
 			/**
 			 * Show error message.
 			 */
@@ -467,7 +467,7 @@ class rw_Core
 			/**
 			 * Set missing dependencies list.
 			 */
-			$missingDeps = implode (', ', $missingExtDeps);
+			$missingDeps = implode(', ', $missingExtDeps);
 			/**
 			 * Show error message.
 			 */
@@ -485,7 +485,7 @@ class rw_Core
 			/**
 			 * Set missing dependencies list.
 			 */
-			$missingDeps = implode (', ', $missingModDeps);
+			$missingDeps = implode(', ', $missingModDeps);
 			/**
 			 * Show error message.
 			 */
