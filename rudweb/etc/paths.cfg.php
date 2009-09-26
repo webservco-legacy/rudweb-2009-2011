@@ -6,7 +6,7 @@
  * <BR>Engine paths configuration file.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-20 20:40:00
@@ -52,6 +52,18 @@ if(!defined('_RW_EXT_DIR'))
 	 */
 	define('_RW_EXT_DIR', _RW_DIR . 'ext/');
 }
+
+/**
+ * Check if constant is already defined.
+ */
+if(!defined('_RW_INT_DIR'))
+{
+	/**
+	 * Set core internationalization directory.
+	 */
+	define('_RW_INT_DIR', _RW_DIR . 'int/');
+}
+
 /**
  * Check if constant is already defined.
  */
@@ -62,6 +74,7 @@ if(!defined('_RW_LIB_DIR'))
 	 */
 	define('_RW_LIB_DIR', _RW_DIR . 'lib/');
 }
+
 /**
  * Check if constant is already defined.
  */
@@ -71,5 +84,16 @@ if(!defined('_RW_OPT_DIR'))
 	 * Set core 3rdparty directory.
 	 */
 	define('_RW_OPT_DIR', _RW_DIR . 'opt/');
+}
+
+/**
+ * Check if constant is already defined.
+ */
+if(!defined('_RW_TTF_DIR'))
+{
+	/**
+	 * Set core fonts directory.
+	 */
+	define('_RW_TTF_DIR', _RW_OPT_DIR . 'ttf/');
 }
 ?>

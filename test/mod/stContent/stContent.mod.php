@@ -6,7 +6,7 @@
  * <BR>Static content module.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-17 18:40:00
@@ -128,6 +128,10 @@ class rw_Module_stContent extends rw_Module implements rw_iModule
 		 */
 		$cnt['title'] = 'Hello World!';
 		/**
+		 * Set page content.
+		 */
+		$cnt['content'] = '';
+		/**
 		 * Set footer.
 		 */
 		$cnt['footer'] = $this->rwParse('footer');
@@ -139,6 +143,10 @@ class rw_Module_stContent extends rw_Module implements rw_iModule
 		 * Display output.
 		 */
 		$this->rwOutput('layout', $cnt);
+		echo '<pre>';
+		print_r($_SESSION);
+		echo '<hr />';
+		print_r($this->rwCore->rwGetLang());
 	}
 }
 ?>

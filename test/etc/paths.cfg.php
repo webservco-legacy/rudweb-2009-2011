@@ -6,7 +6,7 @@
  * <BR>Application paths configuration file.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-20 20:45:00
@@ -56,6 +56,17 @@ if(!defined('_APP_EXT_DIR'))
 /**
  * Check if constant is already defined.
  */
+if(!defined('_APP_INT_DIR'))
+{
+	/**
+	 * Set application internationalization directory.
+	 */
+	define('_APP_INT_DIR', _APP_DIR . 'int/');
+}
+
+/**
+ * Check if constant is already defined.
+ */
 if(!defined('_APP_MOD_DIR'))
 {
 	/**
@@ -95,5 +106,16 @@ if(!defined('_APP_SKIN_DIR'))
 	 * Set application skins directory.
 	 */
 	define('_APP_SKIN_DIR', _APP_DIR . 'usr/skins/');
+}
+
+/**
+ * Check if constant is already defined.
+ */
+if(!defined('_APP_SKIN_WWW'))
+{
+	/**
+	 * Set application skins url path.
+	 */
+	define('_APP_SKIN_WWW', _APP_WWW . 'usr/skins/');
 }
 ?>

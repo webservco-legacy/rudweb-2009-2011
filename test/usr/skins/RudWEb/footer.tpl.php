@@ -6,7 +6,7 @@
  * <BR>footer.tpl.php
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-19 10:53:00

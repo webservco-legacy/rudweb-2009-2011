@@ -6,7 +6,7 @@
  * <BR>Display custom 404 page
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-07 16:25:00

@@ -6,7 +6,7 @@
  * <BR>Security library.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-08 17:35:00
@@ -59,7 +59,7 @@ class rw_Security
 	 *
 	 * @var mixed
 	 */
-	public $rwDb = NULL;
+	private $rwDb = NULL;
 
 	/**
 	 * Class constructor.
@@ -127,7 +127,7 @@ class rw_Security
 		/**
 		 * Remove unwanted chars.
 		 *
-		 * We did'nt put these in the _rwRemoveBadChars() method
+		 * We didn't put these in the rwRemoveBadChars() method
 		 * because we also want them removed
 		 * if input is used in a database query.
 		 */
@@ -141,11 +141,11 @@ class rw_Security
 			/**
 			 * Strip known bad characters.
 			 */
-			$input = $this->_rwRemoveBadChars($input);
+			$input = $this->rwRemoveBadChars($input);
 			/**
 			 * Remove tags.
 			 */
-			$input = $this->_rwStripTags($input);
+			$input = $this->rwStripTags($input);
 		}
 		/**
 		 * Check if we should also block tags
@@ -155,7 +155,7 @@ class rw_Security
 			/**
 			 * Disable tags.
 			 */
-			$input = $this->_rwDisableTags($input);
+			$input = $this->rwDisableTags($input);
 		}
 		/**
 		 * Check if we have an open database connection.
@@ -210,9 +210,25 @@ class rw_Security
 		if (_APP_FAKEXT)
 		{
 			/**
-			 * Remove fake extension from request.
+			 * Check if mbsting extension is available.
 			 */
-			$request = substr($request, 0, strlen($request)-strlen(strstr($request,'.')));
+			if (function_exists('mb_internal_encoding'))
+			{
+				/**
+				 * Remove fake extension from request.
+				 */
+				$request = mb_substr($request, 0, mb_strlen($request)-mb_strlen(mb_strstr($request,'.')));
+			}
+			/**
+			 * Mbsting extension is not available.
+			 */
+			else
+			{
+				/**
+				 * Remove fake extension from request.
+				 */
+				$request = substr($request, 0, strlen($request)-strlen(strstr($request,'.')));
+			}
 		}
 		/**
 		 * Return result.
@@ -226,7 +242,7 @@ class rw_Security
 	 * @param string $string input string
 	 * @return string parsed string
 	 */
-	private function _rwRemoveBadChars($string)
+	public function rwRemoveBadChars($string)
 	{
 		/**
 		 * Known bad characters.
@@ -255,7 +271,7 @@ class rw_Security
 	 * @param string $string input string
 	 * @return string $string output string.
 	 */
-	private function _rwDisableTags($string)
+	public function rwDisableTags($string)
 	{
 		/**
 		 * Block <.
@@ -293,7 +309,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripTags($input)
+	public function rwStripTags($input)
 	{
 		/**
 		 * Return result.
@@ -307,7 +323,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripPhp($input)
+	public function rwStripPhp($input)
 	{
 		/**
 		 * Return result.
@@ -321,7 +337,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripSmartyVars($input)
+	public function rwStripSmartyVars($input)
 	{
 		/**
 		 * Return result.
@@ -335,7 +351,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripSmartyCode($input)
+	public function rwStripSmartyCode($input)
 	{
 		/**
 		 * Return result.
@@ -349,7 +365,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripScript($input)
+	public function rwStripScript($input)
 	{
 		/**
 		 * Return result.
@@ -363,7 +379,7 @@ class rw_Security
 	 * @param string $input
 	 * @return string filtered input
 	 */
-	private function _rwStripHTMLComments($input)
+	public function rwStripHTMLComments($input)
 	{
 		/**
 		 * Return result.

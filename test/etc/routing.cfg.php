@@ -6,7 +6,7 @@
  * <BR>Routing configuration file.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-16 12:02:00
@@ -51,7 +51,19 @@ $routing['index'] = 'stContent';
 /**
  * Custom route.
  */
+$routing['content'] = 'stContent';
+/**
+ * Custom route.
+ */
 $routing['content/({any})'] = 'stContent/$1';
+/**
+ * Custom route.
+ */
+$routing['users'] = 'modUsers';
+/**
+ * Custom route.
+ */
+$routing['users/({any})'] = 'modUsers/$1';
 /**
  * Custom route.
  */

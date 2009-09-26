@@ -6,7 +6,7 @@
  * <BR>Output library
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-18 12:03:00
@@ -94,28 +94,28 @@ class rw_Output
 	 *
 	 * @var mixed
 	 */
-	public $outEngine = NULL;
+	private $outEngine = NULL;
 
 	/**
 	 * Default application skin.
 	 *
 	 * @var mixed
 	 */
-	public $outSkin = NULL;
+	private $outSkin = NULL;
 
 	/**
 	 * Default template file.
 	 *
 	 * @var mixed
 	 */
-	public $outTemplate = NULL;
+	private $outTemplate = NULL;
 
 	/**
 	 * Default output data.
 	 *
 	 * @var array
 	 */
-	public $outData = array();
+	private $outData = array();
 
 	/**
 	 * Constructor.

@@ -6,7 +6,7 @@
  * <BR>RudWEb Output Class
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-18 17:44:00
@@ -57,14 +57,14 @@ class rw_Output_RudWEb implements rw_iOutput
 	 *
 	 * @var string
 	 */
-	public $outSkinDir;
+	private $outSkinDir;
 
 	/**
 	 * Output data to be parsed.
 	 *
 	 * @var mixed
 	 */
-	public $outData = array();
+	private $outData = array();
 
 	/**
 	 * Constructor.
@@ -112,6 +112,16 @@ class rw_Output_RudWEb implements rw_iOutput
 	 */
 	public function parse($outTemplate, $outDisplay)
 	{
+		/**
+		 * Check if template file exists.
+		 */
+		if (!is_readable($this->outSkinDir.$outTemplate))
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Output::Template file not found', 256);
+		}
 		/**
 		 * Turn on output buffering.
 		 */

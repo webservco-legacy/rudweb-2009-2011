@@ -6,7 +6,7 @@
  * <BR>Engine core class
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-07 18:06:00
@@ -59,7 +59,7 @@ class rw_Core
 	 *
 	 * @var array
 	 */
-	public $rwLibs = array();
+	private $rwLibs = array();
 
 	/**
 	 * Available extensions.
@@ -105,6 +105,20 @@ class rw_Core
 	 * @var mixed
 	 */
 	public $rwSec = NULL;
+
+	/**
+	 * Language.
+	 *
+	 * @var string
+	 */
+	private $rwLn = NULL;
+
+	/**
+	 * Translations list.
+	 *
+	 * @var array
+	 */
+	private $rwLang = array();
 
 	/**
 	 * Class constructor.
@@ -293,7 +307,7 @@ class rw_Core
 		/**
 		 * Check if library is already loaded.
 		 */
-		if($this->_rwLoadedExt($ext))
+		if($this->rwLoadedExt($ext))
 		{
 			/**
 			 * Show error message.
@@ -492,6 +506,16 @@ class rw_Core
 			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. Missing module dependencies (<b>'.$missingDeps.'</b>)', 256);
 		}
 		/**
+		 * Check if internationalization extension is loaded.
+		 */
+		if ($this->rwLoadedExt('Int'))
+		{
+			/**
+			 * Add module translation list to main translation list.
+			 */
+			$this->rwAddLang($this->rwExts['Int']->rwIntMod($modPath));
+		}
+		/**
 		 * Set module class name.
 		 */
 		$modClass = 'rw_Module_'.$mod;
@@ -576,7 +600,7 @@ class rw_Core
 	 *
 	 * @return boolean result
 	 */
-	private function _rwLoadedExt($ext)
+	public function rwLoadedExt($ext)
 	{
 		/**
 		 * Check if extension is already loaded.
@@ -749,6 +773,81 @@ class rw_Core
 		 * Return result.
 		 */
 		return (count($missingDeps) > 0) ? $missingDeps : FALSE;
+	}
+
+	/**
+	 * Set language.
+	 *
+	 * @param string $rwLn language to set
+	 * @return mixed result
+	 */
+	public function rwSetLn($rwLn)
+	{
+		/**
+		 * Set language.
+		 */
+		$this->rwLn = $rwLn;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Get language.
+	 *
+	 * @return mixed result
+	 */
+	public function rwGetLn()
+	{
+		/**
+		 * Return language.
+		 */
+		return $this->rwLn;
+	}
+
+	/**
+	 * Set translation list.
+	 *
+	 * @param array $rwLang new translation list.
+	 * @return mixed result
+	 */
+	public function rwSetLang($rwLang)
+	{
+		/**
+		 * Set translation list.
+		 */
+		$this->rwLang = $rwLang;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Add a translation list to main translation list.
+	 *
+	 * @param array $rwLang new translation list
+	 * @return mixed result
+	 */
+	public function rwAddLang($rwLang)
+	{
+		/**
+		 * Add translation list to main translation list.
+		 */
+		$this->rwLang = array_merge($this->rwLang, $rwLang);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	public function rwGetLang()
+	{
+		/**
+		 * Return translation list.
+		 */
+		return $this->rwLang;
 	}
 }
 ?>

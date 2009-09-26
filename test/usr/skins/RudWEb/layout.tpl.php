@@ -6,7 +6,7 @@
  * <BR>layout.tpl.php
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-18 20:45:00
@@ -34,6 +34,7 @@
 <body>
 <h1><?php echo $title; ?></h1>
 <p>Request: <?php echo $request; ?></p>
+<?php echo $content; ?>
 <?php echo $footer; ?>
 </body>
 </html>

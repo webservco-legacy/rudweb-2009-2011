@@ -1,5 +1,4 @@
 <?php
-
 /**
  * $Id$
  *
@@ -7,7 +6,7 @@
  * <BR>URL Routing extension.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-13 18:59:00
@@ -95,20 +94,20 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	 *
 	 * @var string
 	 */
-	public $defaultRequest = NULL;
+	private $defaultRequest = NULL;
 	/**
 	 * Request.
 	 *
 	 * @var string.
 	 */
-	public $request = NULL;
+	private $request = NULL;
 
 	/**
 	 * Routes.
 	 *
 	 * @var array
 	 */
-	public $customRoutes = array();
+	private $customRoutes = array();
 
 	/**
 	 * Constructor.
@@ -124,7 +123,14 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		parent::__construct($extAbout);
 	}
 
-	public function doRouting()
+	/**
+	 * Main extension functionality.
+	 *
+	 * Get, parse and set request.
+	 *
+	 * @return mixed result
+	 */
+	public function rwRouting()
 	{
 		/**
 		 * Get current request.
@@ -336,7 +342,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			/**
 			 * Check for a custom route match.
 			 */
-			if (preg_match('#^'.$route.'$#', $this->request))
+			if (preg_match('#^'.$route.'$#', $this->request) || preg_match('#^'.$route.'/$#', $this->request))
 			{
 				/**
 				 * Check for back-references.
@@ -452,6 +458,11 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return TRUE;
+	}
+	
+	public function rwSelfRedirect()
+	{
+		
 	}
 }
 ?>

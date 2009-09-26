@@ -6,7 +6,7 @@
  * <BR>Extension library
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-13 18:36:00
@@ -72,7 +72,7 @@ class rw_Extension
 	 *
 	 * @var array $extAbout
 	 */
-	public $extAbout = array();
+	protected $extAbout = array();
 
 	/**
 	 * Constructor.

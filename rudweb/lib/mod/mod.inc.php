@@ -6,7 +6,7 @@
  * <BR>Module library.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-17 18:24:00
@@ -118,14 +118,18 @@ class rw_Module
 	/**
 	 * Get module information.
 	 *
+	 * Returns an information field if specified.
+	 * The whole list otherwise.
+	 *
+	 * @param string $field field to return
 	 * @return array module information
 	 */
-	protected function modAbout()
+	protected function modAbout($field=NULL)
 	{
 		/**
-		 * Return result.
+		 * Return only a field if specified and valid, or the whole list.
 		 */
-		return $this->modAbout;
+		return ($field && array_key_exists($field, $this->modAbout)) ? $this->modAbout[$field] : $this->modAbout;
 	}
 
 	/**

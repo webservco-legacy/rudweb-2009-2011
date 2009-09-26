@@ -6,7 +6,7 @@
  * <BR>RudWEb Application controller
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @copyright  Copyright (c) 2008, Radu Maier
+ * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
  * @since      2009-09-07 16:44:00
@@ -77,10 +77,6 @@ if(is_readable('./etc/app.ini'))
 	 */
 	define('_APP_CFG_DIR', _APP_DIR . 'etc/');
 	/**
-	 * Load application paths from configuration file.
-	 */
-	require_once(_APP_CFG_DIR.'paths.cfg.php');
-	/**
 	 * Set base application URL (web path).
 	 */
 	define('_APP_WWW',$cfg['Paths']['AppURL']);
@@ -92,6 +88,10 @@ if(is_readable('./etc/app.ini'))
 	 * Set full application URL.
 	 */
 	define('_APP_URL', _APP_WWW . $app_index);
+	/**
+	 * Load application paths from configuration file.
+	 */
+	require_once(_APP_CFG_DIR.'paths.cfg.php');
 	/**
 	 * Set database type.
 	 */
@@ -131,7 +131,7 @@ if(is_readable('./etc/app.ini'))
 	/**
 	 * Set default language.
 	 */
-	define('_APP_LANG',$cfg['Defaults']['Language']);
+	define('_APP_LN',$cfg['Defaults']['Language']);
 	/**
 	 * Set default time zone.
 	 */
@@ -195,13 +195,27 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 */
 		date_default_timezone_set(_APP_TIMEZONE);
 		/**
+		 * Check if mbsting extension is available.
+		 */
+		if (function_exists('mb_internal_encoding'))
+		{
+			/**
+			 * Set internal character encoding.
+			 */
+			mb_internal_encoding("UTF-8");
+			/**
+			 * Set output characted encoding.
+			 */
+			mb_http_output("UTF-8");
+		}
+		/**
 		 * Load routing extension.
 		 */
 		$core->rwLoadExt('Routing');
 		/**
 		 * Perform routing.
 		 */
-		$core->rwExts['Routing']->doRouting();
+		$core->rwExts['Routing']->rwRouting();
 		/**
 		 * Load database library.
 		 */
@@ -218,16 +232,58 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 * Sanitize input.
 		 *
 		 * This filters the $_GET and $_POST arrays.
-		 * If database connection is available,
-		 * tags are not removed nor disabled from $_POST array.
+		 * If database connection is not available,
+		 * $_POST is filtered as get.
+		 * Tags are not removed nor disabled from $_POST array.
 		 */
 		$core->rwSec->rwSanitizeInput();
+
+		/**
+		 * Load Sessions extension.
+		 */
+		$core->rwLoadExt('Session');
+		/**
+		 * Load users extension.
+		 */
+		$core->rwLoadExt('Users');
+		/**
+		 * Load captcha extension.
+		 */
+		$core->rwLoadExt('Captcha');
+		/**
+		 * Load forms extension.
+		 */
+		$core->rwLoadExt('Forms');
+		/**
+		 * Initialize session.
+		 */
+		$core->rwExts['Session']->rwSession();
+		/**
+		 * Initialize users.
+		 */
+		$core->rwExts['Users']->rwUsers();
+		/**
+		 * Get language.
+		 */
+		$rwLn = ($core->rwLoadedExt('Session') && $core->rwLoadedExt('Users') && isset($_SESSION[_APP_PRE.'_usr']['ln'])) ? $_SESSION[_APP_PRE.'_usr']['ln'] : _APP_LN;
+		/**
+		 * Set language.
+		 */
+		$core->rwSetLn($rwLn);
+		/**
+		 * Load internationalization extension.
+		 */
+		$core->rwLoadExt('Int');
+		/**
+		 * Set main translation list.
+		 */
+		$core->rwAddLang($core->rwExts['Int']->rwInt($core->rwGetLn()));
 		/**
 		 * Load output library.
 		 */
 		$core->rwLoadLib('Output');
 		/**
-		 * Load requested module.
+		 * Load application module.
 		 */
 		$core->rwLoadModule();
 	}
