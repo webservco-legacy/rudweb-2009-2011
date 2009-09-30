@@ -459,10 +459,71 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		return TRUE;
 	}
-	
-	public function rwSelfRedirect()
+
+	public function rwRedirect($action=NULL)
 	{
-		
+		/**
+		 * Check if action is set.
+		 */
+		if (!$action)
+		{
+			/**
+			 * Do a self-redirect.
+			 */
+			return $this->_rwSelfRedirect();
+		}
+		$action = ($action == 0) ? '' : base64_decode($action);
+		$location = _APP_URL . $action;
+		header("Location: ".$location);
+		exit;
+
+	}
+
+	/**
+	 * Redirect to self.
+	 *
+	 * Usefull after posting data
+	 * to avoid multiple submits.
+	 *
+	 * @return mixed result
+	 */
+	private function _rwSelfRedirect()
+	{
+		/**
+		 * Check for HTTP_HOST.
+		 */
+		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
+		{
+			/**
+			 * Set new location.
+			 */
+			$location = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		}
+		/**
+		 * Check for SERVER_NAME.
+		 */
+		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
+		{
+			$location = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+		}
+		/**
+		 * Nothing found.
+		 */
+		else
+		{
+			/**
+			 * Set new location to application URL.
+			 */
+			$location = _APP_WWW;
+		}
+		/**
+		 * Redirect to new location.
+		 */
+		header("Location: ".$location);
+		/**
+		 * Stop execution.
+		 */
+		exit;
 	}
 }
 ?>
