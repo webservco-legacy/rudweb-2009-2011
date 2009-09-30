@@ -180,11 +180,11 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Set background color.
 		 */
-		$this->imgBg = array('0xff', '0xff', '0xff');
+		$this->imgBg = array(0xff, 0xff, 0xff);
 		/**
 		 * Setforeground color.
 		 */
-		$this->imgFg = array('0x99', '0x99', '0x99');
+		$this->imgFg = array(0x99, 0x99, 0x99);
 		/**
 		 * Set font file path.
 		 */
