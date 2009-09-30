@@ -96,17 +96,18 @@ class rw_Module_stContent extends rw_Module implements rw_iModule
 	/**
 	 * Constructor.
 	 *
-	 * @param array $modAbout
-	 * @param mixed $rwCore
-	 * @param mixed $request
+	 * @param array $modAbout module information
+	 * @param mixed $rwCore core engine object
+	 * @param mixed $modLocation module location
+	 * @param mixed $modRequest module request query
 	 * @return mixed result
 	 */
-	public function __construct($modAbout, $rwCore, $request)
+	public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
 	{
 		/**
 		 * Call parent constructor.
 		 */
-		parent::__construct($modAbout, $rwCore, $request);
+		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
 	}
 
 	/**

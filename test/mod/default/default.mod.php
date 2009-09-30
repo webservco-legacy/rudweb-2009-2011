@@ -97,19 +97,18 @@ class rw_Module_default extends rw_Module implements rw_iModule
 	/**
 	 * Constructor.
 	 *
-	 * Sets module information, core object, request query.
-	 *
 	 * @param array $modAbout module information
 	 * @param mixed $rwCore core engine object
+	 * @param mixed $modLocation module location
 	 * @param mixed $modRequest module request query
 	 * @return mixed result
 	 */
-	public function __construct($modAbout, $rwCore, $modRequest)
+	public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
 	{
 		/**
 		 * Call parent constructor.
 		 */
-		parent::__construct($modAbout, $rwCore, $modRequest);
+		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
 	}
 
 	/**

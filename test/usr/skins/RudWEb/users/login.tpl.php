@@ -1,7 +1,4 @@
 <pre>
-Server:
-<?php print_r($_SERVER); ?>
-<?php echo '<hr />'; ?>
 Session:
 <?php print_r($_SESSION); ?>
 <?php echo '<hr />'; ?>

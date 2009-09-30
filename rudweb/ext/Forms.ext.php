@@ -219,6 +219,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 
 	private function _parseErrorMessage($rule, $label, $required=0)
 	{
+		//XXX get these from language
 		$errorMessage['_rwRequired'] = '$label$ is required.';
 		$errorMessage['_rwValidEmail'] = '$label$ is not a valid email address.';
 		$errorMessage['_rwMin'] = '$label$ must be at least $required$ characters long.';

@@ -96,17 +96,18 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	/**
 	 * Constructor.
 	 *
-	 * @param array $modAbout
-	 * @param mixed $rwCore
-	 * @param mixed $request
+	 * @param array $modAbout module information
+	 * @param mixed $rwCore core engine object
+	 * @param mixed $modLocation module location
+	 * @param mixed $modRequest module request query
 	 * @return mixed result
 	 */
-	public function __construct($modAbout, $rwCore, $request)
+	public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
 	{
 		/**
 		 * Call parent constructor.
 		 */
-		parent::__construct($modAbout, $rwCore, $request);
+		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
 	}
 
 	/**
@@ -150,7 +151,9 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		// if ok -> continue to personalized user validation.
 		// if err -> display form and errors.
 		$_SESSION['test_stuff'] = 'mystuff';
-		$this->rwCore->rwExts['Routing']->rwSelfRedirect();
+		//$_SESSION[_APP_PRE.'_usr']['status'] = '20';
+		//XXX
+		//$this->rwCore->rwExts['Routing']->rwRedirect('index');
 
 		if($err > 0)
 		{
@@ -179,6 +182,10 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		 * Set footer.
 		 */
 		$cnt['footer'] = $this->rwParse('footer');
+		/**
+		 * Set action variable.
+		 */
+		$cnt['location'] = $this->modLocation;
 		/**
 		 * Set request variable.
 		 */

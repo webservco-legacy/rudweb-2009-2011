@@ -33,6 +33,7 @@
 </head>
 <body>
 <h1><?php echo $title; ?></h1>
+<p>Location: <?php echo $location; ?></p>
 <p>Request: <?php echo $request; ?></p>
 <?php echo $content; ?>
 <?php echo $footer; ?>

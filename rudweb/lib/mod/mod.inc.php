@@ -83,6 +83,17 @@ class rw_Module
 	protected $rwCore = NULL;
 
 	/**
+	 * Location.
+	 *
+	 * Useful for redirects.
+	 * This is set to url route,
+	 * not necessarily module/action.
+	 *
+	 * @var string
+	 */
+	protected $modLocation = NULL;
+
+	/**
 	 * Request query.
 	 *
 	 * @var mixed
@@ -96,10 +107,11 @@ class rw_Module
 	 *
 	 * @param array $modAbout module information
 	 * @param mixed $rwCore core engine object
+	 * @param mixed $modLocation module location
 	 * @param mixed $modRequest module request query
 	 * @return mixed result
 	 */
-	public function __construct($modAbout, $rwCore, $modRequest)
+	public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
 	{
 		/**
 		 * Set module information.
@@ -109,6 +121,10 @@ class rw_Module
 		 * Set core object.
 		 */
 		$this->rwCore = $rwCore;
+		/**
+		 * Set module location.
+		 */
+		$this->modLocation = $modLocation;
 		/**
 		 * Set request query.
 		 */

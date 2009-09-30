@@ -237,7 +237,6 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 * Tags are not removed nor disabled from $_POST array.
 		 */
 		$core->rwSec->rwSanitizeInput();
-
 		/**
 		 * Load Sessions extension.
 		 */

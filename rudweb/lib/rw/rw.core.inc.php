@@ -522,11 +522,11 @@ class rw_Core
 		/**
 		 * Load module.
 		 *
-		 * Needs about array, core object and request query string.
+		 * Needs about array, core object, location string and request query string.
 		 * Filtering is already done at this point,
 		 * so we can pass $_GET['query'] directly.
 		 */
-		$modObj = new $modClass($modAbout[$mod], $this, $_GET['query']);
+		$modObj = new $modClass($modAbout[$mod], $this, $_GET['location'], $_GET['query']);
 		/**
 		 * Check if action is a reserved method.
 		 *

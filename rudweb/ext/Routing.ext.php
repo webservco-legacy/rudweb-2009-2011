@@ -103,6 +103,19 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	private $request = NULL;
 
 	/**
+	 * Location.
+	 *
+	 * Useful for redirects.
+	 * This is set to url route,
+	 * not necessarily module/action.
+	 * In this class however, it is stored as full location including request query.
+	 * It is only filtered when passed to $_GET.
+	 *
+	 * @var string
+	 */
+	private $location = NULL;
+
+	/**
 	 * Routes.
 	 *
 	 * @var array
@@ -133,11 +146,14 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	public function rwRouting()
 	{
 		/**
-		 * Get current request.
+		 * Set current request.
 		 *
-		 * Prevent empty value at the beginning.
 		 */
-		$this->request = ltrim($this->_getRequest(), '/');
+		$this->request = $this->_getRequest();
+		/**
+		 * Set temporary location.
+		 */
+		$this->location = $this->_getRequest();
 		/**
 		 * Parse custom routes.
 		 */
@@ -208,6 +224,14 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			return NULL;
 		}
 		/**
+		 * Strip / from beginning.
+		 */
+		$request = ltrim($request, '/');
+		/**
+		 * Strip / from end.
+		 */
+		$request = rtrim($request, '/');
+		/**
 		 * Return result.
 		 */
 		return $request;
@@ -259,13 +283,13 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			$server = $_SERVER['SERVER_NAME'];
 		}
 		/**
-		 * Set new location.
+		 * Set new URL.
 		 */
-		$location = 'http://'.$server.$req_uri;
+		$url = 'http://'.$server.$req_uri;
 		/**
-		 * Redirect to new location.
+		 * Redirect to new URL.
 		 */
-		header("Location: ".$location);
+		header("Location: ".$url);
 		/**
 		 * Stop execution.
 		 */
@@ -411,7 +435,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		$v = explode('/', $this->request, 3);
 		/**
-		 * Check if request has enought elements.
+		 * Check if request has enough elements.
 		 */
 		if (count($v) < 3)
 		{
@@ -431,14 +455,22 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		$r['action'] = ($r['action']) ? $r['action'] : 'index';
 		/**
-		 * Split the query.
+		 * Set final location.
+		 *
+		 * This contains only the url route with the request query filtered out.
 		 */
-		$q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
+		$r['location'] = rtrim(str_replace($r['query'], '', $this->location), '/');
 		/**
-		 * Split the query and add it to the array.
+		 * Split the query.
 		 *
 		 * XXX Not sure wether to use this.
 		 */
+		//$q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
+		/**
+		* Split the query and add it to the array.
+		*
+		* XXX Not sure wether to use this.
+		*/
 		//$r = array_merge($r, $q);
 		/**
 		* Remove the query from the array.
@@ -460,6 +492,17 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		return TRUE;
 	}
 
+	/**
+	 * Redirect to specified action.
+	 *
+	 * Action can be:
+	 * - BLANK (do a self redirect)
+	 * - index (redirect to home page)
+	 * - string (redirect to speified action)
+	 *
+	 * @param atring $action where to redirect
+	 * @return mixed result
+	 */
 	public function rwRedirect($action=NULL)
 	{
 		/**
@@ -472,11 +515,25 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			 */
 			return $this->_rwSelfRedirect();
 		}
-		$action = ($action == 0) ? '' : base64_decode($action);
-		$location = _APP_URL . $action;
-		header("Location: ".$location);
+		/**
+		 * Set action.
+		 *
+		 * Check if home page is requested,
+		 * otherwise set to requested action.
+		 */
+		$action = ($action == 'index') ? '' : $action;
+		/**
+		 * Set new URL.
+		 */
+		$url = _APP_URL . $action;
+		/**
+		 * Redirect to new URL.
+		 */
+		header("Location: ".$url);
+		/**
+		 * Stop execution.
+		 */
 		exit;
-
 	}
 
 	/**
@@ -495,16 +552,19 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
 		{
 			/**
-			 * Set new location.
+			 * Set new URL.
 			 */
-			$location = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+			$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		}
 		/**
 		 * Check for SERVER_NAME.
 		 */
 		else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
 		{
-			$location = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+			/**
+			 * Set new URL.
+			 */
+			$url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 		}
 		/**
 		 * Nothing found.
@@ -512,14 +572,14 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		else
 		{
 			/**
-			 * Set new location to application URL.
+			 * Set new url to application URL.
 			 */
-			$location = _APP_WWW;
+			$url = _APP_WWW;
 		}
 		/**
-		 * Redirect to new location.
+		 * Redirect to new URL.
 		 */
-		header("Location: ".$location);
+		header("Location: ".$url);
 		/**
 		 * Stop execution.
 		 */
