@@ -1,0 +1,7 @@
+<?php
+/**
+ * $Id$
+ * $Author$
+ * $Revision$
+ */
+?>
