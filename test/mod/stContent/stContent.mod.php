@@ -137,6 +137,10 @@ class rw_Module_stContent extends rw_Module implements rw_iModule
 		 */
 		$cnt['footer'] = $this->rwParse('footer');
 		/**
+		 * Set action variable.
+		 */
+		$cnt['location'] = $this->modLocation;
+		/**
 		 * Set request variable.
 		 */
 		$cnt['request'] = $this->modRequest;

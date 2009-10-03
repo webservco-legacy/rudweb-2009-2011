@@ -167,6 +167,10 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	private function _login_form($cnt_login)
 	{
 		/**
+		 * Initialize content vars.
+		 */
+		$cnt = array();
+		/**
 		 * Set header title.
 		 */
 		$cnt['htitle'] = _APP_NAME;
