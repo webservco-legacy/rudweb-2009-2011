@@ -400,32 +400,79 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		 */
 		$f = (function_exists('mb_internal_encoding')) ? 'mb_strlen' : 'strlen';
 		/**
-		 * XXX Check data length.
+		 * Check data length.
 		 *
 		 * Return result.
 		 */
 		return ($f($data) < $length) ? FALSE : TRUE;
 	}
 
+	/**
+	 * Maximum length check.
+	 *
+	 * Form validation method.
+	 *
+	 * @param mixed $data form data to check
+	 * @param integer $length maximum data length
+	 * @return mixed result
+	 */
 	private function _rwMax($data, $length=0)
 	{
 		/**
+		 * Set function name.
+		 *
 		 * Check if mbsting extension is available.
 		 */
 		$f = (function_exists('mb_internal_encoding')) ? 'mb_strlen' : 'strlen';
+		/**
+		 * Check data length.
+		 *
+		 * Return result.
+		 */
 		return ($f($data) > $length) ? FALSE : TRUE;
 	}
 
+	/**
+	 * Equal value check.
+	 *
+	 * Form validation method.
+	 *
+	 * @param mixed $data form data to check
+	 * @param mixed $match match to check against
+	 * @return mixed result
+	 */
 	private function _rwEquals($data, $match)
 	{
+		/**
+		 * Check if data is the same as the match.
+		 *
+		 * Return result.
+		 */
 		return ($data !== $match) ? FALSE : TRUE;
 	}
 
+	/**
+	 * Captcha validation.
+	 *
+	 * Form validation method.
+	 * This is similar to equal value check method,
+	 * but the error message differs, hence the separate method.
+	 *
+	 * @param mixed $data form data to check
+	 * @param mixed $captcha session captcha
+	 * @return mixed result
+	 */
 	private function _rwValidCaptcha($data, $captcha)
 	{
+		/**
+		 * Check if data matches captcha.
+		 *
+		 * Return result.
+		 */
 		return ($data !== $captcha) ? FALSE : TRUE;
 	}
 
+	//XXX parse error message.
 	private function _parseErrorMessage($rule, $label, $required=0)
 	{
 		$errorMessage = (array_key_exists($rule, $this->errMsgs)) ? $this->errMsgs[$rule] : $this->errMsgs['default'];
