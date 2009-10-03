@@ -94,6 +94,8 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	public $formErrors = array();
 
 	public $postData = array();
+	
+	public $errMsgs = array();
 
 	/**
 	 * Constructor.
@@ -219,16 +221,16 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 
 	private function _parseErrorMessage($rule, $label, $required=0)
 	{
-		//XXX get these from language
-		$errorMessage['_rwRequired'] = '$label$ is required.';
-		$errorMessage['_rwValidEmail'] = '$label$ is not a valid email address.';
-		$errorMessage['_rwMin'] = '$label$ must be at least $required$ characters long.';
-		$errorMessage['_rwMax'] = '$label$ must not be longer than $required$ characters.';
-		$errorMessage['_rwEquals'] = '$label$ must be equal with $required$.';
+		$errorMessage = (array_key_exists($rule, $this->errMsgs)) ? $this->errMsgs[$rule] : $this->errMsgs['default'];
 
-		return str_replace('$required$', $required, str_replace('$label$', $label, $errorMessage[$rule]));
+		return str_replace('$required$', $required, str_replace('$label$', $label, $errorMessage));
 	}
 
+	public function setErrorMessages($errMsgs)
+	{
+		$this->errMsgs = $errMsgs;
+	}
+	
 	public function setPostData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation)
 	{
 		$this->postData[] = array(

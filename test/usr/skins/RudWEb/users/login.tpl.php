@@ -1,16 +1,21 @@
 <pre>
-Session:
-<?php print_r($_SESSION); ?>
-<?php echo '<hr />'; ?>
-Post:
-<?php print_r($_POST); ?>
-<?php echo '<hr />'; ?>
-FormData:
-<?php print_r($formData); ?>
-<?php echo '<hr />'; ?>
-FormErr:
-<?php print_r($formErr); ?>
-<?php echo '<hr />'; ?>
+<?php
+/**
+
+echo 'Session:';
+print_r($_SESSION);
+echo '<hr />';
+echo 'Post:';
+print_r($_POST);
+echo '<hr />';
+echo 'FormData:';
+print_r($formData);
+echo '<hr />';
+echo 'FormErr:';
+print_r($formErr);
+echo '<hr />';
+*/
+?>
 
 </pre>
 <form enctype="multipart/form-data"	name="<?php echo _APP_PRE; ?>_login_form" id="<?php echo _APP_PRE; ?>_login_form" action="" method="post">

@@ -43,4 +43,11 @@ if (!defined('_RW_VALID'))
 }
 
 $langMod['SOME_STUFF'] = 'Niste chestii legate de modul Users.';
+
+$langMod['ERR']['default'] = 'Eroare.';
+$langMod['ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
+$langMod['ERR']['_rwValidEmail'] = '$label$ nu este o adresa de email valid&#256;.';
+$langMod['ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
+$langMod['ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
+$langMod['ERR']['_rwEquals'] = '$label$ trebuie s&#259; fie egal cu $required$.';
 ?>
