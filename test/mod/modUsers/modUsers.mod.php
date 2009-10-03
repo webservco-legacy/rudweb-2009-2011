@@ -127,40 +127,36 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	 */
 	public function login()
 	{
-		// set (init) form data.
-		$cnt_login['formData'] = array();
-		$lang = $this->rwCore->rwGetLang();
-
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_token', 'Security Token', 'StripTags|RemoveBadChars', 'Required');
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_login', $lang['MOD']['SOME_STUFF'], 'StripTags', 'Required|ValidEmail');
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_pass', 'Password', 'StripTags|RemoveBadChars', 'Required|Min[6]|Max[6]');
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_captcha', 'Security Code', 'StripTags|RemoveBadChars', 'Required');
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_remember', 'Checkbox', '', 'Required');
-		$this->rwCore->rwExts['Forms']->setPostData(_APP_PRE.'_select', 'Select Field', '', 'Equals[2]');
-
-		// filter and validate form data.
+		// Init login form data..
+		$cnt_login = array('formErr' => array(), 'formData' => array());
+		// Set error messages list.
+		$this->rwCore->rwExts['Forms']->setErrorMessages($this->rwCore->rwGetLang('MOD', 'ERR'));
+		// Set work data (form fields, filtering rules, validation rules).
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_token', 'Security Token', 'StripTags|RemoveBadChars', 'Required');
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_login', 'User name', 'StripTags', 'Required|ValidEmail');
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_pass', 'Password', 'StripTags|RemoveBadChars', 'Required|Min[6]|Max[6]');
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_captcha', 'Security Code', 'StripTags|RemoveBadChars', 'Required|ValidCaptcha['.$this->rwCore->rwExts['Captcha']->getCaptcha().']');
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_remember', 'Checkbox', '', 'Required');
+		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_select', 'Select Field', '', 'Equals[2]');
+		// Filter and validate form data.
 		$this->rwCore->rwExts['Forms']->rwForms($this->rwCore->rwSec);
-
-
-		$cnt_login['formErr'] = $this->rwCore->rwExts['Forms']->formErrors;
-
-		$cnt_login['formData'] = $this->rwCore->rwExts['Forms']->formData;
-
-		$err = $this->rwCore->rwExts['Forms']->countFormErrors();
-
+		// Get form data.
+		$cnt_login['formData'] = $this->rwCore->rwExts['Forms']->getformData();
+		// Get form errors.
+		$cnt_login['formErr'] = $this->rwCore->rwExts['Forms']->getformErrors();
+		// Get number of errors.
+		$nrErr = $this->rwCore->rwExts['Forms']->countFormErrors();
+		//XXX
 		// if ok -> continue to personalized user validation.
 		// if err -> display form and errors.
-		$_SESSION['test_stuff'] = 'mystuff';
-		//$_SESSION[_APP_PRE.'_usr']['status'] = '20';
-		//XXX
-		//$this->rwCore->rwExts['Routing']->rwRedirect('index');
-
-		if($err > 0)
+		if($nrErr > 0)
 		{
 			$this->_login_form($cnt_login);
 		}
-		else{
-			$this->index();
+		else
+		{
+			//$this->index();
+			$this->rwCore->rwExts['Routing']->rwRedirect('index');
 		}
 	}
 

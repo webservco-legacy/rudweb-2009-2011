@@ -50,4 +50,5 @@ $langMod['ERR']['_rwValidEmail'] = '$label$ nu este o adresa de email valid&#256
 $langMod['ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
 $langMod['ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
 $langMod['ERR']['_rwEquals'] = '$label$ trebuie s&#259; fie egal cu $required$.';
+$langMod['ERR']['_rwValidCaptcha'] = '$label$ nu este valid.';
 ?>

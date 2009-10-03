@@ -1,7 +1,6 @@
-<pre>
 <?php
-/**
-
+/*
+echo '<pre>';
 echo 'Session:';
 print_r($_SESSION);
 echo '<hr />';
@@ -14,10 +13,9 @@ echo '<hr />';
 echo 'FormErr:';
 print_r($formErr);
 echo '<hr />';
+echo '</pre>';
 */
 ?>
-
-</pre>
 <form enctype="multipart/form-data"	name="<?php echo _APP_PRE; ?>_login_form" id="<?php echo _APP_PRE; ?>_login_form" action="" method="post">
 	<input	type="hidden" name="<?php echo _APP_PRE; ?>_token" value="<?php echo $_SESSION[_APP_PRE.'_usr']['token'];?>" />
 	User login:

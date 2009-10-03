@@ -842,12 +842,53 @@ class rw_Core
 		return TRUE;
 	}
 
-	public function rwGetLang()
+	/**
+	 * Return partial or complete translation list.
+	 *
+	 * @param string $l1 level1 key
+	 * @param string $l2 level2 key
+	 * @return mixed result
+	 */
+	public function rwGetLang($l1=NULL, $l2=NULL)
 	{
+		/**
+		 * Init new translation list.
+		 */
+		$lang = array();
+		/**
+		 * Check for level1 key.
+		 */
+		if($l1 && array_key_exists($l1, $this->rwLang))
+		{
+			/**
+			 * Set translation list to level1 key.
+			 */
+			$lang = $this->rwLang[$l1];
+			/**
+			 * Check for level2 key.
+			 */
+			if($l2 && array_key_exists($l2, $lang))
+			{
+				/**
+				 * Set translation list to level2 key.
+				 */
+				$lang = $lang[$l2];
+			}
+		}
+		/**
+		 * No level1 key.
+		 */
+		else
+		{
+			/**
+			 * Set translation list to complete list.
+			 */
+			$lang = $this->rwLang;
+		}
 		/**
 		 * Return translation list.
 		 */
-		return $this->rwLang;
+		return $lang;
 	}
 }
 ?>

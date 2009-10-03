@@ -209,7 +209,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Set text.
 		 */
-		$txt = $this->_generateCaptcha();
+		$txt = $this->_getImageCaptcha();
 		/**
 		 * Initialize image.
 		 */
@@ -354,11 +354,26 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Generate captcha.
+	 * Get captcha from session.
 	 *
-	 * @return mixed content
+	 * @return mixed result
 	 */
-	private function _generateCaptcha()
+	public function getCaptcha()
+	{
+		/**
+		 * Return session captcha if we have a valid session, or NULL otherwise.
+		 *
+		 * Multibyte functions not needed here.
+		 */
+		return (isset($_SESSION[_APP_PRE.'_usr']['token'])) ? strtoupper(strrev(substr($_SESSION[_APP_PRE.'_usr']['token'], 0, 5))) : NULL;
+	}
+
+	/**
+	 * Get image captcha captcha.
+	 *
+	 * @return mixed result
+	 */
+	private function _getImageCaptcha()
 	{
 		/**
 		 * Return captcha array if we have a valid session, or a blank array otherwise.

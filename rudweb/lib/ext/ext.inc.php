@@ -93,14 +93,18 @@ class rw_Extension
 	/**
 	 * Get extension information.
 	 *
+	 * Returns an information field if specified.
+	 * The whole list otherwise.
+	 *
+	 * @param string $field field to return
 	 * @return array extension information
 	 */
-	public function extAbout()
+	protected function extAbout($field=NULL)
 	{
 		/**
-		 * Return result.
+		 * Return only a field if specified and valid, or the whole list.
 		 */
-		return $this->extAbout;
+		return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
 	}
 }
 ?>

@@ -148,10 +148,6 @@ class rw_Module_stContent extends rw_Module implements rw_iModule
 		 * Display output.
 		 */
 		$this->rwOutput('layout', $cnt);
-		echo '<pre>';
-		print_r($_SESSION);
-		echo '<hr />';
-		print_r($this->rwCore->rwGetLang());
 	}
 }
 ?>

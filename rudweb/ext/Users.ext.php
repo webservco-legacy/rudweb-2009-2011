@@ -265,9 +265,9 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		if (!$_SESSION[_APP_PRE.'_usr']['auth'])
 		{
 			/**
-			 * Load user authentication method.
+			 * User not logged in.
 			 */
-			$this->_authUser();
+			$this->usrData['status'] = 0;
 		}
 		/**
 		 * User is already logged in.
@@ -290,20 +290,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Set session user data.
 		 */
 		$_SESSION[_APP_PRE.'_usr'] = $this->usrData;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * User authentication.
-	 *
-	 * @return mixed result
-	 */
-	private function _authUser()
-	{
-
 		/**
 		 * Return result.
 		 */

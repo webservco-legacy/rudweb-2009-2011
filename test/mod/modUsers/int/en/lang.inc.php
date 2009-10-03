@@ -50,4 +50,5 @@ $langMod['ERR']['_rwValidEmail'] = '$label$ is not a valid email address.';
 $langMod['ERR']['_rwMin'] = '$label$ must be at least $required$ characters long.';
 $langMod['ERR']['_rwMax'] = '$label$ must not be longer than $required$ characters.';
 $langMod['ERR']['_rwEquals'] = '$label$ must be equal with $required$.';
+$langMod['ERR']['_rwValidCaptcha'] = '$label$ is not valid.';
 ?>
