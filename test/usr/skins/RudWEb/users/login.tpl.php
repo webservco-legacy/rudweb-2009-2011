@@ -30,6 +30,8 @@
 <?php
 /*
 echo '<pre>';
+echo 'Cookies:';
+print_r($_COOKIE);
 echo 'Session:';
 print_r($_SESSION);
 echo '<hr />';
