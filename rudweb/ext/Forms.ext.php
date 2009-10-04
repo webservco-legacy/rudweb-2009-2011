@@ -99,12 +99,20 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	/**
 	 * Localized error messages.
 	 *
+	 * List of error messages usually from a language file.
+	 *
 	 * @var array
 	 */
 	private $errMsgs = array();
 
 	/**
 	 * Work data.
+	 *
+	 * This consists of:
+	 * field name,
+	 * field title,
+	 * filtering rules,
+	 * validation rules.
 	 *
 	 * @var array
 	 */
@@ -113,12 +121,16 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	/**
 	 * Parsed form data.
 	 *
+	 * Form data after filering and validation.
+	 *
 	 * @var array
 	 */
 	private $formData = array();
 
 	/**
 	 * Form errors.
+	 *
+	 * Form errors after filtering and validation.
 	 *
 	 * @var array
 	 */
@@ -472,48 +484,142 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		return ($data !== $captcha) ? FALSE : TRUE;
 	}
 
-	//XXX parse error message.
+	/**
+	 * Parse error mesage.
+	 *
+	 * @param string $rule rule (method) for which to display error message.
+	 * @param string $label form label
+	 * @param mixed $required requiredcondition which is not met
+	 * @return mixed result.
+	 */
 	private function _parseErrorMessage($rule, $label, $required=0)
 	{
+		/**
+		 * Set error message.
+		 *
+		 * Check if the specified rule (method) exists.
+		 * If not, set to default error message.
+		 */
 		$errorMessage = (array_key_exists($rule, $this->errMsgs)) ? $this->errMsgs[$rule] : $this->errMsgs['default'];
-
+		/**
+		 * Parse error message text.
+		 *
+		 * Return result.
+		 */
 		return str_replace('$required$', $required, str_replace('$label$', $label, $errorMessage));
 	}
 
+	/**
+	 * Set error messages list.
+	 *
+	 * @param array $errMsgs list of error messages
+	 * @return mixed result
+	 */
 	public function setErrorMessages($errMsgs)
 	{
+		/**
+		 * Set error messages list.
+		 */
 		$this->errMsgs = $errMsgs;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
+	/**
+	 * Set work data.
+	 *
+	 * Add work data to work data array.
+	 *
+	 * @param string $fieldName form field name
+	 * @param string $fieldTitle form field title
+	 * @param string $fieldFilters form field filtering rules string
+	 * @param string $fieldValidation form field validation rules string
+	 * @return mixed result
+	 */
 	public function setWorkData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation)
 	{
+		/**
+		 * Set work data.
+		 */
 		$this->workData[] = array(
 			'name' => $fieldName,	
 			'title' => $fieldTitle,
 			'filters' => $fieldFilters,
 			'validation' => $fieldValidation
 		);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
+	/**
+	 * Get form data.
+	 *
+	 * This is usually called after filtering and validation
+	 * in order to get the form data.
+	 *
+	 * @return array form data
+	 */
 	public function getFormData()
 	{
+		/**
+		 * Return form data.
+		 */
 		return $this->formData;
 	}
 
+	/**
+	 * Get form errors.
+	 *
+	 * This is usually called after filtering and validation
+	 * in order to get the form errors.
+	 *
+	 * @return array form errors
+	 */
 	public function getFormErrors()
 	{
+		/*
+		 * Return form errors.
+		 */
 		return $this->formErrors;
 	}
 
+	/**
+	 * Count form errors.
+	 *
+	 * This returns the number of actual form errors.
+	 * The form errors array contains keys
+	 * even if there is no errror, so counting
+	 * the result of the get form errors method
+	 * doesn't work as expected.
+	 *
+	 * @param integer $count start counting from this value
+	 * @return integer number of actual form errors
+	 */
 	public function countFormErrors($count=0)
 	{
+		/**
+		 * Parse each form error.
+		 */
 		foreach ($this->formErrors as $error)
 		{
+			/**
+			 * Check if we do actually have an error for current form error.
+			 */
 			if ($error)
 			{
+				/**
+				 * Increment counter.
+				 */
 				$count++;
 			}
 		}
+		/**
+		 * Return number of errors.
+		 */
 		return $count;
 	}
 }
