@@ -146,11 +146,12 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		$cnt_login['formErr'] = $this->rwCore->rwExts['Forms']->getformErrors();
 		// Get number of errors.
 		$nrErr = $this->rwCore->rwExts['Forms']->countFormErrors();
-		//XXX
 		// if ok -> continue to personalized user validation.
 		// if err -> display form and errors.
 		if($nrErr > 0)
 		{
+			//XXX
+			$this->rwCore->rwDb->dbInsert('ap_var_login', '', '');
 			$this->_login_form($cnt_login);
 		}
 		else

@@ -404,7 +404,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			$cols = '';
 		}
 		/**
-		 * Check data to be inserted.
+		 * XXX Check data to be inserted.
 		 *
 		 * The data array contains both columns and values.
 		 */
