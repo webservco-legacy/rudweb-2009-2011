@@ -207,7 +207,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		ob_start();
 		/**
-		 * Set text.
+		 * Set text from captcha.
 		 */
 		$txt = $this->_getImageCaptcha();
 		/**
@@ -229,11 +229,11 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Write to image (1).
 		 */
-		imagettftext($img, $this->fontSize, 10, 3, 16, $fgc, $this->fontPath, $txt['4']);
+		imagettftext($img, $this->fontSize, 10, 3, 16, $fgc, $this->fontPath, $txt['0']);
 		/**
 		 * Write to image (2).
 		 */
-		imagettftext($img, $this->fontSize, -30, 13, 12, $fgc, $this->fontPath, $txt['3']);
+		imagettftext($img, $this->fontSize, -30, 13, 12, $fgc, $this->fontPath, $txt['1']);
 		/**
 		 * Write to image (3).
 		 */
@@ -241,11 +241,11 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Write to image (4).
 		 */
-		imagettftext($img, $this->fontSize, -10, 40, 14, $fgc, $this->fontPath, $txt['1']);
+		imagettftext($img, $this->fontSize, -10, 40, 14, $fgc, $this->fontPath, $txt['3']);
 		/**
 		 * Write to image (5).
 		 */
-		imagettftext($img, $this->fontSize, 10, 58, 16, $fgc, $this->fontPath, $txt['0']);
+		imagettftext($img, $this->fontSize, 10, 58, 16, $fgc, $this->fontPath, $txt['4']);
 		/**
 		 * Check what image type we should output.
 		 */
@@ -356,29 +356,44 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 	/**
 	 * Get captcha from session.
 	 *
-	 * @return mixed result
+	 * @return string captcha
 	 */
 	public function getCaptcha()
 	{
 		/**
 		 * Return session captcha if we have a valid session, or NULL otherwise.
 		 *
-		 * Multibyte functions not needed here.
+		 * Use prive function for generating captcha.
 		 */
-		return (isset($_SESSION[_APP_PRE.'_usr']['token'])) ? strtoupper(strrev(substr($_SESSION[_APP_PRE.'_usr']['token'], 0, 5))) : NULL;
+		return $this->_generateCaptcha();
 	}
 
 	/**
 	 * Get image captcha captcha.
 	 *
-	 * @return mixed result
+	 * @return array captcha array
 	 */
 	private function _getImageCaptcha()
 	{
 		/**
 		 * Return captcha array if we have a valid session, or a blank array otherwise.
 		 */
-		return (isset($_SESSION[_APP_PRE.'_usr']['token'])) ? str_split(strtoupper($_SESSION[_APP_PRE.'_usr']['token']), 1) : array('', '', '', '', '');
+		return (isset($_SESSION[_APP_PRE.'_usr']['token'])) ? str_split($this->_generateCaptcha(), 1) : array('', '', '', '', '');
+	}
+
+	/**
+	 * Generate captcha code from session data.
+	 *
+	 * @return string captcha code
+	 */
+	private function _generateCaptcha()
+	{
+		/**
+		 * Return session captcha if we have a valid session, or NULL otherwise.
+		 *
+		 * Multibyte functions not needed here.
+		 */
+		return (isset($_SESSION[_APP_PRE.'_usr']['token'])) ? strtoupper(strrev(substr($_SESSION[_APP_PRE.'_usr']['token'], 17, 5))) : NULL;
 	}
 }
 ?>

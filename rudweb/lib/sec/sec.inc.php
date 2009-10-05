@@ -85,7 +85,7 @@ class rw_Security
 		/**
 		 * Sanitize $_GET array.
 		 */
-		$_GET = array_map(array($this, 'rwFilterRequest'), $_GET);
+		$_GET = array_map(array($this, '_rwFilterRequest'), $_GET);
 		/**
 		 * Sanitize $_POST array.
 		 *
@@ -94,15 +94,49 @@ class rw_Security
 		 * If database connection is not available,
 		 * filtering is done as for $_GET.
 		 */
-		$_POST = array_map(array($this, 'rwFilterPost'), $_POST);
+		$_POST = array_map(array($this, '_rwFilterPost'), $_POST);
 		/**
 		 * Return result.
 		 */
 		return TRUE;
 	}
 
-	public function rwFilterPost($input)
+	/**
+	 * Filter request.
+	 *
+	 * @param string $request request
+	 * @param boolean $disableTags
+	 * @return string $request filtered request
+	 */
+	private function _rwFilterRequest($request, $disableTags=TRUE)
 	{
+		/*
+		 * Remove fake file extension.
+		 */
+		$request = $this->_rwRemoveFakeExt($request);
+		/**
+		 * Filter input.
+		 */
+		$request = $this->rwFilterInput($request, $disableTags, TRUE);
+		/**
+		 * Return result.
+		 */
+		return $request;
+	}
+
+	/**
+	 * Filter post data.
+	 *
+	 * Please note that this method doesn't disable tags.
+	 *
+	 * @param array $input post array
+	 * @return array filtered post array
+	 */
+	private function _rwFilterPost($input)
+	{
+		/**
+		 * Return filtered data.
+		 */
 		return $this->rwFilterInput($input, FALSE, FALSE);
 	}
 
@@ -174,29 +208,6 @@ class rw_Security
 	}
 
 	/**
-	 * Filter request.
-	 *
-	 * @param string $request request
-	 * @param boolean $disableTags
-	 * @return string $request filtered request
-	 */
-	public function rwFilterRequest($request, $disableTags=TRUE)
-	{
-		/**
-		 * Filter input.
-		 */
-		$request = $this->rwFilterInput($request, $disableTags, TRUE);
-		/*
-		 * Remove fake file extension.
-		 */
-		$request = $this->_rwRemoveFakeExt($request);
-		/**
-		 * Return result.
-		 */
-		return $request;
-	}
-
-	/**
 	 * Remove fake file extension from requests
 	 *
 	 * @param string $request request
@@ -217,7 +228,7 @@ class rw_Security
 				/**
 				 * Remove fake extension from request.
 				 */
-				$request = mb_substr($request, 0, mb_strlen($request)-mb_strlen(mb_strstr($request,'.')));
+				$request = mb_substr($request, 0, mb_strlen($request) - mb_strlen(mb_strstr($request,'.')));
 			}
 			/**
 			 * Mbsting extension is not available.
@@ -227,7 +238,7 @@ class rw_Security
 				/**
 				 * Remove fake extension from request.
 				 */
-				$request = substr($request, 0, strlen($request)-strlen(strstr($request,'.')));
+				$request = substr($request, 0, strlen($request) - strlen(strstr($request,'.')));
 			}
 		}
 		/**
