@@ -468,7 +468,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		/**
 		 * Create query.
 		 */
-		$sql = "INSERT INTO {$table} {$cols} VALUES ($data)";
+		$sql = "INSERT INTO {$table}{$cols} VALUES($data)";
 
 		/**
 		 * Return result.
@@ -635,6 +635,108 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 
 	/**
 	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbDelete($table, $condition, $order, $limit)
+	 */
+	public function dbDelete($table, $condition=NULL, $order=NULL, $limit=NULL)
+	{
+		/**
+		 * Check if we have limit and set it.
+		 *
+		 * Otherwise limit is blank.
+		 */
+		$limit = (isset($limit) && $limit != '') ? ' LIMIT '.$limit : '';
+		/**
+		 * Check if we have order by.
+		 */
+		if($order)
+		{
+			/**
+			 * Init order by.
+			 */
+			$ord = ' ORDER BY ';
+			/**
+			 * Check if we have multiple values for order.
+			 */
+			if(is_array($order))
+			{
+				/**
+				 * Parse values into string.
+				 */
+				$ord .= implode(', ', $order);
+			}
+			/**
+			 * Ony one value.
+			 */
+			else
+			{
+				/**
+				 * Set order by.
+				 */
+				$ord .= $order;
+			}
+		}
+		/**
+		 * Order by not set.
+		 */
+		else
+		{
+			/**
+			 * Order by is blank.
+			 */
+			$ord = '';
+		}
+		/**
+		 * Check for where condition.
+		 */
+		if($condition)
+		{
+			/**
+			 * Init condition.
+			 */
+			$cond = ' WHERE ';
+			/**
+			 * Check if condition contains multple values.
+			 */
+			if(is_array($condition))
+			{
+				/**
+				 * Parse values as string.
+				 */
+				$cond .= implode(' AND ', $condition);
+			}
+			/**
+			 * Condition contains only one value.
+			 */
+			else
+			{
+				/**
+				 * Set condition.
+				 */
+				$cond .= $condition;
+			}
+		}
+		/**
+		 * No where condition.
+		 */
+		else
+		{
+			/**
+			 * Condition is blank.
+			 */
+			$cond = '';
+		}
+		/**
+		 * Create query.
+		 */
+		$sql = "DELETE FROM {$table}{$cond}{$ord}{$limit}";
+		/**
+		 * Return result.
+		 */
+		return $this->dbQuery($sql);
+	}
+
+	/**
+	 * (non-PHPdoc)
 	 * @see rudweb/lib/db/rw_iDatabase#dbNumRows($result)
 	 */
 	public function dbNumRows($result)
@@ -679,6 +781,30 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		 * Return result.
 		 */
 		return $this->dbQuery("SELECT LAST_INSERT_ID()");
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbNow()
+	 */
+	public function dbNow()
+	{
+		/**
+		 * Return current date and time (DATETIME compatible string).
+		 */
+		return date('Y-m-d H:i:s');
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see rudweb/lib/db/rw_iDatabase#dbNowMinAgo($min)
+	 */
+	public function dbNowMinAgo($min=0)
+	{
+		/**
+		 * Return date and time (DATETIME compatible string).
+		 */
+		return date('Y-m-d H:i:s', time() - $min * 60);
 	}
 }
 ?>

@@ -93,6 +93,32 @@ $modAbout['modUsers']['deps']['mod'] = array();
  */
 class rw_Module_modUsers extends rw_Module implements rw_iModule
 {
+	private $formData = array();
+
+	private $formErr = array();
+
+	private $formErrNr = 0;
+
+	/**
+	 * Forms extension object.
+	 *
+	 * Multiple calls to tihs extension
+	 * made it necessary to have a separate object.
+	 *
+	 * @var mixed
+	 */
+	private $extForms;
+
+	/**
+	 * Users extension object.
+	 *
+	 * Multiple calls to tihs extension
+	 * made it necessary to have a separate object.
+	 *
+	 * @var mixed
+	 */
+	private $extUsers;
+
 	/**
 	 * Constructor.
 	 *
@@ -108,6 +134,9 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		 * Call parent constructor.
 		 */
 		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
+		$this->extForms = $this->rwCore->rwExts['Forms'];
+		$this->extUsers = $this->rwCore->rwExts['Users'];
+		$this->extUsers->recordOnline($modLocation, $modRequest);
 	}
 
 	/**
@@ -116,8 +145,20 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	 */
 	public function index()
 	{
-		//$this->login();
-		echo 'Welcome to users module.';
+		if (!$_SESSION[_APP_PRE.'_usr']['auth'])
+		{
+			$this->login();
+		}
+		else
+		{
+			echo 'Welcome to users module.';
+			echo '<pre>';
+			print_r($_SESSION);
+			echo '<hr />';
+			print_r($_COOKIE);
+			echo '</pre>';
+		}
+
 	}
 
 	/**
@@ -127,48 +168,192 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	 */
 	public function login()
 	{
-		// Init login form data..
-		$cnt_login = array('formErr' => array(), 'formData' => array());
-		// Set error messages list.
-		$this->rwCore->rwExts['Forms']->setErrorMessages($this->rwCore->rwGetLang('MOD', 'ERR'));
-		// Set work data (form fields, filtering rules, validation rules).
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_token', 'Security Token', 'StripTags|RemoveBadChars', 'Required');
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_login', 'User name', 'StripTags', 'Required|ValidEmail');
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_pass', 'Password', 'StripTags|RemoveBadChars', 'Required|Min[6]|Max[6]');
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_captcha', 'Security Code', 'StripTags|RemoveBadChars', 'Required|ValidCaptcha['.$this->rwCore->rwExts['Captcha']->getCaptcha().']');
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_remember', 'Checkbox', '', 'Required');
-		$this->rwCore->rwExts['Forms']->setWorkData(_APP_PRE.'_select', 'Select Field', '', 'Equals[2]');
-		// Filter and validate form data.
-		$this->rwCore->rwExts['Forms']->rwForms($this->rwCore->rwSec);
-		// Get form data.
-		$cnt_login['formData'] = $this->rwCore->rwExts['Forms']->getformData();
-		// Get form errors.
-		$cnt_login['formErr'] = $this->rwCore->rwExts['Forms']->getformErrors();
-		// Get number of errors.
-		$nrErr = $this->rwCore->rwExts['Forms']->countFormErrors();
+		/*
+		 if ($_SESSION[_APP_PRE.'_usr']['auth'])
+		 {
+			$this->index();
+			exit;
+			}
+			*/
+		/**
+		 * Parse login form.
+		 */
+		$this->_parseLoginForm();
+
 		// if ok -> continue to personalized user validation.
 		// if err -> display form and errors.
-		if($nrErr > 0)
+		if($this->formErrNr > 0)
 		{
-
-			$this->_login_form($cnt_login);
+			$this->_login_form();
 		}
 		else
 		{
+			/**
+			 * TEMP DB Debug
+			 */
 			//$this->rwCore->rwDb->dbDebug();
-			$db = array();
-			$db['login_mail'] = $cnt_login['formData'][_APP_PRE.'_login'];
-			$db['login_ip'] = $_SERVER['REMOTE_ADDR'];
-			$db['login_agent'] = $_SERVER['HTTP_USER_AGENT'];
-			$db['login_time'] = "{NOW()}";
-		
-			$this->rwCore->rwDb->dbInsert('app_var_login', NULL , $db); 
-			
-			$this->rwCore->rwExts['Routing']->rwRedirect('index');
+			/**
+			* Set login data.
+			*/
+			$this->_setLoginData();
+			/**
+			 * Check failed login attempts.
+			 */
+			if (!$this->extUsers->checkFailedLogins())
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/manyattempts');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Get user data.
+			 *
+			 */
+			$userData = $this->extUsers->getUserData($this->formData[_APP_PRE.'_pass']);
+			/**
+			 * Check if user data is invalid (or user deleted).
+			 */
+			if (!$userData)
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/nomatch');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Check if account is inactive.
+			 */
+			if ($userData['usr_status'] == 1)
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/inactive');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Check if account is disabled.
+			 */
+			if ($userData['usr_status'] == 2)
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/disabled');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Get group data.
+			 */
+			$groupData = $this->extUsers->getGroupData($userData['grp_id']);
+			/**
+			 * Check if group data is invalid (or group deleted).
+			 */
+			if (!$groupData)
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/nogroup');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Check if group is inactive.
+			 */
+			if ($groupData['grp_status'] == 1)
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/inactive');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Check if user already logged in.
+			 */
+			if ($this->extUsers->usrLoggedIn($userData['usr_id']))
+			{
+				/**
+				 * Record failed login attempt.
+				 */
+				$this->extUsers->recordLogin(0);
+				/**
+				 * Redirect to error page.
+				 */
+				$this->rwCore->rwExts['Routing']->rwRedirect('users/error/online');
+				/**
+				 * Stop script execution.
+				 */
+				exit;
+			}
+			/**
+			 * Athenticate user.
+			 */
+			$this->extUsers->usrAuth($userData, $groupData);
+			/**
+			 * Redirect to new page.
+			 */
+			$this->rwCore->rwExts['Routing']->rwRedirect('users');
+			/**
+			 * Stop script execution.
+			 */
+			exit();
 		}
 	}
 
-	private function _login_form($cnt_login)
+	/**
+	 * Display login form.
+	 *
+	 * Note that this mathod cannot be called directly.
+	 *
+	 * @return mixed result
+	 */
+	private function _login_form()
 	{
 		/**
 		 * Initialize content vars.
@@ -185,7 +370,9 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		/**
 		 * Set page content.
 		 */
-		$cnt['content'] = $this->rwParse('users/login', $cnt_login);
+		$data['formData'] = $this->formData;
+		$data['formErr'] = $this->formErr;
+		$cnt['content'] = $this->rwParse('users/login', $data);
 		/**
 		 * Set footer.
 		 */
@@ -205,15 +392,152 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	}
 
 	/**
-	 * Captcha action.
+	 *
+	 */
+	public function error()
+	{
+		echo 'error: ' . $this->modRequest;
+	}
+
+	public function logout()
+	{
+		if ($_SESSION[_APP_PRE.'_usr']['auth'])
+		{
+			//clear online activity and failed login history.
+			$this->extUsers->clearOnline();
+			$this->extUsers->clearLogin();
+			$this->extUsers->usrLogout();
+		}
+		$this->rwCore->rwExts['Routing']->rwRedirect('users');
+	}
+	/**
+	 * Captcha display action.
 	 *
 	 * @return mixed result
 	 */
 	public function captcha()
 	{
+		/**
+		 * Display image captcha.
+		 */
 		echo $this->rwCore->rwExts['Captcha']->displayCaptcha();
 	}
 
+	private function _parseLoginForm()
+	{
+		/**
+		 * Set error messages list.
+		 */
+		$this->extForms->setErrorMessages($this->rwCore->rwGetLang('MOD', 'ERR'));
+		/**
+		 * Set work data.
+		 *
+		 * Form fields, Filtering rules, Validation rules).
+		 */
+		$this->_setWorkData();
+		/**
+		 * Filter and validate form data.
+		 */
+		$this->extForms->rwForms();
+		/**
+		 * Get form data.
+		 */
+		$this->formData = $this->extForms->getformData();
+		/**
+		 * Get form errors.
+		 */
+		$this->formErr = $this->extForms->getformErrors();
+		/**
+		 * Get number of errors.
+		 */
+		$this->formErrNr = $this->extForms->countFormErrors();
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
 
+	/**
+	 * Set wotk data to Forms extension.
+	 *
+	 * @return mixed result
+	 */
+	private function _setWorkData()
+	{
+		/**
+		 * Security token.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_token', 'Security Token', 'StripTags|RemoveBadChars', 'Required');
+		/**
+		 * Username.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_login', 'User name', 'StripTags', 'Required|ValidEmail');
+		/**
+		 * Password.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_pass', 'Password', 'StripTags|RemoveBadChars', 'Required|Min[6]|Max[30]');
+		/**
+		 * Captcha.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_captcha', 'Security Code', 'StripTags|RemoveBadChars', 'Required|ValidCaptcha['.$this->rwCore->rwExts['Captcha']->getCaptcha().']');
+		/**
+		 * TEMP Remember.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_remember', 'Checkbox', '', 'Required');
+		/**
+		 * TEMP Select.
+		 */
+		$this->extForms->setWorkData(_APP_PRE.'_select', 'Select Field', '', 'Equals[2]');
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Set login data.
+	 *
+	 * Login data is used by the Users extension
+	 * to perform various checks at login time.
+	 *
+	 * @return mixed result
+	 */
+	private function _setLoginData()
+	{
+		/**
+		 * Init login data array.
+		 */
+		$loginData = array();
+		/**
+		 * Set user id.
+		 *
+		 * User is not logged in at this point so we set it to 0.
+		 */
+		$loginData['usr_id'] = 0;
+		/**
+		 * Set login email address.
+		 */
+		$loginData['login_mail'] = $this->formData[_APP_PRE.'_login'];
+		/**
+		 * Set ip address.
+		 */
+		$loginData['login_ip'] = $_SERVER['REMOTE_ADDR'];
+		/**
+		 * Set user agent.
+		 */
+		$loginData['login_agent'] = $_SERVER['HTTP_USER_AGENT'];
+		/**
+		 * Set login time.
+		 */
+		$loginData['login_time'] = $this->rwCore->rwDb->dbNow();
+		/**
+		 * Add login data to Users extension.
+		 */
+		$this->extUsers->setLoginData($loginData);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
 }
 ?>

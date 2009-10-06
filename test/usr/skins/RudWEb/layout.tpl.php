@@ -37,5 +37,10 @@
 <p>Request: <?php echo $request; ?></p>
 <?php echo $content; ?>
 <?php echo $footer; ?>
+<pre>
+<?php print_r($_SESSION)?>
+<?php echo '<hr />';?>
+<?php print_r($_COOKIE)?>
+</pre>
 </body>
 </html>

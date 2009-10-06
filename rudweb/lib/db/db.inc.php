@@ -128,6 +128,16 @@ interface rw_iDatabase
 	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL);
 
 	/**
+	 * Method for data deletion
+	 *
+	 * @param mixed $table
+	 * @param mixed $condition
+	 * @param mixed $limit
+	 * @return mixed result
+	 */
+	public function dbDelete($table, $condition=NULL, $order=NULL, $limit=NULL);
+
+	/**
 	 * Returns the number of rows returned by a query result.
 	 *
 	 * @param mixed $result The result of the query.
@@ -159,6 +169,21 @@ interface rw_iDatabase
 	 * @return mixed result
 	 */
 	public function dbLastInsertId();
+
+	/**
+	 * Current date and time for database queries.
+	 *
+	 * @return string db compatible date time sting
+	 */
+	public function dbNow();
+
+	/**
+	 * Date and time in the past (minutes).
+	 *
+	 * @param integer $min minutes ago
+	 * @return string db compatible date time sting
+	 */
+	public function dbNowMinAgo($min=0);
 }
 
 /**

@@ -246,6 +246,10 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 */
 		$core->rwLoadExt('Users');
 		/**
+		 * Set database library object to users extension.
+		 */
+		$core->rwExts['Users']->setDb($core->rwDb);
+		/**
 		 * Load captcha extension.
 		 */
 		$core->rwLoadExt('Captcha');
@@ -253,6 +257,10 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 * Load forms extension.
 		 */
 		$core->rwLoadExt('Forms');
+		/**
+		 * Set security library object in Forms extension.
+		 */
+		$core->rwExts['Forms']->setSec($core->rwSec);
 		/**
 		 * Initialize session.
 		 */

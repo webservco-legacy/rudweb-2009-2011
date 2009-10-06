@@ -57,7 +57,7 @@ echo '</pre>';
 	<input class="" type="password" name="<?php echo _APP_PRE; ?>_pass" id="<?php echo _APP_PRE; ?>_pass" maxlength="30" value="<?php echo $formData[_APP_PRE.'_pass']; ?>" />
 	<?php echo $formErr[_APP_PRE.'_pass']; ?>
 	<br />
-	Security code: <img src="<?php echo _APP_WWW; ?>users/captcha" />
+	Security code: <img src="<?php echo _APP_WWW; ?>users/captcha.png" />
 	<input class="" type="text" name="<?php echo _APP_PRE; ?>_captcha" id="<?php echo _APP_PRE; ?>_captcha" maxlength="5" value="<?php echo $formData[_APP_PRE.'_captcha']; ?>" />
 	<?php echo $formErr[_APP_PRE.'_captcha']; ?>
 	<br />

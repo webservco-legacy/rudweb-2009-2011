@@ -151,19 +151,34 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Main extension functionality.
+	 * Set security library object.
 	 *
-	 * @param $rwSec security elibrary object
+	 * This must be called before main extension functionality.
+	 * Security library object is passed by reference.
 	 *
-	 * @return mixed result.
+	 * @param mixed $rwSec security library object
+	 * @return unknown_type
 	 */
-	public function rwForms($rwSec)
+	public function setSec(&$rwSec)
 	{
 		/**
 		 * Set security library object.
 		 *
 		 */
 		$this->rwSec = $rwSec;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Main extension functionality.
+	 *
+	 * @return mixed result.
+	 */
+	public function rwForms()
+	{
 		/**
 		 * Check if we have data to work with.
 		 */
