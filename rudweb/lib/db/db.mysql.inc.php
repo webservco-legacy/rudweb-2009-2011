@@ -146,7 +146,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	 * (non-PHPdoc)
 	 * @see rudweb/lib/db/rw_iDatabase#dbQuery($sql, $stats)
 	 */
-	public function dbQuery($sql, $stats)
+	public function dbQuery($sql, $stats=TRUE)
 	{
 		/**
 		 * If debug is set, we just output query.
@@ -356,7 +356,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	 * (non-PHPdoc)
 	 * @see rudweb/lib/db/rw_iDatabase#dbInsert($table, $columns, $values)
 	 */
-	public function dbInsert($table, $columns=NULL, $values)
+	public function dbInsert($table, $columns=NULL, $data)
 	{
 		/**
 		 * Check for column values.
@@ -404,7 +404,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			$cols = '';
 		}
 		/**
-		 * XXX Check data to be inserted.
+		 * Check data to be inserted.
 		 *
 		 * The data array contains both columns and values.
 		 */
@@ -428,9 +428,25 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 				 */
 				$col[] = $column;
 				/**
-				 * Set values.
+				 * Search for {VALUE}.
 				 */
-				$val[] = "'".$value."'";
+				if(preg_match("/^{.*}$/", $value))
+				{
+					/**
+					 * Set value to function or raw data.
+					 */
+					$val[] = str_replace(array('{', '}'), '', $value);
+				}
+				/**
+				 * No need to parse.
+				 */
+				else
+				{
+					/**
+					 * Set value.
+					 */
+					$val[] = "'".$value."'";
+				}
 			}
 			/**
 			 * Init columns string.
@@ -452,7 +468,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		/**
 		 * Create query.
 		 */
-		$sql = "INSERT INTO {$table}{$cols} VALUES($data)";
+		$sql = "INSERT INTO {$table} {$cols} VALUES ($data)";
 
 		/**
 		 * Return result.
@@ -567,7 +583,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			foreach($data as $column=>$value)
 			{
 				/**
-				 * Search for {VALUE}
+				 * Search for {VALUE}.
 				 */
 				if(preg_match("/^{.*}$/", $value))
 				{

@@ -150,13 +150,20 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		// if err -> display form and errors.
 		if($nrErr > 0)
 		{
-			//XXX
-			$this->rwCore->rwDb->dbInsert('ap_var_login', '', '');
+
 			$this->_login_form($cnt_login);
 		}
 		else
 		{
-			//$this->index();
+			//$this->rwCore->rwDb->dbDebug();
+			$db = array();
+			$db['login_mail'] = $cnt_login['formData'][_APP_PRE.'_login'];
+			$db['login_ip'] = $_SERVER['REMOTE_ADDR'];
+			$db['login_agent'] = $_SERVER['HTTP_USER_AGENT'];
+			$db['login_time'] = "{NOW()}";
+		
+			$this->rwCore->rwDb->dbInsert('app_var_login', NULL , $db); 
+			
 			$this->rwCore->rwExts['Routing']->rwRedirect('index');
 		}
 	}

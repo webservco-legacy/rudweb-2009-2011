@@ -84,7 +84,7 @@ interface rw_iDatabase
 	 * @param boolean $stats Whether or not to record query data. Default is TRUE
 	 * @return mixed query result
 	 */
-	public function dbQuery($sql, $stats);
+	public function dbQuery($sql, $stats=TRUE);
 
 	/**
 	 * Check if there are no tables in database.
@@ -110,10 +110,10 @@ interface rw_iDatabase
 	 *
 	 * @param mixed $table
 	 * @param mixed $columns
-	 * @param mixed $values
+	 * @param mixed $data
 	 * @return mixed query result
 	 */
-	public function dbInsert($table, $columns=NULL, $values);
+	public function dbInsert($table, $columns=NULL, $data);
 
 	/**
 	 * Method for data update.
