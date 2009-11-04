@@ -94,6 +94,13 @@ $modAbout['RudWI']['deps']['mod'] = array();
 class rw_Module_RudWI extends rw_Module implements rw_iModule
 {
 	/**
+	 * Skin to be used by the module.
+	 *
+	 * @var string
+	 */
+	private $outSkin = 'RudWI';
+	
+	/**
 	 * Constructor.
 	 *
 	 * @param array $modAbout module information
@@ -126,10 +133,11 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 		print_r($_COOKIE);
 		echo '</pre>';
 	}
-	
+
 	public function login()
 	{
-		echo 'RudWI login page';
+		//echo 'RudWI login page';
+		$this->rwOutput('layout', NULL, $this->outSkin);
 	}
 }
 ?>

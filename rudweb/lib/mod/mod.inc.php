@@ -153,11 +153,11 @@ class rw_Module
 	 *
 	 * @param mixed $outTemplate template file to parse
 	 * @param mixed $outData data to include in template
-	 * @param mixed $outEngine output engine to use
 	 * @param mixed $outSkin application skin to use
+	 * @param mixed $outEngine output engine to use
 	 * @return mixed result
 	 */
-	protected function rwOutput($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL)
+	protected function rwOutput($outTemplate=NULL, $outData=NULL, $outSkin=NULL, $outEngine=NULL)
 	{
 		/**
 		 * Check if output library is loaded.
@@ -172,7 +172,7 @@ class rw_Module
 		/**
 		 * Call output function with outDisplay set to TRUE.
 		 */
-		return $this->rwCore->rwOut->output($outTemplate, $outData, $outEngine, $outSkin, TRUE);
+		return $this->rwCore->rwOut->output($outTemplate, $outData, $outSkin, $outEngine, TRUE);
 	}
 
 	/**
@@ -180,11 +180,11 @@ class rw_Module
 	 *
 	 * @param mixed $outTemplate template file to parse
 	 * @param mixed $outData data to include in template
-	 * @param mixed $outEngine output engine used
 	 * @param mixed $outSkin skin used
+	 * @param mixed $outEngine output engine used
 	 * @return mixed result
 	 */
-	protected function rwParse($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL)
+	protected function rwParse($outTemplate=NULL, $outData=NULL, $outSkin=NULL, $outEngine=NULL)
 	{
 		/**
 		 * Check if output library is loaded.
@@ -199,7 +199,7 @@ class rw_Module
 		/**
 		 * Call output function with outDisplay set to TRUE.
 		 */
-		return $this->rwCore->rwOut->output($outTemplate, $outData, $outEngine, $outSkin, FALSE);
+		return $this->rwCore->rwOut->output($outTemplate, $outData, $outSkin, $outEngine, FALSE);
 	}
 }
 ?>

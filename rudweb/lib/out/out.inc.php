@@ -149,12 +149,12 @@ class rw_Output
 	 *
 	 * @param mixed $outTemplate template file to parse
 	 * @param mixed $outData data to include in template
-	 * @param mixed $outEngine output engine to use
 	 * @param mixed $outSkin application skin to use
+	 * @param mixed $outEngine output engine to use
 	 * @param boolean $outDisplay send output to browser or return it?
 	 * @return mixed result
 	 */
-	public function output($outTemplate=NULL, $outData=NULL, $outEngine=NULL, $outSkin=NULL, $outDisplay=TRUE)
+	public function output($outTemplate=NULL, $outData=NULL, $outSkin=NULL, $outEngine=NULL, $outDisplay=TRUE)
 	{
 		/**
 		 * Set output engine to be used.
