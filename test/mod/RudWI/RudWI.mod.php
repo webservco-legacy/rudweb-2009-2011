@@ -98,8 +98,13 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 	 *
 	 * @var string
 	 */
-	private $outSkin = 'RudWI';
-	
+	private $outSkin;
+	/**
+	 * URL of skin to be used.
+	 * 
+	 * @var string
+	 */
+	private $outSkinURL;
 	/**
 	 * Constructor.
 	 *
@@ -115,9 +120,8 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 		 * Call parent constructor.
 		 */
 		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
-		$this->extForms = $this->rwCore->rwExts['Forms'];
-		$this->extUsers = $this->rwCore->rwExts['Users'];
-		$this->extUsers->recordOnline($modLocation, $modRequest);
+		$this->outSkin = 'RudWI';
+		$this->outSkinURL = _APP_SKIN_WWW.'RudWI/';
 	}
 
 	/**
@@ -136,8 +140,13 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 
 	public function login()
 	{
-		//echo 'RudWI login page';
-		$this->rwOutput('layout', NULL, $this->outSkin);
+		$this->_output();
+	}
+
+	private function _output($data = array())
+	{
+		$data['outSkinURL'] = $this->outSkinURL;
+		return $this->rwOutput('layout', $data, $this->outSkin);
 	}
 }
 ?>

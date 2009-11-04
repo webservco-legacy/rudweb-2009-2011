@@ -118,4 +118,15 @@ if(!defined('_APP_SKIN_WWW'))
 	 */
 	define('_APP_SKIN_WWW', _APP_WWW . 'usr/skins/');
 }
+
+/**
+ * Check if constant is already defined.
+ */
+if(!defined('_APP_USR_WWW'))
+{
+	/**
+	 * Set application usr (web accessible 3rdparty) directory.
+	 */
+	define('_APP_USR_WWW', _APP_WWW . 'usr/');
+}
 ?>

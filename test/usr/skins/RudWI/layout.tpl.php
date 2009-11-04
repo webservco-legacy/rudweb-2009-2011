@@ -27,12 +27,42 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 ?>
-<html>
+<?php echo '<?xml version="1.0" encoding="utf-8" standalone="no"?>'; ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>" lang="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>">
 <head>
-<title>RudWI Layout</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="content-language" content="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>" />
+	<link rel="icon" type="image/ico" href="<?php echo $outSkinURL; ?>images/favicon.ico" />
+	<link rel="shortcut icon" type="image/ico" href="<?php echo $outSkinURL; ?>images/favicon.ico" />
+	<title>RudWI Layout</title>
+	<meta name="title" content="RudiSoft Web Interface (RudWI)" />
+	<meta name="subject" content="RudiSoft Web Interface (RudWI)" />
+	<meta name="description" content="RudiSoft Web Interface (RudWI)" />
+	<meta name="keywords" content="RudiSoft, RudWEb, RudWI" />
+	<meta name="copyright" content="2009 RudiSoft.Net" />
+	<meta name="designer" content="Radu Maier" />
+	<meta name="publisher" content="Rudisoft.Net" />
+	<meta name="author" content="RudiSoft.Net" />
+	<meta name="rating" content="General" />
+	<meta name="distribution" content="Global" />
+	<meta name="robots" content="Index, Follow" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/layout.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/menu.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/windows.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/icons.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/intro.css" />
+	<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/layoutIE.css" />
+	<script type="text/javascript" language="JavaScript" src="<?php _APP_USR_WWW?>scripts/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script type="text/javascript" language="JavaScript">
+		DD_belatedPNG.fix('#taskbar, #start, .menu_t, .menu_c, .menu_b, .menu_icon_t, .menu_icon, .menu_arr, .win, .win_top, .win_tt, .win_mid, .win_ct_pre, .win_ct, .win_bot, .win_st_pre, .win_st, .btn_cls, .btn_max, .btn_min, .btn_mov');
+	</script>
+	<![endif]-->
 </head>
 <body>
-<h1>Page Title</h1>
-<p>Page content</p>
+	<div id="interface">
+	</div>
 </body>
 </html>
