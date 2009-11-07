@@ -127,15 +127,15 @@ class rw_Output
 	public function __construct()
 	{
 		/**
-		 * Default output engine.
+		 * XXXDefault output engine.
 		 */
 		$this->outEngine = 'RudWEb';
 		/**
-		 * Default skin.
+		 * XXXDefault skin.
 		 */
-		$this->outSkin = 'RudWEb';
+		$this->outSkin = 'RudWI';
 		/**
-		 * Default template file.
+		 * XXXDefault template file.
 		 */
 		$this->outTemplate = 'layout';
 		/**

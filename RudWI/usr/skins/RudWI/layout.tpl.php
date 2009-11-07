@@ -33,8 +33,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="content-language" content="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>" />
-	<link rel="icon" type="image/ico" href="<?php echo $outSkinURL; ?>images/favicon.ico" />
-	<link rel="shortcut icon" type="image/ico" href="<?php echo $outSkinURL; ?>images/favicon.ico" />
+	<link rel="icon" type="image/ico" href="<?php echo $skinURL; ?>images/favicon.ico" />
+	<link rel="shortcut icon" type="image/ico" href="<?php echo $skinURL; ?>images/favicon.ico" />
 	<title>RudWI Layout</title>
 	<meta name="title" content="RudiSoft Web Interface (RudWI)" />
 	<meta name="subject" content="RudiSoft Web Interface (RudWI)" />
@@ -48,13 +48,13 @@
 	<meta name="distribution" content="Global" />
 	<meta name="robots" content="Index, Follow" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/layout.css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/menu.css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/windows.css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/icons.css" />
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/intro.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/layout.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/menu.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/windows.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/icons.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/intro.css" />
 	<!--[if lte IE 6]>
-	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/layoutIE.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $skinURL; ?>styles/layoutIE.css" />
 	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js"></script>
 	<script type="text/javascript" language="JavaScript">
 		DD_belatedPNG.fix('#taskbar, #start, .menu_t, .menu_c, .menu_b, .menu_icon_t, .menu_icon, .menu_arr, .win, .win_top, .win_tt, .win_mid, .win_ct_pre, .win_ct, .win_bot, .win_st_pre, .win_st, .btn_cls, .btn_max, .btn_min, .btn_mov');

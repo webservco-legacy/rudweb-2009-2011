@@ -135,20 +135,6 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 	private $extUsers;
 
 	/**
-	 * Skin to be used by the module.
-	 *
-	 * @var string
-	 */
-	private $outSkin;
-
-	/**
-	 * URL of skin to be used.
-	 *
-	 * @var string
-	 */
-	private $outSkinURL;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $modAbout module information
@@ -175,14 +161,6 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 		 * Record user activity.
 		 */
 		$this->extUsers->recordOnline($modLocation, $modRequest);
-		/**
-		 * Set skin to use.
-		 */
-		$this->outSkin = 'RudWI';
-		/**
-		 * Set skin URL.
-		 */
-		$this->outSkinURL = _APP_SKIN_WWW.'RudWI/';
 	}
 
 	/**
@@ -357,10 +335,9 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 		$dataLogin['formData'] = $this->loginData;
 		$dataLogin['formErr'] = $this->loginErr;
 
-		$data['login'] = $this->rwParse('login', $dataLogin, $this->outSkin);
-		$data['outSkinURL'] = $this->outSkinURL;
-
-		return $this->rwOutput('layout', $data, $this->outSkin);
+		$data['login'] = $this->rwParse('login', $dataLogin);
+		$data['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
+		return $this->rwOutput('layout', $data);
 	}
 
 	/**
