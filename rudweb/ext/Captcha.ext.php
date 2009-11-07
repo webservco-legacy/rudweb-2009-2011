@@ -219,6 +219,10 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		$bgc = imagecolorallocate($img, $this->imgBg[0], $this->imgBg[1], $this->imgBg[2]);
 		/**
+		 * XXXSet background color transparent.
+		 * imagecolortransparent($img, $bgc);
+		 */
+		/**
 		 * Set foreground color.
 		 */
 		$fgc = imagecolorallocate($img, $this->imgFg[0], $this->imgFg[0], $this->imgFg[0]);

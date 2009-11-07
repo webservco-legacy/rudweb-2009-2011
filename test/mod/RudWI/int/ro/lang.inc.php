@@ -42,5 +42,11 @@ if (!defined('_RW_VALID'))
 	exit;
 }
 
-$langMod['SOME_STUFF'] = 'Niste chestii legate de modul RudWI.';
+$langMod['LOGIN_ERR']['default'] = 'Eroare.';
+$langMod['LOGIN_ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
+$langMod['LOGIN_ERR']['_rwValidEmail'] = '$label$ nu este o adresa de email valid&#256;.';
+$langMod['LOGIN_ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
+$langMod['LOGIN_ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
+$langMod['LOGIN_ERR']['_rwEquals'] = '$label$ trebuie s&#259; fie egal cu $required$.';
+$langMod['LOGIN_ERR']['_rwValidCaptcha'] = '$label$ nu este valid.';
 ?>

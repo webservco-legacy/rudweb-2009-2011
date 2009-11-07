@@ -102,7 +102,7 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	/**
 	 * Forms extension object.
 	 *
-	 * Multiple calls to tihs extension
+	 * Multiple calls to this extension
 	 * made it necessary to have a separate object.
 	 *
 	 * @var mixed
@@ -112,7 +112,7 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 	/**
 	 * Users extension object.
 	 *
-	 * Multiple calls to tihs extension
+	 * Multiple calls to this extension
 	 * made it necessary to have a separate object.
 	 *
 	 * @var mixed
@@ -189,7 +189,7 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		else
 		{
 			/**
-			 * TEMP DB Debug
+			 * XXXTEMP DB Debug
 			 */
 			//$this->rwCore->rwDb->dbDebug();
 			/**

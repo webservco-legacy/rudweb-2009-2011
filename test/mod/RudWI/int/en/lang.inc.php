@@ -42,6 +42,11 @@ if (!defined('_RW_VALID'))
 	exit;
 }
 
-$langMod['SOME_STUFF'] = 'Some RudWI Module Stuff.';
-
+$langMod['LOGIN_ERR']['default'] = 'Error.';
+$langMod['LOGIN_ERR']['_rwRequired'] = '$label$ is required.';
+$langMod['LOGIN_ERR']['_rwValidEmail'] = '$label$ is not a valid email address.';
+$langMod['LOGIN_ERR']['_rwMin'] = '$label$ must be at least $required$ characters long.';
+$langMod['LOGIN_ERR']['_rwMax'] = '$label$ must not be longer than $required$ characters.';
+$langMod['LOGIN_ERR']['_rwEquals'] = '$label$ must be equal with $required$.';
+$langMod['LOGIN_ERR']['_rwValidCaptcha'] = '$label$ is not valid.';
 ?>

@@ -55,7 +55,7 @@
 	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/intro.css" />
 	<!--[if lte IE 6]>
 	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="<?php echo $outSkinURL; ?>styles/layoutIE.css" />
-	<script type="text/javascript" language="JavaScript" src="<?php _APP_USR_WWW?>scripts/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js"></script>
 	<script type="text/javascript" language="JavaScript">
 		DD_belatedPNG.fix('#taskbar, #start, .menu_t, .menu_c, .menu_b, .menu_icon_t, .menu_icon, .menu_arr, .win, .win_top, .win_tt, .win_mid, .win_ct_pre, .win_ct, .win_bot, .win_st_pre, .win_st, .btn_cls, .btn_max, .btn_min, .btn_mov');
 	</script>
@@ -63,6 +63,17 @@
 </head>
 <body>
 	<div id="interface">
+		<?php echo $login; ?>
 	</div>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jQuery/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jquery.windows-engine.rud.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/queryLoader/queryLoader.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/windows.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/menu.js"></script>
+	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/icons.js"></script>
+	<script type="text/javascript" language="JavaScript">
+		//QueryLoader.selectorPreload = "#interface";
+		//QueryLoader.init();
+	</script>
 </body>
 </html>
