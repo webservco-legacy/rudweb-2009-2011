@@ -127,21 +127,40 @@ class rw_Output
 	public function __construct()
 	{
 		/**
-		 * XXXDefault output engine.
+		 * Default output engine.
 		 */
 		$this->outEngine = 'RudWEb';
 		/**
-		 * XXXDefault skin.
+		 * Set output skin.
 		 */
-		$this->outSkin = 'RudWI';
+		$this->setOutSkin(_APP_SKIN);
 		/**
-		 * XXXDefault template file.
+		 * Default template file.
 		 */
 		$this->outTemplate = 'layout';
 		/**
 		 * Default output data.
 		 */
 		$this->outData = array();
+	}
+
+	/**
+	 * Set output skin.
+	 *
+	 * @param sting $outSkin
+	 * @return mixed result
+	 */
+	public function setOutSkin($outSkin)
+	{
+		/**
+		 * Set output skin.
+		 *
+		 */
+		$this->outSkin = $outSkin;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
 	/**
