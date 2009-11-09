@@ -189,7 +189,7 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		else
 		{
 			/**
-			 * XXXTEMP DB Debug
+			 * TEMP DB Debug
 			 */
 			//$this->rwCore->rwDb->dbDebug();
 			/**

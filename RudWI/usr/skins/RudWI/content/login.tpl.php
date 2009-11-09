@@ -9,7 +9,7 @@
  * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-11-05 11:41:00
+ * @since      2009-11-09 15:52:00
  * @access     public
  * @package    rwOut
  *

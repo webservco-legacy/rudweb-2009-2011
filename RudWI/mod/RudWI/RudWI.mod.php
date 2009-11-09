@@ -334,9 +334,13 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 		//XXX
 		$dataLogin['formData'] = $this->loginData;
 		$dataLogin['formErr'] = $this->loginErr;
+		
+		$dataHeader['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
 
-		$data['login'] = $this->rwParse('login', $dataLogin);
-		$data['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
+		$data['header'] = $this->rwParse('header', $dataHeader);
+		$data['content'] = $this->rwParse('content/login', $dataLogin);
+		$data['footer'] = $this->rwParse('footer');
+		
 		return $this->rwOutput('layout', $data);
 	}
 
