@@ -202,7 +202,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 			/**
 			 * Init form data for current work data.
 			 */
-			$formData[$field['name']] = NULL;
+			$formData[$field['name']] = $field['defaultValue'];
 			/**
 			 * Check if form was submitted.
 			 */
@@ -553,7 +553,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param string $fieldValidation form field validation rules string
 	 * @return mixed result
 	 */
-	public function setWorkData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation)
+	public function setWorkData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation, $fieldDefaultValue=NULL)
 	{
 		/**
 		 * Set work data.
@@ -562,7 +562,8 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 			'name' => $fieldName,	
 			'title' => $fieldTitle,
 			'filters' => $fieldFilters,
-			'validation' => $fieldValidation
+			'validation' => $fieldValidation,
+			'defaultValue' => $fieldDefaultValue
 		);
 		/**
 		 * Return result.

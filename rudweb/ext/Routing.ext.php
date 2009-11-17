@@ -498,7 +498,9 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	 * Action can be:
 	 * - BLANK (do a self redirect)
 	 * - index (redirect to home page)
-	 * - string (redirect to speified action)
+	 * - string (redirect to specified action)
+	 * Specified action is actually the full request,
+	 * eg. MODULE [/ACTION] [/REQUEST]
 	 *
 	 * @param atring $action where to redirect
 	 * @return mixed result

@@ -49,4 +49,6 @@ $langMod['LOGIN_ERR']['_rwMin'] = '$label$ must be at least $required$ character
 $langMod['LOGIN_ERR']['_rwMax'] = '$label$ must not be longer than $required$ characters.';
 $langMod['LOGIN_ERR']['_rwEquals'] = '$label$ must be equal with $required$.';
 $langMod['LOGIN_ERR']['_rwValidCaptcha'] = '$label$ is not valid.';
+
+$langMod['HEADER']['TITLE'] = 'RudiSoft Web Interface.';
 ?>

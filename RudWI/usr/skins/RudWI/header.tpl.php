@@ -3,13 +3,13 @@
  * $Id$
  *
  * $URL$
- * <BR>header.tpl.php
+ * <BR>headerClickMania.tpl.php
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2009, Radu Maier
  * @license    http://opensource.org/licenses/gpl-3.0.html
  * @version    $Revision$
- * @since      2009-11-09 15:53:00
+ * @since      2009-11-16 16:30:00
  * @access     public
  * @package    rwOut
  *
@@ -31,7 +31,7 @@
 	<meta http-equiv="content-language" content="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>" />
 	<link rel="icon" type="image/ico" href="<?php echo $skinURL; ?>images/favicon.ico" />
 	<link rel="shortcut icon" type="image/ico" href="<?php echo $skinURL; ?>images/favicon.ico" />
-	<title>RudWI Layout</title>
+	<title><?php echo $lang['TITLE']; ?></title>
 	<meta name="title" content="RudiSoft Web Interface (RudWI)" />
 	<meta name="subject" content="RudiSoft Web Interface (RudWI)" />
 	<meta name="description" content="RudiSoft Web Interface (RudWI)" />

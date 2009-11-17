@@ -49,4 +49,6 @@ $langMod['LOGIN_ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;
 $langMod['LOGIN_ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
 $langMod['LOGIN_ERR']['_rwEquals'] = '$label$ trebuie s&#259; fie egal cu $required$.';
 $langMod['LOGIN_ERR']['_rwValidCaptcha'] = '$label$ nu este valid.';
+
+$langMod['HEADER']['TITLE'] = 'Interfa&#355;a Web RudiSoft';
 ?>

@@ -1,0 +1,134 @@
+<?php
+/**
+ * $Id$
+ *
+ * $URL$
+ * <BR>addTicket.tpl.php
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @copyright  Copyright (c) 2009, Radu Maier
+ * @license    http://opensource.org/licenses/gpl-3.0.html
+ * @version    $Revision$
+ * @since      2009-11-16 15:54:00
+ * @access     public
+ * @package    rwOut
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+?>
+
+		<div id="win_ticket_add" class="win">
+			<div class="win_top">
+				<div class="win_tt">
+					<h1><?php echo $lang['ADD']; ?></h1>
+					<div class="btn_cls"></div>
+					<!--<div class="btn_max"></div>-->
+					<!--<div class="btn_min"></div>-->
+					<!--<div class="btn_mov"></div>-->
+				</div>
+			</div>
+			
+			<div class="win_mid">
+				<div class="win_ct_pre">
+					<div class="win_ct">
+
+						<form enctype="multipart/form-data"	name="c_<?php echo _APP_PRE; ?>_cm_at" id="<?php echo _APP_PRE; ?>_cm_at" action="" method="post">
+							<label for="t_week"><?php echo $lang['WEEK']; ?>:</label>
+							<input id="t_week" name="t_week" type="text" size="1" maxlength="2" tabindex="1" value="<?php echo $formData['t_week']; ?>" onkeyup="JavaScript:formJump(this);" />
+							&#160;<?php echo $formErr['t_week']; ?>
+							<br />
+							<label for="t_sn"><?php echo $lang['SN']; ?>:</label>
+							<input id="t_sn" name="t_sn" type="text" size="9" maxlength="9" tabindex="2" value="<?php echo $formData['t_sn']; ?>" onkeyup="JavaScript:formJump(this);" />
+							&#160;<?php echo $formErr['t_sn']; ?>
+							<br />
+							<?php echo $lang['NR']; ?>:
+							<br />
+							<?php 
+							foreach ($cells as $cell)
+							{
+								echo '&#160;'.$formErr['c_'.$cell];
+							}
+							?>
+							<table>
+								<tr>
+									<td>&#160;</td>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td>5</td>
+									<td>6</td>
+									<td>7</td>
+								</tr>
+								<?php
+								$t=3; 
+								for ($i=1;$i<=7;$i++)
+								{
+									?>
+									<tr>
+										<td><?php echo $i; ?></td>
+										<?php
+										for ($j=1;$j<=7;$j++)
+										{
+											$c = $i.$j;
+												$class = '';
+												if (in_array($c, $cellsDiag))
+												{
+													$class = 'class="diag" ';
+												}
+										?>
+											<td><input <?php echo $class; ?>id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
+											<?php
+											$t++;
+										}
+										?>
+									</tr>
+									<?php 
+								}
+								?>
+							</table>
+							<br />
+							<input id="<?php echo _APP_PRE; ?>_submit" name="<?php echo _APP_PRE; ?>_submit" type="submit" tabindex="52" value="<?php echo $lang['S_ADD']; ?>" />
+							&#160;&#160;&#160;
+							<input id="<?php echo _APP_PRE; ?>_reset" name="<?php echo _APP_PRE; ?>_reset" type="reset" tabindex="53" value="<?php echo $lang['S_RESET']; ?>" />
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="win_bot">
+				<div class="win_st_pre">
+					<div class="win_st">
+					</div>
+				</div>
+				<div class="btn_res"></div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" language="JavaScript">
+		//<![CDATA[
+		function formJump(field)
+		{
+			if (field.value.length == field.maxLength)
+			{
+				var next=field.tabIndex;
+				if (next<document.forms[0].elements.length)
+				{
+					document.forms[0].elements[next].focus();
+				}
+			}
+		}
+		//]]>
+		</script>

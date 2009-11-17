@@ -27,7 +27,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 ?>
-		<div id="loginwin" class="win">
+		<div id="win_login" class="win">
 			<div class="win_top">
 				<div class="win_tt">
 					<h1>Log In</h1>
@@ -43,7 +43,7 @@
 					<div class="win_ct">
 						
 						<form enctype="multipart/form-data"	name="<?php echo _APP_PRE; ?>_login_form" id="<?php echo _APP_PRE; ?>_login_form" action="" method="post">
-							<input	type="hidden" name="<?php echo _APP_PRE; ?>_token" value="<?php echo $_SESSION[_APP_PRE.'_usr']['token'];?>" />
+							<input type="hidden" name="<?php echo _APP_PRE; ?>_token" value="<?php echo $_SESSION[_APP_PRE.'_usr']['token'];?>" />
 							User login:
 							<input class="" type="text" name="<?php echo _APP_PRE; ?>_login" id="<?php echo _APP_PRE; ?>_login" maxlength="30" value="<?php echo $formData[_APP_PRE.'_login']; ?>" />
 							<?php echo $formErr[_APP_PRE.'_login']; ?>

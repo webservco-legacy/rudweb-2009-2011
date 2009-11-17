@@ -151,10 +151,3 @@ background: transparent url('../images/btn_mov.png') no-repeat top left;
 cursor: move;
 }
 /* ********** ********** ********** ********** ********** WINDOWS END ********** ********** ********** ********** ********** */
-
-/*
-div#loginwin div.win_cnt[style]
-{
-   height: 250px !important;
-}
-*/

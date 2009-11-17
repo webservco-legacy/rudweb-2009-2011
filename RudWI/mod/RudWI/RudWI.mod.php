@@ -53,7 +53,7 @@ $modAbout['RudWI']['desc'] = 'RudWI module.';
 /**
  * Module version.
  */
-$modAbout['RudWI']['ver']  = '$Revision';
+$modAbout['RudWI']['ver']  = '$Revision$';
 /**
  * Module author.
  */
@@ -174,12 +174,7 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 			$this->login();
 			exit;
 		}
-		echo 'Welcome to RudWI module.';
-		echo '<pre>';
-		print_r($_SESSION);
-		echo '<hr />';
-		print_r($_COOKIE);
-		echo '</pre>';
+		return $this->_output();
 	}
 
 	/**
@@ -331,16 +326,32 @@ class rw_Module_RudWI extends rw_Module implements rw_iModule
 	 */
 	private function _loginDisplayForm()
 	{
-		//XXX
 		$dataLogin['formData'] = $this->loginData;
 		$dataLogin['formErr'] = $this->loginErr;
-		
+
+		$login = $this->rwParse('content/login', $dataLogin);
+
+		$dataHeader['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
+		$dataHeader['lang'] = $this->rwCore->rwGetLang('MOD', 'HEADER');
+		$header = $this->rwParse('headerLogin', $dataHeader);
+		$footer = $this->rwParse('footerLogin');
+
+		return $this->_output($login, $header, '&#160;', $footer);
+	}
+
+	private function _output($content=NULL, $header=NULL, $menu=NULL, $footer=NULL)
+	{
+		$dataHeader['lang'] = $this->rwCore->rwGetLang('MOD', 'HEADER');
 		$dataHeader['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
 
-		$data['header'] = $this->rwParse('header', $dataHeader);
-		$data['content'] = $this->rwParse('content/login', $dataLogin);
-		$data['footer'] = $this->rwParse('footer');
-		
+		$data['header']  = $header ? $header : $this->rwParse('header', $dataHeader);
+
+		$dataMenu['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
+		$data['menu']    = $menu ? $menu : $this->rwParse('menu', $dataMenu);
+
+		$data['content'] = $content ? $content : $this->rwParse('content/default');
+		$data['footer']  = $footer ? $footer: $this->rwParse('footer');
+
 		return $this->rwOutput('layout', $data);
 	}
 

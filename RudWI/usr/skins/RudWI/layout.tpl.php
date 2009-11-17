@@ -35,6 +35,15 @@
 </head>
 <body>
 	<div id="interface">
+		<div id="taskbar">
+			<div id="start">
+				<?php echo $menu; ?>
+			</div>
+		</div>
+		
+		<div id="reload" class="icon">
+			<div class="name">Reload</div>
+		</div>
 		<?php echo $content; ?>
 	</div>
 	<?php echo $footer; ?>

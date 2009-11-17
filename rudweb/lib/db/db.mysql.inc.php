@@ -778,9 +778,13 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 	public function dbLastInsertId()
 	{
 		/**
+		 * Execute query.
+		 */
+		$r = $this->dbQuery("SELECT LAST_INSERT_ID()");
+		/**
 		 * Return result.
 		 */
-		return $this->dbQuery("SELECT LAST_INSERT_ID()");
+		return $r->dbFetchResult();
 	}
 
 	/**
