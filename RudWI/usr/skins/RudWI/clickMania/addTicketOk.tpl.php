@@ -3,7 +3,7 @@
  * $Id$
  *
  * $URL$
- * <BR>addTicket.tpl.php
+ * <BR>addTicketOk.tpl.php
  *
  * @author     Radu Maier <radu@rudisoft.net>
  * @copyright  Copyright (c) 2009, Radu Maier

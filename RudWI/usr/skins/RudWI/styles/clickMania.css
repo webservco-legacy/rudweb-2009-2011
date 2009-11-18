@@ -52,7 +52,8 @@ div#win_ticket_add form input.today {
 	font-weight: bold;
 }
 
-div#win_ticket_add form table td input {
+div#win_ticket_add form input.num,
+div#win_ticket_add form table td input	{
 	width: 20px;
 }
 

@@ -58,14 +58,13 @@ $langMod['TICKET']['S_RESET'] = 'Reseteaz&#259;';
 $langMod['TICKET']['LIST'] = 'Lista Tickete';
 $langMod['TICKET']['NOT'] = 'Nu exist&#259; Tickete';
 
+$langMod['TICKET']['NUM_ADD'] = 'Ad&#259;ugare Numere';
+$langMod['TICKET']['NUM_ADD_OK'] = 'Numerele au fost ad&#259;ugate!';
+$langMod['TICKET']['NUM'] = 'Num&#259;rul';
+$langMod['TICKET']['NUM_LUCKY'] = 'Num&#259;rul Norocos';
 
 $langMod['TICKET_ERR']['default'] = 'Eroare.';
 $langMod['TICKET_ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
-//$langMod['TICKET_ERR']['_rwValidEmail'] = '$label$ nu este o adresa de email valid&#256;.';
 $langMod['TICKET_ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
 $langMod['TICKET_ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
-//$langMod['TICKET_ERR']['_rwEquals'] = '$label$ trebuie s&#259; fie egal cu $required$.';
-//$langMod['TICKET_ERR']['_rwValidCaptcha'] = '$label$ nu este valid.';
-
-
 ?>

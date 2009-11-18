@@ -218,11 +218,14 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 	 */
 	public function index()
 	{
-		if (!$_SESSION[_APP_PRE.'_usr']['auth'])
-		{
-			$this->rwCore->rwExts['Routing']->rwRedirect('RudWI');
-			exit;
-		}
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+		/**
+		 * Default output.
+		 */
 		return $this->_output();
 	}
 
@@ -293,13 +296,97 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 
 	public function addTicketOk()
 	{
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+
 		$dataAddTicketOk['lang'] = $this->ticketLang;
 		$addTicketOk = $this->rwParse('clickMania/addTicketOk', $dataAddTicketOk);
 		return $this->_output($addTicketOk);
 	}
 
+	public function addNumbers()
+	{
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+		/**
+		 * Set work data.
+		 *
+		 * Form fields, Filtering rules, Validation rules).
+		 */
+		$this->_numAddSetWorkData();
+		/**
+		 * Parse ticket add form.
+		 */
+		$this->_ticketParseData();
+		/**
+		 * Check number of errors.
+		 */
+		if($this->ticketErrNr > 0)
+		{
+			/**
+			 * Display ticket add form.
+			 */
+			$this->_numAddForm();
+		}
+		/**
+		 * No errors.
+		 */
+		else
+		{
+			for ($i=1; $i<=7; $i++)
+			{
+				$n            = array();
+				//$n['n_date'] = date('Y-m-d');
+				$n['n_date'] = '2009-11-28';
+				$n['n_value'] = $this->ticketData['n_'.$i];
+				$this->rwCore->rwDb->dbInsert(_APP_PRE.'_cm_tnum', NULL, $n);
+			}
+
+			//$l['n_date'] = date('Y-m-d');
+			$l['n_date'] = '2009-11-28';
+			$l['n_value'] = $this->ticketData['l_1'];
+			$l['n_lucky'] = 1;
+			$this->rwCore->rwDb->dbInsert(_APP_PRE.'_cm_tnum', NULL, $l);
+
+			$this->rwCore->rwExts['Routing']->rwRedirect('ClickMania/addNumOk');
+		}
+	}
+
+	public function addNumOk()
+	{
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+		
+		/**
+		 * XXX work
+		 * 
+		 * Check today's numbers
+		 * Show statistics
+		 */
+		//$this->rwCore->rwDb->dbDebug();
+
+		$dataAddNumOk['lang'] = $this->ticketLang;
+		$addNumOk = $this->rwParse('clickMania/addNumOk', $dataAddNumOk);
+		return $this->_output($addNumOk);
+	}
+
 	public function Tickets()
 	{
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+
 		$r = $this->rwCore->rwDb->dbSelect('*', _APP_PRE.'_cm_tinfo', "t_week = '{$this->ticketWeek}'");
 		$t = $r->dbNumRows();
 		$tickets = array();
@@ -320,6 +407,12 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 
 	public function Ticket()
 	{
+		/**
+		 * Check if user is logged in.
+		 * Otherwise redirect to login page.
+		 */
+		$this->_checkAuth();
+
 		$t_sn = $this->modRequest;
 		if (!$t_sn)
 		{
@@ -327,7 +420,6 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 			exit;
 		}
 
-		//XXX				$this->rwCore->rwDb->dbDebug();
 		$r = $this->rwCore->rwDb->dbSelect('t_cell, t_value, t_date', _APP_PRE.'_cm_tdata', "t_sn = '{$t_sn}'");
 		$t = $r->dbNumRows();
 		if ($t>0)
@@ -337,7 +429,6 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 				$cell[$d['t_cell']] = $d;
 			}
 		}
-		//XXX
 		$this->_ticketModSetWorkData($t_sn, $cell);
 
 		$this->_ticketParseData();
@@ -456,9 +547,18 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		return $this->_output($addTicket);
 	}
 
+	private function _numAddForm()
+	{
+		$dataAddNum['formData'] = $this->ticketData;
+		$dataAddNum['formErr'] = $this->ticketErr;
+		$dataAddNum['lang'] = $this->ticketLang;
+
+		$addNum = $this->rwParse('clickMania/addNum', $dataAddNum);
+		return $this->_output($addNum);
+	}
+
 	private function _ticketModForm($data)
 	{
-		//XXX
 		$dataModTicket['formData'] = $this->ticketData;
 		$dataModTicket['formErr'] = $this->ticketErr;
 		$dataModTicket['lang'] = $this->ticketLang;
@@ -478,6 +578,19 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		return TRUE;
 	}
 
+	private function _numAddSetWorkData()
+	{
+		$formLang = $this->ticketLang;
+		for ($i=1;$i<=7;$i++)
+		{
+			$this->extForms->setWorkData('n_'.$i, $formLang['NUM'].' '. $i, 'StripTags|RemoveBadChars', 'Required|Min[1]|Max[2]');
+		}
+		$this->extForms->setWorkData('l_1', $formLang['NUM_LUCKY'], 'StripTags|RemoveBadChars', 'Required|Min[1]|Max[2]');
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
 
 	private function _output($content=NULL, $header=NULL, $menu=NULL, $footer=NULL)
 	{
@@ -487,14 +600,12 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		$data['header']  = $header ? $header : $this->rwParse('headerClickMania', $dataHeader);
 
 		$dataMenu['skinURL'] = $_SESSION[_APP_PRE.'_usr']['skin_url'];
-		$data['menu']    = $menu ? $menu : $this->rwParse('menu', $dataMenu);
+		$data['menu']    = $menu ? $menu : $this->rwParse('menuClickMania', $dataMenu);
 
 		$data['content'] = $content ? $content : $this->rwParse('content/default');
-		$data['footer']  = $footer ? $footer: $this->rwParse('footer');
+		$data['footer']  = $footer ? $footer: $this->rwParse('footerClickMania');
 
 		return $this->rwOutput('layout', $data);
 	}
-
-
 }
 ?>

@@ -85,10 +85,10 @@
 												$class = '';
 												if (in_array($c, $cellsDiag))
 												{
-													$class = 'class="diag" ';
+													$class = 'diag';
 												}
 										?>
-											<td><input <?php echo $class; ?>id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
+											<td><input class="<?php echo $class; ?>" id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
 											<?php
 											$t++;
 										}
@@ -116,19 +116,3 @@
 				<div class="btn_res"></div>
 			</div>
 		</div>
-		
-		<script type="text/javascript" language="JavaScript">
-		//<![CDATA[
-		function formJump(field)
-		{
-			if (field.value.length == field.maxLength)
-			{
-				var next=field.tabIndex;
-				if (next<document.forms[0].elements.length)
-				{
-					document.forms[0].elements[next].focus();
-				}
-			}
-		}
-		//]]>
-		</script>
