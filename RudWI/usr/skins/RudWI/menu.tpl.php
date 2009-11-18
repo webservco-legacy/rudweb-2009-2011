@@ -50,6 +50,10 @@
 										<ul class="menu_1">
 											<li class="menu_1">
 												<img class="menu_icon" src="<?php echo $skinURL; ?>images/ico_mnu/trophy.png" title="icon" alt="icon" />
+												<span class="menu_text"><a href="<?php echo _APP_URL; ?>ClickMania/Tickets" title="Tickets">Tickets</a></span>
+											</li>
+											<li class="menu_1">
+												<img class="menu_icon" src="<?php echo $skinURL; ?>images/ico_mnu/trophy.png" title="icon" alt="icon" />
 												<span class="menu_text"><a href="<?php echo _APP_URL; ?>ClickMania/addTicket" title="Add Ticket">Add Ticket</a></span>
 											</li>
 										</ul>

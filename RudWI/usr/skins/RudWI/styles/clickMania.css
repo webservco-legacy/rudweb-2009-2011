@@ -23,46 +23,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
- 
-/* ********** ********** ********** ********** ********** TICKET ADD START ********** ********** ********** ********** ********** */
-div#win_ticket_add
-{
-top: 100px;
-left: 25%;
+	/* ********** ********** ********** ********** ********** TICKET ADD START ********** ********** ********** ********** ********** */
+div#win_ticket_add {
+	top: 100px;
+	left: 25%;
 }
 
-div#win_ticket_add div.win_ct
-{
-   height: 300px !important;
+div#win_ticket_add div.win_ct {
+	height: 300px !important;
 }
 
-div#win_ticket_add form input
-{
-border: 1px solid #333;
-background: transparent;
-font-size: 96%;
-text-align: center;
+div#win_ticket_add form input {
+	border: 1px solid #333;
+	background: transparent;
+	font-size: 96%;
+	text-align: center;
 }
 
-div#win_ticket_add form input.diag
-{
-background: #A5C2A3;
+div#win_ticket_add form input.diag {
+	background: #A5C2A3;
 }
 
-div#win_ticket_add form table td input
-{
-width: 20px;
+div#win_ticket_add form input.check {
+	color: #c00;
 }
 
-
-div#win_ticket_add form table td
-{
-text-align: center;
+div#win_ticket_add form input.today {
+	font-weight: bold;
 }
 
-div#win_ticket_add table td.check input
-{
-color: #c00;
-font-weight: bold;
+div#win_ticket_add form table td input {
+	width: 20px;
+}
+
+div#win_ticket_add form table td {
+	text-align: center;
 }
 /* ********** ********** ********** ********** ********** TICKET ADD END ********** ********** ********** ********** ********** */

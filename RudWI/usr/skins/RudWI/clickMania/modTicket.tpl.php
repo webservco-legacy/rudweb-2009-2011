@@ -86,14 +86,18 @@
 												$tclass = '';
 												if (in_array($c, $cellsDiag))
 												{
-													$class = 'class="diag" ';
+													$class = 'diag';
 												}
 												if ($data[$i.$j]['t_date'] != '0000-00-00')
 												{
-													$tclass = 'class="check" ';
+													$class .= ' check';
+												}
+												if ($data[$i.$j]['t_date'] == date('Y-m-d'))
+												{
+													$class .= ' today';
 												}
 										?>
-											<td <?php echo $tclass; ?>><input <?php echo $class; ?>id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
+											<td><input class="<?php echo $class; ?>" id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
 											<?php
 											$t++;
 										}
