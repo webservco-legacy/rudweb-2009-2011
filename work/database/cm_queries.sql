@@ -3,7 +3,7 @@
 -- $Revision$
 -- Since: 2009-11-17 18:39:00
 
-/* ADAUGARE NUMERE ZIUA CURENTA --- */
+/* ADAUGARE NUMERE ZIUA CURENTA */
 INSERT INTO app_cm_tnum (n_date, n_value, n_lucky) VALUES
 (DATE(NOW()), , 0),
 (DATE(NOW()), , 0),
