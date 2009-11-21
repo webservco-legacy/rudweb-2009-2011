@@ -339,20 +339,29 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		 */
 		else
 		{
+			/**
+			 * Add numbers.
+			 */
 			for ($i=1; $i<=7; $i++)
 			{
 				$n            = array();
-				//$n['n_date'] = date('Y-m-d');
-				$n['n_date'] = '2009-11-28';
+				$n['n_date'] = date('Y-m-d');
 				$n['n_value'] = $this->ticketData['n_'.$i];
 				$this->rwCore->rwDb->dbInsert(_APP_PRE.'_cm_tnum', NULL, $n);
 			}
-
-			//$l['n_date'] = date('Y-m-d');
-			$l['n_date'] = '2009-11-28';
+			/**
+			 * Add lucky number.
+			 *
+			 */
+			$l['n_date'] = date('Y-m-d');
 			$l['n_value'] = $this->ticketData['l_1'];
 			$l['n_lucky'] = 1;
 			$this->rwCore->rwDb->dbInsert(_APP_PRE.'_cm_tnum', NULL, $l);
+			/**
+			 * Check numbers
+			 */
+			$u['t_date'] = date('Y-m-d');
+			$this->rwCore->rwDb->dbUpdate(_APP_PRE.'_cm_tdata', $u, "t_value IN (SELECT n_value FROM app_cm_tnum WHERE n_date = DATE(NOW()) AND n_lucky = 0)");
 
 			$this->rwCore->rwExts['Routing']->rwRedirect('ClickMania/addNumOk');
 		}
@@ -365,11 +374,10 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		 * Otherwise redirect to login page.
 		 */
 		$this->_checkAuth();
-		
+
 		/**
 		 * XXX work
-		 * 
-		 * Check today's numbers
+		 * Check lucky number
 		 * Show statistics
 		 */
 		//$this->rwCore->rwDb->dbDebug();
