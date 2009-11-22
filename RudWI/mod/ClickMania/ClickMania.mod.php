@@ -389,8 +389,13 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		 * Otherwise redirect to login page.
 		 */
 		$this->_checkAuth();
+		/**
+		 * Set current ticket week.
+		 */
+		$t_week = ($this->modRequest) ? $this->modRequest : $this->ticketWeek;
 
-		$r = $this->rwCore->rwDb->dbSelect('*', _APP_PRE.'_cm_tinfo', "t_week = '{$this->ticketWeek}'", 't_sn');
+
+		$r = $this->rwCore->rwDb->dbSelect('*', _APP_PRE.'_cm_tinfo', "t_week = '{$t_week}'", 't_sn');
 		$t = $r->dbNumRows();
 		$tickets = array();
 		if ($t > 0)
@@ -403,6 +408,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 
 		$data['ticket'] = $tickets;
 		$data['lang'] = $this->ticketLang;
+		$data['week'] = $t_week;
 		$ticketList = $this->rwParse('clickMania/ticketList', $data);
 
 		return $this->_output($ticketList);
@@ -518,15 +524,20 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 	{
 		$formLang = $this->ticketLang;
 		/**
-		 * Week
+		 * Get ticket week.
 		 */
-		$this->extForms->setWorkData('t_week', $formLang['WEEK'], 'StripTags|RemoveBadChars', 'Required|Min[1]|Max[2]', $this->ticketWeek);
+		$w = $this->rwCore->rwDb->dbSelect('t_week', _APP_PRE.'_cm_tinfo', 't_sn = \''.$t_sn.'\'');
+		$t_week = $w->dbFetchResult();
 		/**
-		 * Serial number
+		 * Week.
+		 */
+		$this->extForms->setWorkData('t_week', $formLang['WEEK'], 'StripTags|RemoveBadChars', 'Required|Min[1]|Max[2]', $t_week);
+		/**
+		 * Serial number.
 		 */
 		$this->extForms->setWorkData('t_sn', $formLang['SN'], 'StripTags|RemoveBadChars', 'Required|Min[9]|Max[9]', $t_sn);
 		/**
-		 * Ticket cells
+		 * Ticket cells.
 		 */
 		foreach ($data as $c)
 		{

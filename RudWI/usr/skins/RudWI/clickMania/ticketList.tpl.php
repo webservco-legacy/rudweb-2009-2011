@@ -31,7 +31,7 @@
 		<div id="win_ticket_add" class="win">
 			<div class="win_top">
 				<div class="win_tt">
-					<h1><?php echo $lang['LIST']; ?></h1>
+					<h1><?php echo $lang['LIST']; ?> - <?php echo $lang['WEEK']; ?> <?php echo $week; ?></h1>
 					<div class="btn_cls"></div>
 					<!--<div class="btn_max"></div>-->
 					<!--<div class="btn_min"></div>-->
