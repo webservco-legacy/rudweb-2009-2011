@@ -31,7 +31,7 @@
 		<div id="win_ticket_add" class="win">
 			<div class="win_top">
 				<div class="win_tt">
-					<h1><?php echo $lang['ADD']; ?></h1>
+					<h1><?php echo $lang['MOD']; ?></h1>
 					<div class="btn_cls"></div>
 					<!--<div class="btn_max"></div>-->
 					<!--<div class="btn_min"></div>-->
@@ -62,7 +62,7 @@
 							?>
 							<table>
 								<tr>
-									<td>&#160;</td>
+									<td>#</td>
 									<td>1</td>
 									<td>2</td>
 									<td>3</td>
@@ -70,6 +70,7 @@
 									<td>5</td>
 									<td>6</td>
 									<td>7</td>
+									<td class="check">L</td>
 								</tr>
 								<?php
 								$t=3; 
@@ -102,10 +103,22 @@
 											$t++;
 										}
 										?>
+										<td class="check"><?php echo $check['items']['L'.$i]?></td>
 									</tr>
 									<?php 
 								}
 								?>
+								<tr>
+									<td class="check">C</td>
+								<?php
+								for ($c=1;$c<=7;$c++)
+								{
+									?>
+									<td class="check"><?php echo $check['items']['C'.$c]?></td>
+									<?php
+								}
+								?>
+								</tr>
 							</table>
 							<br />
 							<!-- 
@@ -114,7 +127,11 @@
 							<input id="<?php echo _APP_PRE; ?>_reset" name="<?php echo _APP_PRE; ?>_reset" type="reset" tabindex="53" value="<?php echo $lang['S_RESET']; ?>" />
 							 -->
 						</form>
-						
+						<?php echo $lang['NUM_LUCKY']; ?>: <?php echo $check['lucky']; ?>
+						<br />
+						<?php echo $lang['D1']; ?>: <?php echo $check['items']['D1']; ?> / 7
+						<br />
+						<?php echo $lang['D2']; ?>: <?php echo $check['items']['D2']; ?> / 7
 					</div>
 				</div>
 			</div>

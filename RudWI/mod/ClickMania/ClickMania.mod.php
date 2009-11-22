@@ -375,11 +375,6 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		 */
 		$this->_checkAuth();
 
-		/**
-		 * XXX work
-		 * Check lucky number
-		 * Show statistics
-		 */
 		//$this->rwCore->rwDb->dbDebug();
 
 		$dataAddNumOk['lang'] = $this->ticketLang;
@@ -395,7 +390,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		 */
 		$this->_checkAuth();
 
-		$r = $this->rwCore->rwDb->dbSelect('*', _APP_PRE.'_cm_tinfo', "t_week = '{$this->ticketWeek}'");
+		$r = $this->rwCore->rwDb->dbSelect('*', _APP_PRE.'_cm_tinfo', "t_week = '{$this->ticketWeek}'", 't_sn');
 		$t = $r->dbNumRows();
 		$tickets = array();
 		if ($t > 0)
@@ -446,7 +441,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 			/**
 			 * Display ticket add form.
 			 */
-			$this->_ticketModForm($cell);
+			$this->_ticketModForm($t_sn, $cell);
 		}
 		else
 		{
@@ -565,7 +560,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		return $this->_output($addNum);
 	}
 
-	private function _ticketModForm($data)
+	private function _ticketModForm($t_sn, $data)
 	{
 		$dataModTicket['formData'] = $this->ticketData;
 		$dataModTicket['formErr'] = $this->ticketErr;
@@ -573,6 +568,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		$dataModTicket['cells'] = $this->ticketCells;
 		$dataModTicket['cellsDiag'] = $this->ticketCellsDiag;
 		$dataModTicket['data'] = $data;
+		$dataModTicket['check'] = $this->_ticketChecks($t_sn);
 
 		$modTicket = $this->rwParse('clickMania/modTicket', $dataModTicket);
 		return $this->_output($modTicket);
@@ -581,9 +577,68 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 	private function _ticketSetWeek()
 	{
 		$today = date('Y-m-d');
-		$r = $this->rwCore->rwDb->dbSelect('w_id', _APP_PRE.'_cm_tweeks', 'w_start < \''.$today.'\' AND w_end > \''.$today.'\'');
+		$r = $this->rwCore->rwDb->dbSelect('w_id', _APP_PRE.'_cm_tweeks', 'w_start <= \''.$today.'\' AND w_end >= \''.$today.'\'');
 		$this->ticketWeek = $r->dbFetchResult();
 		return TRUE;
+	}
+
+	private function _ticketChecks($t_sn)
+	{
+		/**
+		 * Init check data.
+		 */
+		$data = array();
+		/**
+		 * Init numbers arrays.
+		 */
+		$c = array(
+		'D1' => array(11, 22, 33, 44, 55, 66, 77),
+		'D2' => array(17, 26, 35, 44, 53, 62, 71),
+		'L1' => array(11, 12, 13, 14, 15, 16, 17),
+		'L2' => array(21, 22, 23, 24, 25, 26, 27),
+		'L3' => array(31, 32, 33, 34, 35, 36, 37),
+		'L4' => array(41, 42, 43, 44, 45, 46, 47),
+		'L5' => array(51, 52, 53, 54, 55, 56, 57),
+		'L6' => array(61, 62, 63, 64, 65, 66, 67),
+		'L7' => array(71, 72, 73, 74, 75, 76, 77),
+		'C1' => array(11, 21, 31, 41, 51, 61, 71),
+		'C2' => array(12, 22, 32, 42, 52, 62, 72),
+		'C3' => array(13, 23, 33, 43, 53, 63, 73),
+		'C4' => array(14, 24, 34, 44, 54, 64, 74),
+		'C5' => array(15, 25, 35, 45, 55, 65, 75),
+		'C6' => array(16, 26, 36, 46, 56, 66, 76),
+		'C7' => array(17, 27, 37, 47, 57, 67, 77)
+		);
+		/**
+		 * Check lucky number.
+		 */
+		$l = $this->rwCore->rwDb->dbSelect('COUNT(t_sn)', _APP_PRE.'_cm_tdata', "t_sn = '".$t_sn."' AND t_value = (SELECT n_value FROM "._APP_PRE."_cm_tnum WHERE n_date = DATE(NOW()) AND n_lucky = 1)");
+		/**
+		 * Set lucky number check result.
+		 */
+		$check['lucky'] = $l->dbFetchResult();
+		/**
+		 * Take each numbers list to check.
+		 */
+		foreach ($c as $item => $nums)
+		{
+			/**
+			 * Set current number list.
+			 */
+			$nums = implode(', ', $nums);
+			/**
+			 * Check number list.
+			 */
+			$r = $this->rwCore->rwDb->dbSelect('COUNT(c_id)', _APP_PRE.'_cm_tdata', "t_sn = '".$t_sn."' AND t_cell IN (".$nums.") AND t_date != '0000-00-00'");
+			/**
+			 * Set number list check result.
+			 */
+			$check['items'][$item] = $r->dbFetchResult();
+		}
+		/**
+		 * Return check results.
+		 */
+		return $check;
 	}
 
 	private function _numAddSetWorkData()

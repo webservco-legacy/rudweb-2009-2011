@@ -53,7 +53,8 @@ div#win_ticket_add form input.today {
 }
 
 div#win_ticket_add form input.num,
-div#win_ticket_add form table td input	{
+div#win_ticket_add form table td input,
+div#win_ticket_add form table td.check {
 	width: 20px;
 }
 

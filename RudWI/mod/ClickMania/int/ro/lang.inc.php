@@ -55,6 +55,8 @@ $langMod['TICKET']['S_ADD'] = 'Adaug&#259;';
 $langMod['TICKET']['S_MOD'] = 'Modific&#259;';
 $langMod['TICKET']['S_RESET'] = 'Reseteaz&#259;';
 
+$langMod['TICKET']['MOD'] = 'Modificare Ticket';
+
 $langMod['TICKET']['LIST'] = 'Lista Tickete';
 $langMod['TICKET']['NOT'] = 'Nu exist&#259; Tickete';
 
@@ -62,6 +64,8 @@ $langMod['TICKET']['NUM_ADD'] = 'Ad&#259;ugare Numere';
 $langMod['TICKET']['NUM_ADD_OK'] = 'Numerele au fost ad&#259;ugate!';
 $langMod['TICKET']['NUM'] = 'Num&#259;rul';
 $langMod['TICKET']['NUM_LUCKY'] = 'Num&#259;rul Norocos';
+$langMod['TICKET']['D1'] = 'Diagonala 1';
+$langMod['TICKET']['D2'] = 'Diagonala 2';
 
 $langMod['TICKET_ERR']['default'] = 'Eroare.';
 $langMod['TICKET_ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
