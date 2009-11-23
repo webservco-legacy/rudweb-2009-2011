@@ -358,11 +358,12 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 			$l['n_lucky'] = 1;
 			$this->rwCore->rwDb->dbInsert(_APP_PRE.'_cm_tnum', NULL, $l);
 			/**
-			 * Check numbers
+			 * Check numbers.
 			 */
-			$u['t_date'] = date('Y-m-d');
-			$this->rwCore->rwDb->dbUpdate(_APP_PRE.'_cm_tdata', $u, "t_value IN (SELECT n_value FROM app_cm_tnum WHERE n_date = DATE(NOW()) AND n_lucky = 0)");
-
+			$this->_checkNumbers($this->ticketWeek, $l['n_date']);
+			/**
+			 * Redirect to ok message.
+			 */
 			$this->rwCore->rwExts['Routing']->rwRedirect('ClickMania/addNumOk');
 		}
 	}
@@ -526,7 +527,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		/**
 		 * Get ticket week.
 		 */
-		$w = $this->rwCore->rwDb->dbSelect('t_week', _APP_PRE.'_cm_tinfo', 't_sn = \''.$t_sn.'\'');
+		$w = $this->rwCore->rwDb->dbSelect('t_week', _APP_PRE.'_cm_tinfo', "t_sn = '".$t_sn."'");
 		$t_week = $w->dbFetchResult();
 		/**
 		 * Week.
@@ -579,7 +580,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		$dataModTicket['cells'] = $this->ticketCells;
 		$dataModTicket['cellsDiag'] = $this->ticketCellsDiag;
 		$dataModTicket['data'] = $data;
-		$dataModTicket['check'] = $this->_ticketChecks($t_sn);
+		$dataModTicket['stats'] = $this->_ticketStats($t_sn);
 
 		$modTicket = $this->rwParse('clickMania/modTicket', $dataModTicket);
 		return $this->_output($modTicket);
@@ -588,15 +589,15 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 	private function _ticketSetWeek()
 	{
 		$today = date('Y-m-d');
-		$r = $this->rwCore->rwDb->dbSelect('w_id', _APP_PRE.'_cm_tweeks', 'w_start <= \''.$today.'\' AND w_end >= \''.$today.'\'');
+		$r = $this->rwCore->rwDb->dbSelect('w_id', _APP_PRE.'_cm_tweeks', "w_start <= '".$today."' AND w_end >= '".$today."'");
 		$this->ticketWeek = $r->dbFetchResult();
 		return TRUE;
 	}
 
-	private function _ticketChecks($t_sn)
+	private function _ticketStats($t_sn)
 	{
 		/**
-		 * Init check data.
+		 * Init stats data.
 		 */
 		$data = array();
 		/**
@@ -627,7 +628,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		/**
 		 * Set lucky number check result.
 		 */
-		$check['lucky'] = $l->dbFetchResult();
+		$stats['lucky'] = $l->dbFetchResult();
 		/**
 		 * Take each numbers list to check.
 		 */
@@ -644,12 +645,33 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 			/**
 			 * Set number list check result.
 			 */
-			$check['items'][$item] = $r->dbFetchResult();
+			$stats['items'][$item] = $r->dbFetchResult();
 		}
 		/**
 		 * Return check results.
 		 */
-		return $check;
+		return $stats;
+	}
+
+	/**
+	 * Check numbers.
+	 *
+	 * Numbers must already be added.
+	 *
+	 * @param integer $week week to wich the tickets belong to
+	 * @param string $day day to check
+	 * @return mixed result
+	 */
+	private function _checkNumbers($week, $day)
+	{
+		/**
+		 * Check numbers for selected day and week.
+		 */
+		$this->rwCore->rwDb->dbUpdate(_APP_PRE.'_cm_tdata', array('t_date' => $day), 't_value IN (SELECT n_value FROM '._APP_PRE.'_cm_tnum WHERE n_date = DATE(NOW()) AND n_lucky = 0) AND t_sn IN (SELECT t_sn FROM '._APP_PRE.'_cm_tinfo WHERE t_week = '.$week.')');
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
 	private function _numAddSetWorkData()

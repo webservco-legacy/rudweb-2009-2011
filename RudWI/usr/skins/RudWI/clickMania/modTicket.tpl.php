@@ -73,13 +73,16 @@
 									<td class="check">L</td>
 								</tr>
 								<?php
-								$t=3; 
+								$t=3;
+								$n_all = 0;
+								$n_today = 0;
 								for ($i=1;$i<=7;$i++)
 								{
 									?>
 									<tr>
 										<td><?php echo $i; ?></td>
 										<?php
+										
 										for ($j=1;$j<=7;$j++)
 										{
 											$c = $i.$j;
@@ -92,10 +95,12 @@
 												if ($data[$i.$j]['t_date'] != '0000-00-00')
 												{
 													$class .= ' check';
+													$n_all++;
 												}
 												if ($data[$i.$j]['t_date'] == date('Y-m-d'))
 												{
 													$class .= ' today';
+													$n_today++;
 												}
 										?>
 											<td><input class="<?php echo $class; ?>" id="c_<?php echo $i.$j; ?>" name="c_<?php echo $i.$j; ?>" type="text" size="2" maxlength="2" tabindex="<?php echo $t; ?>" value="<?php echo $formData['c_'.$i.$j]; ?>" onkeyup="JavaScript:formJump(this);" /></td>
@@ -103,7 +108,7 @@
 											$t++;
 										}
 										?>
-										<td class="check"><?php echo $check['items']['L'.$i]?></td>
+										<td class="check"><?php echo $stats['items']['L'.$i]?></td>
 									</tr>
 									<?php 
 								}
@@ -114,7 +119,7 @@
 								for ($c=1;$c<=7;$c++)
 								{
 									?>
-									<td class="check"><?php echo $check['items']['C'.$c]?></td>
+									<td class="check"><?php echo $stats['items']['C'.$c]?></td>
 									<?php
 								}
 								?>
@@ -127,11 +132,13 @@
 							<input id="<?php echo _APP_PRE; ?>_reset" name="<?php echo _APP_PRE; ?>_reset" type="reset" tabindex="53" value="<?php echo $lang['S_RESET']; ?>" />
 							 -->
 						</form>
-						<?php echo $lang['NUM_LUCKY']; ?>: <?php echo $check['lucky']; ?>
+						<?php echo $lang['NR']; ?>: <?php echo $n_today; ?> <?php echo $lang['TODAY']; ?>, <?php echo $n_all; ?> <?php echo $lang['TOTAL']; ?>
 						<br />
-						<?php echo $lang['D1']; ?>: <?php echo $check['items']['D1']; ?> / 7
+						<?php echo $lang['NUM_LUCKY']; ?>: <?php echo $stats['lucky']; ?>
 						<br />
-						<?php echo $lang['D2']; ?>: <?php echo $check['items']['D2']; ?> / 7
+						<?php echo $lang['D1']; ?>: <?php echo $stats['items']['D1']; ?> / 7
+						<br />
+						<?php echo $lang['D2']; ?>: <?php echo $stats['items']['D2']; ?> / 7
 					</div>
 				</div>
 			</div>

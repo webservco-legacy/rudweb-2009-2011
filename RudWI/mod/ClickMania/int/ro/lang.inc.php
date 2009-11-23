@@ -66,6 +66,8 @@ $langMod['TICKET']['NUM'] = 'Num&#259;rul';
 $langMod['TICKET']['NUM_LUCKY'] = 'Num&#259;rul Norocos';
 $langMod['TICKET']['D1'] = 'Diagonala 1';
 $langMod['TICKET']['D2'] = 'Diagonala 2';
+$langMod['TICKET']['TODAY'] = 'Ast&#259;zi';
+$langMod['TICKET']['TOTAL'] = 'Total';
 
 $langMod['TICKET_ERR']['default'] = 'Eroare.';
 $langMod['TICKET_ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
