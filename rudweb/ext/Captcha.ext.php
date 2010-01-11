@@ -182,7 +182,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		$this->imgBg = array(0xff, 0xff, 0xff);
 		/**
-		 * Setforeground color.
+		 * Set foreground color.
 		 */
 		$this->imgFg = array(0x99, 0x99, 0x99);
 		/**
@@ -219,7 +219,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		$bgc = imagecolorallocate($img, $this->imgBg[0], $this->imgBg[1], $this->imgBg[2]);
 		/**
-		 * XXXSet background color transparent.
+		 * XXX Disabled: Set background color transparent.
 		 * imagecolortransparent($img, $bgc);
 		 */
 		/**
@@ -367,7 +367,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Return session captcha if we have a valid session, or NULL otherwise.
 		 *
-		 * Use prive function for generating captcha.
+		 * Use private function for generating captcha.
 		 */
 		return $this->_generateCaptcha();
 	}
