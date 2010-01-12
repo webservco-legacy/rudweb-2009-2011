@@ -1,0 +1,321 @@
+/**
+ * $Id$
+ *
+ * $URL$
+ * <BR>Style sheet for the template
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @copyright  Copyright (c) 2008, Radu Maier
+ * @license    http://opensource.org/licenses/gpl-3.0.html
+ * @version    $Revision$
+ * @since      2009-02-13 13:29:00
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+/* ********** ********** ********** ********** ********** LAYOUT START ********** ********** ********** ********** ********** */
+html, body      {margin: 0; padding: 0; border: 0; height: 100%;}
+#layout         {min-height:100%; position: relative;}
+* html #layout  {height: 100%;}
+
+#hdr            {clear: both; width: 100%; margin: auto; display: table;}
+#hdr1           {float: left; width: 250px; height: 70px;}
+* html #hdr1    {margin-right: -3px;}
+#hdr2           {float: left; width: 500px; height: 70px;}
+* html #hdr2    {margin-right: -3px;}
+#hdr3           {height: 70px;}
+
+#cnt0           {clear: both; width: 100%; margin: auto; display: table;}
+#left0          {float: left; width: 210px; height: 10px; padding: 0px;}
+* html #left0   {margin-right: -3px;}
+#right0         {float: right; width: 210px; height: 10px; padding: 0px;}
+* html #right0  {margin-left: -3px;}
+#center0        {margin-left: 210px; margin-right: 210px; height: 10px; padding: 0px;}
+* html #center0 {margin-left: 207px; margin-right: 207px;}
+
+#cnt1           {clear: both; width: 100%; margin: auto; display: table;}
+#left1          {float: left; width: 190px; padding: 0px; min-height: 50px;}
+* html #left1   {margin-right: -3px; height: 50px;}
+#right1         {float: right; width: 200px; padding: 0px; overflow: auto;}
+* html #right1  {margin-left: -3px;}
+#center1        {margin-left: 190px; margin-right: 200px;}
+* html #center1 {margin-left: 187px; margin-right: 197px; /* ie 5-6 hack for table 100% */ width: 100%; height:1% /* end ie */}
+
+#cnt2           {clear: both; width: 100%; margin: auto; display: table; padding-bottom: 40px;}
+#left2          {float: left; width: 210px; height: 20px; padding: 0px;}
+* html #left2   {margin-right: -3px;}
+#right2         {float: right; width: 210px; height: 20px; padding: 0px;}
+* html #right2  {margin-left: -3px;}
+#center2        {margin-left: 210px; margin-right: 210px; height: 20px; padding: 0px;}
+* html #center2 {margin-left: 207px; margin-right: 207px;}
+
+#ftr            {clear: both; width: 100%; height: 40px; padding: 0px 0px 0px 0px; position: absolute; bottom: 0;}
+/* ********** ********** ********** ********** ********** LAYOUT END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** GENERAL START ********** ********** ********** ********** ********** */
+table {width: 100%;}
+form  {display: inline; margin: 0px; padding: 0px;}
+img   {margin: 0px; padding: 0px; border: 0px;}
+h1    {margin: 0px 0px 5px 10px; padding: 5px 0px 0px 0px; line-height: 130%; font-size: 1.3em;}
+h2    {margin: 5px 0px 5px 0px; line-height: 130%; font-size: 1.2em;}
+h3    {margin: 5px 0px 5px 0px; line-height: 130%; font-size: 1.1em;}
+h4    {margin: 5px 0px 5px 0px; line-height: 130%; font-size: 1em;}
+ul    {padding: 0px; margin: 0px 0px 0px 15px; list-style-type: disc;}
+li    {padding: 5px 0px 0px 5px; margin: 0px 0px 0px 0px;}
+/* ********** ********** ********** ********** ********** GENERAL END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** LINKS START ********** ********** ********** ********** ********** */
+a:link, a:visited {background: transparent; text-decoration: none; font-weight: bold;}
+a:hover, a:active {background: transparent; text-decoration: none; font-weight: bold;}
+/* ********** ********** ********** ********** ********** LINKS END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** HEADER START ********** ********** ********** ********** ********** */
+#logo {margin: 0px 0px 0px 68px; display: block;}
+#header {margin: 30px 0px 0px 0px;}
+/* ********** ********** ********** ********** ********** HEADER END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** CONTENT START ********** ********** ********** ********** ********** */
+#left {margin: 25px 0px 0px 10px;}
+#right {margin: 25px 10px 0px 10px;}
+#center_space1       {margin: 0px; padding: 0px 0px 0px 10px; border: 0px; height: 1px;}
+#page_title          {margin: 0px; padding: 0px 0px 0px 10px; border: 0px;}
+#page_content        {margin: 0px; padding: 10px 5px 10px 20px; border: 0px; min-height: 230px;}
+* html #page_content {height: 240px;}
+/* ********** ********** ********** ********** ********** CONTENT END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** CONTENT BODY START ********** ********** ********** ********** ********** */
+.Bold          {font-weight: bold;}
+.Italic        {font-style: italic;}
+.Underline     {text-decoration: underline;}
+.StrikeThrough {text-decoration: line-through;}
+.Subscript     {vertical-align: sub; font-size: smaller;}
+.Superscript   {vertical-align: super; font-size: smaller;}
+
+.FontColor1 {color: #ff9900;}
+.FontColor2 {color: #0066cc;}
+.FontColor3 {color: #ff0000;}
+.FontColor1BG {background-color: #ff9900;}
+.FontColor2BG {background-color: #0066cc;}
+.FontColor3BG {background-color: #ff0000;}
+
+.FontArial   {font-family: 'Comic Sans MS';}
+.FontVerdana {font-family: 'Comic Sans MS';}
+.FontTimes   {font-family: 'Times New Roman';}
+.FontCourier {font-family: 'Courier New';}
+.FontSmaller {font-size: smaller;}
+.FontLarger  {font-size: larger;}
+.FontSmall   {font-size: 10px;}
+.FontBig     {font-size: 14px;}
+.Indent1 {margin-left: 40px;}
+.Indent2 {margin-left: 80px;}
+.Indent3 {margin-left: 120px;}
+.JustifyLeft {text-align: left;}
+.JustifyRight {text-align: right;}
+.JustifyCenter {text-align: center;}
+.JustifyFull {text-align: justify;}
+
+code
+{
+  font-family: courier, monospace;
+  background-color: #eeeeee;
+  padding-left: 1px;
+  padding-right: 1px;
+  border: #c0c0c0 1px solid;
+}
+kbd
+{
+  padding: 0px 1px 0px 1px;
+  border-width: 1px 2px 2px 1px;
+  border-style: solid;
+}
+blockquote
+{
+  color: #808080;
+}
+/* ********** ********** ********** ********** ********** CONTENT BODY END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** LEFT START ********** ********** ********** ********** ********** */
+/* ********** ********** ********** ********** ********** LEFT END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** RIGHT START ********** ********** ********** ********** ********** */
+#langMenu {margin-left: 5px; margin-top: 30px; text-align: right;}
+/* ********** ********** ********** ********** ********** RIGHT END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** FOOTER START ********** ********** ********** ********** ********** */
+#footer {padding: 13px 0px 0px 0px;}
+/* ********** ********** ********** ********** ********** FOOTER END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** COLORS START ********** ********** ********** ********** ********** */
+html, body  {background-color: #E8E8FC; color: #333333;}
+#hdr, #cnt0 {background-color: #006666;}
+#header {color: #EEEEEE;}
+#center1 {background-color: #FFFFFF;}
+a:link,a:visited {color: #333333;}
+a:hover,a:active {color: #333333;}
+.error {color: #990000;}
+/* ********** ********** ********** ********** ********** COLORS END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** IMAGES START ********** ********** ********** ********** ********** */
+#hdr {background-image: url('../graphics/hdr.png'); background-position: top left; background-repeat: repeat;}
+
+#cnt0 {background-image: url('../graphics/right0.png'); background-position: top right; background-repeat: no-repeat;}
+#left0 {background-image: url('../graphics/left0a.png'); background-position: top right; background-repeat: no-repeat;}
+#center0 {background-image: url('../graphics/center0.png'); background-position: top left; background-repeat: repeat-x;}
+
+#cnt1 {background-image: url('../graphics/content.png'); background-position: top right; background-repeat: no-repeat;}
+#left1 {background-image: url('../graphics/left.png'); background-position: top right; background-repeat: no-repeat;}
+#center1 {background-image: url('../graphics/center.png'); background-position: top left; background-repeat: no-repeat;}
+
+#right2 {background-image: url('../graphics/right2.png'); background-position: top left; background-repeat: no-repeat;}
+#left2 {background-image: url('../graphics/left2.png'); background-position: top left; background-repeat: no-repeat;}
+#center2 {background-image: url('../graphics/center2.png'); background-position: top left; background-repeat: repeat-x;}
+/* ********** ********** ********** ********** ********** IMAGES END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** BORDERS START ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** BORDERS END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** FONTS START ********** ********** ********** ********** ********** */
+html, body                 {font-family: Verdana, sans-serif; font-size: 90%;}
+table, td, input, select, textarea  {font-family: Verdana, sans-serif; font-size: 100%;}
+#header                    {font-size: 110%; font-weight: bold;}
+#page_title                {text-align: left;}
+#page_content              {text-align: justify; line-height: 150%;}
+#footer                    {font-size: 70%; text-align: center;}
+#center_space1, 
+#left0, #right0, #center0,
+#left2, #right2, #center2  {font-size: 1%;}
+.error {font-weight: bold; text-align: center;}
+/* ********** ********** ********** ********** ********** FONTS END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** MENU START ********** ********** ********** ********** ********** */
+
+/* init menu */
+.cntMenuContainer {float: left; position: relative;}
+.cntMenu {float: left;}
+
+/* HORIZONTAL START */
+/*
+.cntMenuContainer {width: 900px;}
+.cntMenu {position: absolute;}
+.cntMenu ul.level0 {display: block;}
+.cntMenu ul.level0 li:hover ul.level1 {display: inline; position: relative;}
+*/
+/* HORIZONTAL END */
+
+/* VERTICAL START */
+
+.cntMenuContainer {width: 180px;}
+.cntMenu {position: relative;}
+.cntMenu ul.level0 {display: inline;}
+.cntMenu ul.level0 li:hover ul.level1 {display: inline; position: absolute; left: 180px;}
+
+/* VERTICAL END */
+
+/* hide submenus */
+.cntMenu ul.level0 li ul.level1 {display: none;} /* level1 */
+.cntMenu ul.level0 li ul.level1 li ul.level2 {display: none;} /* level2 */
+.cntMenu ul.level0 li ul.level1 li ul.level2 li ul.level3 {display: none;} /* level3 */
+.cntMenu ul.level0 li ul.level1 li ul.level2 li ul.level3 li ul.level4 {display: none;} /* level4 */
+
+/* show submenus on mouseover */
+/* level 0 */
+.cntMenu ul.level0 {
+float: left; position: relative; list-style: none; margin: 0px; padding: 0px;}
+.cntMenu ul.level0 li {
+float: left; display: inline; list-style: none; margin: 0px; padding: 0px;}
+/* level 1 */
+.cntMenu ul.level0 li:hover ul.level1 {
+float: left; list-style: none; margin: 0px; padding: 0px;}
+.cntMenu ul.level0 li:hover ul.level1 li {
+float: left; display: inline; list-style: none; margin: 0px; padding: 0px;}
+/* level 2 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 {
+float: left; display: inline; position: absolute; list-style: none; margin: 0px; padding: 0px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li {
+float: left; display: inline; list-style: none; margin: 0px; padding: 0px;}
+/* level 3 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 {
+float: left; display: inline; position: absolute; list-style: none; margin: 0px; padding: 0px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li {
+float: left; display: inline; list-style: none; margin: 0px; padding: 0px;}
+/* level 4 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li:hover ul.level4 {
+float: left; display: inline; position: absolute; list-style: none; margin: 0px; padding: 0px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li:hover ul.level4 li {
+float: left; display: inline; list-style: none; margin: 0px; padding: 0px;}
+
+/* MENU LINKS START */
+.cntMenuSpan {float: left; display: inline-block;}
+.text, a:link.cntMenuLink, a:visited.cntMenuLink, a:hover.cntMenuLink, a:active.cntMenuLink {float: left; display: block;}
+/* IE6 FIX START */ /* without this submenus don't show in IE6, even with the hover hack */
+* html .cntMenuSpan {float: none;}
+* html .text, a:link.cntMenuLink, a:visited.cntMenuLink, a:hover.cntMenuLink, a:active.cntMenuLink {float: none;}
+
+/* IE6 FIX END */
+/* MENU LINKS END */
+
+/* MENU SIZES START */
+/* level 0 */
+.cntMenu ul.level0 {width: 180px;}
+.cntMenu ul.level0 li {width: 180px;}
+/* level 1 */
+.cntMenu ul.level0 li:hover ul.level1 {width: 180px;}
+.cntMenu ul.level0 li:hover ul.level1 li {width: 180px;}
+/* level 2 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 {width: 180px; left: 180px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li {width: 180px;}
+/* level 3 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 {width: 180px; left: 180px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li {width: 180px;}
+/* level 4 */
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li:hover ul.level4 {width: 180px; left: 180px;}
+.cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li:hover ul.level4 li {width: 180px;}
+/* links */
+.text, a:link.cntMenuLink, a:visited.cntMenuLink, a:hover.cntMenuLink, a:active.cntMenuLink {width: 180px; padding: 10px 0px 10px 0px;}
+/* MENU SIZES END */
+
+/* MENU COLORS START */
+/* level 0 */
+.cntMenu ul.level0 {}
+/* level 1 */
+.cntMenu ul.level0 li:hover ul.level1 li {background: transparent url('../graphics/trans.png');}
+/* level 2 */
+/* .cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li {background: transparent url('../graphics/trans.png');} */
+/* level 3 */
+/* .cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li {background: transparent url('../graphics/trans.png');} */
+/* level 4 */
+/* .cntMenu ul.level0 li:hover ul.level1 li:hover ul.level2 li:hover ul.level3 li:hover ul.level4 li {background: transparent url('../graphics/trans.png');} */
+/* links */
+.text, a:link.cntMenuLink, a:visited.cntMenuLink {color: #666666;}
+a:hover.cntMenuLink, a:active.cntMenuLink {color: #333333;}
+/* active page */
+a:link.cntMenuActivePage, a:visited.cntMenuActivePage {color: #333333; cursor: default;}
+a:hover.cntMenuActivePage, a:active.cntMenuActivePage {color: #333333;}
+/* active parent */
+a:link.cntMenuActiveParent, a:visited.cntMenuActiveParent {color: #333333;}
+a:hover.cntMenuActiveParent, a:active.cntMenuActiveParent {color: #666666;}
+/* MENU COLORS END */
+
+/* MENU FONTS START */
+.cntMenu li {font-weight: bold; text-align: center;}
+a:link.cntMenuLink, a:visited.cntMenuLink, a:hover.cntMenuLink, a:active.cntMenuLink {text-decoration: none;}
+/* MENU FONTS END */
+
+/* ********** ********** ********** ********** ********** MENU END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** ERROR START ********** ********** ********** ********** ********** */
+.err {font-size: 90%;}
+.err pre {font-family: Verdana, sans-serif; font-size: 80%;}
+.errtxt {color: #990000; text-align: center; background-color: #EEEEEE;}
+/* ********** ********** ********** ********** ********** ERROR END ********** ********** ********** ********** ********** */
