@@ -96,7 +96,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 	 *
 	 * @var string
 	 */
-	private $imgType = NULL;
+	protected $imgType = NULL;
 
 	/**
 	 * Image output type.
@@ -105,49 +105,56 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 	 *
 	 * @var string
 	 */
-	private $imgOut = NULL;
+	protected $imgOut = NULL;
 
 	/**
 	 * Image width.
 	 *
 	 * @var integer
 	 */
-	private $imgWidth = 0;
+	protected $imgWidth = 0;
 
 	/**
 	 * Image height.
 	 *
 	 * @var integer
 	 */
-	private $imgHeight = 0;
+	protected $imgHeight = 0;
 
 	/**
 	 * Image background color.
 	 *
 	 * @var array
 	 */
-	private $imgBg = array();
+	protected $imgBg = array();
 
 	/**
 	 * Image foreground color.
 	 *
 	 * @var array
 	 */
-	private $imgFg = array();
+	protected $imgFg = array();
+
+	/**
+	 * Image transparent color.
+	 *
+	 * @var boolean
+	 */
+	protected $imgTrans = FALSE;
 
 	/**
 	 * Full font file path.
 	 *
 	 * @var string
 	 */
-	private $fontPath = NULL;
+	protected $fontPath = NULL;
 
 	/**
 	 * Font size.
 	 *
 	 * @var integer
 	 */
-	private $fontSize = 0;
+	protected $fontSize = 0;
 
 	/**
 	 * Constructor.
@@ -162,35 +169,39 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		parent::__construct($extAbout);
 		/**
-		 * Set image type.
+		 * Set default image type.
 		 */
 		$this->imgType = 'png';
 		/**
-		 * Set output type.
+		 * Set default output type.
 		 */
 		$this->imgOut = 'image';
 		/**
-		 * Set image width.
+		 * Set default image width.
 		 */
 		$this->imgWidth = 70;
 		/**
-		 * Set image height.
+		 * Set default image height.
 		 */
 		$this->imgHeight = 18;
 		/**
-		 * Set background color.
+		 * Set default background color.
 		 */
 		$this->imgBg = array(0xff, 0xff, 0xff);
 		/**
-		 * Set foreground color.
+		 * Set default image transparency.
+		 */
+		$this->imgTrans = FALSE;
+		/**
+		 * Set default foreground color.
 		 */
 		$this->imgFg = array(0x99, 0x99, 0x99);
 		/**
-		 * Set font file path.
+		 * Set default font file.
 		 */
 		$this->fontPath = _RW_TTF_DIR.'VeraMono.ttf';
 		/**
-		 * Set font size.
+		 * Set default font size.
 		 */
 		$this->fontSize = 12;
 	}
@@ -219,9 +230,14 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		$bgc = imagecolorallocate($img, $this->imgBg[0], $this->imgBg[1], $this->imgBg[2]);
 		/**
-		 * XXX Disabled: Set background color transparent.
-		 * imagecolortransparent($img, $bgc);
+		 * Check if we have transparency enabled.
 		 */
+		if($this->imgTrans){
+			/**
+			 * Set transparent background.
+			 */
+			imagecolortransparent($img, $bgc);
+		}
 		/**
 		 * Set foreground color.
 		 */
@@ -342,7 +358,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 				break;
 			}
 			/**
-			 * Dafault output is image data.
+			 * Default output is image data.
 			 */
 			default : {
 				/**

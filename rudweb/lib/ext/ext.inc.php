@@ -106,5 +106,61 @@ class rw_Extension
 		 */
 		return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
 	}
+
+	/**
+	 * Set property value.
+	 *
+	 * @param sting $p property name
+	 * @param mixed $value prperty value
+	 * @return mixed result
+	 */
+	public function setValue($p, $value)
+	{
+		/**
+		 * Check if the requested property exists.
+		 */
+		if(property_exists($this, $p))
+		{
+			/**
+			 * Set property value.
+			 */
+			$this->$p = $value;
+		}
+		else
+		{
+			/**
+			 * Display error message.
+			 */
+			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+		}
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Set multiple property values.
+	 *
+	 * @param array $v property/values array
+	 * @return mixd result
+	 */
+	public function setValues($v)
+	{
+		/**
+		 * Parse each request.
+		 */
+		foreach($v as $p=>$value)
+		{
+			/**
+			 * Set property value.
+			 */
+			$this->setvalue($p, $vaue);
+		}
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
 }
 ?>
