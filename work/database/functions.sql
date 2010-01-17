@@ -64,6 +64,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('parse_ini_file', '4.0', '5.0'),
 ('preg_match', '4.0', '5.0'),
 ('preg_repace', '4.0', '5.0'),
+('property_exists', '0.0', '5.1.0'),
 ('rand', '4.0', '5.0'),
 ('restore_error_handler', '4.0.1', '5.0'),
 ('round', '4.0', '5.0'),
