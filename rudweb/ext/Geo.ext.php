@@ -77,7 +77,7 @@ $extAbout['Geo']['deps']['lib'] = array('Error', 'Database');
 /**
  * Extension extension dependencies.
  */
-$extAbout['Geo']['deps']['ext'] = array('Int');
+$extAbout['Geo']['deps']['ext'] = array();
 
 /**
  * rw_Extension_Geo.
@@ -178,7 +178,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		 */
 		$vc = 'ZZ';
 		/**
-		 * Set visitor IP Address. 
+		 * Set visitor IP Address.
 		 */
 		$ip = $_SERVER['REMOTE_ADDR'];
 		/**
@@ -201,6 +201,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		}
 		/**
 		 * Return result.
+		 *
 		 */
 		return $vc;
 	}

@@ -238,6 +238,12 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 */
 		$this->usrData['grp_name'] = 'Guests';
 		/**
+		 * User country.
+		 * 
+		 * This is the default application country from configuration file.
+		 */
+		$this->usrData['vc'] = _APP_VC;
+		/**
 		 * User default language.
 		 */
 		$this->usrData['ln'] = _APP_LN;
@@ -756,6 +762,12 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * User group name.
 		 */
 		$this->usrData['grp_name'] = $groupData['grp_name'];
+		/**
+		 * User country.
+		 *
+		 * This is still the default application country from configuration file.
+		 */
+		$this->usrData['vc'] = _APP_VC;
 		/**
 		 * User language.
 		 */
