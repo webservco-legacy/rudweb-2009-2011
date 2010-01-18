@@ -99,13 +99,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	private $usrData = array();
 
 	/**
-	 * Database object.
-	 *
-	 * @var mixed
-	 */
-	private $rwDb;
-
-	/**
 	 * Login data.
 	 *
 	 * This is data used to perform login time checks.
@@ -126,28 +119,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Call parent constructor.
 		 */
 		parent::__construct($extAbout);
-	}
-
-	/**
-	 * Set database library object.
-	 *
-	 * Database library object is passed by reference.
-	 * Useful for query statistics.
-	 *
-	 * @param mixed $rwDb database library object
-	 * @return mixed result.
-	 */
-	public function setDb(&$rwDb)
-	{
-		/**
-		 * Set database library object.
-		 *
-		 */
-		$this->rwDb = $rwDb;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
 	}
 
 	/**

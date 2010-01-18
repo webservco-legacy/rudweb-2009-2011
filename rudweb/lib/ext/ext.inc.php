@@ -73,6 +73,13 @@ class rw_Extension
 	 * @var array $extAbout
 	 */
 	protected $extAbout = array();
+	
+	/**
+	 * Database object.
+	 *
+	 * @var mixed
+	 */
+	protected $rwDb;
 
 	/**
 	 * Constructor.
@@ -105,6 +112,28 @@ class rw_Extension
 		 * Return only a field if specified and valid, or the whole list.
 		 */
 		return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
+	}
+
+	/**
+	 * Set database library object.
+	 *
+	 * Database library object is passed by reference.
+	 * Useful for query statistics.
+	 *
+	 * @param mixed $rwDb database library object
+	 * @return mixed result.
+	 */
+	public function setDb(&$rwDb)
+	{
+		/**
+		 * Set database library object.
+		 *
+		 */
+		$this->rwDb = $rwDb;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
 	/**
