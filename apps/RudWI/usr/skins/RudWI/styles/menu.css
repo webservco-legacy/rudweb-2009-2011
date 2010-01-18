@@ -1,0 +1,203 @@
+/**
+ * $Id$
+ *
+ * $URL$
+ * <BR>Menu style sheet.
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @copyright  Copyright (c) 2008, Radu Maier
+ * @license    http://opensource.org/licenses/gpl-3.0.html
+ * @version    $Revision$
+ * @since      2009-11-04 19:47:00
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+/* ********** ********** ********** ********** ********** MENU LEVEL 0 START ********** ********** ********** ********** ********** */
+#start div.menu_0
+{
+float: left;
+width: 254px;
+display: none;
+}
+
+#start:hover div.menu_0
+{
+display: inline;
+position: relative;
+margin-top: 38px;
+}
+
+ul.menu_0
+{
+float: left;
+display: inline;
+width: 231px;
+margin-left: 9px;
+border-top: 1px solid #BBB;
+font-size: 76%;
+font-weight: bold;
+}
+
+ul.menu_0 li.menu_0
+{
+float: left;
+display: inline;
+width: 231px;
+list-style: none;
+padding: 5px 0 5px 0;
+border-bottom: 1px solid #BBB;
+position: relative;
+}
+/* ********** ********** ********** ********** ********** MENU LEVEL 0 END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** MENU LEVEL 1 START ********** ********** ********** ********** ********** */
+li.menu_0 div.menu_1
+{
+float: left;
+width: 254px;
+display: none;
+}
+
+li.menu_0:hover div.menu_1
+{
+display: inline;
+position: absolute;
+left: 229px;
+top: 6px;
+}
+
+ul.menu_1
+{
+float: left;
+display: inline;
+width: 231px;
+margin-left: 9px;
+border-top: 1px solid #BBB;
+font-size: 100%;
+font-weight: bold;
+}
+
+ul.menu_1 li.menu_1
+{
+float: left;
+display: inline;
+width: 231px;
+list-style: none;
+padding: 5px 0 5px 0;
+border-bottom: 1px solid #BBB;
+position: relative;
+}
+/* ********** ********** ********** ********** ********** MENU LEVEL 1 END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** MENU LEVEL 2 START ********** ********** ********** ********** ********** */
+li.menu_1 div.menu_2
+{
+float: left;
+width: 254px;
+display: none;
+}
+
+li.menu_1:hover div.menu_2
+{
+display: inline;
+position: absolute;
+left: 229px;
+top: 6px;
+}
+
+ul.menu_2
+{
+float: left;
+display: inline;
+width: 231px;
+margin-left: 9px;
+border-top: 1px solid #BBB;
+font-size: 100%;
+font-weight: bold;
+}
+
+ul.menu_2 li.menu_2
+{
+float: left;
+display: inline;
+width: 231px;
+list-style: none;
+padding: 5px 0 5px 0;
+border-bottom: 1px solid #BBB;
+position: relative;
+}
+/* ********** ********** ********** ********** ********** MENU LEVEL 2 END ********** ********** ********** ********** ********** */
+
+/* ********** ********** ********** ********** ********** MENU GENERAL START ********** ********** ********** ********** ********** */
+.menu_t
+{
+float: left;
+display: inline;
+width: 254px;
+height: 31px;
+background: transparent url('../images/menu_t.png') no-repeat top left;
+}
+.menu_c
+{
+float: left;
+display: inline;
+width: 254px;
+background: transparent url('../images/menu_c.png') repeat-y top left;
+}
+.menu_b
+{
+float: left;
+display: inline;
+width: 254px;
+height: 17px;
+background: transparent url('../images/menu_b.png') no-repeat top left;
+}
+.menu_t b
+{
+float: left;
+display: inline;
+width: auto;
+font-style: italic;
+font-size: 12px;
+margin: 10px 0 0 17px;
+}
+.menu_icon_t
+{
+float: left;
+display: inline;
+width: 16px;
+height: 16px;
+}
+.menu_icon
+{
+float: left;
+display: inline;
+width: 16px;
+height: 16px;
+margin: 0px 0 0 3px;
+}
+.menu_text
+{
+float: left;
+display: inline;
+width: auto;
+margin: 0px 0 0 5px;
+}
+
+.menu_arr
+{
+background: transparent url('../images/menu_arr.png') no-repeat top right;
+}
+/* ********** ********** ********** ********** ********** MENU GENERAL END ********** ********** ********** ********** ********** */

@@ -1,0 +1,17 @@
+# $Id$
+# $URL$
+# $Revision$
+
+User-Agent: *
+Allow: /
+Disallow: /etc/
+Disallow: /ext/
+Disallow: /int/
+Disallow: /mod/
+Disallow: /opt/
+Disallow: /sys/
+Disallow: /tmp/
+Disallow: /usr/
+Disallow: /var/
+
+#Sitemap: http://www.rudisoft.net/sitemap.xml
