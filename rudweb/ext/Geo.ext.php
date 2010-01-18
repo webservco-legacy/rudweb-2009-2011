@@ -174,9 +174,35 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	public function getVisitorCountry()
 	{
 		/**
-		 * XXX Return result
+		 * Set default visitor country to "Reserved".
 		 */
-		return $_SERVER;
+		$vc = 'ZZ';
+		/**
+		 * Set visitor IP Address. 
+		 */
+		$ip = $_SERVER['REMOTE_ADDR'];
+		/**
+		 * Get country iso from IP database.
+		 */
+		$r = $this->rwDb->dbSelect('country_iso', _APP_PRE.'_geo_ip', "INET_ATON('{$ip}') BETWEEN ip_start AND ip_end", NULL, 1);
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Check if we have any countries to list.
+		 */
+		if($t > 0)
+		{
+			/**
+			 * Set visitor country.
+			 */
+			$vc = $r->dbFetchResult();
+		}
+		/**
+		 * Return result.
+		 */
+		return $vc;
 	}
 }
 ?>
