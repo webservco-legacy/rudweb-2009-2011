@@ -129,6 +129,10 @@ if(is_readable('./etc/app.ini'))
 	 */
 	define('_APP_PRE',$cfg['AppInfo']['Prefix']);
 	/**
+	 * Set default country.
+	 */
+	define('_APP_VC',$cfg['Defaults']['Country']);
+	/**
 	 * Set default language.
 	 */
 	define('_APP_LN',$cfg['Defaults']['Language']);
@@ -270,21 +274,36 @@ if(is_readable(_RW_LIB_DIR.'rw/rw.core.inc.php'))
 		 */
 		$core->rwExts['Users']->rwUsers();
 		/**
-		 * Get language.
+		 * Load geo extension.
 		 */
-		$rwLn = ($core->rwLoadedExt('Session') && $core->rwLoadedExt('Users') && isset($_SESSION[_APP_PRE.'_usr']['ln'])) ? $_SESSION[_APP_PRE.'_usr']['ln'] : _APP_LN;
+		$core->rwLoadExt('Geo');
 		/**
-		 * Set language.
+		 * Set database library object to geo extension.
 		 */
-		$core->rwSetLn($rwLn);
+		$core->rwExts['Geo']->setDb($core->rwDb);
+
 		/**
-		 * Load internationalization extension.
+		 * Check if session, users, and geo extensions are available.
 		 */
-		$core->rwLoadExt('Int');
-		/**
-		 * Set main translation list.
-		 */
-		$core->rwAddLang($core->rwExts['Int']->rwInt($core->rwGetLn()));
+		if($core->rwLoadedExt('Session') && $core->rwLoadedExt('Users') && $core->rwLoadedExt('Geo'))
+		{
+			/**
+			 * Try to get visitor country based on their IP.
+			 */
+			$_SESSION[_APP_PRE.'_usr']['vc'] = $core->rwExts['Geo']->getVisitorCountry();
+			/**
+			 * Try to get visitor language based on the above country.
+			 */
+			$_SESSION[_APP_PRE.'_usr']['ln'] = $core->rwExts['Geo']->getLangByCountry($_SESSION[_APP_PRE.'_usr']['vc']);
+			/**
+			 * Get current language iso and set it in the geo extension
+			 */
+			$core->rwExts['Geo']->setLn((isset($_SESSION[_APP_PRE.'_usr']['ln'])) ? $_SESSION[_APP_PRE.'_usr']['ln'] : _APP_LN);
+			/**
+			 * Set main translation list.
+			 */
+			$core->rwAddLang($core->rwExts['Geo']->setLang());
+		}
 		/**
 		 * Load output library.
 		 */

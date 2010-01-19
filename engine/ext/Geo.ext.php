@@ -90,6 +90,13 @@ $extAbout['Geo']['deps']['ext'] = array();
 class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 {
 	/**
+	 * Current language iso.
+	 *
+	 * @var string
+	 */
+	private $ln;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $extAbout
@@ -103,13 +110,8 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		parent::__construct($extAbout);
 	}
 
-
-
 	/**
 	 * Main extension functionality.
-	 *
-	 * Set session user data.
-	 * Must be called after Session->rwSession()
 	 *
 	 * @return mixed result
 	 */
@@ -328,6 +330,116 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return $ln;
+	}
+
+	/**
+	 * Set current language iso.
+	 *
+	 * @param string $ln language iso
+	 * @return mixed result
+	 */
+	public function setLn($ln)
+	{
+		/**
+		 * Set current language iso.
+		 */
+		$this->ln = $ln;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+	/**
+	 * Set core and application translation list.
+	 *
+	 * @return mixed result
+	 */
+	public function setLang()
+	{
+		/**
+		 * Init core translation list.
+		 */
+		$langCore = array();
+		/**
+		 * Set core language path.
+		 */
+		$langCorePath = _RW_INT_DIR.$this->ln.'/lang.inc.php';
+		/**
+		 * Check if core language file is readable.
+		 */
+		if (is_readable($langCorePath))
+		{
+			/**
+			 * Load core language file.
+			 */
+			require($langCorePath);
+		}
+		/**
+		 * Set core translation list.
+		 */
+		$lang['CORE'] = $langCore;
+		/**
+		 * Init application translation list.
+		 */
+		$langApp = array();
+		/**
+		 * Set application language path.
+		 */
+		$langAppPath = _APP_INT_DIR.$this->ln.'/lang.inc.php';
+		/**
+		 * Check if application language file is readable.
+		 */
+		if (is_readable($langAppPath))
+		{
+			/**
+			 * Load application language file.
+			 */
+			require($langAppPath);
+		}
+		/**
+		 * Set application translation list.
+		 */
+		$lang['APP'] = $langApp;
+		/**
+		 * Return main translation list.
+		 */
+		return $lang;
+	}
+
+	/**
+	 * Set module translation list.
+	 *
+	 * @param string $mod module name
+	 * @return mixed result
+	 */
+	public function setLangMod($mod)
+	{
+		/**
+		 * Init module translation list.
+		 */
+		$langMod = array();
+		/**
+		 * Set module language path.
+		 */
+		$langModPath = _APP_MOD_DIR.$mod.'/int/'.$this->ln.'/lang.inc.php';
+		/**
+		 * Check if application language file is readable.
+		 */
+		if (is_readable($langModPath))
+		{
+			/**
+			 * Load module language file.
+			 */
+			require($langModPath);
+		}
+		/**
+		 * Set module translation list.
+		 */
+		$lang['MOD'] = $langMod;
+		/**
+		 * Return main translation list.
+		 */
+		return $lang;
 	}
 }
 ?>

@@ -30,7 +30,7 @@ Options +FollowSymlinks
 # Turn on URL rewriting
 RewriteEngine On
 # Put your installation directory here:
-RewriteBase /RudWEb/test/
+RewriteBase /RudWEb/apps/test/
 # Do not enable rewriting for files that exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

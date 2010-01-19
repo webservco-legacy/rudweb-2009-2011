@@ -107,13 +107,6 @@ class rw_Core
 	public $rwSec = NULL;
 
 	/**
-	 * Language.
-	 *
-	 * @var string
-	 */
-	private $rwLn = NULL;
-
-	/**
 	 * Translations list.
 	 *
 	 * @var array
@@ -506,14 +499,14 @@ class rw_Core
 			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. Missing module dependencies (<b>'.$missingDeps.'</b>)', 256);
 		}
 		/**
-		 * Check if internationalization extension is loaded.
+		 * Check if geo extension is loaded.
 		 */
-		if ($this->rwLoadedExt('Int'))
+		if ($this->rwLoadedExt('Geo'))
 		{
 			/**
 			 * Add module translation list to main translation list.
 			 */
-			$this->rwAddLang($this->rwExts['Int']->rwIntMod($modPath));
+			$this->rwAddLang($this->rwExts['Geo']->setLangMod($mod));
 		}
 		/**
 		 * Set module class name.
@@ -773,37 +766,6 @@ class rw_Core
 		 * Return result.
 		 */
 		return (count($missingDeps) > 0) ? $missingDeps : FALSE;
-	}
-
-	/**
-	 * Set language.
-	 *
-	 * @param string $rwLn language to set
-	 * @return mixed result
-	 */
-	public function rwSetLn($rwLn)
-	{
-		/**
-		 * Set language.
-		 */
-		$this->rwLn = $rwLn;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * Get language.
-	 *
-	 * @return mixed result
-	 */
-	public function rwGetLn()
-	{
-		/**
-		 * Return language.
-		 */
-		return $this->rwLn;
 	}
 
 	/**
