@@ -327,7 +327,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 			/**
 			 * Set function name.
 			 */
-			$ruleFunc = '_rw'.$rule;
+			$ruleFunc = 'rw'.$rule;
 			/**
 			 * Set function parameter.
 			 */
@@ -340,7 +340,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 				/**
 				 * Set function name.
 				 */
-				$ruleFunc  = '_rw' . $match[1];
+				$ruleFunc  = 'rw' . $match[1];
 				/**
 				 * Set function parameter.
 				 */
@@ -377,7 +377,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param mixed $data form data to check
 	 * @return mixed result
 	 */
-	private function _rwRequired($data)
+	public function rwRequired($data)
 	{
 		/**
 		 * Check if data is not set or blank.
@@ -395,7 +395,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param mixed $data form data to check
 	 * @return mixed result
 	 */
-	private function _rwValidEmail($data)
+	public function rwValidEmail($data)
 	{
 		/**
 		 * Set valid email rule.
@@ -417,7 +417,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param mixed $data form data to check
 	 * @return mixed result
 	 */
-	private function _rwValidPass($data)
+	public function rwValidPass($data)
 	{
 		/**
 		 * Set valid password to contain both letters and numbers.
@@ -440,7 +440,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param integer $length minimum data length
 	 * @return mixed result
 	 */
-	private function _rwMin($data, $length=0)
+	public function rwMin($data, $length=0)
 	{
 		/**
 		 * Set function name.
@@ -465,7 +465,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param integer $length maximum data length
 	 * @return mixed result
 	 */
-	private function _rwMax($data, $length=0)
+	public function rwMax($data, $length=0)
 	{
 		/**
 		 * Set function name.
@@ -490,7 +490,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param mixed $match match to check against
 	 * @return mixed result
 	 */
-	private function _rwEquals($data, $match)
+	public function rwEquals($data, $match)
 	{
 		/**
 		 * Check if data is the same as the match.
@@ -511,7 +511,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param mixed $captcha session captcha
 	 * @return mixed result
 	 */
-	private function _rwValidCaptcha($data, $captcha)
+	public function rwValidCaptcha($data, $captcha)
 	{
 		/**
 		 * Check if data matches captcha.

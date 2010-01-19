@@ -70,7 +70,7 @@ $langMod['TICKET']['TODAY'] = 'Ast&#259;zi';
 $langMod['TICKET']['TOTAL'] = 'Total';
 
 $langMod['TICKET_ERR']['default'] = 'Eroare.';
-$langMod['TICKET_ERR']['_rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
-$langMod['TICKET_ERR']['_rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
-$langMod['TICKET_ERR']['_rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
+$langMod['TICKET_ERR']['rwRequired'] = 'C&#226;mpul $label$ este obligatoriu.';
+$langMod['TICKET_ERR']['rwMin'] = '$label$ trebuie s&259; aib&#259; cel pu&#355;in $required$ caractere.';
+$langMod['TICKET_ERR']['rwMax'] = '$label$ trebuie s&259; aib&#259; cel mult $required$ caractere.';
 ?>
