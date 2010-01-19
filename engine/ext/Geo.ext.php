@@ -255,6 +255,23 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		 */
 		return $vc;
 	}
+	
+	/**
+	 * Get visitor country.
+	 *
+	 * Try to get visitor's language form the guessed visitor country.
+	 *
+	 * @return mixed result
+	 */
+	public function getVisitorLn()
+	{
+		/**
+		 * XXXSet default visitor language to application defualt.
+		 */
+		$ln = _APP_LN;
+		
+		
+	}
 
 	/**
 	 * Get language based on country.
