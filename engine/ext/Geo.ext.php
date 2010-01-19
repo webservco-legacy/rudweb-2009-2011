@@ -250,27 +250,11 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 			$vc = $r->dbFetchResult();
 		}
 		/**
+		 * Check if we have a valid country iso. Otherwise set it to application default.
 		 * Return result.
 		 *
 		 */
-		return $vc;
-	}
-	
-	/**
-	 * Get visitor country.
-	 *
-	 * Try to get visitor's language form the guessed visitor country.
-	 *
-	 * @return mixed result
-	 */
-	public function getVisitorLn()
-	{
-		/**
-		 * XXXSet default visitor language to application defualt.
-		 */
-		$ln = _APP_LN;
-		
-		
+		return ($vc != 'ZZ') ? $vc : _APP_VC;;
 	}
 
 	/**
@@ -284,7 +268,6 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	 */
 	public function getLangByCountry($country_iso)
 	{
-
 		/**
 		 * Get languages for the specified country.
 		 *

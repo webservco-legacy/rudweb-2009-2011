@@ -77,7 +77,7 @@ $extAbout['Users']['deps']['lib'] = array('Error', 'Database');
 /**
  * Extension extension dependencies.
  */
-$extAbout['Users']['deps']['ext'] = array('Session');
+$extAbout['Users']['deps']['ext'] = array('Session', 'Geo');
 
 /**
  * rw_Extension_Users.
@@ -89,6 +89,12 @@ $extAbout['Users']['deps']['ext'] = array('Session');
  */
 class rw_Extension_Users extends rw_Extension implements rw_iExtension
 {
+	/**
+	 * Geo extension object.
+	 *
+	 * @var mixed
+	 */
+	private $extGeo;
 	/**
 	 * User data.
 	 *
@@ -119,6 +125,27 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Call parent constructor.
 		 */
 		parent::__construct($extAbout);
+	}
+
+	/**
+	 * Set geo extension object.
+	 *
+	 * Geo extension object is passed by reference.
+	 *
+	 * @param mixed $extGeo geo extension object
+	 * @return mixed result.
+	 */
+	public function setGeo(&$extGeo)
+	{
+		/**
+		 * Set Geo extension object.
+		 *
+		 */
+		$this->extGeo = $extGeo;
+		/**
+		 * Return result.
+		 */
+		return TRUE;
 	}
 
 	/**
@@ -238,15 +265,19 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 */
 		$this->usrData['grp_name'] = 'Guests';
 		/**
-		 * User country.
+		 * Default visitor country.
 		 * 
-		 * This is the default application country from configuration file.
+		 * Try to guess it for the visitor's ip.
+		 * The called method takes care to set it to application default when no match is found.
 		 */
-		$this->usrData['vc'] = _APP_VC;
+		$this->usrData['vc'] = $this->extGeo->getVisitorCountry();
 		/**
-		 * User default language.
+		 * Default user language.
+		 * 
+		 * Try to guess it for the visitor's (guessed) country.
+		 * The called method takes care to set it to application default when no match is found.
 		 */
-		$this->usrData['ln'] = _APP_LN;
+		$this->usrData['ln'] = $this->extGeo->getLangByCountry($this->usrData['vc']);
 		/**
 		 * Skin directory.
 		 */
