@@ -90,11 +90,19 @@ $extAbout['Users']['deps']['ext'] = array('Session', 'Geo');
 class rw_Extension_Users extends rw_Extension implements rw_iExtension
 {
 	/**
+	 * Database library object.
+	 *
+	 * @var mixed
+	 */
+	protected $rwDb;
+
+	/**
 	 * Geo extension object.
 	 *
 	 * @var mixed
 	 */
-	private $extGeo;
+	protected $extGeo;
+
 	/**
 	 * User data.
 	 *
@@ -111,7 +119,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 *
 	 * @var array
 	 */
-	private $loginData = array();
+	protected $loginData = array();
 
 	/**
 	 * Constructor.
@@ -125,27 +133,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Call parent constructor.
 		 */
 		parent::__construct($extAbout);
-	}
-
-	/**
-	 * Set geo extension object.
-	 *
-	 * Geo extension object is passed by reference.
-	 *
-	 * @param mixed $extGeo geo extension object
-	 * @return mixed result.
-	 */
-	public function setGeo(&$extGeo)
-	{
-		/**
-		 * Set Geo extension object.
-		 *
-		 */
-		$this->extGeo = $extGeo;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
 	}
 
 	/**
@@ -266,14 +253,14 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		$this->usrData['grp_name'] = 'Guests';
 		/**
 		 * Default visitor country.
-		 * 
+		 *
 		 * Try to guess it for the visitor's ip.
 		 * The called method takes care to set it to application default when no match is found.
 		 */
 		$this->usrData['vc'] = $this->extGeo->getVisitorCountry();
 		/**
 		 * Default user language.
-		 * 
+		 *
 		 * Try to guess it for the visitor's (guessed) country.
 		 * The called method takes care to set it to application default when no match is found.
 		 */
@@ -330,27 +317,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Set session user data.
 		 */
 		$_SESSION[_APP_PRE.'_usr'] = $this->usrData;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
-	 * Set login data.
-	 *
-	 * Login data is used to perform variois checks
-	 * at login time.
-	 *
-	 * @param array $loginData login data
-	 * @return mixed result
-	 */
-	public function setLoginData($loginData)
-	{
-		/**
-		 * Set login data.
-		 */
-		$this->loginData = $loginData;
 		/**
 		 * Return result.
 		 */
@@ -886,6 +852,31 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return TRUE;
+	}
+
+	/**
+	 * Get user id from email address.
+	 *
+	 * Useful for checking if an email address is already registered.
+	 * Returns the corresponding user id or 0 if no match is found.
+	 *
+	 * @param string $email email address to check.
+	 * @return mixed result
+	 */
+	public function getIdFromEmail($email)
+	{
+		/**
+		 * Get matching user id.
+		 */
+		$r = $this->rwCore->rwDb->dbSelect('usr_id', _APP_PRE.'_usr_user', "usr_mail = '{$email}'", NULL, 1);
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Return user id or 0 if no match.
+		 */
+		return ($t > 0) ? $r->dbFetchResult() : 0;
 	}
 }
 ?>

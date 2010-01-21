@@ -428,7 +428,7 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		/**
 		 * Set error messages list.
 		 */
-		$this->extForms->setErrorMessages($this->rwCore->rwGetLang('MOD', 'ERR'));
+		$this->extForms->setValue('errMsgs', $this->rwCore->rwGetLang('MOD', 'ERR'));
 		/**
 		 * Set work data.
 		 *
@@ -532,8 +532,10 @@ class rw_Module_modUsers extends rw_Module implements rw_iModule
 		$loginData['login_time'] = $this->rwCore->rwDb->dbNow();
 		/**
 		 * Add login data to Users extension.
+		 *
+		 * Login data is used to perform various checks at login time.
 		 */
-		$this->extUsers->setLoginData($loginData);
+		$this->extUsers->setValue('loginData', $loginData);
 		/**
 		 * Return result.
 		 */

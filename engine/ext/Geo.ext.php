@@ -90,11 +90,18 @@ $extAbout['Geo']['deps']['ext'] = array();
 class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 {
 	/**
+	 * Database library object.
+	 *
+	 * @var mixed
+	 */
+	protected $rwDb;
+
+	/**
 	 * Current language iso.
 	 *
 	 * @var string
 	 */
-	private $ln;
+	protected $ln;
 
 	/**
 	 * Constructor.
@@ -332,23 +339,6 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		return $ln;
 	}
 
-	/**
-	 * Set current language iso.
-	 *
-	 * @param string $ln language iso
-	 * @return mixed result
-	 */
-	public function setLn($ln)
-	{
-		/**
-		 * Set current language iso.
-		 */
-		$this->ln = $ln;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
 	/**
 	 * Set core and application translation list.
 	 *

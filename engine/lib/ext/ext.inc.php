@@ -73,13 +73,6 @@ class rw_Extension
 	 * @var array $extAbout
 	 */
 	protected $extAbout = array();
-	
-	/**
-	 * Database object.
-	 *
-	 * @var mixed
-	 */
-	protected $rwDb;
 
 	/**
 	 * Constructor.
@@ -115,21 +108,36 @@ class rw_Extension
 	}
 
 	/**
-	 * Set database library object.
+	 * Set object value.
 	 *
-	 * Database library object is passed by reference.
-	 * Useful for query statistics.
+	 * Object is passed by reference.
 	 *
-	 * @param mixed $rwDb database library object
-	 * @return mixed result.
+	 * @param string $p object name
+	 * @param mixed $value object
+	 * @return mixed result
 	 */
-	public function setDb(&$rwDb)
+	public function setObj($p, &$obj)
 	{
 		/**
-		 * Set database library object.
-		 *
+		 * Check if the requested property exists.
 		 */
-		$this->rwDb = $rwDb;
+		if(property_exists($this, $p))
+		{
+			/**
+			 * Set the object.
+			 */
+			$this->$p = $obj;
+		}
+		/**
+		 * Requested property doesn't exist.
+		 */
+		else
+		{
+			/**
+			 * Display error message.
+			 */
+			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+		}
 		/**
 		 * Return result.
 		 */
@@ -139,8 +147,8 @@ class rw_Extension
 	/**
 	 * Set property value.
 	 *
-	 * @param sting $p property name
-	 * @param mixed $value prperty value
+	 * @param string $p property name
+	 * @param mixed $value property value
 	 * @return mixed result
 	 */
 	public function setValue($p, $value)
@@ -155,6 +163,9 @@ class rw_Extension
 			 */
 			$this->$p = $value;
 		}
+		/**
+		 * Requested property doesn't exist.
+		 */
 		else
 		{
 			/**

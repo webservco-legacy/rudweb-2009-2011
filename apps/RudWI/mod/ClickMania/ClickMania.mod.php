@@ -474,7 +474,7 @@ class rw_Module_ClickMania extends rw_Module implements rw_iModule
 		/**
 		 * Set error messages list.
 		 */
-		$this->extForms->setErrorMessages($this->rwCore->rwGetLang('MOD', 'TICKET_ERR'));
+		$this->extForms->setValue('errMsgs', $this->rwCore->rwGetLang('MOD', 'TICKET_ERR'));
 		/**
 		 * Filter and validate form data.
 		 */

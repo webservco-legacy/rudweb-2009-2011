@@ -92,9 +92,11 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	/**
 	 * Security library object.
 	 *
+	 * This must be set before main extension functionality is called.
+	 *
 	 * @var mixed
 	 */
-	private $rwSec = NULL;
+	protected $rwSec = NULL;
 
 	/**
 	 * Localized error messages.
@@ -103,7 +105,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 *
 	 * @var array
 	 */
-	private $errMsgs = array();
+	protected $errMsgs = array();
 
 	/**
 	 * Work data.
@@ -148,28 +150,6 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		 * Call parent constructor.
 		 */
 		parent::__construct($extAbout);
-	}
-
-	/**
-	 * Set security library object.
-	 *
-	 * This must be called before main extension functionality.
-	 * Security library object is passed by reference.
-	 *
-	 * @param mixed $rwSec security library object
-	 * @return unknown_type
-	 */
-	public function setSec(&$rwSec)
-	{
-		/**
-		 * Set security library object.
-		 *
-		 */
-		$this->rwSec = $rwSec;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
 	}
 
 	/**
@@ -409,6 +389,11 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		return (preg_match($match, $data)) ? TRUE : FALSE;
 	}
 
+	public function rwUniqueEmail($data)
+	{
+
+	}
+
 	/**
 	 * Valid password check.
 	 *
@@ -544,24 +529,6 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return str_replace('$required$', $required, str_replace('$label$', $label, $errorMessage));
-	}
-
-	/**
-	 * Set error messages list.
-	 *
-	 * @param array $errMsgs list of error messages
-	 * @return mixed result
-	 */
-	public function setErrorMessages($errMsgs)
-	{
-		/**
-		 * Set error messages list.
-		 */
-		$this->errMsgs = $errMsgs;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
 	}
 
 	/**
