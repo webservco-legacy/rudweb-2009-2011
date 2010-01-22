@@ -450,7 +450,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Set user hash form data sent throught login form.
 		 */
-		$usrHash = $this->_userHash($this->loginData['login_mail'], $pass);
+		$usrHash = $this->getUserHash($this->loginData['login_mail'], $pass);
 		/**
 		 * Set user login condition.
 		 */
@@ -518,7 +518,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 * @param string $pass user password
 	 * @return string user hash
 	 */
-	private function _userHash($login, $pass)
+	public function getUserHash($login, $pass)
 	{
 		/**
 		 * Set salt.
@@ -528,6 +528,30 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Return user hash.
 		 */
 		return $salt.sha1($salt.$pass);
+	}
+
+	/**
+	 * Set validation hash.
+	 *
+	 * This method generates an unique hash for user validation.
+	 *
+	 * The hash is based on the validation type.
+	 *
+	 * @param string $login user login
+	 * @param integer $validation validation type.
+	 *
+	 * @return string validation hash.
+	 */
+	public function getValidationHash($login, $validation)
+	{
+		/**
+		 * Set salt.
+		 */
+		$salt = strrev(substr(sha1($validation), 1, 10));
+		/**
+		 * Return user hash.
+		 */
+		return $salt.sha1($salt.$login);
 	}
 
 	/**
@@ -868,7 +892,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Get matching user id.
 		 */
-		$r = $this->rwCore->rwDb->dbSelect('usr_id', _APP_PRE.'_usr_user', "usr_mail = '{$email}'", NULL, 1);
+		$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_usr_user', "usr_mail = '{$email}'", NULL, 1);
 		/**
 		 * Count results.
 		 */

@@ -195,7 +195,7 @@ class rw_Extension
 			/**
 			 * Set property value.
 			 */
-			$this->setvalue($p, $vaue);
+			$this->setvalue($p, $value);
 		}
 		/**
 		 * Return result.
