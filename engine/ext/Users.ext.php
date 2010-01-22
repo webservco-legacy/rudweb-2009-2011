@@ -547,11 +547,11 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Set salt.
 		 */
-		$salt = strrev(substr(sha1($validation), 1, 10));
+		$salt = strrev(substr(sha1($validation), 1, 9));
 		/**
-		 * Return user hash.
+		 * Return validation hash.
 		 */
-		return $salt.sha1($salt.$login);
+		return $validation.$salt.sha1($salt.$login);
 	}
 
 	/**
