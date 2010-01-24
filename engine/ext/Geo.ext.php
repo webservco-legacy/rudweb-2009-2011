@@ -288,7 +288,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Get languages based country.
+	 * Get languages based on country.
 	 *
 	 * Try to return a list of starting with the main language.
 	 * If no match is found, the default aplication language is returned.
@@ -320,6 +320,9 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 			 */
 			while($l = $r->dbFetchArray())
 			{
+				/**
+				 * Add language to list.
+				 */
 				$ln[]=$l['lang_iso'];
 			}
 		}
@@ -337,6 +340,48 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return $ln;
+	}
+
+	/**
+	 * Get zone list based on country.
+	 *
+	 * @param string $country_iso two letter country iso
+	 * @return array zone list
+	 */
+	public function getZonesByCountry($country_iso)
+	{
+		/**
+		 * Initialize zones list.
+		 */
+		$zones = array();
+		/**
+		 * Get matching zones from database.
+		 */
+		$r = $this->rwDb->dbSelect('zone_id, zone_name', _APP_PRE.'_geo_zone', "country_iso = '{$country_iso}'", 'zone_name');
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Check if we have any results.
+		 */
+		if($t > 0)
+		{
+			/**
+			 * Iterate through the results.
+			 */
+			while($z = $r->dbFetchArray())
+			{
+				/**
+				 * Add zone to list.
+				 */
+				$zones[$z['zone_id']] = $z['zone_name'];
+			}
+		}
+		/**
+		 * Return result.
+		 */
+		return $zones;
 	}
 
 	/**

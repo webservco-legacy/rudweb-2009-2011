@@ -507,6 +507,24 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	}
 
 	/**
+	 * Numeric check.
+	 *
+	 * Form validation method.
+	 *
+	 * @param mixed $data form data to check
+	 * @return mixed result
+	 */
+	public function rwNum($data)
+	{
+		/**
+		 * Check if data is numeric.
+		 *
+		 * Return result.
+		 */
+		return (is_numeric($data)) ? TRUE : FALSE;
+	}
+
+	/**
 	 * Parse error mesage.
 	 *
 	 * @param string $rule rule (method) for which to display error message.
