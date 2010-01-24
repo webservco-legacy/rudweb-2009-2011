@@ -317,7 +317,7 @@ class rw_Security
 	/**
 	 * Strip all tags.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripTags($input)
@@ -331,7 +331,7 @@ class rw_Security
 	/**
 	 * Strip php code.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripPhp($input)
@@ -345,7 +345,7 @@ class rw_Security
 	/**
 	 * Strip Smarty varaibles.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripSmartyVars($input)
@@ -359,7 +359,7 @@ class rw_Security
 	/**
 	 * Strip Smarty code.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripSmartyCode($input)
@@ -373,7 +373,7 @@ class rw_Security
 	/**
 	 * Strip scripting code.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripScript($input)
@@ -387,7 +387,7 @@ class rw_Security
 	/**
 	 * Strip HTML comments.
 	 *
-	 * @param string $input
+	 * @param string $input input
 	 * @return string filtered input
 	 */
 	public function rwStripHTMLComments($input)
@@ -396,6 +396,24 @@ class rw_Security
 		 * Return result.
 		 */
 		return preg_replace('/<!--(.|\s)*?-->/', '', $input);
+	}
+
+	/**
+	 * Strip newlines.
+	 *
+	 * Both HTML and ASCII.
+	 * Replace with space by default.
+	 *
+	 * @param string $input input
+	 * @param string $replace newline replacement
+	 * @return string filtered input
+	 */
+	public function rwRemoveNewLines($input, $replace=' ')
+	{
+		/**
+		 * Return result.
+		 */
+		return str_replace(array('\r\n', '\r', '\n', '<br>', '<br />'), $replace, $input);
 	}
 }
 ?>
