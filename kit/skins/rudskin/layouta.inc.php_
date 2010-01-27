@@ -1,0 +1,100 @@
+<?php
+/**
+ * $Id$
+ *
+ * $URL$
+ * <BR>No description
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @copyright  Copyright (c) 2009, Radu Maier
+ * @license    http://opensource.org/licenses/gpl-3.0.html
+ * @version    $Revision$
+ * @access     public
+ * @package    RudWEb-1.0
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+./skins/rudskin/layouta.inc.php
+09:34 2008-04-21
+*/
+if(!defined('_RUDWEB_PUBFIL')) {require_once '../../lib/404.php';}
+?>
+<DIV ID="container">
+  <DIV CLASS="header">
+  <?php genUserMod();?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php genLangMod(); ?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php createMenu('mm', 0, 1); ?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php createMenu('mm', 1, 1); ?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php createMenu('mm', 2, 1); ?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php createMenu('mm', 3, 1); ?>
+  </DIV>
+  <DIV CLASS="header">
+  <?php createMenu('mm', 4, 1); ?>
+  </DIV>
+  
+  <DIV CLASS="header">
+  <?php showProducts(); ?>
+  <?php showCart(); ?>
+  </DIV>
+  
+  <DIV ID="leftnav">
+  <?php showContentPics(); ?>
+  </DIV>
+  
+  <DIV ID="rightnav">
+  <?php showFeatured(); ?>
+  </DIV>
+  <DIV ID="content">
+  <?php youAreHere(); ?>
+  <?php showContent($rudweb_mnu_id, $rudweb_req_page, $rudweb_cnt_type); ?>
+  </DIV>
+  
+  <DIV CLASS="header">
+  <?php adminMenu(); ?>
+  <?php //createMenu('adm', 0, 1); ?>
+   
+  <BR>
+  <?php //createMenu('adm', 1, 1); ?>
+  </DIV>
+  
+  <DIV ID="footer">
+    <?php genCopyright(); ?>
+    <?php showStats(5, "unique"); ?>
+    &#160;
+    <?php showStats(5, "total"); ?>
+    &#160;
+    <?php showStats(5, "online"); ?>
+  </DIV>
+</DIV>
+<?php
+debugOutput("SESSION");
+debugOutput("REQUEST");
+debugOutput("GET");
+debugOutput("POST");
+debugOutput("FILES");
+//debugOutput("SERVER");
+//debugOutput("CONSTANTS");
+//debugOutput("PHPINI");
+?>
+<?php pageLoadTime(); ?>
