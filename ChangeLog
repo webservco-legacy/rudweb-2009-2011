@@ -1,0 +1,38 @@
+$Id$
+$Date$
+$Revision$
+$Author$
+$URL$
+
+0.8.080630
+- replaced 01_Digit font with Vera Mono for captchas
+- also used Vera Mono for the "about" page
+- added contact module
+- fixed multiple languages error (only en/ro/it worked)
+- dropped first name/ last name as default contact fields
+0.7.080527
+- upgraded fckeditor to version 2.6 stable
+- changed engine structure to use only "index.php" for all content ("admin.php" was used for the administration pages)
+- improved SEO URLs to remove 'index.php' if Apache mod_rewrite is enabled
+- added "about" page rudweb.php
+- added option to upload multiple pictures at once to catalog products
+0.6.080429
+- added comments module
+- fixed some security issues in the admin/show part
+0.5.080426
+- added tags module (todo: administration)
+- decided to make the code phpDocumentor Friendly (not implemented yet)
+- more work at the shop module (administration part)
+- cleaned up skin structure a bit
+0.4.080405
+- changed themes to skins
+- some work at the shop module
+- reset date in all files to 12:50 2008-04-05
+0.3.080325
+- separated modules for easier administration
+- added user signup module (still needs a lot of work)
+0.2.080312
+- integrated fckeditor instead of openwysiwyg
+- changed the name to RudWEB: "Rudimentary Website Engine BETA" or "Rudimentary Website Engine with BUGS" :-)
+0.1
+- initial work
