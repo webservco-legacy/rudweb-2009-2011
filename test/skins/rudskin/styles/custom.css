@@ -1,0 +1,103 @@
+/*
+./skins/rudskin/styles/custom.css
+11:18 2008-04-18
+*/
+/* ********** ********** ********** CUSTOM ********** ********** ********** */
+DIV.vcentered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 20px;
+  margin-left: -125px; /* half of width */
+  margin-top: -10px;  /* half of height */
+  text-align: center;
+}
+#container {
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  width: 90%;
+  /*height: 100%;*/
+  margin: auto;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: <?php echo $rudweb_skin['FontSize'].$rudweb_skin['Measure']; ?>;
+  line-height: 130%;
+  cursor: default;
+  /*overflow:hidden;*/
+}
+.header {
+  margin: 2px auto;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: 1em;
+  line-height: 130%;
+  cursor: default;
+}
+
+#leftnav {
+  float: left;
+  width: 160px;
+  margin: 0px;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: 1em;
+  line-height: 130%;
+  cursor: default;
+  position:relative;
+}
+#rightnav {
+  float: right;
+  width: 160px;
+  margin: 0px;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: 1em;
+  line-height: 130%;
+  cursor: default;
+}
+#content {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 164px;
+  margin-right: 164px;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: <?php echo $rudweb_skin['TextAlign']; ?>;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: 1em;
+  line-height: 130%;
+  cursor: default;
+}
+#footer {
+  clear: both;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-align: center;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: 1em;
+  line-height: 130%;
+  cursor: default;
+}
+TR.lst_prd_hdr {
+  background-color: <?php echo $rudweb_skin['Color2']; ?>;
+  font-weight: bold;
+}
+TR.lst_prd_prd {
+  background-color: <?php echo $rudweb_skin['Color1']; ?>
+}
+DIV.adm_mod {
+  text-align: center; 
+}
+/* ********** ********** ********** //CUSTOM ********** ********** ********** */

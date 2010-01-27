@@ -1,0 +1,625 @@
+/*
+./skins/thskin/styles/default.css
+19:03 2008-06-01
+*/
+/* ********** ********** ********** DEFAULT ********** ********** ********** */
+HTML, BODY {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  margin: 0;
+  padding: 0;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: <?php echo $rudweb_skin['FontSize']; ?><?php echo $rudweb_skin['Measure']; ?>;
+  height: 100%;
+}
+/* get more control */
+FORM {display: inline; margin: 0px; padding: 0px;}
+P {margin: 0 0 0 0; }
+H1 {margin: 0 0 0 0; line-height: 130%; font-size: 1.3em;}
+H2 {margin: 0 0 0 0; line-height: 130%; font-size: 1.2em;}
+.hidden { /* hidden divs */
+  display: none;
+}
+.err { /* error messages */ 
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontErrColor']; ?>;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 100%;
+  cursor: text;
+}
+.ok { /* ok messages */
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 100%;
+  cursor: text;
+}
+.title {
+  /*width: 100%;*/
+  /*height: 20px;*/
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 100%;
+  padding-top: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-bottom: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-left: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-right: 5<?php echo $rudweb_skin['Measure']; ?>;
+  cursor: text;
+}
+.subtitle {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 100%;
+  cursor: text;
+}
+.text {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  line-height: 130%;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: default;
+}
+.textadm {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  line-height: 130%;
+  padding-left: 10px;
+  cursor: text;
+}
+.imgupload {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  line-height: 100%;
+  cursor: text;
+}
+.chk {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  line-height: 100%;
+  cursor: default;
+}
+.usr_td {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  line-height: 100%;
+  padding: 5px 0px 0px 0px;
+  cursor: default;
+}
+.usr_login {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100%;
+  padding: 5px 5px 5px 5px;
+  cursor: text;
+}
+.logininput {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: <?php echo $rudweb_skin['FontSize']; ?><?php echo $rudweb_skin['Measure']; ?>;
+  line-height: 100%;
+  border-top: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-right: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-bottom: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-left: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  cursor: text;
+}
+.loginsubmit {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  font-family: <?php echo $rudweb_skin['FontFamily']; ?>;
+  font-size: <?php echo $rudweb_skin['FontSize']; ?><?php echo $rudweb_skin['Measure']; ?>;
+  line-height: 100%;
+  border-top: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-right: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-bottom: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-left: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  cursor: pointer;
+}
+.forminput {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  line-height: 100%;
+  border-top: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-right: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-bottom: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-left: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  padding-bottom: 1px;
+  cursor: default;
+}
+.formsubmit {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
+  line-height: 100%;
+  border-top: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-right: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-bottom: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  border-left: 1px solid <?php echo $rudweb_skin['FontColor']; ?>;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
+  cursor: pointer;
+}
+/* ********** ********** ********** //DEFAULT ********** ********** ********** */
+/* ********** ********** ********** DEFAULT 2  ********** ********** ********** */
+A.default:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.default:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.default:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+SPAN.link_default {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.mm-mnu_0:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.mm-mnu_0:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.mm-mnu_0:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+SPAN.mm-mnu_lnk_0 {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  cursor: default;
+}
+A.mm-mnu_1:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.mm-mnu_1:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.mm-mnu_1:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+SPAN.mm-mnu_lnk_1 {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  cursor: default;
+}
+A.oth-mnu_0:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.oth-mnu_0:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.oth-mnu_0:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+SPAN.oth-mnu_lnk_0 {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  cursor: default;
+}
+IMG {
+  padding: 0px;
+  border: 0px;
+}
+A.copylink:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.copylink:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.copylink:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.ftrlink:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.ftrlink:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.ftrlink:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+/* ********** ********** ********** //DEFAULT 2 ********** ********** ********** */
+A.categ:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+  font-size: <?php echo $rudweb_skin['FontSize']+3; ?><?php echo $rudweb_skin['Measure']; ?>;
+}
+A.categ:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+  font-size: <?php echo $rudweb_skin['FontSize']+3; ?><?php echo $rudweb_skin['Measure']; ?>;
+}
+A.categ:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  font-size: <?php echo $rudweb_skin['FontSize']+3; ?><?php echo $rudweb_skin['Measure']; ?>;
+}
+A.prdlnk:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.prdlnk:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.prdlnk:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.news:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: underline;
+}
+A.news:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: underline;
+}
+A.news:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* ********** ********** ********** LIGHTBOX ********** ********** ********** */
+#lightbox{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+	line-height: 0;
+	}
+
+#lightbox a img{ border: none; }
+
+#outerImageContainer{
+	position: relative;
+	background-color: #333333; /*background */
+	width: 250px;
+	height: 250px;
+	margin: 0 auto;
+	}
+
+#imageContainer{
+	padding: 10px;
+	}
+
+#loading{
+	position: absolute;
+	top: 40%;
+	left: 0%;
+	height: 25%;
+	width: 100%;
+	text-align: center;
+	line-height: 0;
+	}
+#hoverNav{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	}
+#imageContainer>#hoverNav{ left: 0;}
+#hoverNav a{ outline: none;}
+
+#prevLink, #nextLink{
+	width: 49%;
+	height: 100%;
+	background: transparent url(<?php echo _RUDWEB_SKIN_URL . $_SESSION[_RUDWEB_PRE.'usr_skin_dir']?>/graphics/blank.gif) no-repeat; /* Trick IE into showing hover */
+	display: block;
+	}
+#prevLink { left: 0; float: left;}
+#nextLink { right: 0; float: right;}
+#prevLink:hover, #prevLink:visited:hover { background: url(<?php echo _RUDWEB_SKIN_URL . $_SESSION[_RUDWEB_PRE.'usr_skin_dir']?>/graphics/prev.gif) left 15% no-repeat; }
+#nextLink:hover, #nextLink:visited:hover { background: url(<?php echo _RUDWEB_SKIN_URL . $_SESSION[_RUDWEB_PRE.'usr_skin_dir']?>/graphics/next.gif) right 15% no-repeat; }
+
+
+#imageDataContainer{
+	font: 10px Verdana, Helvetica, sans-serif;
+	background-color: #333333; /* text+close */
+	margin: 0 auto;
+	line-height: 1.4em;
+	overflow: auto;
+	width: 100%	
+	}
+
+#imageData{	padding:0 10px; color: #FFFFFF; } /*text color*/
+#imageData #imageDetails{ width: 70%; float: left; text-align: <?php echo $rudweb_skin['TextAlign']; ?>; }	
+#imageData #caption{ font-weight: bold;	}
+#imageData #numberDisplay{ display: block; clear: left; padding-bottom: 1.0em;	}			
+#imageData #bottomNavClose{ width: 66px; float: right;  padding-bottom: 0.7em;	}	
+		
+#overlay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 500px;
+	background-color: #333333; /*main background*/
+	}
+/* ********** ********** ********** //LIGHTBOX ********** ********** ********** */
+A.adm-mnu:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.adm-mnu:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+A.adm-mnu:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+SPAN.adm-mnu {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  cursor: default;
+}
+A.csplink:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.csplink:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+}
+A.csplink:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+}
+SPAN.tag {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  cursor: pointer;
+}
+A.title:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 100%;
+  padding-top: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-bottom: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-left: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-right: 5<?php echo $rudweb_skin['Measure']; ?>;
+}
+A.title:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: underline;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 100%;
+  padding-top: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-bottom: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-left: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-right: 5<?php echo $rudweb_skin['Measure']; ?>;
+}
+A.title:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  text-decoration: none;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 100%;
+  padding-top: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-bottom: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-left: 5<?php echo $rudweb_skin['Measure']; ?>;
+  padding-right: 5<?php echo $rudweb_skin['Measure']; ?>;
+}
+A.catsort:link {
+  background-color: <?php echo $rudweb_skin['Color2']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['BgColor']; ?>;
+  font-weight: bold;
+  text-decoration: underline;
+}
+A.catsort:visited {
+  background-color: <?php echo $rudweb_skin['Color2']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['BgColor']; ?>;
+  font-weight: bold;
+  text-decoration: underline;
+}
+A.catsort:hover {
+  background-color: <?php echo $rudweb_skin['Color2']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['BgColor']; ?>;
+  font-weight: bold;
+  text-decoration: none;
+}
+IMG {
+  margin: 0px;
+}
+A.logout:link {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: none;
+}
+A.logout:visited {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: none;
+}
+A.logout:hover {
+  background-color: <?php echo $rudweb_skin['BgColor']; ?>;
+  background: transparent;
+  color: <?php echo $rudweb_skin['FontColor']; ?>;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.cnt_adm_txt1 {
+  width: 25%;
+  text-align: right;
+}
+.cnt_adm_txt2 {
+  width: 75%;
+  text-align: left;
+}
