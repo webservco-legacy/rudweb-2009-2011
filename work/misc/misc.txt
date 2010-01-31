@@ -1,1 +1,2 @@
-* "index" is a reserved word for module name.
+* "index" is a reserved word for module names.
+* "index" is also a reserved word for route names.
