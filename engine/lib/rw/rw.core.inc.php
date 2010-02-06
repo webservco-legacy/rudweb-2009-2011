@@ -465,8 +465,12 @@ class rw_Core
 		require_once($modFile);
 		/**
 		 * Set module information.
+		 *
+		 * This is required and also a little tricky
+		 * because of the way we handle errors
+		 * (trying to display them nicely using a custom error module).
 		 */
-		$this->modAbout = (is_array($this->modAbout)) ? $this->modAbout : $modAbout;
+		$this->modAbout = (is_array($this->modAbout) && array_key_exists($mod, $this->modAbout)) ? $this->modAbout : $modAbout;
 		/**
 		 * Check library dependencies.
 		 */

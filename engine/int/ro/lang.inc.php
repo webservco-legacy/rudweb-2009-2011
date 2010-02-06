@@ -67,20 +67,20 @@ $langCore['ERROR']['Database']['DEBUG']              = 'Debug. Query: <b>%0%</b>
 $langCore['ERROR']['Database']['QUERY']              = 'Eroare Query: <b>%0%</b> <b>%1%</b>';
 
 $langCore['ERROR']['Engine']['NO_LIB_1']             = 'Biblioteca solicitat&#259; <b>%0%</b> nu exist&#259;.';
-$langCore['ERROR']['Engine']['NO_LIB_2']             = 'Biblioteca solicitat&#259; <b>%0%</b> nu exist&#259; sau nu este accesibil&#259; pentru &#238;c&#259;rcare.';
+$langCore['ERROR']['Engine']['NO_LIB_2']             = 'Biblioteca solicitat&#259; <b>%0%</b> nu exist&#259; sau nu este accesibil&#259; pentru &#238;nc&#259;rcare.';
 $langCore['ERROR']['Engine']['NO_EXT']               = 'Extensia <b>%0%</b> nu a fost g&#259;sit&#259;.';
 $langCore['ERROR']['Engine']['LIB_OUTPUT_DISPLAY']   = 'Datele de ie&#351;ire nu pot fi afi&#351;ate. Biblioteca <b>Output</b> nu este &#238;nc&#259;rcat&#259;.';
 $langCore['ERROR']['Engine']['LIB_OUTPUT_PARSE']     = 'Datele de ie&#351;ire nu pot fi parsate. Biblioteca <b>Output</b> nu este &#238;nc&#259;rcat&#259;.';
 
-$langCore['ERROR']['Extension']['NO_LIB_DEP']        = 'Extensia <b>%0%</b> nu poate fi &#238;c&#259;rcat&#259;. Lipsesc dependin&#355;e de bibliotec&#259; (<b>%1%</b>).';
-$langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extensia <b>%0%</b> nu poate fi &#238;c&#259;rcat&#259;. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';
-$langCore['ERROR']['Extension']['SET_PROPERTY']      = 'S-a &#238;cercat stabilirea unei propriet&#259;&#355;i ce nu exist&#259; sau nu este disponibil&#259;.';
+$langCore['ERROR']['Extension']['NO_LIB_DEP']        = 'Extensia <b>%0%</b> nu poate fi &#238;nc&#259;rcat&#259;. Lipsesc dependin&#355;e de bibliotec&#259; (<b>%1%</b>).';
+$langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extensia <b>%0%</b> nu poate fi &#238;nc&#259;rcat&#259;. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';
+$langCore['ERROR']['Extension']['SET_PROPERTY']      = 'S-a &#238;ncercat stabilirea unei propriet&#259;&#355;i ce nu exist&#259; sau nu este disponibil&#259;.';
 $langCore['ERROR']['Extension']['MAIL_INFO']         = 'Mesajul email nu a putut fi trimis. Nu sunt destule informa&#355;ii.';
 
-$langCore['ERROR']['Module']['NO_FILE']              = 'Modulul <b>%0%</b> nu poate fi &#238;c&#259;rcat. Fi&#351;ierul nu a fost g&#259;sit.';
-$langCore['ERROR']['Module']['NO_LIB_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;c&#259;rcat. Lipsesc dependin&#355;e de bibliotec&#259; (<b>%1%</b>).';
-$langCore['ERROR']['Module']['NO_EXT_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;c&#259;rcat. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';
-$langCore['ERROR']['Module']['NO_MOD_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;c&#259;rcat. Lipsesc dependin&#355;e de modul (<b>%1%</b>).';
+$langCore['ERROR']['Module']['NO_FILE']              = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Fi&#351;ierul nu a fost g&#259;sit.';
+$langCore['ERROR']['Module']['NO_LIB_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Lipsesc dependin&#355;e de bibliotec&#259; (<b>%1%</b>).';
+$langCore['ERROR']['Module']['NO_EXT_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';
+$langCore['ERROR']['Module']['NO_MOD_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Lipsesc dependin&#355;e de modul (<b>%1%</b>).';
 $langCore['ERROR']['Module']['NO_ACT']               = 'Opera&#355;ia specificat&#259; nu este valid&#259;.';
 $langCore['ERROR']['Module']['NO_ACT_FOUND']         = 'Opera&#355;ia specificat&#259; nu a fost g&#259;sit&#259;.';
 
