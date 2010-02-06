@@ -463,24 +463,27 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		/**
 		 * Split the query.
 		 *
-		 * XXX Not sure wether to use this.
+		 * !!!Not used.
+		 *
+		 * $q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
 		 */
-		//$q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
 		/**
-		* Split the query and add it to the array.
-		*
-		* XXX Not sure wether to use this.
-		*/
-		//$r = array_merge($r, $q);
+		 * Split the query and add it to the array.
+		 *
+		 * !!!Not used.
+		 *
+		 * $r = array_merge($r, $q);
+		 */
 		/**
-		* Remove the query from the array.
-		*
-		* XXX Not sure wether to use this.
-		*/
-		//$r = array_diff_key($r, array('query' => ''));
+		 * Remove the query from the array.
+		 *
+		 * !!!Not used.
+		 *
+		 * $r = array_diff_key($r, array('query' => ''));
+		 */
 		/**
-		* Re-initialize $_GET array.
-		*/
+		 * Re-initialize $_GET array.
+		 */
 		$this->_initRequest();
 		/**
 		 * Create new $_GET array.
