@@ -78,7 +78,7 @@ else
 	/**
 	 * Show error message.
 	 */
-	trigger_error('Output::Output engine Smarty not found.', 256);
+	trigger_error('Output:::NO_SMARTY', 256);
 }
 
 /**

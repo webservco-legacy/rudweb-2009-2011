@@ -114,6 +114,13 @@ class rw_Core
 	private $rwLang = array();
 
 	/**
+	 * Current module information.
+	 *
+	 * @var mixed
+	 */
+	private $modAbout = NULL;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @return mixed result
@@ -170,13 +177,9 @@ class rw_Core
 				if($this->_rwLoadedLib($libObj))
 				{
 					/**
-					 * Show error message.
+					 * Do not load the library again, just return result.
 					 */
-					trigger_error('Library::Library <b>'.$lib.'</b> is already loaded.', 256);
-					/**
-					 * Stop execution.
-					 */
-					exit;
+					return TRUE;
 				}
 				/**
 				 * Load library class.
@@ -220,7 +223,7 @@ class rw_Core
 						/**
 						 * Database type is not supported.
 						 */
-						trigger_error('Database::Database type <b>' . _APP_DB_TYPE . '</b> not supported.', 256);
+						trigger_error('Database:::TYPE_NOT_SUPPORTED:::' . _APP_DB_TYPE, 256);
 						/**
 						 * Stop execution.
 						 */
@@ -270,7 +273,7 @@ class rw_Core
 				/**
 				 * Show error message.
 				 */
-				trigger_error('Engine::Requested library <b>'.$lib.'</b> does not exist.', 256);
+				trigger_error('Engine:::NO_LIB_1:::'.$lib, 256);
 			}
 		}
 		/**
@@ -281,7 +284,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Engine::Requested library <b>'.$lib.'</b> does not exist or is not loadable.', 256);
+			trigger_error('Engine:::NO_LIB_2:::'.$lib, 256);
 		}
 	}
 
@@ -303,13 +306,9 @@ class rw_Core
 		if($this->rwLoadedExt($ext))
 		{
 			/**
-			 * Show error message.
+			 * Do not load extension again, just return result.
 			 */
-			trigger_error('Extension::Extension <b>'.$ext.'</b> is already loaded.', 256);
-			/**
-			 * Stop execution.
-			 */
-			exit;
+			return TRUE;
 		}
 		/**
 		 * Load extension library.
@@ -343,7 +342,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Engine::Extension <b>'.$ext.'</b> not found.');
+			trigger_error('Engine:::NO_EXT:::'.$ext, 256);
 		}
 		/**
 		 * Check library dependencies.
@@ -361,7 +360,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Extension::Extension <b>'.$ext.'</b> can not be loaded. Missing library dependencies (<b>'.$missingDeps.'</b>)', 256);
+			trigger_error('Extension:::NO_LIB_DEP:::'.$ext.':::'.$missingDeps, 256);
 		}
 		/**
 		 * Check extension dependencies.
@@ -379,7 +378,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Extension::Extension <b>'.$ext.'</b> can not be loaded. Missing extension dependencies (<b>'.$missingDeps.'</b>)', 256);
+			trigger_error('Extension:::NO_EXT_DEP:::'.$ext.':::'.$missingDeps, 256);
 		}
 		/**
 		 * Set extension class name.
@@ -415,6 +414,26 @@ class rw_Core
 		 */
 		$act = $_GET['action'];
 		/**
+		 * Initialize module.
+		 */
+		$this->rwInitModule($mod, $act);
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Initialize module.
+	 *
+	 * @param string $mod module name
+	 * @param string $act action
+	 * @param string $req request
+	 * @return mixed result
+	 */
+	public function rwInitModule($mod, $act, $req=NULL)
+	{
+		/**
 		 * Module path.
 		 */
 		$modPath = _APP_MOD_DIR.$mod.'/';
@@ -430,7 +449,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. File not found.', 256);
+			trigger_error('Module:::NO_FILE:::'.$mod, 256);
 			/**
 			 * Stop execution.
 			 */
@@ -445,9 +464,13 @@ class rw_Core
 		 */
 		require_once($modFile);
 		/**
+		 * Set module information.
+		 */
+		$this->modAbout = (is_array($this->modAbout)) ? $this->modAbout : $modAbout;
+		/**
 		 * Check library dependencies.
 		 */
-		$missingLibDeps = $this->_rwDepLib($modAbout[$mod]['deps']['lib']);
+		$missingLibDeps = $this->_rwDepLib($this->modAbout[$mod]['deps']['lib']);
 		/**
 		 * Check missing dependencies.
 		 */
@@ -460,12 +483,12 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. Missing library dependencies (<b>'.$missingDeps.'</b>)', 256);
+			trigger_error('Module:::NO_LIB_DEP:::'.$mod.':::'.$missingDeps, 256);
 		}
 		/**
 		 * Check extension dependencies.
 		 */
-		$missingExtDeps = $this->_rwDepExt($modAbout[$mod]['deps']['ext']);
+		$missingExtDeps = $this->_rwDepExt($this->modAbout[$mod]['deps']['ext']);
 		/**
 		 * Check missing dependencies.
 		 */
@@ -478,12 +501,12 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. Missing extension dependencies (<b>'.$missingDeps.'</b>)', 256);
+			trigger_error('Module:::NO_EXT_DEP:::'.$mod.':::'.$missingDeps, 256);
 		}
 		/**
 		 * Check module dependencies.
 		 */
-		$missingModDeps = $this->_rwDepMod($modAbout[$mod]['deps']['mod']);
+		$missingModDeps = $this->_rwDepMod($this->modAbout[$mod]['deps']['mod']);
 		/**
 		 * Check missing dependencies.
 		 */
@@ -496,7 +519,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Module <b>'.$mod.'</b> can not be loaded. Missing module dependencies (<b>'.$missingDeps.'</b>)', 256);
+			trigger_error('Module:::NO_MOD_DEP:::'.$mod.':::'.$missingDeps, 256);
 		}
 		/**
 		 * Check if geo extension is loaded.
@@ -519,7 +542,7 @@ class rw_Core
 		 * Filtering is already done at this point,
 		 * so we can pass $_GET['query'] directly.
 		 */
-		$modObj = new $modClass($modAbout[$mod], $this, $_GET['location'], $_GET['query']);
+		$modObj = new $modClass($this->modAbout[$mod], $this, $_GET['location'], $_GET['query']);
 		/**
 		 * Check if action is a reserved method.
 		 *
@@ -533,7 +556,7 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Specified action is not valid.', 256);
+			trigger_error('Module:::NO_ACT', 256);
 		}
 		/**
 		 * Check if action really exists and is callable.
@@ -543,18 +566,18 @@ class rw_Core
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Module::Specified action was not found', 256);
+			trigger_error('Module:::NO_ACT_FOUND', 256);
 		}
 		/**
-		 * $_GET is not needed from now,
-		 * on so we unset it for security reasons.
+		 * $_GET is not needed from now on,
+		 * so we unset it for security reasons.
 		 */
 		$_GET = array();
 		/**
 		 * If we got so far, everything must be ok.
 		 * Call requested action.
 		 */
-		$modObj->$act();
+		$modObj->$act($req);
 		/**
 		 * Return result.
 		 */

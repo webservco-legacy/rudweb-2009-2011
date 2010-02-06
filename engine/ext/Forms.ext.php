@@ -560,7 +560,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * @param string $fieldValidation form field validation rules string
 	 * @return mixed result
 	 */
-	public function setWorkData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation, $fieldDefaultValue=NULL)
+	public function setWorkData($fieldName, $fieldTitle, $fieldFilters, $fieldValidation=NULL, $fieldDefaultValue=NULL)
 	{
 		/**
 		 * Set work data.

@@ -247,7 +247,7 @@ class rw_Output
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Output::Can not load specified output engine. File not found.', 256);
+			trigger_error('Output:::NO_ENGINE', 256);
 		}
 		/**
 		 * Load output engine file.

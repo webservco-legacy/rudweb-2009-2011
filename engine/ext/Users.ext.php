@@ -104,6 +104,13 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	protected $extGeo;
 
 	/**
+	 * Routing extension object.
+	 *
+	 * @var mixed
+	 */
+	protected $extRouting;
+
+	/**
 	 * User data.
 	 *
 	 * This is used to populate the session array.
@@ -244,13 +251,9 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 */
 		$this->usrData['grp'] = 0;
 		/**
-		 * User alias.
-		 */
-		$this->usrData['name'] = 'Guest';
-		/**
 		 * User group name.
 		 */
-		$this->usrData['grp_name'] = 'Guests';
+		$this->usrData['grp_title'] = 'Guests';
 		/**
 		 * Default visitor country.
 		 *
@@ -428,7 +431,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Count the number of failed login attempts in the last 10 minutes.
 		 */
-		$r = $this->rwDb->dbSelect('COUNT(usr_id)', 'app_var_login', $cond , NULL, NULL);
+		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond , NULL, NULL);
 		/**
 		 * Return result.
 		 */
@@ -462,13 +465,13 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Set user not deleted condition.
 		 */
-		$cond[] = "usr_deleted = '0'";
+		$cond[] = "usr_status != '3'";
 		/**
 		 * Run query.
 		 *
 		 * Get all data for the user that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_usr', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_user', $cond, NULL, 1);
 		/**
 		 * Return result.
 		 */
@@ -495,13 +498,13 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Set group not deleted condition.
 		 */
-		$cond[] = "grp_deleted = '0'";
+		$cond[] = "grp_status != '3'";
 		/**
 		 * Run query.
 		 *
 		 * Get all data from the group that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_grp', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_group', $cond, NULL, 1);
 		/**
 		 * Return result.
 		 */
@@ -605,7 +608,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Run query.
 		 *
-		 * Delete online activity data for user.
+		 * Delete login attempts for user.
 		 */
 		$this->rwDb->dbDelete(_APP_PRE.'_var_login', $cond, NULL, NULL);
 		/**
@@ -622,54 +625,55 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 *
 	 * @param string $location location
 	 * @param string $request request
+	 * @param boolean $guest whether to record guest activity
 	 * @return mixed result
 	 */
-	public function recordOnline($location=NULL, $request=NULL)
+	public function recordOnline($location=NULL, $request=NULL, $guest=FALSE)
 	{
 		/**
 		 * Check if we have an authenticated user.
 		 *
 		 * Only if this is true do we record the data.
 		 */
-		if ($_SESSION[_APP_PRE.'_usr']['auth'])
+		if ($_SESSION[_APP_PRE.'_usr']['auth'] || FALSE !== $guest)
 		{
 			/**
 			 * Set user id.
 			 */
-			$onlineData['usr_id'] = $_SESSION[_APP_PRE.'_usr']['id'];
+			$logData['usr_id'] = $_SESSION[_APP_PRE.'_usr']['id'];
 			/**
 			 * Set location.
 			 */
-			$onlineData['online_location'] = $location;
+			$logData['log_location'] = $location;
 			/**
 			 * Set request.
 			 */
-			$onlineData['online_request'] = $request;
+			$logData['log_request'] = $request;
 			/**
-			 * Set IP.
+			 * Set IP to it's numeric value.
 			 */
-			$onlineData['online_ip'] = $_SERVER['REMOTE_ADDR'];
+			$logData['log_ip'] = ip2long($_SERVER['REMOTE_ADDR']);
 			/**
 			 * Set user agent.
 			 */
-			$onlineData['online_agent'] = $_SERVER['HTTP_USER_AGENT'];
+			$logData['log_agent'] = $_SERVER['HTTP_USER_AGENT'];
 			/**
 			 * Set activity date and time.
 			 */
-			$onlineData['online_time'] = $this->rwDb->dbNow();
+			$logData['log_time'] = $this->rwDb->dbNow();
 			/**
 			 * Run query.
 			 *
 			 * Insert data to database.
 			 */
-			$this->rwDb->dbInsert(_APP_PRE.'_var_online', NULL , $onlineData);
+			$this->rwDb->dbInsert(_APP_PRE.'_var_log', NULL , $logData);
 			/**
 			 * Return result.
 			 */
 			return TRUE;
 		}
 		/**
-		 * No user authenticated.
+		 * No user authenticated, or guest logging disabled.
 		 *
 		 * Return result.
 		 */
@@ -694,7 +698,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Delete online activity data for user.
 		 */
-		$this->rwDb->dbDelete(_APP_PRE.'_var_online', $cond, NULL, NULL);
+		$this->rwDb->dbDelete(_APP_PRE.'_var_log', $cond, NULL, NULL);
 		/**
 		 * Return result.
 		 */
@@ -724,15 +728,15 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * User must have had activity in the last 10 minutes.
 		 */
-		$cond[] = "online_time > '{$this->rwDb->dbNowMinAgo(10)}'";
+		$cond[] = "log_time > '{$this->rwDb->dbNowMinAgo(10)}'";
 		/**
 		 * Run query.
 		 *
-		 * Get ip adress of user, it the user is online.
+		 * Get ip adress of user, if the user is online.
 		 */
-		$r = $this->rwDb->dbSelect('online_ip', _APP_PRE.'_var_online', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('log_ip', _APP_PRE.'_var_log', $cond, NULL, 1);
 		/**
-		 * Return IP address of user if user is online, FALSE otherwise.
+		 * Return IP address (numeric value) of user if user is online, FALSE otherwise.
 		 *
 		 * Return result.
 		 */
@@ -776,13 +780,9 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 */
 		$this->usrData['grp'] = $groupData['grp_id'];
 		/**
-		 * User alias.
-		 */
-		$this->usrData['name'] = $userData['usr_name'];
-		/**
 		 * User group name.
 		 */
-		$this->usrData['grp_name'] = $groupData['grp_name'];
+		$this->usrData['grp_title'] = $groupData['grp_title'];
 		/**
 		 * User country.
 		 *
@@ -792,7 +792,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * User language.
 		 */
-		$this->usrData['ln'] = $userData['usr_ln'];
+		$this->usrData['ln'] = $userData['usr_lang'];
 		/**
 		 * Skin directory.
 		 */
@@ -901,6 +901,188 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Return user id or 0 if no match.
 		 */
 		return ($t > 0) ? $r->dbFetchResult() : 0;
+	}
+
+	/**
+	 * Check user credentials.
+	 *
+	 * This method takes a credential from the user session
+	 * and checks it against a required value.
+	 *
+	 * @param string $cr credential to check
+	 * @param string $type comparision type
+	 * @param mixed $req required value
+	 * @param string $msg error message to redirect to
+	 * @return mixed result
+	 */
+	public function checkCredentials($cr, $type, $req, $redact)
+	{
+		/**
+		 * Check what comparision type we got.
+		 */
+		switch($type)
+		{
+			/**
+			 * Equal.
+			 */
+			case 'eq' : {
+				/**
+				 * Check if credential is equal to required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] == $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Identical.
+			 */
+			case 'id' : {
+				/**
+				 * Check if credential is identical with required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] === $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Not equal.
+			 */
+			case 'ne' : {
+				/**
+				 * Check if credential is no equal to required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] != $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Not identical.
+			 */
+			case 'ni' : {
+				/**
+				 * Check if credential is not identical to required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] !== $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Less than.
+			 */
+			case 'lt' : {
+				/**
+				 * Check if credential is less than required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] < $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Greater than.
+			 */
+			case 'gt' : {
+				/**
+				 * Check if credential is greater than required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] > $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Less than or equal to.
+			 */
+			case 'le' : {
+				/**
+				 * Check if credential is less than or equal to required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] <= $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Greater than or equal to.
+			 */
+			case 'ge' : {
+				/**
+				 * Check if credential is greater than or equal to required.
+				 */
+				if($_SESSION[_APP_PRE.'_usr'][$cr] >= $req)
+				{
+					/**
+					 * Return result.
+					 */
+					return TRUE;
+				}
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+		}
+		/**
+		 * Credential checking did not pass, so we redirect to requested error message.
+		 */
+		$this->extRouting->rwRedirect($redact);
+		/**
+		 * Return result.
+		 */
+		return FALSE;
 	}
 }
 ?>

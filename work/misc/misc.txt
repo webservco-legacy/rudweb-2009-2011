@@ -1,2 +1,3 @@
 * "index" is a reserved word for module names.
 * "index" is also a reserved word for route names.
+* "rwExts['Misc']->rwSprintf()" is based on comments by jaimthorn at yahoo dot com @ http://php.net/manual/en/function.sprintf.php;

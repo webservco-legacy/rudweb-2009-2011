@@ -235,13 +235,13 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		 */
 		$vc = 'ZZ';
 		/**
-		 * Set visitor IP Address.
+		 * Set visitor IP Address to it's numeric value.
 		 */
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = ip2long($_SERVER['REMOTE_ADDR']);
 		/**
 		 * Get country iso from IP database.
 		 */
-		$r = $this->rwDb->dbSelect('country_iso', _APP_PRE.'_geo_ip', "INET_ATON('{$ip}') BETWEEN ip_start AND ip_end", NULL, 1);
+		$r = $this->rwDb->dbSelect('country_iso', _APP_PRE.'_geo_ip', "{$ip} BETWEEN ip_start AND ip_end", NULL, 1);
 		/**
 		 * Count results.
 		 */

@@ -90,7 +90,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Database::Could not connect to Database Server.<br />Please check your connection settings.', 256);
+			trigger_error('Database:::COULD_NOT_CONNECT.', 256);
 		}
 		/**
 		 * If we can't open database.
@@ -100,7 +100,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Database::Could not open Database <b>'.$this->dbName.'</b>.<br />Please check that the specified database exists and that you have enough privileges to access it.', 256);
+			trigger_error('Database:::COULD_NOT_OPEN:::'.$this->dbName, 256);
 		}
 		/**
 		 * Set connection.
@@ -156,7 +156,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			/**
 			 * Show query as error message.
 			 */
-			trigger_error('Database::Debug - Query: '.$sql);
+			trigger_error('Database:::DEBUG:::'.$sql);
 		}
 		/**
 		 * Record start time if stats enabled.
@@ -172,9 +172,9 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		if(!$result)
 		{
 			/**
-			 * Show error message/
+			 * Show error message.
 			 */
-			trigger_error('Database::'.mysql_error().' ('.mysql_errno().')', 256);
+			trigger_error('Database:::QUERY:::'.mysql_error().':::'.mysql_errno(), 256);
 		}
 		/**
 		 * Record end time if stats enabled.

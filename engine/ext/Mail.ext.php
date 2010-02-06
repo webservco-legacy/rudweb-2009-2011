@@ -328,7 +328,7 @@ class rw_Extension_Mail extends rw_Extension implements rw_iExtension
 			/**
 			 * Display error message.
 			 */
-			trigger_error('Extension::Mail Can not send email. Not enough info.', 256);
+			trigger_error('Extension:::MAIL_INFO', 256);
 		}
 		/**
 		 * Return result.

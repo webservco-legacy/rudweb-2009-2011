@@ -167,7 +167,7 @@ class rw_Module
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Engine::Can not display output. Output library not loaded.', 256);
+			trigger_error('Engine:::LIB_OUTPUT_DISPLAY', 256);
 		}
 		/**
 		 * Call output function with outDisplay set to TRUE.
@@ -194,7 +194,7 @@ class rw_Module
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Engine::Can not parse output. Output library not loaded.', 256);
+			trigger_error('Engine:::LIB_OUTPUT_PARSE', 256);
 		}
 		/**
 		 * Call output function with outDisplay set to TRUE.

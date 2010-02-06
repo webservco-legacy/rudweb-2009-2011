@@ -136,7 +136,7 @@ class rw_Extension
 			/**
 			 * Display error message.
 			 */
-			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+			trigger_error('Extension:::SET_PROPERTY', 256);
 		}
 		/**
 		 * Return result.
@@ -171,7 +171,7 @@ class rw_Extension
 			/**
 			 * Display error message.
 			 */
-			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+			trigger_error('Extension:::SET_PROPERTY', 256);
 		}
 		/**
 		 * Return result.

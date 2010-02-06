@@ -587,5 +587,28 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		exit;
 	}
+
+	/**
+	 * Parse and check redirect action.
+	 *
+	 * Get base64_encoded string and return redirect action.
+	 * If decoded action if not valid, the default 'index' action is returned.
+	 *
+	 * @param string $s encoded action string
+	 * @return mixed result
+	 */
+	public function rwRedirectAction($s)
+	{
+		/**
+		 * Decode action string.
+		 */
+		$act = base64_decode($s);
+		/**
+		 * Check if we have a valid action.
+		 *
+		 * Return decoded action, or NULL if no valid action.
+		 */
+		return preg_match("/^[a-zA-Z0-9\/\-\_]+$/", $act) ? $act : 'index';
+	}
 }
 ?>
