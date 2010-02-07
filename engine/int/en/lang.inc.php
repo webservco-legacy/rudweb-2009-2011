@@ -85,6 +85,6 @@ $langCore['ERROR']['Module']['NO_ACT']               = 'Specified action is not 
 $langCore['ERROR']['Module']['NO_ACT_FOUND']         = 'Specified action was not found.';
 
 $langCore['ERROR']['Output']['NO_ENGINE']            = 'Can not load specified output engine. File not found.';
-$langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Template file not found.';
+$langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Template file <b>%0%</b> not found.';
 $langCore['ERROR']['Output']['NO_SMARTY']            = 'Library for output engine <b>Smarty</b> not found.';
 ?>

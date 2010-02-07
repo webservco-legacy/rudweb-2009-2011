@@ -120,7 +120,7 @@ class rw_Output_RudWEb implements rw_iOutput
 			/**
 			 * Show error message.
 			 */
-			trigger_error('Output:::NO_TEMPLATE', 256);
+			trigger_error('Output:::NO_TEMPLATE:::'.$outTemplate, 256);
 		}
 		/**
 		 * Turn on output buffering.

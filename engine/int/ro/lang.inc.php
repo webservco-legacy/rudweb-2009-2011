@@ -85,6 +85,6 @@ $langCore['ERROR']['Module']['NO_ACT']               = 'Opera&#355;ia specificat
 $langCore['ERROR']['Module']['NO_ACT_FOUND']         = 'Opera&#355;ia specificat&#259; nu a fost g&#259;sit&#259;.';
 
 $langCore['ERROR']['Output']['NO_ENGINE']            = 'Motorul de ie&#351;ire a datelor specificat nu poate fi &#238;nc&#259;rcat. Fi&#351;ierul nu a fost g&#259;sit.';
-$langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Fi&#351;ierul &#351;ablon nu a fost g&#259;sit.';
+$langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Fi&#351;ierul &#351;ablon <b>%0%</b> nu a fost g&#259;sit.';
 $langCore['ERROR']['Output']['NO_SMARTY']            = 'Biblioteca pentru motorul de ie&#351;ire a datelor <b>Smarty</b> nu a fost g&#259;sit&#259;.';
 ?>
