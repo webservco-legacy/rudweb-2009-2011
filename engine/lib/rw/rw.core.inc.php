@@ -121,6 +121,20 @@ class rw_Core
 	private $modAbout = NULL;
 
 	/**
+	 * Current module location.
+	 *
+	 * @var mixed
+	 */
+	private $modLocation = NULL;
+
+	/**
+	 * Current module request string.
+	 *
+	 * @var mixed
+	 */
+	private $modRequest = NULL;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @return mixed result
@@ -472,6 +486,22 @@ class rw_Core
 		 */
 		$this->modAbout = (is_array($this->modAbout) && array_key_exists($mod, $this->modAbout)) ? $this->modAbout : $modAbout;
 		/**
+		 * Set module location.
+		 *
+		 * This is required and also a little tricky
+		 * because of the way we handle errors
+		 * (trying to display them nicely using a custom error module).
+		 */
+		$this->modLocation = (is_array($_GET) && array_key_exists('location', $_GET)) ? $_GET['location'] : $this->modLocation;
+		/**
+		 * XXXSet module request.
+		 *
+		 * This is required and also a little tricky
+		 * because of the way we handle errors
+		 * (trying to display them nicely using a custom error module).
+		 */
+		$this->modRequest = (is_array($_GET) && array_key_exists('query', $_GET)) ? $_GET['query'] : $this->modRequest;
+		/**
 		 * Check library dependencies.
 		 */
 		$missingLibDeps = $this->_rwDepLib($this->modAbout[$mod]['deps']['lib']);
@@ -540,13 +570,13 @@ class rw_Core
 		 */
 		$modClass = 'rw_Module_'.$mod;
 		/**
-		 * Load module.
+		 * XXX Load module.
 		 *
 		 * Needs about array, core object, location string and request query string.
 		 * Filtering is already done at this point,
 		 * so we can pass $_GET['query'] directly.
 		 */
-		$modObj = new $modClass($this->modAbout[$mod], $this, $_GET['location'], $_GET['query']);
+		$modObj = new $modClass($this->modAbout[$mod], $this, $this->modLocation, $this->modRequest);
 		/**
 		 * Check if action is a reserved method.
 		 *
