@@ -831,7 +831,7 @@ class rw_Core
 				/**
 				 * Check if module exists.
 				 */
-				if (!is_readable(_APP_MOD_DIR.$dep.'/'.$dep.'.mod.php'))
+				if (!is_readable(_APP_MOD_DIR.$dep.'.mod.php'))
 				{
 					/**
 					 * Add to missing dependency list.
