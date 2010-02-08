@@ -77,6 +77,8 @@ $langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extensia <b>%0%</b> nu p
 $langCore['ERROR']['Extension']['SET_PROPERTY']      = 'S-a &#238;ncercat stabilirea unei propriet&#259;&#355;i ce nu exist&#259; sau nu este disponibil&#259;.';
 $langCore['ERROR']['Extension']['MAIL_INFO']         = 'Mesajul email nu a putut fi trimis. Nu sunt destule informa&#355;ii.';
 
+$langCore['ERROR']['Section']['NO_DIR']              = 'Sec&#355;iunea <b>%0%</b> nu poate fi &#238;nc&#259;rcat&#259;. Directorul nu a fost g&#259;sit.';
+
 $langCore['ERROR']['Module']['NO_FILE']              = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Fi&#351;ierul nu a fost g&#259;sit.';
 $langCore['ERROR']['Module']['NO_LIB_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Lipsesc dependin&#355;e de bibliotec&#259; (<b>%1%</b>).';
 $langCore['ERROR']['Module']['NO_EXT_DEP']           = 'Modulul <b>%0%</b> nu poate fi &#238;nc&#259;rcat. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';

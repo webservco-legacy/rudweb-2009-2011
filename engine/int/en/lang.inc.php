@@ -77,6 +77,8 @@ $langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extension <b>%0%</b> can
 $langCore['ERROR']['Extension']['SET_PROPERTY']      = 'Tried to set a property that does not exist or is not accessible.';
 $langCore['ERROR']['Extension']['MAIL_INFO']         = 'Could not send email. Not enough info.';
 
+$langCore['ERROR']['Section']['NO_DIR']              = 'Section <b>%0%</b> can not be loaded. Directory not found.';
+
 $langCore['ERROR']['Module']['NO_FILE']              = 'Module <b>%0%</b> can not be loaded. File not found.';
 $langCore['ERROR']['Module']['NO_LIB_DEP']           = 'Module <b>%0%</b> can not be loaded. Missing library dependencies (<b>%1%</b>).';
 $langCore['ERROR']['Module']['NO_EXT_DEP']           = 'Module <b>%0%</b> can not be loaded. Missing extension dependencies (<b>%1%</b>).';

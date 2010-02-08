@@ -416,6 +416,12 @@ class rw_Core
 	public function rwLoadModule()
 	{
 		/**
+		 * Section name.
+		 *
+		 * Filtering is already done at this point.
+		 */
+		$sct = $_GET['section'];
+		/**
 		 * Module name.
 		 *
 		 * Filtering is already done at this point.
@@ -430,7 +436,7 @@ class rw_Core
 		/**
 		 * Initialize module.
 		 */
-		$this->rwInitModule($mod, $act);
+		$this->rwInitModule($sct, $mod, $act);
 		/**
 		 * Return result.
 		 */
@@ -440,17 +446,32 @@ class rw_Core
 	/**
 	 * Initialize module.
 	 *
+	 * @param string $sct section name
 	 * @param string $mod module name
 	 * @param string $act action
 	 * @param string $req request
 	 * @return mixed result
 	 */
-	public function rwInitModule($mod, $act, $req=NULL)
+	public function rwInitModule($sct, $mod, $act, $req=NULL)
 	{
 		/**
 		 * Module path.
 		 */
-		$modPath = _APP_MOD_DIR.$mod.'/';
+		$modPath = _APP_MOD_DIR.$sct.'/';
+		/**
+		 * Check if requested section exists.
+		 */
+		if (!is_readable($modPath))
+		{
+			/**
+			 * Show error message.
+			 */
+			trigger_error('Section:::NO_DIR:::'.$sct, 256);
+			/**
+			 * Stop execution.
+			 */
+			exit;
+		}
 		/**
 		 * Module file.
 		 */
@@ -494,7 +515,7 @@ class rw_Core
 		 */
 		$this->modLocation = (is_array($_GET) && array_key_exists('location', $_GET)) ? $_GET['location'] : $this->modLocation;
 		/**
-		 * XXXSet module request.
+		 * Set module request.
 		 *
 		 * This is required and also a little tricky
 		 * because of the way we handle errors
@@ -563,14 +584,14 @@ class rw_Core
 			/**
 			 * Add module translation list to main translation list.
 			 */
-			$this->rwAddLang($this->rwExts['Geo']->setLangMod($mod));
+			$this->rwAddLang($this->rwExts['Geo']->setLangMod($sct, $mod));
 		}
 		/**
 		 * Set module class name.
 		 */
 		$modClass = 'rw_Module_'.$mod;
 		/**
-		 * XXX Load module.
+		 * Load module.
 		 *
 		 * Needs about array, core object, location string and request query string.
 		 * Filtering is already done at this point,

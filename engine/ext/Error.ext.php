@@ -135,7 +135,7 @@ class rw_Extension_Error extends rw_Extension implements rw_iExtension
 		/**
 		 * Initialize error module and try to display message.
 		 */
-		$this->rwCore->rwInitModule('error', 'core', $err);
+		$this->rwCore->rwInitModule('error', 'core', 'index', $err);
 		/**
 		 * Return result.
 		 */

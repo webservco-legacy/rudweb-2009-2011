@@ -444,10 +444,11 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	/**
 	 * Set module translation list.
 	 *
+	 * @param string $sct section name
 	 * @param string $mod module name
 	 * @return mixed result
 	 */
-	public function setLangMod($mod)
+	public function setLangMod($sct, $mod)
 	{
 		/**
 		 * Init module translation list.
@@ -456,7 +457,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Set module language path.
 		 */
-		$langModPath = _APP_MOD_DIR.$mod.'/int/'.$this->ln.'/lang.inc.php';
+		$langModPath = _APP_MOD_DIR.$sct.'/int/'.$this->ln.'/'.$mod.'.inc.php';
 		/**
 		 * Check if application language file is readable.
 		 */

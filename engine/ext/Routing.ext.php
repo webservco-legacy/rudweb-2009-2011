@@ -151,9 +151,9 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		$this->request = $this->_getRequest();
 		/**
-		 * Set temporary location.
+		 * Set temporary location to current request.
 		 */
-		$this->location = $this->_getRequest();
+		$this->location = $this->request;
 		/**
 		 * Parse custom routes.
 		 */
@@ -429,25 +429,31 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		/**
 		 * Create list of keys.
 		 */
-		$k = array('module', 'action', 'query');
+		$k = array('section', 'module', 'action', 'query');
 		/**
 		 * Split request.
 		 */
-		$v = explode('/', $this->request, 3);
+		$v = explode('/', $this->request, 4);
 		/**
 		 * Check if request has enough elements.
 		 */
-		if (count($v) < 3)
+		if (count($v) < 4)
 		{
 			/**
 			 * Fill with blanks.
 			 */
-			$v = array_pad($v, 3, NULL);
+			$v = array_pad($v, 4, NULL);
 		}
 		/**
 		 * Create new request array.
 		 */
 		$r = array_combine($k, $v);
+		/**
+		 * Check for empty module.
+		 *
+		 * If empty set it to 'index'.
+		 */
+		$r['module'] = ($r['module']) ? $r['module'] : 'index';
 		/**
 		 * Check for empty action.
 		 *
@@ -460,27 +466,6 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 * This contains only the url route with the request query filtered out.
 		 */
 		$r['location'] = rtrim(str_replace($r['query'], '', $this->location), '/');
-		/**
-		 * Split the query.
-		 *
-		 * !!!Not used.
-		 *
-		 * $q = ($r['query']) ? explode('/',$r['query']) : array(NULL);
-		 */
-		/**
-		 * Split the query and add it to the array.
-		 *
-		 * !!!Not used.
-		 *
-		 * $r = array_merge($r, $q);
-		 */
-		/**
-		 * Remove the query from the array.
-		 *
-		 * !!!Not used.
-		 *
-		 * $r = array_diff_key($r, array('query' => ''));
-		 */
 		/**
 		 * Re-initialize $_GET array.
 		 */
