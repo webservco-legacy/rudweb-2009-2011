@@ -542,7 +542,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 *
 	 * @param string $login user login
 	 * @param integer $validation validation type.
-	 *
 	 * @return string validation hash.
 	 */
 	public function getValidationHash($login, $validation)
@@ -550,11 +549,156 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Set salt.
 		 */
-		$salt = strrev(substr(sha1($validation), 1, 9));
+		$salt = strrev(substr(sha1(date('Y-m-d H:i:s')), 1, 9));
 		/**
 		 * Return validation hash.
 		 */
 		return $validation.$salt.sha1($salt.$login);
+	}
+
+	/**
+	 * Check validation hash.
+	 *
+	 * The hash must be valid, of the required type, and not used before.
+	 * Return usr_id if hash is valid.
+	 * Redirect to error page otherwise.
+	 *
+	 * @param string $hash validation hash
+	 * @return mixed result
+	 */
+	public function checkValidationHash($hash=NULL)
+	{
+		/**
+		 * Check if we have a request.
+		 */
+		if($hash)
+		{
+			/**
+			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than 48h.
+			 */
+			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete = '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, 1);
+			/**
+			 * Check if we got a valid request.
+			 */
+			if($r->dbNumRows() > 0)
+			{
+				/**
+				 * Return usr_id.
+				 */
+				return $r->dbFetchResult();
+			}
+			/**
+			 * Key not valid.
+			 */
+			else
+			{
+				/**
+				 * Redirect to error page.
+				 */
+				return $this->extRouting->rwRedirect('error/app/validation/2');
+			}
+		}
+		/**
+		 * No key.
+		 */
+		else
+		{
+			/**
+			 * Redirect to error page.
+			 */
+			return $this->extRouting->rwRedirect('error/app/validation/1');
+		}
+	}
+
+	/**
+	 * Check completed validation hash.
+	 *
+	 * The hash must be valid, of the required type, and alreary completed.
+	 * Return usr_id if hash is valid.
+	 * Redirect to error page otherwise.
+	 *
+	 * @param string $hash validation hash
+	 * @return mixed result
+	 */
+	public function checkValidationHashComplete($hash=NULL)
+	{
+		/**
+		 * Check if we have a request.
+		 */
+		if($hash)
+		{
+			/**
+			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than 48h.
+			 */
+			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete != '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, 1);
+			/**
+			 * Check if we got a valid request.
+			 */
+			if($r->dbNumRows() > 0)
+			{
+				/**
+				 * Return usr_id.
+				 */
+				return $r->dbFetchResult();
+			}
+			/**
+			 * Key not valid.
+			 */
+			else
+			{
+				/**
+				 * Redirect to error page.
+				 */
+				return $this->extRouting->rwRedirect('error/app/validation/2');
+			}
+		}
+		/**
+		 * No key.
+		 */
+		else
+		{
+			/**
+			 * Redirect to error page.
+			 */
+			return $this->extRouting->rwRedirect('error/app/validation/1');
+		}
+	}
+
+	/**
+	 * Check validation hash type.
+	 *
+	 * The hash must be of the required type.
+	 * Return TRUE if hash is of required type.
+	 * Redirect to error page otherwise.
+	 *
+	 * Please note that the method doeas not check if hash is valid.
+	 *
+	 * @param string $hash validation hash
+	 * @param integer $type validation type
+	 * @return mixed result
+	 */
+	public function checkValidationHashType($hash=NULL, $type=0)
+	{
+		/**
+		 * Check if we have a request.
+		 */
+		if($hash)
+		{
+			/**
+			 * Check if validation key is of the matching type.
+			 */
+			return (substr($hash, 0,1) == $type) ? TRUE : $this->extRouting->rwRedirect('error/app/validation/2');
+		}
+		/**
+		 * No key.
+		 */
+		else
+		{
+			/**
+			 * Redirect to error page.
+			 */
+			return $this->extRouting->rwRedirect('error/app/validation/1');
+		}
 	}
 
 	/**
@@ -901,6 +1045,30 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Return user id or 0 if no match.
 		 */
 		return ($t > 0) ? $r->dbFetchResult() : 0;
+	}
+
+	/**
+	 * Get user email address from user email.
+	 *
+	 * Returns the corresponding email address or FALSE if no match is found.
+	 *
+	 * @param integer $id user id to check.
+	 * @return mixed result
+	 */
+	public function getEmailFromId($id)
+	{
+		/**
+		 * Get matching user id.
+		 */
+		$r = $this->rwDb->dbSelect('usr_mail', _APP_PRE.'_usr_user', "usr_id = '{$id}'", NULL, 1);
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Return email address or FALSE if no match.
+		 */
+		return ($t > 0) ? $r->dbFetchResult() : FALSE;
 	}
 
 	/**
