@@ -854,16 +854,14 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	/**
 	 * Check if a user is online.
 	 *
-	 * This method checks if a user has had any activity
-	 * in the last 10 minutes.
-	 * If so, it is considered that the user is online,
-	 * and the method returns the user's IP address.
-	 * Otherwise the method return FALSE.
+	 * This method checks the latest location a user has visited in the last 10 minutes.
+	 * If we get a result different than 'members/logout',
+	 * the user is considered to be online.
 	 *
 	 * @param integer $usr_id user id
-	 * @return mixed result.
+	 * @return boolean result.
 	 */
-	public function usrLoggedIn($usr_id)
+	public function usrOnline($usr_id)
 	{
 		/**
 		 * Set user id condition.
@@ -878,9 +876,30 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Run query.
 		 *
-		 * Get ip adress of user, if the user is online.
+		 * Get the last location the user visited in the last 10 minutes.
 		 */
-		$r = $this->rwDb->dbSelect('log_ip', _APP_PRE.'_var_log', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('log_location', _APP_PRE.'_var_log', $cond, 'log_time DESC', 1);
+		/**
+		 * Check if we have a result.
+		 */
+		if($r->dbNumRows() == 1)
+		{
+			/**
+			 * Check if the last location visited was the logout page. Return result.
+			 */
+			return ($r->dbFetchResult() != 'members/logout') ? TRUE : FALSE;
+		}
+		/**
+		 * No result.
+		 */
+		else
+		{
+			/**
+			 * Return result.
+			 */
+			return FALSE;
+		}
+
 		/**
 		 * Return IP address (numeric value) of user if user is online, FALSE otherwise.
 		 *
