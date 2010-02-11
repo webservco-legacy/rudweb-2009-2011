@@ -238,7 +238,7 @@ class rw_Output
 		/**
 		 * Set output engine class path.
 		 */
-		$outPath = _RW_LIB_DIR.'out/out.'.$outEngine.'.inc.php';
+		$outPath = _RW_LIB_DIR.'out/out.'.$outEngine.'.lib.php';
 		/**
 		 * Check if output engine file exists.
 		 */
