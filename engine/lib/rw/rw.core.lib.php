@@ -171,7 +171,7 @@ class rw_Core
 			/**
 			 * Set library path.
 			 */
-			$libPath = _RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.inc.php';
+			$libPath = _RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.lib.php';
 			/**
 			 * Check if library exists
 			 */
@@ -224,7 +224,7 @@ class rw_Core
 							/**
 							 * Load database interface.
 							 */
-							require_once(_RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.'._APP_DB_TYPE.'.inc.php');
+							require_once(_RW_LIB_DIR.$this->rwLibs[$lib].'/'.$this->rwLibs[$lib].'.'._APP_DB_TYPE.'.lib.php');
 							/**
 							 * Load object.
 							 */
@@ -327,7 +327,7 @@ class rw_Core
 		/**
 		 * Load extension library.
 		 */
-		require_once(_RW_LIB_DIR.'ext/ext.inc.php');
+		require_once(_RW_LIB_DIR.'ext/ext.lib.php');
 		/**
 		 * Search in local extension dir.
 		 */
@@ -493,7 +493,7 @@ class rw_Core
 		/**
 		 * Load module library.
 		 */
-		require_once(_RW_LIB_DIR.'mod/mod.inc.php');
+		require_once(_RW_LIB_DIR.'mod/mod.lib.php');
 		/**
 		 * Load module.
 		 */

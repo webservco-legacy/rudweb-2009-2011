@@ -398,7 +398,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Set core language path.
 		 */
-		$langCorePath = _RW_INT_DIR.$this->ln.'/lang.inc.php';
+		$langCorePath = _RW_INT_DIR.$this->ln.'/core.lng.php';
 		/**
 		 * Check if core language file is readable.
 		 */
@@ -420,7 +420,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Set application language path.
 		 */
-		$langAppPath = _APP_INT_DIR.$this->ln.'/lang.inc.php';
+		$langAppPath = _APP_INT_DIR.$this->ln.'/app.lng.php';
 		/**
 		 * Check if application language file is readable.
 		 */
@@ -457,7 +457,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Set module language path.
 		 */
-		$langModPath = _APP_MOD_DIR.$sct.'/int/'.$this->ln.'/'.$mod.'.inc.php';
+		$langModPath = _APP_MOD_DIR.$sct.'/int/'.$this->ln.'/'.$mod.'.lng.php';
 		/**
 		 * Check if application language file is readable.
 		 */
