@@ -327,11 +327,13 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Check failed login attempts.
+	 * Check maximum failed login attempts.
+	 * If there are more than 10 failed login attempts,
+	 * the method return TRUE. FALSE otherwise.
 	 *
-	 * @return mixed result
+	 * @return boolean result
 	 */
-	public function checkFailedLogins()
+	public function failedLoginsLimit()
 	{
 		/**
 		 * Get failed login attempts from the same IP.
@@ -344,21 +346,21 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Check failed login attempts to be no more than 10 in the last 10 minutes.
 		 */
-		if ($failedLoginsIp > 9 || $failedLoginsAccount > 9)
+		if ($failedLoginsIp >= 10 || $failedLoginsAccount >= 10)
 		{
 			/**
 			 * We have failed login attempts.
 			 *
 			 * Return result.
 			 */
-			return FALSE;
+			return TRUE;
 		}
 		/**
 		 * No failed login attempts.
 		 *
 		 * Return result.
 		 */
-		return TRUE;
+		return FALSE;
 	}
 
 	/**
@@ -737,32 +739,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Clear failed login attempts.
-	 *
-	 * This method deletes failed login attempts info from database.
-	 *
-	 * @param integer $usr_id user id
-	 * @return mixed result
-	 */
-	public function clearLogin($usr_id=0)
-	{
-		/**
-		 * Set user id condition.
-		 */
-		$cond = "usr_id = {$usr_id}";
-		/**
-		 * Run query.
-		 *
-		 * Delete login attempts for user.
-		 */
-		$this->rwDb->dbDelete(_APP_PRE.'_var_login', $cond, NULL, NULL);
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
-
-	/**
 	 * Record user activity.
 	 *
 	 * This method writes information in the database
@@ -823,32 +799,6 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return FALSE;
-	}
-
-	/**
-	 * Clear online user activity.
-	 *
-	 * This method deletes user activity info from database.
-	 *
-	 * @param integer $usr_id user id
-	 * @return mixed result
-	 */
-	public function clearLog($usr_id=0)
-	{
-		/**
-		 * Set user id condition.
-		 */
-		$cond = "usr_id = {$usr_id}";
-		/**
-		 * Run query.
-		 *
-		 * Delete online activity data for user.
-		 */
-		$this->rwDb->dbDelete(_APP_PRE.'_var_log', $cond, NULL, NULL);
-		/**
-		 * Return result.
-		 */
-		return TRUE;
 	}
 
 	/**
