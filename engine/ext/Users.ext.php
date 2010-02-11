@@ -741,14 +741,15 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 *
 	 * This method deletes failed login attempts info from database.
 	 *
+	 * @param integer $usr_id user id
 	 * @return mixed result
 	 */
-	public function clearLogin()
+	public function clearLogin($usr_id=0)
 	{
 		/**
 		 * Set user id condition.
 		 */
-		$cond = "usr_id = {$_SESSION[_APP_PRE.'_usr']['id']}";
+		$cond = "usr_id = {$usr_id}";
 		/**
 		 * Run query.
 		 *
@@ -775,7 +776,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	public function recordOnline($location=NULL, $request=NULL, $guest=FALSE)
 	{
 		/**
-		 * Check if we have an authenticated user.
+		 * Check if we have an authenticated user or if we shoul record guest activity.
 		 *
 		 * Only if this is true do we record the data.
 		 */
@@ -825,18 +826,19 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Clear online activity.
+	 * Clear online user activity.
 	 *
 	 * This method deletes user activity info from database.
 	 *
+	 * @param integer $usr_id user id
 	 * @return mixed result
 	 */
-	public function clearOnline()
+	public function clearLog($usr_id=0)
 	{
 		/**
 		 * Set user id condition.
 		 */
-		$cond = "usr_id = {$_SESSION[_APP_PRE.'_usr']['id']}";
+		$cond = "usr_id = {$usr_id}";
 		/**
 		 * Run query.
 		 *
