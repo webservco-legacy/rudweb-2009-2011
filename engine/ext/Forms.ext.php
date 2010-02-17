@@ -99,6 +99,13 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	protected $rwSec = NULL;
 
 	/**
+	 * Routing extension object.
+	 *
+	 * @var mixed
+	 */
+	protected $extFilesystem;
+
+	/**
 	 * Localized error messages.
 	 *
 	 * List of error messages usually from a language file.
@@ -232,6 +239,99 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return TRUE;
+	}
+
+	/**
+	 * Fix flash upload session bug.
+	 *
+	 * @return mixed result
+	 */
+	public function rwUploadFlashFix()
+	{
+		/**
+		 * Get session id.
+		 *
+		 * Check if we got it through post, otherwise is NULL.
+		 */
+		$sid = (isset($_POST[_APP_PRE.'_sid'])) ? $this->rwSec->rwStripTags($_POST[_APP_PRE.'_sid']) : NULL;
+		/**
+		 * Check if we have a session id.
+		 */
+		if($sid)
+		{
+			/**
+			 * Set session id.
+			 */
+			session_id($sid);
+		}
+		/**
+		 * Return result.
+		 */
+		return TRUE;
+	}
+
+	/**
+	 * Check uploaded file for errors
+	 *
+	 * @param string $file name of files array
+	 * @param array $types allowe file types
+	 * @return unknown_type
+	 */
+	public function rwUploadValidate($file, $types)
+	{
+		/**
+		 * Check if we have a valid upload.
+		 */
+		if(!isset($_FILES[$file]))
+		{
+			/**
+			 * Return result (no upload).
+			 */
+			return 10;
+		}
+		/**
+		 * POST Content-length PHP "bug" - set error message to monitor.
+		 */
+		$error = function_exists('error_get_last') ? error_get_last() : NULL;
+		/**
+		 * POST Content-length PHP "bug" - check if we got the error message.
+		 */
+		if(is_array($error) && (FALSE !== strpos($error['message'], 'POST Content-Length of')))
+		{
+			/**
+			 * Return result (file too large).
+			 */
+			return 13;
+		}
+		/**
+		 * Check if file is really uploaded.
+		 */
+		if(!is_uploaded_file($_FILES[$file]['tmp_name']))
+		{
+			/**
+			 * Return result (file not sent through upload form).
+			 */
+			return 11;
+		}
+		/**
+		 * Get file type.
+		 */
+		$mime = $this->extFilesystem->getFileMime($_FILES[$file]['tmp_name']);
+		/**
+		 * Check if file type is forbidden.
+		 */
+		if(!in_array($mime, $types))
+		{
+			/**
+			 * Return result (file type forbidden).
+			 */
+			return 12;
+		}
+		/**
+		 * At this point we should only have left the standard error codes.
+		 * So we just return the eror code.
+		 */
+		return $_FILES[$file]['error'];
 	}
 
 	/**

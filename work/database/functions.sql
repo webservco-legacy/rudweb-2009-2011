@@ -27,13 +27,20 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('date_default_timezone_set', '0.0', '5.1.0'),
 ('define', '4.0', '5.0'),
 ('defined', '4.0', '5.0'),
+('error_get_last', '0.0', '5.2.0'),
 ('error_reporting', '4.0', '5.0'),
+('exif_imagetype', '4.3.0', '5.0'),
 ('explode', '4.0', '5.0'),
 ('extract', '4.0', '5.0'),
+('finfo_close', '0.0', '5.3.0'),
+('finfo_file', '0.0', '5.3.0'),
+('finfo_open', '0.0', '5.3.0'),
 ('function_exists', '4.0', '5.0'),
 ('get_magic_quotes_gpc', '4.0', '5.0'),
 ('gmdate', '4.0', '5.0'),
 ('header', '4.0', '5.0'),
+('image_type_to_extension ', '0.0', '5.0'),
+('image_type_to_mime_type', '4.3.0', '5.0'),
 ('imagecolorallocate', '4.0', '5.0'),
 ('imagecreatetruecolor', '4.0.6', '5.0'),
 ('imagedestroy', '4.0', '5.0'),
@@ -46,12 +53,16 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('ip2long', '4.0', '5.0'),
 ('is_array', '4.0', '5.0'),
 ('is_callable', '4.0.6', '5.0'),
+('is_dir', '4.0', '5.0'),
 ('is_readable', '4.0', '5.0'),
+('is_uploaded_file', '4.0.3', '5.0'),
 ('isset', '4.0', '5.0'),
 ('long2ip', '4.0', '5.0'),
 ('ltrim', '4.1.0', '5.0'),
 ('method_exists', '4.0', '5.0'),
+('mime_content_type', '4.3.0', '5.0'),
 ('microtime', '4.0', '5.0'),
+('mkdir', '4.0', '5.0'),
 ('mysql_close', '4.0', '5.0'),
 ('mysql_connect', '4.0', '5.0'),
 ('mysql_fetch_array', '4.0', '5.0'),
@@ -105,6 +116,11 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 -- GD required
 -- mbstring highly recommended but not required
 -- PHP5 because of class constructors.
+-- upload error messages req min 4.2.0 (5.2.0 for all codes 1-8)
+-- mime_content_type is deprecated
+-- finfo_open for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
+-- finfo_close for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
+-- finfo_file for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
 
 -- total functions
 SELECT COUNT(DISTINCT(f_id)) FROM rudweb_work_functions;

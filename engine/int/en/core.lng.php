@@ -89,4 +89,23 @@ $langCore['ERROR']['Module']['NO_ACT_FOUND']         = 'Specified action was not
 $langCore['ERROR']['Output']['NO_ENGINE']            = 'Can not load specified output engine. File not found.';
 $langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Template file <b>%0%</b> not found.';
 $langCore['ERROR']['Output']['NO_SMARTY']            = 'Library for output engine <b>Smarty</b> not found.';
+
+$langCore['ERROR']['Upload'][0]                      = 'There is no error, the file uploaded with success.';
+$langCore['ERROR']['Upload'][1]                      = 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+$langCore['ERROR']['Upload'][2]                      = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+$langCore['ERROR']['Upload'][3]                      = 'The uploaded file was only partially uploaded.';
+$langCore['ERROR']['Upload'][4]                      = 'No file was uploaded.';
+$langCore['ERROR']['Upload'][5]                      = 'Unknown error.';
+$langCore['ERROR']['Upload'][6]                      = 'Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3.';
+$langCore['ERROR']['Upload'][7]                      = 'Failed to write file to disk. Introduced in PHP 5.1.0.';
+$langCore['ERROR']['Upload'][8]                      = 'File upload stopped by extension. Introduced in PHP 5.2.0.';
+$langCore['ERROR']['Upload'][9]                      = 'Unknown error.';
+$langCore['ERROR']['Upload'][10]                     = 'No file was uploaded.';
+$langCore['ERROR']['Upload'][11]                     = 'File was not sent by form.';
+$langCore['ERROR']['Upload'][12]                     = 'File type is not allowed.';
+$langCore['ERROR']['Upload'][13]                     = 'The uploaded files exceeds the maximum allowed size.';
+$langCore['ERROR']['Upload'][14]                     = 'Could not create user directory.';
+$langCore['ERROR']['Upload'][15]                     = 'Could not move uploaded file.';
+$langCore['ERROR']['Upload'][16]                     = 'Maximum number of files has been reached.';
+$langCore['ERROR']['Upload'][17]                     = 'The uploaded file already exists on the server.';
 ?>

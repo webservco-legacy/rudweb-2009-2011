@@ -89,4 +89,23 @@ $langCore['ERROR']['Module']['NO_ACT_FOUND']         = 'Opera&#355;ia specificat
 $langCore['ERROR']['Output']['NO_ENGINE']            = 'Motorul de ie&#351;ire a datelor specificat nu poate fi &#238;nc&#259;rcat. Fi&#351;ierul nu a fost g&#259;sit.';
 $langCore['ERROR']['Output']['NO_TEMPLATE']          = 'Fi&#351;ierul &#351;ablon <b>%0%</b> nu a fost g&#259;sit.';
 $langCore['ERROR']['Output']['NO_SMARTY']            = 'Biblioteca pentru motorul de ie&#351;ire a datelor <b>Smarty</b> nu a fost g&#259;sit&#259;.';
+
+$langCore['ERROR']['Upload'][0]                      = 'There is no error, the file uploaded with success.';
+$langCore['ERROR']['Upload'][1]                      = 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+$langCore['ERROR']['Upload'][2]                      = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+$langCore['ERROR']['Upload'][3]                      = 'The uploaded file was only partially uploaded.';
+$langCore['ERROR']['Upload'][4]                      = 'No file was uploaded.';
+$langCore['ERROR']['Upload'][5]                      = 'Eroare necunoscut&#259;.';
+$langCore['ERROR']['Upload'][6]                      = 'Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3.';
+$langCore['ERROR']['Upload'][7]                      = 'Failed to write file to disk. Introduced in PHP 5.1.0.';
+$langCore['ERROR']['Upload'][8]                      = 'File upload stopped by extension. Introduced in PHP 5.2.0.';
+$langCore['ERROR']['Upload'][9]                      = 'Eroare necunoscut&#259;.';
+$langCore['ERROR']['Upload'][10]                     = 'Nu a fost trimis nici un fi&#351;ier.';
+$langCore['ERROR']['Upload'][11]                     = 'Fi&#351;ierul nu a fost trimis prin formular.';
+$langCore['ERROR']['Upload'][12]                     = 'Tipul de fi&#351;ier nu este permis.';
+$langCore['ERROR']['Upload'][13]                     = 'Fi&#351;ierul trimis dep&#259;&#351;e&#351;te dimensiunea maxim&#259; admis&#259;.';
+$langCore['ERROR']['Upload'][14]                     = 'Eroare la crearea directorului utilizatorului.';
+$langCore['ERROR']['Upload'][15]                     = 'Eroare la mutarea fi&#351;ierului.';
+$langCore['ERROR']['Upload'][16]                     = 'Limita maxim&#259; de imagini a fost atins&#259;.';
+$langCore['ERROR']['Upload'][17]                     = 'Fi&#351;ierul trimis exist&#259; deja pe server.';
 ?>

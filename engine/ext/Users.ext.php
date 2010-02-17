@@ -433,7 +433,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Count the number of failed login attempts in the last 10 minutes.
 		 */
-		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond , NULL, NULL);
+		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond, NULL, NULL);
 		/**
 		 * Return result.
 		 */
@@ -473,7 +473,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Get all data for the user that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_user', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('usr_id, grp_id, usr_mail, usr_hash, usr_skin, usr_lang, usr_status', _APP_PRE.'_usr_user', $cond, NULL, 1);
 		/**
 		 * Return result.
 		 */
@@ -506,7 +506,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Get all data from the group that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('*', _APP_PRE.'_usr_group', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('grp_id, grp_lvl, grp_title, grp_dsc, grp_status', _APP_PRE.'_usr_group', $cond, NULL, 1);
 		/**
 		 * Return result.
 		 */
