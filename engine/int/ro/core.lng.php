@@ -76,6 +76,9 @@ $langCore['ERROR']['Extension']['NO_LIB_DEP']        = 'Extensia <b>%0%</b> nu p
 $langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extensia <b>%0%</b> nu poate fi &#238;nc&#259;rcat&#259;. Lipsesc dependin&#355;e de extensie (<b>%1%</b>).';
 $langCore['ERROR']['Extension']['SET_PROPERTY']      = 'S-a &#238;ncercat stabilirea unei propriet&#259;&#355;i ce nu exist&#259; sau nu este disponibil&#259;.';
 $langCore['ERROR']['Extension']['MAIL_INFO']         = 'Mesajul email nu a putut fi trimis. Nu sunt destule informa&#355;ii.';
+$langCore['ERROR']['Extension']['THUMB_NOFILE']      = 'Imaginea nu a putut fi procesat&#259;. Fi&#351;ierul nu a fost g&#259;sit.';
+$langCore['ERROR']['Extension']['THUMB_NODIR']       = 'Imaginea nu a putut fi procesat&#259;. Directorul de lucru nu a fost g&#259;sit sau nu poate fi creat.';
+$langCore['ERROR']['Extension']['THUMB_SOURCE_NS']   = 'Imaginea nu a putut fi procesat&#259;. Tipul de imagine nu este disponibil.';
 
 $langCore['ERROR']['Section']['NO_DIR']              = 'Sec&#355;iunea <b>%0%</b> nu poate fi &#238;nc&#259;rcat&#259;. Directorul nu a fost g&#259;sit.';
 

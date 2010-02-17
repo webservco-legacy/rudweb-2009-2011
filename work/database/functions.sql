@@ -35,16 +35,27 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('finfo_close', '0.0', '5.3.0'),
 ('finfo_file', '0.0', '5.3.0'),
 ('finfo_open', '0.0', '5.3.0'),
+('fopen', '4.0', '5.0'),
+('fwrite', '4.0', '5.0'),
+('fclose', '4.0', '5.0'),
 ('function_exists', '4.0', '5.0'),
 ('get_magic_quotes_gpc', '4.0', '5.0'),
+('getimagesize', '4.0', '5.0'),
 ('gmdate', '4.0', '5.0'),
 ('header', '4.0', '5.0'),
 ('image_type_to_extension ', '0.0', '5.0'),
 ('image_type_to_mime_type', '4.3.0', '5.0'),
 ('imagecolorallocate', '4.0', '5.0'),
+('imagecopyresampled', '4.0.6', '5.0'),
+('imagecreatefromgif', '4.0', '5.0'),
+('imagecreatefromjpeg', '4.0', '5.0'),
+('imagecreatefrompng', '4.0', '5.0'),
 ('imagecreatetruecolor', '4.0.6', '5.0'),
 ('imagedestroy', '4.0', '5.0'),
 ('imagefill', '4.0', '5.0'),
+('imagegif', '4.0', '5.0'),
+('imagejpeg', '4.0', '5.0'),
+('imagepng', '4.0', '5.0'),
 ('imagepng', '4.0', '5.0'),
 ('imagettftext', '4.0', '5.0'),
 ('implode', '4.0', '5.0'),
@@ -54,6 +65,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('is_array', '4.0', '5.0'),
 ('is_callable', '4.0.6', '5.0'),
 ('is_dir', '4.0', '5.0'),
+('is_file', '4.0', '5.0'),
 ('is_readable', '4.0', '5.0'),
 ('is_uploaded_file', '4.0.3', '5.0'),
 ('isset', '4.0', '5.0'),
@@ -109,8 +121,9 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('time', '4.0', '5.0'),
 ('trigger_error', '4.0.1', '5.0'),
 ('trim', '4.0', '5.0'),
-('ucfirst', '4.0', '5.0')
-('uniqid', '4.0', '5.0')
+('ucfirst', '4.0', '5.0'),
+('uniqid', '4.0', '5.0'),
+('unlink', '4.0', '5.0')
 ;
 
 -- GD required

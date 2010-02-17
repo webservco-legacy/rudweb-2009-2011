@@ -76,6 +76,9 @@ $langCore['ERROR']['Extension']['NO_LIB_DEP']        = 'Extension <b>%0%</b> can
 $langCore['ERROR']['Extension']['NO_EXT_DEP']        = 'Extension <b>%0%</b> can not be loaded. Missing extension dependencies (<b>%1%</b>).';
 $langCore['ERROR']['Extension']['SET_PROPERTY']      = 'Tried to set a property that does not exist or is not accessible.';
 $langCore['ERROR']['Extension']['MAIL_INFO']         = 'Could not send email. Not enough info.';
+$langCore['ERROR']['Extension']['THUMB_NOFILE']      = 'Could not process image. File not found.';
+$langCore['ERROR']['Extension']['THUMB_NODIR']       = 'Could not process image. Working directory not found or can not be created.';
+$langCore['ERROR']['Extension']['THUMB_SOURCE_NS']   = 'Could not process image. Image type not supported.';
 
 $langCore['ERROR']['Section']['NO_DIR']              = 'Section <b>%0%</b> can not be loaded. Directory not found.';
 

@@ -92,9 +92,11 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 	/**
 	 * Image type to output.
 	 *
-	 * values: png
+	 * 1 - gif
+	 * 2 - jpg
+	 * 3 - png
 	 *
-	 * @var string
+	 * @var integer
 	 */
 	protected $imgType = NULL;
 
@@ -169,9 +171,9 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		 */
 		parent::__construct($extAbout);
 		/**
-		 * Set default image type.
+		 * Set default image type to png.
 		 */
-		$this->imgType = 'png';
+		$this->imgType = 3;
 		/**
 		 * Set default output type.
 		 */
@@ -274,7 +276,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 			/**
 			 * PNG Selected.
 			 */
-			case 'png' : {
+			case 3 : {
 				/**
 				 * Output png image.
 				 */
