@@ -196,17 +196,13 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 			if (isset($_POST[_APP_PRE.'_submit']))
 			{
 				/**
-				 * Check if we have post data for current work data.
+				 * Set form data for current work data.
+				 *
+				 * If we have post data for current work data,
+				 * filter post data according to rules from work data.
+				 * Otherwise set to NULL.
 				 */
-				if (isset($_POST[$field['name']]))
-				{
-					/**
-					 * Set form data for current work data.
-					 *
-					 * Filter post data according to rules from work data.
-					 */
-					$formData[$field['name']] = $this->_filterData($_POST[$field['name']], $field['filters']);
-				}
+				$formData[$field['name']] = (isset($_POST[$field['name']])) ? $this->_filterData($_POST[$field['name']], $field['filters']) : NULL;
 				/**
 				 * Set form error for current work data.
 				 *
