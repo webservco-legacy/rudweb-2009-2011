@@ -66,6 +66,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('is_callable', '4.0.6', '5.0'),
 ('is_dir', '4.0', '5.0'),
 ('is_file', '4.0', '5.0'),
+('is_numeric', '4.0', '5.0'),
 ('is_readable', '4.0', '5.0'),
 ('is_uploaded_file', '4.0.3', '5.0'),
 ('isset', '4.0', '5.0'),
