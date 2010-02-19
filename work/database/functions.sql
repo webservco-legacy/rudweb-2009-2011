@@ -17,6 +17,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('array_diff', '4.0.1', '5.0'),
 ('array_diff_key', '0.0', '5.1.0'),
 ('array_key_exists', '4.0.7', '5.0'),
+('array_keys', '4.0', '5.0'),
 ('array_map', '4.0.6', '5.0'),
 ('array_merge', '4.0', '5.0'),
 ('array_pad', '4.0', '5.0'),
