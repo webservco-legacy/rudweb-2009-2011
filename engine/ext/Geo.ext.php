@@ -268,7 +268,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	 * Get the country name from country iso.
 	 *
 	 * @param string $country_iso country iso
-	 * @return unknown_type
+	 * @return mixed result
 	 */
 	public function getCountryName($country_iso)
 	{
@@ -299,8 +299,9 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 
 	/**
 	 * Get zone name from zone id.
+	 *
 	 * @param string $zone_id zone id
-	 * @return unknown_type
+	 * @return mixed result
 	 */
 	public function getZoneName($zone_id)
 	{
