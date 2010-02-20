@@ -265,6 +265,71 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 	}
 
 	/**
+	 * Get the country name from country iso.
+	 *
+	 * @param string $country_iso country iso
+	 * @return unknown_type
+	 */
+	public function getCountryName($country_iso)
+	{
+		/**
+		 * Get country name from database.
+		 */
+		$r = $this->rwDb->dbSelect('country_name', _APP_PRE.'_geo_country', "country_iso = '{$country_iso}'", NULL, 1);
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Check if we have a result.
+		 */
+		if($t == 1)
+		{
+			/**
+			 * Return country name.
+			 */
+			return $r->dbFetchResult();
+		}
+		/**
+		 * Country name not found.
+		 * Return null.
+		 */
+		return NULL;
+	}
+
+	/**
+	 * Get zone name from zone id.
+	 * @param string $zone_id zone id
+	 * @return unknown_type
+	 */
+	public function getZoneName($zone_id)
+	{
+		/**
+		 * Get zone name from database.
+		 */
+		$r = $this->rwDb->dbSelect('zone_name', _APP_PRE.'_geo_zone', "zone_id = '{$zone_id}'", NULL, 1);
+		/**
+		 * Count results.
+		 */
+		$t = $r->dbNumRows();
+		/**
+		 * Check if we have a result.
+		 */
+		if($t == 1)
+		{
+			/**
+			 * Return country name.
+			 */
+			return $r->dbFetchResult();
+		}
+		/**
+		 * Country name not found.
+		 * Return null.
+		 */
+		return NULL;
+	}
+
+	/**
 	 * Get language based on country.
 	 *
 	 * Try to return the primary language for that country.
