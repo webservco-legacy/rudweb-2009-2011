@@ -271,7 +271,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Skin directory.
 		 */
-		$this->usrData['skin_dir'] = _APP_SKIN_DIR._APP_SKIN;
+		$this->usrData['skin_dir'] = _APP_SKIN_DIR._APP_SKIN.'/';
 		/**
 		 * Skin url.
 		 */
@@ -911,7 +911,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Skin directory.
 		 */
-		$this->usrData['skin_dir'] = _APP_SKIN_DIR.$userData['usr_skin'];
+		$this->usrData['skin_dir'] = _APP_SKIN_DIR.$userData['usr_skin'].'/';
 		/**
 		 * Skin url.
 		 */
