@@ -433,7 +433,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Count the number of failed login attempts in the last 10 minutes.
 		 */
-		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond, NULL, NULL);
+		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond);
 		/**
 		 * Return result.
 		 */
@@ -473,7 +473,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Get all data for the user that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('usr_id, grp_id, usr_mail, usr_hash, usr_skin, usr_lang, usr_status', _APP_PRE.'_usr_user', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('usr_id, grp_id, usr_mail, usr_hash, usr_skin, usr_lang, usr_status', _APP_PRE.'_usr_user', $cond, NULL, NULL, NULL, 1);
 		/**
 		 * Return result.
 		 */
@@ -506,7 +506,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Get all data from the group that matches the conditions.
 		 */
-		$r = $this->rwDb->dbSelect('grp_id, grp_lvl, grp_title, grp_dsc, grp_status', _APP_PRE.'_usr_group', $cond, NULL, 1);
+		$r = $this->rwDb->dbSelect('grp_id, grp_lvl, grp_title, grp_dsc, grp_status', _APP_PRE.'_usr_group', $cond, NULL, NULL, NULL, 1);
 		/**
 		 * Return result.
 		 */
@@ -578,7 +578,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than 48h.
 			 */
-			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete = '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, 1);
+			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete = '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, NULL, NULL, 1);
 			/**
 			 * Check if we got a valid request.
 			 */
@@ -632,7 +632,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than 48h.
 			 */
-			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete != '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, 1);
+			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete != '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, NULL, NULL, 1);
 			/**
 			 * Check if we got a valid request.
 			 */
@@ -802,6 +802,74 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	}
 
 	/**
+	 * Get the ids of online users.
+	 *
+	 * The logic is the same as $this->usrOnline.
+	 * @see usrOnline()
+	 * The query in this method is based on the
+	 * {@link http://dev.mysql.com/doc/refman/5.1/en/example-maximum-column-group-row.html strawberry query} example.
+	 * @return unknown_type
+	 */
+	public function onlineUsers()
+	{
+		/**
+		 * Initialize data.
+		 */
+		$data = array();
+		/**
+		 * Set table string.
+		 */
+		$table = _APP_PRE.'_var_log AS A LEFT JOIN '._APP_PRE.'_var_log AS B ON (A.usr_id = B.usr_id AND A.log_time < B.log_time)';
+		/**
+		 * Set time condition.
+		 *
+		 * User must have had activity in the last 10 minutes.
+		 */
+		$cond[] = "A.log_time > '{$this->rwDb->dbNowMinAgo(10)}'";
+		/**
+		 * Must be an authenticated user.
+		 */
+		$cond[] = "A.usr_id != '0'";
+		/**
+		 * Strawberry query condition.
+		 */
+		$cond[] = "B.usr_id IS NULL";
+		/**
+		 * Last location visited must not be the logout page.
+		 * That would mean the user is logged out.
+		 */
+		$cond[] = "A.log_location != 'members/logout'";
+		/**
+		 * Group by user_id.
+		 */
+		$group = "A.usr_id";
+		/**
+		 * Execute query.
+		 */
+		$r = $this->rwDb->dbSelect('A.usr_id', $table, $cond, $group);
+		/**
+		 * Check if we have results.
+		 */
+		if($r->dbNumRows() > 0)
+		{
+			/**
+			 * Iterate through the database results.
+			 */
+			while($u=$r->dbFetchArray())
+			{
+				/**
+				 * Format the list.
+				 */
+				$data[] = $u['usr_id'];
+			}
+		}
+		/**
+		 * Return blank array.
+		 */
+		return $data;
+	}
+
+	/**
 	 * Check if a user is online.
 	 *
 	 * This method checks the latest location a user has visited in the last 10 minutes.
@@ -828,7 +896,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		 *
 		 * Get the last location the user visited in the last 10 minutes.
 		 */
-		$r = $this->rwDb->dbSelect('log_location', _APP_PRE.'_var_log', $cond, 'log_time DESC', 1);
+		$r = $this->rwDb->dbSelect('log_location', _APP_PRE.'_var_log', $cond, NULL, NULL, 'log_time DESC', 1);
 		/**
 		 * Check if we have a result.
 		 */
@@ -1007,7 +1075,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Get matching user id.
 		 */
-		$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_usr_user', "usr_mail = '{$email}'", NULL, 1);
+		$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_usr_user', "usr_mail = '{$email}'", NULL, NULL, NULL, 1);
 		/**
 		 * Count results.
 		 */
@@ -1031,7 +1099,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Get matching user id.
 		 */
-		$r = $this->rwDb->dbSelect('usr_mail', _APP_PRE.'_usr_user', "usr_id = '{$id}'", NULL, 1);
+		$r = $this->rwDb->dbSelect('usr_mail', _APP_PRE.'_usr_user', "usr_id = '{$id}'", NULL, NULL, NULL, 1);
 		/**
 		 * Count results.
 		 */

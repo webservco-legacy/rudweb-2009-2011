@@ -242,9 +242,9 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 
 	/**
 	 * (non-PHPdoc)
-	 * @see rudweb/lib/db/rw_iDatabase#dbSelect($columns, $table, $condition, $order, $limit)
+	 * @see engine/lib/db/rw_iDatabase#dbSelect($columns, $table, $condition, $group, $having, $order, $limit)
 	 */
-	public function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL)
+	public function dbSelect($columns, $table, $condition=NULL, $group=NULL, $having=NULL, $order=NULL, $limit=NULL)
 	{
 		/**
 		 * Check if we have limit and set it.
@@ -333,6 +333,14 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 			$cond = '';
 		}
 		/**
+		 * Check for group by.
+		 */
+		$group = ($group) ? ' GROUP BY '.$group : NULL;
+		/**
+		 * Check for having.
+		 */
+		$having = ($having) ? ' HAVING '.$having : NULL;
+		/**
 		 * Check for multiple columns.
 		 */
 		if(is_array($columns))
@@ -345,7 +353,7 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		/**
 		 * Create query.
 		 */
-		$sql = "SELECT {$columns} FROM {$table}{$cond}{$ord}{$limit}";
+		$sql = "SELECT {$columns} FROM {$table}{$cond}{$group}{$having}{$ord}{$limit}";
 		/**
 		 * Return result.
 		 */

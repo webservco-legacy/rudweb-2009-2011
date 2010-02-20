@@ -146,7 +146,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get the countries list from database.
 		 */
-		$r = $this->rwDb->dbSelect('country_iso, country_name', _APP_PRE.'_geo_country', NULL, 'country_name ASC');
+		$r = $this->rwDb->dbSelect('country_iso, country_name', _APP_PRE.'_geo_country', NULL, NULL, NULL, 'country_name ASC');
 		/**
 		 * Count the number of countries.
 		 */
@@ -194,7 +194,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get the languages list from database.
 		 */
-		$r = $this->rwDb->dbSelect('lang_iso, lang_local_name, lang_name', _APP_PRE.'_geo_lang', NULL, 'lang_name ASC');
+		$r = $this->rwDb->dbSelect('lang_iso, lang_local_name, lang_name', _APP_PRE.'_geo_lang', NULL, NULL, NULL, 'lang_name ASC');
 		/**
 		 * Count the number of languages.
 		 */
@@ -241,7 +241,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get country iso from IP database.
 		 */
-		$r = $this->rwDb->dbSelect('country_iso', _APP_PRE.'_geo_ip', "{$ip} BETWEEN ip_start AND ip_end", NULL, 1);
+		$r = $this->rwDb->dbSelect('country_iso', _APP_PRE.'_geo_ip', "{$ip} BETWEEN ip_start AND ip_end", NULL, NULL, NULL, 1);
 		/**
 		 * Count results.
 		 */
@@ -275,7 +275,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get country name from database.
 		 */
-		$r = $this->rwDb->dbSelect('country_name', _APP_PRE.'_geo_country', "country_iso = '{$country_iso}'", NULL, 1);
+		$r = $this->rwDb->dbSelect('country_name', _APP_PRE.'_geo_country', "country_iso = '{$country_iso}'", NULL, NULL, NULL, 1);
 		/**
 		 * Count results.
 		 */
@@ -308,7 +308,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get zone name from database.
 		 */
-		$r = $this->rwDb->dbSelect('zone_name', _APP_PRE.'_geo_zone', "zone_id = '{$zone_id}'", NULL, 1);
+		$r = $this->rwDb->dbSelect('zone_name', _APP_PRE.'_geo_zone', "zone_id = '{$zone_id}'", NULL, NULL, NULL, 1);
 		/**
 		 * Count results.
 		 */
@@ -371,7 +371,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get matching languages from database.
 		 */
-		$r = $this->rwDb->dbSelect('lang_iso', _APP_PRE.'_geo_country_lang', "country_iso = '{$country_iso}'", 'country_lang_primary DESC');
+		$r = $this->rwDb->dbSelect('lang_iso', _APP_PRE.'_geo_country_lang', "country_iso = '{$country_iso}'", NULL, NULL, 'country_lang_primary DESC');
 		/**
 		 * Count results.
 		 */
@@ -423,7 +423,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Get matching zones from database.
 		 */
-		$r = $this->rwDb->dbSelect('zone_id, zone_name', _APP_PRE.'_geo_zone', "country_iso = '{$country_iso}'", 'zone_name');
+		$r = $this->rwDb->dbSelect('zone_id, zone_name', _APP_PRE.'_geo_zone', "country_iso = '{$country_iso}'", NULL, NULL, 'zone_name');
 		/**
 		 * Count results.
 		 */

@@ -103,7 +103,7 @@ interface rw_iDatabase
 	 * @param mixed $limit
 	 * @return mixed query result
 	 */
-	public function dbSelect($columns, $table, $condition=NULL, $order=NULL, $limit=NULL);
+	public function dbSelect($columns, $table, $condition=NULL, $group=NULL, $having=NULL, $order=NULL, $limit=NULL);
 
 	/**
 	 * Method for data insertion.
