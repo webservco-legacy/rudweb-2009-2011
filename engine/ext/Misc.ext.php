@@ -105,7 +105,7 @@ class rw_Extension_Misc extends rw_Extension implements rw_iExtension
 	}
 
 	/**
-	 * Returns a string produced according to the formatting string format.
+	 * Return a string produced according to the formatting string format.
 	 *
 	 * This is based on sprintf, except it can work with arrays.
 	 *
@@ -123,6 +123,70 @@ class rw_Extension_Misc extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return (is_array($var)) ? str_replace(array_keys($var), array_values($var), $str) : str_replace('%0%', $var, $str);
+	}
+
+	/**
+	 * Return a short string based on a long string.
+	 *
+	 * If can work with character limit, word limit, or both.
+	 *
+	 * Eg. get max 80 characters: rwShortString($string, 80)
+	 * Eg. get max 10 words: rwShortString($string, NULL, 10)
+	 * Eg. get max 80 characters but no more than 10 words: rwShortString($string, 80, 10)
+	 *
+	 * @param string $string initial string
+	 * @param mixed $chars character limit
+	 * @param mixed $words word limit
+	 * @param string $add what to add after the string
+	 * @return mixed result
+	 */
+	public function rwShortString($string, $chars=NULL, $words=NULL, $add=' ...')
+	{
+		/**
+		 * Initialize string.
+		 */
+		$data = $string;
+		/**
+		 * Check string length
+		 */
+		if(strlen($string) <= $chars)
+		{
+			/**
+			 * Return unmodified string.
+			 */
+			return $data;
+		}
+		/**
+		 * Check for character limit.
+		 */
+		if($chars)
+		{
+			/**
+			 * Set raw string.
+			 *
+			 * Chop it off at chars limit.
+			 */
+			$raw = substr($string, 0, $chars);
+			/**
+			 * Set new string.
+			 */
+			$data = substr($raw, 0, strrpos($raw, ' ')).$add;
+		}
+		/**
+		 * Check if we have words limit.
+		 */
+		if($words)
+		{
+			$raw = str_word_count($data, 2, ',.!');
+			/**
+			 * Set new string.
+			 */
+			$data = implode(' ', array_slice($raw, 0, $words));
+		}
+		/**
+		 * Return result.
+		 */
+		return $data;
 	}
 }
 ?>

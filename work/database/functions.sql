@@ -21,6 +21,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('array_map', '4.0.6', '5.0'),
 ('array_merge', '4.0', '5.0'),
 ('array_pad', '4.0', '5.0'),
+('array_slice', '4.0', '5.0'),
 ('base64_decode', '4.0', '5.0'),
 ('base64_encode', '4.0', '5.0'),
 ('count', '4.0', '5.0'),
@@ -108,6 +109,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('sha1', '4.3.0', '5.0'),
 ('sprintf', '4.0', '5.0'),
 ('str_replace', '4.0', '5.0'),
+('str_word_count', '0.0', '5.1.0'), /* original is 4.3.0 + 5.0 but we need the 3rd parameter */
 ('stripslashes', '4.0', '5.0'),
 ('strlen', '4.0', '5.0'),
 ('mb_strlen', '4.0.6', '5.0'),
