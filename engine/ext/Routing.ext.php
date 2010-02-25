@@ -598,5 +598,58 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 */
 		return preg_match("/^[a-zA-Z0-9\/\-\_]+$/", $act) ? $act : 'index';
 	}
+
+	/**
+	 * Parse request string.
+	 *
+	 * Return key/value array.
+	 * Request can be in the form 'page/1/country/RO/language/EN'.
+	 * If parameter is not even, the last parameter
+	 * is returned as ['param'] = 'param'.
+	 *
+	 * @param string $request request string.
+	 * @return array result
+	 */
+	public function parseRequest($request, $num=FALSE)
+	{
+		/**
+		 * Initialize data.
+		 */
+		$data = array();
+		/**
+		 * Get raw data.
+		 */
+		$raw = array_diff(explode('/', $request), array(''));
+		/**
+		 * Check if we should return the values as a number indexed array.
+		 */
+		if($num)
+		{
+			/**
+			 * Return the raw data.
+			 */
+			return $raw;
+		}
+		/**
+		 * Count raw data.
+		 */
+		$t = count($raw);
+		/**
+		 * Iterate through the raw data.
+		 */
+		for($i=0;$i<$t;$i+=2)
+		{
+			/**
+			 * Set new data.
+			 *
+			 * If the data count is not even, set the last value the same as the key.
+			 */
+			$data[$raw[$i]] = ($i==($t - 1)) ? $raw[$i] : $raw[$i+1];
+		}
+		/**
+		 * XXXReturn data.
+		 */
+		return $data;
+	}
 }
 ?>
