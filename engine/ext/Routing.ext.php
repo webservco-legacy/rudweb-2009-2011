@@ -647,7 +647,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			$data[$raw[$i]] = ($i==($t - 1)) ? $raw[$i] : $raw[$i+1];
 		}
 		/**
-		 * XXXReturn data.
+		 * Return data.
 		 */
 		return $data;
 	}
