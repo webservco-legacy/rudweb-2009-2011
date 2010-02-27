@@ -245,7 +245,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	 * @param boolean $orig use 'ORIG_PATH_INFO' instead of 'PATH_INFO'
 	 * @return mixed result
 	 */
-	private function _processRequest($orig)
+	private function _processRequest($orig=FALSE)
 	{
 		/**
 		 * Set first part of request to PATH_INFO.
