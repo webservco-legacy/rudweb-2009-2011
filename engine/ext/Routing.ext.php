@@ -187,7 +187,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			/**
 			 * Set request.
 			 */
-			$request = $_SERVER['PATH_INFO'];
+			$request = $this->_processRequest();
 		}
 		/**
 		 * Check for ORIG_PATH_INFO.
@@ -235,6 +235,47 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return $request;
+	}
+
+	/**
+	 * Process request.
+	 *
+	 * We need to check for both PATH_INFO and QUERY_STRING
+	 *
+	 * @return mixed result
+	 */
+	private function _processRequest()
+	{
+		/**
+		 * Set first part of request to PATH_INFO.
+		 */
+		$req1 = $_SERVER['PATH_INFO'];
+		/**
+		 * Initialize second part of request.
+		 */
+		$req2 = '';
+		/**
+		 * Check for QUERY_STRING.
+		 */
+		if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '')
+		{
+			/**
+			 * Process request. Replace '&' with '/'.
+			 */
+			$req2 = str_replace('&', '/', $_SERVER['QUERY_STRING']);
+			/**
+			 * Process request. Replace '=' with '/'.
+			 */
+			$req2 = str_replace('=', '/', $req2);
+			/**
+			 * Process request. Replace empty values with '0'.
+			 */
+			$req2 = str_replace('//', '/0/', $req2);
+		}
+		/**
+		 * Return result.
+		 */
+		return $req1.$req2;
 	}
 
 	/**
