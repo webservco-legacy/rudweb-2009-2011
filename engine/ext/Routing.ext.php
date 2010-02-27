@@ -201,7 +201,7 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 			/**
 			 * Set request.
 			 */
-			$request = $_SERVER['ORIG_PATH_INFO'];
+			$request = $this->_processRequest(TRUE);
 		}
 		/**
 		 * Check for QUERY_STRING.
@@ -242,14 +242,15 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 	 *
 	 * We need to check for both PATH_INFO and QUERY_STRING
 	 *
+	 * @param boolean $orig use 'ORIG_PATH_INFO' instead of 'PATH_INFO'
 	 * @return mixed result
 	 */
-	private function _processRequest()
+	private function _processRequest($orig)
 	{
 		/**
 		 * Set first part of request to PATH_INFO.
 		 */
-		$req1 = $_SERVER['PATH_INFO'];
+		$req1 = $orig ? $_SERVER['ORIG_PATH_INFO'] : $_SERVER['PATH_INFO'];
 		/**
 		 * Initialize second part of request.
 		 */
