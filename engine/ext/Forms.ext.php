@@ -271,7 +271,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 *
 	 * @param string $file name of files array
 	 * @param array $types allowe file types
-	 * @return unknown_type
+	 * @return mixed result
 	 */
 	public function rwUploadValidate($file, $types)
 	{
@@ -618,6 +618,44 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return (is_numeric($data)) ? TRUE : FALSE;
+	}
+
+	/**
+	 * Minimum numeric check.
+	 *
+	 * Form validation method.
+	 *
+	 * @param mixed $data form data to check
+	 * @param integer $min minimum value
+	 * @return mixed result
+	 */
+	public function rwNumMin($data, $min=0)
+	{
+		/**
+		 * Check data value.
+		 *
+		 * Return result.
+		 */
+		return ($data < $min) ? FALSE : TRUE;
+	}
+
+	/**
+	 * Maximum numeric check.
+	 *
+	 * Form validation method.
+	 *
+	 * @param mixed $data form data to check
+	 * @param integer $max maximum value
+	 * @return mixed result
+	 */
+	public function rwNumMax($data, $max=0)
+	{
+		/**
+		 * Check data value.
+		 *
+		 * Return result.
+		 */
+		return ($data > $max) ? FALSE : TRUE;
 	}
 
 	/**

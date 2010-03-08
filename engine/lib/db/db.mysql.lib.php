@@ -407,7 +407,6 @@ class rw_Database_mysql extends rw_Database implements rw_iDatabase
 		{
 			/**
 			 * Columns string is blank.
-			 * @var unknown_type
 			 */
 			$cols = '';
 		}

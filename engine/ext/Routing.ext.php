@@ -320,7 +320,6 @@ class rw_Extension_Routing extends rw_Extension implements rw_iExtension
 		{
 			/**
 			 * Set server name.
-			 * @var unknown_type
 			 */
 			$server = $_SERVER['SERVER_NAME'];
 		}

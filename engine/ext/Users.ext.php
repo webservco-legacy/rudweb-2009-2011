@@ -808,7 +808,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 * @see usrOnline()
 	 * The query in this method is based on the
 	 * {@link http://dev.mysql.com/doc/refman/5.1/en/example-maximum-column-group-row.html strawberry query} example.
-	 * @return unknown_type
+	 * @return mixed result
 	 */
 	public function onlineUsers()
 	{
