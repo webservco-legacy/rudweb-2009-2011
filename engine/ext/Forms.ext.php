@@ -270,7 +270,7 @@ class rw_Extension_Forms extends rw_Extension implements rw_iExtension
 	 * Check uploaded file for errors
 	 *
 	 * @param string $file name of files array
-	 * @param array $types allowe file types
+	 * @param array $types allowed file types
 	 * @return mixed result
 	 */
 	public function rwUploadValidate($file, $types)
