@@ -138,6 +138,7 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 -- finfo_open for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
 -- finfo_close for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
 -- finfo_file for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
+-- openssl extension required for licensing ?
 
 -- total functions
 SELECT COUNT(DISTINCT(f_id)) FROM rudweb_work_functions;
