@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -238,7 +234,7 @@ class rw_Output
 		/**
 		 * Set output engine class path.
 		 */
-		$outPath = _RW_LIB_DIR.'out/out.'.$outEngine.'.lib.php';
+		$outPath = _CORE_LIB_DIR.'out/out.'.$outEngine.'.lib.php';
 		/**
 		 * Check if output engine file exists.
 		 */

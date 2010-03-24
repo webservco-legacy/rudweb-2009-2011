@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -63,12 +59,12 @@ if (is_readable(_APP_OPT_DIR.$smartyPath))
 /**
  * Check for main output engine class file in global 3rdparty dir.
  */
-else if (is_readable(_RW_OPT_DIR.$smartyPath))
+else if (is_readable(_CORE_OPT_DIR.$smartyPath))
 {
 	/**
 	 * Load main output engine class file.
 	 */
-	require_once(_RW_OPT_DIR.$smartyPath);
+	require_once(_CORE_OPT_DIR.$smartyPath);
 }
 /**
  * Main output engine class file not found.
