@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -77,7 +73,7 @@ $extAbout['Users']['deps']['lib'] = array('Error', 'Database');
 /**
  * Extension extension dependencies.
  */
-$extAbout['Users']['deps']['ext'] = array('Session', 'Geo');
+$extAbout['Users']['deps']['ext'] = array('Session', 'Geo', 'Routing');
 
 /**
  * rw_Extension_Users.
@@ -338,11 +334,11 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		/**
 		 * Get failed login attempts from the same IP.
 		 */
-		$failedLoginsIp = $this->_getFailedLogins('ip');
+		$failedLoginsIp = $this->getFailedLoginsIP($this->loginData['login_ip']);
 		/**
 		 * Get failed logins targeting the current account.
 		 */
-		$failedLoginsAccount = $this->_getFailedLogins('account');
+		$failedLoginsAccount = $this->getFailedLoginsAccount($this->loginData['login_mail']);
 		/**
 		 * Check failed login attempts to be no more than 10 in the last 10 minutes.
 		 */
@@ -364,6 +360,72 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	}
 
 	/**
+	 * Get failed login attempts for an IP.
+	 *
+	 * @param integer $ip IP address
+	 * @param integer $interval interval in minutes
+	 * @return mixed result
+	 */
+	public function getFailedLoginsIP($ip, $interval=10)
+	{
+		/**
+		 * Init condition.
+		 */
+		$cond = array();
+		/**
+		 * Set condition.
+		 */
+		$cond[] = "login_ip = '{$ip}'";
+		/**
+		 * Set time condition to interval.
+		 */
+		$cond[] = "login_time > '{$this->rwDb->dbNowMinAgo($interval)}'";
+		/**
+		 * Run query.
+		 *
+		 * Count the number of failed login attempts in the last 10 minutes.
+		 */
+		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond);
+		/**
+		 * Return result.
+		 */
+		return $r->dbFetchResult();
+	}
+
+	/**
+	 * Get failed login attempts for an acount.
+	 *
+	 * @param string $email email address
+	 * @param integer $interval interval in minutes
+	 * @return mixed result
+	 */
+	public function getFailedLoginsAccount($email, $interval=10)
+	{
+		/**
+		 * Init condition.
+		 */
+		$cond = array();
+		/**
+		 * Set condition.
+		 */
+		$cond[] = "login_mail = '{$email}'";
+		/**
+		 * Set time condition to interval.
+		 */
+		$cond[] = "login_time > '{$this->rwDb->dbNowMinAgo($interval)}'";
+		/**
+		 * Run query.
+		 *
+		 * Count the number of failed login attempts in the last 10 minutes.
+		 */
+		$r = $this->rwDb->dbSelect('COUNT(usr_id)', _APP_PRE.'_var_login', $cond);
+		/**
+		 * Return result.
+		 */
+		return $r->dbFetchResult();
+	}
+
+	/**
 	 * Get failed login attempts.
 	 *
 	 * Login attempt type can be:
@@ -373,7 +435,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 * @param string $type login attempt type
 	 * @return mixed result
 	 */
-	private function _getFailedLogins($type='ip')
+	public function getFailedLogins($type='ip')
 	{
 		/**
 		 * Init condition.
@@ -620,9 +682,10 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 	 * Redirect to error page otherwise.
 	 *
 	 * @param string $hash validation hash
+	 * @param integer $exp expiration period of the validation hash
 	 * @return mixed result
 	 */
-	public function checkValidationHashComplete($hash=NULL)
+	public function checkValidationHashComplete($hash=NULL, $exp=48)
 	{
 		/**
 		 * Check if we have a request.
@@ -630,9 +693,9 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 		if($hash)
 		{
 			/**
-			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than 48h.
+			 * Check if the request is a valid validation key, the validation key was not used before, and the key is not older than $exp hours.
 			 */
-			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete != '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '48'", NULL, NULL, NULL, 1);
+			$r = $this->rwDb->dbSelect('usr_id', _APP_PRE.'_var_validation', "val_key = '{$hash}' AND val_complete != '0000-00-00 00:00:00' AND TIMESTAMPDIFF(HOUR, val_start, NOW()) <= '{$exp}'", NULL, NULL, NULL, 1);
 			/**
 			 * Check if we got a valid request.
 			 */

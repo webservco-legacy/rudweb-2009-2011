@@ -33,10 +33,6 @@
 if(!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -45,55 +41,44 @@ if(!defined('_RW_VALID'))
 /**
  * Check if constant is already defined.
  */
-if(!defined('_RW_EXT_DIR'))
+if(!defined('_CORE_EXT_DIR'))
 {
 	/**
 	 * Set core extensions directory.
 	 */
-	define('_RW_EXT_DIR', _RW_DIR . 'ext/');
+	define('_CORE_EXT_DIR', _CORE_DIR . 'ext/');
 }
 
 /**
  * Check if constant is already defined.
  */
-if(!defined('_RW_INT_DIR'))
+if(!defined('_CORE_INT_DIR'))
 {
 	/**
 	 * Set core internationalization directory.
 	 */
-	define('_RW_INT_DIR', _RW_DIR . 'int/');
+	define('_CORE_INT_DIR', _CORE_DIR . 'int/');
 }
 
 /**
  * Check if constant is already defined.
  */
-if(!defined('_RW_LIB_DIR'))
+if(!defined('_CORE_LIB_DIR'))
 {
 	/**
 	 * Set core library directory.
 	 */
-	define('_RW_LIB_DIR', _RW_DIR . 'lib/');
+	define('_CORE_LIB_DIR', _CORE_DIR . 'lib/');
 }
 
 /**
  * Check if constant is already defined.
  */
-if(!defined('_RW_OPT_DIR'))
+if(!defined('_CORE_OPT_DIR'))
 {
 	/**
 	 * Set core 3rdparty directory.
 	 */
-	define('_RW_OPT_DIR', _RW_DIR . 'opt/');
-}
-
-/**
- * Check if constant is already defined.
- */
-if(!defined('_RW_TTF_DIR'))
-{
-	/**
-	 * Set core fonts directory.
-	 */
-	define('_RW_TTF_DIR', _RW_OPT_DIR . 'ttf/');
+	define('_CORE_OPT_DIR', _CORE_DIR . 'opt/');
 }
 ?>

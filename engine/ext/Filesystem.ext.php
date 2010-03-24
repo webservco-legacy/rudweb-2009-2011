@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -45,7 +41,7 @@ if (!defined('_RW_VALID'))
 /**
  * Extension name.
  */
-$extAbout['Misc']['name'] = 'Filesystem';
+$extAbout['Filesystem']['name'] = 'Filesystem';
 /**
  * Extension description.
  */
@@ -73,7 +69,7 @@ $extAbout['Filesystem']['deps'] = array();
 /**
  * Extension library dependencies.
  */
-$extAbout['Filesystem']['deps']['lib'] = array();
+$extAbout['Filesystem']['deps']['lib'] = array('Error');
 /**
  * Extension extension dependencies.
  */

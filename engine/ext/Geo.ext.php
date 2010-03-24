@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -464,7 +460,7 @@ class rw_Extension_Geo extends rw_Extension implements rw_iExtension
 		/**
 		 * Set core language path.
 		 */
-		$langCorePath = _RW_INT_DIR.$this->ln.'/core.lng.php';
+		$langCorePath = _CORE_INT_DIR.$this->ln.'/core.lng.php';
 		/**
 		 * Check if core language file is readable.
 		 */

@@ -34,10 +34,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -74,7 +70,7 @@ $extAbout['Misc']['deps'] = array();
 /**
  * Extension library dependencies.
  */
-$extAbout['Misc']['deps']['lib'] = array();
+$extAbout['Misc']['deps']['lib'] = array('Error');
 /**
  * Extension extension dependencies.
  */

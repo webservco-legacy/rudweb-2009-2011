@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -73,11 +69,11 @@ $extAbout['Forms']['deps'] = array();
 /**
  * Extension library dependencies.
  */
-$extAbout['Forms']['deps']['lib'] = array('Error', 'Database');
+$extAbout['Forms']['deps']['lib'] = array('Error', 'Security');
 /**
  * Extension extension dependencies.
  */
-$extAbout['Forms']['deps']['ext'] = array('Users');
+$extAbout['Forms']['deps']['ext'] = array('Filesystem');
 
 /**
  * rw_Extension_Forms.

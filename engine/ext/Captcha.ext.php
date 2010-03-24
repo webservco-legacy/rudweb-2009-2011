@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -201,7 +197,7 @@ class rw_Extension_Captcha extends rw_Extension implements rw_iExtension
 		/**
 		 * Set default font file.
 		 */
-		$this->fontPath = _RW_TTF_DIR.'VeraMono.ttf';
+		$this->fontPath = _CORE_OPT_DIR.'ttf/VeraMono.ttf';
 		/**
 		 * Set default font size.
 		 */

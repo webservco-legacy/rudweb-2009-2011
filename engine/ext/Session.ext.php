@@ -33,10 +33,6 @@
 if (!defined('_RW_VALID'))
 {
 	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
 	 * Stop script execution.
 	 */
 	exit;
@@ -73,7 +69,7 @@ $extAbout['Session']['deps'] = array();
 /**
  * Extension library dependencies.
  */
-$extAbout['Session']['deps']['lib'] = array('Error', 'Database');
+$extAbout['Session']['deps']['lib'] = array('Error');
 /**
  * Extension extension dependencies.
  */
