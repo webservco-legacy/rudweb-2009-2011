@@ -659,7 +659,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 				/**
 				 * Redirect to error page.
 				 */
-				return $this->extRouting->rwRedirect('error/app/validation/2');
+				return $this->extRouting->rwRedirect('oups/app/validation/2');
 			}
 		}
 		/**
@@ -670,7 +670,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Redirect to error page.
 			 */
-			return $this->extRouting->rwRedirect('error/app/validation/1');
+			return $this->extRouting->rwRedirect('oups/app/validation/1');
 		}
 	}
 
@@ -714,7 +714,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 				/**
 				 * Redirect to error page.
 				 */
-				return $this->extRouting->rwRedirect('error/app/validation/2');
+				return $this->extRouting->rwRedirect('oups/app/validation/2');
 			}
 		}
 		/**
@@ -725,7 +725,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Redirect to error page.
 			 */
-			return $this->extRouting->rwRedirect('error/app/validation/1');
+			return $this->extRouting->rwRedirect('oups/app/validation/1');
 		}
 	}
 
@@ -752,7 +752,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Check if validation key is of the matching type.
 			 */
-			return (substr($hash, 0,1) == $type) ? TRUE : $this->extRouting->rwRedirect('error/app/validation/2');
+			return (substr($hash, 0,1) == $type) ? TRUE : $this->extRouting->rwRedirect('oups/app/validation/2');
 		}
 		/**
 		 * No key.
@@ -762,7 +762,7 @@ class rw_Extension_Users extends rw_Extension implements rw_iExtension
 			/**
 			 * Redirect to error page.
 			 */
-			return $this->extRouting->rwRedirect('error/app/validation/1');
+			return $this->extRouting->rwRedirect('oups/app/validation/1');
 		}
 	}
 
