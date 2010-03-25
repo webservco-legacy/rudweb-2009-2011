@@ -110,7 +110,7 @@ class rw_Extension_Error extends rw_Extension implements rw_iExtension
 	 * Main extension functionality.
 	 *
 	 * Handle error logging and displaying.
-	 * Try to load the output library, error module, and disply nice error message.
+	 * Try to load the output library, error module, and display nice error message.
 	 *
 	 * @todo log to file
 	 * @todo send email
@@ -129,9 +129,9 @@ class rw_Extension_Error extends rw_Extension implements rw_iExtension
 		 */
 		$err = $this->rwCore->rwErr->getError($e);
 		/**
-		 * Initialize error module and try to display message.
+		 * Initialize oups section and try to display message.
 		 */
-		$this->rwCore->rwInitModule('error', 'core', 'index', $err);
+		$this->rwCore->rwInitModule('oups', 'core', 'index', $err);
 		/**
 		 * Return result.
 		 */
