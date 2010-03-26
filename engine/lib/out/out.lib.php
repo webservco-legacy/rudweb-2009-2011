@@ -202,7 +202,7 @@ class rw_Output
 		/**
 		 * Set application skin directory.
 		 */
-		$outObj->outSkinDir(_APP_SKIN_DIR.$outSkin.'/');
+		$outObj->outSkinDir(_APP_TPL_DIR.$outSkin.'/');
 		/**
 		 * Parse data to include in template.
 		 */
