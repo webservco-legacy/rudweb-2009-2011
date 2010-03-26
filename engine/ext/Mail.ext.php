@@ -116,6 +116,11 @@ class rw_Extension_Mail extends rw_Extension implements rw_iExtension
 	private $headers;
 
 	/**
+	 * Message envelope from.
+	 */
+	protected $envFrom = FALSE;
+
+	/**
 	 * Message subject.
 	 *
 	 * @var string.
@@ -162,13 +167,21 @@ class rw_Extension_Mail extends rw_Extension implements rw_iExtension
 		 */
 		$this->_setHeaders($html);
 		/**
+		 * Set sender.
+		 */
+		ini_set('sendmail_from',$this->_getSender());
+		/**
 		 * Format message to html if required.
 		 */
 		$this->message = ($html) ? '<html><body>'.$this->message.'</body></html>' : $this->message;
 		/**
+		 * Set envelope from.
+		 */
+		$envFrom = ($this->envFrom) ? '-r '.$this->_getSender() : NULL;
+		/**
 		 * Try to send email and return result.
 		 */
-		return (@mail($this->_getRecipient(), $this->subject, $this->message, $this->headers, '-r '.$this->_getSender())) ? TRUE : FALSE;
+		return (@mail($this->_getRecipient(), $this->subject, $this->message, $this->headers, $envFrom)) ? TRUE : FALSE;
 	}
 
 	/**
