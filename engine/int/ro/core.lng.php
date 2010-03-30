@@ -56,6 +56,8 @@ $langCore['ERROR']['CODESTR']['E_DEPRECATED']        = 'Cod scos din uz.';
 $langCore['ERROR']['CODESTR']['E_USER_DEPRECATED']   = 'Cod scos din uz (mesaj generat de nucleul website-ului).';
 $langCore['ERROR']['CODESTR']['E_ALL']               = 'Toate erorile &#351;i avertismentele.';
 
+$langCore['ERROR']['License']['LICENSE_PROBLEM']     = 'Este o problem&#259; cu licen&#355;a dvs. V&#259; rug&#259;m conacta&#355;i furnizorul aplica&#355;iei pentru remedierea situa&#355;iei.';
+
 $langCore['ERROR']['Database']['TYPE_NOT_SUPPORTED'] = 'Tipul de baze de date <b>%0%</b> nu este disponibil.';
 $langCore['ERROR']['Database']['COULD_NOT_CONNECT']  = 'Conectarea la serverul de baze de date a e&#351;uat. V&#259; rug&#259;m verifica&#355;i detaliile conexiunii.';
 $langCore['ERROR']['Database']['COULD_NOT_OPEN']     = 'Baza de date <b>%0%</b> nu a putut fi deschis&#259;. V&#259; rug&#259;m verifica&#355;i ca baza de date respeciv&#259; s&#259; fie disponibil&#259;, &#351;i dac&#259; ave&#355;i drepturi de acces asupra ei.';

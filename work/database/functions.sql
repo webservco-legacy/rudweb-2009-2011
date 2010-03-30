@@ -34,13 +34,20 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('exif_imagetype', '4.3.0', '5.0'),
 ('explode', '4.0', '5.0'),
 ('extract', '4.0', '5.0'),
+('fclose', '4.0', '5.0'),
+('feof', '4.0', '5.0'),
+('fgets', '4.0', '5.0'),
+('file_get_contents', '4.3.0', '5.3.0'),
+('file_put_contents', '0.0', '5.0'),
 ('finfo_close', '0.0', '5.3.0'),
 ('finfo_file', '0.0', '5.3.0'),
 ('finfo_open', '0.0', '5.3.0'),
 ('fopen', '4.0', '5.0'),
 ('fwrite', '4.0', '5.0'),
 ('fclose', '4.0', '5.0'),
+('fsockopen', '4.0', '5.0'),
 ('function_exists', '4.0', '5.0'),
+('fwrite', '4.0', '5.0'),
 ('get_magic_quotes_gpc', '4.0', '5.0'),
 ('getimagesize', '4.0', '5.0'),
 ('gmdate', '4.0', '5.0'),
@@ -74,6 +81,8 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('isset', '4.0', '5.0'),
 ('long2ip', '4.0', '5.0'),
 ('ltrim', '4.1.0', '5.0'),
+('md5', '4.0', '5.0'),
+('md5_file', '4.2.0', '5.0'),
 ('method_exists', '4.0', '5.0'),
 ('mime_content_type', '4.3.0', '5.0'),
 ('microtime', '4.0', '5.0'),
@@ -89,11 +98,19 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('ob_end_clean', '4.0', '5.0'),
 ('ob_get_contents', '4.0', '5.0'),
 ('ob_start', '4.0', '5.0'),
+('openssl_free_key', '4.0.4', '5.0'),
+('openssl_open', '4.0.4', '5.0'),
+('openssl_seal', '4.0.4', '5.0'),
+('openssl_sign', '4.0.4', '5.0'),
+('openssl_pkey_get_private', '4.2.0', '5.0'),
+('openssl_pkey_get_public', '4.2.0', '5.0'),
+('openssl_verify', '4.0.4', '5.0'),
 ('parse_ini_file', '4.0', '5.0'),
 ('preg_match', '4.0', '5.0'),
 ('preg_repace', '4.0', '5.0'),
 ('property_exists', '0.0', '5.1.0'),
 ('rand', '4.0', '5.0'),
+('rawurlencode', '4.0', '5.0'),
 ('restore_error_handler', '4.0.1', '5.0'),
 ('round', '4.0', '5.0'),
 ('rtrim', '4.1.0', '5.0'),
@@ -104,9 +121,12 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 ('session_name', '4.0', '5.0'),
 ('session_regenerate_id', '0.0', '5.1.0'),
 ('session_start', '4.0', '5.0'),
+('session_save_path', '4.0', '5.0'),
 ('setcookie', '4.0', '5.0'),
 ('set_error_handler', '4.0.1', '5.0'),
 ('sha1', '4.3.0', '5.0'),
+('simplexml_load_file', '0.0', '5.0'),
+('simplexml_load_string', '0.0', '5.0'),
 ('sprintf', '4.0', '5.0'),
 ('str_replace', '4.0', '5.0'),
 ('str_word_count', '0.0', '5.1.0'), /* original is 4.3.0 + 5.0 but we need the 3rd parameter */
@@ -138,7 +158,8 @@ INSERT INTO rudweb_work_functions(f_name, f_4, f_5) VALUES
 -- finfo_open for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
 -- finfo_close for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
 -- finfo_file for PHP < 5.3.0 requires the extension  PECL fileinfo 0.1.0
--- openssl extension required for licensing ?
+-- openssl extension required for licensing
+-- simpleXML extension required for config and licensing
 
 -- total functions
 SELECT COUNT(DISTINCT(f_id)) FROM rudweb_work_functions;

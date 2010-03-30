@@ -129,9 +129,58 @@ class rw_Extension_Error extends rw_Extension implements rw_iExtension
 		 */
 		$err = $this->rwCore->rwErr->getError($e);
 		/**
+		 * Check error reporting level.
+		 */
+		$errLvl = error_reporting();
+		/**
+		 * Parse error reporting level.
+		 */
+		switch($errLvl)
+		{
+			/**
+			 * Show errors, but nut full details.
+			 */
+			case 1 : {
+				/**
+				 * Set action.
+				 */
+				$act = 'index';
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Show errors and full details.
+			 */
+			case 999 : {
+				/**
+				 * Set action.
+				 */
+				$act = 'core';
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+			/**
+			 * Show errors, but not full details.
+			 */
+			default : {
+				/**
+				 * Set action.
+				 */
+				$act = 'index';
+				/**
+				 * Stop execution.
+				 */
+				break;
+			}
+		}
+		/**
 		 * Initialize oups section and try to display message.
 		 */
-		$this->rwCore->rwInitModule('oups', 'core', 'index', $err);
+		$this->rwCore->rwInitModule('oups', 'core', $act, $err);
 		/**
 		 * Return result.
 		 */

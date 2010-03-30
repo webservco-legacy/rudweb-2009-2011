@@ -56,6 +56,8 @@ $langCore['ERROR']['CODESTR']['E_DEPRECATED']        = 'Deprecated code.';
 $langCore['ERROR']['CODESTR']['E_USER_DEPRECATED']   = 'Engine generated deprecated code message.';
 $langCore['ERROR']['CODESTR']['E_ALL']               = 'All errors and warnings.';
 
+$langCore['ERROR']['License']['LICENSE_PROBLEM']     = 'There is a problem with your license. Please contact the application vendor in order to remedy the situation.';
+
 $langCore['ERROR']['Database']['TYPE_NOT_SUPPORTED'] = 'Database type <b>%0%</b> not supported.';
 $langCore['ERROR']['Database']['COULD_NOT_CONNECT']  = 'Could not connect to Database Server. Please check your connection settings.';
 $langCore['ERROR']['Database']['COULD_NOT_OPEN']     = 'Could not open database <b>%0%</b>. Please check that the specified database exists and that you have enough privileges to access it.';

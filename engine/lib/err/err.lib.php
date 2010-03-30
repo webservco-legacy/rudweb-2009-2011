@@ -224,8 +224,9 @@ class rw_Error
 	{
 		/**
 		 * Set error reporting.
+		 * _APP_ERR ? error_reporting(-1) : error_reporting(0);
 		 */
-		_APP_ERR ? error_reporting(-1) : error_reporting(0);
+		_APP_ERR ? error_reporting(_APP_ERR) : error_reporting(0);
 		/**
 		 * Return result
 		 */
