@@ -1171,7 +1171,7 @@ class rw_Core
 			/**
 			 * Create license status file with dummy content.
 			 */
-			file_put_contents($l['path'], $l['key']);
+			file_put_contents($l['path'], $l['key'].' '.$lstatus);
 			/**
 			 * Trigger error.
 			 */
