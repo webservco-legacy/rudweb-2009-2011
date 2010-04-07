@@ -67,13 +67,18 @@ $path['app_url'] = ($cfg->paths->app_url) ? (string) $cfg->paths->app_url : 'htt
 /**
  * Check if loader is readable.
  */
-if(is_readable($path['app_dir'].'ext.loader.php'))
+if(!is_readable($path['app_dir'].'ext.loader.php'))
 {
 	/**
-	 * Load loader file.
+	 * Stop execution.
 	 */
-	require_once($path['app_dir'].'ext.loader.php');
+	exit;
 }
+
+/**
+ * Load loader file.
+ */
+require_once($path['app_dir'].'ext.loader.php');
 
 /**
  * Initialize loader.
