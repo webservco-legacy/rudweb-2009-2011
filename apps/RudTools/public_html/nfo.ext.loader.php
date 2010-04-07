@@ -28,41 +28,15 @@
  */
 
 /**
- * Prevent unauthorized access to included files
+ * Security check.
  */
-define('_RW_VALID', TRUE);
-
-/**
- * Check if paths configuration file is readable.
- */
-if(!is_readable('./paths.cfg.xml'))
+if (!defined('_RW_VALID'))
 {
 	/**
-	 * Stop script execution
+	 * Stop script execution.
 	 */
 	exit;
 }
-
-/**
- * Read paths configuration file.
- */
-$cfg = simplexml_load_file('./paths.cfg.xml');
-/**
- * Set application directory.
- */
-$path['app_dir'] = ($cfg->paths->app_dir) ? (string) $cfg->paths->app_dir : './';
-/**
- * Set extensione directory.
- */
-$path['ext_dir'] = ($cfg->paths->ext_dir) ? (string) $cfg->paths->ext_dir : './';
-/**
- * Set application web directory.
- */
-$path['www_dir'] = ($cfg->paths->www_dir) ? (string) $cfg->paths->www_dir : './';
-/**
- * Set application URL.
- */
-$path['app_url'] = ($cfg->paths->app_url) ? (string) $cfg->paths->app_url : 'http://'.$_SERVER['HTTP_HOST'].'/';
 
 /**
  * Check if loader is readable.
