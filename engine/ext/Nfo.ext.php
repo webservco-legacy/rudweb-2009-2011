@@ -510,7 +510,9 @@ a {
 	display: inline;
 	width: auto;
 	border-collapse: collapse;
-	border: 1px solid #AAA;
+	border-top: 1px solid #AAA;
+	border-right: 1px solid #AAA;
+	border-bottom: 1px solid #AAA;
 }
 
 #nfo table tr {
@@ -518,6 +520,7 @@ a {
 	display: inline;
 	width: auto;
 	clear: both;
+	background: #CCC;
 }
 
 #nfo table th {
@@ -526,7 +529,7 @@ a {
 	width: auto;
 	height: 30px;
 	padding: 3px;
-	border: 1px solid #AAA;
+	border-left: 1px solid #AAA;
 	text-transform: uppercase;
 }
 
@@ -534,12 +537,13 @@ a {
 	float: left;
 	display: inline;
 	width: auto;
-	height: 30px;
-	overflow: auto;
-	border: 1px solid #AAA;
+	min-height: 30px;
+	border-top: 1px solid #AAA;
+	border-left: 1px solid #AAA;
 	padding: 3px;
 	text-wrap: normal;
 	word-wrap: break-word;
+	white-space: normal;
 }
 
 #nfo .key {
