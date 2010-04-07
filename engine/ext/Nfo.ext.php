@@ -488,7 +488,6 @@ a {
 #nfo table td {
 	border: 1px solid #333;
 	padding: 3px;
-	word-wrap: break-word;
 }
 
 #nfo table .key {
@@ -496,16 +495,19 @@ a {
 	text-align: right;
 	font-weight: bold;
 	width: 230px;
+	word-wrap: break-word;
 }
 
 #nfo table .value {
 	background: #DDD;
 	width: 230px;
+	word-wrap: break-word;
 }
 
 #nfo table .value_small {
 	background: #DDD;
 	width: 50px;
+	word-wrap: break-word;
 }
 
 .nfo {
