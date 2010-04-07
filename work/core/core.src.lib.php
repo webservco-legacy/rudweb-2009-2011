@@ -340,7 +340,7 @@ class rw_Core
 		else if (is_readable(_CORE_EXT_DIR.$ext.'.ext.php'))
 		{
 			/**
-			 * Load local extension.
+			 * Load global extension.
 			 */
 			require_once(_CORE_EXT_DIR.$ext.'.ext.php');
 		}
