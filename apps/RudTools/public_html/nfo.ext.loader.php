@@ -33,14 +33,46 @@
 define('_RW_VALID', TRUE);
 
 /**
+ * Check if paths configuration file is readable.
+ */
+if(!is_readable('./paths.cfg.xml'))
+{
+	/**
+	 * Stop script execution
+	 */
+	exit;
+}
+
+/**
+ * Read paths configuration file.
+ */
+$cfg = simplexml_load_file('./paths.cfg.xml');
+/**
+ * Set application directory.
+ */
+$path['app_dir'] = ($cfg->paths->app_dir) ? (string) $cfg->paths->app_dir : './';
+/**
+ * Set extensione directory.
+ */
+$path['ext_dir'] = ($cfg->paths->ext_dir) ? (string) $cfg->paths->ext_dir : './';
+/**
+ * Set application web directory.
+ */
+$path['www_dir'] = ($cfg->paths->www_dir) ? (string) $cfg->paths->www_dir : './';
+/**
+ * Set application URL.
+ */
+$path['app_url'] = ($cfg->paths->app_url) ? (string) $cfg->paths->app_url : 'http://'.$_SERVER['HTTP_HOST'].'/';
+
+/**
  * Check if loader is readable.
  */
-if(is_readable('../toolsapp/ext.loader.php'))
+if(is_readable($path['app_dir'].'ext.loader.php'))
 {
 	/**
 	 * Load loader file.
 	 */
-	require_once('../toolsapp/ext.loader.php');
+	require_once($path['app_dir'].'ext.loader.php');
 }
 
 /**
@@ -51,7 +83,7 @@ $loader = new rw_Loader_Extension();
 /**
  * Set extension directory.
  */
-$loader->setExtDir('d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/engine/ext/');
+$loader->setExtDir($path['ext_dir']);
 
 /**
  * Load extension.
@@ -59,13 +91,10 @@ $loader->setExtDir('d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/eng
 $nfo = $loader->load('nfo');
 
 /**
- * Test.
+ * Output result.
  */
-//echo $nfo->nfoPhpInfo();
-//echo '<pre>';
-//var_dump($nfo->nfoPhpExt());
-//echo '</pre>';
 echo $nfo->extOut();
+
 /**
  * Stop script execution
  */

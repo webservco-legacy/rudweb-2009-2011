@@ -331,11 +331,11 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 			/**
 			 * Server name.
 			 */
-			$server['name'] = $apache_split[0];
+			$server['name'] = $server_split[0];
 			/**
 			 * Server version.
 			 */
-			$server['version'] = $apache_split[1];
+			$server['version'] = $server_split[1];
 		}
 		/**
 		 * Check for apache my function.
@@ -366,6 +366,10 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 			$server['version'] = 'n/a';
 		}
 		/**
+		 * Set server.
+		 */
+		$this->server = $server;
+		/**
 		 * Return result.
 		 */
 		return $server;
@@ -381,7 +385,17 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 	public function nfoServerModules()
 	{
 		/**
-		 * Check if serveris apache.
+		 * Check if server is set.
+		 */
+		if (!isset($this->server['name']))
+		{
+			/**
+			 * Return result.
+			 */
+			return array();
+		}
+		/**
+		 * Check if server is apache.
 		 */
 		if($this->server['name'] != 'Apache')
 		{
@@ -425,11 +439,297 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 	public function extOut()
 	{
 		/**
-		 * XXX Return result.
+		 * Return result.
 		 */
 		return $this->_extOutLayout();
 	}
 
+	/**
+	 * Header styles output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _extOutStyles()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		?>
+<style type="text/css">
+html,body,table,form {
+	font-size: 11px;
+	font-family: Verdana;
+	background: #EEE;
+	color: #333;
+	margin: 0;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+#nfo {
+	width: 982px;
+	margin: 0 auto;
+	padding: 0 0 10px 0;
+}
+
+#nfo .box {
+	background: #DDD;
+	border: 1px dashed #333;
+	margin: 10px 0 0 0;
+	padding: 10px 0 10px 10px;
+}
+
+#nfo h1.rud {
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+}
+
+#nfo h2.rud {
+	background: #CCC;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	margin: 10px 0 0 0;
+}
+
+#nfo h3.rud {
+	padding: 10px 0px 10px 0px;
+	margin: 0;
+}
+
+#nfo table {
+	border-collapse: collapse;
+	border: 1px solid #333;
+}
+
+#nfo table td {
+	border: 1px solid #333;
+	padding: 3px;
+	word-wrap: break-word;
+}
+
+#nfo table .key {
+	background: #CCC;
+	text-align: right;
+	font-weight: bold;
+	width: 230px;
+}
+
+#nfo table .value {
+	background: #DDD;
+	width: 230px;
+}
+
+#nfo table .value_small {
+	background: #DDD;
+	width: 50px;
+}
+
+.nfo {
+	border-bottom: 1px dotted #333;
+	cursor: help;
+}
+
+#php_info {
+	background: #DDD;
+}
+
+.right {
+	width: 962px;
+	text-align: right;
+	margin: 10px 0 0;
+}
+
+#menu {
+	float: left;
+	display: inline;
+	width: 180px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 1;
+	font-size: 10px;
+	background: #DDD;
+	padding: 0;
+	border: 1px dashed #333;
+}
+
+#menu .toggle {
+	float: left;
+	display: inline;
+	width: 180px;
+	font-size: 11px;
+	font-weight: bold;
+	margin: 0;
+	padding: 5px 0 5px 0;
+}
+
+#menu .toggle span {
+	float: left;
+	display: inline;
+	width: 170px;
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+#menu div.toggle ul.l1 {
+	display: none;
+}
+
+#menu div.toggle:hover ul.l1 {
+	float: left;
+	display: inline;
+	width: 170px;
+	margin: 0px 0 0 10px;
+	padding: 0;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+#menu ul.l1 li.l1 {
+	float: left;
+	display: inline;
+	width: 170px;
+	list-style: none;
+	margin: 5px 0 0 0;
+	margin: 10px 0 0 0;
+}
+
+#menu ul.l2 {
+	float: left;
+	display: inline;
+	width: 160px;
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+#menu ul.l1 li.l2 {
+	float: left;
+	display: inline;
+	width: 160px;
+	list-style: none;
+	margin: 5px 0 0 0;
+}
+</style>
+		<?php
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+
+	/**
+	 * Header scripts output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _extOutScripts()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		?>
+<script type="text/javascript">
+		//<![CDATA[
+		function toggle(elm) {
+			if( document.getElementById(elm).style.display=='none' )
+			{
+				document.getElementById(elm).style.display = '';
+			}
+			else
+			{
+				document.getElementById(elm).style.display = 'none';
+			}
+		}
+		//]]>
+</script>
+		<?php
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+
+	/**
+	 * Navigation menu output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _extOutMenu()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		?>
+<div id="menu">
+<div class="toggle"><span>Rudweb <?php echo $this->extAbout('name'); ?></span>
+<ul class="l1">
+	<li class="l1"><a href="#a_php" title="PHP Information">PHP Information</a>
+	<ul class="l2">
+		<li class="l2"><a href="#a_php_info" title="PHPInfo()">PHPInfo()</a></li>
+		<li class="l2"><a href="#a_php_nfo" title="General Information">General
+		Information</a></li>
+		<li class="l2"><a href="#a_php_ext" title="Loaded Extensions">Loaded
+		Extensions</a></li>
+		<li class="l2"><a href="#a_php_ini" title="Loaded Extensions">PHP Ini
+		Settings</a></li>
+	</ul>
+	</li>
+	<li class="l1"><a href="#a_server" title="Server Information">Server
+	Information</a>
+	<ul class="l2">
+		<li class="l2"><a href="#a_server_modules" title="Server Modules">Server
+		Modules</a></li>
+		<li class="l2"><a href="#a_server_info" title="Server Information">Server
+		Information</a></li>
+	</ul>
+	</li>
+	<li class="l1"><a href="#a_other" title="Other Information">Other
+	Information</a></li>
+</ul>
+</div>
+</div>
+		<?php
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+
+	/**
+	 * Layout output method.
+	 *
+	 * @retrun mixed result
+	 */
 	private function _extOutLayout()
 	{
 		/**
@@ -447,24 +747,181 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 <meta http-equiv="content-language" content="en" />
 <title>Rudweb <?php echo $this->extAbout('name'); ?> <?php echo $this->extAbout('ver'); ?></title>
 <meta http-equiv="Content-Style-Type" content="text/css" />
+		<?php echo $this->_extOutStyles(); ?>
+
+		<?php echo $this->_extOutScripts(); ?>
+
 </head>
 <body>
-<div id="nfo"></div>
+<div id="nfo"><?php echo $this->_extOutMenu(); ?>
+
+<h2 class="rud"><a name="a_php">PHP Information</a></h2>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_php_info"
+	href="JavaScript:toggle('php_info')">PHPInfo()</a></h3>
+<div id="php_info"><?php echo $this->nfoPhpInfo(); ?>
+<div class="right"><a href="JavaScript:toggle('php_info')" title="close">[close]</a></div>
+</div>
+</div>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_php_nfo"
+	href="JavaScript:toggle('php_nfo')">General information</a></h3>
+<div id="php_nfo">
+<table>
+	<tr>
+		<th>name</th>
+		<th>value</th>
+	</tr>
+	<?php foreach ($this->nfoPhpNfo() as $name => $value) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value"><?php echo $value; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('php_nfo')" title="close">[close]</a></div>
+</div>
+</div>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_php_ext"
+	href="JavaScript:toggle('php_ext')">Loaded Extensions</a></h3>
+<div id="php_ext">
+<table>
+	<tr>
+		<th>name</th>
+		<th>value</th>
+	</tr>
+	<?php foreach ($this->nfoPhpExt() as $name => $value) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value"><?php var_dump($value); ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('php_ext')" title="close">[close]</a></div>
+</div>
+</div>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_php_ini"
+	href="JavaScript:toggle('php_ini')">PHP Ini settings</a></h3>
+<div id="php_ini">
+<table>
+	<tr>
+		<th>name</th>
+		<th>global value</th>
+		<th>local value</th>
+		<th>access</th>
+	</tr>
+	<?php foreach ($this->nfoPhpIni() as $name => $value) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value"><?php echo $value['global_value']; ?></td>
+		<td class="value"><?php echo $value['local_value']; ?></td>
+		<td class="value_small"><?php echo $value['access']; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('php_ini')" title="close">[close]</a></div>
+</div>
+</div>
+
+<h2 class="rud"><a name="a_server">Server information</a></h2>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_server_nfo"
+	href="JavaScript:toggle('server_nfo')">General information</a></h3>
+<div id="server_nfo">
+<table>
+	<tr>
+		<th>name</th>
+		<th>value</th>
+	</tr>
+	<?php foreach ($this->nfoServerNfo() as $name => $value) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value"><?php echo $value; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('server_nfo')"
+	title="close">[close]</a></div>
+</div>
+</div>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_server_modules"
+	href="JavaScript:toggle('server_modules')">Server modules:</a></h3>
+<div id="server_modules">
+<table>
+	<tr>
+		<th>name</th>
+		<th>value</th>
+	</tr>
+	<?php foreach ($this->nfoServerModules() as $id => $name) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value">&#160;</td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('server_modules')"
+	title="close">[close]</a></div>
+</div>
+</div>
+
+<div class="box">
+<h3 class="rud"><a class="nfo" name="a_server_info"
+	href="JavaScript:toggle('server_info')">Server info:</a></h3>
+<div id="server_info">
+<table>
+	<tr>
+		<th>name</th>
+		<th>value</th>
+	</tr>
+	<?php foreach ($this->nfoServerInfo() as $name => $value) : ?>
+	<tr>
+		<td class="key"><?php echo $name; ?></td>
+		<td class="value"><?php echo $value; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<div class="right"><a href="JavaScript:toggle('server_info')"
+	title="close">[close]</a></div>
+</div>
+</div>
+
+<h2 class="rud"><a name="a_other">Other Information that might be useful</a></h2>
+
+<script type="text/javascript">
+		//<![CDATA[
+		toggle('php_info');
+		toggle('php_nfo');
+		toggle('php_ext');
+		toggle('php_ini');
+		toggle('server_nfo');
+		toggle('server_modules');
+		toggle('server_info');
+		//]]>
+		</script></div>
 </body>
 </html>
-		<?php
-		/**
-		 * Get parsed output result from the output buffer.
-		 */
-		$out = ob_get_contents();
-		/**
-		 * Delete output buffer and turn off output buffering.
-		 */
-		ob_end_clean();
-		/**
-		 * Return result.
-		 */
-		return $out;
+	<?php
+	/**
+	 * Get parsed output result from the output buffer.
+	 */
+	$out = ob_get_contents();
+	/**
+	 * Delete output buffer and turn off output buffering.
+	 */
+	ob_end_clean();
+	/**
+	 * Return result.
+	 */
+	return $out;
 	}
 }
 ?>

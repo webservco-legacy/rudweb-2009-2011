@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!-- $Id$ -->
+	<!-- $URL$ -->
+	<!-- $Revision$ -->
+
+<!-- Configuration start  -->
+<config>
+	<!-- Paths. All paths must have trailing slash. -->
+	<paths>
+		<!-- Full path to application directory. Defaults to "./". -->
+		<app_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/apps/RudTools/toolsapp/</app_dir>
+		<!-- Full path to extensions directory. Defaults to "./". -->
+		<ext_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/engine/ext/</ext_dir>
+		<!-- Full path to application web access directory. Defaults to "./". -->
+		<www_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/apps/RudTools/public_html/</www_dir>
+		<!-- Application URL. Defaults to current hostname. -->
+		<app_url>http://tools.rudisoft.dev/</app_url>
+	</paths>
+</config>
