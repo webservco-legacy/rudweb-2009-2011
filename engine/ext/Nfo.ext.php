@@ -457,6 +457,9 @@ a {
 }
 
 #nfo .box {
+	float: left;
+	display: inline;
+	width: 972px;
 	background: #DDD;
 	border: 1px dashed #333;
 	margin: 10px 0 0 0;
@@ -464,50 +467,102 @@ a {
 }
 
 #nfo h1.rud {
+	float: left;
+	display: inline;
+	width: 982px;
 	text-align: center;
-	padding: 10px 10px 10px 10px;
+	padding: 10px 0 10px 0;
 }
 
 #nfo h2.rud {
+	float: left;
+	display: inline;
+	width: 982px;
 	background: #CCC;
 	text-align: center;
-	padding: 10px 10px 10px 10px;
+	padding: 10px 0 10px 0;
 	margin: 10px 0 0 0;
 }
 
 #nfo h3.rud {
+	float: left;
+	display: inline;
+	width: 972px;
 	padding: 10px 0px 10px 0px;
 	margin: 0;
 }
 
+#nfo #php_info,
+#nfo #php_nfo,
+#nfo #php_ext,
+#nfo #php_ini,
+#nfo #server_nfo,
+#nfo #server_info,
+#nfo #server_modules
+{
+	float: left;
+	display: inline;
+	width: 972px;
+}
+
 #nfo table {
+	float: left;
+	display: inline;
+	width: auto;
 	border-collapse: collapse;
-	border: 1px solid #333;
+	border: 1px solid #AAA;
+}
+
+#nfo table tr {
+	float: left;
+	display: inline;
+	width: auto;
+	clear: both;
+}
+
+#nfo table th {
+	float: left;
+	display: inline;
+	width: auto;
+	height: 30px;
+	padding: 3px;
+	border: 1px solid #AAA;
+	text-transform: uppercase;
 }
 
 #nfo table td {
-	border: 1px solid #333;
+	float: left;
+	display: inline;
+	width: auto;
+	height: 30px;
+	overflow: auto;
+	border: 1px solid #AAA;
 	padding: 3px;
+	text-wrap: normal;
+	word-wrap: break-word;
 }
 
-#nfo table .key {
+#nfo .key {
 	background: #CCC;
 	text-align: right;
 	font-weight: bold;
-	width: 230px;
-	word-wrap: break-word;
+	width: 250px;
 }
 
-#nfo table .value {
+#nfo .value {
 	background: #DDD;
-	width: 230px;
-	word-wrap: break-word;
+	width: 250px;
 }
 
 #nfo table .value_small {
 	background: #DDD;
-	width: 50px;
-	word-wrap: break-word;
+	width: 60px;
+}
+
+#nfo table th {
+background: #EEE !important;
+text-align: center !important;
+font-size: 1.1em;
 }
 
 .nfo {
@@ -519,7 +574,18 @@ a {
 	background: #DDD;
 }
 
+#php_info div,
+#php_info table,
+#php_info table tr,
+#php_info table th,
+#php_info table td
+{
+float: none;
+}
+
 .right {
+	float: left;
+	display: inline;
 	width: 962px;
 	text-align: right;
 	margin: 10px 0 0;
@@ -753,8 +819,8 @@ a {
 <div id="php_nfo">
 <table>
 	<tr>
-		<th>name</th>
-		<th>value</th>
+		<th class="key">name</th>
+		<th class="value">value</th>
 	</tr>
 	<?php foreach ($this->nfoPhpNfo() as $name => $value) : ?>
 	<tr>
@@ -773,8 +839,8 @@ a {
 <div id="php_ext">
 <table>
 	<tr>
-		<th>name</th>
-		<th>value</th>
+		<th class="key">name</th>
+		<th class="value">value</th>
 	</tr>
 	<?php foreach ($this->nfoPhpExt() as $name => $value) : ?>
 	<tr>
@@ -793,10 +859,10 @@ a {
 <div id="php_ini">
 <table>
 	<tr>
-		<th>name</th>
-		<th>global value</th>
-		<th>local value</th>
-		<th>access</th>
+		<th class="key">name</th>
+		<th class="value">global value</th>
+		<th class="value">local value</th>
+		<th class="value_small">access</th>
 	</tr>
 	<?php foreach ($this->nfoPhpIni() as $name => $value) : ?>
 	<tr>
@@ -819,8 +885,8 @@ a {
 <div id="server_nfo">
 <table>
 	<tr>
-		<th>name</th>
-		<th>value</th>
+		<th class="key">name</th>
+		<th class="value">value</th>
 	</tr>
 	<?php foreach ($this->nfoServerNfo() as $name => $value) : ?>
 	<tr>
@@ -840,8 +906,8 @@ a {
 <div id="server_modules">
 <table>
 	<tr>
-		<th>name</th>
-		<th>value</th>
+		<th class="key">name</th>
+		<th class="value">value</th>
 	</tr>
 	<?php foreach ($this->nfoServerModules() as $id => $name) : ?>
 	<tr>
@@ -861,8 +927,8 @@ a {
 <div id="server_info">
 <table>
 	<tr>
-		<th>name</th>
-		<th>value</th>
+		<th class="key">name</th>
+		<th class="value">value</th>
 	</tr>
 	<?php foreach ($this->nfoServerInfo() as $name => $value) : ?>
 	<tr>
