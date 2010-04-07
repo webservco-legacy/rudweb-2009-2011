@@ -385,26 +385,6 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 	public function nfoServerModules()
 	{
 		/**
-		 * Check if server is set.
-		 */
-		if (!isset($this->server['name']))
-		{
-			/**
-			 * Return result.
-			 */
-			return array();
-		}
-		/**
-		 * Check if server is apache.
-		 */
-		if($this->server['name'] != 'Apache')
-		{
-			/**
-			 * Return result.
-			 */
-			return array();
-		}
-		/**
 		 * Check if method is available.
 		 */
 		if (!function_exists('apache_get_modules'))
