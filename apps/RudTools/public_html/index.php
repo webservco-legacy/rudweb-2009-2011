@@ -96,7 +96,14 @@ if(!is_readable('./nfo.ext.loader.php'))
  * Load Nfo extension loader.
  */
 require_once('./nfo.ext.loader.php');
-
+/**
+ * Initialize Nfo extension.
+ */
+$nfo = new rw_Loader_Extension_Nfo();
+/**
+ * Output result.
+ */
+echo $nfo->nfo($path);
 /**
  * Stop script execution
  */

@@ -95,7 +95,7 @@ class rw_Extension
 	 * @param string $field field to return
 	 * @return array extension information
 	 */
-	protected function extAbout($field=NULL)
+	public function extAbout($field=NULL)
 	{
 		/**
 		 * Return only a field if specified and valid, or the whole list.

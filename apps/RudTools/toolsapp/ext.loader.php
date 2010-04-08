@@ -41,21 +41,28 @@ if (!defined('_RW_VALID'))
 }
 
 /**
- * rw_Extension_Misc.
+ * rw_Loader_Extension.
  *
- * rw_Extension_Misc extension.
+ * rw_Loader_Extension loader.
  *
  * @author     Radu Maier <radu@rudisoft.net>
- * @package    rwExt
+ * @package    rwTools
  */
 class rw_Loader_Extension
 {
 	/**
-	 * Exensions directory.
+	 * Paths.
+	 *
+	 * @var array
+	 */
+	protected $paths = array();
+
+	/**
+	 * Extension object.
 	 *
 	 * @var mixed
 	 */
-	private $extDir;
+	protected $extObj;
 
 	/**
 	 * Constructor.
@@ -68,19 +75,19 @@ class rw_Loader_Extension
 	}
 
 	/**
-	 * Set extensions directory.
+	 * Set paths.
 	 *
-	 * @param string $extDir extension directory
+	 * @param array $paths paths
 	 */
-	public function setExtDir($extDir = './')
+	protected function _setPaths($paths = array())
 	{
 		/**
-		 * Set extension directory.
+		 * Set paths.
 		 */
-		$this->extDir = $extDir;
+		$this->paths = $paths;
 	}
 
-	public function load($ext)
+	protected function _load($ext)
 	{
 		/**
 		 * Parse extension name.
@@ -89,12 +96,12 @@ class rw_Loader_Extension
 		/**
 		 * Search in set extension dir.
 		 */
-		if (is_readable($this->extDir.$ext.'.ext.php'))
+		if (is_readable($this->paths['ext_dir'].$ext.'.ext.php'))
 		{
 			/**
 			 * Load extension.
 			 */
-			require_once($this->extDir.$ext.'.ext.php');
+			require_once($this->paths['ext_dir'].$ext.'.ext.php');
 		}
 		/**
 		 * Extension not found.
@@ -192,7 +199,7 @@ class rw_Extension
 	 * @param string $field field to return
 	 * @return array extension information
 	 */
-	protected function extAbout($field=NULL)
+	public function extAbout($field=NULL)
 	{
 		/**
 		 * Return only a field if specified and valid, or the whole list.

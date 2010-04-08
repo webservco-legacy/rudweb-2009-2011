@@ -48,34 +48,184 @@ if(!is_readable($path['app_dir'].'ext.loader.php'))
 	 */
 	exit;
 }
-
 /**
  * Load loader file.
  */
 require_once($path['app_dir'].'ext.loader.php');
 
 /**
- * Initialize loader.
+ * rw_Loader_Extension_Nfo.
+ *
+ * rw_Loader_Extension_Nfo loader.
+ *
+ * @author     Radu Maier <radu@rudisoft.net>
+ * @package    rwTools
  */
-$loader = new rw_Loader_Extension();
+class rw_Loader_Extension_Nfo extends rw_Loader_Extension
+{
+	/**
+	 * Constructor.
+	 *
+	 * @return mixed result
+	 */
+	public function __construct()
+	{
+		/**
+		 * Call parent constructor.
+		 */
+		parent::__construct();
+	}
 
-/**
- * Set extension directory.
- */
-$loader->setExtDir($path['ext_dir']);
+	/**
+	 * Main functionality.
+	 *
+	 * @return mixed result
+	 */
+	public function nfo($paths)
+	{
+		/**
+		 * Set extension directory.
+		 */
+		$this->_setPaths($paths);
+		/**
+		 * Load extension.
+		 */
+		$this->extObj = $this->_load('nfo');
+		/**
+		 * Output result.
+		 */
+		return $this->_out();
+	}
 
-/**
- * Load extension.
- */
-$nfo = $loader->load('nfo');
+	/**
+	 * Output method.
+	 *
+	 * This is a special method for standalone extensions.
+	 *
+	 * @return mixed result
+	 */
+	private function _out()
+	{
+		/**
+		 * Return result.
+		 */
+		return $this->_outLayout();
+	}
 
-/**
- * Output result.
- */
-echo $nfo->extOut();
+	/**
+	 * Main layout output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _outLayout()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		/**
+		 * Include template.
+		 */
+		include $this->paths['www_dir'].'tpl/nfo.layout.tpl.php';
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
 
-/**
- * Stop script execution
- */
-exit;
+	/**
+	 * Header styles output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _outStyles()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		/**
+		 * Include template.
+		 */
+		include $this->paths['www_dir'].'tpl/nfo.styles.tpl.php';
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+
+	/**
+	 * Header scripts output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _outScripts()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		/**
+		 * Include template.
+		 */
+		include $this->paths['www_dir'].'tpl/nfo.scripts.tpl.php';
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+
+	/**
+	 * Navigation menu output method.
+	 *
+	 * @return mixed result
+	 */
+	private function _outMenu()
+	{
+		/**
+		 * Turn on output buffering.
+		 */
+		ob_start();
+		/**
+		 * Include template.
+		 */
+		include $this->paths['www_dir'].'tpl/nfo.menu.tpl.php';
+		/**
+		 * Get parsed output result from the output buffer.
+		 */
+		$out = ob_get_contents();
+		/**
+		 * Delete output buffer and turn off output buffering.
+		 */
+		ob_end_clean();
+		/**
+		 * Return result.
+		 */
+		return $out;
+	}
+}
 ?>
