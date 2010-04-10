@@ -63,6 +63,7 @@ a {
 	width: 982px;
 	text-align: center;
 	padding: 10px 0 10px 0;
+	font-size: 1.4em;
 }
 
 #nfo h2.rud {
@@ -73,6 +74,7 @@ a {
 	text-align: center;
 	padding: 10px 0 10px 0;
 	margin: 10px 0 0 0;
+	font-size: 1.3em;
 }
 
 #nfo h3.rud {
@@ -81,6 +83,7 @@ a {
 	width: 972px;
 	padding: 10px 0px 10px 0px;
 	margin: 0;
+	font-size: 1.2em;
 }
 
 #nfo #php_info,#nfo #php_nfo,#nfo #php_ext,#nfo #php_ini,#nfo #server_nfo,#nfo #server_info,#nfo #server_modules
