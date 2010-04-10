@@ -179,7 +179,7 @@ a {
 #menu {
 	float: left;
 	display: inline;
-	width: 180px;
+	width: 200px;
 	position: fixed;
 	top: 10px;
 	right: 10px;
@@ -193,7 +193,7 @@ a {
 #menu .toggle {
 	float: left;
 	display: inline;
-	width: 180px;
+	width: 200px;
 	font-size: 11px;
 	font-weight: bold;
 	margin: 0;
@@ -203,7 +203,7 @@ a {
 #menu .toggle span {
 	float: left;
 	display: inline;
-	width: 170px;
+	width: 190px;
 	margin: 0 0 0 10px;
 	padding: 0;
 }
@@ -215,7 +215,7 @@ a {
 #menu div.toggle:hover ul.l1 {
 	float: left;
 	display: inline;
-	width: 170px;
+	width: 190px;
 	margin: 0px 0 0 10px;
 	padding: 0;
 	font-size: 10px;
@@ -225,25 +225,35 @@ a {
 #menu ul.l1 li.l1 {
 	float: left;
 	display: inline;
-	width: 170px;
+	width: 190px;
 	list-style: none;
 	margin: 5px 0 0 0;
 	margin: 10px 0 0 0;
+	text-transform: uppercase;
+}
+
+#menu ul.l1 li.l1 a {
+	color: #333;
 }
 
 #menu ul.l2 {
 	float: left;
 	display: inline;
-	width: 160px;
-	margin: 0 0 0 10px;
+	width: 180px;
+	margin: 0 0 0 0px;
 	padding: 0;
 }
 
 #menu ul.l1 li.l2 {
 	float: left;
 	display: inline;
-	width: 160px;
+	width: 180px;
 	list-style: none;
 	margin: 5px 0 0 0;
+	text-transform: none;
+}
+
+#menu ul.l1 li.l2 a {
+	color: #777;
 }
 </style>

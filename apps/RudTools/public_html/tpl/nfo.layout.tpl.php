@@ -47,16 +47,6 @@
 			<h2 class="rud"><a name="a_php">PHP Information</a></h2>
 			
 			<div class="box">
-				<h3 class="rud"><a class="nfo" name="a_php_info" href="JavaScript:toggle('php_info')">PHPInfo()</a></h3>
-				<div id="php_info">
-					<?php echo $this->extObj->nfoPhpInfo(); ?>
-					<div class="right">
-						<a href="JavaScript:toggle('php_info')" title="close">[close]</a>
-					</div>
-				</div>
-			</div>
-			
-			<div class="box">
 				<h3 class="rud"><a class="nfo" name="a_php_nfo"	href="JavaScript:toggle('php_nfo')">General information</a></h3>
 				<div id="php_nfo">
 					<table>
@@ -119,6 +109,16 @@
 					</table>
 					<div class="right">
 						<a href="JavaScript:toggle('php_ini')" title="close">[close]</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="box">
+				<h3 class="rud"><a class="nfo" name="a_php_info" href="JavaScript:toggle('php_info')">PHPInfo()</a></h3>
+				<div id="php_info">
+					<?php echo $this->extObj->nfoPhpInfo(); ?>
+					<div class="right">
+						<a href="JavaScript:toggle('php_info')" title="close">[close]</a>
 					</div>
 				</div>
 			</div>
@@ -188,7 +188,59 @@
 				</div>
 			</div>
 			
-			<h2 class="rud"><a name="a_other">Other Information that might be useful</a></h2>
+			<h2 class="rud"><a name="a_server">OS information</a></h2>
+			
+			<div class="box">
+				<h3 class="rud"><a class="nfo" name="a_os_nfo" href="JavaScript:toggle('os_nfo')">General information</a></h3>
+				<div id="os_nfo">
+					<table>
+						<tr>
+							<th class="key">name</th>
+							<th class="value">value</th>
+						</tr>
+						<?php foreach ($this->extObj->nfoOsNfo() as $name => $value) : ?>
+						<tr>
+							<td class="key"><?php echo $name; ?></td>
+							<td class="value"><?php echo $value; ?></td>
+						</tr>
+						<?php endforeach; ?>
+					</table>
+					<div class="right">
+						<a href="JavaScript:toggle('os_nfo')" title="close">[close]</a>
+					</div>
+				</div>
+			</div>
+			
+			<h2 class="rud"><a name="a_fs">Filesystem information</a></h2>
+			
+			<div class="box">
+				<h3 class="rud"><a class="nfo" name="a_fs_nfo" href="JavaScript:toggle('fs_nfo')">General information</a></h3>
+				<div id="fs_nfo">
+					<table>
+						<tr>
+							<th class="key">name</th>
+							<th class="value">value</th>
+						</tr>
+						<?php foreach ($this->extObj->nfoFsNfo() as $name => $value) : ?>
+						<tr>
+							<td class="key"><?php echo $name; ?></td>
+							<td class="value">
+							<?php if (in_array($name, array('size', 'used', 'available'))) : ?>
+							<?php echo $this->_hrSize($value); ?>B
+							<?php elseif ($name == 'use') : ?>
+							<?php echo $value; ?>%
+							<?php else: ?>
+							<?php echo $value; ?>
+							<?php endif; ?>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+					</table>
+					<div class="right">
+						<a href="JavaScript:toggle('fs_nfo')" title="close">[close]</a>
+					</div>
+				</div>
+			</div>
 			
 			<script type="text/javascript">
 			//<![CDATA[
@@ -199,6 +251,8 @@
 			toggle('server_nfo');
 			toggle('server_modules');
 			toggle('server_info');
+			toggle('os_nfo');
+			toggle('fs_nfo');
 			//]]>
 			</script>
 		</div>

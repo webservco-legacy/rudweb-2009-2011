@@ -227,5 +227,29 @@ class rw_Loader_Extension_Nfo extends rw_Loader_Extension
 		 */
 		return $out;
 	}
+
+	/**
+	 * Human readable filesize converter.
+	 *
+	 * @author rostvertol.mil@gmail.com
+	 *
+	 * @param integer $bytes size in bytes
+	 * @return mixed result
+	 */
+	private function _hrSize($bytes)
+	{
+		/**
+		 * Set binary prefix types.
+		 */
+		$types = array('', 'Ki', 'Mi', 'Gi', 'Ti');
+		/**
+		 * Do the magic.
+		 */
+		for ($i = 0;$bytes >= 1024 && $i <( count($types) - 1); $bytes /= 1024, $i++);
+		/**
+		 * Return result.
+		 */
+		return(round($bytes, 2)." ".$types[$i]);
+	}
 }
 ?>

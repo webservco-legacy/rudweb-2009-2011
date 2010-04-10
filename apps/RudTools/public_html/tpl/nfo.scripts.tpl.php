@@ -39,5 +39,12 @@ function toggle(elm) {
 		document.getElementById(elm).style.display = 'none';
 	}
 }
+function toggle_open(elm) {
+	if (document.getElementById(elm).style.display=='none')
+	{
+		document.getElementById(elm).style.display = '';
+	}
+	return true;
+}
 //]]>
 </script>

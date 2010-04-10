@@ -166,6 +166,10 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 		 */
 		$php['version']          = (function_exists('phpversion')) ? phpversion() : PHP_VERSION;
 		/**
+		 * Server interface.
+		 */
+		$php['interdace']       = (function_exists('php_sapi_name')) ? php_sapi_name() : PHP_SAPI;
+		/**
 		 * Short open tag.
 		 */
 		$php['short_open_tag']   = (function_exists('ini_get')) ? (int) ini_get('short_open_tag') : FALSE;
@@ -409,6 +413,88 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 		 * Return result.
 		 */
 		return $_SERVER;
+	}
+
+	/**
+	 * OS Information.
+	 */
+	public function nfoOsNfo()
+	{
+		/**
+		 * Init.
+		 */
+		$os = array();
+		/**
+		 * OS PHP was build on.
+		 */
+		$os['build'] = PHP_OS;
+		/**
+		 * OS Name.
+		 */
+		$os['os'] = function_exists('php_uname') ? php_uname('s') : 'n/a';
+		/**
+		 * Host.
+		 */
+		$os['host'] = function_exists('php_uname') ? php_uname('n') : 'n/a';
+		/**
+		 * Release.
+		 */
+		$os['release'] = function_exists('php_uname') ? php_uname('r') : 'n/a';
+		/**
+		 * Version
+		 */
+		$os['version'] = function_exists('php_uname') ? php_uname('v') : 'n/a';
+		/**
+		 * Machine type.
+		 */
+		$os['machine'] = function_exists('php_uname') ? php_uname('m') : 'n/a';
+		/**
+		 * Directory separator.
+		 */
+		$os['directory_separator'] = DIRECTORY_SEPARATOR;
+		/**
+		 * Path separator.
+		 */
+		$os['path_separator'] = PATH_SEPARATOR;
+		/**
+		 * Return result.
+		 */
+		return $os;
+	}
+
+	/**
+	 * Filesystem information.
+	 */
+	public function nfoFsNfo()
+	{
+		/**
+		 * Init.
+		 */
+		$fs = array();
+		/**
+		 * Current path.
+		 */
+		$fs['path']      = dirname(__FILE__);
+		/**
+		 * Total size.
+		 */
+		$fs['size']      = disk_total_space($fs['path']);
+		/**
+		 * Available.
+		 */
+		$fs['available'] = disk_free_space($fs['path']);
+		/**
+		 * Used.
+		 */
+		$fs['used']      = $fs['size'] - $fs['available'];
+		/**
+		 * Use.
+		 */
+		$fs['use']       = round(($fs['used'] * 100) / $fs['size'], 2);
+		/**
+		 * Return result.
+		 */
+		return $fs;
 	}
 }
 ?>
