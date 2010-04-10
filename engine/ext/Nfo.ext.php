@@ -168,7 +168,7 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 		/**
 		 * Server interface.
 		 */
-		$php['interdace']       = (function_exists('php_sapi_name')) ? php_sapi_name() : PHP_SAPI;
+		$php['interface']       = (function_exists('php_sapi_name')) ? php_sapi_name() : PHP_SAPI;
 		/**
 		 * Short open tag.
 		 */
@@ -474,7 +474,7 @@ class rw_Extension_Nfo extends rw_Extension implements rw_iExtension
 		/**
 		 * Current path.
 		 */
-		$fs['path']      = dirname(__FILE__);
+		$fs['path']      = isset($_SERVER['SCRIPT_FILENAME']) ? dirname($_SERVER['SCRIPT_FILENAME']) : dirname(__FILE__);
 		/**
 		 * Total size.
 		 */
