@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<paths>
+		<app_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/apps/RudTools/toolsapp/</app_dir>
+		<ext_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/engine/ext/</ext_dir>
+		<www_dir>d:/home/rudisoft/www/rudisoft.php/public_html/RudWEb-4.0/apps/RudTools/public_html/</www_dir>
+		<app_url>http://tools.rudisoft.dev/</app_url>
+	</paths>
+</config>
