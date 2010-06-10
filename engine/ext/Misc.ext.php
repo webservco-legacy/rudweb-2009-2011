@@ -124,7 +124,7 @@ class rw_Extension_Misc extends rw_Extension implements rw_iExtension
 	/**
 	 * Return a short string based on a long string.
 	 *
-	 * If can work with character limit, word limit, or both.
+	 * It can work with character limit, word limit, or both.
 	 *
 	 * Eg. get max 80 characters: rwShortString($string, 80)
 	 * Eg. get max 10 words: rwShortString($string, NULL, 10)
@@ -166,7 +166,7 @@ class rw_Extension_Misc extends rw_Extension implements rw_iExtension
 			/**
 			 * Set new string.
 			 */
-			$data = substr($raw, 0, strrpos($raw, ' ')).$add;
+			$data = substr($raw, 0, strrpos($raw, ' '));
 		}
 		/**
 		 * Check if we have words limit.
@@ -182,7 +182,7 @@ class rw_Extension_Misc extends rw_Extension implements rw_iExtension
 		/**
 		 * Return result.
 		 */
-		return $data;
+		return $data.$add;
 	}
 }
 ?>
