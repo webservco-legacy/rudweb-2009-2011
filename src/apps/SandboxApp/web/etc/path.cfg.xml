@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+
+<!-- Configuration -->
+<config>
+	<!-- Development Environment -->
+	<dev>
+		<!-- Main Paths. All paths must have trailing slash. -->
+		<path>
+			<!-- Full path to engine directory. Defaults to "./RudWEb/". -->
+			<core>
+				/home/rudisoft/www/projects/RudWEb-5.0/src/RudWEb/
+			</core>
+			<!-- Full path to application directory. Defaults to "./". -->
+			<app>
+				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/sandboxapp/
+			</app>
+			<!-- Full path to application web accessible directory. Defaults to "./". -->
+			<www>
+				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/public_html/
+			</www>
+		</path>
+		<url>
+			<!-- Application URL. Defaults to current hostname. -->
+			<app>
+				http://rudwev.dev/
+			</app>
+		</url>
+	</dev>
+	<!-- Test Environment -->
+	<test>
+		<setting1>
+			value1
+		</setting1>
+		<setting2>
+			value2
+		</setting2>
+		<setting3>
+			value3
+		</setting3>
+	</test>
+	<!-- Production Environment -->
+	<prod></prod>
+</config>

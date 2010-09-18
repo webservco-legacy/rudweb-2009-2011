@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+
+<phpunit>
+    <php>
+        <ini name="include_path" value=".:/usr/share/pear:/usr/share/php:/home/rudisoft/www/projects/RudWEb-5.0/src:/home/rudisoft/www/projects/RudWEb-5.0/extra/test/assets"/>
+    </php>
+
+ 	<testsuites>
+	    <testsuite name="RudWEb Libraries">
+	        <directory suffix=".lib.php">./cases/RudWEb/lib/core</directory>
+	        <directory suffix=".lib.php">./cases/RudWEb/lib/cfg</directory>
+	        <directory suffix=".lib.php">./cases/RudWEb/lib/library</directory>
+	    </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-html" target="./results/" charset="UTF-8"
+             yui="true" highlight="false"
+             lowUpperBound="35" highLowerBound="70"/>
+		<log type="junit" target="./results/logfile.xml" logIncompleteSkipped="false"/>
+		<log type="testdox-html" target="./results/testdox.html"/>
+  		<log type="testdox-text" target="./results/testdox.txt"/>
+    </logging>
+</phpunit>
