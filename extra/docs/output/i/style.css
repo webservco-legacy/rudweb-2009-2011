@@ -1,0 +1,92 @@
+html, body, div, span, applet, object, iframe,
+header, footer, nav, section, article, aside,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, font, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+body {
+	background:#469bfc;
+	color:#333;
+	font-family:Tahoma, Geneva, sans-serif;
+	width:100%;
+	float:left;
+	padding:0 0 30px;
+}
+#wrap {
+	width:360px;
+	margin:30px auto 0;
+}
+#main {
+	width:300px;
+	float:left;
+	padding:30px;
+	background:#fafafa;
+	border:6px solid #007ede;
+}
+h1 {
+	font: 2.0em Georgia, serif;
+	text-align:center;
+	color:#78D316;
+}
+h3.location {
+	font-size:13px;
+	font-weight: bold;
+	margin:12px 0 30px;
+	text-align:center;
+	color:#4D7EC7;
+}
+a:link, a:visited {
+	text-decoration: none;
+	color: #024591;
+}
+a:hover, a:active {
+	text-decoration: underline;
+	color: #006be6;
+}
+table {
+	width:100%;
+	padding:0;
+	margin:0;
+	border:0;
+}
+tr {
+	width:100%;
+	padding:0;
+	margin:0;
+	border:0;
+}
+tr:nth-child(even) {
+	background:#def2ff;
+}
+th {
+	display:none;
+}
+td {
+	height:20px;
+	padding:10px;
+	margin:0;
+}
+td:nth-child(1){
+	width:16px;
+}
+hr {
+	display:none;
+}
+p {
+	margin:20px 0 0;
+	font-size:14px;
+	text-align:center;
+}

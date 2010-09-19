@@ -222,7 +222,8 @@ class Cfg extends Library
 	/**
 	 * Add data to the configuration array.
 	 *
-	 * Note: main function for storing configuration data is { @see Set() }
+	 * Note: main function for storing configuration data is Set()
+	 * @see Cfg::Set()
 	 *
 	 * @param array $cfgData configuration data
 	 *
@@ -495,8 +496,9 @@ class Cfg extends Library
 	/**
 	 * Add data to the configuration array.
 	 *
-	 * Made a separate method from { @see Add() }
+	 * Made a separate method from Add()
 	 * in order to benefit from recursivity.
+	 * @see Cfg::Add()
 	 *
 	 * @param array $cfgArray main configuration array
 	 * @param array $cfgData configuration data to add

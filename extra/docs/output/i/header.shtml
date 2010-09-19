@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<!--#if expr="$Request_URI == '/'"-->
+	<title>RudWEb Documentation :: Make Your Selection And Press The Left Mouse Button</title>
+
+	<!--#elif expr="$Request_URI == /CHMdefaultConverter\/?/"-->
+	<title>CHM</title>
+
+	<!--#elif expr="$Request_URI == /HTMLframesConverter\/?/"-->
+	<title>HTML Frames</title>
+
+	<!--#elif expr="$Request_URI == /HTMLSmartyConverter\/?/"-->
+	<title>HTML Smarty</title>
+
+	<!--#elif expr="$Request_URI == /PDFdefaultConverter\/?/"-->
+	<title>PDF</title>
+
+	<!--#elif expr="$Request_URI == /XMLDocBookpeardoc2Converter\/?/"-->
+	<title>XML DocBook</title>
+
+	<!--#else -->
+		<title><!--#echo var="Request_URI" --></title>
+	<!--#endif -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" type="text/css" href="/i/style.css" />
+	<link rel="shortcut icon" href="/i/images/favicon.ico" />
+
+</head>
+
+<body>
+<div id="wrap">
+<div id="main">
+	<!--#if expr="$Request_URI == '/'"-->
+	<h1>RudWEb Documentation</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+
+	<!--#elif expr="$Request_URI == /CHMdefaultConverter\/?/"-->
+	<h1>CHM</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+	
+	<!--#elif expr="$Request_URI == /HTMLframesConverter\/?/"-->
+	<h1>HTML Frames</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+
+	<!--#elif expr="$Request_URI == /HTMLSmartyConverter\/?/"-->
+	<h1>HTML Smarty</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+
+	<!--#elif expr="$Request_URI == /PDFdefaultConverter\/?/"-->
+	<h1>PDF</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+
+	<!--#elif expr="$Request_URI == /XMLDocBookpeardoc2Converter\/?/"-->
+	<h1>XML DocBook</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+	
+	<!--#else -->
+		<h1><!--#echo var="Request_URI" --></h1>
+		<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+	<!--#endif -->
