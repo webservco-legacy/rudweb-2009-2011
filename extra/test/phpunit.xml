@@ -8,9 +8,9 @@
 
  	<testsuites>
 	    <testsuite name="RudWEb Libraries">
-	        <directory suffix=".lib.php">./cases/RudWEb/lib/core</directory>
-	        <directory suffix=".lib.php">./cases/RudWEb/lib/cfg</directory>
-	        <directory suffix=".lib.php">./cases/RudWEb/lib/library</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/core</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/cfg</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/library</directory>
 	    </testsuite>
     </testsuites>
 
@@ -18,8 +18,8 @@
         <log type="coverage-html" target="./results/" charset="UTF-8"
              yui="true" highlight="false"
              lowUpperBound="35" highLowerBound="70"/>
-		<log type="junit" target="./results/logfile.xml" logIncompleteSkipped="false"/>
-		<log type="testdox-html" target="./results/testdox.html"/>
-  		<log type="testdox-text" target="./results/testdox.txt"/>
+		<log type="junit" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/logfile.xml" logIncompleteSkipped="false"/>
+		<log type="testdox-html" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.html"/>
+  		<log type="testdox-text" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.txt"/>
     </logging>
 </phpunit>

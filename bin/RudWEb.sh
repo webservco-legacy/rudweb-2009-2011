@@ -1,0 +1,329 @@
+#!/bin/bash
+
+# $Id$
+
+#############
+# VARIABLES #
+#############
+
+WEBS='httpd'
+DBMS='mysqld'
+
+DOC_INI='/home/rudisoft/www/projects/RudWEb-5.0/extra/docs/RudWEb.ini'
+DOC_OUT_DIR='/home/rudisoft/www/projects/RudWEb-5.0/extra/docs/output/phpdoc'
+DOC_URL='http://rudocs.dev/phpdoc/'
+DOC_FILE='http://rudocs.dev/phpdoc/HTMLframesConverter/default/'
+
+TEST_INI='/home/rudisoft/www/projects/RudWEb-5.0/extra/test/phpunit.xml'
+TEST_OUT_DIR='/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results'
+TEST_RESULT_FORMAT='html'
+
+#############
+# CONSTANTS #
+#############
+
+P_NAME=$(basename $0)
+P_VERSION='$Revision$'
+P_USER=$USER
+TEST_RESULT_FILE="$TEST_OUT_DIR/testdox.$TEST_RESULT_FORMAT"
+
+#############
+# FUNCTIONS #
+#############
+
+function exit_error 
+{
+    clear
+    echo "--------------------------------------------------------------------------------"
+    echo " $P_NAME ERROR: $1" 1>&2
+    echo "--------------------------------------------------------------------------------"
+    exit 1
+}
+
+function exit_ok
+{
+    rm -f /tmp/RudWEb
+    clear
+    echo "--------------------------------------------------------------------------------"
+    echo " Thanx for using $P_NAME, $P_USER!"
+    echo "--------------------------------------------------------------------------------"
+    exit 0
+}
+
+function p_header
+{
+    clear
+    echo "--------------------------------------------------------------------------------"
+    echo " $P_NAME run by $P_USER"
+    echo " TASK: $1" 1>&2
+    echo "--------------------------------------------------------------------------------"
+    echo "                                                                                "
+}
+
+function p_footer
+{
+    echo "                                                                                "
+    echo "--------------------------------------------------------------------------------"
+    echo " done! | Press ENTER to continue"
+    echo "--------------------------------------------------------------------------------"
+    read
+    clear
+}
+
+function check_user
+{
+    clear
+    if [ $(id -u) = "0" ]; then
+    	dialog --title "$P_NAME Error!"\
+        --msgbox "\n Don't run $P_NAME as root!" \
+        10 40
+        exit_error "Don't run as root!"
+    fi
+}
+
+function page_help
+{
+	clear
+	dialog --title "$P_NAME Help" \
+	--msgbox " \
+	\n Lorem Ipsum Dolor \
+	\n Sic Amet
+	" \
+	20 50
+}
+
+function page_about
+{
+	clear
+	dialog --title "About $P_NAME" \
+	--msgbox " \
+	\n Name: $P_NAME \
+	\n Version $P_VERSION
+	" \
+	20 50
+}
+
+function webs_start
+{
+	p_header "Start Web Server"
+	echo -n "Enter root "
+	su -c "/etc/init.d/$WEBS start;exit"
+	p_footer
+}
+
+function webs_stop
+{
+	p_header "Stop Web Server"
+	echo -n "Enter root "
+	su -c "/etc/init.d/$WEBS stop;exit"
+	p_footer
+}
+
+function dbms_start
+{
+	p_header "Start Database Management Server"
+	echo -n "Enter root "
+	su -c "/etc/init.d/$DBMS start;exit"
+	p_footer
+}
+
+function dbms_stop
+{
+	p_header "Stop Database Management Server"
+	echo -n "Enter root "
+	su -c "/etc/init.d/$DBMS stop;exit"
+	p_footer
+}
+
+function doc_run
+{
+	p_header "Generate Documentation"
+	doc_clean
+	phpdoc -c $DOC_INI
+	xdg-open $DOC_URL > /dev/null 2>&1
+	xdg-open $DOC_FILE > /dev/null 2>&1
+	p_footer
+}
+
+function doc_clean
+{
+	p_header "Clean Up Documentation Output Directory"
+	rm -rf $DOC_OUT_DIR/*
+	p_footer
+}
+
+function test_run
+{
+	p_header "Run Unit Tests"
+	test_clean
+	phpunit --configuration $TEST_INI
+	
+	if [ -f $TEST_RESULT_FILE ]; then
+		xdg-open $TEST_RESULT_FILE > /dev/null 2>&1
+	fi
+	p_footer
+}
+
+function test_clean
+{
+	p_header "Clean Up Unit Tests Results Directory"
+	rm -rf $TEST_OUT_DIR/*
+	p_footer
+}
+
+function show_gui
+{
+	while [ 0 ]; do
+		dialog --title "$P_NAME" --menu \
+		"Hello $P_USER!" \
+		18 60 7 \
+		"s" "Server Management >>" \
+		"d" "RudWEb Documentation >>" \
+		"t" "RudWEb Unit Tests >>" \
+		"h" "Help" \
+		"a" "About" \
+		"x" "Exit" \
+		2> /tmp/RudWEb
+		if [ $? = 1 ]; then
+			exit_ok
+		fi
+		handle_menu
+	done;
+}
+
+function page_server
+{
+	while [ 0 ]; do
+		dialog --title "$P_NAME :: Server Management" --menu \
+		"Hello $P_USER!" \
+		18 60 5 \
+		"ws" "Start Web Server" \
+		"wk" "Stop Web Server" \
+		"ds" "Start Database Management Server" \
+		"dk" "Stop Database Management Server" \
+		"b" "Back" \
+		2> /tmp/RudWEb
+		if [ $? = 1 ]; then
+			show_gui
+		fi
+		handle_menu
+	done;
+}
+
+function page_doc
+{
+	while [ 0 ]; do
+		dialog --title "$P_NAME :: RudWEb Documentation" --menu \
+		"Hello $P_USER!" \
+		18 60 5 \
+		"dc" "Clean Up Documentation Output Directory" \
+		"dr" "Generate Documentation" \
+		"b" "Back" \
+		2> /tmp/RudWEb
+		if [ $? = 1 ]; then
+			show_gui
+		fi
+		handle_menu
+	done;
+}
+
+function page_test
+{
+	while [ 0 ]; do
+		dialog --title "$P_NAME :: RudWEb Unit Tests" --menu \
+		"Hello $P_USER!" \
+		18 60 5 \
+		"tc" "Clean Up Unit Tests Results Directory" \
+		"tr" "Run Unit Tests" \
+		"b" "Back" \
+		2> /tmp/RudWEb
+		if [ $? = 1 ]; then
+			show_gui
+		fi
+		handle_menu
+	done;
+}
+
+function handle_menu
+{
+	R="`cat /tmp/RudWEb`"
+	
+	if [ $R = "h" ]; then
+		page_help
+	elif [ $R = "a" ]; then
+		page_about
+	elif [ $R = "ws" ]; then
+		webs_start
+	elif [ $R = "wk" ]; then
+		webs_stop
+	elif [ $R = "ds" ]; then
+		dbms_start
+	elif [ $R = "dk" ]; then
+		dbms_stop
+	elif [ $R = "s" ]; then
+		page_server
+	elif [ $R = "d" ]; then
+		page_doc
+	elif [ $R = "dc" ]; then
+		doc_clean
+	elif [ $R = "dr" ]; then
+		doc_run
+	elif [ $R = "t" ]; then
+		page_test
+	elif [ $R = "tc" ]; then
+		test_clean
+	elif [ $R = "tr" ]; then
+		test_run
+	elif [ $R = "b" ]; then
+		show_gui
+	elif [ $R = "x" ]; then
+		exit_ok
+	fi
+}
+
+#############
+# EXECUTION #
+#############
+
+#check not to run as root
+check_user
+#check CLI or GUI
+if [ "$1" != "" ]; then
+	while [ "$1" != "" ]; do
+		case $1 in
+			-h | --help )	page_help
+							exit_ok
+							;;
+			-a | --about )	page_about
+							exit_ok
+							;;
+			-ws | --webstart )	webs_start
+								exit_ok
+							;;
+			-wk | --webstop )	webs_stop
+								exit_ok
+							;;
+			-ds | --dbstart )	dbms_start
+								exit_ok
+							;;
+			-dk | --dbstop )	dbms_stop
+								exit_ok
+							;;
+			-dc | --docc )		doc_clean
+								exit_ok
+							;;
+			-d | --doc )		doc_run
+								exit_ok
+							;;
+			-tc | --testc )		test_clean
+								exit_ok
+							;;
+			-t | --test )		test_run
+								exit_ok
+							;;
+			* )				show_gui
+		esac
+	done
+else
+	show_gui
+fi
