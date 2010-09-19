@@ -2,23 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<!--#if expr="$Request_URI == '/'"-->
-	<title>RudWEb Documentation :: Make Your Selection And Press The Left Mouse Button</title>
+	<title>RudWEb Documentation</title>
 
 	<!--#elif expr="$Request_URI == /CHMdefaultConverter\/?/"-->
-	<title>CHM</title>
+	<title>phpDoc :: CHM</title>
 
 	<!--#elif expr="$Request_URI == /HTMLframesConverter\/?/"-->
-	<title>HTML Frames</title>
+	<title>phpDoc :: HTML Frames</title>
 
 	<!--#elif expr="$Request_URI == /HTMLSmartyConverter\/?/"-->
-	<title>HTML Smarty</title>
+	<title>phpDoc :: HTML Smarty</title>
 
 	<!--#elif expr="$Request_URI == /PDFdefaultConverter\/?/"-->
-	<title>PDF</title>
+	<title>phpDoc :: PDF</title>
 
 	<!--#elif expr="$Request_URI == /XMLDocBookpeardoc2Converter\/?/"-->
-	<title>XML DocBook</title>
-
+	<title>phpDoc :: XML DocBook</title>
+	
+	<!--#elif expr="$Request_URI == /phpdoc\/?/"-->
+	<title>phpDoc</title>
+	
 	<!--#else -->
 		<title><!--#echo var="Request_URI" --></title>
 	<!--#endif -->
@@ -34,25 +37,29 @@
 	<!--#if expr="$Request_URI == '/'"-->
 	<h1>RudWEb Documentation</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
-
+	
 	<!--#elif expr="$Request_URI == /CHMdefaultConverter\/?/"-->
-	<h1>CHM</h1>
+	<h1>phpDoc :: CHM</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
 	
 	<!--#elif expr="$Request_URI == /HTMLframesConverter\/?/"-->
-	<h1>HTML Frames</h1>
+	<h1>phpDoc :: HTML Frames</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
 
 	<!--#elif expr="$Request_URI == /HTMLSmartyConverter\/?/"-->
-	<h1>HTML Smarty</h1>
+	<h1>phpDoc :: HTML Smarty</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
 
 	<!--#elif expr="$Request_URI == /PDFdefaultConverter\/?/"-->
-	<h1>PDF</h1>
+	<h1>phpDoc :: PDF</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
 
 	<!--#elif expr="$Request_URI == /XMLDocBookpeardoc2Converter\/?/"-->
-	<h1>XML DocBook</h1>
+	<h1>phpDoc :: XML DocBook</h1>
+	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
+	
+	<!--#elif expr="$Request_URI == /phpdoc\/?/"-->
+	<h1>phpDoc</h1>
 	<h3 class="location">Location: <!--#echo var="Request_URI" --></h3>
 	
 	<!--#else -->
