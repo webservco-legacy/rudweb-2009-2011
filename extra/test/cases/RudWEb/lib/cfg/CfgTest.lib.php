@@ -176,8 +176,8 @@ class CfgTest extends PHPUnit_Framework_TestCase
 	{
 		$values = array(
 			'core' => '/home/rudisoft/www/projects/RudWEb-5.0/src/RudWEb/',
-			'app' => '/home/rudisoft/www/projects/RudWEb-5.0/src/apps/sandbox/sandboxapp/',
-			'www' => '/home/rudisoft/www/projects/RudWEb-5.0/src/apps/sandbox/public_html/',
+			'app' => '/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/',
+			'www' => '/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/web/',
 		);
 
 		$this->assertEquals( $values, $this->_mObject->Get( 'path' ) );

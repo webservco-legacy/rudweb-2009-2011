@@ -13,11 +13,11 @@
 			</core>
 			<!-- Full path to application directory. Defaults to "./". -->
 			<app>
-				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/sandboxapp/
+				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/
 			</app>
 			<!-- Full path to application web accessible directory. Defaults to "./". -->
 			<www>
-				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/public_html/
+				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/web/
 			</www>
 		</path>
 		<url>
