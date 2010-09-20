@@ -302,8 +302,10 @@ class Cfg extends Library
 			 * actuallyi contains the requested value.
 			 * Also, if there is no request setting set, the full configuration
 			 * for the current environment is retrieved.
+			 *
+			 * Return value only if not empty.
 			 */
-			return $cfg_array;
+			return !empty( $cfg_array ) ? $cfg_array : FALSE;
 		}
 
 		/**
@@ -370,9 +372,9 @@ class Cfg extends Library
 		if ( array_key_exists( $cfgSetting, $cfg_array ) )
 		{
 			/**
-			 * Return requested value.
+			 * Return requested value but only if it is not empty.
 			 */
-			return $cfg_array[$cfgSetting];
+			return !empty( $cfg_array[$cfgSetting] ) ? $cfg_array[$cfgSetting] : FALSE;
 		}
 
 		/**

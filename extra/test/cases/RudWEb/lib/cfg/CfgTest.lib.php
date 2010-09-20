@@ -281,9 +281,8 @@ class CfgTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 *
 	 * @depends SetReturnsTrueWhenValidFileAndValidXml
-	 * @depends
 	 */
-	public function GetFailsOnNoQueryForAnotherEnvThatHasNoData()
+	public function GetFailsOnEmptyQueryForAnotherEnvThatHasNoData()
 	{
 		$this->assertFalse( $this->_mObject->Get( NULL, 'prod' ) );
 	}
