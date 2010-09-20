@@ -277,6 +277,19 @@ class Cfg extends Library
 		$cfg_array = ( $cfgArray ) ? $cfgArray : $this->_mCfg[$cfg_env];
 
 		/**
+		 * Check if request setting is an empty array.
+		 * Additioanl $cfgArray check is required in order
+		 * not to break recursivity.
+		 */
+		if ( !$cfgArray && is_array( $cfgSetting ) && empty( $cfgSetting ) )
+		{
+			/**
+			 * Stop.
+			 */
+			return FALSE;
+		}
+
+		/**
 		 * Check if request setting is missing or configuration array is
 		 * actually a string. In bot cases the result we are interested in
 		 * is the actual configuration array variable.
