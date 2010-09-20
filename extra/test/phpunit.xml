@@ -12,6 +12,9 @@
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/cfg</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/library</directory>
 	    </testsuite>
+	    <testsuite name="RudWEb Misc">
+	        <directory suffix=".php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/misc</directory>
+	    </testsuite>
     </testsuites>
 
     <logging>
