@@ -30,6 +30,12 @@
  */
 class LibraryTest extends PHPUnit_Framework_TestCase
 {
-	
+	/**
+	 * @test
+	 */
+	public function GetInstanceReturnsObject()
+	{
+		$this->assertType( 'object', Library::GetInstance('Cfg') );
+	}
 }
 ?>
