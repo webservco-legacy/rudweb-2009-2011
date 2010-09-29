@@ -46,6 +46,13 @@ class Core
 	protected static $_msCfgObject;
 
 	/**
+	 * Stores the error handling object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msErrorObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -60,13 +67,127 @@ class Core
 			/**
 			 * Get object instance and set it.
 			 */
-			self::$_msCfgObject = Cfg::GetInstance( 'Cfg' );
+			self::$_msCfgObject = Cfg::GetInstance();
 		}
 
 		/**
 		 * Return object.
 		 */
 		return self::$_msCfgObject;
+	}
+
+
+	/**
+	 * Method to access the error handling object from everywhere.
+	 */
+	public static function Error()
+	{
+		/**
+		 * Check if object is not set.
+		 */
+		if ( self::$_msErrorObject == NULL )
+		{
+			/**
+			 * Get object instance and set it.
+			 */
+			self::$_msErrorObject = Error::GetInstance();
+		}
+
+		/**
+		 * Return object.
+		 */
+		return self::$_msErrorObject;
+	}
+
+	/**
+	 * Load classes.
+	 *
+	 * @param string $ClassName full class name
+	 */
+	public static function Load( $ClassName )
+	{
+		/**
+		 * Base search paths.
+		 *
+		 * @var array
+		 */
+		$base = array (
+		Core::Cfg()->Get( 'path.core' ),
+		);
+
+		/**
+		 * Class path.
+		 *
+		 * @var string
+		 */
+		$path = 'lib/';
+
+		/**
+		 * Class parts
+		 *
+		 * @var array
+		 */
+		$parts = explode( '_', $ClassName );
+
+		/**
+		 * Class name.
+		 *
+		 * @var string
+		 */
+		$name = $parts[0];
+
+		/**
+		 * Class  directory.
+		 *
+		 * @var string
+		 */
+		$dir  = strtolower( $name ) . '/';
+
+		/**
+		 * Class type.
+		 *
+		 * @var string
+		 */
+		$type = 'lib';
+
+		/**
+		 * Complete clas path.
+		 *
+		 * @var string
+		 */
+		$class_path = $path . $dir . $name . '.' . $type . '.php';
+
+		/**
+		 * Iterate through base search paths.
+		 */
+		foreach ( $base as $base_path )
+		{
+			/**
+			 * Check if class file is readable.
+			 */
+			if ( is_readable( $base_path . $class_path ) )
+			{
+				/**
+				 * Load class file.
+				 */
+				require_once $base_path . $class_path;
+
+				/**
+				 * Stop.
+				 */
+				return TRUE;
+			}
+
+			/**
+			 * Can't find class file.
+			 */
+			return FALSE;
+		}
+
+		/**
+		 * Stop.
+		 */
+		return FALSE;
 	}
 }
 ?>

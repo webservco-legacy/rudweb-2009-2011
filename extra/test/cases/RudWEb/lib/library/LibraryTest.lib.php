@@ -33,9 +33,17 @@ class LibraryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function GetInstanceReturnsObject()
+	public function GetInstanceRetrunsFalseIfCalledDirrectly()
 	{
-		$this->assertType( 'object', Library::GetInstance('Cfg') );
+		$this->assertFalse( Library::GetInstance() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetInstanceRetrunsFalseIfCalledDirrectlyWithParameter()
+	{
+		$this->assertFalse( Library::GetInstance( 'Cfg' ) );
 	}
 }
 ?>

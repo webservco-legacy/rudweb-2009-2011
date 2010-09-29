@@ -48,27 +48,43 @@ abstract class Library
 	/**
 	 * Get object instance
 	 *
-	 * @param string $className classname
-	 *
 	 * @return object
 	 */
-	public static function GetInstance( $className )
+	public static function GetInstance()
 	{
 		/**
-		 * Check thatinstance is not already set.
+		 * Get name of the class to instantiate.
+		 *
+		 * @var string
 		 */
-		if ( !isset( self::$_msInstance[$className] ) )
+		$class_name = get_called_class();
+
+		/**
+		 * Check if requested instance is the base library.
+		 */
+		if ( __CLASS__ == $class_name )
+		{
+			/**
+			 * Stop.
+			 */
+			return FALSE;
+		}
+
+		/**
+		 * Check that instance is not already set.
+		 */
+		if ( !isset( self::$_msInstance[$class_name] ) )
 		{
 			/**
 			 * Set object instance.
 			 */
-			self::$_msInstance[$className] = new $className();
+			self::$_msInstance[$class_name] = new $class_name();
 		}
 
 		/**
 		 * Return object instance.
 		 */
-		return self::$_msInstance[$className];
+		return self::$_msInstance[$class_name];
 	}
 
 	/**

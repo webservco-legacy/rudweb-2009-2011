@@ -24,8 +24,10 @@ define( '_RUDWEB', TRUE );
  * Load required files.
  */
 require 'RudWEb/lib/core/Core.lib.php';
+require 'RudWEb/lib/core/CoreCompat.lib.php';
 require 'RudWEb/lib/library/Library.lib.php';
 require 'RudWEb/lib/cfg/Cfg.lib.php';
+require 'RudWEb/lib/error/Error.lib.php';
 require 'phpunit.cfg.php';
 
 /**
@@ -44,6 +46,14 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	public function CfgReturnsObject()
 	{
 		$this->assertType( 'object', Core::Cfg() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ErrorReturnsObject()
+	{
+		$this->assertType( 'object', Core::Error() );
 	}
 }
 ?>

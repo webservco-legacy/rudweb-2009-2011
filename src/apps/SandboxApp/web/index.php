@@ -19,4 +19,63 @@
  * Security token.
  */
 define( '_RUDWEB', TRUE );
+
+$cfg['env'] = 'dev';
+$cfg['path_core'] = './RudWEb/';
+
+if ( is_readable( './etc/path.cfg.xml' ) )
+{
+	$cfg_path = simplexml_load_file('./etc/path.cfg.xml');
+
+	$cfg['path_core'] = ($cfg_path->$cfg['env']->path->core) ? trim( $cfg_path->$cfg['env']->path->core ) : './RudWEb/';
+}
+
+if ( FALSE != version_compare( PHP_VERSION, '5.3.0', '<' ) )
+{
+	require $cfg['path_core'] . 'lib/core/CoreCompat.lib.php';
+}
+
+require $cfg['path_core'] . 'lib/core/Core.lib.php';
+require $cfg['path_core'] . 'lib/library/Library.lib.php';
+require $cfg['path_core'] . 'lib/cfg/Cfg.lib.php';
+
+Core::Cfg()->SetEnv( $cfg['env'] );
+Core::Cfg()->Set( $cfg_path );
+
+spl_autoload_register( array( 'Core', 'Load' ) );
+
+Core::Error()->Load();
+
+try
+{
+	trigger_error('Hello World', 256);
+}
+//catch ( RudException $e )
+//XXX try ErrorException?
+catch ( ErrorException $e )
+{
+	
+	echo 'error:';
+	echo '<pre>';
+	var_dump( $e->GetSeverity() );
+	echo '<hr />';
+	var_dump( $e->GetMessage() );
+	echo '<hr />';
+	var_dump( $e->GetCode() );
+	echo '<hr />';
+	var_dump( $e->GetFile() );
+	echo '<hr />';
+	var_dump( $e->GetLine() );
+	echo '<hr />';
+	//var_dump( $e->GetTrace() );
+	echo '<hr />';
+	var_dump( $e->GetTraceAsString() );
+	echo '</pre>';
+}
+
+Core::Error()->Unload();
+
+//echo '<pre>';
+//var_dump( Core::Cfg()->Get( 'path.core' ) );
+//echo '</pre>';
 ?>

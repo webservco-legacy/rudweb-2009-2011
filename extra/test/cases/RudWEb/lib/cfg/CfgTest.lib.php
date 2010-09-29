@@ -42,15 +42,15 @@ class CfgTest extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_mObject = Cfg::GetInstance('Cfg');
+		$this->_mObject = Cfg::GetInstance();
 	}
 
 	/**
 	 * @test
 	 */
-	public function GetInstanceReturnsObject()
+	public function GetInstanceCfgReturnsObject()
 	{
-		$this->assertType( 'object', Cfg::GetInstance('Cfg') );
+		$this->assertType( 'object', Cfg::GetInstance() );
 	}
 
 	/**
@@ -268,13 +268,13 @@ class CfgTest extends PHPUnit_Framework_TestCase
 	 * @test
 	 *
 	 * @depends SetReturnsTrueWhenValidFileAndValidXml
-	 * @depends GetWorksIfNoQuery
+	 * @depends GetReturnsFullArrayConfigForCurrentEnvOnNoQuery
 	 */
 	public function GetReturnsFullConfigForAnotherEnvOnNoQuery()
 	{
 		$count = count( $this->_mObject->Get( NULL, 'test' ) );
 
-		$this->assertEquals( 5, $count );
+		$this->assertEquals( 3, $count );
 	}
 
 	/**
