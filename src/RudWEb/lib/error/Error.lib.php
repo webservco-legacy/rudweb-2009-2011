@@ -28,32 +28,6 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * RudException
- *
- * Error object.
- *
- * @author     Radu Maier <rudisoft@rudisoft.net>
- * @package    RudWEb
- * @subpackage RudError
- *
- */
-class RudException extends Exception
-{
-	private $_mContext;
-
-	public function __construct( $errMessage, $errCode, $errFile, $errLine, $errContext = NULL )
-	{
-		parent::__construct( $errMessage, $errCode );
-
-		$this->file = $errFile;
-
-		$this->line = $errLine;
-
-		$this->_mContext = $errContext;
-	}
-}
-
-/**
  * Error
  *
  * Error handling library.
@@ -65,6 +39,11 @@ class RudException extends Exception
  */
 class Error extends Library
 {
+	/**
+	 * Register as the error handler.
+	 *
+	 * @return boolean
+	 */
 	public function Load()
 	{
 		set_error_handler( array( Error::GetInstance(), 'Handle' ) );
@@ -72,6 +51,11 @@ class Error extends Library
 		return TRUE;
 	}
 
+	/**
+	 * Restore error handler.
+	 *
+	 * @return boolean
+	 */
 	public function Unload()
 	{
 		restore_error_handler();
@@ -79,11 +63,42 @@ class Error extends Library
 		return TRUE;
 	}
 
-	public function Handle( $errCode, $errMessage, $errFile, $errLine, $errContext )
+	/**
+	 * Handle errors.
+	 *
+	 * @param integer $errCode
+	 * @param string $errMessage
+	 * @param string $errFile
+	 * @param string $errLine
+	 * @throws ErrorException
+	 */
+	public function Handle( $errCode, $errMessage, $errFile, $errLine )
 	{
-		//throw new RudException( $errMessage, $errCode, $errFile, $errLine, $errContext );
-		//XXX try with ErroException
 		throw new ErrorException( $errMessage, 0, $errCode, $errFile, $errLine );
+	}
+
+	/**
+	 * Report errors.
+	 *
+	 * @param mixed $errObject
+	 */
+	public function Report( $errObject )
+	{
+		$msg  = 'Someone made a boo-boo!';
+		$msg .= "\n";
+		$msg .= '<!--' . "\n";
+		$msg .= 'code: ' . $errObject->GetCode() . "\n";
+		$msg .= 'severity: ' . $errObject->GetSeverity() . "\n";
+		$msg .= 'message: ' . $errObject->GetMessage() . "\n";
+		$msg .= 'file: ' . $errObject->GetFile() . "\n";
+		$msg .= 'line: ' . $errObject->GetLine() . "\n";
+		$msg .= 'trace: ' . "\n";
+		$msg .= $errObject->GetTraceAsString() . "\n";
+		$msg .= '-->';
+
+		echo $msg;
+
+		exit();
 	}
 }
 ?>
