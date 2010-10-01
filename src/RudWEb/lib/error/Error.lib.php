@@ -84,19 +84,22 @@ class Error extends Library
 	 */
 	public function Report( $errObject )
 	{
-		$msg  = 'Someone made a boo-boo!';
-		$msg .= "\n";
-		$msg .= '<!--' . "\n";
-		$msg .= 'code: ' . $errObject->GetCode() . "\n";
-		$msg .= 'severity: ' . $errObject->GetSeverity() . "\n";
-		$msg .= 'message: ' . $errObject->GetMessage() . "\n";
-		$msg .= 'file: ' . $errObject->GetFile() . "\n";
-		$msg .= 'line: ' . $errObject->GetLine() . "\n";
-		$msg .= 'trace: ' . "\n";
-		$msg .= $errObject->GetTraceAsString() . "\n";
-		$msg .= '-->';
+		$err_code = $errObject->GetCode();
+		$err_severity = $errObject->GetSeverity();
+		$err_message = $errObject->GetMessage();
+		$err_file = $errObject->GetFile();
+		$err_line = $errObject->GetLine();
+		$err_trace = $errObject->GetTraceAsString();
 
-		echo $msg;
+		$msg = '[' . $err_code . '] [' . $err_severity . '] ' . $err_message . PHP_EOL;
+		$msg .= 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
+		$msg .= 'Trace:' . PHP_EOL ;
+		$msg .= $err_trace . PHP_EOL;
+		$msg .= 'Execution stopped.';
+
+		Core::Log()->Write( $msg , 'error' );
+
+		echo 'Boo boo detected!';
 
 		exit();
 	}

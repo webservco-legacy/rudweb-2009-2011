@@ -53,50 +53,55 @@ class Core
 	protected static $_msErrorObject;
 
 	/**
+	 * Stores the logging object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msLogObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
 	 */
 	public static function Cfg()
 	{
-		/**
-		 * Check if object is not set.
-		 */
 		if ( self::$_msCfgObject == NULL )
 		{
-			/**
-			 * Get object instance and set it.
-			 */
 			self::$_msCfgObject = Cfg::GetInstance();
 		}
 
-		/**
-		 * Return object.
-		 */
 		return self::$_msCfgObject;
 	}
 
-
 	/**
 	 * Method to access the error handling object from everywhere.
+	 *
+	 * @return object
 	 */
 	public static function Error()
 	{
-		/**
-		 * Check if object is not set.
-		 */
 		if ( self::$_msErrorObject == NULL )
 		{
-			/**
-			 * Get object instance and set it.
-			 */
 			self::$_msErrorObject = Error::GetInstance();
 		}
 
-		/**
-		 * Return object.
-		 */
 		return self::$_msErrorObject;
+	}
+
+	/**
+	 * Method to access the logging object from everywhere.
+	 *
+	 * @return object
+	 */
+	public static function Log()
+	{
+		if ( self::$_msLogObject == NULL )
+		{
+			self::$_msLogObject = Log::GetInstance();
+		}
+
+		return self::$_msLogObject;
 	}
 
 	/**

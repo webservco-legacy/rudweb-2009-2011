@@ -43,13 +43,28 @@ Core::Cfg()->SetEnv( $cfg['env'] );
 Core::Cfg()->Set( $cfg_path );
 
 /* FROM HERE -> APPLICATION */
+
+
 spl_autoload_register( array( 'Core', 'Load' ) );
 
+// init log
+$log_path = Core::Cfg()->Get( 'path.app' ) . 'var/log/';
+Core::Log()->SetPath( $log_path );
+Core::Log()->Reset();
+
+Core::Log()->Write( 'Application start.', 'debug' );
+Core::Log()->Write( 'Core library loaded.', 'debug' );
+Core::Log()->Write( 'Configuration library loaded.', 'debug' );
+
 Core::Error()->Load();
+Core::Log()->Write( 'Error library loaded.', 'debug' );
+
+
+Core::Log()->Write( 'Hello World');
 
 try
 {
-	trigger_error( 'Helo World' );
+	//trigger_error( 'Helo World' );
 }
 catch ( ErrorException $e )
 {
@@ -57,6 +72,9 @@ catch ( ErrorException $e )
 }
 
 Core::Error()->Unload();
+Core::Log()->Write( 'Error library unloaded.', 'debug' );
+
+Core::Log()->Write( 'Application end.', 'debug' );
 /* TILL HERE -> APPLICATION */
 
 //echo '<pre>';

@@ -30,4 +30,28 @@
 			</para>
 		</refsect2>
 	</refsect1>
+	<refsect1 id="{@id levels}">
+		<title>Log Levels</title>
+		<para>
+			Log levels is the same as Error levels.
+		</para>
+		<refsect2 id="{@id tester}">
+			<title>Levels List</title>
+			<para>
+				Log and Error levels are:
+			</para>
+			<itemizedlist>
+				<listitem>
+					<para>debug</para>
+					<para>info</para>
+					<para>notice</para>
+					<para>warning</para>
+					<para>error</para>
+					<para>crit</para>
+					<para>alert</para>
+					<para>emerg</para>
+				</listitem>
+			</itemizedlist>
+		</refsect2>
+	</refsect1>
 </refentry>
