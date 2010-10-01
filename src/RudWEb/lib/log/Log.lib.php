@@ -44,6 +44,50 @@ class Log extends Library
 	private $_mLogPath;
 
 	/**
+	 * Stores default log type.
+	 *
+	 * @var string
+	 */
+	private $_mLogType = 'app';
+
+	/**
+	 * Stores log level.
+	 *
+	 * Defaults to 3 (warning)
+	 *
+	 * @var int
+	 */
+	private $_mLogLevel = 4;
+
+	private $_mLogLevels = array(
+	'debug' => 0,
+	'info' => 1,
+	'notice' => 2,
+	'warning' => 3,
+	'error' => 4,
+	'crit' => 5,
+	'alert' => 6,
+	'emerg' => 7,
+	);
+
+	/**
+	 * Set log type.
+	 *
+	 * @param string $logType
+	 *
+	 * @return bool
+	 */
+	public function SetType( $logType )
+	{
+		/**
+		 * @var string
+		 */
+		$this->_mLogType = $logType;
+
+		return TRUE;
+	}
+
+	/**
 	 * Set log files path.
 	 *
 	 * @param string $logPath
@@ -61,17 +105,39 @@ class Log extends Library
 	}
 
 	/**
+	 * Set logging level code by level name.
+	 *
+	 * @param string $logLevelName
+	 */
+	public function SetLevel( $levelName )
+	{
+		if ( array_key_exists( $levelName, $this->_mLogLevels ) )
+		{
+			$this->_mLogLevel = $this->_mLogLevels[$levelName];
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	/**
 	 * Get full log file path.
 	 *
-	 * Returns NULL if log file is not writable
+	 * Returns FALSE if log file is not writable
 	 *
 	 * @param string $logType
 	 * @param string $logPath
 	 *
 	 * @return mixed
 	 */
-	public function GetFile( $logType = 'app', $logPath = NULL )
+	public function GetFile( $logType = NULL, $logPath = NULL )
 	{
+		/**
+		 * @var string
+		 */
+		$log_type = ( $logType ) ? $logType : $this->_mLogType;
+
 		/**
 		 * @var string
 		 */
@@ -87,7 +153,7 @@ class Log extends Library
 		 */
 		if ( !is_writable( $log_file ) )
 		{
-			return NULL;
+			return FALSE;
 		}
 
 		return $log_file;
@@ -98,8 +164,10 @@ class Log extends Library
 	 *
 	 * @param string $logType
 	 * @param string $logPath
+	 *
+	 * @return bool
 	 */
-	public function Reset( $logType = 'app', $logPath = NULL )
+	public function Reset( $logType = NULL, $logPath = NULL )
 	{
 		/**
 		 * Get full log file path.
@@ -111,7 +179,7 @@ class Log extends Library
 		/**
 		 * Stop if log file is not writable.
 		 */
-		if ( !$log_file )
+		if ( FALSE === $log_file )
 		{
 			return FALSE;
 		}
@@ -127,26 +195,37 @@ class Log extends Library
 	}
 
 	/**
-	 * Log.
+	 * Write log.
 	 *
 	 * @param string $logMessage
 	 * @param string $logLevel
 	 * @param string $logType
 	 * @param string $logPath
 	 */
-	public function Write( $logMessage, $logLevel = 'info', $logType = 'app', $logPath = NULL )
+	public function Write( $logMessage, $logLevel = NULL, $logType = NULL, $logPath = NULL )
 	{
+		/**
+		 * @var string
+		 */
+		$level_name = ( $logLevel ) ? $logLevel : array_search( $this->_mLogLevel, $this->_mLogLevels );
+
+		$log_type = ( $logType ) ? $logType : $this->_mLogType;
+
 		/**
 		 * Get full log file path.
 		 *
 		 * @var string
 		 */
-		$log_file = $this->GetFile( $logType, $logPath );
+		$log_file = $this->GetFile( $log_type, $logPath );
 
 		/**
-		 * Stop if log file is not writable.
+		 * Stop if log file is not writable, or logging level too low
 		 */
-		if ( !$log_file )
+		if (
+		( FALSE === $log_file ) ||
+		( !array_key_exists( $level_name, $this->_mLogLevels ) ) ||
+		( $this->_mLogLevels[$level_name] < $this->_mLogLevel )
+		)
 		{
 			return FALSE;
 		}
@@ -159,7 +238,7 @@ class Log extends Library
 		/**
 		 * @var string
 		 */
-		$log_entry = '['. $timestamp . '] [' . $_SERVER['REMOTE_ADDR'] . '] [' . $logLevel . '] ' . $logMessage . PHP_EOL;
+		$log_entry = '['. $timestamp . '] [' . $_SERVER['REMOTE_ADDR'] . '] [' . $level_name . '] ' . $logMessage . PHP_EOL;
 
 		/**
 		 * @var mixed

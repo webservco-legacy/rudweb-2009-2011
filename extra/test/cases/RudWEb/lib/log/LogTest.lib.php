@@ -52,5 +52,184 @@ class LogTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertType( 'object', Log::GetInstance() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function SetTypeReturnsTrue()
+	{
+		$this->assertTrue( $this->_mObject->SetType( 'test' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function SetPathReturnsTrue()
+	{
+		$this->assertTrue( $this->_mObject->SetPath( _PU_ASSETS_PATH . 'RudWEb/var/log/' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function SetLevelReturnsFalseOnValid()
+	{
+		$this->assertFalse( $this->_mObject->SetLevel('noexist') );
+	}
+
+	/**
+	 * @test
+	 */
+	public function SetLevelReturnsTrueOnValid()
+	{
+		$this->assertTrue( $this->_mObject->SetLevel('debug') );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsFalseOnInvalidType()
+	{
+		$this->assertFalse( $this->_mObject->GetFile( 'noexist' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsFalseOnInvalidPath()
+	{
+		$this->assertFalse( $this->_mObject->GetFile( 'test', '/foo/bar' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsFalseOnInvalidTypeAndInvalidPath()
+	{
+		$this->assertFalse( $this->_mObject->GetFile( 'noexist', '/foo/bar' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsFalseIfFileExistsButIsNotWritable()
+	{
+		$this->assertFalse( $this->_mObject->GetFile( 'readonly' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsStringOnValidTypeAndValidPath()
+	{
+		$this->assertType( 'string', $this->_mObject->GetFile( 'test', _PU_ASSETS_PATH . 'RudWEb/var/log/' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GetFileReturnsStringOnValidTypeAndAlreadySetPath()
+	{
+		$this->assertType( 'string', $this->_mObject->GetFile( 'test' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ResetReturnsFalseOnNoExistType()
+	{
+		$this->assertFalse( $this->_mObject->Reset( 'dummytype' )  );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ResetReturnsFalseOnNoExistPath()
+	{
+		$this->assertFalse( $this->_mObject->Reset( 'test', 'no/exist' )  );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ResetReturnsFalseOnNoExistTypeAndNoExistPath()
+	{
+		$this->assertFalse( $this->_mObject->Reset( 'dummytype', 'no/exist' )  );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ResetFailsOnReadonlyFile()
+	{
+		$this->assertFalse( $this->_mObject->Reset( 'readonly' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function ResetReturnsTrueOnSuccess()
+	{
+		$this->assertTrue( $this->_mObject->Reset( 'test' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseOnInvalidLevel()
+	{
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'dummy', 'test' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseOnInvalidType()
+	{
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'noexist' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseOnInvalidPath()
+	{
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'test', 'no/exist' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseOnInvalidTypeAndInvalidPath()
+	{
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'noexist', 'no/exist' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseOnReadonlyFile()
+	{
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'readonly' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsTrueOnValidType()
+	{
+		$this->assertTrue( $this->_mObject->Write( 'unit testing', NULL, 'test' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function WriteReturnsFalseIfWriteLevelIsLessThanLogLevel()
+	{
+		$this->_mObject->SetLevel('error');
+
+		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'info', 'test' ) );
+	}
+
 }
 ?>

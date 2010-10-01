@@ -50,6 +50,7 @@ spl_autoload_register( array( 'Core', 'Load' ) );
 // init log
 $log_path = Core::Cfg()->Get( 'path.app' ) . 'var/log/';
 Core::Log()->SetPath( $log_path );
+Core::Log()->SetLevel( 'debug' );
 Core::Log()->Reset();
 
 Core::Log()->Write( 'Application start.', 'debug' );
