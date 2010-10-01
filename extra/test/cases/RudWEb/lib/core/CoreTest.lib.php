@@ -16,18 +16,8 @@
  */
 
 /**
- * Security token.
+ * Load configuration and required files.
  */
-define( '_RUDWEB', TRUE );
-
-/**
- * Load required files.
- */
-require 'RudWEb/lib/core/Core.lib.php';
-require 'RudWEb/lib/core/CoreCompat.lib.php';
-require 'RudWEb/lib/library/Library.lib.php';
-require 'RudWEb/lib/cfg/Cfg.lib.php';
-require 'RudWEb/lib/error/Error.lib.php';
 require 'phpunit.cfg.php';
 
 /**

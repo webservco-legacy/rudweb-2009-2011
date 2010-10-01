@@ -42,38 +42,22 @@ require $cfg['path_core'] . 'lib/cfg/Cfg.lib.php';
 Core::Cfg()->SetEnv( $cfg['env'] );
 Core::Cfg()->Set( $cfg_path );
 
+/* FROM HERE -> APPLICATION */
 spl_autoload_register( array( 'Core', 'Load' ) );
 
 Core::Error()->Load();
 
 try
 {
-	trigger_error('Hello World', 256);
+	trigger_error( 'Helo World' );
 }
-//catch ( RudException $e )
-//XXX try ErrorException?
 catch ( ErrorException $e )
 {
-	
-	echo 'error:';
-	echo '<pre>';
-	var_dump( $e->GetSeverity() );
-	echo '<hr />';
-	var_dump( $e->GetMessage() );
-	echo '<hr />';
-	var_dump( $e->GetCode() );
-	echo '<hr />';
-	var_dump( $e->GetFile() );
-	echo '<hr />';
-	var_dump( $e->GetLine() );
-	echo '<hr />';
-	//var_dump( $e->GetTrace() );
-	echo '<hr />';
-	var_dump( $e->GetTraceAsString() );
-	echo '</pre>';
+	Core::Error()->Report( $e );
 }
 
 Core::Error()->Unload();
+/* TILL HERE -> APPLICATION */
 
 //echo '<pre>';
 //var_dump( Core::Cfg()->Get( 'path.core' ) );

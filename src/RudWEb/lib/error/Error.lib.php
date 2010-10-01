@@ -66,10 +66,10 @@ class Error extends Library
 	/**
 	 * Handle errors.
 	 *
-	 * @param integer $errCode
+	 * @param int $errCode
 	 * @param string $errMessage
 	 * @param string $errFile
-	 * @param string $errLine
+	 * @param int $errLine
 	 * @throws ErrorException
 	 */
 	public function Handle( $errCode, $errMessage, $errFile, $errLine )

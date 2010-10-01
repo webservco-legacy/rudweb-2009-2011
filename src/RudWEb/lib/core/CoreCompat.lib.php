@@ -33,7 +33,7 @@ class CoreCompat
 	/**
 	 * Holds incrementation for {@link GetCalledClass() GetCalledClass()}.
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	private static $_msGclIncrement = 0;
 

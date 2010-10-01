@@ -6,8 +6,8 @@
 # VARIABLES #
 #############
 
-WEBS='httpd'
-DBMS='mysqld'
+WEBS='/etc/init.d/httpd'
+DBMS='/etc/init.d/mysqld'
 
 DOC_INI='/home/rudisoft/www/projects/RudWEb-5.0/extra/docs/RudWEb.ini'
 DOC_OUT_DIR='/home/rudisoft/www/projects/RudWEb-5.0/extra/docs/output/phpdoc'
@@ -107,7 +107,7 @@ function webs_start
 {
 	p_header "Start Web Server"
 	echo -n "Enter root "
-	su -c "/etc/init.d/$WEBS start;exit"
+	su -c "$WEBS start;exit"
 	p_footer
 }
 
@@ -115,7 +115,7 @@ function webs_stop
 {
 	p_header "Stop Web Server"
 	echo -n "Enter root "
-	su -c "/etc/init.d/$WEBS stop;exit"
+	su -c "$WEBS stop;exit"
 	p_footer
 }
 
@@ -123,7 +123,7 @@ function dbms_start
 {
 	p_header "Start Database Management Server"
 	echo -n "Enter root "
-	su -c "/etc/init.d/$DBMS start;exit"
+	su -c "$DBMS start;exit"
 	p_footer
 }
 
@@ -131,7 +131,7 @@ function dbms_stop
 {
 	p_header "Stop Database Management Server"
 	echo -n "Enter root "
-	su -c "/etc/init.d/$DBMS stop;exit"
+	su -c "$DBMS stop;exit"
 	p_footer
 }
 
