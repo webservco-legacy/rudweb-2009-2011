@@ -18,6 +18,8 @@ TEST_INI='/home/rudisoft/www/projects/RudWEb-5.0/extra/test/phpunit.xml'
 TEST_OUT_DIR='/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results'
 TEST_RESULT_FORMAT='html'
 
+TEST_LOG_FILE='/home/rudisoft/www/projects/RudWEb-5.0/extra/test/assets/RudWEb/var/log/test.log'
+
 #############
 # CONSTANTS #
 #############
@@ -161,6 +163,11 @@ function test_run
 	if [ -f $TEST_RESULT_FILE ]; then
 		xdg-open $TEST_RESULT_FILE > /dev/null 2>&1
 	fi
+	
+	if [ -f $TEST_LOG_FILE ]; then
+		xdg-open $TEST_LOG_FILE > /dev/null 2>&1
+	fi
+	
 	p_footer
 }
 

@@ -80,9 +80,17 @@ class LogTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function SetLevelReturnsTrueOnValid()
+	public function SetLevelReturnsOneOnValidLevlNameInfo()
 	{
-		$this->assertTrue( $this->_mObject->SetLevel('debug') );
+		$this->assertEquals( 1, $this->_mObject->SetLevel('info') );
+	}
+
+	/**
+	 * @test
+	 */
+	public function SetLevelReturnsZeroOnValidLevlNameDebug()
+	{
+		$this->assertEquals(0, $this->_mObject->SetLevel('debug') );
 	}
 
 	/**

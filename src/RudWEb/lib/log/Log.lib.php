@@ -107,7 +107,11 @@ class Log extends Library
 	/**
 	 * Set logging level code by level name.
 	 *
+	 * Return level code on success, false on failure.
+	 *
 	 * @param string $logLevelName
+	 *
+	 * @return mixed
 	 */
 	public function SetLevel( $levelName )
 	{
@@ -115,7 +119,7 @@ class Log extends Library
 		{
 			$this->_mLogLevel = $this->_mLogLevels[$levelName];
 
-			return TRUE;
+			return $this->_mLogLevel;
 		}
 
 		return FALSE;
@@ -207,8 +211,11 @@ class Log extends Library
 		/**
 		 * @var string
 		 */
-		$level_name = ( $logLevel ) ? $logLevel : array_search( $this->_mLogLevel, $this->_mLogLevels );
+		$log_level = ( $logLevel ) ? $logLevel : array_search( $this->_mLogLevel, $this->_mLogLevels );
 
+		/**
+		 * @var string
+		 */
 		$log_type = ( $logType ) ? $logType : $this->_mLogType;
 
 		/**
@@ -219,12 +226,12 @@ class Log extends Library
 		$log_file = $this->GetFile( $log_type, $logPath );
 
 		/**
-		 * Stop if log file is not writable, or logging level too low
+		 * Stop if log file is not writable, or logging level too low.
 		 */
 		if (
 		( FALSE === $log_file ) ||
-		( !array_key_exists( $level_name, $this->_mLogLevels ) ) ||
-		( $this->_mLogLevels[$level_name] < $this->_mLogLevel )
+		( !array_key_exists( $log_level, $this->_mLogLevels ) ) ||
+		( $this->_mLogLevels[$log_level] < $this->_mLogLevel )
 		)
 		{
 			return FALSE;
@@ -238,16 +245,23 @@ class Log extends Library
 		/**
 		 * @var string
 		 */
-		$log_entry = '['. $timestamp . '] [' . $_SERVER['REMOTE_ADDR'] . '] [' . $level_name . '] ' . $logMessage . PHP_EOL;
+		$ip = ( 'cli' == PHP_SAPI ) ?
+		gethostbyname( php_uname( 'n' ) ) . ' (CLI)' :
+		$_SERVER['REMOTE_ADDR'];
+
+		/**
+		 * @var string
+		 */
+		$log_entry = '['. $timestamp . '] [' . $ip . '] [' . $log_level . '] ' . $logMessage . PHP_EOL;
 
 		/**
 		 * @var mixed
 		 */
 		$log_handle = fopen( $log_file, "ab" );
 
-		fwrite($log_handle, $log_entry);
+		fwrite( $log_handle, $log_entry );
 
-		fclose($log_handle);
+		fclose( $log_handle );
 
 		return TRUE;
 	}
