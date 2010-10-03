@@ -32,7 +32,7 @@ if ( is_readable( './etc/path.cfg.xml' ) )
 
 if ( FALSE != version_compare( PHP_VERSION, '5.3.0', '<' ) )
 {
-	require $cfg['path_core'] . 'lib/core/CoreCompat.lib.php';
+	require $cfg['path_core'] . 'lib/core/CoreUtils.lib.php';
 }
 
 require $cfg['path_core'] . 'lib/core/Core.lib.php';
@@ -46,6 +46,9 @@ Core::Cfg()->Set( $cfg_path );
 
 
 spl_autoload_register( array( 'Core', 'Load' ) );
+
+//init lang
+Core::I18n()->Init('ro_RO');
 
 // init log
 $log_path = Core::Cfg()->Get( 'path.app' ) . 'var/log/';
@@ -65,6 +68,8 @@ Core::Log()->Write( 'Hello World');
 
 try
 {
+
+	echo __('Hello World!');
 	//trigger_error( 'Helo World' );
 }
 catch ( ErrorException $e )

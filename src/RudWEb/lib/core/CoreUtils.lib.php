@@ -2,10 +2,7 @@
 /**
  * $Id$
  *
- * Engine core backwards compatibility library.
- *
- * Methods and functions alternatives for PHP < 5.3
- * This should become obsolete when we migrate to PHP 5.3
+ * Engine core library utilities.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
@@ -19,9 +16,20 @@
  */
 
 /**
+ * Security check.
+ */
+if ( !defined( '_RUDWEB' ) )
+{
+	/**
+	 * Stop script execution.
+	 */
+	exit;
+}
+
+/**
  * CoreCompat
  *
- * Core compatibility library.
+ * Engine core compatibility library for PHP < 5.3.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
@@ -49,7 +57,7 @@ class CoreCompat
 	 *
 	 * All credit for this goes to {@link http://www.septuro.com/2009/07/php-5-2-late-static-binding-get_called_class-and-self-new-self/ visual77 - Septuro}
 	 */
-	static function GetCalledClass()
+	public static function GetCalledClass()
 	{
 		$bt = debug_backtrace();
 
@@ -100,12 +108,12 @@ class CoreCompat
 }
 
 /**
- * Check if get_called_class() is available (PHP5.3+)
+ * Check if get_called_class() is available (PHP >= 5.3).
  */
 if( !function_exists( 'get_called_class' ) )
 {
 	/**
-	 * Define alternative function for PHP < 5.3
+	 * Define alternative get_called_class() function for PHP < 5.3.
 	 *
 	 * @return string
 	 */

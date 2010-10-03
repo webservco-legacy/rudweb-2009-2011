@@ -53,6 +53,13 @@ class Core
 	protected static $_msErrorObject;
 
 	/**
+	 * Stores the internationalization object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msI18nObject;
+
+	/**
 	 * Stores the logging object.
 	 *
 	 * @var mixed
@@ -64,7 +71,7 @@ class Core
 	 *
 	 * @return object
 	 */
-	public static function Cfg()
+	final public static function Cfg()
 	{
 		if ( self::$_msCfgObject == NULL )
 		{
@@ -79,7 +86,7 @@ class Core
 	 *
 	 * @return object
 	 */
-	public static function Error()
+	final public static function Error()
 	{
 		if ( self::$_msErrorObject == NULL )
 		{
@@ -90,11 +97,26 @@ class Core
 	}
 
 	/**
+	 * Method to access the internationalization object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function I18n()
+	{
+		if ( self::$_msI18nObject == NULL )
+		{
+			self::$_msI18nObject = I18n::GetInstance();
+		}
+
+		return self::$_msI18nObject;
+	}
+
+	/**
 	 * Method to access the logging object from everywhere.
 	 *
 	 * @return object
 	 */
-	public static function Log()
+	final public static function Log()
 	{
 		if ( self::$_msLogObject == NULL )
 		{
@@ -109,7 +131,7 @@ class Core
 	 *
 	 * @param string $ClassName full class name
 	 */
-	public static function Load( $ClassName )
+	final public static function Load( $className )
 	{
 		/**
 		 * Base search paths.
@@ -132,7 +154,7 @@ class Core
 		 *
 		 * @var array
 		 */
-		$parts = explode( '_', $ClassName );
+		$parts = explode( '_', $className );
 
 		/**
 		 * Class name.
@@ -156,11 +178,20 @@ class Core
 		$type = 'lib';
 
 		/**
-		 * Complete clas path.
+		 * Complete class path.
 		 *
 		 * @var string
 		 */
 		$class_path = $path . $dir . $name . '.' . $type . '.php';
+
+		/**
+		 * Each class can have an utilities file associated with it.
+		 *
+		 * Utilities files should only contain procedural functions.
+		 *
+		 * @var string
+		 */
+		$class_utils_path = $path . $dir . $name . 'Utils.' . $type . '.php';
 
 		/**
 		 * Iterate through base search paths.
@@ -172,10 +203,17 @@ class Core
 			 */
 			if ( is_readable( $base_path . $class_path ) )
 			{
-				/**
-				 * Load class file.
-				 */
 				require_once $base_path . $class_path;
+
+				/**
+				 * Check if we have an utilities file.
+				 *
+				 * We only load it if the class file was loaded successfully.
+				 */
+				if ( is_readable( $base_path . $class_utils_path ) )
+				{
+					require_once $base_path . $class_utils_path;
+				}
 
 				/**
 				 * Stop.
