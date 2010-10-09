@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+
+<!-- Configuration -->
+<config>
+	<!-- Development Environment -->
+	<dev>
+		<dir>
+			<core>
+				<int>int</int>
+				<i18n>i18n</i18n>
+			</core>
+		</dir>
+	</dev>
+	<!-- Test Environment -->
+	<test>
+		<dir>
+			<core>
+				<int>int</int>
+				<i18n>i18n</i18n>
+			</core>
+		</dir>
+	</test>
+	<!-- Production Environment -->
+	<prod>
+		<dir>
+			<core>
+				<int>int</int>
+				<i18n>i18n</i18n>
+			</core>
+		</dir>
+	</prod>
+</config>
