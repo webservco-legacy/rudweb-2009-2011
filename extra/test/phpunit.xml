@@ -8,12 +8,17 @@
 
  	<testsuites>
 	    <testsuite name="RudWEb Libraries">
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/core</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/library</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/cfg</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/error</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/i18n</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/log</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Core</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Library</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Cfg</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Error</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Log</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/App</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Database</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Url</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Module</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Controller</directory>
 	    </testsuite>
 	    <testsuite name="RudWEb Misc">
 	        <directory suffix=".php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/misc</directory>
