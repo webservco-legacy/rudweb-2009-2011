@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+
+<!-- Configuration -->
+<config>
+	<!-- Development Environment -->
+	<dev>
+		<!-- Database configuration -->
+		<db>
+			<type>mysql</type>
+			<host>localhost</host>
+			<port>3306</port>
+			<user>rudweb</user>
+			<password>REDACTED</password>
+			<database>rs_sandbox</database>
+		</db>
+	</dev>
+	<!-- Test Environment -->
+	<test></test>
+	<!-- Production Environment -->
+	<prod></prod>
+</config>

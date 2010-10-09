@@ -1,0 +1,48 @@
+<?php
+/**
+ * $Id$
+ *
+ * Hello World controlller.
+ *
+ * Module: Hello World
+ *
+ * @author     Radu Maier <rudisoft@rudisoft.net>
+ * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
+ * @license    http://www.opensource.org/licenses/bsd-license.php
+ * @package    SandboxApp
+ * @subpackage HelloworldModule
+ * @version    $Revision$
+ * @since      Version 5
+ * @access     public
+ * @filesource
+ */
+
+/**
+ * Security check.
+ */
+if ( !defined( '_RUDWEB' ) )
+{
+	/**
+	 * Stop script execution.
+	 */
+	exit;
+}
+
+/**
+ * Controller_Helloworld_Helloworld
+ *
+ * Hello World Controller for Hello World module.
+ *
+ * @author     Radu Maier <rudisoft@rudisoft.net>
+ * @package    SandboxApp
+ * @subpackage HelloworldModule
+ *
+ */
+class Controller_Helloworld_Helloworld extends Controller
+{
+	public function world()
+	{
+		return 'hello world from the controller!';
+	}
+}
+?>

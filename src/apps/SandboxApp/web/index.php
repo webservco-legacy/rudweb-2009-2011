@@ -25,65 +25,53 @@ $cfg['path_core'] = './RudWEb/';
 
 if ( is_readable( './etc/path.cfg.xml' ) )
 {
-	$cfg_path = simplexml_load_file('./etc/path.cfg.xml');
+	$path_cfg = simplexml_load_file('./etc/path.cfg.xml');
 
-	$cfg['path_core'] = ($cfg_path->$cfg['env']->path->core) ? trim( $cfg_path->$cfg['env']->path->core ) : './RudWEb/';
+	$cfg['path_core'] = ($path_cfg->$cfg['env']->path->core) ? trim( $path_cfg->$cfg['env']->path->core ) : './RudWEb/';
 }
 
 if ( FALSE != version_compare( PHP_VERSION, '5.3.0', '<' ) )
 {
-	require $cfg['path_core'] . 'lib/core/CoreUtils.lib.php';
+	require $cfg['path_core'] . 'lib/Core/CoreUtils.lib.php';
 }
 
-require $cfg['path_core'] . 'lib/core/Core.lib.php';
-require $cfg['path_core'] . 'lib/library/Library.lib.php';
-require $cfg['path_core'] . 'lib/cfg/Cfg.lib.php';
+require $cfg['path_core'] . 'lib/Core/Core.lib.php';
+require $cfg['path_core'] . 'lib/Library/Library.lib.php';
+require $cfg['path_core'] . 'lib/Cfg/Cfg.lib.php';
 
 Core::Cfg()->SetEnv( $cfg['env'] );
-Core::Cfg()->Set( $cfg_path );
+Core::Cfg()->Set( $path_cfg );
+
+/**
+ * Register class autoload method.
+ */
+spl_autoload_register( array( 'Core', 'Load' ) );
 
 /* FROM HERE -> APPLICATION */
 
-
-spl_autoload_register( array( 'Core', 'Load' ) );
-
-//init lang
-Core::I18n()->Init('ro_RO');
-
-// init log
-$log_path = Core::Cfg()->Get( 'path.app' ) . 'var/log/';
-Core::Log()->SetPath( $log_path );
-Core::Log()->SetLevel( 'debug' );
-Core::Log()->Reset();
-
-Core::Log()->Write( 'Application start.', 'debug' );
-Core::Log()->Write( 'Core library loaded.', 'debug' );
-Core::Log()->Write( 'Configuration library loaded.', 'debug' );
-
-Core::Error()->Load();
-Core::Log()->Write( 'Error library loaded.', 'debug' );
-
-
-Core::Log()->Write( 'Hello World');
+Core::App()->Boot();
 
 try
 {
 
 	echo __('Hello World!');
+
+	echo '<br />';
+
+	$hello_world = Controller_Helloworld_Helloworld::GetInstance();
+
+	echo $hello_world->world();
+
 	//trigger_error( 'Helo World' );
+	
+	Database_Mysql::GetInstance();
+	
 }
 catch ( ErrorException $e )
 {
 	Core::Error()->Report( $e );
 }
 
-Core::Error()->Unload();
-Core::Log()->Write( 'Error library unloaded.', 'debug' );
 
-Core::Log()->Write( 'Application end.', 'debug' );
-/* TILL HERE -> APPLICATION */
-
-//echo '<pre>';
-//var_dump( Core::Cfg()->Get( 'path.core' ) );
-//echo '</pre>';
+Core::App()->Shutdown();
 ?>
