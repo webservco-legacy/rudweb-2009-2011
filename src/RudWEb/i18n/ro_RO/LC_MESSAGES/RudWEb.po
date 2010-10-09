@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-08 14:56+0200\n"
-"PO-Revision-Date: 2010-10-08 14:57+0200\n"
+"POT-Creation-Date: 2010-10-09 20:10+0200\n"
+"PO-Revision-Date: 2010-10-09 20:10+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -19,35 +19,39 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
-#: lib/App/App.lib.php:54
+#: lib/App/App.lib.php:59
 msgid "Application boot."
 msgstr "Pornire aplicatie."
 
-#: lib/App/App.lib.php:56
+#: lib/App/App.lib.php:61
 msgid "Core library loaded."
 msgstr "Biblioteca Core incarcata."
 
-#: lib/App/App.lib.php:58
+#: lib/App/App.lib.php:63
 msgid "Cfg library loaded."
 msgstr "Biblioteca Cfg incarcata."
 
-#: lib/App/App.lib.php:60
+#: lib/App/App.lib.php:65
+msgid "Configuration settings loaded."
+msgstr "Setarile de configuratie incarcate"
+
+#: lib/App/App.lib.php:67
 msgid "I18n library loaded."
 msgstr "Biblioteca I18n incarcata."
 
-#: lib/App/App.lib.php:62
+#: lib/App/App.lib.php:69
 msgid "Log library loaded."
 msgstr "Biblioteca Log incarcata."
 
-#: lib/App/App.lib.php:69
+#: lib/App/App.lib.php:76
 msgid "Error library loaded."
 msgstr "Biblioteca Error incarcata."
 
-#: lib/App/App.lib.php:119
+#: lib/App/App.lib.php:165
 msgid "Error library unloaded."
 msgstr "Biblioteca Error descarcata."
 
-#: lib/App/App.lib.php:121
+#: lib/App/App.lib.php:167
 msgid "Application shutdown."
 msgstr "Inchidere aplicatie"
 
