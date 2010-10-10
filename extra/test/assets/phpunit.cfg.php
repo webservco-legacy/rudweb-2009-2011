@@ -31,6 +31,10 @@ require_once 'RudWEb/int/Database/Database.int.php';
 
 require_once 'RudWEb/lib/Database/Database.lib.php';
 require_once 'RudWEb/lib/Database/Mysql.lib.php';
+require_once 'RudWEb/lib/Database/Mysqli.lib.php';
+require_once 'RudWEb/lib/Database/Pdo.lib.php';
+require_once 'RudWEb/lib/Database/Postgresql.lib.php';
+require_once 'RudWEb/lib/Database/Sqlite3.lib.php';
 
 require_once 'RudWEb/lib/Url/Url.lib.php';
 
