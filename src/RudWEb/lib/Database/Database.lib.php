@@ -38,5 +38,103 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Database extends Library
 {
+	/**
+	 * Stores the database link identifier.
+	 *
+	 * @var mixed
+	 */
+	protected $_mDbLink;
+
+	/**
+	 * Database host.
+	 *
+	 * @var string
+	 */
+	protected $_mDbHost;
+
+	/**
+	 * Database port.
+	 *
+	 * @var string
+	 */
+	protected $_mDbPort;
+
+	/**
+	 * Database user.
+	 *
+	 * @var string
+	 */
+	protected $_mDbUser;
+
+	/**
+	 * Database password.
+	 *
+	 * @var string
+	 */
+	protected $_mDbPassword;
+
+	/**
+	 * Database name.
+	 *
+	 * @var string
+	 */
+	protected $_mDbDatabase;
+
+	/**
+	 * Set configuration data.
+	 *
+	 * @return bool
+	 */
+	protected function _SetData()
+	{
+		/**
+		 * @var array
+		 */
+		$data = Core::Cfg()->Get( 'db' );
+
+		/**
+		 * @var string
+		 */
+		$this->_mDbHost = $data['host'];
+
+		/**
+		 * @var string
+		 */
+		$this->_mDbPort = $data['port'];
+
+		/**
+		 * @var string
+		 */
+		$this->_mDbUser = $data['user'];
+
+		/**
+		 * @var string
+		 */
+		$this->_mDbPassword = $data['password'];
+
+		/**
+		 * @var string
+		 */
+		$this->_mDbDatabase = $data['database'];
+
+		return TRUE;
+	}
+
+	/**
+	 * Check if database connection is already opened.
+	 *
+	 * Open it if necessary.
+	 *
+	 * @return bool
+	 */
+	protected function _GetLink()
+	{
+		if ( NULL == $this->_mDbLink )
+		{
+			return $this->Connect();
+		}
+
+		return TRUE;
+	}
 }
 ?>

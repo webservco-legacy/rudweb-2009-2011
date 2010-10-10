@@ -141,7 +141,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GettextWrapperTestDefaultDomain()
 	{
-		$this->assertEquals( 'Salut Lume!', __('Hello World!') );
+		$this->assertEquals( 'Salut Lume!', __( 'Hello World!' ) );
 	}
 
 	/**
@@ -149,7 +149,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GettextWrapperTestSpecifiedDomain()
 	{
-		$this->assertEquals( 'Salut Lume!', __('Hello World!', 'RudWEb') );
+		$this->assertEquals( 'Salut Lume!', __( 'Hello World!', 'RudWEb' ) );
 	}
 }
 ?>

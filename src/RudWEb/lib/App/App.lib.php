@@ -56,24 +56,33 @@ class App extends Library
 		 */
 		$this->InitLog();
 
-		Core::Log()->Write( __('Application boot.'), 'debug' );
+		Core::Log()->Write( __( 'Application boot.' ), 'debug' );
 
-		Core::Log()->Write( __('Core library loaded.'), 'debug' );
+		Core::Log()->Write( __( 'Core library loaded.' ), 'debug' );
 
-		Core::Log()->Write( __('Cfg library loaded.'), 'debug' );
+		Core::Log()->Write( __( 'Cfg library loaded.' ), 'debug' );
 
-		Core::Log()->Write( __('Configuration settings loaded.'), 'debug' );
+		Core::Log()->Write( __( 'Configuration settings loaded.' ), 'debug' );
 
-		Core::Log()->Write( __('I18n library loaded.'), 'debug' );
+		Core::Log()->Write( __( 'I18n library loaded.' ), 'debug' );
 
-		Core::Log()->Write( __('Log library loaded.'), 'debug' );
+		Core::Log()->Write( __( 'Log library loaded.' ), 'debug' );
 
 		/**
 		 * Initialize error handling and reporting  library.
 		 */
 		Core::Error()->Load();
 
-		Core::Log()->Write( __('Error library loaded.'), 'debug' );
+		Core::Log()->Write( __( 'Error library loaded.' ), 'debug' );
+
+		try
+		{
+			//XXX
+		}
+		catch ( ErrorException $e )
+		{
+			Core::Error()->Report( $e );
+		}
 
 		return TRUE;
 	}
@@ -162,9 +171,9 @@ class App extends Library
 		 */
 		Core::Error()->Unload();
 
-		Core::Log()->Write( __('Error library unloaded.'), 'debug' );
+		Core::Log()->Write( __( 'Error library unloaded.' ), 'debug' );
 
-		Core::Log()->Write( __('Application shutdown.'), 'debug' );
+		Core::Log()->Write( __( 'Application shutdown.' ), 'debug' );
 
 		return TRUE;
 

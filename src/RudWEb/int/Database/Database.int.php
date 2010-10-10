@@ -40,13 +40,30 @@ if ( !defined( '_RUDWEB' ) )
  */
 interface Interface_Database
 {
-	//public function Connect();
+	/**
+	 * Open database connection.
+	 *
+	 * @return bool
+	 */
+	public function Connect();
 
-	//public function Disconnect();
+	/**
+	 * Close database connection.
+	 *
+	 * @return bool
+	 */
+	public function Disconnect();
+
+	/**
+	 * Escape a string for use in a database query.
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function EscapeString( $string );
 
 	//public function Now();
-
-	//public function EscapeString( $string );
 
 	//public function Create();
 

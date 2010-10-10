@@ -54,7 +54,7 @@ Core::App()->Boot();
 try
 {
 
-	echo __('Hello World!');
+	echo __( 'Hello World!' );
 
 	echo '<br />';
 
@@ -63,10 +63,12 @@ try
 	echo $hello_world->world();
 
 	//trigger_error( 'Helo World' );
-	
+
 	//Database_Mysql::GetInstance();
 	//Core::Db();
-	
+
+	var_dump( Core::Db()->EscapeString( "h'ello world" ) );
+
 }
 catch ( ErrorException $e )
 {
