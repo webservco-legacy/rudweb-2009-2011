@@ -2,7 +2,7 @@
 /**
  * $Id$
  *
- * SQLite database library.
+ * SQLite3 database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
@@ -27,14 +27,14 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * SQLite database library.
+ * SQLite3 database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
  * @subpackage RudDb
  *
  */
-class Database_Sqlite extends Database implements Interface_Database
+class Database_Sqlite3 extends Database implements Interface_Database
 {
 	/**
 	 * (non-PHPdoc)
@@ -47,19 +47,35 @@ class Database_Sqlite extends Database implements Interface_Database
 		 */
 		$this->_SetData();
 
+		$db_path = $this->_mDbDatabase . '.db';
+
+		if ( !is_readable( $db_path ) )
+		{
+			/**
+			 * @var string
+			 */
+			$message = __( 'Database file is not readable.' );
+
+			trigger_error( $message );
+
+			return FALSE;
+		}
+
 		/**
 		 * Set database link identifier.
 		 *
 		 * @var resource
 		 */
-		$db_link = sqlite_open( "{$this->_mDbDatabase}.db", 0666, $err );
-
-		if ( !$db_link )
+		try
+		{
+			$db_link =  new SQLite3( $db_path );
+		}
+		catch ( Exception $e )
 		{
 			/**
 			 * @var string
 			 */
-			$message = sprintf( __( 'Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . $err;
+			$message = sprintf( __( 'Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . $e->getMessage();
 
 			trigger_error( $message );
 
@@ -82,7 +98,7 @@ class Database_Sqlite extends Database implements Interface_Database
 	 */
 	public function Disconnect()
 	{
-		return sqlite_close( $this->_mDbLink );
+		return  $this->_mDbLink->close();
 	}
 
 	/**
@@ -96,7 +112,7 @@ class Database_Sqlite extends Database implements Interface_Database
 		 */
 		$this->_GetLink();
 
-		return sqlite_escape_string( $string );
+		return $this->_mDbLink->escapeString( $string );
 	}
 }
 ?>

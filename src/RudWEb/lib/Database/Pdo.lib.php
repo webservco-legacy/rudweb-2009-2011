@@ -50,7 +50,20 @@ class Database_Pdo extends Database implements Interface_Database
 		/**
 		 * @var string
 		 */
-		$db_type = ucfirst( strtolower( Core::Cfg()->Get( 'db.type' ) ) );
+		$db_type = Core::Cfg()->Get( 'db.type' );
+
+		if ( FALSE !== strpos( $db_type, '_' ) )
+		{
+			/**
+			 * @var array
+			 */
+			$parts = explode( '_', $db_type );
+
+			/**
+			 * @var string
+			 */
+			$db_type = strtolower( $parts[0] );
+		}
 
 		/**
 		 * Set MySQL default port if we have no custom port in configuration settings.

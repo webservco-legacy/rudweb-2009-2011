@@ -59,7 +59,7 @@ class Database_Mysql extends Database implements Interface_Database
 		 *
 		 * @var resource
 		 */
-		$db_link = @mysql_connect( $this->_mDbHost . ':' . $db_port, $this->_mDbUser, $this->_mDbPassword );
+		$db_link = mysql_connect( $this->_mDbHost . ':' . $db_port, $this->_mDbUser, $this->_mDbPassword );
 
 		if ( !$db_link )
 		{

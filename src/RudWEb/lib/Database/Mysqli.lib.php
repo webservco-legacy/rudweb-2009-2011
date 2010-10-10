@@ -59,7 +59,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 *
 		 * @var resource
 		 */
-		$db_link = @new mysqli( $this->_mDbHost, $this->_mDbUser, $this->_mDbPassword, $this->_mDbDatabase, $db_port );
+		$db_link = new mysqli( $this->_mDbHost, $this->_mDbUser, $this->_mDbPassword, $this->_mDbDatabase, $db_port );
 
 		if ( 0 != $db_link->connect_errno )
 		{

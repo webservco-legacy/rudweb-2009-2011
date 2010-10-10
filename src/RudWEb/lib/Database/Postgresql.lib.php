@@ -61,7 +61,7 @@ class Database_Postgresql extends Database implements Interface_Database
 		 *
 		 * @var resource
 		 */
-		$db_link = @pg_connect( "host={$this->_mDbHost} port={$db_port} dbname={$this->_mDbDatabase} user={$this->_mDbUser} password={$this->_mDbPassword}" );
+		$db_link = pg_connect( "host={$this->_mDbHost} port={$db_port} dbname={$this->_mDbDatabase} user={$this->_mDbUser} password={$this->_mDbPassword}" );
 
 		if ( !$db_link )
 		{

@@ -175,6 +175,20 @@ class Core
 			 * @var string
 			 */
 			$db_type = self::Cfg()->Get( 'db.type' );
+
+			if ( FALSE !== strpos( $db_type, '_' ) )
+			{
+				/**
+				 * @var array
+				 */
+				$parts = explode( '_', $db_type );
+
+				/**
+				 * @var string
+				 */
+				$db_type = $parts[1];
+			}
+
 			/**
 			 * @var string
 			 */
