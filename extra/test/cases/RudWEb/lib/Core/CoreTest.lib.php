@@ -16,11 +16,6 @@
  */
 
 /**
- * Load configuration and required files.
- */
-require 'phpunit.cfg.php';
-
-/**
  * CoreTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -68,6 +63,24 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	public function AppReturnsObject()
 	{
 		$this->assertType( 'object', Core::App() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function CustomCfgSetDatabaseTypeRetrunsTrue()
+	{
+		$this->assertTrue( Core::Cfg()->Set( 'db.type', 'MySQL' ) );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @depends CustomCfgSetDatabaseTypeRetrunsTrue
+	 */
+	public function DbReturnsObjectForMysql()
+	{
+		$this->assertType( 'object', Core::Db() );
 	}
 
 	/**

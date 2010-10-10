@@ -64,7 +64,8 @@ try
 
 	//trigger_error( 'Helo World' );
 	
-	Database_Mysql::GetInstance();
+	//Database_Mysql::GetInstance();
+	//Core::Db();
 	
 }
 catch ( ErrorException $e )

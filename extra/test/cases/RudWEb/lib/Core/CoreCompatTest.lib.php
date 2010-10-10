@@ -16,11 +16,6 @@
  */
 
 /**
- * Security token and library, config requirements
- * are already dealt with in the Core Test
- */
-
-/**
  * CoreCompatTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

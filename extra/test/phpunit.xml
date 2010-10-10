@@ -8,9 +8,9 @@
 
  	<testsuites>
 	    <testsuite name="RudWEb Libraries">
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Cfg</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Core</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Library</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Cfg</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Error</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Log</directory>

@@ -74,6 +74,13 @@ class Core
 	protected static $_msAppObject;
 
 	/**
+	 * Stores the database object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msDbObject;
+
+	/**
 	 * Stores the URL object.
 	 *
 	 * @var mixed
@@ -153,6 +160,32 @@ class Core
 		}
 
 		return self::$_msAppObject;
+	}
+
+	/**
+	 * Method to access the database object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Db()
+	{
+		if ( self::$_msDbObject == NULL )
+		{
+			/**
+			 * @var string
+			 */
+			$db_type = self::Cfg()->Get( 'db.type' );
+			/**
+			 * @var string
+			 */
+			$db_class = 'Database_' . ucfirst( strtolower( $db_type ) );
+			/**
+			 * Load the appropriate database library.
+			 */
+			self::$_msDbObject = $db_class::GetInstance();
+		}
+
+		return self::$_msDbObject;
 	}
 
 	/**

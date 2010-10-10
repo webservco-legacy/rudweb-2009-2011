@@ -16,11 +16,6 @@
  */
 
 /**
- * Security token and library, config requirements
- * are already dealt with in the Core Test
- */
-
-/**
  * ModuleTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
