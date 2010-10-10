@@ -100,6 +100,12 @@ class Database_Pdo extends Database implements Interface_Database
 		 */
 		$this->_mDbLink = $db_link;
 
+		Core::Log()->Write(
+		sprintf(
+		__( 'Database connection opened (driver: %s).' ), Core::Cfg()->Get( 'db.type' )
+		)
+		);
+
 		/**
 		 * UTF Compatibility.
 		 */

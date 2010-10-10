@@ -7,7 +7,7 @@
 	<dev>
 		<!-- Database configuration -->
 		<db>
-			<type>MySQL_PDO</type>
+			<type>MySQLi</type>
 			<host>localhost</host>
 			<port>3306</port>
 			<user>rudweb</user>

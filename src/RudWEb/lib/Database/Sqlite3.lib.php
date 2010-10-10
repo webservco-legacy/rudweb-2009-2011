@@ -89,6 +89,12 @@ class Database_Sqlite3 extends Database implements Interface_Database
 		 */
 		$this->_mDbLink = $db_link;
 
+		CCore::Log()->Write(
+		sprintf(
+		__( 'Database connection opened (driver: %s).' ), Core::Cfg()->Get( 'db.type' )
+		)
+		);
+
 		return TRUE;
 	}
 
