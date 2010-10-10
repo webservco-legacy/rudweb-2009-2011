@@ -52,7 +52,7 @@ class Database_Sqlite extends Database implements Interface_Database
 		 *
 		 * @var resource
 		 */
-		$db_link = @sqlite_open( "{$this->_mDbDatabase}.db", 0666, $err );
+		$db_link = sqlite_open( "{$this->_mDbDatabase}.db", 0666, $err );
 
 		if ( !$db_link )
 		{
