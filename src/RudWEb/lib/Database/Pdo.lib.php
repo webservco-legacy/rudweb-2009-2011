@@ -38,7 +38,7 @@ class Database_Pdo extends Database implements Interface_Database
 {
 	/**
 	 * (non-PHPdoc)
-	 * @see src/RudWEb/int/Database/Interface_Database::Connect()
+	 * @see Interface_Database::Connect()
 	 */
 	public function Connect()
 	{
@@ -116,7 +116,7 @@ class Database_Pdo extends Database implements Interface_Database
 
 	/**
 	 * (non-PHPdoc)
-	 * @see src/RudWEb/int/Database/Interface_Database::Disconnect()
+	 * @see Interface_Database::Disconnect()
 	 */
 	public function Disconnect()
 	{
@@ -127,7 +127,7 @@ class Database_Pdo extends Database implements Interface_Database
 
 	/**
 	 * (non-PHPdoc)
-	 * @see src/RudWEb/int/Database/Interface_Database::EscapeString()
+	 * @see Interface_Database::EscapeString()
 	 */
 	public function EscapeString( $string )
 	{
