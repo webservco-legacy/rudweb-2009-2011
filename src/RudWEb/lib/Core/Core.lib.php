@@ -81,6 +81,13 @@ class Core
 	protected static $_msDbObject;
 
 	/**
+	 * Stores the Sanitizer object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msSanitizerObject;
+
+	/**
 	 * Stores the URL object.
 	 *
 	 * @var mixed
@@ -200,6 +207,21 @@ class Core
 		}
 
 		return self::$_msDbObject;
+	}
+
+	/**
+	 * Method to access the Sanitizer object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Sanitizer()
+	{
+		if ( self::$_msSanitizerObject == NULL )
+		{
+			self::$_msSanitizerObject = Sanitizer::GetInstance();
+		}
+
+		return self::$_msSanitizerObject;
 	}
 
 	/**

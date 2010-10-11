@@ -36,6 +36,8 @@ require_once 'RudWEb/lib/Database/Pdo.lib.php';
 require_once 'RudWEb/lib/Database/Postgresql.lib.php';
 require_once 'RudWEb/lib/Database/Sqlite3.lib.php';
 
+require_once 'RudWEb/lib/Sanitizer/Sanitizer.lib.php';
+
 require_once 'RudWEb/lib/Url/Url.lib.php';
 
 require_once 'RudWEb/lib/Module/Module.lib.php';
