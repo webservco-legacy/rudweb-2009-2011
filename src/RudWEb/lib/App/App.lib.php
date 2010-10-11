@@ -77,7 +77,13 @@ class App extends Library
 
 		try
 		{
-			//XXX
+			Core::Sanitizer()->Sanitize();
+
+			Core::Log()->Write( __( 'Sanitizer library loaded.' ), 'debug' );
+
+			Core::Log()->Write( __( 'Input sanitized.' ), 'debug' );
+
+			//XXX why database is initialized after this??????
 		}
 		catch ( ErrorException $e )
 		{

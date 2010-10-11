@@ -36,5 +36,32 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Url extends Library
 {
+	/**
+	 * Remove fake extension from request.
+	 *
+	 * @param string $request
+	 */
+	public function RemoveFakeExtension( $request )
+	{
+		/**
+		 * @var string
+		 */
+		$extension = Core::Cfg()->Get( 'seo.extension' );
+
+		/**
+		 * @var bool
+		 */
+		$check = Core::String()->EndsWith( $extension, $request );
+
+		/**
+		 * Check if request ends with the fake extension.
+		 */
+		if ( ( '' != $extension ) && ( FALSE !== $check ) )
+		{
+			return str_replace( $extension, '', $request );
+		}
+
+		return $request;
+	}
 }
 ?>

@@ -81,6 +81,13 @@ class Core
 	protected static $_msDbObject;
 
 	/**
+	 * Stores the String object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msStringObject;
+
+	/**
 	 * Stores the Sanitizer object.
 	 *
 	 * @var mixed
@@ -207,6 +214,21 @@ class Core
 		}
 
 		return self::$_msDbObject;
+	}
+
+	/**
+	 * Method to access the String object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function String()
+	{
+		if ( self::$_msStringObject == NULL )
+		{
+			self::$_msStringObject = String::GetInstance();
+		}
+
+		return self::$_msStringObject;
 	}
 
 	/**

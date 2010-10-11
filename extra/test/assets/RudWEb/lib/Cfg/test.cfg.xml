@@ -20,14 +20,14 @@
 				/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/web/
 			</www>
 		</path>
-		
+
 		<url>
 			<!-- Application URL. Defaults to current hostname. -->
 			<app>
 				http://rudwev.dev/
 			</app>
 		</url>
-		
+
 		<dir>
 			<core>
 				<int>int</int>
@@ -40,13 +40,13 @@
 				<var>var</var>
 			</app>
 		</dir>
-		
+
 		<log>
 			<level>debug</level>
 			<extension>.log</extension>
 			<dateformat>Y-m-d H:i:s:u</dateformat>
 		</log>
-		
+
 		<db>
 			<type>MySQL</type>
 			<host>localhost</host>
@@ -55,7 +55,12 @@
 			<password>REDACTED</password>
 			<database>rs_sandbox</database>
 		</db>
-		
+
+		<seo>
+			<full>1</full>
+			<extension>.html</extension>
+		</seo>
+
 	</unit>
 	<!-- Test Environment -->
 	<test>

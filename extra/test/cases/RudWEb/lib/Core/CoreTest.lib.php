@@ -86,6 +86,14 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
+	public function StringReturnsObject()
+	{
+		$this->assertType( 'object', Core::String() );
+	}
+
+	/**
+	 * @test
+	 */
 	public function SanitizerReturnsObject()
 	{
 		$this->assertType( 'object', Core::Sanitizer() );

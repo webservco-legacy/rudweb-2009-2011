@@ -47,5 +47,13 @@ class UrlTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertType( 'object', Url::GetInstance() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function RemoveFakeExtensionWorks()
+	{
+		$this->assertEquals( 'lorem_ipsum', $this->_mObject->RemoveFakeExtension( 'lorem_ipsum.html' ) );
+	}
 }
 ?>
