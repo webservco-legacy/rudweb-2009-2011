@@ -40,7 +40,7 @@ require_once 'RudWEb/lib/String/String.lib.php';
 
 require_once 'RudWEb/lib/Sanitizer/Sanitizer.lib.php';
 
-require_once 'RudWEb/lib/Url/Url.lib.php';
+require_once 'RudWEb/lib/Router/Router.lib.php';
 
 require_once 'RudWEb/lib/Module/Module.lib.php';
 

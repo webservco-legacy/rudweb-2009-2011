@@ -16,14 +16,14 @@
  */
 
 /**
- * UrlTest
+ * RouterTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudTest
- * @subpackage Url
+ * @subpackage Router
  *
  */
-class UrlTest extends PHPUnit_Framework_TestCase
+class RouterTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Stores class object.
@@ -37,7 +37,7 @@ class UrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_mObject = Url::GetInstance();
+		$this->_mObject = Router::GetInstance();
 	}
 
 	/**
@@ -45,7 +45,7 @@ class UrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Url::GetInstance() );
+		$this->assertType( 'object', Router::GetInstance() );
 	}
 
 	/**
