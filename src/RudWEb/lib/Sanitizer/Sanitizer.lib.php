@@ -37,18 +37,52 @@ if ( !defined( '_RUDWEB' ) )
 class Sanitizer extends Library
 {
 	/**
+	 * Stores total number of GET requests.
+	 *
+	 * @var int
+	 */
+	private $_mNumGet;
+
+	/**
+	 * Stores total number of POST requests.
+	 *
+	 * @var int
+	 */
+	private $_mNumPost;
+
+	/**
 	 * Sanitize input.
 	 *
 	 * @return bool
 	 */
 	public function Sanitize()
 	{
+		Core::Log()->Write( __( 'Sanitizer library loaded.' ), 'debug' );
+
+		/**
+		 * Init GET request number.
+		 *
+		 * @var int
+		 */
+		$this->_mNumGet = 0;
+
 		/**
 		 * Filter $_GET array.
 		 *
 		 * @var array
 		 */
 		$_GET = array_map( array( $this, '_FilterRequest' ), $_GET );
+
+		$get_message = sprintf( __( ' %s GET requests sanitized.' ), $this->_mNumGet );
+
+		Core::Log()->Write( $get_message, 'debug' );
+
+		/**
+		 * Init POST request number.
+		 *
+		 * @var int
+		 */
+		$this->_mNumPost = 0;
 
 		/**
 		 * Filter $_POST array.
@@ -59,6 +93,12 @@ class Sanitizer extends Library
 		 * filtering is done as for $_GET.
 		 */
 		$_POST = array_map(array($this, '_FilterPost'), $_POST);
+
+		$post_message = sprintf( __( ' %s POST requests sanitized.' ), $this->_mNumPost );
+
+		Core::Log()->Write( $post_message, 'debug' );
+
+		Core::Log()->Write( __( 'Sanitize complete.' ), 'debug' );
 
 		return TRUE;
 	}
@@ -81,8 +121,14 @@ class Sanitizer extends Library
 
 		/**
 		 * Filter input.
+		 *
+		 * @var string
 		 */
-		return $this->FilterInput( $input, $disableTags, TRUE );
+		$input = $this->FilterInput( $input, $disableTags, TRUE );
+
+		$this->_mNumGet++;
+
+		return $input;
 	}
 
 	/**
@@ -97,9 +143,15 @@ class Sanitizer extends Library
 	private function _FilterPost($input)
 	{
 		/**
-		 * Return filtered data.
+		 * Filter input.
+		 *
+		 * @var string
 		 */
-		return $this->FilterInput( $input, FALSE, FALSE );
+		$input =  $this->FilterInput( $input, FALSE, FALSE );
+
+		$this->_mNumPost++;
+
+		return $input;
 	}
 
 	/**

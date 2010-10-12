@@ -55,7 +55,11 @@ class App extends Library
 		 * Initialize application logging.
 		 */
 		$this->InitLog();
-
+		
+		/**
+		 * It was not possible to write to log until now, so we update with all the messages.
+		 */
+		
 		Core::Log()->Write( __( 'Application boot.' ), 'debug' );
 
 		Core::Log()->Write( __( 'Core library loaded.' ), 'debug' );
@@ -73,17 +77,12 @@ class App extends Library
 		 */
 		Core::Error()->Load();
 
-		Core::Log()->Write( __( 'Error library loaded.' ), 'debug' );
-
 		try
 		{
 			Core::Sanitizer()->Sanitize();
+			
+			//XXX
 
-			Core::Log()->Write( __( 'Sanitizer library loaded.' ), 'debug' );
-
-			Core::Log()->Write( __( 'Input sanitized.' ), 'debug' );
-
-			//XXX why database is initialized after this??????
 		}
 		catch ( ErrorException $e )
 		{
