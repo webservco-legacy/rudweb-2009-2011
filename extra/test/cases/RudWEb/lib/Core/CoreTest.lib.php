@@ -102,9 +102,9 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function UrlReturnsObject()
+	public function RouterReturnsObject()
 	{
-		$this->assertType( 'object', Core::Url() );
+		$this->assertType( 'object', Core::Router() );
 	}
 }
 ?>

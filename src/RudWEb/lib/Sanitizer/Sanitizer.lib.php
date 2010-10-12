@@ -117,7 +117,7 @@ class Sanitizer extends Library
 		 *
 		 * @var string
 		 */
-		$input = Core::Url()->RemoveFakeExtension( $input );
+		$input = Core::Router()->RemoveFakeExtension( $input );
 
 		/**
 		 * Filter input.

@@ -99,7 +99,7 @@ class Core
 	 *
 	 * @var mixed
 	 */
-	protected static $_msUrlObject;
+	protected static $_msRouterObject;
 
 	/**
 	 * Method to acces the configuration object from everywhere.
@@ -251,14 +251,14 @@ class Core
 	 *
 	 * @return object
 	 */
-	final public static function Url()
+	final public static function Router()
 	{
-		if ( self::$_msUrlObject == NULL )
+		if ( self::$_msRouterObject == NULL )
 		{
-			self::$_msUrlObject = Url::GetInstance();
+			self::$_msRouterObject = Router::GetInstance();
 		}
 
-		return self::$_msUrlObject;
+		return self::$_msRouterObject;
 	}
 
 	/**
