@@ -2,8 +2,8 @@
 
 <refentry id="{@id}">
 	<refnamediv>
-		<refname>URL</refname>
-		<refpurpose>URL library</refpurpose>
+		<refname>Router</refname>
+		<refpurpose>Router library</refpurpose>
 	</refnamediv>
 	<refsynopsisdiv>
 		<author>

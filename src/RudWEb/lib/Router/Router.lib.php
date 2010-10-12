@@ -2,13 +2,13 @@
 /**
  * $Id$
  *
- * URL library.
+ * Router library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
- * @subpackage RudUrl
+ * @subpackage RudRouter
  * @version    $Revision$
  * @since      Version 5
  * @access     public
@@ -27,14 +27,14 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * URL library.
+ * Router library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
- * @subpackage RudUrl
+ * @subpackage RudRouter
  *
  */
-class Url extends Library
+class Router extends Library
 {
 	/**
 	 * Remove fake extension from request.
