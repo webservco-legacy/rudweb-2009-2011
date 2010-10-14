@@ -67,7 +67,12 @@ try
 	//Database_Mysql::GetInstance();
 	//Core::Db();
 
-	var_dump( Core::Db()->EscapeString( "h'ello world" ) );
+	//var_dump( Core::Db()->EscapeString( "h'ello world" ) );
+	
+	Core::Cfg()->Set( Core::Cfg()->Get( 'path.app' ) . 'etc/route.cfg.xml' );
+	
+	echo '<pre>';
+	var_dump( Core::Cfg()->Get( 'route' ) );
 
 }
 catch ( ErrorException $e )

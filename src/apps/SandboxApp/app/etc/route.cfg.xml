@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+
+<!-- Configuration -->
+<config>
+	<!-- Development Environment -->
+	<dev>
+		<!-- Routes configuration -->
+		<route>
+			<!-- "index" is the default route. It doesn't have to be the fist one. -->
+			<name>index</name>
+			<value>module/controller/action</value>
+		</route>
+		<route>
+			<name>module/id/({num})</name>
+			<value>module/controller/action/$1</value>
+		</route>
+		<route>
+			<name>module/view/({any})</name>
+			<value>module/controller/action/$1</value>
+		</route>
+	</dev>
+	<!-- Test Environment -->
+	<test></test>
+	<!-- Production Environment -->
+	<prod></prod>
+</config>

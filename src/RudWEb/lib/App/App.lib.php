@@ -81,7 +81,7 @@ class App extends Library
 		{
 			Core::Sanitizer()->Sanitize();
 			
-			//XXX
+			//XXX continue application booting
 
 		}
 		catch ( ErrorException $e )
