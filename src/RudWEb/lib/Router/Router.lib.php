@@ -78,6 +78,8 @@ class Router extends Library
 	 */
 	public function Route()
 	{
+		Core::Log()->Write( __( 'Router library: loading.' ), 'debug' );
+
 		/**
 		 * Set request.
 		 *
@@ -122,21 +124,36 @@ class Router extends Library
 
 		if ( isset( $_SERVER['PATH_INFO'] ) )
 		{
+			Core::Log()->Write( __( 'Router library: Performing PATH_INFO routing.' ), 'debug' );
+
 			/**
 			 * Set request.
 			 *
 			 * @var string
 			 */
-			$request = $this->_ProcessRequest();
+			$request = $this->_ProcessRequest( $_SERVER['PATH_INFO'] );
 		}
 		else if ( isset( $_SERVER['ORIG_PATH_INFO'] ) )
 		{
+			Core::Log()->Write( __( 'Router library: Performing ORIG_PATH_INFO routing.' ), 'debug' );
+
 			/**
 			 * Set request.
 			 *
 			 * @var string
 			 */
-			$request = $this->_processRequest(TRUE);
+			$request = $this->_processRequest( $_SERVER['ORIG_PATH_INFO'] );
+		}
+		else if ( isset( $_SERVER['REQUEST_URI'] ) )
+		{
+			Core::Log()->Write( __( 'Router library: Performing REQUEST_URI routing.' ), 'debug' );
+
+			/**
+			 * Set request.
+			 *
+			 * @var string
+			 */
+			$request = $this->_processRequest( $_SERVER['REQUEST_URI'] );
 		}
 		/**
 		 * In this case the request is old style (?option=value)
@@ -144,6 +161,8 @@ class Router extends Library
 		 */
 		else if ( isset( $_SERVER['QUERY_STRING'] ) && ( '' != $_SERVER['QUERY_STRING'] ) )
 		{
+			Core::Log()->Write( __( 'Router library: Performing QUERY_STRING routing.' ), 'debug' );
+
 			/**
 			 * Process QUERY_STRING.
 			 *
@@ -169,18 +188,23 @@ class Router extends Library
 	/**
 	 * Process request.
 	 *
-	 * @param bool $useOrigPathInfo
+	 * @param string $firstPart
 	 *
 	 * @return string
 	 */
-	private function _ProcessRequest( $useOrigPathInfo = FALSE )
+	private function _ProcessRequest( $firstPart = NULL )
 	{
+		if ( FALSE !== strpos( $firstPart, 'index.php?' ) )
+		{
+			return $this->_ProcessQueryString();
+		}
+
 		/**
-		 * Set first part of request to PATH_INFO or ORIG_PATH_INFO.
+		 * Initialize first  part of request.
 		 *
 		 * @var string
 		 */
-		$req1 = $useOrigPathInfo ? $_SERVER['ORIG_PATH_INFO'] : $_SERVER['PATH_INFO'];
+		$req1 = $this->_FormatRequest( $firstPart );
 
 		/**
 		 * Initialize second part of request.
@@ -199,25 +223,39 @@ class Router extends Library
 			 *
 			 * @var string
 			 */
-			$req2 = str_replace( '&', '/', $_SERVER['QUERY_STRING'] );
-
-			/**
-			 * Process request. Replace '=' with '/'.
-			 *
-			 * @var string
-			 */
-			$req2 = str_replace( '=', '/', $req2 );
-
-			/**
-			 * Process request. Replace empty values with '0'.
-			 *
-			 * @var string
-			 */
-			$req2 = str_replace( '//', '/0/', $req2 );
+			$req2 = $this->_FormatRequest( $_SERVER['QUERY_STRING'] );
 		}
 
-		return $req1 . $req2;
+		return $this->RemoveFakeExtension( $req1 . $req2 );
 	}
+
+	/**
+	 * Transform normal request string into custom one.
+	 *
+	 * @param string $requestString
+	 *
+	 * @return string
+	 */
+	private function _FormatRequest( $requestString )
+	{
+		/**
+		 * @var string
+		 */
+		$request_string = str_replace( '&', '/', $requestString );
+
+		/**
+		 * @var string
+		 */
+		$request_string = str_replace( '=', '/', $request_string );
+
+		/**
+		 * @var string
+		 */
+		$request_string = str_replace( '//', '/0/', $request_string );
+
+		return $request_string;
+	}
+
 
 	/**
 	 * Process query string.
@@ -290,6 +328,8 @@ class Router extends Library
 	 */
 	private function _ParseCustomRoutes()
 	{
+		Core::Log()->Write( __( 'Router library: Parsing custom routes.' ), 'debug' );
+
 		/**
 		 * Set costom routes, (and also default route).
 		 */
@@ -300,6 +340,8 @@ class Router extends Library
 		 */
 		if ( NULL == $this->_mRequest )
 		{
+			Core::Log()->Write( __( 'Router library: Empty request. Setting to default.' ), 'debug' );
+
 			/**
 			 * Set request to default request, and exit.
 			 *
@@ -359,9 +401,13 @@ class Router extends Library
 				 */
 				$this->_mRequest = $route_value;
 
+				Core::Log()->Write( __( 'Router library: Found matching custom route.' ), 'debug' );
+
 				return TRUE;
 			}
 		}
+
+		Core::Log()->Write( __( 'Router library: No matching custom route found.' ), 'debug' );
 
 		return FALSE;
 	}
@@ -375,19 +421,14 @@ class Router extends Library
 	 */
 	private function _SetCustomRoutes()
 	{
-		/**
-		 * @var string
-		 */
-		$route_cfg_file = Core::Cfg()->Get( 'path.app' ) . 'etc/route.cfg.xml';
-
-		Core::Cfg()->Set( $route_cfg_file );
-
 		$routes = Core::Cfg()->Get( 'route' );
 
 		foreach ( $routes as $route )
 		{
 			if ( 'index' == $route['name'] )
 			{
+				Core::Log()->Write( __( 'Router library: Setting default route.' ), 'debug' );
+
 				/**
 				 * @var string
 				 */
@@ -395,6 +436,8 @@ class Router extends Library
 			}
 			else
 			{
+				Core::Log()->Write( __( 'Router library: Setting custom route.' ), 'debug' );
+
 				/**
 				 * @var array
 				 */
@@ -421,6 +464,8 @@ class Router extends Library
 			 * Ignore existing request.
 			 */
 			$_GET = array();
+
+			Core::Log()->Write( __( 'Router library: Emptying $_GET array.' ), 'debug' );
 
 			return TRUE;
 		}
@@ -477,21 +522,36 @@ class Router extends Library
 		 *
 		 * @var string
 		 */
-		$request['module'] = ( !empty( $request['module'] ) ) ? $request['module'] : Core::Cfg()->Get( 'defaults.module' );
+		$request['module'] = ( !empty( $request['module'] ) ) ?
+		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
+		Core::Cfg()->Get( 'defaults.module' );
 
 		/**
 		 * If controller is empty, set it to default.
 		 *
 		 * @var string
 		 */
-		$request['controller'] = ( !empty( $request['controller'] ) ) ? $request['controller'] : Core::Cfg()->Get( 'defaults.controller' );
+		$request['controller'] = ( !empty( $request['controller'] ) ) ?
+		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
+		Core::Cfg()->Get( 'defaults.controller' );
 
 		/**
 		 * If action is empty, set it to default.
 		 *
 		 * @var string
 		 */
-		$request['action'] = ( !empty( $request['action'] ) ) ? $request['action'] : Core::Cfg()->Get( 'defaults.action' );
+		$request['action'] = ( !empty( $request['action'] ) ) ?
+		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
+		Core::Cfg()->Get( 'defaults.action' );
+
+		/**
+		 * If query is not empty, filter it.
+		 *
+		 * @var string
+		 */
+		$raw_query = ( !empty( $request['query'] ) ) ?
+		Core::Sanitizer()->FilterInput( $request['query'], TRUE, TRUE ) :
+		'';
 
 		/**
 		 * Set final location.
@@ -500,9 +560,74 @@ class Router extends Library
 		 *
 		 * @var string
 		 */
-		$request['location'] = rtrim( str_replace( $request['query'], '', $this->_mLocation ), '/' );
+		$request['location'] = rtrim( str_replace( $raw_query, '', $this->_mLocation ), '/' );
+
+		/**
+		 * Set request query as an array of key/values.
+		 *
+		 * @var array
+		 */
+		$request['query'] = ( !empty( $raw_query ) ) ? $this->ParseRequestQuery( $raw_query ) : array();
+
+		Core::Log()->Write( __( 'Router library: Request parsing done.' ), 'debug' );
+
+		Core::Log()->Write( __( 'Router library: Routing complete.' ), 'debug' );
 
 		return $request;
+	}
+
+	/**
+	 * Format request query.
+	 *
+	 * Returns key/value or numeric indexed array.
+	 * Request can be in the form 'lorem/ipsum/dolor/sic'.
+	 * If parameter count is not even, the last parameter
+	 * is returned as ['param'] = 'param'.
+	 *
+	 * @param string $requestQuery
+	 * @param bool $returnNumeric return numeric indexed array instead of key/value?
+	 *
+	 * @return array
+	 */
+	public function ParseRequestQuery( $requestQuery, $returnNumeric = FALSE )
+	{
+		/**
+		 * @var array
+		 */
+		$query = array();
+
+		/**
+		 * @var array
+		 */
+		$raw_query = explode( '/', $requestQuery );
+
+		/**
+		 * @var array
+		 */
+		$raw_query = array_diff( $raw_query, array('') );
+
+		if ( FALSE !== $returnNumeric )
+		{
+			return $raw_query;
+		}
+
+		$params = count( $raw_query );
+
+		for( $position = 0; $position < $params; $position += 2 )
+		{
+			/**
+			 * If the data count is not even, set the last value the same as the key.
+			 *
+			 * @var array
+			 */
+			$query[$raw_query[$position]] = ( $position == ( $params - 1 ) ) ?
+			$raw_query[$position] :
+			$raw_query[$position+1];
+		}
+
+		Core::Log()->Write( __( 'Router library: Parsed request query.' ), 'debug' );
+
+		return $query;
 	}
 
 	/**
@@ -527,6 +652,8 @@ class Router extends Library
 		 */
 		if ( ( '' != $extension ) && ( FALSE !== $check ) )
 		{
+			Core::Log()->Write( __( 'Router library: Removing fake extension.' ), 'debug' );
+
 			return str_replace( $extension, '', $request );
 		}
 

@@ -1,7 +1,6 @@
 # $Id$
 
-# This directory is not web-accessible
-
+# This directory is not web-accessible.
 Order deny,allow
 Deny from all
 Satisfy All

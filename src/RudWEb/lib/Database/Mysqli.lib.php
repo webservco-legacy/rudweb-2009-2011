@@ -80,11 +80,15 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$this->_mDbLink = $db_link;
 
-		Core::Log()->Write(
-		sprintf(
-		__( 'Database connection opened (driver: %s).' ), Core::Cfg()->Get( 'db.type' )
-		)
+		/**
+		 * @var string
+		 */
+		$db_message = sprintf(
+		__( 'Database library: Database connection opened (driver: %s).' ),
+		Core::Cfg()->Get( 'db.type' )
 		);
+
+		Core::Log()->Write( $db_message, 'debug' );
 
 		/**
 		 * UTF Compatibility.

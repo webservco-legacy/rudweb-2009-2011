@@ -38,6 +38,12 @@ if ( !defined( '_RUDWEB' ) )
  */
 class App extends Library
 {
+	/**
+	 * Stores the parsed request.
+	 *
+	 * @var array
+	 */
+	private $_mRequest;
 
 	public function Boot()
 	{
@@ -55,22 +61,22 @@ class App extends Library
 		 * Initialize application logging.
 		 */
 		$this->InitLog();
-		
+
 		/**
 		 * It was not possible to write to log until now, so we update with all the messages.
 		 */
-		
-		Core::Log()->Write( __( 'Application boot.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Core library loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: booting.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Core library: loading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Configuration settings loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Cfg library: loading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'I18n library loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Cfg library: Configuration settings loaded.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Log library loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'I18n library: loading.' ), 'debug' );
+
+		Core::Log()->Write( __( 'Log library: loading.' ), 'debug' );
 
 		/**
 		 * Initialize error handling and reporting  library.
@@ -79,8 +85,25 @@ class App extends Library
 
 		try
 		{
+			/**
+			 * Sanitize requests.
+			 *
+			 * @var array
+			 */
 			Core::Sanitizer()->Sanitize();
-			
+
+			/**
+			 * Perform routing.
+			 *
+			 * @var array
+			 */
+			$this->_mRequest = Core::Router()->Route();
+
+			echo '<pre>';
+			print_r( $this->_mRequest );
+			echo '</pre>';
+			echo '<hr />';
+
 			//XXX continue application booting
 
 		}
@@ -118,11 +141,6 @@ class App extends Library
 		 * Set application directories.
 		 */
 		Core::Cfg()->Set( $path_app . 'etc/dir.cfg.xml' );
-
-		/**
-		 * Set application log settings.
-		 */
-		Core::Cfg()->Set( $path_app . 'etc/log.cfg.xml' );
 
 		/**
 		 * Set application database settings.
@@ -176,9 +194,9 @@ class App extends Library
 		 */
 		Core::Error()->Unload();
 
-		Core::Log()->Write( __( 'Error library unloaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Error library: unloading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Application shutdown.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: shutdown.' ), 'debug' );
 
 		return TRUE;
 

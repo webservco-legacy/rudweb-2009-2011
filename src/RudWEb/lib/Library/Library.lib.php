@@ -79,12 +79,46 @@ abstract class Library
 			 * Set object instance.
 			 */
 			self::$_msInstance[$class_name] = new $class_name();
+			/**
+			 * Load object configuration.
+			 */
+			self::_LoadConfig();
 		}
 
 		/**
 		 * Return object instance.
 		 */
 		return self::$_msInstance[$class_name];
+	}
+
+	/**
+	 * Load configuration file for current library.
+	 *
+	 * @return bool
+	 */
+	private static function _LoadConfig()
+	{
+		/**
+		 * @var string
+		 */
+		$class_name = get_called_class();
+
+		/**
+		 * @var string
+		 */
+		$path_app = Core::Cfg()->Get( 'path.app' );
+
+		/**
+		 * @var string
+		 */
+		$cfg_file =  $path_app . 'etc/' . strtolower( $class_name ) . '.lib.cfg.xml';
+
+		if ( !is_readable( $cfg_file ) )
+		{
+			return FALSE;
+		}
+
+		return Core::Cfg()->Set( $cfg_file );
 	}
 
 	/**

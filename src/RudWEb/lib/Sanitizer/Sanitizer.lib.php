@@ -57,7 +57,7 @@ class Sanitizer extends Library
 	 */
 	public function Sanitize()
 	{
-		Core::Log()->Write( __( 'Sanitizer library loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: loading.' ), 'debug' );
 
 		/**
 		 * Init GET request number.
@@ -73,7 +73,7 @@ class Sanitizer extends Library
 		 */
 		$_GET = array_map( array( $this, '_FilterRequest' ), $_GET );
 
-		$get_message = sprintf( __( ' %s GET requests sanitized.' ), $this->_mNumGet );
+		$get_message = sprintf( __( 'Sanitizer library: %s GET requests sanitized.' ), $this->_mNumGet );
 
 		Core::Log()->Write( $get_message, 'debug' );
 
@@ -94,11 +94,11 @@ class Sanitizer extends Library
 		 */
 		$_POST = array_map(array($this, '_FilterPost'), $_POST);
 
-		$post_message = sprintf( __( ' %s POST requests sanitized.' ), $this->_mNumPost );
+		$post_message = sprintf( __( 'Sanitizer library: %s POST requests sanitized.' ), $this->_mNumPost );
 
 		Core::Log()->Write( $post_message, 'debug' );
 
-		Core::Log()->Write( __( 'Sanitize complete.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: complete.' ), 'debug' );
 
 		return TRUE;
 	}
@@ -112,13 +112,6 @@ class Sanitizer extends Library
 	 */
 	private function _FilterRequest( $input, $disableTags = TRUE )
 	{
-		/**
-		 * Remove fake extension.
-		 *
-		 * @var string
-		 */
-		$input = Core::Router()->RemoveFakeExtension( $input );
-
 		/**
 		 * Filter input.
 		 *
@@ -222,7 +215,7 @@ class Sanitizer extends Library
 		}
 
 		/**
-		 * Check if we should also block tags
+		 * Check if we should also block tags.
 		 */
 		if ( FALSE !== $disableTags )
 		{

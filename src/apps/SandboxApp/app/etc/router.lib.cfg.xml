@@ -5,6 +5,11 @@
 <config>
 	<!-- Development Environment -->
 	<dev>
+		<!-- SEO settings -->
+		<seo>
+			<full>1</full>
+			<extension>.html</extension>
+		</seo>
 		<!-- Routes configuration -->
 		<route>
 			<!-- "index" is the default route. It doesn't have to be the fist one. -->
@@ -12,12 +17,12 @@
 			<value>module/controller/action</value>
 		</route>
 		<route>
-			<name>module/id/({num})</name>
-			<value>module/controller/action/$1</value>
+			<name>module/({num})</name>
+			<value>module/controller/action/id/$1</value>
 		</route>
 		<route>
 			<name>module/view/({any})</name>
-			<value>module/controller/action/$1</value>
+			<value>module/controller/action/view/$1</value>
 		</route>
 	</dev>
 	<!-- Test Environment -->

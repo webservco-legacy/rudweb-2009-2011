@@ -121,6 +121,14 @@ function webs_stop
 	p_footer
 }
 
+function webs_restart
+{
+	p_header "Restart Web Server"
+	echo -n "Enter root "
+	su -c "$WEBS restart;exit"
+	p_footer
+}
+
 function dbms_start
 {
 	p_header "Start Database Management Server"
@@ -134,6 +142,14 @@ function dbms_stop
 	p_header "Stop Database Management Server"
 	echo -n "Enter root "
 	su -c "$DBMS stop;exit"
+	p_footer
+}
+
+function dbms_restart
+{
+	p_header "Restart Database Management Server"
+	echo -n "Enter root "
+	su -c "$DBMS restart;exit"
 	p_footer
 }
 
@@ -203,11 +219,13 @@ function page_server
 	while [ 0 ]; do
 		dialog --title "$P_NAME :: Server Management" --menu \
 		"Hello $P_USER!" \
-		18 60 5 \
+		18 60 7 \
 		"ws" "Start Web Server" \
 		"wk" "Stop Web Server" \
+		"wr" "Restart Web Server" \
 		"ds" "Start Database Management Server" \
 		"dk" "Stop Database Management Server" \
+		"dr" "Restart Database Management Server" \
 		"b" "Back" \
 		2> /tmp/RudWEb
 		if [ $? = 1 ]; then
@@ -263,10 +281,14 @@ function handle_menu
 		webs_start
 	elif [ $R = "wk" ]; then
 		webs_stop
+	elif [ $R = "wr" ]; then
+		webs_restart
 	elif [ $R = "ds" ]; then
 		dbms_start
 	elif [ $R = "dk" ]; then
 		dbms_stop
+	elif [ $R = "dr" ]; then
+		dbms_restart
 	elif [ $R = "s" ]; then
 		page_server
 	elif [ $R = "d" ]; then
@@ -298,37 +320,43 @@ check_user
 if [ "$1" != "" ]; then
 	while [ "$1" != "" ]; do
 		case $1 in
-			-h | --help )	page_help
-							exit_ok
-							;;
-			-a | --about )	page_about
-							exit_ok
-							;;
-			-ws | --webstart )	webs_start
-								exit_ok
-							;;
-			-wk | --webstop )	webs_stop
-								exit_ok
-							;;
-			-ds | --dbstart )	dbms_start
-								exit_ok
-							;;
-			-dk | --dbstop )	dbms_stop
-								exit_ok
-							;;
-			-dc | --docc )		doc_clean
-								exit_ok
-							;;
-			-d | --doc )		doc_run
-								exit_ok
-							;;
-			-tc | --testc )		test_clean
-								exit_ok
-							;;
-			-t | --test )		test_run
-								exit_ok
-							;;
-			* )				show_gui
+			-h | --help )			page_help
+									exit_ok
+									;;
+			-a | --about )			page_about
+									exit_ok
+									;;
+			-ws | --webstart )		webs_start
+									exit_ok
+									;;
+			-wk | --webstop )		webs_stop
+									exit_ok
+									;;
+			-wr | --webrestart )	webs_restart
+									exit_ok
+									;;
+			-ds | --dbstart )		dbms_start
+									exit_ok
+									;;
+			-ds | --dbrestart )		dbms_restart
+									exit_ok
+									;;
+			-dk | --dbstop )		dbms_stop
+									exit_ok
+									;;
+			-dc | --docc )			doc_clean
+									exit_ok
+									;;
+			-d | --doc )			doc_run
+									exit_ok
+									;;
+			-tc | --testc )			test_clean
+									exit_ok
+									;;
+			-t | --test )			test_run
+									exit_ok
+									;;
+			* )						show_gui
 		esac
 	done
 else
