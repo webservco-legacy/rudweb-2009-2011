@@ -104,7 +104,7 @@ class App extends Library
 			echo '</pre>';
 			echo '<hr />';
 
-			//XXX continue application booting
+			//XXX continue: finished application booting - move to dispatch
 
 		}
 		catch ( ErrorException $e )
