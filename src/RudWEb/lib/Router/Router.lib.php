@@ -98,9 +98,14 @@ class Router extends Library
 		$this->_ParseCustomRoutes();
 
 		/**
-		 * XXX Set new request. (return an array instead of writing to $_GET)
+		 * Empty get array for security.
 		 */
-		return $this->_SetRequest();
+		$this->_EmptyGet();
+
+		/**
+		 * Get parsed request.
+		 */
+		return $this->_GetParsedRequest();
 	}
 
 	/**
@@ -123,8 +128,6 @@ class Router extends Library
 			 * @var string
 			 */
 			$request = $this->_ProcessRequest();
-
-
 		}
 		else if ( isset( $_SERVER['ORIG_PATH_INFO'] ) )
 		{
@@ -377,23 +380,129 @@ class Router extends Library
 		 */
 		$route_cfg_file = Core::Cfg()->Get( 'path.app' ) . 'etc/route.cfg.xml';
 
-		Core::Cfg()->Load( $route_cfg_file );
+		Core::Cfg()->Set( $route_cfg_file );
 
 		$routes = Core::Cfg()->Get( 'route' );
 
-		foreach ( $routes as $name => $value )
+		foreach ( $routes as $route )
 		{
-			if ( 'index' == $name )
+			if ( 'index' == $route['name'] )
 			{
-				$this->_mDefaultRoute = $value;
+				/**
+				 * @var string
+				 */
+				$this->_mDefaultRoute = $route['value'];
 			}
 			else
 			{
-				$this->_mCustomRoutes[$name] = $value;
+				/**
+				 * @var array
+				 */
+				$this->_mCustomRoutes[$route['name']] = $route['value'];
 			}
 		}
 
 		return TRUE;
+	}
+
+	/**
+	 * Empty get array.
+	 *
+	 * @return bool
+	 */
+	private function _EmptyGet()
+	{
+		/**
+		 * Check if a request exists.
+		 */
+		if( !empty( $_GET ) )
+		{
+			/**
+			 * Ignore existing request.
+			 */
+			$_GET = array();
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	/**
+	 * Parse request for returning to application library.
+	 *
+	 * @return array
+	 */
+	private function _GetParsedRequest()
+	{
+		/**
+		 * Create list of keys.
+		 *
+		 * @var_array
+		 */
+		$request_keys = array( 'module', 'controller', 'action', 'query' );
+
+		/**
+		 * Split request in four parts.
+		 *
+		 * @var array
+		 */
+		$request_values = explode( '/', $this->_mRequest, 4 );
+
+		/**
+		 * @var int
+		 */
+		$total_values = count( $request_values );
+
+		/**
+		 * Check if we have enough values.
+		 */
+		if ( 4 > $total_values )
+		{
+			/**
+			 * Fill with blanks.
+			 */
+			$request_values = array_pad( $request_values, 4, NULL );
+		}
+
+		/**
+		 * Create new request array.
+		 *
+		 * @var array
+		 */
+		$request = array_combine( $request_keys, $request_values );
+
+		/**
+		 * If module is empty, set it to default.
+		 *
+		 * @var string
+		 */
+		$request['module'] = ( !empty( $request['module'] ) ) ? $request['module'] : Core::Cfg()->Get( 'defaults.module' );
+
+		/**
+		 * If controller is empty, set it to default.
+		 *
+		 * @var string
+		 */
+		$request['controller'] = ( !empty( $request['controller'] ) ) ? $request['controller'] : Core::Cfg()->Get( 'defaults.controller' );
+
+		/**
+		 * If action is empty, set it to default.
+		 *
+		 * @var string
+		 */
+		$request['action'] = ( !empty( $request['action'] ) ) ? $request['action'] : Core::Cfg()->Get( 'defaults.action' );
+
+		/**
+		 * Set final location.
+		 *
+		 * This contains only the url route with the request query filtered out.
+		 *
+		 * @var string
+		 */
+		$request['location'] = rtrim( str_replace( $request['query'], '', $this->_mLocation ), '/' );
+
+		return $request;
 	}
 
 	/**
