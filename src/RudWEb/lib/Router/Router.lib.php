@@ -106,8 +106,15 @@ class Router extends Library
 
 		/**
 		 * Get parsed request.
+		 *
+		 * @var array
 		 */
-		return $this->_GetParsedRequest();
+		$request = $this->_GetParsedRequest();
+
+		/**
+		 * Format final request.
+		 */
+		return $this->_FormatFinalRequest( $request );
 	}
 
 	/**
@@ -523,9 +530,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['module'] = ( !empty( $request['module'] ) ) ?
-		ucfirst( strtolower(
-		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE )
-		) ) :
+		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
 		Core::Cfg()->Get( 'defaults.module' );
 
 		/**
@@ -534,9 +539,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['controller'] = ( !empty( $request['controller'] ) ) ?
-		ucfirst( strtolower(
-		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE )
-		) ) :
+		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
 		Core::Cfg()->Get( 'defaults.controller' );
 
 		/**
@@ -545,9 +548,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['action'] = ( !empty( $request['action'] ) ) ?
-		ucfirst( strtolower(
-		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE )
-		) ) :
+		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
 		Core::Cfg()->Get( 'defaults.action' );
 
 		/**
@@ -555,7 +556,7 @@ class Router extends Library
 		 *
 		 * @var string
 		 */
-		$raw_query = ( !empty( $request['query'] ) ) ?
+		$request['query'] = ( !empty( $request['query'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['query'], TRUE, TRUE ) :
 		'';
 
@@ -566,16 +567,46 @@ class Router extends Library
 		 *
 		 * @var string
 		 */
-		$request['location'] = rtrim( str_replace( $raw_query, '', $this->_mLocation ), '/' );
-
-		/**
-		 * Set request query as an array of key/values.
-		 *
-		 * @var array
-		 */
-		$request['query'] = ( !empty( $raw_query ) ) ? $this->ParseRequestQuery( $raw_query ) : array();
+		$request['location'] = rtrim( str_replace( $request['query'], '', $this->_mLocation ), '/' );
 
 		Core::Log()->Write( __( 'Router library: Request parsing done.' ), 'debug' );
+
+		return $request;
+	}
+
+	private function _FormatFinalRequest( $request )
+	{
+		/**
+		 * @var string
+		 */
+		$module = ucfirst( strtolower( $request['module'] ) );
+
+		/**
+		 * @var string
+		 */
+		$request['module'] = 'Module_' . $module;
+
+		/**
+		 * @var string
+		 */
+		$controller = ucfirst( strtolower( $request['controller'] ) );
+
+		/**
+		 * @var string
+		 */
+		$request['controller'] = 'Controller_' . $module . '_' . $controller;
+
+		/**
+		 * @var string
+		 */
+		$request['action'] = ucfirst( strtolower( $request['action'] ) );
+
+		/**
+		 * @var array
+		 */
+		$request['query'] = ( !empty( $request['query'] ) ) ? $this->ParseRequestQuery( $request['query'] ) : array();
+
+		Core::Log()->Write( __( 'Router library: Request formatting done.' ), 'debug' );
 
 		Core::Log()->Write( __( 'Router library: Routing complete.' ), 'debug' );
 

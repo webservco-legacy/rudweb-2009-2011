@@ -14,7 +14,11 @@
 		<route>
 			<!-- "index" is the default route. It doesn't have to be the fist one. -->
 			<name>index</name>
-			<value>module/controller/action</value>
+			<value>Helloworld/Hello/World</value>
+		</route>
+		<route>
+			<name>Helloworld</name>
+			<value>Helloworld/Hello/World</value>
 		</route>
 		<route>
 			<name>module/({num})</name>
