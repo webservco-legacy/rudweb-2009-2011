@@ -47,7 +47,7 @@ class Error extends Library
 	{
 		set_error_handler( array( Error::GetInstance(), 'Handle' ) );
 
-		Core::Log()->Write( __( 'Error library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Error library: Loading.' ), 'debug' );
 
 		return TRUE;
 	}

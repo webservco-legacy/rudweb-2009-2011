@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 20:09+0200\n"
-"PO-Revision-Date: 2010-10-09 20:09+0200\n"
+"POT-Creation-Date: 2010-10-18 20:06+0200\n"
+"PO-Revision-Date: 2010-10-18 20:06+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -19,45 +19,166 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
-#: lib/App/App.lib.php:59
-msgid "Application boot."
-msgstr "Application boot."
+#: lib/Sanitizer/Sanitizer.lib.php:60
+msgid "Sanitizer library: Loading."
+msgstr "Sanitizer library: Loading."
 
-#: lib/App/App.lib.php:61
-msgid "Core library loaded."
-msgstr "Core library loaded."
+#: lib/Sanitizer/Sanitizer.lib.php:76
+#, php-format
+msgid "Sanitizer library: %s GET requests sanitized."
+msgstr "Sanitizer library: %s GET requests sanitized."
 
-#: lib/App/App.lib.php:63
-msgid "Cfg library loaded."
-msgstr "Cfg library loaded."
+#: lib/Sanitizer/Sanitizer.lib.php:97
+#, php-format
+msgid "Sanitizer library: %s POST requests sanitized."
+msgstr "Sanitizer library: %s POST requests sanitized."
 
-#: lib/App/App.lib.php:65
-msgid "Configuration settings loaded."
-msgstr "Configuration settings loaded."
+#: lib/Sanitizer/Sanitizer.lib.php:101
+msgid "Sanitizer library: Sanitize complete."
+msgstr "Sanitizer library: Sanitize complete."
 
-#: lib/App/App.lib.php:67
-msgid "I18n library loaded."
-msgstr "i18n library loaded."
+#: lib/Error/Error.lib.php:50
+msgid "Error library: Loading."
+msgstr "Error library: Loading."
+
+#: lib/Router/Router.lib.php:81
+msgid "Router library: Loading."
+msgstr "Router library: Loading."
+
+#: lib/Router/Router.lib.php:134
+msgid "Router library: Performing PATH_INFO routing."
+msgstr "Router library: Performing PATH_INFO routing."
+
+#: lib/Router/Router.lib.php:145
+msgid "Router library: Performing ORIG_PATH_INFO routing."
+msgstr "Router library: Performing ORIG_PATH_INFO routing."
+
+#: lib/Router/Router.lib.php:156
+msgid "Router library: Performing REQUEST_URI routing."
+msgstr "Router library: Performing REQUEST_URI routing."
+
+#: lib/Router/Router.lib.php:171
+msgid "Router library: Performing QUERY_STRING routing."
+msgstr "Router library: Performing QUERY_STRING routing."
+
+#: lib/Router/Router.lib.php:338
+msgid "Router library: Parsing custom routes."
+msgstr "Router library: Parsing custom routes."
+
+#: lib/Router/Router.lib.php:350
+msgid "Router library: Empty request. Setting to default."
+msgstr "Router library: Empty request. Setting to default."
+
+#: lib/Router/Router.lib.php:411
+msgid "Router library: Found matching custom route."
+msgstr "Router library: Found matching custom route."
+
+#: lib/Router/Router.lib.php:417
+msgid "Router library: No matching custom route found."
+msgstr "Router library: No matching custom route found."
+
+#: lib/Router/Router.lib.php:437
+msgid "Router library: Setting default route."
+msgstr "Router library: Setting default route."
+
+#: lib/Router/Router.lib.php:446
+msgid "Router library: Setting custom route."
+msgstr "Router library: Setting custom route."
+
+#: lib/Router/Router.lib.php:475
+msgid "Router library: Emptying $_GET array."
+msgstr "Router library: Emptying $_GET array."
+
+#: lib/Router/Router.lib.php:572
+msgid "Router library: Request parsing done."
+msgstr "Router library: Request parsing done."
+
+#: lib/Router/Router.lib.php:609
+msgid "Router library: Request formatting done."
+msgstr "Router library: Request formatting done."
+
+#: lib/Router/Router.lib.php:611
+msgid "Router library: Routing complete."
+msgstr "Router library: Routing complete."
+
+#: lib/Router/Router.lib.php:665
+msgid "Router library: Parsed request query."
+msgstr "Router library: Parsed request query."
+
+#: lib/Router/Router.lib.php:692
+msgid "Router library: Removing fake extension."
+msgstr "Router library: Removing fake extension."
 
 #: lib/App/App.lib.php:69
-msgid "Log library loaded."
-msgstr "Log library loaded."
+msgid "Application: Booting."
+msgstr "Application: Booting."
 
-#: lib/App/App.lib.php:76
-msgid "Error library loaded."
-msgstr "Error library loaded."
+#: lib/App/App.lib.php:71
+msgid "Core library: Loading."
+msgstr "Core library: Loading."
 
-#: lib/App/App.lib.php:165
-msgid "Error library unloaded."
-msgstr "Error library unloaded."
+#: lib/App/App.lib.php:73
+msgid "Cfg library: Loading."
+msgstr "Cfg library: Loading."
 
-#: lib/App/App.lib.php:167
-msgid "Application shutdown."
-msgstr "Application shutdown."
+#: lib/App/App.lib.php:75
+msgid "Cfg library: Configuration settings loaded."
+msgstr "Cfg library: Configuration settings loaded."
 
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:141
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:149
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:157
+#: lib/App/App.lib.php:77
+msgid "I18n library: Loading."
+msgstr "I18n library: Loading."
+
+#: lib/App/App.lib.php:79
+msgid "Log library: Loading."
+msgstr "Log library: Loading."
+
+#: lib/App/App.lib.php:102
+msgid "Application: Booting complete."
+msgstr "Application: Booting complete."
+
+#: lib/App/App.lib.php:111
+msgid "Application: Booting failed."
+msgstr "Application: Booting failed."
+
+#: lib/App/App.lib.php:123
+msgid "Application: Running dispatcher."
+msgstr "Application: Running dispatcher."
+
+#: lib/App/App.lib.php:141
+msgid "Application: Dispatcher done."
+msgstr "Application: Dispatcher done."
+
+#: lib/App/App.lib.php:158
+msgid "Error library: Unloading."
+msgstr "Error library: Unloading."
+
+#: lib/App/App.lib.php:160
+msgid "Application: Shutdown."
+msgstr "Application: Shutdown."
+
+#: lib/Database/Mysqli.lib.php:69
+msgid "Database library: Error connecting to database management server."
+msgstr "Database library: Error connecting to database management server."
+
+#: lib/Database/Mysqli.lib.php:87
+#, php-format
+msgid "Database library: Database connection opened (driver: %s)."
+msgstr "Database library: Database connection opened (driver: %s)."
+
+#: lib/Database/Sqlite3.lib.php:57
+msgid "Database library: Database file is not readable."
+msgstr "Database library: Database file is not readable."
+
+#: lib/Database/Sqlite3.lib.php:78
+#: lib/Database/Mysql.lib.php:81
+#, php-format
+msgid "Database library: Error opening database %s."
+msgstr "Database library: Error opening database %s."
+
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:136
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:144
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:152
 msgid "Hello World!"
 msgstr "Hello World!"
 

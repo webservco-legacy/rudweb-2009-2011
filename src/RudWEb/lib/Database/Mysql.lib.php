@@ -66,7 +66,7 @@ class Database_Mysql extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Error connecting to database management server.' ) . ' ' . mysql_error();
+			$message = __( 'Database library: Error connecting to database management server.' ) . ' ' . mysql_error();
 
 			trigger_error( $message );
 
@@ -78,7 +78,7 @@ class Database_Mysql extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = sprintf( __( 'Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . mysql_error();
+			$message = sprintf( __( 'Database library: Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . mysql_error();
 
 			trigger_error( $message );
 

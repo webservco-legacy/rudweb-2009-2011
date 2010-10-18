@@ -86,7 +86,7 @@ class Database_Pdo extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Error connecting to database management server.' ) . ' ' . $e->getMessage();
+			$message = __( 'Database library: Error connecting to database management server.' ) . ' ' . $e->getMessage();
 
 			trigger_error( $message );
 

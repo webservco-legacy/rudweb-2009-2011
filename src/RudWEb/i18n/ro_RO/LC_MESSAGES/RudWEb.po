@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 20:10+0200\n"
-"PO-Revision-Date: 2010-10-09 20:10+0200\n"
+"POT-Creation-Date: 2010-10-18 20:09+0200\n"
+"PO-Revision-Date: 2010-10-18 20:09+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -19,45 +19,166 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
-#: lib/App/App.lib.php:59
-msgid "Application boot."
-msgstr "Pornire aplicatie."
+#: lib/Sanitizer/Sanitizer.lib.php:60
+msgid "Sanitizer library: Loading."
+msgstr "Biblioteca Sanitizer: Incarcare."
 
-#: lib/App/App.lib.php:61
-msgid "Core library loaded."
-msgstr "Biblioteca Core incarcata."
+#: lib/Sanitizer/Sanitizer.lib.php:76
+#, php-format
+msgid "Sanitizer library: %s GET requests sanitized."
+msgstr "Biblioteca Sanitizer: %s cereri GET curatate."
 
-#: lib/App/App.lib.php:63
-msgid "Cfg library loaded."
-msgstr "Biblioteca Cfg incarcata."
+#: lib/Sanitizer/Sanitizer.lib.php:97
+#, php-format
+msgid "Sanitizer library: %s POST requests sanitized."
+msgstr "Biblioteca Sanitizer: %s cereri POST curatate."
 
-#: lib/App/App.lib.php:65
-msgid "Configuration settings loaded."
-msgstr "Setarile de configuratie incarcate"
+#: lib/Sanitizer/Sanitizer.lib.php:101
+msgid "Sanitizer library: Sanitize complete."
+msgstr "Biblioteca Sanitizer: Curatare completa."
 
-#: lib/App/App.lib.php:67
-msgid "I18n library loaded."
-msgstr "Biblioteca I18n incarcata."
+#: lib/Error/Error.lib.php:50
+msgid "Error library: Loading."
+msgstr "Biblioteca Error: Incarcare."
+
+#: lib/Router/Router.lib.php:81
+msgid "Router library: Loading."
+msgstr "Biblioteca Router: Incarcare."
+
+#: lib/Router/Router.lib.php:134
+msgid "Router library: Performing PATH_INFO routing."
+msgstr "Biblioteca Router: Efecturare rutare PATH_INFO."
+
+#: lib/Router/Router.lib.php:145
+msgid "Router library: Performing ORIG_PATH_INFO routing."
+msgstr "Biblioteca Router: Efecturare rutare ORIG_PATH_INFO."
+
+#: lib/Router/Router.lib.php:156
+msgid "Router library: Performing REQUEST_URI routing."
+msgstr "Biblioteca Router: Efecturare rutare REQUEST_URI."
+
+#: lib/Router/Router.lib.php:171
+msgid "Router library: Performing QUERY_STRING routing."
+msgstr "Biblioteca Router: Efecturare rutare QUERY_STRING."
+
+#: lib/Router/Router.lib.php:338
+msgid "Router library: Parsing custom routes."
+msgstr "Biblioteca Router: Parsare rute custom."
+
+#: lib/Router/Router.lib.php:350
+msgid "Router library: Empty request. Setting to default."
+msgstr "Biblioteca Router: Cerere goala. Setare valoare implicita."
+
+#: lib/Router/Router.lib.php:411
+msgid "Router library: Found matching custom route."
+msgstr "Biblioteca Router: Gasit ruta custom potrivita."
+
+#: lib/Router/Router.lib.php:417
+msgid "Router library: No matching custom route found."
+msgstr "Biblioteca Router: Nu am gasit nici o ruta custom potrivita."
+
+#: lib/Router/Router.lib.php:437
+msgid "Router library: Setting default route."
+msgstr "Biblioteca Router: Setare ruta implicita.."
+
+#: lib/Router/Router.lib.php:446
+msgid "Router library: Setting custom route."
+msgstr "Biblioteca Router: Setare ruta custom."
+
+#: lib/Router/Router.lib.php:475
+msgid "Router library: Emptying $_GET array."
+msgstr "Biblioteca Router: Golire matrice $_GET."
+
+#: lib/Router/Router.lib.php:572
+msgid "Router library: Request parsing done."
+msgstr "Biblioteca Router: Parsare cerere incheiata."
+
+#: lib/Router/Router.lib.php:609
+msgid "Router library: Request formatting done."
+msgstr "Biblioteca Router: Formatare cerere incheiata."
+
+#: lib/Router/Router.lib.php:611
+msgid "Router library: Routing complete."
+msgstr "Biblioteca Router: Rutare incheiata."
+
+#: lib/Router/Router.lib.php:665
+msgid "Router library: Parsed request query."
+msgstr "Biblioteca Router: Parsare cerere de interogare."
+
+#: lib/Router/Router.lib.php:692
+msgid "Router library: Removing fake extension."
+msgstr "Biblioteca Router: Inlaturare extensie falsa."
 
 #: lib/App/App.lib.php:69
-msgid "Log library loaded."
-msgstr "Biblioteca Log incarcata."
+msgid "Application: Booting."
+msgstr "Aplicatie: Pornire."
 
-#: lib/App/App.lib.php:76
-msgid "Error library loaded."
-msgstr "Biblioteca Error incarcata."
+#: lib/App/App.lib.php:71
+msgid "Core library: Loading."
+msgstr "Biblioteca Core: Incarcare."
 
-#: lib/App/App.lib.php:165
-msgid "Error library unloaded."
-msgstr "Biblioteca Error descarcata."
+#: lib/App/App.lib.php:73
+msgid "Cfg library: Loading."
+msgstr "Biblioteca Cfg: Incarcare."
 
-#: lib/App/App.lib.php:167
-msgid "Application shutdown."
-msgstr "Inchidere aplicatie"
+#: lib/App/App.lib.php:75
+msgid "Cfg library: Configuration settings loaded."
+msgstr "Biblioteca Cfg: Setarile de configuratie incarcate"
 
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:141
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:149
-#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:157
+#: lib/App/App.lib.php:77
+msgid "I18n library: Loading."
+msgstr "Biblioteca I18n: Incarcare."
+
+#: lib/App/App.lib.php:79
+msgid "Log library: Loading."
+msgstr "Biblioteca Log: Incarcare."
+
+#: lib/App/App.lib.php:102
+msgid "Application: Booting complete."
+msgstr "Aplicatie: Pornire completa."
+
+#: lib/App/App.lib.php:111
+msgid "Application: Booting failed."
+msgstr "Aplicatie: Pornire esuata."
+
+#: lib/App/App.lib.php:123
+msgid "Application: Running dispatcher."
+msgstr "Aplicatie: Rulare executare."
+
+#: lib/App/App.lib.php:141
+msgid "Application: Dispatcher done."
+msgstr "Aplicatie: Executare incheiata."
+
+#: lib/App/App.lib.php:158
+msgid "Error library: Unloading."
+msgstr "Biblioteca Error: Descarcare."
+
+#: lib/App/App.lib.php:160
+msgid "Application: Shutdown."
+msgstr "Aplicatie: Inchidere."
+
+#: lib/Database/Mysqli.lib.php:69
+msgid "Database library: Error connecting to database management server."
+msgstr "Biblioteca Database: Eroare de conectare la serverul de gestionare a bazelor de date."
+
+#: lib/Database/Mysqli.lib.php:87
+#, php-format
+msgid "Database library: Database connection opened (driver: %s)."
+msgstr "Biblioteca Database: Conexiunea la baza de date deschisa (driver: %s)."
+
+#: lib/Database/Sqlite3.lib.php:57
+msgid "Database library: Database file is not readable."
+msgstr "Biblioteca Database: Fisierul bazei de date nu poate fi citit."
+
+#: lib/Database/Sqlite3.lib.php:78
+#: lib/Database/Mysql.lib.php:81
+#, php-format
+msgid "Database library: Error opening database %s."
+msgstr "Biblioteca Database: Eroare deschidere baza de date %s."
+
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:136
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:144
+#: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:152
 msgid "Hello World!"
 msgstr "Salut Lume!"
 

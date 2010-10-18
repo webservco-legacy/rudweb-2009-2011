@@ -57,7 +57,7 @@ class Sanitizer extends Library
 	 */
 	public function Sanitize()
 	{
-		Core::Log()->Write( __( 'Sanitizer library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: Loading.' ), 'debug' );
 
 		/**
 		 * Init GET request number.
@@ -98,7 +98,7 @@ class Sanitizer extends Library
 
 		Core::Log()->Write( $post_message, 'debug' );
 
-		Core::Log()->Write( __( 'Sanitizer library: complete.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: Sanitize complete.' ), 'debug' );
 
 		return TRUE;
 	}

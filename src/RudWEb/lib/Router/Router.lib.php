@@ -78,7 +78,7 @@ class Router extends Library
 	 */
 	public function Route()
 	{
-		Core::Log()->Write( __( 'Router library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Loading.' ), 'debug' );
 
 		/**
 		 * Set request.

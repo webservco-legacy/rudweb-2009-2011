@@ -55,7 +55,7 @@ class App extends Library
 		/**
 		 * Initialize internationalization library.
 		 */
-		Core::I18n()->Init('ro_RO');
+		Core::I18n()->Init( Core::Cfg()->Get( 'i18n.locale' ) );
 
 		/**
 		 * Initialize application logging.
@@ -66,17 +66,17 @@ class App extends Library
 		 * It was not possible to write to log until now, so we update with all the messages.
 		 */
 
-		Core::Log()->Write( __( 'Application: booting.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Booting.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Core library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Core library: Loading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Cfg library: Loading.' ), 'debug' );
 
 		Core::Log()->Write( __( 'Cfg library: Configuration settings loaded.' ), 'debug' );
 
-		Core::Log()->Write( __( 'I18n library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'I18n library: Loading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Log library: loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Log library: Loading.' ), 'debug' );
 
 		/**
 		 * Initialize error handling and reporting  library.
@@ -99,7 +99,7 @@ class App extends Library
 			 */
 			$this->_mRequest = Core::Router()->Route();
 
-			Core::Log()->Write( __( 'Application: booting complete.' ), 'debug' );
+			Core::Log()->Write( __( 'Application: Booting complete.' ), 'debug' );
 
 			return TRUE;
 		}
@@ -108,7 +108,7 @@ class App extends Library
 			Core::Error()->Report( $e );
 		}
 
-		Core::Log()->Write( __( 'Application: booting failed.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Booting failed.' ), 'debug' );
 
 		return FALSE;
 	}
@@ -120,7 +120,7 @@ class App extends Library
 	 */
 	public function Run()
 	{
-		Core::Log()->Write( __( 'Application: running dispatcher.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Running dispatcher.' ), 'debug' );
 
 		echo '<pre>';
 		print_r( $this->_mRequest );
@@ -138,7 +138,7 @@ class App extends Library
 		//XXX dispatch
 
 
-		Core::Log()->Write( __( 'Application: dispatcher done.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Dispatcher done.' ), 'debug' );
 
 		return TRUE;
 	}
@@ -155,9 +155,9 @@ class App extends Library
 		 */
 		Core::Error()->Unload();
 
-		Core::Log()->Write( __( 'Error library: unloading.' ), 'debug' );
+		Core::Log()->Write( __( 'Error library: Unloading.' ), 'debug' );
 
-		Core::Log()->Write( __( 'Application: shutdown.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Shutdown.' ), 'debug' );
 
 		return TRUE;
 

@@ -66,7 +66,7 @@ class Database_Mysqli extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Error connecting to database management server.' ) . ' ' . $db_link->connect_error;
+			$message = __( 'Database library: Error connecting to database management server.' ) . ' ' . $db_link->connect_error;
 
 			trigger_error( $message );
 

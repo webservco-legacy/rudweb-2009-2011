@@ -68,7 +68,7 @@ class Database_Postgresql extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Error connecting to database management server.' );
+			$message = __( 'Database library: Error connecting to database management server.' );
 
 			trigger_error( $message );
 
