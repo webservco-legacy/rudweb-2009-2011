@@ -140,6 +140,8 @@ class I18n extends Library
 		switch ( $type )
 		{
 			case 'App' :
+
+			case 'Module' :
 				/**
 				 * @var string
 				 */

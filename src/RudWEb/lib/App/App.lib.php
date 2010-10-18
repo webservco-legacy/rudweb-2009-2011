@@ -122,6 +122,7 @@ class App extends Library
 	{
 		Core::Log()->Write( __( 'Application: Running dispatcher.' ), 'debug' );
 
+		// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 		echo '<pre>';
 		print_r( $this->_mRequest );
 		echo '</pre>';
@@ -131,11 +132,18 @@ class App extends Library
 
 		$hello_world = Module_Helloworld::GetInstance();
 
-		echo $hello->World();
+		//echo $hello->World();
 
 		echo $hello_world->HelloWorld();
+		
+		//var_dump( Core::Cfg()->Get( 'helloworld.setting' ) );
+		// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
-		//XXX dispatch
+		/**
+		 * XXX Dispatch.
+		 * 
+		 * 
+		 */
 
 
 		Core::Log()->Write( __( 'Application: Dispatcher done.' ), 'debug' );

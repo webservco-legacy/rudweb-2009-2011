@@ -525,7 +525,7 @@ class Router extends Library
 		$request = array_combine( $request_keys, $request_values );
 
 		/**
-		 * XXX If module is empty, set it to default.
+		 * If module is empty, set it to default.
 		 *
 		 * @var string
 		 */
@@ -534,7 +534,7 @@ class Router extends Library
 		Core::Cfg()->Get( 'defaults.module' );
 
 		/**
-		 * XXX If controller is empty, set it to default.
+		 * If controller is empty, set it to default.
 		 *
 		 * @var string
 		 */
@@ -543,7 +543,7 @@ class Router extends Library
 		Core::Cfg()->Get( 'defaults.controller' );
 
 		/**
-		 * XXX If action is empty, set it to default.
+		 * If action is empty, set it to default.
 		 *
 		 * @var string
 		 */

@@ -38,5 +38,45 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Module extends Library
 {
+
+	/**
+	 * Load configuration file for current library.
+	 *
+	 * @return bool
+	 */
+	public function LoadConfig()
+	{
+		/**
+		 * @var string
+		 */
+		$class_name = get_called_class();
+
+		/**
+		 * @var array
+		 */
+		$parts = explode( '_', $class_name );
+
+		/**
+		 * @var string
+		 */
+		$module_name = array_key_exists( 1, $parts ) ? $parts[1] : $parts[0];
+
+		/**
+		 * @var string
+		 */
+		$path_app = Core::Cfg()->Get( 'path.app' );
+
+		/**
+		 * @var string
+		 */
+		$cfg_file =  $path_app . 'etc/mod.' . strtolower( $module_name ) . '.cfg.xml';
+
+		if ( !is_readable( $cfg_file ) )
+		{
+			return FALSE;
+		}
+
+		return Core::Cfg()->Set( $cfg_file );
+	}
 }
 ?>

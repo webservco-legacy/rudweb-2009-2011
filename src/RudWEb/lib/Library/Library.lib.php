@@ -82,7 +82,7 @@ abstract class Library
 			/**
 			 * Load object configuration.
 			 */
-			self::_LoadConfig();
+			self::$_msInstance[$class_name]->LoadConfig();
 		}
 
 		/**
@@ -96,7 +96,7 @@ abstract class Library
 	 *
 	 * @return bool
 	 */
-	private static function _LoadConfig()
+	public function LoadConfig()
 	{
 		/**
 		 * @var string
@@ -111,7 +111,7 @@ abstract class Library
 		/**
 		 * @var string
 		 */
-		$cfg_file =  $path_app . 'etc/' . strtolower( $class_name ) . '.lib.cfg.xml';
+		$cfg_file =  $path_app . 'etc/lib.' . strtolower( $class_name ) . '.cfg.xml';
 
 		if ( !is_readable( $cfg_file ) )
 		{
