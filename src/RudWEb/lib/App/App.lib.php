@@ -39,7 +39,7 @@ if ( !defined( '_RUDWEB' ) )
 class App extends Library
 {
 	/**
-	 * Stores the parsed request.
+	 * Stores the final parsed request.
 	 *
 	 * @var array
 	 */
@@ -50,7 +50,7 @@ class App extends Library
 		/**
 		 * Load main configuration settings.
 		 */
-		$this->InitConfig();
+		$this->_InitConfig();
 
 		/**
 		 * Initialize internationalization library.
@@ -60,7 +60,7 @@ class App extends Library
 		/**
 		 * Initialize application logging.
 		 */
-		$this->InitLog();
+		$this->_InitLog();
 
 		/**
 		 * It was not possible to write to log until now, so we update with all the messages.
@@ -99,20 +99,68 @@ class App extends Library
 			 */
 			$this->_mRequest = Core::Router()->Route();
 
-			echo '<pre>';
-			print_r( $this->_mRequest );
-			echo '</pre>';
-			echo '<hr />';
+			Core::Log()->Write( __( 'Application: booting complete.' ), 'debug' );
 
-			//XXX continue: finished application booting - move to dispatch
-
+			return TRUE;
 		}
 		catch ( ErrorException $e )
 		{
 			Core::Error()->Report( $e );
 		}
 
+		Core::Log()->Write( __( 'Application: booting failed.' ), 'debug' );
+
+		return FALSE;
+	}
+
+	/**
+	 * Run application.
+	 *
+	 * @return bool
+	 */
+	public function Run()
+	{
+		Core::Log()->Write( __( 'Application: running dispatcher.' ), 'debug' );
+
+		echo '<pre>';
+		print_r( $this->_mRequest );
+		echo '</pre>';
+		echo '<hr />';
+
+		$hello = Controller_Helloworld_Hello::GetInstance();
+
+		$hello_world = Module_Helloworld::GetInstance();
+
+		echo $hello->World();
+
+		echo $hello_world->HelloWorld();
+
+		//XXX dispatch
+
+
+		Core::Log()->Write( __( 'Application: dispatcher done.' ), 'debug' );
+
 		return TRUE;
+	}
+
+	/**
+	 * Shutdown application.
+	 *
+	 * @return bool
+	 */
+	public function Shutdown()
+	{
+		/**
+		 * Restore default error handler.
+		 */
+		Core::Error()->Unload();
+
+		Core::Log()->Write( __( 'Error library: unloading.' ), 'debug' );
+
+		Core::Log()->Write( __( 'Application: shutdown.' ), 'debug' );
+
+		return TRUE;
+
 	}
 
 	/**
@@ -120,7 +168,7 @@ class App extends Library
 	 *
 	 * @return bool
 	 */
-	public function InitConfig()
+	protected function _InitConfig()
 	{
 		/**
 		 * @var string
@@ -155,7 +203,7 @@ class App extends Library
 	 *
 	 * @return bool
 	 */
-	public function InitLog()
+	protected function _InitLog()
 	{
 		/**
 		 * Get log file path.
@@ -180,26 +228,6 @@ class App extends Library
 		Core::Log()->Reset();
 
 		return TRUE;
-	}
-
-	/**
-	 * Shutdown application.
-	 *
-	 * @return bool
-	 */
-	public function Shutdown()
-	{
-		/**
-		 * Restore default error handler.
-		 */
-		Core::Error()->Unload();
-
-		Core::Log()->Write( __( 'Error library: unloading.' ), 'debug' );
-
-		Core::Log()->Write( __( 'Application: shutdown.' ), 'debug' );
-
-		return TRUE;
-
 	}
 }
 ?>

@@ -20,26 +20,59 @@
  */
 define( '_RUDWEB', TRUE );
 
+/**
+ * Set environment.
+ *
+ * @var string
+ */
 $cfg['env'] = 'dev';
+
+/**
+ * Init core path.
+ *
+ * @var string
+ */
 $cfg['path_core'] = './RudWEb/';
 
 if ( is_readable( './etc/path.cfg.xml' ) )
 {
+	/**
+	 * @var object
+	 */
 	$path_cfg = simplexml_load_file('./etc/path.cfg.xml');
 
+	/**
+	 * @var string
+	 */
 	$cfg['path_core'] = ($path_cfg->$cfg['env']->path->core) ? trim( $path_cfg->$cfg['env']->path->core ) : './RudWEb/';
 }
 
+/**
+ * Check if PHP version is less than 5.3
+ */
 if ( FALSE != version_compare( PHP_VERSION, '5.3.0', '<' ) )
 {
+	/**
+	 * Load compatibility library.
+	 */
 	require $cfg['path_core'] . 'lib/Core/CoreUtils.lib.php';
 }
 
+/**
+ * Load core and configuration libraries.
+ */
 require $cfg['path_core'] . 'lib/Core/Core.lib.php';
 require $cfg['path_core'] . 'lib/Library/Library.lib.php';
 require $cfg['path_core'] . 'lib/Cfg/Cfg.lib.php';
 
+/**
+ * Set environment.
+ */
 Core::Cfg()->SetEnv( $cfg['env'] );
+
+/**
+ * Set paths.
+ */
 Core::Cfg()->Set( $path_cfg );
 
 /**
@@ -47,33 +80,18 @@ Core::Cfg()->Set( $path_cfg );
  */
 spl_autoload_register( array( 'Core', 'Load' ) );
 
-/* FROM HERE -> APPLICATION */
-
+/**
+ * Boot application.
+ */
 Core::App()->Boot();
 
-try
-{
+/**
+ * Run application.
+ */
+Core::App()->Run();
 
-	echo __( 'Hello World!' );
-
-	echo '<br />';
-
-	$hello_world = Controller_Helloworld_Helloworld::GetInstance();
-
-	echo $hello_world->world();
-
-	//trigger_error( 'Helo World' );
-
-	//Database_Mysql::GetInstance();
-	//Core::Db();
-
-	//var_dump( Core::Db()->EscapeString( "h'ello world" ) );
-}
-catch ( ErrorException $e )
-{
-	Core::Error()->Report( $e );
-}
-
-
+/**
+ * Shutdown application.
+ */
 Core::App()->Shutdown();
 ?>

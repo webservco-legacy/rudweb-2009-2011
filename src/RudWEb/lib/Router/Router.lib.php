@@ -518,30 +518,36 @@ class Router extends Library
 		$request = array_combine( $request_keys, $request_values );
 
 		/**
-		 * If module is empty, set it to default.
+		 * XXX If module is empty, set it to default.
 		 *
 		 * @var string
 		 */
 		$request['module'] = ( !empty( $request['module'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
+		ucfirst( strtolower(
+		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE )
+		) ) :
 		Core::Cfg()->Get( 'defaults.module' );
 
 		/**
-		 * If controller is empty, set it to default.
+		 * XXX If controller is empty, set it to default.
 		 *
 		 * @var string
 		 */
 		$request['controller'] = ( !empty( $request['controller'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
+		ucfirst( strtolower(
+		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE )
+		) ) :
 		Core::Cfg()->Get( 'defaults.controller' );
 
 		/**
-		 * If action is empty, set it to default.
+		 * XXX If action is empty, set it to default.
 		 *
 		 * @var string
 		 */
 		$request['action'] = ( !empty( $request['action'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
+		ucfirst( strtolower(
+		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE )
+		) ) :
 		Core::Cfg()->Get( 'defaults.action' );
 
 		/**

@@ -2,7 +2,7 @@
 /**
  * $Id$
  *
- * Hello World controlller.
+ * Hello controlller.
  *
  * Module: Hello World
  *
@@ -29,20 +29,20 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * Controller_Helloworld_Helloworld
+ * Controller_Helloworld_Hello
  *
- * Hello World Controller for Hello World module.
+ * Hello Controller for Hello World module.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    SandboxApp
  * @subpackage HelloworldModule
  *
  */
-class Controller_Helloworld_Helloworld extends Controller
+class Controller_Helloworld_Hello extends Controller
 {
-	public function world()
+	public function World()
 	{
-		return 'hello world from the controller!';
+		return __( 'Hello World!' );
 	}
 }
 ?>
