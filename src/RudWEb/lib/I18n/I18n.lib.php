@@ -148,7 +148,7 @@ class I18n extends Library
 				/**
 				 * @var string
 				 */
-				$dir = 'dir.core.i18n';
+				$dir = 'dir.app.i18n';
 
 				break;
 					
@@ -163,7 +163,7 @@ class I18n extends Library
 				/**
 				 * @var string
 				 */
-				$dir = 'dir.app.i18n';
+				$dir = 'dir.core.i18n';
 
 				break;
 		}
