@@ -95,7 +95,7 @@ class Core
 	protected static $_msSanitizerObject;
 
 	/**
-	 * Stores the URL object.
+	 * Stores the Router object.
 	 *
 	 * @var mixed
 	 */
@@ -271,7 +271,7 @@ class Core
 	}
 
 	/**
-	 * Method to access the URL object from everywhere.
+	 * Method to access the Router object from everywhere.
 	 *
 	 * @return object
 	 */
@@ -373,7 +373,6 @@ class Core
 					break;
 
 				case 'Database' :
-
 					/**
 					 * @var array
 					 */
@@ -441,6 +440,26 @@ class Core
 					 * @var string
 					 */
 					$type = 'ctrl';
+
+					break;
+
+				case 'Output' :
+					/**
+					 * @var array
+					 */
+					$base = array (	Core::Config()->Get( 'path.core' ) );
+					/**
+					 * @var string
+					 */
+					$path = 'lib/';
+					/**
+					 * @var string
+					 */
+					$dir = 'Output/';
+					/**
+					 * @var string
+					 */
+					$type = 'lib';
 
 					break;
 

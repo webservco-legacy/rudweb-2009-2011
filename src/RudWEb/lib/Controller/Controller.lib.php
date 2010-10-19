@@ -43,7 +43,14 @@ class Controller extends Library
 	 *
 	 * @var mixed
 	 */
-	protected $_msModuleObject;
+	protected $_mModuleObject;
+
+	/**
+	 * Stores the Output object.
+	 *
+	 * @var mixed
+	 */
+	protected $_mOutputObject;
 
 	/**
 	 * Method to access the module object.
@@ -52,7 +59,7 @@ class Controller extends Library
 	 */
 	final public function Module()
 	{
-		if ( NULL == $this->_msModuleObject )
+		if ( NULL == $this->_mModuleObject )
 		{
 			/**
 			 * @var string
@@ -72,9 +79,27 @@ class Controller extends Library
 			/**
 			 * @var object
 			 */
-			$this->_msModuleObject = $module_name::GetInstance();
+			$this->_mModuleObject = $module_name::GetInstance();
 		}
 
-		return $this->_msModuleObject;
+		return $this->_mModuleObject;
+	}
+
+	/**
+	 * Method to access the Output object.
+	 *
+	 * @return object
+	 */
+	final public function Output()
+	{
+		if ( NULL == $this->_mOutputObject )
+		{
+			/**
+			 * @var object
+			 */
+			$this->_mOutputObject = Output::GetInstance();
+		}
+
+		return $this->_mOutputObject;
 	}
 }

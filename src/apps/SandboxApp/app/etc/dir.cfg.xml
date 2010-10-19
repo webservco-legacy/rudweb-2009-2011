@@ -10,6 +10,8 @@
 				<ctrl>ctrl</ctrl>
 				<i18n>i18n</i18n>
 				<mod>mod</mod>
+				<opt>opt</opt>
+				<skins>skins</skins>
 				<var>var</var>
 			</app>
 		</dir>
@@ -18,10 +20,11 @@
 	<test>
 		<dir>
 			<app>
-				<etc>etc</etc>
 				<ctrl>ctrl</ctrl>
 				<i18n>i18n</i18n>
 				<mod>mod</mod>
+				<opt>opt</opt>
+				<skins>skins</skins>
 				<var>var</var>
 			</app>
 		</dir>
@@ -30,10 +33,11 @@
 	<prod>
 		<dir>
 			<app>
-				<etc>etc</etc>
 				<ctrl>ctrl</ctrl>
 				<i18n>i18n</i18n>
 				<mod>mod</mod>
+				<opt>opt</opt>
+				<skins>skins</skins>
 				<var>var</var>
 			</app>
 		</dir>

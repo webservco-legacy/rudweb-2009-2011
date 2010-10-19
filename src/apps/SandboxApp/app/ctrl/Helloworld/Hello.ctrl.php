@@ -42,7 +42,15 @@ class Controller_Helloworld_Hello extends Controller
 {
 	public function World()
 	{
-		echo $this->Module()->Hello() . ' ' . __( 'World!' );
+		/**
+		 * @var array
+		 */
+		$data['title'] = $this->Module()->Hello() . ' ' . __( 'World!' );
+
+		/**
+		 * XXX
+		 */
+		$this->Output()->Out( NULL, $data, NULL, NULL, TRUE );
 	}
 
 	public function HelloWorld()
