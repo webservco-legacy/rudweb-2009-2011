@@ -46,6 +46,8 @@ require_once 'RudWEb/lib/Module/Module.lib.php';
 
 require_once 'RudWEb/lib/Controller/Controller.lib.php';
 
+require_once 'RudWEb/lib/Output/Output.lib.php';
+
 /**
  * Assets path.
  */
