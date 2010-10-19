@@ -3,6 +3,8 @@
 
 <!-- Configuration -->
 <config>
+	<!-- Environment -->
+	<env>dev</env>
 	<!-- Development Environment -->
 	<dev>
 		<!-- Main Paths. All paths must have trailing slash. -->

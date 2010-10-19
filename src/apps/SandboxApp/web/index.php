@@ -15,37 +15,30 @@
  * @filesource
  */
 
+if ( !is_readable( './etc/settings.cfg.xml' ) )
+{
+	die( 'Configuration file is missing.' );
+}
+
+/**
+ * @var object
+ */
+$settings = simplexml_load_file('./etc/settings.cfg.xml');
+
+/**
+ * @var string
+ */
+$cfg['env'] = ($settings->env) ? trim( $settings->env ) : 'dev';
+
+/**
+ * @var string
+ */
+$cfg['path_core'] = ($settings->$cfg['env']->path->core) ? trim( $settings->$cfg['env']->path->core ) : './RudWEb/';
+
 /**
  * Security token.
  */
 define( '_RUDWEB', TRUE );
-
-/**
- * Set environment.
- *
- * @var string
- */
-$cfg['env'] = 'dev';
-
-/**
- * Init core path.
- *
- * @var string
- */
-$cfg['path_core'] = './RudWEb/';
-
-if ( is_readable( './etc/path.cfg.xml' ) )
-{
-	/**
-	 * @var object
-	 */
-	$path_cfg = simplexml_load_file('./etc/path.cfg.xml');
-
-	/**
-	 * @var string
-	 */
-	$cfg['path_core'] = ($path_cfg->$cfg['env']->path->core) ? trim( $path_cfg->$cfg['env']->path->core ) : './RudWEb/';
-}
 
 /**
  * Check if PHP version is less than 5.3
@@ -73,7 +66,7 @@ Core::Cfg()->SetEnv( $cfg['env'] );
 /**
  * Set paths.
  */
-Core::Cfg()->Set( $path_cfg );
+Core::Cfg()->Set( $settings );
 
 /**
  * Register class autoload method.
@@ -94,4 +87,6 @@ Core::App()->Run();
  * Shutdown application.
  */
 Core::App()->Shutdown();
+
+exit;
 ?>
