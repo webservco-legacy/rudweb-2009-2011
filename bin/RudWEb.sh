@@ -281,13 +281,13 @@ function handle_menu
 		webs_start
 	elif [ $R = "wk" ]; then
 		webs_stop
-	elif [ $R = "wr" ]; then
+	elif [ $R = "wx" ]; then
 		webs_restart
 	elif [ $R = "ds" ]; then
 		dbms_start
 	elif [ $R = "dk" ]; then
 		dbms_stop
-	elif [ $R = "dr" ]; then
+	elif [ $R = "dx" ]; then
 		dbms_restart
 	elif [ $R = "s" ]; then
 		page_server
@@ -332,13 +332,13 @@ if [ "$1" != "" ]; then
 			-wk | --webstop )		webs_stop
 									exit_ok
 									;;
-			-wr | --webrestart )	webs_restart
+			-wx | --webrestart )	webs_restart
 									exit_ok
 									;;
 			-ds | --dbstart )		dbms_start
 									exit_ok
 									;;
-			-ds | --dbrestart )		dbms_restart
+			-dx | --dbrestart )		dbms_restart
 									exit_ok
 									;;
 			-dk | --dbstop )		dbms_stop
@@ -347,7 +347,7 @@ if [ "$1" != "" ]; then
 			-dc | --docc )			doc_clean
 									exit_ok
 									;;
-			-d | --doc )			doc_run
+			-dr | --doc )			doc_run
 									exit_ok
 									;;
 			-tc | --testc )			test_clean
