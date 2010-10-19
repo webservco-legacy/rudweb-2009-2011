@@ -5,7 +5,7 @@
 <config>
 	<!-- Development Environment -->
 	<dev>
-		<!-- I18n settings -->
+		<!-- I18n library settings -->
 		<i18n>
 			<locale>ro_RO.UTF8</locale>
 		</i18n>

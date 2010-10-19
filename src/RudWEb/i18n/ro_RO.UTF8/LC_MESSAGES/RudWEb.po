@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-18 20:11+0200\n"
-"PO-Revision-Date: 2010-10-18 20:11+0200\n"
+"POT-Creation-Date: 2010-10-19 20:20+0200\n"
+"PO-Revision-Date: 2010-10-19 20:20+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -40,6 +40,10 @@ msgstr "Biblioteca Sanitizer: Curățare completă."
 #: lib/Error/Error.lib.php:50
 msgid "Error library: Loading."
 msgstr "Biblioteca Error: Încarcare."
+
+#: lib/Error/Error.lib.php:64
+msgid "Error library: Unloading."
+msgstr "Biblioteca Error: Descărcare."
 
 #: lib/Router/Router.lib.php:81
 msgid "Router library: Loading."
@@ -141,19 +145,35 @@ msgstr "Aplicație: Pornire completă."
 msgid "Application: Booting failed."
 msgstr "Aplicație: Pornire eșuată."
 
-#: lib/App/App.lib.php:123
+#: lib/App/App.lib.php:125
 msgid "Application: Running dispatcher."
 msgstr "Aplicație: Rulare executare."
 
-#: lib/App/App.lib.php:141
+#: lib/App/App.lib.php:138
+#, php-format
+msgid "Application: Module \"%s\" not found."
+msgstr "Aplicație: Modulul \"%s\" nu a fost găsit."
+
+#: lib/App/App.lib.php:161
+#, php-format
+msgid "Application: Controller \"%s\" not found."
+msgstr "Aplicație: Controllerul \"%s\" nu a fost găsit."
+
+#: lib/App/App.lib.php:187
+#, php-format
+msgid "Application: Action \"%s\" not found."
+msgstr "Aplicație: Acțiunea \"%s\" nu a fost găsită."
+
+#: lib/App/App.lib.php:198
+#, php-format
+msgid "\"%s\": Calling action \"%s\" from \"%s\"."
+msgstr "\"%s\": Invocare acțiune \"%s\" din \"%s\"."
+
+#: lib/App/App.lib.php:223
 msgid "Application: Dispatcher done."
 msgstr "Aplicație: Executare încheiată."
 
-#: lib/App/App.lib.php:158
-msgid "Error library: Unloading."
-msgstr "Biblioteca Error: Descărcare."
-
-#: lib/App/App.lib.php:160
+#: lib/App/App.lib.php:230
 msgid "Application: Shutdown."
 msgstr "Aplicație: Închidere."
 

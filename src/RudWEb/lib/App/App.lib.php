@@ -66,17 +66,17 @@ class App extends Library
 		 * It was not possible to write to log until now, so we update with all the messages.
 		 */
 
-		Core::Log()->Write( __( 'Application: Booting.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Booting.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Core library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Core library: Loading.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Cfg library: Loading.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library: Configuration settings loaded.' ), 'debug' );
+		Core::Log()->Write( __( 'Cfg library: Configuration settings loaded.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'I18n library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'I18n library: Loading.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Log library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Log library: Loading.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Initialize error handling and reporting  library.
@@ -99,7 +99,7 @@ class App extends Library
 			 */
 			$this->_mRequest = Core::Router()->Route();
 
-			Core::Log()->Write( __( 'Application: Booting complete.' ), 'debug' );
+			Core::Log()->Write( __( 'Application: Booting complete.', 'RudWEb' ), 'debug' );
 
 			return TRUE;
 		}
@@ -108,7 +108,7 @@ class App extends Library
 			Core::Error()->Report( $e );
 		}
 
-		Core::Log()->Write( __( 'Application: Booting failed.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Booting failed.', 'RudWEb' ), 'debug' );
 
 		return FALSE;
 	}
@@ -120,35 +120,97 @@ class App extends Library
 	 */
 	public function Run()
 	{
-		Core::Log()->Write( __( 'Application: Running dispatcher.' ), 'debug' );
+		try
+		{
+			Core::Log()->Write( __( 'Application: Running dispatcher.', 'RudWEb' ), 'debug' );
 
-		// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
-		echo '<pre>';
-		print_r( $this->_mRequest );
-		echo '</pre>';
-		echo '<hr />';
+			/**
+			 * @var string
+			 */
+			$module_name = $this->_mRequest['module'];
 
-		$hello = Controller_Helloworld_Hello::GetInstance();
+			if ( !class_exists( $module_name ) )
+			{
+				/**
+				 * @var string
+				 */
+				$module_msg = sprintf(
+				__( 'Application: Module "%s" not found.', 'RudWEb' ),
+				$module_name
+				);
 
-		$hello_world = Module_Helloworld::GetInstance();
+				trigger_error( $module_msg, 256 );
+			}
 
-		//echo $hello->World();
+			/**
+			 * @var object
+			 */
+			$module_object = $module_name::GetInstance();
 
-		echo $hello_world->HelloWorld();
-		
-		//var_dump( Core::Cfg()->Get( 'helloworld.setting' ) );
-		// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+			/**
+			 * @var string
+			 */
+			$ctrl_name = $this->_mRequest['controller'];
 
-		/**
-		 * XXX Dispatch.
-		 * 
-		 * 
-		 */
+			if ( !class_exists( $ctrl_name ) )
+			{
+				/**
+				 * @var string
+				 */
+				$ctrl_msg = sprintf(
+				__( 'Application: Controller "%s" not found.', 'RudWEb' ),
+				$ctrl_name
+				);
 
+				trigger_error( $ctrl_msg, 256 );
+			}
 
-		Core::Log()->Write( __( 'Application: Dispatcher done.' ), 'debug' );
+			/**
+			 * @var object
+			 */
+			$ctrl_object = $ctrl_name::GetInstance();
 
-		return TRUE;
+			/**
+			 * @var string
+			 */
+			$action_name = $this->_mRequest['action'];
+
+			if (
+			!method_exists( $ctrl_object, $action_name ) ||
+			!is_callable( array( $ctrl_object, $action_name ) )
+			)
+			{
+				/**
+				 * @var string
+				 */
+				$action_msg = sprintf(
+				__( 'Application: Action "%s" not found.', 'RudWEb' ),
+				$action_name
+				);
+
+				trigger_error( $action_msg, 256 );
+			}
+
+			/**
+			 * @var string
+			 */
+			$dispatch_msg = sprintf(
+			__( '"%s": Calling action "%s" from "%s".', 'RudWEb' ),
+			$module_name,
+			$action_name,
+			$ctrl_name
+			);
+
+			Core::Log()->Write( $dispatch_msg , 'debug' );
+
+			return $ctrl_object->$action_name();
+		}
+		catch ( ErrorException $e )
+		{
+			Core::Error()->Report( $e );
+		}
+
+		return FALSE;
 	}
 
 	/**
@@ -158,14 +220,14 @@ class App extends Library
 	 */
 	public function Shutdown()
 	{
+		Core::Log()->Write( __( 'Application: Dispatcher done.', 'RudWEb' ), 'debug' );
+
 		/**
 		 * Restore default error handler.
 		 */
 		Core::Error()->Unload();
 
-		Core::Log()->Write( __( 'Error library: Unloading.' ), 'debug' );
-
-		Core::Log()->Write( __( 'Application: Shutdown.' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Shutdown.', 'RudWEb', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 

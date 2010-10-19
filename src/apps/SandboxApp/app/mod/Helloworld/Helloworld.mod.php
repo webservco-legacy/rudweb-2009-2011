@@ -38,9 +38,9 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Module_Helloworld extends Module
 {
-	public function HelloWorld()
+	public function Hello()
 	{
-		return __( 'Hello World!' );
+		return __( 'Hello' );
 	}
 
 }

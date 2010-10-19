@@ -78,7 +78,7 @@ class Router extends Library
 	 */
 	public function Route()
 	{
-		Core::Log()->Write( __( 'Router library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Loading.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Set request.
@@ -131,7 +131,7 @@ class Router extends Library
 
 		if ( isset( $_SERVER['PATH_INFO'] ) )
 		{
-			Core::Log()->Write( __( 'Router library: Performing PATH_INFO routing.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Performing PATH_INFO routing.', 'RudWEb' ), 'debug' );
 
 			/**
 			 * Set request.
@@ -142,7 +142,7 @@ class Router extends Library
 		}
 		else if ( isset( $_SERVER['ORIG_PATH_INFO'] ) )
 		{
-			Core::Log()->Write( __( 'Router library: Performing ORIG_PATH_INFO routing.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Performing ORIG_PATH_INFO routing.', 'RudWEb' ), 'debug' );
 
 			/**
 			 * Set request.
@@ -153,7 +153,7 @@ class Router extends Library
 		}
 		else if ( isset( $_SERVER['REQUEST_URI'] ) )
 		{
-			Core::Log()->Write( __( 'Router library: Performing REQUEST_URI routing.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Performing REQUEST_URI routing.', 'RudWEb' ), 'debug' );
 
 			/**
 			 * Set request.
@@ -168,7 +168,7 @@ class Router extends Library
 		 */
 		else if ( isset( $_SERVER['QUERY_STRING'] ) && ( '' != $_SERVER['QUERY_STRING'] ) )
 		{
-			Core::Log()->Write( __( 'Router library: Performing QUERY_STRING routing.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Performing QUERY_STRING routing.', 'RudWEb' ), 'debug' );
 
 			/**
 			 * Process QUERY_STRING.
@@ -335,7 +335,7 @@ class Router extends Library
 	 */
 	private function _ParseCustomRoutes()
 	{
-		Core::Log()->Write( __( 'Router library: Parsing custom routes.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Parsing custom routes.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Set costom routes, (and also default route).
@@ -347,7 +347,7 @@ class Router extends Library
 		 */
 		if ( NULL == $this->_mRequest )
 		{
-			Core::Log()->Write( __( 'Router library: Empty request. Setting to default.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Empty request. Setting to default.', 'RudWEb' ), 'debug' );
 
 			/**
 			 * Set request to default request, and exit.
@@ -408,13 +408,13 @@ class Router extends Library
 				 */
 				$this->_mRequest = $route_value;
 
-				Core::Log()->Write( __( 'Router library: Found matching custom route.' ), 'debug' );
+				Core::Log()->Write( __( 'Router library: Found matching custom route.', 'RudWEb' ), 'debug' );
 
 				return TRUE;
 			}
 		}
 
-		Core::Log()->Write( __( 'Router library: No matching custom route found.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: No matching custom route found.', 'RudWEb' ), 'debug' );
 
 		return FALSE;
 	}
@@ -434,7 +434,7 @@ class Router extends Library
 		{
 			if ( 'index' == $route['name'] )
 			{
-				Core::Log()->Write( __( 'Router library: Setting default route.' ), 'debug' );
+				Core::Log()->Write( __( 'Router library: Setting default route.', 'RudWEb' ), 'debug' );
 
 				/**
 				 * @var string
@@ -443,7 +443,7 @@ class Router extends Library
 			}
 			else
 			{
-				Core::Log()->Write( __( 'Router library: Setting custom route.' ), 'debug' );
+				Core::Log()->Write( __( 'Router library: Setting custom route.', 'RudWEb' ), 'debug' );
 
 				/**
 				 * @var array
@@ -472,7 +472,7 @@ class Router extends Library
 			 */
 			$_GET = array();
 
-			Core::Log()->Write( __( 'Router library: Emptying $_GET array.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Emptying $_GET array.', 'RudWEb' ), 'debug' );
 
 			return TRUE;
 		}
@@ -569,7 +569,7 @@ class Router extends Library
 		 */
 		$request['location'] = rtrim( str_replace( $request['query'], '', $this->_mLocation ), '/' );
 
-		Core::Log()->Write( __( 'Router library: Request parsing done.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Request parsing done.', 'RudWEb' ), 'debug' );
 
 		return $request;
 	}
@@ -606,9 +606,9 @@ class Router extends Library
 		 */
 		$request['query'] = ( !empty( $request['query'] ) ) ? $this->ParseRequestQuery( $request['query'] ) : array();
 
-		Core::Log()->Write( __( 'Router library: Request formatting done.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Request formatting done.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Router library: Routing complete.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Routing complete.', 'RudWEb' ), 'debug' );
 
 		return $request;
 	}
@@ -662,7 +662,7 @@ class Router extends Library
 			$raw_query[$position+1];
 		}
 
-		Core::Log()->Write( __( 'Router library: Parsed request query.' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Parsed request query.', 'RudWEb' ), 'debug' );
 
 		return $query;
 	}
@@ -689,7 +689,7 @@ class Router extends Library
 		 */
 		if ( ( '' != $extension ) && ( FALSE !== $check ) )
 		{
-			Core::Log()->Write( __( 'Router library: Removing fake extension.' ), 'debug' );
+			Core::Log()->Write( __( 'Router library: Removing fake extension.', 'RudWEb' ), 'debug' );
 
 			return str_replace( $extension, '', $request );
 		}

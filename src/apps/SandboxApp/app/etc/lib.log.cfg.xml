@@ -5,7 +5,7 @@
 <config>
 	<!-- Development Environment -->
 	<dev>
-		<!-- Log settings -->
+		<!-- Log library settings -->
 		<log>
 			<level>debug</level>
 			<extension>.log</extension>

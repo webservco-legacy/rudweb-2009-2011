@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-18 20:06+0200\n"
-"PO-Revision-Date: 2010-10-18 20:06+0200\n"
+"POT-Creation-Date: 2010-10-19 20:19+0200\n"
+"PO-Revision-Date: 2010-10-19 20:19+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -40,6 +40,10 @@ msgstr "Sanitizer library: Sanitize complete."
 #: lib/Error/Error.lib.php:50
 msgid "Error library: Loading."
 msgstr "Error library: Loading."
+
+#: lib/Error/Error.lib.php:64
+msgid "Error library: Unloading."
+msgstr "Error library: Unloading."
 
 #: lib/Router/Router.lib.php:81
 msgid "Router library: Loading."
@@ -141,19 +145,35 @@ msgstr "Application: Booting complete."
 msgid "Application: Booting failed."
 msgstr "Application: Booting failed."
 
-#: lib/App/App.lib.php:123
+#: lib/App/App.lib.php:125
 msgid "Application: Running dispatcher."
 msgstr "Application: Running dispatcher."
 
-#: lib/App/App.lib.php:141
+#: lib/App/App.lib.php:138
+#, php-format
+msgid "Application: Module \"%s\" not found."
+msgstr "Application: Module \"%s\" not found."
+
+#: lib/App/App.lib.php:161
+#, php-format
+msgid "Application: Controller \"%s\" not found."
+msgstr "Application: Controller \"%s\" not found."
+
+#: lib/App/App.lib.php:187
+#, php-format
+msgid "Application: Action \"%s\" not found."
+msgstr "Application: Action \"%s\" not found."
+
+#: lib/App/App.lib.php:198
+#, php-format
+msgid "\"%s\": Calling action \"%s\" from \"%s\"."
+msgstr "\"%s\": Calling action \"%s\" from \"%s\"."
+
+#: lib/App/App.lib.php:223
 msgid "Application: Dispatcher done."
 msgstr "Application: Dispatcher done."
 
-#: lib/App/App.lib.php:158
-msgid "Error library: Unloading."
-msgstr "Error library: Unloading."
-
-#: lib/App/App.lib.php:160
+#: lib/App/App.lib.php:230
 msgid "Application: Shutdown."
 msgstr "Application: Shutdown."
 

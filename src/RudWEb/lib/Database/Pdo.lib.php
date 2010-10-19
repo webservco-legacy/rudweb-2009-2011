@@ -86,7 +86,7 @@ class Database_Pdo extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Database library: Error connecting to database management server.' ) . ' ' . $e->getMessage();
+			$message = __( 'Database library: Error connecting to database management server.', 'RudWEb' ) . ' ' . $e->getMessage();
 
 			trigger_error( $message );
 
@@ -104,7 +104,7 @@ class Database_Pdo extends Database implements Interface_Database
 		 * @var string
 		 */
 		$db_message = sprintf(
-		__( 'Database library: Database connection opened (driver: %s).' ),
+		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
 		Core::Cfg()->Get( 'db.type' )
 		);
 

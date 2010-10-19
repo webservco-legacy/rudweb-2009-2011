@@ -47,7 +47,7 @@ class Error extends Library
 	{
 		set_error_handler( array( Error::GetInstance(), 'Handle' ) );
 
-		Core::Log()->Write( __( 'Error library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Error library: Loading.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}
@@ -60,6 +60,8 @@ class Error extends Library
 	public function Unload()
 	{
 		restore_error_handler();
+		
+		Core::Log()->Write( __( 'Error library: Unloading.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}
@@ -93,10 +95,16 @@ class Error extends Library
 		$err_trace = $errObject->GetTraceAsString();
 
 		$msg = '[' . $err_code . '] [' . $err_severity . '] ' . $err_message . PHP_EOL;
-		$msg .= 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
-		$msg .= 'Trace:' . PHP_EOL ;
-		$msg .= $err_trace . PHP_EOL;
-		$msg .= 'Execution stopped.';
+
+		$msg .= "\t\t\t" . 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
+
+		if ( 1 == Core::Cfg()->Get( 'error.trace' ) )
+		{
+			$msg .= "\t\t\t" . 'Trace:' . PHP_EOL ;
+			$msg .= "\t\t\t" . $err_trace . PHP_EOL;
+		}
+
+		$msg .= "\t\t\t" . 'Execution stopped.';
 
 		Core::Log()->Write( $msg , 'error' );
 

@@ -66,7 +66,7 @@ class Database_Mysql extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Database library: Error connecting to database management server.' ) . ' ' . mysql_error();
+			$message = __( 'Database library: Error connecting to database management server.', 'RudWEb' ) . ' ' . mysql_error();
 
 			trigger_error( $message );
 
@@ -78,7 +78,7 @@ class Database_Mysql extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = sprintf( __( 'Database library: Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . mysql_error();
+			$message = sprintf( __( 'Database library: Error opening database %s.', 'RudWEb' ), $this->_mDbDatabase ) . ' ' . mysql_error();
 
 			trigger_error( $message );
 
@@ -96,7 +96,7 @@ class Database_Mysql extends Database implements Interface_Database
 		 * @var string
 		 */
 		$db_message = sprintf(
-		__( 'Database library: Database connection opened (driver: %s).' ),
+		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
 		Core::Cfg()->Get( 'db.type' )
 		);
 

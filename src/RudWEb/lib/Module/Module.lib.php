@@ -42,6 +42,8 @@ class Module extends Library
 	/**
 	 * Load configuration file for current library.
 	 *
+	 * This also loads the i18n files.
+	 *
 	 * @return bool
 	 */
 	public function LoadConfig()
@@ -50,6 +52,12 @@ class Module extends Library
 		 * @var string
 		 */
 		$class_name = get_called_class();
+
+		/**
+		 * Handle module i18n
+		 */
+		Core::I18n()->Add( $class_name );
+		Core::I18n()->Load( $class_name );
 
 		/**
 		 * @var array

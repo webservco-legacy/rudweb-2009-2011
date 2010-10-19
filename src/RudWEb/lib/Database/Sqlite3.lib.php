@@ -54,7 +54,7 @@ class Database_Sqlite3 extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = __( 'Database library: Database file is not readable.' );
+			$message = __( 'Database library: Database file is not readable.', 'RudWEb' );
 
 			trigger_error( $message );
 
@@ -75,7 +75,7 @@ class Database_Sqlite3 extends Database implements Interface_Database
 			/**
 			 * @var string
 			 */
-			$message = sprintf( __( 'Database library: Error opening database %s.' ), $this->_mDbDatabase ) . ' ' . $e->getMessage();
+			$message = sprintf( __( 'Database library: Error opening database %s.', 'RudWEb' ), $this->_mDbDatabase ) . ' ' . $e->getMessage();
 
 			trigger_error( $message );
 
@@ -93,7 +93,7 @@ class Database_Sqlite3 extends Database implements Interface_Database
 		 * @var string
 		 */
 		$db_message = sprintf(
-		__( 'Database library: Database connection opened (driver: %s).' ),
+		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
 		Core::Cfg()->Get( 'db.type' )
 		);
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Helloworld $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-18 21:48+0200\n"
-"PO-Revision-Date: 2010-10-18 21:48+0200\n"
+"POT-Creation-Date: 2010-10-19 19:56+0200\n"
+"PO-Revision-Date: 2010-10-19 19:56+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -20,17 +20,16 @@ msgstr ""
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld\n"
 
 #: Helloworld.mod.php:43
-#: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld/Hello.ctrl.php:55
-msgid "Hello World!"
-msgstr "Salut Lume!"
-
-#: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld/Hello.ctrl.php:45
 msgid "Hello"
 msgstr "Salut"
 
-#: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld/Hello.ctrl.php:50
+#: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld/Hello.ctrl.php:45
 msgid "World!"
 msgstr "Lume!"
+
+#: /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld/Hello.ctrl.php:50
+msgid "Hello World!"
+msgstr "Salut Lume!"
 
 #~ msgid "Sanitizer library: Loading."
 #~ msgstr "Biblioteca Sanitizer: Incarcare."

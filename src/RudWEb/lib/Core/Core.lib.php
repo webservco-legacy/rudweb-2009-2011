@@ -108,8 +108,11 @@ class Core
 	 */
 	final public static function Cfg()
 	{
-		if ( self::$_msCfgObject == NULL )
+		if ( NULL == self::$_msCfgObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msCfgObject = Cfg::GetInstance();
 		}
 
@@ -123,8 +126,11 @@ class Core
 	 */
 	final public static function Error()
 	{
-		if ( self::$_msErrorObject == NULL )
+		if ( NULL == self::$_msErrorObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msErrorObject = Error::GetInstance();
 		}
 
@@ -138,8 +144,11 @@ class Core
 	 */
 	final public static function I18n()
 	{
-		if ( self::$_msI18nObject == NULL )
+		if ( NULL == self::$_msI18nObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msI18nObject = I18n::GetInstance();
 		}
 
@@ -153,8 +162,11 @@ class Core
 	 */
 	final public static function Log()
 	{
-		if ( self::$_msLogObject == NULL )
+		if ( NULL == self::$_msLogObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msLogObject = Log::GetInstance();
 		}
 
@@ -168,8 +180,11 @@ class Core
 	 */
 	final public static function App()
 	{
-		if ( self::$_msAppObject == NULL )
+		if ( NULL == self::$_msAppObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msAppObject = App::GetInstance();
 		}
 
@@ -183,7 +198,7 @@ class Core
 	 */
 	final public static function Db()
 	{
-		if ( self::$_msDbObject == NULL )
+		if ( NULL == self::$_msDbObject )
 		{
 			/**
 			 * @var string
@@ -207,8 +222,11 @@ class Core
 			 * @var string
 			 */
 			$db_class = 'Database_' . ucfirst( strtolower( $db_type ) );
+
 			/**
 			 * Load the appropriate database library.
+			 *
+			 * @var object
 			 */
 			self::$_msDbObject = $db_class::GetInstance();
 		}
@@ -223,8 +241,11 @@ class Core
 	 */
 	final public static function String()
 	{
-		if ( self::$_msStringObject == NULL )
+		if ( NULL == self::$_msStringObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msStringObject = String::GetInstance();
 		}
 
@@ -238,8 +259,11 @@ class Core
 	 */
 	final public static function Sanitizer()
 	{
-		if ( self::$_msSanitizerObject == NULL )
+		if ( NULL == self::$_msSanitizerObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msSanitizerObject = Sanitizer::GetInstance();
 		}
 
@@ -253,8 +277,11 @@ class Core
 	 */
 	final public static function Router()
 	{
-		if ( self::$_msRouterObject == NULL )
+		if ( NULL == self::$_msRouterObject )
 		{
+			/**
+			 * @var object
+			 */
 			self::$_msRouterObject = Router::GetInstance();
 		}
 

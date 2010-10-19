@@ -197,7 +197,20 @@ class I18n extends Library
 	 */
 	public function Load( $domainName = NULL )
 	{
+		/**
+		 * @var string
+		 */
 		$domain_name = ( $domainName ) ? $domainName : 'RudWEb';
+
+		/**
+		 * @var array
+		 */
+		$parts = explode( '_', $domain_name );
+		
+		/**
+		 * @var string
+		 */
+		$domain_name = ( array_key_exists( 1, $parts ) ) ? $parts[1] : $parts[0];
 
 		textdomain( $domain_name );
 

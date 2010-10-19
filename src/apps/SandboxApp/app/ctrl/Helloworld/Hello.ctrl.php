@@ -40,14 +40,9 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Controller_Helloworld_Hello extends Controller
 {
-	public function Hello()
-	{
-		return __( 'Hello' );
-	}
-
 	public function World()
 	{
-		return __( 'World!' );
+		echo $this->Module()->Hello() . ' ' . __( 'World!' );
 	}
 
 	public function HelloWorld()

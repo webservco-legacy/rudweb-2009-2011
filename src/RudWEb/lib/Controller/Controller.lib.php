@@ -38,4 +38,43 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Controller extends Library
 {
+	/**
+	 * Stores the module object.
+	 *
+	 * @var mixed
+	 */
+	protected $_msModuleObject;
+
+	/**
+	 * Method to access the module object.
+	 *
+	 * @return object
+	 */
+	final public function Module()
+	{
+		if ( NULL == $this->_msModuleObject )
+		{
+			/**
+			 * @var string
+			 */
+			$ctrl_name = get_called_class();
+
+			/**
+			 * @var array
+			 */
+			$ctrl_parts = explode( '_', $ctrl_name );
+
+			/**
+			 * @var string
+			 */
+			$module_name = 'Module_' . $ctrl_parts[1];
+
+			/**
+			 * @var object
+			 */
+			$this->_msModuleObject = $module_name::GetInstance();
+		}
+
+		return $this->_msModuleObject;
+	}
 }

@@ -57,7 +57,7 @@ class Sanitizer extends Library
 	 */
 	public function Sanitize()
 	{
-		Core::Log()->Write( __( 'Sanitizer library: Loading.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: Loading.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Init GET request number.
@@ -73,7 +73,7 @@ class Sanitizer extends Library
 		 */
 		$_GET = array_map( array( $this, '_FilterRequest' ), $_GET );
 
-		$get_message = sprintf( __( 'Sanitizer library: %s GET requests sanitized.' ), $this->_mNumGet );
+		$get_message = sprintf( __( 'Sanitizer library: %s GET requests sanitized.', 'RudWEb' ), $this->_mNumGet );
 
 		Core::Log()->Write( $get_message, 'debug' );
 
@@ -94,11 +94,11 @@ class Sanitizer extends Library
 		 */
 		$_POST = array_map(array($this, '_FilterPost'), $_POST);
 
-		$post_message = sprintf( __( 'Sanitizer library: %s POST requests sanitized.' ), $this->_mNumPost );
+		$post_message = sprintf( __( 'Sanitizer library: %s POST requests sanitized.', 'RudWEb' ), $this->_mNumPost );
 
 		Core::Log()->Write( $post_message, 'debug' );
 
-		Core::Log()->Write( __( 'Sanitizer library: Sanitize complete.' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: Sanitize complete.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}
