@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Helloworld $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 19:56+0200\n"
-"PO-Revision-Date: 2010-10-19 19:56+0200\n"
+"POT-Creation-Date: 2010-10-19 21:55+0200\n"
+"PO-Revision-Date: 2010-10-19 21:55+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -31,116 +31,3 @@ msgstr "World!"
 msgid "Hello World!"
 msgstr "Hello World!"
 
-#~ msgid "Sanitizer library: Loading."
-#~ msgstr "Sanitizer library: Loading."
-
-#~ msgid "Sanitizer library: %s GET requests sanitized."
-#~ msgstr "Sanitizer library: %s GET requests sanitized."
-
-#~ msgid "Sanitizer library: %s POST requests sanitized."
-#~ msgstr "Sanitizer library: %s POST requests sanitized."
-
-#~ msgid "Sanitizer library: Sanitize complete."
-#~ msgstr "Sanitizer library: Sanitize complete."
-
-#~ msgid "Error library: Loading."
-#~ msgstr "Error library: Loading."
-
-#~ msgid "Router library: Loading."
-#~ msgstr "Router library: Loading."
-
-#~ msgid "Router library: Performing PATH_INFO routing."
-#~ msgstr "Router library: Performing PATH_INFO routing."
-
-#~ msgid "Router library: Performing ORIG_PATH_INFO routing."
-#~ msgstr "Router library: Performing ORIG_PATH_INFO routing."
-
-#~ msgid "Router library: Performing REQUEST_URI routing."
-#~ msgstr "Router library: Performing REQUEST_URI routing."
-
-#~ msgid "Router library: Performing QUERY_STRING routing."
-#~ msgstr "Router library: Performing QUERY_STRING routing."
-
-#~ msgid "Router library: Parsing custom routes."
-#~ msgstr "Router library: Parsing custom routes."
-
-#~ msgid "Router library: Empty request. Setting to default."
-#~ msgstr "Router library: Empty request. Setting to default."
-
-#~ msgid "Router library: Found matching custom route."
-#~ msgstr "Router library: Found matching custom route."
-
-#~ msgid "Router library: No matching custom route found."
-#~ msgstr "Router library: No matching custom route found."
-
-#~ msgid "Router library: Setting default route."
-#~ msgstr "Router library: Setting default route."
-
-#~ msgid "Router library: Setting custom route."
-#~ msgstr "Router library: Setting custom route."
-
-#~ msgid "Router library: Emptying $_GET array."
-#~ msgstr "Router library: Emptying $_GET array."
-
-#~ msgid "Router library: Request parsing done."
-#~ msgstr "Router library: Request parsing done."
-
-#~ msgid "Router library: Request formatting done."
-#~ msgstr "Router library: Request formatting done."
-
-#~ msgid "Router library: Routing complete."
-#~ msgstr "Router library: Routing complete."
-
-#~ msgid "Router library: Parsed request query."
-#~ msgstr "Router library: Parsed request query."
-
-#~ msgid "Router library: Removing fake extension."
-#~ msgstr "Router library: Removing fake extension."
-
-#~ msgid "Application: Booting."
-#~ msgstr "Application: Booting."
-
-#~ msgid "Core library: Loading."
-#~ msgstr "Core library: Loading."
-
-#~ msgid "Cfg library: Loading."
-#~ msgstr "Cfg library: Loading."
-
-#~ msgid "Cfg library: Configuration settings loaded."
-#~ msgstr "Cfg library: Configuration settings loaded."
-
-#~ msgid "I18n library: Loading."
-#~ msgstr "I18n library: Loading."
-
-#~ msgid "Log library: Loading."
-#~ msgstr "Log library: Loading."
-
-#~ msgid "Application: Booting complete."
-#~ msgstr "Application: Booting complete."
-
-#~ msgid "Application: Booting failed."
-#~ msgstr "Application: Booting failed."
-
-#~ msgid "Application: Running dispatcher."
-#~ msgstr "Application: Running dispatcher."
-
-#~ msgid "Application: Dispatcher done."
-#~ msgstr "Application: Dispatcher done."
-
-#~ msgid "Error library: Unloading."
-#~ msgstr "Error library: Unloading."
-
-#~ msgid "Application: Shutdown."
-#~ msgstr "Application: Shutdown."
-
-#~ msgid "Database library: Error connecting to database management server."
-#~ msgstr "Database library: Error connecting to database management server."
-
-#~ msgid "Database library: Database connection opened (driver: %s)."
-#~ msgstr "Database library: Database connection opened (driver: %s)."
-
-#~ msgid "Database library: Database file is not readable."
-#~ msgstr "Database library: Database file is not readable."
-
-#~ msgid "Database library: Error opening database %s."
-#~ msgstr "Database library: Error opening database %s."

@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  * @version    $Revision$
  * @since      Version 5
  * @access     public
@@ -33,7 +33,7 @@ if ( !defined( '_RUDWEB' ) )
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  *
  */
 class Database extends Library
@@ -90,7 +90,7 @@ class Database extends Library
 		/**
 		 * @var array
 		 */
-		$data = Core::Cfg()->Get( 'db' );
+		$data = Core::Config()->Get( 'db' );
 
 		/**
 		 * @var string

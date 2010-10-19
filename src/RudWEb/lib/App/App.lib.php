@@ -55,7 +55,7 @@ class App extends Library
 		/**
 		 * Initialize internationalization library.
 		 */
-		Core::I18n()->Init( Core::Cfg()->Get( 'i18n.locale' ) );
+		Core::I18n()->Init( Core::Config()->Get( 'i18n.locale' ) );
 
 		/**
 		 * Initialize application logging.
@@ -70,9 +70,9 @@ class App extends Library
 
 		Core::Log()->Write( __( 'Core library: Loading.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library: Loading.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Config library: Loading.', 'RudWEb' ), 'debug' );
 
-		Core::Log()->Write( __( 'Cfg library: Configuration settings loaded.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Config library: Configuration settings loaded.', 'RudWEb' ), 'debug' );
 
 		Core::Log()->Write( __( 'I18n library: Loading.', 'RudWEb' ), 'debug' );
 
@@ -243,27 +243,27 @@ class App extends Library
 		/**
 		 * @var string
 		 */
-		$path_core = Core::Cfg()->Get( 'path.core' );
+		$path_core = Core::Config()->Get( 'path.core' );
 
 		/**
 		 * @var string
 		 */
-		$path_app = Core::Cfg()->Get( 'path.app' );
+		$path_app = Core::Config()->Get( 'path.app' );
 
 		/**
 		 * Set core directories.
 		 */
-		Core::Cfg()->Set( $path_core . 'etc/dir.cfg.xml' );
+		Core::Config()->Set( $path_core . 'etc/dir.cfg.xml' );
 
 		/**
 		 * Set application directories.
 		 */
-		Core::Cfg()->Set( $path_app . 'etc/dir.cfg.xml' );
+		Core::Config()->Set( $path_app . 'etc/dir.cfg.xml' );
 
 		/**
 		 * Set application database settings.
 		 */
-		Core::Cfg()->Set( $path_app . 'etc/db.cfg.xml' );
+		Core::Config()->Set( $path_app . 'etc/db.cfg.xml' );
 
 		return TRUE;
 	}
@@ -280,7 +280,7 @@ class App extends Library
 		 *
 		 * @var string
 		 */
-		$log_path = Core::Cfg()->Get( 'path.app' ) . Core::Cfg()->Get( 'dir.app.var' ) . '/log/';
+		$log_path = Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.var' ) . '/log/';
 
 		/**
 		 * Set log file path.
@@ -290,7 +290,7 @@ class App extends Library
 		/**
 		 * Set logging level.
 		 */
-		Core::Log()->SetLevel( Core::Cfg()->Get( 'log.level' ) );
+		Core::Log()->SetLevel( Core::Config()->Get( 'log.level' ) );
 
 		/**
 		 * Truncate log file.

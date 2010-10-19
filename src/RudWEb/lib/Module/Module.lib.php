@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
- * @subpackage RudMod
+ * @subpackage RudModule
  * @version    $Revision$
  * @since      Version 5
  * @access     public
@@ -33,7 +33,7 @@ if ( !defined( '_RUDWEB' ) )
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
- * @subpackage RudMod
+ * @subpackage RudModule
  *
  */
 class Module extends Library
@@ -72,7 +72,7 @@ class Module extends Library
 		/**
 		 * @var string
 		 */
-		$path_app = Core::Cfg()->Get( 'path.app' );
+		$path_app = Core::Config()->Get( 'path.app' );
 
 		/**
 		 * @var string
@@ -84,7 +84,7 @@ class Module extends Library
 			return FALSE;
 		}
 
-		return Core::Cfg()->Set( $cfg_file );
+		return Core::Config()->Set( $cfg_file );
 	}
 }
 ?>

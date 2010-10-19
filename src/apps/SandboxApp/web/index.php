@@ -56,17 +56,17 @@ if ( FALSE != version_compare( PHP_VERSION, '5.3.0', '<' ) )
  */
 require $cfg['path_core'] . 'lib/Core/Core.lib.php';
 require $cfg['path_core'] . 'lib/Library/Library.lib.php';
-require $cfg['path_core'] . 'lib/Cfg/Cfg.lib.php';
+require $cfg['path_core'] . 'lib/Config/Config.lib.php';
 
 /**
  * Set environment.
  */
-Core::Cfg()->SetEnv( $cfg['env'] );
+Core::Config()->SetEnv( $cfg['env'] );
 
 /**
  * Set paths.
  */
-Core::Cfg()->Set( $settings );
+Core::Config()->Set( $settings );
 
 /**
  * Register class autoload method.

@@ -16,7 +16,7 @@ require_once 'RudWEb/lib/Core/CoreUtils.lib.php';
 
 require_once 'RudWEb/lib/Library/Library.lib.php';
 
-require_once 'RudWEb/lib/Cfg/Cfg.lib.php';
+require_once 'RudWEb/lib/Config/Config.lib.php';
 
 require_once 'RudWEb/lib/Error/Error.lib.php';
 

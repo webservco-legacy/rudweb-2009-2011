@@ -43,7 +43,7 @@ class Core
 	 *
 	 * @var mixed
 	 */
-	protected static $_msCfgObject;
+	protected static $_msConfigObject;
 
 	/**
 	 * Stores the error handling object.
@@ -106,17 +106,17 @@ class Core
 	 *
 	 * @return object
 	 */
-	final public static function Cfg()
+	final public static function Config()
 	{
-		if ( NULL == self::$_msCfgObject )
+		if ( NULL == self::$_msConfigObject )
 		{
 			/**
 			 * @var object
 			 */
-			self::$_msCfgObject = Cfg::GetInstance();
+			self::$_msConfigObject = Config::GetInstance();
 		}
 
-		return self::$_msCfgObject;
+		return self::$_msConfigObject;
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Core
 			/**
 			 * @var string
 			 */
-			$db_type = self::Cfg()->Get( 'db.type' );
+			$db_type = self::Config()->Get( 'db.type' );
 
 			if ( FALSE !== strpos( $db_type, '_' ) )
 			{
@@ -300,7 +300,7 @@ class Core
 		 *
 		 * @var array
 		 */
-		$base = array ( Core::Cfg()->Get( 'path.core' ) );
+		$base = array ( Core::Config()->Get( 'path.core' ) );
 
 		/**
 		 * Class path.
@@ -356,11 +356,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Cfg()->Get( 'path.core' ) );
+					$base = array (	Core::Config()->Get( 'path.core' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Cfg()->Get( 'dir.core.int' ) . '/';
+					$path = Core::Config()->Get( 'dir.core.int' ) . '/';
 					/**
 					 * @var string
 					 */
@@ -377,7 +377,7 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Cfg()->Get( 'path.core' ) );
+					$base = array (	Core::Config()->Get( 'path.core' ) );
 					/**
 					 * @var string
 					 */
@@ -397,11 +397,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Cfg()->Get( 'path.app' ) );
+					$base = array (	Core::Config()->Get( 'path.app' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Cfg()->Get( 'dir.app.mod' ) . '/';
+					$path = Core::Config()->Get( 'dir.app.mod' ) . '/';
 					/**
 					 * @var string
 					 */
@@ -428,11 +428,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Cfg()->Get( 'path.app' ) );
+					$base = array (	Core::Config()->Get( 'path.app' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Cfg()->Get( 'dir.app.ctrl' ) . '/';
+					$path = Core::Config()->Get( 'dir.app.ctrl' ) . '/';
 					/**
 					 * @var string
 					 */

@@ -191,7 +191,7 @@ class Sanitizer extends Library
 		 *
 		 * @var bool
 		 */
-		$have_db = ('' != Core::Cfg()->Get( 'db.type' ) ) ? TRUE : FALSE;
+		$have_db = ('' != Core::Config()->Get( 'db.type' ) ) ? TRUE : FALSE;
 
 		/**
 		 * Check if the method is used to filter $_GET request,

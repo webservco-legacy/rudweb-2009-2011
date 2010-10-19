@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 20:19+0200\n"
-"PO-Revision-Date: 2010-10-19 20:19+0200\n"
+"POT-Creation-Date: 2010-10-19 21:57+0200\n"
+"PO-Revision-Date: 2010-10-19 21:58+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -122,12 +122,12 @@ msgid "Core library: Loading."
 msgstr "Core library: Loading."
 
 #: lib/App/App.lib.php:73
-msgid "Cfg library: Loading."
-msgstr "Cfg library: Loading."
+msgid "Config library: Loading."
+msgstr "Config library: Loading."
 
 #: lib/App/App.lib.php:75
-msgid "Cfg library: Configuration settings loaded."
-msgstr "Cfg library: Configuration settings loaded."
+msgid "Config library: Configuration settings loaded."
+msgstr "Config library: Configuration settings loaded."
 
 #: lib/App/App.lib.php:77
 msgid "I18n library: Loading."
@@ -178,10 +178,17 @@ msgid "Application: Shutdown."
 msgstr "Application: Shutdown."
 
 #: lib/Database/Mysqli.lib.php:69
+#: lib/Database/Postgresql.lib.php:71
+#: lib/Database/Mysql.lib.php:69
+#: lib/Database/Pdo.lib.php:89
 msgid "Database library: Error connecting to database management server."
 msgstr "Database library: Error connecting to database management server."
 
 #: lib/Database/Mysqli.lib.php:87
+#: lib/Database/Sqlite3.lib.php:96
+#: lib/Database/Postgresql.lib.php:89
+#: lib/Database/Mysql.lib.php:99
+#: lib/Database/Pdo.lib.php:107
 #, php-format
 msgid "Database library: Database connection opened (driver: %s)."
 msgstr "Database library: Database connection opened (driver: %s)."

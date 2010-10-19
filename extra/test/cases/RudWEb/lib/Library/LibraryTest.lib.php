@@ -16,7 +16,7 @@
  */
 
 /**
- * CfgTest
+ * LibraryTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudTest
@@ -38,7 +38,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceRetrunsFalseIfCalledDirrectlyWithParameter()
 	{
-		$this->assertFalse( Library::GetInstance( 'Cfg' ) );
+		$this->assertFalse( Library::GetInstance( 'Config' ) );
 	}
 }
 ?>

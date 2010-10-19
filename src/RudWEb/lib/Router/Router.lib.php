@@ -428,7 +428,7 @@ class Router extends Library
 	 */
 	private function _SetCustomRoutes()
 	{
-		$routes = Core::Cfg()->Get( 'route' );
+		$routes = Core::Config()->Get( 'route' );
 
 		foreach ( $routes as $route )
 		{
@@ -531,7 +531,7 @@ class Router extends Library
 		 */
 		$request['module'] = ( !empty( $request['module'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
-		Core::Cfg()->Get( 'defaults.module' );
+		Core::Config()->Get( 'defaults.module' );
 
 		/**
 		 * If controller is empty, set it to default.
@@ -540,7 +540,7 @@ class Router extends Library
 		 */
 		$request['controller'] = ( !empty( $request['controller'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
-		Core::Cfg()->Get( 'defaults.controller' );
+		Core::Config()->Get( 'defaults.controller' );
 
 		/**
 		 * If action is empty, set it to default.
@@ -549,7 +549,7 @@ class Router extends Library
 		 */
 		$request['action'] = ( !empty( $request['action'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
-		Core::Cfg()->Get( 'defaults.action' );
+		Core::Config()->Get( 'defaults.action' );
 
 		/**
 		 * If query is not empty, filter it.
@@ -677,7 +677,7 @@ class Router extends Library
 		/**
 		 * @var string
 		 */
-		$extension = Core::Cfg()->Get( 'seo.extension' );
+		$extension = Core::Config()->Get( 'seo.extension' );
 
 		/**
 		 * @var bool

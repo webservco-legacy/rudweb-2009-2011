@@ -173,7 +173,7 @@ class I18n extends Library
 		/**
 		 * @var string
 		 */
-		$path = Core::Cfg()->Get( $base ) . Core::Cfg()->Get( $dir ) . '/';
+		$path = Core::Config()->Get( $base ) . Core::Config()->Get( $dir ) . '/';
 
 		/**
 		 * Check domain path.

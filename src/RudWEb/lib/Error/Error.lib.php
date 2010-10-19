@@ -98,7 +98,7 @@ class Error extends Library
 
 		$msg .= "\t\t\t" . 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
 
-		if ( 1 == Core::Cfg()->Get( 'error.trace' ) )
+		if ( 1 == Core::Config()->Get( 'error.trace' ) )
 		{
 			$msg .= "\t\t\t" . 'Trace:' . PHP_EOL ;
 			$msg .= "\t\t\t" . $err_trace . PHP_EOL;

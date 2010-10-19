@@ -28,9 +28,9 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function CfgReturnsObject()
+	public function ConfigReturnsObject()
 	{
-		$this->assertType( 'object', Core::Cfg() );
+		$this->assertType( 'object', Core::Config() );
 	}
 
 	/**
@@ -68,15 +68,15 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function CustomCfgSetDatabaseTypeRetrunsTrue()
+	public function CustomConfigSetDatabaseTypeRetrunsTrue()
 	{
-		$this->assertTrue( Core::Cfg()->Set( 'db.type', 'MySQL' ) );
+		$this->assertTrue( Core::Config()->Set( 'db.type', 'MySQL' ) );
 	}
 
 	/**
 	 * @test
 	 *
-	 * @depends CustomCfgSetDatabaseTypeRetrunsTrue
+	 * @depends CustomConfigSetDatabaseTypeRetrunsTrue
 	 */
 	public function DbReturnsObjectForMysql()
 	{

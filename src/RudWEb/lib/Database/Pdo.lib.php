@@ -8,7 +8,7 @@
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  * @version    $Revision$
  * @since      Version 5
  * @access     public
@@ -31,7 +31,7 @@ if ( !defined( '_RUDWEB' ) )
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  *
  */
 class Database_Pdo extends Database implements Interface_Database
@@ -50,7 +50,7 @@ class Database_Pdo extends Database implements Interface_Database
 		/**
 		 * @var string
 		 */
-		$db_type = Core::Cfg()->Get( 'db.type' );
+		$db_type = Core::Config()->Get( 'db.type' );
 
 		if ( FALSE !== strpos( $db_type, '_' ) )
 		{
@@ -105,7 +105,7 @@ class Database_Pdo extends Database implements Interface_Database
 		 */
 		$db_message = sprintf(
 		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
-		Core::Cfg()->Get( 'db.type' )
+		Core::Config()->Get( 'db.type' )
 		);
 
 		Core::Log()->Write( $db_message, 'debug' );

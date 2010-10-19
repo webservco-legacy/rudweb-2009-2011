@@ -10,7 +10,7 @@
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  * @version    $Revision$
  * @since      Version 5
  * @access     public
@@ -35,7 +35,7 @@ if ( !defined( '_RUDWEB' ) )
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb
- * @subpackage RudDb
+ * @subpackage RudDatabase
  *
  */
 interface Interface_Database
@@ -73,3 +73,4 @@ interface Interface_Database
 
 	//public function Delete();
 }
+?>

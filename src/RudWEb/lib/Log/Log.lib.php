@@ -150,7 +150,7 @@ class Log extends Library
 		/**
 		 * @var string
 		 */
-		$log_file = $log_path . $log_type . Core::Cfg()->Get( 'log.extension' );
+		$log_file = $log_path . $log_type . Core::Config()->Get( 'log.extension' );
 
 		/**
 		 * Check if log file is writable.
@@ -240,7 +240,7 @@ class Log extends Library
 		/**
 		 * @var string
 		 */
-		$timestamp = date( Core::Cfg()->Get( 'log.dateformat' ) );
+		$timestamp = date( Core::Config()->Get( 'log.dateformat' ) );
 
 		/**
 		 * @var string
