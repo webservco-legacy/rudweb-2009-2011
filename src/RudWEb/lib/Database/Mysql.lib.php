@@ -105,7 +105,7 @@ class Database_Mysql extends Database implements Interface_Database
 		/**
 		 * UTF Compatibility.
 		 */
-		mysql_query( "SET NAMES 'utf8'", $this->_mDbLink );
+		mysql_set_charset( 'utf8', $this->_mDbLink );
 
 		return TRUE;
 	}

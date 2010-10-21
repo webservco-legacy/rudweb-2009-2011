@@ -79,7 +79,12 @@ class Database_Pdo extends Database implements Interface_Database
 		 */
 		try
 		{
-			$db_link = new PDO("{$db_type}:host={$this->_mDbHost};dbname={$this->_mDbDatabase};port={$this->_mDbPort}", $this->_mDbUser, $this->_mDbPassword);
+			$db_link = new PDO(
+			"{$db_type}:host={$this->_mDbHost};dbname={$this->_mDbDatabase};port={$this->_mDbPort}",
+			$this->_mDbUser,
+			$this->_mDbPassword,
+			array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+			);
 		}
 		catch( PDOException $e )
 		{
@@ -109,11 +114,6 @@ class Database_Pdo extends Database implements Interface_Database
 		);
 
 		Core::Log()->Write( $db_message, 'debug' );
-
-		/**
-		 * UTF Compatibility.
-		 */
-		$this->_mDbLink->query( "SET NAMES 'utf8'" );
 
 		return TRUE;
 	}

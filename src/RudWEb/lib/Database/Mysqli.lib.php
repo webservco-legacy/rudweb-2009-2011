@@ -93,7 +93,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * UTF Compatibility.
 		 */
-		$this->_mDbLink->query( "SET NAMES 'utf8'" );
+		$this->_mDbLink->set_charset( 'utf8' );
 
 		return TRUE;
 	}

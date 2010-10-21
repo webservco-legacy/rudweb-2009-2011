@@ -95,7 +95,7 @@ class Database_Postgresql extends Database implements Interface_Database
 		/**
 		 * UTF Compatibility.
 		 */
-		pg_query("SET NAMES 'UTF8'", $this->_mDbLink );
+		pg_set_client_encoding( $this->_mDbLink, 'UTF8' );
 
 		return TRUE;
 	}
