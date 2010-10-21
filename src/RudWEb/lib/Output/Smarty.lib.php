@@ -50,7 +50,7 @@ class Output_Smarty extends Output implements Interface_Output
 			return FALSE;
 		}
 
-		Core::Log()->Write( __( 'Output library:  Initializing output engine object.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Output library: Initializing output engine object.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * @var string

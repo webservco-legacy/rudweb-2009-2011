@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 21:57+0200\n"
-"PO-Revision-Date: 2010-10-19 21:58+0200\n"
+"POT-Creation-Date: 2010-10-21 22:53+0200\n"
+"PO-Revision-Date: 2010-10-21 22:53+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
 #: lib/Sanitizer/Sanitizer.lib.php:60
-msgid "Sanitizer library: Loading."
-msgstr "Sanitizer library: Loading."
+msgid "Sanitizer library: Initializing input sanitization."
+msgstr "Sanitizer library: Initializing input sanitization."
 
 #: lib/Sanitizer/Sanitizer.lib.php:76
 #, php-format
@@ -37,17 +37,87 @@ msgstr "Sanitizer library: %s POST requests sanitized."
 msgid "Sanitizer library: Sanitize complete."
 msgstr "Sanitizer library: Sanitize complete."
 
+#: lib/Library/Library.lib.php:89
+#, php-format
+msgid "%s library: Loading."
+msgstr "%s library: Loading."
+
+#: lib/Library/Library.lib.php:143
+#, php-format
+msgid "%s library: Skipping configuration file \"%s\" (not found)."
+msgstr "%s library: Skipping configuration file \"%s\" (not found)."
+
+#: lib/Library/Library.lib.php:161
+#, php-format
+msgid "%s library: Loading configuration file \"%s\"."
+msgstr "%s library: Loading configuration file \"%s\"."
+
+#: lib/Output/Rudweb.lib.php:53
+#: lib/Output/Smarty.lib.php:53
+msgid "Output library: Initializing output engine object."
+msgstr "Output library: Initializing output engine object."
+
+#: lib/Output/Rudweb.lib.php:89
+#: lib/Output/Smarty.lib.php:121
+msgid "Output library: Rendering template."
+msgstr "Output library: Rendering template."
+
+#: lib/Output/Rudweb.lib.php:103
+msgid "Output library: Template file not found: "
+msgstr "Output library: Template file not found: "
+
+#: lib/Output/Output.lib.php:102
+#, php-format
+msgid "Output library: Skin directory set to \"%s\"."
+msgstr "Output library: Skin directory set to \"%s\"."
+
+#: lib/Output/Output.lib.php:133
+msgid "Output library: Calling Set() method."
+msgstr "Output library: Calling Set() method."
+
+#: lib/Output/Output.lib.php:143
+msgid "Output library: Calling output engine Render() method."
+msgstr "Output library: Calling output engine Render() method."
+
+#: lib/Output/Output.lib.php:165
+#: lib/Output/Smarty.lib.php:209
+msgid "Output library: Setting data."
+msgstr "Output library: Setting data."
+
+#: lib/Output/Smarty.lib.php:151
+msgid "Output library: Loading Smarty template engine."
+msgstr "Output library: Loading Smarty template engine."
+
+#: lib/Output/Smarty.lib.php:186
+#, php-format
+msgid "Output library: Smarty template engine found in \"%s\" path."
+msgstr "Output library: Smarty template engine found in \"%s\" path."
+
+#: lib/Output/Smarty.lib.php:196
+msgid "Output Library: Smarty template engine not found: "
+msgstr "Output Library: Smarty template engine not found: "
+
+#: lib/Controller/Controller.lib.php:84
+#, php-format
+msgid "Controller library: Module \"%s\" loading."
+msgstr "Controller library: Module \"%s\" loading."
+
+#: lib/Controller/Controller.lib.php:121
+#, php-format
+msgid "Controller library: Output library \"%s\" loading."
+msgstr "Controller library: Output library \"%s\" loading."
+
 #: lib/Error/Error.lib.php:50
-msgid "Error library: Loading."
-msgstr "Error library: Loading."
+msgid "Error library: Registering as error handler."
+msgstr "Error library: Registering as error handler."
 
 #: lib/Error/Error.lib.php:64
-msgid "Error library: Unloading."
-msgstr "Error library: Unloading."
+msgid "Error library: Restoring default error handler."
+msgstr "Error library: Restoring default error handler."
 
 #: lib/Router/Router.lib.php:81
-msgid "Router library: Loading."
-msgstr "Router library: Loading."
+msgid "Router library: Initializing routing."
+msgstr "Router library: Initializing routing."
 
 #: lib/Router/Router.lib.php:134
 msgid "Router library: Performing PATH_INFO routing."
@@ -166,8 +236,8 @@ msgstr "Application: Action \"%s\" not found."
 
 #: lib/App/App.lib.php:198
 #, php-format
-msgid "\"%s\": Calling action \"%s\" from \"%s\"."
-msgstr "\"%s\": Calling action \"%s\" from \"%s\"."
+msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
+msgstr "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
 
 #: lib/App/App.lib.php:223
 msgid "Application: Dispatcher done."
@@ -209,3 +279,17 @@ msgstr "Database library: Error opening database %s."
 msgid "Hello World!"
 msgstr "Hello World!"
 
+#~ msgid "Output library:  Initializing output engine object."
+#~ msgstr "Output library:  Initializing output engine object."
+
+#~ msgid "Sanitizer library: Loading."
+#~ msgstr "Sanitizer library: Loading."
+
+#~ msgid "Error library: Loading."
+#~ msgstr "Error library: Loading."
+
+#~ msgid "Error library: Unloading."
+#~ msgstr "Error library: Unloading."
+
+#~ msgid "Router library: Loading."
+#~ msgstr "Router library: Loading."

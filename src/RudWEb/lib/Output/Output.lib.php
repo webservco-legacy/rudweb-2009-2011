@@ -99,7 +99,7 @@ class Output extends Library
 		/**
 		 * @var string
 		 */
-		$msg_skin = sprintf( __( 'Output library: Skin directory set to "%s"', 'RudWEb' ), $skinName );
+		$msg_skin = sprintf( __( 'Output library: Skin directory set to "%s".', 'RudWEb' ), $skinName );
 
 		Core::Log()->Write( $msg_skin, 'debug' );
 

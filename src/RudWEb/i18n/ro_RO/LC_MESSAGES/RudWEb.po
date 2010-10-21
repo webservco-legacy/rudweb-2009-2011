@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 21:56+0200\n"
-"PO-Revision-Date: 2010-10-19 21:56+0200\n"
+"POT-Creation-Date: 2010-10-21 22:52+0200\n"
+"PO-Revision-Date: 2010-10-21 22:52+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
 #: lib/Sanitizer/Sanitizer.lib.php:60
-msgid "Sanitizer library: Loading."
-msgstr "Biblioteca Sanitizer: Incarcare."
+msgid "Sanitizer library: Initializing input sanitization."
+msgstr "Biblioteca Sanitizer: Initializare sanitizare input."
 
 #: lib/Sanitizer/Sanitizer.lib.php:76
 #, php-format
@@ -37,17 +37,87 @@ msgstr "Biblioteca Sanitizer: %s cereri POST curatate."
 msgid "Sanitizer library: Sanitize complete."
 msgstr "Biblioteca Sanitizer: Curatare completa."
 
+#: lib/Library/Library.lib.php:89
+#, php-format
+msgid "%s library: Loading."
+msgstr "Biblioteca %s: Incarcare."
+
+#: lib/Library/Library.lib.php:143
+#, php-format
+msgid "%s library: Skipping configuration file \"%s\" (not found)."
+msgstr "Biblioteca %s: Sarit peste fisierul de configurare \"%s\" (nu a fost gasit)."
+
+#: lib/Library/Library.lib.php:161
+#, php-format
+msgid "%s library: Loading configuration file \"%s\"."
+msgstr "Biblioteca %s: Incarcare fisier de configurare \"%s\"."
+
+#: lib/Output/Rudweb.lib.php:53
+#: lib/Output/Smarty.lib.php:53
+msgid "Output library: Initializing output engine object."
+msgstr "Biblioteca Output: Initializare obiect motor output."
+
+#: lib/Output/Rudweb.lib.php:89
+#: lib/Output/Smarty.lib.php:121
+msgid "Output library: Rendering template."
+msgstr "Biblioteca Output: Randare template."
+
+#: lib/Output/Rudweb.lib.php:103
+msgid "Output library: Template file not found: "
+msgstr "Biblioteca Output: Fisierul template nu a fost gasit: "
+
+#: lib/Output/Output.lib.php:102
+#, php-format
+msgid "Output library: Skin directory set to \"%s\"."
+msgstr "Biblioteca Output: Setat director skin \"%s\"."
+
+#: lib/Output/Output.lib.php:133
+msgid "Output library: Calling Set() method."
+msgstr "Biblioteca Output: Invocare metoda Set()."
+
+#: lib/Output/Output.lib.php:143
+msgid "Output library: Calling output engine Render() method."
+msgstr "Biblioteca Output: Invocare metoda Render() din motor output."
+
+#: lib/Output/Output.lib.php:165
+#: lib/Output/Smarty.lib.php:209
+msgid "Output library: Setting data."
+msgstr "Biblioteca Output: Setare date."
+
+#: lib/Output/Smarty.lib.php:151
+msgid "Output library: Loading Smarty template engine."
+msgstr "Biblioteca Output: Incarcare motor output Smarty."
+
+#: lib/Output/Smarty.lib.php:186
+#, php-format
+msgid "Output library: Smarty template engine found in \"%s\" path."
+msgstr "Biblioteca Output: Motor output Smarty gasit in calea \"%s\"."
+
+#: lib/Output/Smarty.lib.php:196
+msgid "Output Library: Smarty template engine not found: "
+msgstr "Biblioteca Output: Motorul de output Smarty nu a fost gasit."
+
+#: lib/Controller/Controller.lib.php:84
+#, php-format
+msgid "Controller library: Module \"%s\" loading."
+msgstr "Biblioteca Controller: Incarcare modul \"%s\"."
+
+#: lib/Controller/Controller.lib.php:121
+#, php-format
+msgid "Controller library: Output library \"%s\" loading."
+msgstr "Biblioteca Controller: Incarcare biblioteca output \"%s\"."
+
 #: lib/Error/Error.lib.php:50
-msgid "Error library: Loading."
-msgstr "Biblioteca Error: Incarcare."
+msgid "Error library: Registering as error handler."
+msgstr "Biblioteca Error: Inregistrare ca error handler."
 
 #: lib/Error/Error.lib.php:64
-msgid "Error library: Unloading."
-msgstr "Biblioteca Error: Descarcare."
+msgid "Error library: Restoring default error handler."
+msgstr "Biblioteca Error: Restaurare error handler implicit."
 
 #: lib/Router/Router.lib.php:81
-msgid "Router library: Loading."
-msgstr "Biblioteca Router: Incarcare."
+msgid "Router library: Initializing routing."
+msgstr "Biblioteca Router: Initializare rutare."
 
 #: lib/Router/Router.lib.php:134
 msgid "Router library: Performing PATH_INFO routing."
@@ -83,7 +153,7 @@ msgstr "Biblioteca Router: Nu am gasit nici o ruta custom potrivita."
 
 #: lib/Router/Router.lib.php:437
 msgid "Router library: Setting default route."
-msgstr "Biblioteca Router: Setare ruta implicita.."
+msgstr "Biblioteca Router: Setare ruta implicita."
 
 #: lib/Router/Router.lib.php:446
 msgid "Router library: Setting custom route."
@@ -166,8 +236,8 @@ msgstr "Aplicatie: Actiunea \"%s\" nu a fost gasita."
 
 #: lib/App/App.lib.php:198
 #, php-format
-msgid "\"%s\": Calling action \"%s\" from \"%s\"."
-msgstr " \"%s\": Invocare actiune \"%s\" din \"%s\"."
+msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
+msgstr "Aplicatie: Invocare actiune \"%s\" din \"%s\" (\"%s\")."
 
 #: lib/App/App.lib.php:223
 msgid "Application: Dispatcher done."
@@ -209,3 +279,17 @@ msgstr "Biblioteca Database: Eroare deschidere baza de date %s."
 msgid "Hello World!"
 msgstr "Salut Lume!"
 
+#~ msgid "Output library:  Initializing output engine object."
+#~ msgstr "Biblioteca Output: Initializare obiect motor output."
+
+#~ msgid "Sanitizer library: Loading."
+#~ msgstr "Biblioteca Sanitizer: Incarcare."
+
+#~ msgid "Error library: Loading."
+#~ msgstr "Biblioteca Error: Incarcare."
+
+#~ msgid "Error library: Unloading."
+#~ msgstr "Biblioteca Error: Descarcare."
+
+#~ msgid "Router library: Loading."
+#~ msgstr "Biblioteca Router: Incarcare."
