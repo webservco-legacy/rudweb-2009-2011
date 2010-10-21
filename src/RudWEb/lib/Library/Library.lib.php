@@ -79,6 +79,20 @@ abstract class Library
 			 * Set object instance.
 			 */
 			self::$_msInstance[$class_name] = new $class_name();
+
+			if ( function_exists( '__' ) )
+			{
+				/**
+				 * @var string
+				 */
+				$inst_msg = sprintf(
+				__( '%s library: Loading.', 'RudWEb' ),
+				$class_name
+				);
+
+				Core::Log()->Write( $inst_msg, 'debug' );
+			}
+
 			/**
 			 * Load object configuration.
 			 */
@@ -106,19 +120,53 @@ abstract class Library
 		/**
 		 * @var string
 		 */
+		$config_name = 'lib.' . strtolower( str_replace( '_', '.', $class_name )) . '.cfg';
+
+		/**
+		 * @var string
+		 */
 		$path_app = Core::Config()->Get( 'path.app' );
 
 		/**
 		 * @var string
 		 */
-		$cfg_file =  $path_app . 'etc/lib.' . strtolower( $class_name ) . '.cfg.xml';
+		$config_file =  $path_app . 'etc/' . $config_name . '.xml';
 
-		if ( !is_readable( $cfg_file ) )
+		if ( !is_readable( $config_file ) )
 		{
+			if ( function_exists( '__' ) )
+			{
+				/**
+				 * @var string
+				 */
+				$config_msg = sprintf(
+				__( '%s library: Skipping configuration file "%s" (not found).', 'RudWEb' ),
+				$class_name,
+				$config_name
+				);
+
+				Core::Log()->Write( $config_msg, 'debug' );
+			}
+
+
 			return FALSE;
 		}
 
-		return Core::Config()->Set( $cfg_file );
+		if ( function_exists( '__' ) )
+		{
+			/**
+			 * @var string
+			 */
+			$config_msg = sprintf(
+			__( '%s library: Loading configuration file "%s".', 'RudWEb' ),
+			$class_name,
+			$config_name
+			);
+
+			Core::Log()->Write( $config_msg, 'debug' );
+		}
+
+		return Core::Config()->Set( $config_file );
 	}
 
 	/**

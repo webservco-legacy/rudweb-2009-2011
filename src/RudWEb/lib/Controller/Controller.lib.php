@@ -80,6 +80,10 @@ class Controller extends Library
 			 * @var object
 			 */
 			$this->_mModuleObject = $module_name::GetInstance();
+
+			$module_msg = sprintf( __( 'Controller library: Module "%s" loading.', 'RudWEb' ) , $ctrl_parts[1] );
+
+			Core::Log()->Write( $module_msg, 'debug' );
 		}
 
 		return $this->_mModuleObject;
@@ -95,9 +99,28 @@ class Controller extends Library
 		if ( NULL == $this->_mOutputObject )
 		{
 			/**
+			 * @var string
+			 */
+			$engine = Core::Config()->Get( 'output.engine' );
+
+			/**
+			 * @var string
+			 */
+			$engine = ( FALSE !== $engine ) ? $engine : 'RudWEb';
+
+			/**
+			 * @var string
+			 */
+			$engine_class = 'Output_' . ucfirst( strtolower( $engine ) );
+
+			/**
 			 * @var object
 			 */
-			$this->_mOutputObject = Output::GetInstance();
+			$this->_mOutputObject = $engine_class::GetInstance();
+
+			$out_msg = sprintf( __( 'Controller library: Output library "%s" loading.', 'RudWEb' ) , $engine );
+
+			Core::Log()->Write( $out_msg, 'debug' );
 		}
 
 		return $this->_mOutputObject;

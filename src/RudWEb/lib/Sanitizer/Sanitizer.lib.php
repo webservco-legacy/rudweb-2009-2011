@@ -57,7 +57,7 @@ class Sanitizer extends Library
 	 */
 	public function Sanitize()
 	{
-		Core::Log()->Write( __( 'Sanitizer library: Loading.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Sanitizer library: Initializing input sanitization.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Init GET request number.

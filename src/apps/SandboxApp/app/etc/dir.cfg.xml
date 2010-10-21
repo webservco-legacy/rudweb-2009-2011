@@ -13,33 +13,12 @@
 				<opt>opt</opt>
 				<skins>skins</skins>
 				<var>var</var>
+				<tmp>tmp</tmp>
 			</app>
 		</dir>
 	</dev>
 	<!-- Test Environment -->
-	<test>
-		<dir>
-			<app>
-				<ctrl>ctrl</ctrl>
-				<i18n>i18n</i18n>
-				<mod>mod</mod>
-				<opt>opt</opt>
-				<skins>skins</skins>
-				<var>var</var>
-			</app>
-		</dir>
-	</test>
+	<test></test>
 	<!-- Production Environment -->
-	<prod>
-		<dir>
-			<app>
-				<ctrl>ctrl</ctrl>
-				<i18n>i18n</i18n>
-				<mod>mod</mod>
-				<opt>opt</opt>
-				<skins>skins</skins>
-				<var>var</var>
-			</app>
-		</dir>
-	</prod>
+	<prod></prod>
 </config>

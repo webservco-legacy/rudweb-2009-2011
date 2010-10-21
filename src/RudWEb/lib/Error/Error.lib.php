@@ -47,7 +47,7 @@ class Error extends Library
 	{
 		set_error_handler( array( Error::GetInstance(), 'Handle' ) );
 
-		Core::Log()->Write( __( 'Error library: Loading.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Error library: Registering as error handler.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}
@@ -60,8 +60,8 @@ class Error extends Library
 	public function Unload()
 	{
 		restore_error_handler();
-		
-		Core::Log()->Write( __( 'Error library: Unloading.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( __( 'Error library: Restoring default error handler.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}

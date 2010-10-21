@@ -9,11 +9,20 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 ?>
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
+
 	<title><?php echo $title; ?></title>
+
 </head>
-<body>
+
+<body id="rudweb-dev">
+
 	<h1><?php echo $title; ?></h1>
+
 </body>
+
 </html>

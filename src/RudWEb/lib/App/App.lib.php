@@ -195,10 +195,10 @@ class App extends Library
 			 * @var string
 			 */
 			$dispatch_msg = sprintf(
-			__( '"%s": Calling action "%s" from "%s".', 'RudWEb' ),
-			$module_name,
+			__( 'Application: Calling action "%s" from "%s" ("%s").', 'RudWEb' ),
 			$action_name,
-			$ctrl_name
+			$ctrl_name,
+			$module_name
 			);
 
 			Core::Log()->Write( $dispatch_msg , 'debug' );

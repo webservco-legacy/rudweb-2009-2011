@@ -41,96 +41,128 @@ class Output extends Library
 	/**
 	 * Stores the output engine object.
 	 *
-	 * @var object
+	 * Can also be used to store initialization status (bool)
+	 *
+	 * @var mixed
 	 */
-	private $_mOutputEngineObject;
+	protected $_mEngineObject;
 
 	/**
-	 * Output method.
+	 * Stores skin name.
 	 *
-	 * @param string $outTemplate
-	 * @param mixed $outData
-	 * @param string $outSkin
-	 * @param string $outEngine
-	 * @param bool $outDisplay
-	 *
-	 * @return mixed
+	 * @var string
 	 */
-	public function Out( $outTemplate = NULL, $outData = NULL, $outSkin = NULL, $outEngine = NULL, $outDisplay = FALSE )
+	protected $_mSkinDir;
+
+	/**
+	 * Stores skin directory path.
+	 *
+	 * @var string
+	 */
+	protected $_mSkinPath;
+
+	/**
+	 * Stores template file name.
+	 *
+	 * @var string
+	 */
+	protected $_mTemplate;
+
+	/**
+	 * Stores template file extension.
+	 *
+	 * @var string
+	 */
+	protected $_mExtension;
+
+	/**
+	 * Stores output data.
+	 *
+	 * @var array
+	 */
+	protected $_mData = array();
+
+	/**
+	 * Set skin.
+	 *
+	 * @param string $skinName
+	 *
+	 * @return bool
+	 */
+	final public function SetSkin( $skinName )
 	{
 		/**
 		 * @var string
 		 */
-		$out_engine = $outEngine ? $outEngine : Core::Config()->Get( 'output.engine' );
+		$this->_mSkinDir = $skinName;
 
 		/**
 		 * @var string
 		 */
-		$out_skin = $outSkin ? $outSkin : Core::Config()->Get( 'output.skin' );
+		$msg_skin = sprintf( __( 'Output library: Skin directory set to "%s"', 'RudWEb' ), $skinName );
+
+		Core::Log()->Write( $msg_skin, 'debug' );
+
+		return TRUE;
+	}
+
+	/**
+	 * All in one output method.
+	 *
+	 * Sets data and calls the output engine render method.
+	 *
+	 * @param bool $outDisplay
+	 * @param string $outTemplate
+	 * @param array $outData
+	 *
+	 * @return mixed
+	 */
+	final public function Out( $outTemplate = NULL, $outData = array(), $outDisplay = FALSE )
+	{
+		/**
+		 * Initialize output engine object.
+		 */
+		$this->Init();
 
 		/**
 		 * @var string
 		 */
-		$out_template = $outTemplate ? $outTemplate : Core::Config()->Get( 'output.template' );
+		$out_template = $outTemplate ? $outTemplate : $this->_mTemplate;
 
-		/**
-		 * @var string
-		 */
-		$out_extension = Core::Config()->Get( 'output.extension' );
 
-		/**
-		 * @var string
-		 */
-		$out_data = $outData ? $outData : array();
+		Core::Log()->Write( __( 'Output library: Calling Set() method.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * Load output engine.
-		 */
-		$this->_LoadOutputEngine( $out_engine );
-
-		/**
-		 * @var string
-		 */
-		$skin_dir = Core::Config()->Get( 'path.app' ) .
-		Core::Config()->Get( 'dir.app.opt' ) . '/' .
-		Core::Config()->Get( 'dir.app.skins' ) . '/' .
-		$out_skin . '/'
-		;
-
-		/**
-		 * Set skin directory.
-		 */
-		$this->_mOutputEngineObject->SetSkinDir( $skin_dir );
-
-		foreach ( $out_data as $out_name => $out_value )
+		foreach ( $outData as $out_name => $out_value )
 		{
 			/**
 			 * Set output data.
 			 */
-			$this->_mOutputEngineObject->Set( $out_name, $out_value );
+			$this->Set( $out_name, $out_value );
 		}
 
-		return $this->_mOutputEngineObject->Parse( $out_template . $out_extension, $outDisplay  );
+		Core::Log()->Write( __( 'Output library: Calling output engine Render() method.', 'RudWEb' ), 'debug' );
+
+		return $this->Render( $out_template, $outDisplay );
 	}
 
 	/**
-	 * Load output engine.
+	 * Set output data.
 	 *
-	 * @param string $outEngine
+	 * Can be overridden in extending class.
+	 *
+	 * @param string $outName
+	 * @param mixed $outValue
 	 *
 	 * @return bool
 	 */
-	private function _LoadOutputEngine( $outEngine )
+	public function Set( $outName, $outValue )
 	{
 		/**
-		 * @var string
+		 * @var array
 		 */
-		$out_engine = 'Output_' . ucfirst( strtolower( $outEngine ) );
+		$this->_mData[$outName] = $outValue;
 
-		/**
-		 * @var object
-		 */
-		$this->_mOutputEngineObject = $out_engine::GetInstance();
+		Core::Log()->Write( __( 'Output library: Setting data.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}

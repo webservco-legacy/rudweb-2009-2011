@@ -242,7 +242,7 @@ function page_doc
 		"Hello $P_USER!" \
 		18 60 5 \
 		"dc" "Clean Up Documentation Output Directory" \
-		"dr" "Generate Documentation" \
+		"dx" "Generate Documentation" \
 		"b" "Back" \
 		2> /tmp/RudWEb
 		if [ $? = 1 ]; then
@@ -259,7 +259,7 @@ function page_test
 		"Hello $P_USER!" \
 		18 60 5 \
 		"tc" "Clean Up Unit Tests Results Directory" \
-		"tr" "Run Unit Tests" \
+		"tx" "Run Unit Tests" \
 		"b" "Back" \
 		2> /tmp/RudWEb
 		if [ $? = 1 ]; then
@@ -281,13 +281,13 @@ function handle_menu
 		webs_start
 	elif [ $R = "wk" ]; then
 		webs_stop
-	elif [ $R = "wx" ]; then
+	elif [ $R = "wr" ]; then
 		webs_restart
 	elif [ $R = "ds" ]; then
 		dbms_start
 	elif [ $R = "dk" ]; then
 		dbms_stop
-	elif [ $R = "dx" ]; then
+	elif [ $R = "dr" ]; then
 		dbms_restart
 	elif [ $R = "s" ]; then
 		page_server
@@ -295,13 +295,13 @@ function handle_menu
 		page_doc
 	elif [ $R = "dc" ]; then
 		doc_clean
-	elif [ $R = "dr" ]; then
+	elif [ $R = "dx" ]; then
 		doc_run
 	elif [ $R = "t" ]; then
 		page_test
 	elif [ $R = "tc" ]; then
 		test_clean
-	elif [ $R = "tr" ]; then
+	elif [ $R = "tx" ]; then
 		test_run
 	elif [ $R = "b" ]; then
 		show_gui
@@ -332,13 +332,13 @@ if [ "$1" != "" ]; then
 			-wk | --webstop )		webs_stop
 									exit_ok
 									;;
-			-wx | --webrestart )	webs_restart
+			-wr | --webrestart )	webs_restart
 									exit_ok
 									;;
 			-ds | --dbstart )		dbms_start
 									exit_ok
 									;;
-			-dx | --dbrestart )		dbms_restart
+			-dr | --dbrestart )		dbms_restart
 									exit_ok
 									;;
 			-dk | --dbstop )		dbms_stop
@@ -347,13 +347,13 @@ if [ "$1" != "" ]; then
 			-dc | --docc )			doc_clean
 									exit_ok
 									;;
-			-dr | --doc )			doc_run
+			-dx | --doc )			doc_run
 									exit_ok
 									;;
 			-tc | --testc )			test_clean
 									exit_ok
 									;;
-			-t | --test )			test_run
+			-tx | --test )			test_run
 									exit_ok
 									;;
 			* )						show_gui

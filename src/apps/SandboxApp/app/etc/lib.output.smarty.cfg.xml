@@ -7,10 +7,14 @@
 	<dev>
 		<!-- Output library settings -->
 		<output>
-			<engine>RudWEb</engine>
-			<skin>RudWEb</skin>
+			<skin>RudWEb_Smarty</skin>
 			<template>layout</template>
 			<extension>.tpl.php</extension>
+			<smarty>
+				<!-- Smarty directory -->
+				<dir>Smarty/2.6.26/libs</dir>
+				<file>Smarty.class.php</file>
+			</smarty>
 		</output>
 	</dev>
 	<!-- Test Environment -->

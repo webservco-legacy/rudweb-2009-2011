@@ -41,32 +41,20 @@ if ( !defined( '_RUDWEB' ) )
 interface Interface_Output
 {
 	/**
-	 * Set application skin directory path.
+	 * Load output engine object.
 	 *
-	 * @param string $outSkinDir
-	 *
-	 * @return mixed
+	 * @return bool
 	 */
-	public function SetSkinDir( $outSkinDir );
+	public function Init();
 
 	/**
-	 * Set output variables.
-	 *
-	 * @param mixed $outName
-	 * @param mixed $outValue
-	 *
-	 * @return mixed
-	 */
-	public function Set( $outName, $outValue );
-
-	/**
-	 * Parse output.
+	 * Output method.
 	 *
 	 * @param string $outTemplate
-	 * @param boolean $outDisplay
+	 * @param bool $outDisplay
 	 *
 	 * @return mixed
 	 */
-	public function Parse( $outTemplate, $outDisplay );
+	public function Render( $outTemplate, $outDisplay );
 }
 ?>

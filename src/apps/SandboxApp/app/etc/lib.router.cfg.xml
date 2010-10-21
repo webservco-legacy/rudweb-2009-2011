@@ -5,12 +5,20 @@
 <config>
 	<!-- Development Environment -->
 	<dev>
+		<!-- Default configuration -->
+		<router>
+			<default>
+				<module>Lorem</module>
+				<controller>Ipsum</controller>
+				<action>Dolor</action>
+			</default>
+		</router>
 		<!-- SEO settings -->
 		<seo>
 			<full>1</full>
 			<extension>.html</extension>
 		</seo>
-		<!-- Routes configuration -->
+		<!-- Custom routes configuration -->
 		<route>
 			<!-- "index" is the default route. It doesn't have to be the fist one. -->
 			<name>index</name>

@@ -5,12 +5,13 @@
 <config>
 	<!-- Development Environment -->
 	<dev>
-		<!-- Default settings -->
-		<defaults>
-			<module>Lorem</module>
-			<controller>Ipsum</controller>
-			<action>Dolor</action>
-		</defaults>
+		<!-- Application settings -->
+		<app>
+		</app>
+		<!-- Output settings -->
+		<output>
+			<engine>RudWEb</engine>
+		</output>
 	</dev>
 	<!-- Test Environment -->
 	<test></test>

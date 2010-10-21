@@ -78,7 +78,7 @@ class Router extends Library
 	 */
 	public function Route()
 	{
-		Core::Log()->Write( __( 'Router library: Loading.', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Router library: Initializing routing.', 'RudWEb' ), 'debug' );
 
 		/**
 		 * Set request.
@@ -531,7 +531,7 @@ class Router extends Library
 		 */
 		$request['module'] = ( !empty( $request['module'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
-		Core::Config()->Get( 'defaults.module' );
+		Core::Config()->Get( 'router.default.module' );
 
 		/**
 		 * If controller is empty, set it to default.
@@ -540,7 +540,7 @@ class Router extends Library
 		 */
 		$request['controller'] = ( !empty( $request['controller'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
-		Core::Config()->Get( 'defaults.controller' );
+		Core::Config()->Get( 'router.default.controller' );
 
 		/**
 		 * If action is empty, set it to default.
@@ -549,7 +549,7 @@ class Router extends Library
 		 */
 		$request['action'] = ( !empty( $request['action'] ) ) ?
 		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
-		Core::Config()->Get( 'defaults.action' );
+		Core::Config()->Get( 'router.default.action' );
 
 		/**
 		 * If query is not empty, filter it.
