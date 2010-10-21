@@ -94,8 +94,12 @@ class Error extends Library
 		$err_line = $errObject->GetLine();
 		$err_trace = $errObject->GetTraceAsString();
 
-		$msg = '[' . $err_code . '] [' . $err_severity . '] ' . $err_message . PHP_EOL;
+		$msg = 'Boo boo detected!' . PHP_EOL;
 
+		$msg .= "\t\t\t" . '[code ' . $err_code . '] [severity ' . $err_severity . '] ' . PHP_EOL; 
+		
+		$msg .= "\t\t\t" . 'Message: ' . $err_message . PHP_EOL;
+		
 		$msg .= "\t\t\t" . 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
 
 		if ( 1 == Core::Config()->Get( 'error.trace' ) )
@@ -104,7 +108,7 @@ class Error extends Library
 			$msg .= "\t\t\t" . $err_trace . PHP_EOL;
 		}
 
-		$msg .= "\t\t\t" . 'Execution stopped.';
+		$msg .= PHP_EOL . "\t\t\t" . 'Execution stopped.';
 
 		Core::Log()->Write( $msg , 'error' );
 
