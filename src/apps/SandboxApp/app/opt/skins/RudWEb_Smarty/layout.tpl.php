@@ -1,5 +1,7 @@
+<!DOCTYPE html>
+
+<!-- 
 {*
-<?php
 /**
  * $Id$
  *
@@ -9,10 +11,8 @@
  * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-?>
 *}
-<!DOCTYPE html>
-
+ -->
 <html lang="en">
 
 <head>
