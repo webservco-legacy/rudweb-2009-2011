@@ -27,15 +27,30 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * Gettext/dgetttext wrapper.
+ * Gettext / dgetttext wrapper.
  *
- * @param string $mesage
+ * @param string $msg
  * @param string $domain
  *
  * @return string
  */
-function __( $mesage, $domain = NULL )
+function __( $msg, $domain = NULL )
 {
-	return ( $domain ) ? dgettext( $domain, $mesage ) : gettext( $mesage );
+	return ( $domain ) ? dgettext( $domain, $msg ) : gettext( $msg );
+}
+
+/**
+ * Ngettext / dngettext wrapper.
+ *
+ * @param string $msgSingular
+ * @param string $msgPlural
+ * @param string $msgNumber
+ * @param string $domain
+ */
+function ___( $msgSingular, $msgPlural, $msgNumber, $domain )
+{
+	return ( $domain ) ?
+	dngettext( $domain, $msgSingular, $msgPlural, $msgNumber ) :
+	ngettext( $msgSingular, $msgPlural, $msgNumber );
 }
 ?>

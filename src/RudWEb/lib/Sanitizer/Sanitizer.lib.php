@@ -73,7 +73,18 @@ class Sanitizer extends Library
 		 */
 		$_GET = array_map( array( $this, '_FilterRequest' ), $_GET );
 
-		$get_message = sprintf( __( 'Sanitizer library: %s GET requests sanitized.', 'RudWEb' ), $this->_mNumGet );
+		/**
+		 * @var string
+		 */
+		$get_message = sprintf(
+		___(
+		'Sanitizer library: %s GET request sanitized.',
+		'Sanitizer library: %s GET requests sanitized.',
+		$this->_mNumGet,
+		'RudWEb'
+		)
+		, $this->_mNumGet
+		);
 
 		Core::Log()->Write( $get_message, 'debug' );
 
@@ -94,7 +105,19 @@ class Sanitizer extends Library
 		 */
 		$_POST = array_map(array($this, '_FilterPost'), $_POST);
 
-		$post_message = sprintf( __( 'Sanitizer library: %s POST requests sanitized.', 'RudWEb' ), $this->_mNumPost );
+
+		/**
+		 * @var string
+		 */
+		$post_message = sprintf(
+		___(
+		'Sanitizer library: %s POST request sanitized.',
+		'Sanitizer library: %s POST requests sanitized.',
+		$this->_mNumPost,
+		'RudWEb'
+		)
+		, $this->_mNumPost
+		);
 
 		Core::Log()->Write( $post_message, 'debug' );
 

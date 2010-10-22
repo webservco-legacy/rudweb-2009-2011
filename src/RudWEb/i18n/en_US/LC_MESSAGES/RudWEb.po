@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-21 22:53+0200\n"
-"PO-Revision-Date: 2010-10-21 22:53+0200\n"
+"POT-Creation-Date: 2010-10-22 09:29+0200\n"
+"PO-Revision-Date: 2010-10-22 09:29+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;___:1,2\n"
 "X-Poedit-Basepath: /home/rudisoft/www/projects/RudWEb-5.0/src/RudWEb/\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: English\n"
@@ -23,17 +23,21 @@ msgstr ""
 msgid "Sanitizer library: Initializing input sanitization."
 msgstr "Sanitizer library: Initializing input sanitization."
 
-#: lib/Sanitizer/Sanitizer.lib.php:76
+#: lib/Sanitizer/Sanitizer.lib.php:81
 #, php-format
-msgid "Sanitizer library: %s GET requests sanitized."
-msgstr "Sanitizer library: %s GET requests sanitized."
+msgid "Sanitizer library: %s GET request sanitized."
+msgid_plural "Sanitizer library: %s GET requests sanitized."
+msgstr[0] "Sanitizer library: %s GET request sanitized."
+msgstr[1] "Sanitizer library: %s GET requests sanitized."
 
-#: lib/Sanitizer/Sanitizer.lib.php:97
+#: lib/Sanitizer/Sanitizer.lib.php:114
 #, php-format
-msgid "Sanitizer library: %s POST requests sanitized."
-msgstr "Sanitizer library: %s POST requests sanitized."
+msgid "Sanitizer library: %s POST request sanitized."
+msgid_plural "Sanitizer library: %s POST requests sanitized."
+msgstr[0] "Sanitizer library: %s POST request sanitized."
+msgstr[1] "Sanitizer library: %s POST requests sanitized."
 
-#: lib/Sanitizer/Sanitizer.lib.php:101
+#: lib/Sanitizer/Sanitizer.lib.php:124
 msgid "Sanitizer library: Sanitize complete."
 msgstr "Sanitizer library: Sanitize complete."
 
@@ -250,7 +254,7 @@ msgstr "Application: Shutdown."
 #: lib/Database/Mysqli.lib.php:69
 #: lib/Database/Postgresql.lib.php:71
 #: lib/Database/Mysql.lib.php:69
-#: lib/Database/Pdo.lib.php:89
+#: lib/Database/Pdo.lib.php:94
 msgid "Database library: Error connecting to database management server."
 msgstr "Database library: Error connecting to database management server."
 
@@ -258,7 +262,7 @@ msgstr "Database library: Error connecting to database management server."
 #: lib/Database/Sqlite3.lib.php:96
 #: lib/Database/Postgresql.lib.php:89
 #: lib/Database/Mysql.lib.php:99
-#: lib/Database/Pdo.lib.php:107
+#: lib/Database/Pdo.lib.php:112
 #, php-format
 msgid "Database library: Database connection opened (driver: %s)."
 msgstr "Database library: Database connection opened (driver: %s)."
