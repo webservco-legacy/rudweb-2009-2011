@@ -46,7 +46,11 @@ require_once 'RudWEb/lib/Module/Module.lib.php';
 
 require_once 'RudWEb/lib/Controller/Controller.lib.php';
 
+require_once 'RudWEb/int/Output/Output.int.php';
+
 require_once 'RudWEb/lib/Output/Output.lib.php';
+require_once 'RudWEb/lib/Output/Rudweb.lib.php';
+require_once 'RudWEb/lib/Output/Smarty.lib.php';
 
 /**
  * Assets path.
