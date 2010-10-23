@@ -16,7 +16,7 @@
  */
 
 /**
- * OutputTest
+ * Output_RudwebTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudTest

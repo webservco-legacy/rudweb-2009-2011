@@ -16,7 +16,7 @@
  */
 
 /**
- * OutputTest
+ * Output_SmartyTest
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudTest

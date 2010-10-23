@@ -94,25 +94,41 @@ class Error extends Library
 		$err_line = $errObject->GetLine();
 		$err_trace = $errObject->GetTraceAsString();
 
-		$msg = 'Boo boo detected!' . PHP_EOL;
+		$msg = __( 'The application made a boo boo.', 'RudWEb' ) . PHP_EOL;
 
-		$msg .= "\t\t\t" . '[code ' . $err_code . '] [severity ' . $err_severity . '] ' . PHP_EOL; 
-		
-		$msg .= "\t\t\t" . 'Message: ' . $err_message . PHP_EOL;
-		
-		$msg .= "\t\t\t" . 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
+		$msg .= 'Message: ' . $err_message . PHP_EOL;
+
+		$msg .= '[code ' . $err_code . '] [severity ' . $err_severity . '] ' . PHP_EOL;
+
+		$msg .= 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
 
 		if ( 1 == Core::Config()->Get( 'error.trace' ) )
 		{
-			$msg .= "\t\t\t" . 'Trace:' . PHP_EOL ;
-			$msg .= "\t\t\t" . $err_trace . PHP_EOL;
+			$msg .= 'Trace:' . PHP_EOL ;
+			$msg .= $err_trace . PHP_EOL;
 		}
 
-		$msg .= PHP_EOL . "\t\t\t" . 'Execution stopped.';
+		$msg .= PHP_EOL . 'Execution stopped.';
 
 		Core::Log()->Write( $msg , 'error' );
 
-		echo 'Boo boo detected!';
+		return $this->_ShowErrorMessage();
+	}
+
+	/**
+	 * Show error message in browser.
+	 */
+	private function _ShowErrorMessage()
+	{
+		header('HTTP/1.1 500 Internal Server Error');
+
+		echo '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>' .
+		__( 'Error', 'RudWEb' ) . '</title></head><body><h1>' .
+		__( 'The application made a boo boo.', 'RudWEb' ) . '</h1><p>' .
+		__( 'But there is no reason to panic.', 'RudWEb' ) . ' ' .
+		__( 'The person responsible has been notified.', 'RudWEb' ) . '</p><p>' .
+		__( 'Please come back later.', 'RudWEb' ) . '</p><hr><address>' .
+		sprintf( __( 'The friendly server at %s.', 'RudWEb' ), $_SERVER['SERVER_NAME'] ) . '</address></body></html>';
 
 		exit();
 	}

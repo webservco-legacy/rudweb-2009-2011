@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-22 09:30+0200\n"
-"PO-Revision-Date: 2010-10-22 09:30+0200\n"
+"POT-Creation-Date: 2010-10-23 18:30+0200\n"
+"PO-Revision-Date: 2010-10-23 18:30+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -60,11 +60,13 @@ msgstr "Biblioteca %s: Incarcare fisier de configurare \"%s\"."
 
 #: lib/Output/Rudweb.lib.php:53
 #: lib/Output/Smarty.lib.php:53
+#: lib/Output/Phptal.lib.php:53
 msgid "Output library: Initializing output engine object."
 msgstr "Biblioteca Output: Initializare obiect motor output."
 
 #: lib/Output/Rudweb.lib.php:89
 #: lib/Output/Smarty.lib.php:121
+#: lib/Output/Phptal.lib.php:113
 msgid "Output library: Rendering template."
 msgstr "Biblioteca Output: Randare template."
 
@@ -86,22 +88,34 @@ msgid "Output library: Calling output engine Render() method."
 msgstr "Biblioteca Output: Invocare metoda Render() din motor output."
 
 #: lib/Output/Output.lib.php:165
-#: lib/Output/Smarty.lib.php:209
+#: lib/Output/Smarty.lib.php:153
+#: lib/Output/Phptal.lib.php:162
 msgid "Output library: Setting data."
 msgstr "Biblioteca Output: Setare date."
 
-#: lib/Output/Smarty.lib.php:151
-msgid "Output library: Loading Smarty template engine."
-msgstr "Biblioteca Output: Incarcare motor output Smarty."
-
-#: lib/Output/Smarty.lib.php:186
+#: lib/Output/Output.lib.php:185
 #, php-format
-msgid "Output library: Smarty template engine found in \"%s\" path."
-msgstr "Biblioteca Output: Motor output Smarty gasit in calea \"%s\"."
+msgid "Output library: Loading external output engine \"%s\"."
+msgstr "Biblioteca Output: Incarcare motor extern de output \"%s\"."
 
-#: lib/Output/Smarty.lib.php:196
-msgid "Output Library: Smarty template engine not found: "
-msgstr "Biblioteca Output: Motorul de output Smarty nu a fost gasit."
+#: lib/Output/Output.lib.php:202
+#: lib/Output/Output.lib.php:262
+#, php-format
+msgid "Output Library: Error loading external output engine \"%s\"."
+msgstr "Biblioteca Output: Eroare la incarcarea motorului extern de output \"%s\"."
+
+#: lib/Output/Output.lib.php:205
+msgid "Configuration file not found."
+msgstr "Fisierul de configurare nu a fost gasit."
+
+#: lib/Output/Output.lib.php:247
+#, php-format
+msgid "Output library: External output engine \"%s\" found in \"%s\" path."
+msgstr "Biblioteca Output: Motorul extern de output \"%s\" a fost gasit in calea \"%s\"."
+
+#: lib/Output/Output.lib.php:265
+msgid "File not found."
+msgstr "Fisierul nu a fost gasit."
 
 #: lib/Controller/Controller.lib.php:84
 #, php-format
@@ -120,6 +134,32 @@ msgstr "Biblioteca Error: Inregistrare ca error handler."
 #: lib/Error/Error.lib.php:64
 msgid "Error library: Restoring default error handler."
 msgstr "Biblioteca Error: Restaurare error handler implicit."
+
+#: lib/Error/Error.lib.php:97
+#: lib/Error/Error.lib.php:127
+msgid "The application made a boo boo."
+msgstr "Aplicatia a facut un boo boo."
+
+#: lib/Error/Error.lib.php:126
+msgid "Error"
+msgstr "Eroare"
+
+#: lib/Error/Error.lib.php:128
+msgid "But there is no reason to panic."
+msgstr "Dar nu exista nici un motiv de panica."
+
+#: lib/Error/Error.lib.php:129
+msgid "The person responsible has been notified."
+msgstr "The person responsible has been notified."
+
+#: lib/Error/Error.lib.php:130
+msgid "Please come back later."
+msgstr "Please come back later."
+
+#: lib/Error/Error.lib.php:131
+#, php-format
+msgid "The friendly server at %s."
+msgstr "Serverul prietenos de la %s."
 
 #: lib/Router/Router.lib.php:81
 msgid "Router library: Initializing routing."
@@ -256,7 +296,6 @@ msgstr "Aplicatie: Inchidere."
 #: lib/Database/Mysqli.lib.php:69
 #: lib/Database/Postgresql.lib.php:71
 #: lib/Database/Mysql.lib.php:69
-#: lib/Database/Pdo.lib.php:94
 msgid "Database library: Error connecting to database management server."
 msgstr "Biblioteca Database: Eroare de conectare la serverul de gestionare a bazelor de date."
 
@@ -264,7 +303,7 @@ msgstr "Biblioteca Database: Eroare de conectare la serverul de gestionare a baz
 #: lib/Database/Sqlite3.lib.php:96
 #: lib/Database/Postgresql.lib.php:89
 #: lib/Database/Mysql.lib.php:99
-#: lib/Database/Pdo.lib.php:112
+#: lib/Database/Pdo.lib.php:107
 #, php-format
 msgid "Database library: Database connection opened (driver: %s)."
 msgstr "Biblioteca Database: Conexiunea la baza de date deschisa (driver: %s)."
@@ -284,6 +323,17 @@ msgstr "Biblioteca Database: Eroare deschidere baza de date %s."
 #: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:152
 msgid "Hello World!"
 msgstr "Salut Lume!"
+
+#, fuzzy
+#~ msgid "Output library: External output engine \"%s\" not found."
+#~ msgstr "Biblioteca Output: Motorul de output Smarty nu a fost gasit."
+
+#~ msgid ""
+#~ "Output Library: Error loading external output engine \"%s\". "
+#~ "Configuration file not found ."
+#~ msgstr ""
+#~ "Output Library: Error loading external output engine \"%s\". "
+#~ "Configuration file not found ."
 
 #~ msgid "Output library:  Initializing output engine object."
 #~ msgstr "Biblioteca Output: Initializare obiect motor output."

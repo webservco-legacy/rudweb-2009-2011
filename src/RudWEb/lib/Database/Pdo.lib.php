@@ -88,12 +88,7 @@ class Database_Pdo extends Database implements Interface_Database
 		}
 		catch( PDOException $e )
 		{
-			/**
-			 * @var string
-			 */
-			$message = __( 'Database library: Error connecting to database management server.', 'RudWEb' ) . ' ' . $e->getMessage();
-
-			trigger_error( $message );
+			throw new ErrorException( $e->GetMessage(), 0, $e->GetCode(), $e->getFile(), $e->getLine() );
 
 			return FALSE;
 		}

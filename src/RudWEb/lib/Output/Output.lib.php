@@ -166,5 +166,107 @@ class Output extends Library
 
 		return TRUE;
 	}
+
+	/**
+	 * Load external output engine.
+	 *
+	 * Can be overridden in extending class.
+	 *
+	 * @param string $engineName
+	 *
+	 * @return object
+	 */
+	protected function _LoadEngine( $engineName )
+	{
+		/**
+		 * @var string
+		 */
+		$load_msg = sprintf(
+		__( 'Output library: Loading external output engine "%s".', 'RudWEb' ),
+		$engineName
+		);
+
+		Core::Log()->Write( $load_msg, 'debug' );
+
+		/**
+		 * @var array
+		 */
+		$engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
+
+		if ( empty( $engine_config ) )
+		{
+			/**
+			 * @var string
+			 */
+			$err_msg_a = sprintf(
+			__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
+			$engineName
+			);
+			$err_msg_b = _( 'Configuration file not found.' );
+
+			trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+
+			exit();
+		}
+
+		if ( empty( $engine_config['path'] ) )
+		{
+			/**
+			 * @var array
+			 */
+			$engine_paths = array(
+				'Core' => Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.opt' ) . '/',
+				'App' => Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.opt' ) . '/',
+			);
+		}
+		else
+		{
+			/**
+			 * @var array
+			 */
+			$engine_paths = array(
+				'External' => $engine_config['path'],
+			);
+		}
+
+		foreach ( $engine_paths as $type => $path )
+		{
+			/**
+			 * @var string
+			 */
+			$engine_path = $path . $engine_config['dir'] . '/' . $engine_config['file'];
+
+			if ( is_readable( $engine_path ) )
+			{
+				require_once $engine_path;
+
+				/**
+				 * @var string
+				 */
+				$path_msg = sprintf(
+				__( 'Output library: External output engine "%s" found in "%s" path.', 'RudWEb' ),
+				$engineName,
+				$type
+				);
+
+				Core::Log()->Write( $path_msg, 'debug' );
+
+				return new $engine_config['class'];
+			}
+		}
+
+		/**
+		 * @var string
+		 */
+		$err_msg_a = sprintf(
+		__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
+		$engineName
+		);
+		$err_msg_b = _( 'File not found.' );
+
+		trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+
+		exit();
+	}
 }
 ?>

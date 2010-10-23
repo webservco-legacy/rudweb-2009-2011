@@ -82,7 +82,7 @@ class Output_Smarty extends Output implements Interface_Output
 		/**
 		 * @var object
 		 */
-		$this->_mEngineObject = $this->_LoadSmarty();
+		$this->_mEngineObject = $this->_LoadEngine( 'Smarty' );
 
 		/**
 		 * @var string
@@ -138,62 +138,6 @@ class Output_Smarty extends Output implements Interface_Output
 		{
 			return $this->_mEngineObject->fetch( $tpl_file );
 		}
-	}
-
-	/**
-	 * Load Smarty library.
-	 *
-	 * @return mixed
-	 */
-	private function _LoadSmarty()
-	{
-
-		Core::Log()->Write( __( 'Output library: Loading Smarty template engine.', 'RudWEb' ), 'debug' );
-
-		/**
-		 * @var array
-		 */
-		$opt_paths = array (
-		'Core' => Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.opt' ) . '/',
-		'App' => Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.opt' ) . '/',
-		);
-
-		/**
-		 * @var string
-		 */
-		$smarty_dir = Core::Config()->Get( 'output.smarty.dir' );
-
-		/**
-		 * @var string
-		 */
-		$smarty_file = Core::Config()->Get( 'output.smarty.file' );
-
-		foreach ( $opt_paths as $opt_type => $opt_path )
-		{
-			/**
-			 * @var string
-			 */
-			$smarty_path = $opt_path . $smarty_dir . '/' . $smarty_file;
-
-			if ( is_readable( $smarty_path ) )
-			{
-				require_once $smarty_path;
-
-				/**
-				 * @var string
-				 */
-				$path_msg = sprintf(
-				__( 'Output library: Smarty template engine found in "%s" path.', 'RudWEb' ),
-				$opt_type
-				);
-
-				Core::Log()->Write( $path_msg, 'debug' );
-
-				return new Smarty;
-			}
-		}
-
-		trigger_error( __( 'Output Library: Smarty template engine not found: ', 'RudWEb' ) . 'Smarty', 256 );
 	}
 
 	/**
