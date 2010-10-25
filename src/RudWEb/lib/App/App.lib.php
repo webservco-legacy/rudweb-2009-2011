@@ -90,7 +90,7 @@ class App extends Library
 			 *
 			 * @var array
 			 */
-			Core::Sanitizer()->Sanitize();
+			Core::Security()->Sanitize();
 
 			/**
 			 * Perform routing.
