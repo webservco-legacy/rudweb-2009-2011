@@ -38,7 +38,7 @@ require_once 'RudWEb/lib/Database/Sqlite3.lib.php';
 
 require_once 'RudWEb/lib/String/String.lib.php';
 
-require_once 'RudWEb/lib/Sanitizer/Sanitizer.lib.php';
+require_once 'RudWEb/lib/Security/Security.lib.php';
 
 require_once 'RudWEb/lib/Router/Router.lib.php';
 

@@ -17,7 +17,7 @@
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/App</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Database</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/String</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Sanitizer</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Security</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Router</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Module</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Controller</directory>
