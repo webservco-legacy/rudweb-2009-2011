@@ -2,8 +2,8 @@
 
 <refentry id="{@id}">
 	<refnamediv>
-		<refname>Sanitizer</refname>
-		<refpurpose>Sanitizer library</refpurpose>
+		<refname>Security</refname>
+		<refpurpose>Security library</refpurpose>
 	</refnamediv>
 	<refsynopsisdiv>
 		<author>
