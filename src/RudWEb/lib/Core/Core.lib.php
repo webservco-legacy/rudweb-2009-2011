@@ -88,11 +88,11 @@ class Core
 	protected static $_msStringObject;
 
 	/**
-	 * Stores the Sanitizer object.
+	 * Stores the Security object.
 	 *
 	 * @var mixed
 	 */
-	protected static $_msSanitizerObject;
+	protected static $_msSecurityObject;
 
 	/**
 	 * Stores the Router object.
@@ -253,21 +253,21 @@ class Core
 	}
 
 	/**
-	 * Method to access the Sanitizer object from everywhere.
+	 * Method to access the Security object from everywhere.
 	 *
 	 * @return object
 	 */
-	final public static function Sanitizer()
+	final public static function Security()
 	{
-		if ( NULL == self::$_msSanitizerObject )
+		if ( NULL == self::$_msSecurityObject )
 		{
 			/**
 			 * @var object
 			 */
-			self::$_msSanitizerObject = Sanitizer::GetInstance();
+			self::$_msSecurityObject = Security::GetInstance();
 		}
 
-		return self::$_msSanitizerObject;
+		return self::$_msSecurityObject;
 	}
 
 	/**
