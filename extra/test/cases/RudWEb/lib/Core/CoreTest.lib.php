@@ -80,7 +80,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function DbReturnsObjectForMysql()
 	{
-		$this->assertType( 'object', Core::Db() );
+		$this->assertType( 'object', Core::Database() );
 	}
 
 	/**

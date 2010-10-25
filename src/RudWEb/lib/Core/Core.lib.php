@@ -196,7 +196,7 @@ class Core
 	 *
 	 * @return object
 	 */
-	final public static function Db()
+	final public static function Database()
 	{
 		if ( NULL == self::$_msDbObject )
 		{

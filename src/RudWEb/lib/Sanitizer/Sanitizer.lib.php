@@ -258,7 +258,7 @@ class Sanitizer extends Library
 			/**
 			 * Use database internal function to filter input.
 			 */
-			$input = Core::Db()->EscapeString( $input );
+			$input = Core::Database()->EscapeString( $input );
 		}
 
 		/**
