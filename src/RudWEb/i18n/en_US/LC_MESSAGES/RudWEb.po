@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 18:29+0200\n"
-"PO-Revision-Date: 2010-10-23 18:30+0200\n"
+"POT-Creation-Date: 2010-10-25 22:52+0200\n"
+"PO-Revision-Date: 2010-10-25 22:52+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -18,28 +18,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
-
-#: lib/Sanitizer/Sanitizer.lib.php:60
-msgid "Sanitizer library: Initializing input sanitization."
-msgstr "Sanitizer library: Initializing input sanitization."
-
-#: lib/Sanitizer/Sanitizer.lib.php:81
-#, php-format
-msgid "Sanitizer library: %s GET request sanitized."
-msgid_plural "Sanitizer library: %s GET requests sanitized."
-msgstr[0] "Sanitizer library: %s GET request sanitized."
-msgstr[1] "Sanitizer library: %s GET requests sanitized."
-
-#: lib/Sanitizer/Sanitizer.lib.php:114
-#, php-format
-msgid "Sanitizer library: %s POST request sanitized."
-msgid_plural "Sanitizer library: %s POST requests sanitized."
-msgstr[0] "Sanitizer library: %s POST request sanitized."
-msgstr[1] "Sanitizer library: %s POST requests sanitized."
-
-#: lib/Sanitizer/Sanitizer.lib.php:124
-msgid "Sanitizer library: Sanitize complete."
-msgstr "Sanitizer library: Sanitize complete."
 
 #: lib/Library/Library.lib.php:89
 #, php-format
@@ -114,6 +92,28 @@ msgstr "Output library: External output engine \"%s\" found in \"%s\" path."
 #: lib/Output/Output.lib.php:265
 msgid "File not found."
 msgstr "File not found."
+
+#: lib/Security/Security.lib.php:60
+msgid "Security library: Initializing input sanitization."
+msgstr "Security library: Initializing input sanitization."
+
+#: lib/Security/Security.lib.php:81
+#, php-format
+msgid "Security library: %s GET request sanitized."
+msgid_plural "Security library: %s GET requests sanitized."
+msgstr[0] "Security library: %s GET request sanitized."
+msgstr[1] "Security library: %s GET requests sanitized."
+
+#: lib/Security/Security.lib.php:114
+#, php-format
+msgid "Security library: %s POST request sanitized."
+msgid_plural "Security library: %s POST requests sanitized."
+msgstr[0] "Security library: %s POST request sanitized."
+msgstr[1] "Security library: %s POST requests sanitized."
+
+#: lib/Security/Security.lib.php:124
+msgid "Security library: Sanitize complete."
+msgstr "Security library: Sanitize complete."
 
 #: lib/Controller/Controller.lib.php:84
 #, php-format
@@ -322,27 +322,3 @@ msgstr "Database library: Error opening database %s."
 msgid "Hello World!"
 msgstr "Hello World!"
 
-#~ msgid ""
-#~ "Output Library: Error loading external output engine \"%s\". "
-#~ "Configuration file not found ."
-#~ msgstr ""
-#~ "Output Library: Error loading external output engine \"%s\". "
-#~ "Configuration file not found ."
-
-#~ msgid "Output library: External output engine \"%s\" not found."
-#~ msgstr "Output library: External output engine \"%s\" not found."
-
-#~ msgid "Output library:  Initializing output engine object."
-#~ msgstr "Output library:  Initializing output engine object."
-
-#~ msgid "Sanitizer library: Loading."
-#~ msgstr "Sanitizer library: Loading."
-
-#~ msgid "Error library: Loading."
-#~ msgstr "Error library: Loading."
-
-#~ msgid "Error library: Unloading."
-#~ msgstr "Error library: Unloading."
-
-#~ msgid "Router library: Loading."
-#~ msgstr "Router library: Loading."

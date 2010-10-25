@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 18:30+0200\n"
-"PO-Revision-Date: 2010-10-23 18:30+0200\n"
+"POT-Creation-Date: 2010-10-25 22:56+0200\n"
+"PO-Revision-Date: 2010-10-25 22:56+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -18,30 +18,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
-
-#: lib/Sanitizer/Sanitizer.lib.php:60
-msgid "Sanitizer library: Initializing input sanitization."
-msgstr "Biblioteca Sanitizer: Initializare sanitizare input."
-
-#: lib/Sanitizer/Sanitizer.lib.php:81
-#, php-format
-msgid "Sanitizer library: %s GET request sanitized."
-msgid_plural "Sanitizer library: %s GET requests sanitized."
-msgstr[0] "Biblioteca Sanitizer: %s cerere GET curatata."
-msgstr[1] "Biblioteca Sanitizer: %s cereri GET curatate."
-msgstr[2] "Biblioteca Sanitizer: %s de cereri GET curatate."
-
-#: lib/Sanitizer/Sanitizer.lib.php:114
-#, php-format
-msgid "Sanitizer library: %s POST request sanitized."
-msgid_plural "Sanitizer library: %s POST requests sanitized."
-msgstr[0] "Biblioteca Sanitizer: %s cerere POST curatata."
-msgstr[1] "Biblioteca Sanitizer: %s cereri POST curatate."
-msgstr[2] "Biblioteca Sanitizer: %s de cereri POST curatate."
-
-#: lib/Sanitizer/Sanitizer.lib.php:124
-msgid "Sanitizer library: Sanitize complete."
-msgstr "Biblioteca Sanitizer: Curatare completa."
 
 #: lib/Library/Library.lib.php:89
 #, php-format
@@ -116,6 +92,30 @@ msgstr "Biblioteca Output: Motorul extern de output \"%s\" a fost gasit in calea
 #: lib/Output/Output.lib.php:265
 msgid "File not found."
 msgstr "Fisierul nu a fost gasit."
+
+#: lib/Security/Security.lib.php:60
+msgid "Security library: Initializing input sanitization."
+msgstr "Biblioteca Security: Initializare sanitizare input."
+
+#: lib/Security/Security.lib.php:81
+#, php-format
+msgid "Security library: %s GET request sanitized."
+msgid_plural "Security library: %s GET requests sanitized."
+msgstr[0] "Biblioteca Sanitizer: %s cerere GET curatata."
+msgstr[1] "Biblioteca Security: %s cereri GET curatate."
+msgstr[2] "Biblioteca Security: %s de cereri GET curatate."
+
+#: lib/Security/Security.lib.php:114
+#, php-format
+msgid "Security library: %s POST request sanitized."
+msgid_plural "Security library: %s POST requests sanitized."
+msgstr[0] "Biblioteca Security: %s cerere POST curatata."
+msgstr[1] "Biblioteca Security: %s cereri POST curatate."
+msgstr[2] "Biblioteca Security: %s de cereri POST curatate."
+
+#: lib/Security/Security.lib.php:124
+msgid "Security library: Sanitize complete."
+msgstr "Biblioteca Security: Curatare completa."
 
 #: lib/Controller/Controller.lib.php:84
 #, php-format
@@ -324,28 +324,3 @@ msgstr "Biblioteca Database: Eroare deschidere baza de date %s."
 msgid "Hello World!"
 msgstr "Salut Lume!"
 
-#, fuzzy
-#~ msgid "Output library: External output engine \"%s\" not found."
-#~ msgstr "Biblioteca Output: Motorul de output Smarty nu a fost gasit."
-
-#~ msgid ""
-#~ "Output Library: Error loading external output engine \"%s\". "
-#~ "Configuration file not found ."
-#~ msgstr ""
-#~ "Output Library: Error loading external output engine \"%s\". "
-#~ "Configuration file not found ."
-
-#~ msgid "Output library:  Initializing output engine object."
-#~ msgstr "Biblioteca Output: Initializare obiect motor output."
-
-#~ msgid "Sanitizer library: Loading."
-#~ msgstr "Biblioteca Sanitizer: Incarcare."
-
-#~ msgid "Error library: Loading."
-#~ msgstr "Biblioteca Error: Incarcare."
-
-#~ msgid "Error library: Unloading."
-#~ msgstr "Biblioteca Error: Descarcare."
-
-#~ msgid "Router library: Loading."
-#~ msgstr "Biblioteca Router: Incarcare."
