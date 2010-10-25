@@ -530,7 +530,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['module'] = ( !empty( $request['module'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['module'], TRUE, TRUE ) :
+		Core::Security()->FilterInput( $request['module'], TRUE, TRUE ) :
 		Core::Config()->Get( 'router.default.module' );
 
 		/**
@@ -539,7 +539,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['controller'] = ( !empty( $request['controller'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['controller'], TRUE, TRUE ) :
+		Core::Security()->FilterInput( $request['controller'], TRUE, TRUE ) :
 		Core::Config()->Get( 'router.default.controller' );
 
 		/**
@@ -548,7 +548,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['action'] = ( !empty( $request['action'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['action'], TRUE, TRUE ) :
+		Core::Security()->FilterInput( $request['action'], TRUE, TRUE ) :
 		Core::Config()->Get( 'router.default.action' );
 
 		/**
@@ -557,7 +557,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request['query'] = ( !empty( $request['query'] ) ) ?
-		Core::Sanitizer()->FilterInput( $request['query'], TRUE, TRUE ) :
+		Core::Security()->FilterInput( $request['query'], TRUE, TRUE ) :
 		'';
 
 		/**
