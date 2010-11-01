@@ -116,7 +116,7 @@ class Output_Rudweb extends Output implements Interface_Output
 		/**
 		 * Load template file.
 		 */
-		include( $tpl_path );
+		include $tpl_path;
 
 		/**
 		 * Get parsed output result from the output buffer.

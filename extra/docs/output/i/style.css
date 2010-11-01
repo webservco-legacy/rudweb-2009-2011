@@ -18,9 +18,12 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	vertical-align:baseline;
 }
 body {
-	background:#469bfc;
-	color:#333;
-	font-family:Tahoma, Geneva, sans-serif;
+	background: #cfc;
+	color: #777;
+	font-size: 88%;
+	font-family: Tahoma, Geneva, Kalimati, sans-serif;
+	line-height: 1.4;
+	
 	width:100%;
 	float:left;
 	padding:0 0 30px;
@@ -33,20 +36,18 @@ body {
 	width:300px;
 	float:left;
 	padding:30px;
-	background:#fafafa;
-	border:6px solid #007ede;
+	background:#ffc;
+	border:6px solid #777;
 }
 h1 {
 	font: 1.3em Georgia, serif;
 	text-align:center;
-	color:#78D316;
 }
 h3.location {
 	font-size:13px;
 	font-weight: bold;
 	margin:12px 0 30px;
 	text-align:center;
-	color:#4D7EC7;
 }
 a:link, a:visited {
 	text-decoration: none;
@@ -70,6 +71,7 @@ tr {
 }
 tr:nth-child(even) {
 	background:#def2ff;
+	background: #cfc;
 }
 th {
 	display:none;
