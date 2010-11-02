@@ -226,9 +226,12 @@ class Core
 			/**
 			 * Load the appropriate database library.
 			 *
+			 * PHP < 5.3 compatibility.
+			 * self::$_msDbObject = $db_class::GetInstance();
+			 *
 			 * @var object
 			 */
-			self::$_msDbObject = $db_class::GetInstance();
+			self::$_msDbObject = call_user_func( array( $db_class, 'GetInstance' ) );
 		}
 
 		return self::$_msDbObject;

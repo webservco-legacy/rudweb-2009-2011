@@ -143,9 +143,12 @@ class App extends Library
 			}
 
 			/**
+			 * PHP < 5.3 compatibility.
+			 * $module_object = $module_name::GetInstance();
+			 *
 			 * @var object
 			 */
-			$module_object = $module_name::GetInstance();
+			$module_object = call_user_func( array( $module_name, 'GetInstance' ) );
 
 			/**
 			 * @var string
@@ -166,9 +169,12 @@ class App extends Library
 			}
 
 			/**
+			 * PHP < 5.3 compatibility.
+			 * $ctrl_object = $ctrl_name::GetInstance();
+			 *
 			 * @var object
 			 */
-			$ctrl_object = $ctrl_name::GetInstance();
+			$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ) );
 
 			/**
 			 * @var string

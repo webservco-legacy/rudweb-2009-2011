@@ -77,9 +77,12 @@ class Controller extends Library
 			$module_name = 'Module_' . $ctrl_parts[1];
 
 			/**
+			 * PHP < 5.3 compatibility.
+			 * $this->_mModuleObject = $module_name::GetInstance();
+			 *
 			 * @var object
 			 */
-			$this->_mModuleObject = $module_name::GetInstance();
+			$this->_mModuleObject = call_user_func( array( $module_name, 'GetInstance' ) );
 
 			$module_msg = sprintf( __( 'Controller library: Module "%s" loading.', 'RudWEb' ) , $ctrl_parts[1] );
 
@@ -114,9 +117,12 @@ class Controller extends Library
 			$engine_class = 'Output_' . ucfirst( strtolower( $engine ) );
 
 			/**
+			 * PHP < 5.3 compatibility.
+			 * $this->_mOutputObject = $engine_class::GetInstance();
+			 *
 			 * @var object
 			 */
-			$this->_mOutputObject = $engine_class::GetInstance();
+			$this->_mOutputObject = call_user_func( array( $engine_class, 'GetInstance' ) );
 
 			$out_msg = sprintf( __( 'Controller library: Output library "%s" loading.', 'RudWEb' ) , $engine );
 
