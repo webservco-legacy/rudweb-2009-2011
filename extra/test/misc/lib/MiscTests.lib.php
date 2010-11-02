@@ -304,8 +304,12 @@ class MiscTests
 		{
 			/**
 			 * Run test.
+			 *
+			 * PHP < 5.3 compatibility.
+			 *
+			 * $time += $test_class::$test_method( FALSE );
 			 */
-			$time += $test_class::$test_method( FALSE );
+			$time += call_user_func( array( $test_class, $test_method ), FALSE );
 		}
 
 		/**
