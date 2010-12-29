@@ -236,7 +236,6 @@ class App extends Library
 		Core::Log()->Write( __( 'Application: Shutdown.', 'RudWEb', 'RudWEb' ), 'debug' );
 
 		return TRUE;
-
 	}
 
 	/**
