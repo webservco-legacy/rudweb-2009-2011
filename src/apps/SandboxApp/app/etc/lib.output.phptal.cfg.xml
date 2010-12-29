@@ -16,7 +16,6 @@
 				<file>PHPTAL.php</file>
 				<class>PHPTAL</class>
 			</phptal>
-			>
 		</output>
 	</dev>
 	<!-- Test Environment -->
