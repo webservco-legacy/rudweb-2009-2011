@@ -57,6 +57,11 @@ class I18n extends Library
 	 */
 	public function Init( $i18nLocale = NULL, $defaultDomain = NULL )
 	{
+		if ( empty( $i18nLocale ) )
+		{
+			$i18nLocale = Core::Config()->Get( 'i18n.locale' );
+		}
+
 		$this->_mI18nLocale = ( $i18nLocale ) ? $i18nLocale : 'en_US';
 
 		/**
@@ -206,7 +211,7 @@ class I18n extends Library
 		 * @var array
 		 */
 		$parts = explode( '_', $domain_name );
-		
+
 		/**
 		 * @var string
 		 */
