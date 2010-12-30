@@ -7,7 +7,7 @@
  * All controllers extend this library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
- * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
+ * @copyright  Copyright (c) 2008 - 2011, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    RudWEb
  * @subpackage RudController

@@ -5,7 +5,7 @@
  * Test.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
- * @copyright  Copyright (c) 2008 - 2010, RudiSoft.Net
+ * @copyright  Copyright (c) 2008 - 2011, RudiSoft.Net
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 ?>
@@ -21,7 +21,7 @@
 	
 	<meta name="author" content="Radu Maier" />
 	
-	<meta name="copyright" content="Copyright (c) 2008 - 2010, RudiSoft.Net" />
+	<meta name="copyright" content="Copyright (c) 2008 - 2011, RudiSoft.Net" />
 	
 	<meta name="DC.title" content="RudWEb" />
 	<meta name="DC.subject" content="Misc Tests" />
@@ -62,7 +62,7 @@
 	</section>
 	
 	<footer class="content">
-		<address>Copyright (c) 2008 - 2010, RudiSoft.Net</address>
+		<address>Copyright (c) 2008 - 2011, RudiSoft.Net</address>
 	</footer>
 
 </body>
