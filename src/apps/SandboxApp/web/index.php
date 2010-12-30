@@ -15,9 +15,15 @@
  * @filesource
  */
 
+/**
+ * Check if basic configurtion file is accessible.
+ */
 if ( !is_readable( './etc/settings.cfg.xml' ) )
 {
-	die( 'Configuration file is missing.' );
+	/**
+	 * Trigger fatal error.
+	 */
+	die( 'Fatal: Configuration file is missing.' );
 }
 
 /**

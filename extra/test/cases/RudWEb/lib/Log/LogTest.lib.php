@@ -91,30 +91,6 @@ class LogTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function GetFileReturnsFalseOnInvalidType()
-	{
-		$this->assertFalse( $this->_mObject->GetFile( 'noexist' ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function GetFileReturnsFalseOnInvalidPath()
-	{
-		$this->assertFalse( $this->_mObject->GetFile( 'test', '/foo/bar' ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function GetFileReturnsFalseOnInvalidTypeAndInvalidPath()
-	{
-		$this->assertFalse( $this->_mObject->GetFile( 'noexist', '/foo/bar' ) );
-	}
-
-	/**
-	 * @test
-	 */
 	public function GetFileReturnsFalseIfFileExistsButIsNotWritable()
 	{
 		$this->assertFalse( $this->_mObject->GetFile( 'readonly' ) );
@@ -139,30 +115,6 @@ class LogTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
-	public function ResetReturnsFalseOnNoExistType()
-	{
-		$this->assertFalse( $this->_mObject->Reset( 'dummytype' )  );
-	}
-
-	/**
-	 * @test
-	 */
-	public function ResetReturnsFalseOnNoExistPath()
-	{
-		$this->assertFalse( $this->_mObject->Reset( 'test', 'no/exist' )  );
-	}
-
-	/**
-	 * @test
-	 */
-	public function ResetReturnsFalseOnNoExistTypeAndNoExistPath()
-	{
-		$this->assertFalse( $this->_mObject->Reset( 'dummytype', 'no/exist' )  );
-	}
-
-	/**
-	 * @test
-	 */
 	public function ResetFailsOnReadonlyFile()
 	{
 		$this->assertFalse( $this->_mObject->Reset( 'readonly' ) );
@@ -182,30 +134,6 @@ class LogTest extends PHPUnit_Framework_TestCase
 	public function WriteReturnsFalseOnInvalidLevel()
 	{
 		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'dummy', 'test' ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function WriteReturnsFalseOnInvalidType()
-	{
-		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'noexist' ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function WriteReturnsFalseOnInvalidPath()
-	{
-		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'test', 'no/exist' ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function WriteReturnsFalseOnInvalidTypeAndInvalidPath()
-	{
-		$this->assertFalse( $this->_mObject->Write( 'unit testing', 'notice', 'noexist', 'no/exist' ) );
 	}
 
 	/**

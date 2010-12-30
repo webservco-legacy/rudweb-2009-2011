@@ -128,6 +128,8 @@ class Log extends Library
 	/**
 	 * Get full log file path.
 	 *
+	 * If log file does not exist, it attempts to create it.
+	 *
 	 * Returns FALSE if log file is not writable
 	 *
 	 * @param string $logType
@@ -148,9 +150,39 @@ class Log extends Library
 		$log_path = ( $logPath ) ? $logPath : $this->_mLogPath;
 
 		/**
+		 * Check if log path is empty.
+		 */
+		if ( empty( $log_path ) )
+		{
+			return FALSE;
+		}
+
+		/**
 		 * @var string
 		 */
 		$log_file = $log_path . $log_type . Core::Config()->Get( 'log.extension' );
+
+		/**
+		 * Check if log file exists.
+		 */
+		if ( !file_exists( $log_file ) )
+		{
+			/**
+			 * Check if log directory is writable.
+			 */
+			if ( !is_writable( $log_path ) )
+			{
+				/**
+				 * Trigger fatal error.
+				 */
+				die( 'Fatal: Log directory '. $log_path .' not writable.' );
+			}
+
+			/**
+			 * Create log file.
+			 */
+			file_put_contents( $log_file, NULL );
+		}
 
 		/**
 		 * Check if log file is writable.
@@ -189,11 +221,13 @@ class Log extends Library
 		}
 
 		/**
-		 * @var mixed
+		 * Reset log file.
+		 *
+		 * Deprecated:
+		 * $log_handle = fopen( $log_file, "wb" );
+		 * fclose( $log_handle );
 		 */
-		$log_handle = fopen( $log_file, "wb" );
-
-		fclose( $log_handle );
+		file_put_contents( $log_file, NULL );
 
 		return TRUE;
 	}

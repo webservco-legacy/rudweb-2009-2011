@@ -53,19 +53,18 @@ class App extends Library
 		$this->_InitConfig();
 
 		/**
-		 * Initialize internationalization library.
-		 */
-		Core::I18n()->Init( Core::Config()->Get( 'i18n.locale' ) );
-
-		/**
 		 * Initialize application logging.
 		 */
 		$this->_InitLog();
 
 		/**
+		 * Initialize internationalization library.
+		 */
+		Core::I18n()->Init( Core::Config()->Get( 'i18n.locale' ) );
+
+		/**
 		 * It was not possible to write to log until now, so we update with all the messages.
 		 */
-
 		Core::Log()->Write( __( 'Application: Booting.', 'RudWEb' ), 'debug' );
 
 		Core::Log()->Write( __( 'Core library: Loading.', 'RudWEb' ), 'debug' );

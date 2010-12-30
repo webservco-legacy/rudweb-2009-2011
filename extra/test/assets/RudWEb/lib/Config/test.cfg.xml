@@ -24,7 +24,7 @@
 		<url>
 			<!-- Application URL. Defaults to current hostname. -->
 			<app>
-				http://rudwev.dev/
+				http://rudweb.dev/
 			</app>
 		</url>
 
