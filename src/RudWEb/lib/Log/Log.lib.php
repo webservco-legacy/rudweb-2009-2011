@@ -115,6 +115,11 @@ class Log extends Library
 	 */
 	public function SetLevel( $levelName )
 	{
+		if ( empty( $levelName ) )
+		{
+			return FALSE;
+		}
+		
 		if ( array_key_exists( $levelName, $this->_mLogLevels ) )
 		{
 			$this->_mLogLevel = $this->_mLogLevels[$levelName];

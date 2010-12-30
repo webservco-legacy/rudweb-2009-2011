@@ -430,6 +430,11 @@ class Router extends Library
 	{
 		$routes = Core::Config()->Get( 'route' );
 
+		if ( empty( $routes ) )
+		{
+			return FALSE;
+		}
+
 		foreach ( $routes as $route )
 		{
 			if ( 'index' == $route['name'] )
