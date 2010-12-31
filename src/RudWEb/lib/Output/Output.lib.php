@@ -117,7 +117,7 @@ class Output extends Library
 	 *
 	 * @return mixed
 	 */
-	final public function Out( $outTemplate = NULL, $outData = array(), $outDisplay = FALSE )
+	final public function Out( $outTemplate = NULL, $outData = NULL, $outDisplay = FALSE )
 	{
 		/**
 		 * Initialize output engine object.
@@ -132,12 +132,18 @@ class Output extends Library
 
 		Core::Log()->Write( __( 'Output library: Calling Set() method.', 'RudWEb' ), 'debug' );
 
-		foreach ( $outData as $out_name => $out_value )
+		/**
+		 * Check if we actually have data.
+		 */
+		if ( is_array( $outData ) )
 		{
-			/**
-			 * Set output data.
-			 */
-			$this->Set( $out_name, $out_value );
+			foreach ( $outData as $out_name => $out_value )
+			{
+				/**
+				 * Set output data.
+				 */
+				$this->Set( $out_name, $out_value );
+			}
 		}
 
 		Core::Log()->Write( __( 'Output library: Calling output engine Render() method.', 'RudWEb' ), 'debug' );

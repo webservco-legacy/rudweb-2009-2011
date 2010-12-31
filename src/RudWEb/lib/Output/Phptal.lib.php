@@ -128,7 +128,16 @@ class Output_Phptal extends Output implements Interface_Output
 
 			if ( FALSE !== $outDisplay )
 			{
-				return $this->_mEngineObject->echoExecute();
+				try
+				{
+					return $this->_mEngineObject->echoExecute();
+				}
+				catch ( PHPTAL_ConfigurationException $e )
+				{
+					throw new ErrorException( $e->GetMessage(), 0, $e->GetCode(), $e->getFile(), $e->getLine() );
+
+					return FALSE;
+				}
 			}
 			else
 			{

@@ -432,6 +432,8 @@ class Router extends Library
 
 		if ( empty( $routes ) )
 		{
+			$this->_mCustomRoutes = array();
+
 			return FALSE;
 		}
 
