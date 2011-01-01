@@ -39,7 +39,7 @@ if ( !defined( '_RUDWEB' ) )
 class App extends Library
 {
 	/**
-	 * Stores the final parsed request.
+	 * Stores the request array.
 	 *
 	 * @var array
 	 */
@@ -180,6 +180,11 @@ class App extends Library
 			 * @var object
 			 */
 			$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ) );
+
+			/**
+			 * Set request array to controller object.
+			 */
+			$ctrl_object->SetRequest( $this->_mRequest );
 
 			/**
 			 * @var string

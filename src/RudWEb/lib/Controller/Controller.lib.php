@@ -53,6 +53,27 @@ class Controller extends Library
 	protected $_mOutputObject;
 
 	/**
+	 * Stores the request array.
+	 *
+	 * @var array
+	 */
+	protected $_mRequest;
+
+	/**
+	 * Set the request array.
+	 *
+	 * @param array $request
+	 *
+	 * @return bool
+	 */
+	final public function SetRequest( $request )
+	{
+		$this->_mRequest = $request;
+
+		return TRUE;
+	}
+
+	/**
 	 * Method to access the module object.
 	 *
 	 * @return object
