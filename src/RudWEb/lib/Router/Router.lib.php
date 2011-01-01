@@ -660,12 +660,12 @@ class Router extends Library
 		for( $position = 0; $position < $params; $position += 2 )
 		{
 			/**
-			 * If the data count is not even, set the last value the same as the key.
+			 * If the data count is not even, set the last value to true.
 			 *
 			 * @var array
 			 */
 			$query[$raw_query[$position]] = ( $position == ( $params - 1 ) ) ?
-			$raw_query[$position] :
+			TRUE :
 			$raw_query[$position+1];
 		}
 
