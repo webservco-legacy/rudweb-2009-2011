@@ -138,7 +138,10 @@ class App extends Library
 				$module_name
 				);
 
-				trigger_error( $module_msg, 256 );
+				/**
+				 * Show 404 message
+				 */
+				return $this->_Stop( $module_msg );
 			}
 
 			/**
@@ -164,7 +167,10 @@ class App extends Library
 				$ctrl_name
 				);
 
-				trigger_error( $ctrl_msg, 256 );
+				/**
+				 * Show 404 message
+				 */
+				return $this->_Stop( $ctrl_msg );
 			}
 
 			/**
@@ -193,7 +199,10 @@ class App extends Library
 				$action_name
 				);
 
-				trigger_error( $action_msg, 256 );
+				/**
+				 * Show 404 message
+				 */
+				return $this->_Stop( $action_msg );
 			}
 
 			/**
@@ -208,7 +217,7 @@ class App extends Library
 
 			Core::Log()->Write( $dispatch_msg , 'debug' );
 
-			return $ctrl_object->$action_name();
+			return call_user_func( array( $ctrl_object, $action_name ) );
 		}
 		catch ( ErrorException $e )
 		{
@@ -302,6 +311,34 @@ class App extends Library
 		Core::Log()->Reset();
 
 		return TRUE;
+	}
+
+	/**
+	 * Stop application and display error message.
+	 *
+	 * @param string $errorMessage error message
+	 * @param string $errorController error controller
+	 * @param string $errorType error type
+	 */
+	protected function _Stop( $errorMessage, $errorController = 'Core', $errorType = '404' )
+	{
+		Core::Log()->Write( $errorMessage, 'warning' );
+
+		Core::Log()->Write( __( 'Application: Loading error message.', 'RudWEb' ), 'notice' );
+
+		$ctrl_name = 'Controller_Oups_' . $errorController;
+
+		/**
+		 * PHP < 5.3 compatibility.
+		 * $ctrl_object = $ctrl_name::GetInstance();
+		 *
+		 * @var object
+		 */
+		$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ) );
+
+		$action_name = 'Oups' . $errorType;
+
+		return call_user_func( array( $ctrl_object, $action_name ) );
 	}
 }
 ?>
