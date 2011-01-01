@@ -10,6 +10,7 @@
 			<level>debug</level>
 			<extension>.log</extension>
 			<dateformat>Y-m-d H:i:s:u</dateformat>
+			<reset>0</reset>
 		</log>
 	</dev>
 	<!-- Test Environment -->

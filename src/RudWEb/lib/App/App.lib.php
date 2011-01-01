@@ -305,10 +305,13 @@ class App extends Library
 		 */
 		Core::Log()->SetLevel( Core::Config()->Get( 'log.level' ) );
 
-		/**
-		 * Truncate log file.
-		 */
-		Core::Log()->Reset();
+		if ( 1 == Core::Config()->Get( 'log.reset' ) )
+		{
+			/**
+			 * Truncate log file.
+			 */
+			Core::Log()->Reset();
+		}
 
 		return TRUE;
 	}
