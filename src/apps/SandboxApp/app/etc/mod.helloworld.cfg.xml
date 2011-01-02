@@ -8,7 +8,7 @@
 		<!-- Helloworld module settings -->
 		<helloworld>
 			<setting>value</setting>
-		</helloworld>>
+		</helloworld>
 	</dev>
 	<!-- Test Environment -->
 	<test></test>

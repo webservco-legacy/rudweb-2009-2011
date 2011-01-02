@@ -67,7 +67,7 @@ class Output_Smarty extends Output implements Interface_Output
 		 */
 		$this->_mSkinPath = $path_app .
 		Core::Config()->Get( 'dir.app.opt' ) . '/' .
-		Core::Config()->Get( 'dir.app.skins' ) . '/';
+		Core::Config()->Get( 'dir.app.tpl' ) . '/';
 
 		/**
 		 * @var string

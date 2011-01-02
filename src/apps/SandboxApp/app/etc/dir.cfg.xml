@@ -11,11 +11,11 @@
 				<i18n>i18n</i18n>
 				<mod>mod</mod>
 				<opt>opt</opt>
-				<skins>skins</skins>
+				<tpl>tpl</tpl>
 				<var>var</var>
 				<tmp>tmp</tmp>
 				<usr>usr</usr>
-				<themes>themes</themes>
+				<skins>skins</skins>
 			</app>
 		</dir>
 	</dev>
