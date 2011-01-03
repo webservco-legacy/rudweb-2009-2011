@@ -416,7 +416,7 @@ class Config extends Library
 			 *
 			 * @var object
 			 */
-			$cfg_object = simplexml_load_file( $cfgPath );
+			$cfg_object = simplexml_load_file( $cfgPath, 'SimpleXMLElement', LIBXML_NOCDATA );
 
 			/**
 			 * Check if we have a valid XML object.
