@@ -103,8 +103,7 @@ class Security extends Library
 		 * If database connection is not available,
 		 * filtering is done as for $_GET.
 		 */
-		$_POST = array_map(array($this, '_FilterPost'), $_POST);
-
+		$_POST = array_map( array( $this, '_FilterPost' ), $_POST );
 
 		/**
 		 * @var string
@@ -217,10 +216,9 @@ class Security extends Library
 		$have_db = ('' != Core::Config()->Get( 'db.type' ) ) ? TRUE : FALSE;
 
 		/**
-		 * Check if the method is used to filter $_GET request,
-		 * or if a database conection is unavailable
+		 * Check if the method is used to filter $_GET request.
 		 */
-		if ( ( FALSE !== $filterRequest ) || ( TRUE !== $have_db ) )
+		if ( ( FALSE !== $filterRequest ) )
 		{
 			/**
 			 * Strip known bad characters.
@@ -284,9 +282,9 @@ class Security extends Library
 		$bad = array(
 	    "`", "'", '"',
 	    "\b", "\n", "\r", "\t",
-	    "?", "!", "~", "#", "%", "^", "&", "*",
+	    "?", "!", "@", "~", "#", "%", "^", "&", "*",
 	    "-", "_", "+", "=", "[", "]",
-	    ":", ";", ",", "|", "\\",
+	    ":", ";", ",", ".", "|", "\\",
 		"{", "}", "(", ")", "\$"
 		);
 
