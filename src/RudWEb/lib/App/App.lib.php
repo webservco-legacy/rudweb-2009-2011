@@ -53,6 +53,11 @@ class App extends Library
 		$this->_InitConfig();
 
 		/**
+		 * Set timezone.
+		 */
+		date_default_timezone_set( Core::Config()->Get( 'date.timezone' ) );
+
+		/**
 		 * Initialize internationalization library.
 		 */
 		Core::I18n()->Init();
