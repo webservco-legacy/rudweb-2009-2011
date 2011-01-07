@@ -248,7 +248,27 @@ class Router extends Library
 		/**
 		 * @var string
 		 */
-		$request_string = str_replace( '&', '/', $requestString );
+		$app_url = Core::Config()->Get( 'url.app' );
+
+		/**
+		 * @var string
+		 */
+		$server_path = parse_url( $app_url, PHP_URL_PATH );
+
+		/**
+		 * @var string
+		 */
+		$unwanted = ( '/' != $server_path ) ? $server_path : '';
+
+		/**
+		 * @var string
+		 */
+		$request_string = str_replace( $unwanted, '', $requestString );
+
+		/**
+		 * @var string
+		 */
+		$request_string = str_replace( '&', '/', $request_string );
 
 		/**
 		 * @var string
