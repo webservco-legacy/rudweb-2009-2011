@@ -1,0 +1,19 @@
+În primul rând mulțumesc încă odată celor care contribuie.
+
+Deși am găsit răspunsul la dilemă, oricine e în continuare binevenit să ruleze testele și să posteze rezultatele.
+
+Am rezolvat între timp problemele de compatibilitate, dacă mai e cineva curios să ruleze tesele, sistemul funcționează acum și pe versiuni de PHP < 5.3
+
+Strict pentru cazul meu, cea mai bună soluție este cea cu filegetcontents(), în rest nu am reușit să ajung la o concluzie generală, neavând la îndemână destule configurații diferite pentru a testa.
+
+Iată cam ce am reușit să observ:
+
+a) Timpi foarte mari pe sistemele Windows&#8482;. Am testat pe diferite configurații hw pe Xp, Vista și 7.
+Ar fi interesant dacă reușește cineva să facă niște teste pe un S.O. dedicat pentru server, în rest v-aș ruga să nu postați rezultate de pe desktop-uri, fiind irelevante.
+
+b) filemtime() și filectime() sunt mai rapide pe procesoare mai puternice. În schimb, pe procesoare mai slăbuțe, indiferent de RAM, filegetcontents() pare a fi mai rapid.
+
+c) [url=http://www.suphp.org/Home.html]suPHP[/url] rules! Diferențe incredibile cu și fără!
+
+Nu mai încarc thread-ul cu log-urile, cine e curios să vadă rezultatele, le poate [url=http://dev.rudisoft.net/test/logs.zip]descărca[/url] arhivate.
+
