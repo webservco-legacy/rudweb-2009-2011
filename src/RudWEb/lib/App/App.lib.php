@@ -45,6 +45,23 @@ class App extends Library
 	 */
 	private $_mRequest;
 
+	/**
+	 * Implement GetInstance() method.
+	 *
+	 * This is required for PHP < 5.3 compatibility ( no late static binding )
+	 *
+	 * @param string $className class name to instantiate
+	 *
+	 * @return object
+	 */
+	public static function GetInstance( $className = __CLASS__ )
+	{
+		/**
+		 * Call parent method with current class name as parameter.
+		 */
+		return parent::_GetInstance( $className );
+	}
+
 	public function Boot()
 	{
 		/**
@@ -151,11 +168,11 @@ class App extends Library
 
 			/**
 			 * PHP < 5.3 compatibility.
-			 * $module_object = $module_name::GetInstance();
+			 * $module_object = $module_name::GetInstance( $module_name );
 			 *
 			 * @var object
 			 */
-			$module_object = call_user_func( array( $module_name, 'GetInstance' ) );
+			$module_object = call_user_func( array( $module_name, 'GetInstance' ), $module_name );
 
 			/**
 			 * @var string
@@ -180,11 +197,11 @@ class App extends Library
 
 			/**
 			 * PHP < 5.3 compatibility.
-			 * $ctrl_object = $ctrl_name::GetInstance();
+			 * $ctrl_object = $ctrl_name::GetInstance( $ctrl_name );
 			 *
 			 * @var object
 			 */
-			$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ) );
+			$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ), $ctrl_name );
 
 			/**
 			 * Set request array to controller object.
@@ -343,11 +360,11 @@ class App extends Library
 
 		/**
 		 * PHP < 5.3 compatibility.
-		 * $ctrl_object = $ctrl_name::GetInstance();
+		 * $ctrl_object = $ctrl_name::GetInstance( $ctrl_name );
 		 *
 		 * @var object
 		 */
-		$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ) );
+		$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ), $ctrl_name );
 
 		$action_name = 'Oups' . $errorType;
 

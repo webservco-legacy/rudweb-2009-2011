@@ -46,23 +46,18 @@ abstract class Library
 	protected static $_msInstance = array();
 
 	/**
-	 * Get object instance
+	 * Get object instance.
+	 *
+	 * @param string $className name of the class to instantiate
 	 *
 	 * @return object
 	 */
-	public static function GetInstance()
+	protected static function _GetInstance( $className )
 	{
-		/**
-		 * Get name of the class to instantiate.
-		 *
-		 * @var string
-		 */
-		$class_name = get_called_class();
-
 		/**
 		 * Check if requested instance is the base library.
 		 */
-		if ( __CLASS__ == $class_name )
+		if ( __CLASS__ == $className )
 		{
 			/**
 			 * Stop.
@@ -73,12 +68,12 @@ abstract class Library
 		/**
 		 * Check that instance is not already set.
 		 */
-		if ( !isset( self::$_msInstance[$class_name] ) )
+		if ( !isset( self::$_msInstance[$className] ) )
 		{
 			/**
 			 * Set object instance.
 			 */
-			self::$_msInstance[$class_name] = new $class_name();
+			self::$_msInstance[$className] = new $className();
 
 			if ( function_exists( '__' ) )
 			{
@@ -87,7 +82,7 @@ abstract class Library
 				 */
 				$inst_msg = sprintf(
 				__( '%s library: Loading.', 'RudWEb' ),
-				$class_name
+				$className
 				);
 
 				Core::Log()->Write( $inst_msg, 'debug' );
@@ -96,31 +91,28 @@ abstract class Library
 			/**
 			 * Load object configuration.
 			 */
-			self::$_msInstance[$class_name]->LoadConfig();
+			self::$_msInstance[$className]->_LoadConfig( $className );
 		}
 
 		/**
 		 * Return object instance.
 		 */
-		return self::$_msInstance[$class_name];
+		return self::$_msInstance[$className];
 	}
 
 	/**
 	 * Load configuration file for current library.
 	 *
+	 * @param string $className name of the class to load configuration for
+	 *
 	 * @return bool
 	 */
-	public function LoadConfig()
+	protected function _LoadConfig( $className )
 	{
 		/**
 		 * @var string
 		 */
-		$class_name = get_called_class();
-
-		/**
-		 * @var string
-		 */
-		$config_name = 'lib.' . strtolower( str_replace( '_', '.', $class_name )) . '.cfg';
+		$config_name = 'lib.' . strtolower( str_replace( '_', '.', $className )) . '.cfg';
 
 		/**
 		 * @var string
@@ -141,7 +133,7 @@ abstract class Library
 				 */
 				$config_msg = sprintf(
 				__( '%s library: Skipping configuration file "%s" (not found).', 'RudWEb' ),
-				$class_name,
+				$className,
 				$config_name
 				);
 
@@ -159,7 +151,7 @@ abstract class Library
 			 */
 			$config_msg = sprintf(
 			__( '%s library: Loading configuration file "%s".', 'RudWEb' ),
-			$class_name,
+			$className,
 			$config_name
 			);
 

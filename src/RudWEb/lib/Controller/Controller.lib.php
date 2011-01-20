@@ -60,6 +60,23 @@ class Controller extends Library
 	protected $_mRequest;
 
 	/**
+	 * Implement GetInstance() method.
+	 *
+	 * This is required for PHP < 5.3 compatibility ( no late static binding )
+	 *
+	 * @param string $className class name to instantiate
+	 *
+	 * @return object
+	 */
+	public static function GetInstance( $className = __CLASS__ )
+	{
+		/**
+		 * Call parent method with current class name as parameter.
+		 */
+		return parent::_GetInstance( $className );
+	}
+
+	/**
 	 * Set the request array.
 	 *
 	 * @param array $request
@@ -85,7 +102,7 @@ class Controller extends Library
 			/**
 			 * @var string
 			 */
-			$ctrl_name = get_called_class();
+			$ctrl_name = get_class( $this );
 
 			/**
 			 * @var array
@@ -99,11 +116,11 @@ class Controller extends Library
 
 			/**
 			 * PHP < 5.3 compatibility.
-			 * $this->_mModuleObject = $module_name::GetInstance();
+			 * $this->_mModuleObject = $module_name::GetInstance( $module_name );
 			 *
 			 * @var object
 			 */
-			$this->_mModuleObject = call_user_func( array( $module_name, 'GetInstance' ) );
+			$this->_mModuleObject = call_user_func( array( $module_name, 'GetInstance' ), $module_name );
 
 			$module_msg = sprintf( __( 'Controller library: Module "%s" loading.', 'RudWEb' ) , $ctrl_parts[1] );
 

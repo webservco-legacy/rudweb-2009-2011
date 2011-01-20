@@ -38,31 +38,45 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Module extends Library
 {
+	/**
+	 * Implement GetInstance() method.
+	 *
+	 * This is required for PHP < 5.3 compatibility ( no late static binding )
+	 *
+	 * @param string $className class name to instantiate
+	 *
+	 * @return object
+	 */
+	public static function GetInstance( $className = __CLASS__ )
+	{
+		/**
+		 * Call parent method with current class name as parameter.
+		 */
+		return parent::_GetInstance( $className );
+	}
 
 	/**
 	 * Load configuration file for current library.
 	 *
+	 * Needs to override the Library method.
 	 * This also loads the i18n files.
+	 *
+	 * @param string $className name of the class to load configuration for
 	 *
 	 * @return bool
 	 */
-	public function LoadConfig()
+	protected  function _LoadConfig( $className )
 	{
-		/**
-		 * @var string
-		 */
-		$class_name = get_called_class();
-
 		/**
 		 * Handle module i18n
 		 */
-		Core::I18n()->Add( $class_name );
-		Core::I18n()->Load( $class_name );
+		Core::I18n()->Add( $className );
+		Core::I18n()->Load( $className );
 
 		/**
 		 * @var array
 		 */
-		$parts = explode( '_', $class_name );
+		$parts = explode( '_', $className );
 
 		/**
 		 * @var string
