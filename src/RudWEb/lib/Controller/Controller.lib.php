@@ -156,11 +156,11 @@ class Controller extends Library
 
 			/**
 			 * PHP < 5.3 compatibility.
-			 * $this->_mOutputObject = $engine_class::GetInstance();
+			 * $this->_mOutputObject = $engine_class::GetInstance( $engine_class );
 			 *
 			 * @var object
 			 */
-			$this->_mOutputObject = call_user_func( array( $engine_class, 'GetInstance' ) );
+			$this->_mOutputObject = call_user_func( array( $engine_class, 'GetInstance' ), $engine_class );
 
 			$out_msg = sprintf( __( 'Controller library: Output library "%s" loading.', 'RudWEb' ) , $engine );
 

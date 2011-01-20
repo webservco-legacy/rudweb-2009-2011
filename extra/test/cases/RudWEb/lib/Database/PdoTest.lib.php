@@ -37,7 +37,7 @@ class Database_PdoTest extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_mObject = Database_Pdo::GetInstance();
+		$this->_mObject = Database_Pdo::GetInstance( 'Database_Pdo' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Database_PdoTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Database_Pdo::GetInstance() );
+		$this->assertInternalType( 'object', Database_Pdo::GetInstance( 'Database_Pdo' ) );
 	}
 }
 ?>

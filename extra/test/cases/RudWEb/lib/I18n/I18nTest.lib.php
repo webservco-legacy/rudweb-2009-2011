@@ -45,7 +45,7 @@ class I18nTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', I18n::GetInstance() );
+		$this->assertInternalType( 'object', I18n::GetInstance() );
 	}
 
 	/**

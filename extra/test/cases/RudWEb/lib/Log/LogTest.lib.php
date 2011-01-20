@@ -45,7 +45,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Log::GetInstance() );
+		$this->assertInternalType( 'object', Log::GetInstance() );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetFileReturnsStringOnValidTypeAndValidPath()
 	{
-		$this->assertType( 'string', $this->_mObject->GetFile( 'test', _PU_ASSETS_PATH . 'RudWEb/var/log/' ) );
+		$this->assertInternalType( 'string', $this->_mObject->GetFile( 'test', _PU_ASSETS_PATH . 'RudWEb/var/log/' ) );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetFileReturnsStringOnValidTypeAndAlreadySetPath()
 	{
-		$this->assertType( 'string', $this->_mObject->GetFile( 'test' ) );
+		$this->assertInternalType( 'string', $this->_mObject->GetFile( 'test' ) );
 	}
 
 	/**

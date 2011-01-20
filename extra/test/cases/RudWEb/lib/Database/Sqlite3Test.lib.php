@@ -37,7 +37,7 @@ class Database_Sqlite3Test extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_mObject = Database_Sqlite3::GetInstance();
+		$this->_mObject = Database_Sqlite3::GetInstance( 'Database_Sqlite3' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Database_Sqlite3Test extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Database_Sqlite3::GetInstance() );
+		$this->assertInternalType( 'object', Database_Sqlite3::GetInstance( 'Database_Sqlite3' ) );
 	}
 }
 ?>

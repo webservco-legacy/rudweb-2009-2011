@@ -45,7 +45,7 @@ class ErrorTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Error::GetInstance() );
+		$this->assertInternalType( 'object', Error::GetInstance() );
 	}
 
 	/**

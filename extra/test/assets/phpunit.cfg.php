@@ -21,6 +21,11 @@
 define( '_RUDWEB', TRUE );
 
 /**
+ * Set timezone.
+ */
+date_default_timezone_set( 'Europe/Bucharest' );
+
+/**
  * Load all required files
  */
 require_once 'RudWEb/lib/Core/Core.lib.php';

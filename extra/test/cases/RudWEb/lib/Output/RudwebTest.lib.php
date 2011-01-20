@@ -37,7 +37,7 @@ class Output_RudwebTest extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_mObject = Output_Rudweb::GetInstance();
+		$this->_mObject = Output_Rudweb::GetInstance( 'Output_Rudweb' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Output_RudwebTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Output_Rudweb::GetInstance() );
+		$this->assertInternalType( 'object', Output_Rudweb::GetInstance( 'Output_Rudweb' ) );
 	}
 }
 ?>

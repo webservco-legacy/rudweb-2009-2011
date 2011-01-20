@@ -45,7 +45,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', String::GetInstance() );
+		$this->assertInternalType( 'object', String::GetInstance() );
 	}
 
 	/**

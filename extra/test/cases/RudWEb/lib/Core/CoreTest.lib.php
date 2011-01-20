@@ -30,7 +30,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function ConfigReturnsObject()
 	{
-		$this->assertType( 'object', Core::Config() );
+		$this->assertInternalType( 'object', Core::Config() );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function ErrorReturnsObject()
 	{
-		$this->assertType( 'object', Core::Error() );
+		$this->assertInternalType( 'object', Core::Error() );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function I18nReturnsObject()
 	{
-		$this->assertType( 'object', Core::I18n() );
+		$this->assertInternalType( 'object', Core::I18n() );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function LogReturnsObject()
 	{
-		$this->assertType( 'object', Core::Log() );
+		$this->assertInternalType( 'object', Core::Log() );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function AppReturnsObject()
 	{
-		$this->assertType( 'object', Core::App() );
+		$this->assertInternalType( 'object', Core::App() );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function DbReturnsObjectForMysql()
 	{
-		$this->assertType( 'object', Core::Database() );
+		$this->assertInternalType( 'object', Core::Database() );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function StringReturnsObject()
 	{
-		$this->assertType( 'object', Core::String() );
+		$this->assertInternalType( 'object', Core::String() );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function SecurityReturnsObject()
 	{
-		$this->assertType( 'object', Core::Security() );
+		$this->assertInternalType( 'object', Core::Security() );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function RouterReturnsObject()
 	{
-		$this->assertType( 'object', Core::Router() );
+		$this->assertInternalType( 'object', Core::Router() );
 	}
 }
 ?>

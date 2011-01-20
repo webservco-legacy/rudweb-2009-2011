@@ -45,7 +45,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Module::GetInstance() );
+		$this->assertInternalType( 'object', Module::GetInstance() );
 	}
 }
 ?>

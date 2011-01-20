@@ -45,7 +45,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Router::GetInstance() );
+		$this->assertInternalType( 'object', Router::GetInstance() );
 	}
 
 	/**

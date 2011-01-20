@@ -45,7 +45,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Output::GetInstance() );
+		$this->assertInternalType( 'object', Output::GetInstance() );
 	}
 }
 ?>

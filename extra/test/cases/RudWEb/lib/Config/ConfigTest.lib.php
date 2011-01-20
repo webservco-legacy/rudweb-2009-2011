@@ -50,7 +50,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetInstanceReturnsObject()
 	{
-		$this->assertType( 'object', Config::GetInstance() );
+		$this->assertInternalType( 'object', Config::GetInstance() );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetEnvReturnsString()
 	{
-		$this->assertType( 'string', $this->_mObject->GetEnv() );
+		$this->assertInternalType( 'string', $this->_mObject->GetEnv() );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 	 */
 	public function GetReturnsFullArrayConfigForCurrentEnvOnNoQuery()
 	{
-		$this->assertType( 'array', $this->_mObject->Get() );
+		$this->assertInternalType( 'array', $this->_mObject->Get() );
 	}
 
 	/**
