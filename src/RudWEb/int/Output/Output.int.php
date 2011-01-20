@@ -55,6 +55,6 @@ interface Interface_Output
 	 *
 	 * @return mixed
 	 */
-	public function Render( $outTemplate, $outDisplay );
+	public function Render( $outTemplate, $outDisplay = FALSE );
 }
 ?>
