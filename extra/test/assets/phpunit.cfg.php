@@ -61,6 +61,8 @@ require_once 'RudWEb/lib/Router/Router.lib.php';
 
 require_once 'RudWEb/lib/Module/Module.lib.php';
 
+require_once 'RudWEb/lib/Object/Object.lib.php';
+
 require_once 'RudWEb/lib/Controller/Controller.lib.php';
 
 require_once 'RudWEb/int/Output/Output.int.php';

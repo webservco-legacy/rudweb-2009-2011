@@ -63,14 +63,66 @@ interface Interface_Database
 	 */
 	public function EscapeString( $string );
 
+	/**
+	 * Get DBMS Version number.
+	 *
+	 * @return string
+	 */
+	public function GetVersion();
+
 	//public function Now();
 
-	//public function Create();
+	/**
+	 * Create record in the database.
+	 *
+	 * @param mixed $data
+	 * @param string $table
+	 *
+	 * @return mixed
+	 */
+	public function Create( $data, $table );
 
-	//public function Retrieve();
+	/**
+	 * Get data from database.
+	 *
+	 * @param mixed $data
+	 * @param string $table
+	 * @param array $options
+	 *
+	 * @return mixed
+	 */
+	public function Retrieve( $data, $table, $options = array() );
 
-	//public function Update();
+	/**
+	 * Update data.
+	 *
+	 * @param mixed $data
+	 * @param string $table
+	 * @param array $options
+	 *
+	 * @return mixed
+	 */
+	public function Update( $data, $table, $options = array() );
 
-	//public function Delete();
+	/**
+	 * Delete data.
+	 *
+	 * @param string $table
+	 * @param array $options
+	 *
+	 * @return mixed
+	 */
+	public function Delete( $table, $options = array() );
+
+	/**
+	 * Get only one result from the database.
+	 *
+	 * @param mixed $data
+	 * @param string $table
+	 * @param array $options
+	 *
+	 * @return mixed
+	 */
+	public function RetrieveOne( $data, $table, $options = array() );
 }
 ?>

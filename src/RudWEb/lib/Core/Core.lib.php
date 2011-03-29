@@ -415,9 +415,29 @@ class Core
 
 					break;
 
+				case 'Object' :
+					/**
+					 * @var array
+					 */
+					$base = array (	Core::Config()->Get( 'path.app' ) );
+					/**
+					 * @var string
+					 */
+					$path = Core::Config()->Get( 'dir.app.obj' ) . '/';
+					/**
+					 * @var string
+					 */
+					$dir = $name . '/';
+					/**
+					 * @var string
+					 */
+					$type = 'obj';
+
+					break;
+
 				case 'Controller' :
 					/**
-					 * We must have a thrird part in the raw name.
+					 * We must have a third part in the raw name.
 					 */
 					if ( !array_key_exists( 1, $parts ) )
 					{
@@ -528,6 +548,24 @@ class Core
 		 * Stop.
 		 */
 		return FALSE;
+	}
+
+	/**
+	 * Wrapper for loading and instantiating a library type object.
+	 *
+	 * @param string $libraryName
+	 *
+	 * @return mixed
+	 */
+	final public static function Get( $libraryName )
+	{
+		self::Load( $libraryName );
+
+		$parts = explode( '_', $libraryName );
+
+		$libary_name = end( $parts );
+
+		return call_user_func( array( $libary_name, 'GetInstance' ), $libary_name );
 	}
 }
 ?>
