@@ -73,6 +73,15 @@ interface Interface_Database
 	//public function Now();
 
 	/**
+	 * Generate an universally unique identifier.
+	 *
+	 * The Id is return as a string without hyphens.
+	 *
+	 * @return string
+	 */
+	public function GenerateId();
+
+	/**
 	 * Create record in the database.
 	 *
 	 * @param mixed $data

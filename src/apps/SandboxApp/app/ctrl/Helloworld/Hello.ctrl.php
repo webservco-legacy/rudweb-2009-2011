@@ -47,9 +47,6 @@ class Controller_Helloworld_Hello extends Controller
 		 */
 		$data['title'] = $this->Module()->Hello() . ' ' . __( 'World!' );
 
-		/**
-		 * XXX
-		 */
 		$this->Output()->Out( NULL, $data, NULL, NULL, TRUE );
 	}
 

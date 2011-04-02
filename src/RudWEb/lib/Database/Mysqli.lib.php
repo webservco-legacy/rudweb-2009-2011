@@ -163,6 +163,21 @@ class Database_Mysqli extends Database implements Interface_Database
 
 	/**
 	 * (non-PHPdoc)
+	 * @see Interface_Database::GenerateId()
+	 */
+	public function GenerateId()
+	{
+		$result = $this->_mDbLink->query( "SELECT REPLACE( UUID(), '-', '' )" );
+
+		$row = $result->fetch_row();
+
+		$result->close();
+
+		return $row[0];
+	}
+
+	/**
+	 * (non-PHPdoc)
 	 * @see Interface_Database::Create()
 	 */
 	public function Create( $data, $table )
@@ -223,14 +238,18 @@ class Database_Mysqli extends Database implements Interface_Database
 		 * @var string
 		 */
 		$query = "INSERT INTO {$table} ({$qf_fields}) VALUES ({$qf_values})";
-
+		
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		$this->_mDbStmt->execute();
 
 		$this->_mDbStmt->close();
 
-		return $this->_mDbLink->insert_id;
+		//return $this->_mDbLink->insert_id;
+		
+		//XXX Handle errors
+
+		return TRUE;
 	}
 
 	/**
@@ -399,6 +418,9 @@ class Database_Mysqli extends Database implements Interface_Database
 					 */
 					$value = "UNHEX('$value')";
 				}
+				else {
+					$value = "'{$value}'";
+				}
 
 				/**
 				 * @var string
@@ -471,7 +493,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		$this->_mDbStmt->execute();
 
 		$this->_mDbStmt->close();
-
+		
 		return $this->_mDbLink->affected_rows;
 	}
 
@@ -549,6 +571,12 @@ class Database_Mysqli extends Database implements Interface_Database
 			{
 				$comp_operator = ( array_key_exists( 2, $options['conditions'] ) && array_key_exists( $options['conditions'][2], $this->_mCompOperators ) ) ?
 				$this->_mCompOperators[$options['conditions'][2]] : $this->_mCompOperators['eq'];
+
+				/**
+				 * @var string
+				 */
+				$value = $this->_mDbLink->real_escape_string( $options['conditions'][1] );
+
 				/**
 				 * Check binary field
 				 */
@@ -561,14 +589,14 @@ class Database_Mysqli extends Database implements Interface_Database
 					/**
 					 * @var array
 					 */
-					$options['conditions'][1] = "UNHEX('{$this->_mDbLink->real_escape_string( $options['conditions'][1] )}')";
+					$options['conditions'][1] = "UNHEX('{$value}')";
 				}
 				else
 				{
 					/**
 					 * @var array
 					 */
-					$options['conditions'][1] = "'{$this->_mDbLink->real_escape_string( $options['conditions'][1] )}'";
+					$options['conditions'][1] = "'{$value}'";
 				}
 				/**
 				 * @var string
@@ -581,6 +609,12 @@ class Database_Mysqli extends Database implements Interface_Database
 				{
 					$comp_operator = ( array_key_exists(2, $condition) && array_key_exists($condition[2], $this->_mCompOperators ) ) ?
 					$this->_mCompOperators[$condition[2]] : $this->_mCompOperators['eq'];
+
+					/**
+					 * @var string
+					 */
+					$value = $this->_mDbLink->real_escape_string( $condition[1] );
+
 					/**
 					 * Check binary field
 					 */
@@ -590,17 +624,20 @@ class Database_Mysqli extends Database implements Interface_Database
 						 * @var array
 						 */
 						$condition[0] = $this->_PrepareBinaryField( $condition[0] );
+
 						/**
 						 * @var array
 						 */
-						$condition[1] = "UNHEX('{$this->_mDbLink->real_escape_string( $condition[1] )}')";
+						$condition[1] = "UNHEX('{$value}')";
 					}
 					else
 					{
 						/**
 						 * @var array
 						 */
-						$condition[1] = "'{$this->_mDbLink->real_escape_string( $condition[1] )}'";
+						$condition[1] = $this->_mDbLink->real_escape_string( $condition[1] );
+
+						$condition[1] = "'{$value}'";
 					}
 					/**
 					 * @var array
