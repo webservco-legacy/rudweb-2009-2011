@@ -241,13 +241,16 @@ class Database_Mysqli extends Database implements Interface_Database
 
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
+		if ( FALSE === $this->_mDbStmt )
+		{
+			return FALSE;
+		}
+
 		$this->_mDbStmt->execute();
 
 		$this->_mDbStmt->close();
 
 		//return $this->_mDbLink->insert_id;
-
-		//XXX Handle errors
 
 		return TRUE;
 	}
