@@ -74,7 +74,7 @@ class Object extends Library
 	 * Child object can override individual options,
 	 * except for list.
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $_mTable = array( 'list' => NULL, 'store' => NULL, 'i18n' => NULL );
 
