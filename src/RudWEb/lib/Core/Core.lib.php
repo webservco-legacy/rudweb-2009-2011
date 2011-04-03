@@ -419,11 +419,14 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.app' ) );
+					$base = array (
+					Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.obj' ),
+					Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.obj' ),
+					);
 					/**
 					 * @var string
 					 */
-					$path = Core::Config()->Get( 'dir.app.obj' ) . '/';
+					$path = '/';
 					/**
 					 * @var string
 					 */
@@ -537,15 +540,10 @@ class Core
 				 */
 				return TRUE;
 			}
-
-			/**
-			 * Can't find class file.
-			 */
-			return FALSE;
 		}
 
 		/**
-		 * Stop.
+		 * Class file not found.
 		 */
 		return FALSE;
 	}
@@ -564,6 +562,16 @@ class Core
 		$parts = explode( '_', $libraryName );
 
 		$libary_name = end( $parts );
+
+		if( !class_exists( $libary_name ) )
+		{
+			/**
+			 * @var string
+			 */
+			$err_msg = sprintf( __( 'Core Library: Class "%s" not found.', 'RudWEb' ), $libary_name );
+
+			trigger_error( $err_msg, 256 );
+		}
 
 		return call_user_func( array( $libary_name, 'GetInstance' ), $libary_name );
 	}
