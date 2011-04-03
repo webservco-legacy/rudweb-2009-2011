@@ -317,7 +317,7 @@ class Core
 			/**
 			 * @var object
 			 */
-			self::$_msAclObject = Router::GetInstance();
+			self::$_msAclObject = Acl::GetInstance();
 		}
 
 		return self::$_msAclObject;
