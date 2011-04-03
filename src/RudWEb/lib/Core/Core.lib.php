@@ -102,6 +102,13 @@ class Core
 	protected static $_msRouterObject;
 
 	/**
+	 * Stores the Acl object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msAclObject;
+
+	/**
 	 * Stores the User object.
 	 *
 	 * @var unknown_type
@@ -296,6 +303,24 @@ class Core
 		}
 
 		return self::$_msRouterObject;
+	}
+
+	/**
+	 * Method to access the Acl object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Acl()
+	{
+		if ( NULL == self::$_msAclObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msAclObject = Router::GetInstance();
+		}
+
+		return self::$_msAclObject;
 	}
 
 	/**

@@ -106,5 +106,21 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInternalType( 'object', Core::Router() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function AclReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Acl() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function UserReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::User() );
+	}
 }
 ?>

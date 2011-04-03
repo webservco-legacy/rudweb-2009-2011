@@ -72,6 +72,8 @@ require_once 'RudWEb/lib/Output/Rudweb.lib.php';
 require_once 'RudWEb/lib/Output/Smarty.lib.php';
 require_once 'RudWEb/lib/Output/Phptal.lib.php';
 
+require_once 'RudWEb/lib/Acl/Acl.lib.php';
+
 require_once 'RudWEb/obj/User/User.obj.php';
 
 /**
