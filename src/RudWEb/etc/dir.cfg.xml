@@ -7,8 +7,9 @@
 	<dev>
 		<dir>
 			<core>
-				<int>int</int>
 				<i18n>i18n</i18n>
+				<int>int</int>
+				<obj>obj</obj>
 			</core>
 		</dir>
 	</dev>
@@ -16,8 +17,9 @@
 	<test>
 		<dir>
 			<core>
-				<int>int</int>
 				<i18n>i18n</i18n>
+				<int>int</int>
+				<obj>obj</obj>
 			</core>
 		</dir>
 	</test>
@@ -25,8 +27,9 @@
 	<prod>
 		<dir>
 			<core>
-				<int>int</int>
 				<i18n>i18n</i18n>
+				<int>int</int>
+				<obj>obj</obj>
 			</core>
 		</dir>
 	</prod>
