@@ -114,10 +114,13 @@ class Object extends Library
 	 */
 	protected  function _LoadConfig( $className )
 	{
-		/**
-		 * @var array
-		 */
-		$this->_mTable['list'] = Core::Config()->Get( 'app.prefix' ) . 'object_' . strtolower( $className );
+		if ( !isset( $this->_mTable['list'] ) )
+		{
+			/**
+			 * @var array
+			 */
+			$this->_mTable['list'] = Core::Config()->Get( 'app.prefix' ) . 'object_' . strtolower( $className );
+		}
 
 		if ( !isset( $this->_mTable['i18n'] ) )
 		{
@@ -186,9 +189,15 @@ class Object extends Library
 		$options['conditions'][] = array ( $this->_mKey, $id );
 
 		/**
-		 * @var array
+		 * Check if we have locale properties.
 		 */
-		$options['conditions'][] = array ( 'i18n_locale', $this->mI18nLocale );
+		if ( !empty( $this->mProp['i18n'] ) )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array ( 'i18n_locale', $this->mI18nLocale );
+		}
 
 		/**
 		 * Get data.

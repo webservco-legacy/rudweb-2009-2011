@@ -238,7 +238,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 * @var string
 		 */
 		$query = "INSERT INTO {$table} ({$qf_fields}) VALUES ({$qf_values})";
-		
+
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		$this->_mDbStmt->execute();
@@ -246,7 +246,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		$this->_mDbStmt->close();
 
 		//return $this->_mDbLink->insert_id;
-		
+
 		//XXX Handle errors
 
 		return TRUE;
@@ -320,6 +320,11 @@ class Database_Mysqli extends Database implements Interface_Database
 		$query = "SELECT {$columns} FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
 
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
+
+		if ( FALSE === $this->_mDbStmt )
+		{
+			return FALSE;
+		}
 
 		$this->_mDbStmt->execute();
 
@@ -493,7 +498,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		$this->_mDbStmt->execute();
 
 		$this->_mDbStmt->close();
-		
+
 		return $this->_mDbLink->affected_rows;
 	}
 

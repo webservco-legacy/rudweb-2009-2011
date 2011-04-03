@@ -102,6 +102,13 @@ class Core
 	protected static $_msRouterObject;
 
 	/**
+	 * Stores the User object.
+	 *
+	 * @var unknown_type
+	 */
+	protected static $_msUserObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -289,6 +296,24 @@ class Core
 		}
 
 		return self::$_msRouterObject;
+	}
+
+	/**
+	 * Method to access the User object from anywhere.
+	 *
+	 * @return object
+	 */
+	final public static function User()
+	{
+		if ( NULL == self::$_msUserObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msUserObject = self::Get( 'Object_User' );
+		}
+
+		return self::$_msUserObject;
 	}
 
 	/**
