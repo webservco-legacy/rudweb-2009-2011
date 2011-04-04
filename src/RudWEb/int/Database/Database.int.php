@@ -82,6 +82,15 @@ interface Interface_Database
 	public function GenerateId();
 
 	/**
+	 * Get the priamry key of a table.
+	 *
+	 * @param string $table
+	 *
+	 * @return mixed
+	 */
+	public function GetPrimaryKey( $table );
+
+	/**
 	 * Create record in the database.
 	 *
 	 * @param mixed $data

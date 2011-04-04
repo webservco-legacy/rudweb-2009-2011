@@ -178,6 +178,34 @@ class Database_Mysqli extends Database implements Interface_Database
 
 	/**
 	 * (non-PHPdoc)
+	 * @see Interface_Database::GetPrimaryKey()
+	 */
+	public function GetPrimaryKey( $table )
+	{
+		/**
+		 * @var string
+		 */
+		$query  = "SELECT COLUMN_NAME AS primary_key FROM INFORMATION_SCHEMA.STATISTICS
+					WHERE INDEX_NAME='PRIMARY'
+					AND INDEX_SCHEMA='{$this->_mDbDatabase}'
+					AND TABLE_NAME='{$table}'";
+
+		$result = $this->_mDbLink->query( $query );
+
+		if ( FALSE === $result )
+		{
+			return FALSE;
+		}
+
+		$row = $result->fetch_row();
+
+		$result->close();
+
+		return $row[0];
+	}
+
+	/**
+	 * (non-PHPdoc)
 	 * @see Interface_Database::Create()
 	 */
 	public function Create( $data, $table )
@@ -322,6 +350,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$query = "SELECT {$columns} FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
 
+		//XXX
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		if ( FALSE === $this->_mDbStmt )

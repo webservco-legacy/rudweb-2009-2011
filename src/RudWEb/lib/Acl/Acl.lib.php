@@ -130,6 +130,56 @@ class Acl extends Library
 		}
 
 		return FALSE;
+
+		//XXX
+	}
+
+	public function GetResourceOwner( $aclResource, $aclAsset )
+	{
+		/**
+		 * @var array
+		 */
+		$asset = explode( '/', $aclResource );
+
+		/**
+		 * @var array
+		 */
+		$asset = array_diff( $asset, array( '' ) );
+
+		/**
+		 * @var string
+		 */
+		$table = $asset[0];
+
+		/**
+		 * @var string
+		 */
+		$primary_key = Core::Database()->GetPrimaryKey( $table );
+
+		if ( 1 == Core::Config()->Get( 'db.binkey' ) )
+		{
+			/**
+			 * @var string
+			 */
+			$primary_key = 'bin.' . $primary_key;
+		}
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( $primary_key, $aclAsset );
+
+		/**
+		 * @var array
+		 */
+		$options['limit'] = 1;
+
+
+		$data = Core::Database()->RetrieveOne( 'bin.owner_id', $table, $options );
+
+		return $data['bin.owner_id'];
+
+		//XXX
 	}
 }
 ?>
