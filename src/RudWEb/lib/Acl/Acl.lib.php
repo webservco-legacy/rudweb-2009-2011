@@ -46,6 +46,7 @@ class Acl extends Library
 		'groups' => 'acl_groups',
 		'users' => 'acl_users',
 		'relations' => 'acl_relations',
+		'relations_list' => 'acl_object_relation',
 	);
 
 	/**
@@ -65,16 +66,51 @@ class Acl extends Library
 		return parent::_GetInstance( $className );
 	}
 
+	public function GetUserGroups( $userId )
+	{
+		/**
+		 * @var array
+		 */
+		$values = array( 'bin.group_id', 'group_name' , 'group_level' );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'bin.user_id', $userId );
+
+		/**
+		 * @var mixed
+		 */
+		$data = Core::Database()->Retrieve( $values, $this->_mTable['relations_list'], $options );
+
+		return $data;
+
+		//XXX
+
+	}
+
 	public function Check( $aclRequest, $aclResource, $aclType = 'user', $aclAsset = NULL )
 	{
+		/**
+		 * @var array
+		 */
 		$options['conditions'][] = array ( 'rule_type', $aclType );
 
+		/**
+		 * @var array
+		 */
 		$options['conditions'][] = array ( 'bin.rule_value', $aclRequest );
 
+		/**
+		 * @var array
+		 */
 		$options['conditions'][] = array ( 'rule_resource', $aclResource );
 
 		if ( !empty( $aclAsset ) )
 		{
+			/**
+			 * @var array
+			 */
 			$options['conditions'][] = array ( 'bin.rule_asset', $aclAsset );
 		}
 
@@ -83,14 +119,17 @@ class Acl extends Library
 		 */
 		$options['limit'] = 1;
 
+		/**
+		 * @var mixed
+		 */
 		$data = Core::Database()->RetrieveOne( 'rule_action', $this->_mTable['rules'], $options );
 
-		//$action = $data['rule_action'];
+		if ( !empty( $data ) )
+		{
+			return $data['rule_action'];
+		}
 
-		var_dump( $data );
-
-		//XXX
-
+		return FALSE;
 	}
 }
 ?>
