@@ -235,22 +235,22 @@ class Object extends Library
 		if ( !empty( $this->_mTable['store'] ) )
 		{
 			/**
-			 * Get main data.
+			 * Get store data.
 			 */
-			$this->GetMainData( $this->_mId );
+			$this->GetStoreData( $this->_mId );
 		}
 
 		return TRUE;
 	}
 
 	/**
-	 * Get object main data.
+	 * Get object store data.
 	 *
 	 * @param misc $id object id
 	 *
 	 * @return mixed
 	 */
-	public function GetMainData( $id )
+	public function GetStoreData( $id )
 	{
 		/**
 		 * Set table to use.
@@ -366,7 +366,7 @@ class Object extends Library
 	 * Add new object data to database.
 	 *
 	 * This is a wrapper for the functions
-	 * to add main data, and locale data.
+	 * to add store data, and locale data.
 	 *
 	 * You have to make sure you have data
 	 * in the corresponding prop array (list or store).
@@ -376,9 +376,9 @@ class Object extends Library
 	public function Add()
 	{
 		/**
-		 * Add main data.
+		 * Add store data.
 		 */
-		$this->AddMainData();
+		$this->AddStoreData();
 
 		/**
 		 * Add locale data.
@@ -396,14 +396,14 @@ class Object extends Library
 	/**
 	 * Insert new object data in database.
 	 *
-	 * This handles only the main props, not also the locale props.
+	 * This handles only the store props, not also the locale props.
 	 *
 	 * You have to make sure you have data
 	 * in the corresponding prop array (list or store).
 	 *
 	 * @return boolean
 	 */
-	public function AddMainData()
+	public function AddStoreData()
 	{
 		/**
 		 * Set table to use.
@@ -524,7 +524,7 @@ class Object extends Library
 	 * Save object details to database.
 	 *
 	 * This is a wrapper for the functions
-	 * to save main data and locale data.
+	 * to save store data and locale data.
 	 *
 	 * Use this to store the modified object data.
 	 *
@@ -533,9 +533,9 @@ class Object extends Library
 	public function Save()
 	{
 		/**
-		 * Add main data.
+		 * Add store data.
 		 */
-		$this->SaveMainData();
+		$this->SaveStoreData();
 
 		/**
 		 * Add locale data.
@@ -551,13 +551,13 @@ class Object extends Library
 	}
 
 	/**
-	 * Save main object data after modifications.
+	 * Save store object data after modifications.
 	 *
-	 * This handles only the main props, not also the locale props.
+	 * This handles only the store props, not also the locale props.
 	 *
 	 * @return boolean
 	 */
-	public function SaveMainData()
+	public function SaveStoreData()
 	{
 		/**
 		 * Check if we have a valid object.
@@ -672,16 +672,16 @@ class Object extends Library
 	 * Remove object details from database.
 	 *
 	 * This is a wrapper for the functions
-	 * to delete main data and locale data.
+	 * to delete store data and locale data.
 	 *
 	 * @return boolean
 	 */
 	public function Remove()
 	{
 		/**
-		 * Add main data.
+		 * Add store data.
 		 */
-		$this->RemoveMainData();
+		$this->RemoveStoreData();
 
 		/**
 		 * Add locale data.
@@ -697,11 +697,11 @@ class Object extends Library
 	}
 
 	/**
-	 * Remove object main details from database.
+	 * Remove object store details from database.
 	 *
 	 * @return boolean
 	 */
-	public function RemoveMainData()
+	public function RemoveStoreData()
 	{
 
 		/**
@@ -727,7 +727,7 @@ class Object extends Library
 	}
 
 	/**
-	 * Remove object main details from database.
+	 * Remove object locale details from database.
 	 *
 	 * @return boolean
 	 */

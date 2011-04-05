@@ -66,30 +66,150 @@ class Acl extends Library
 		return parent::_GetInstance( $className );
 	}
 
-	public function GetUserGroups( $userId )
+	public function Check( $userId, $aclResource, $aclAsset = NULL )
 	{
 		/**
-		 * @var array
+		 * Initialize result.
+		 *
+		 * We sart with the global deny option.
+		 *
+		 * @var boolean
 		 */
-		$values = array( 'bin.group_id', 'group_name' , 'group_level' );
+		$check = FALSE;
 
 		/**
-		 * @var array
+		 * Check if we have an asset.
 		 */
-		$options['conditions'][] = array ( 'bin.user_id', $userId );
+		if ( !empty( $aclAsset ) )
+		{
+			/**
+			 * Check if we have a user rule for the asset.
+			 */
+			$check_user_asset = $this->CheckAcl( $userId, $aclResource, 'user', $aclAsset );
+
+			if ( FALSE !== $check_user_asset )
+			{
+				/**
+				 * We have a result
+				 */
+				return ( 'ALLOW' == $check_user_asset ) ? TRUE : FALSE;
+			}
+		}
 
 		/**
-		 * @var mixed
+		 * Check if we have a user rule for the resource.
 		 */
-		$data = Core::Database()->Retrieve( $values, $this->_mTable['relations_list'], $options );
+		$check_user_resource = $this->CheckAcl( $userId, $aclResource );
 
-		return $data;
+		if ( FALSE !== $check_user_resource )
+		{
+			/**
+			 * We have a result
+			 */
+			return ( 'ALLOW' == $check_user_resource ) ? TRUE : FALSE;
+		}
 
-		//XXX
+		/**
+		 * If we got this far, we have no specific rule for the user.
+		 * Sowe get the user's relations and search there.
+		 *
+		 * @var array
+		 */
+		$user_relations = $this->GetAclRelations( $userId );
 
+		/**
+		 * Make sure we have relations.
+		 */
+		if ( !empty( $user_relations ) )
+		{
+			/**
+			 * Iterate user realtions in search for a matching rule.
+			 */
+			foreach ( $user_relations as $dump => $relation_data )
+			{
+				/**
+				 * Check if we have an asset.
+				 */
+				if ( !empty( $aclAsset ) )
+				{
+					/**
+					 * Check if we have a group rule for the asset.
+					 */
+					$check_group_asset = $this->CheckAcl( $relation_data['bin.group_id'], $aclResource, 'group', $aclAsset );
+
+					if ( FALSE !== $check_group_asset )
+					{
+						/**
+						 * We have a result
+						 */
+						return ( 'ALLOW' == $check_group_asset ) ? TRUE : FALSE;
+					}
+				}
+
+				/**
+				 * Check if we have a group rule for the resource.
+				 */
+				$check_group_resource = $this->CheckAcl( $relation_data['bin.group_id'], $aclResource, 'group' );
+
+				if ( FALSE !== $check_group_resource )
+				{
+					/**
+					 * We have a result only if it's positive.
+					 *
+					 * If we have a deny rule, we will go further.
+					 */
+					if ( 'ALLOW' == $check_group_resource )
+					{
+						return TRUE;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Check if we have an asset.
+		 */
+		if ( !empty( $aclAsset ) )
+		{
+			/**
+			 * If we got this far with no result,
+			 * the only chance left is if the user is the owner of the resource.
+			 *
+			 * @var string
+			 */
+			$resource_owner = $this->GetResourceOwner( $aclResource, $aclAsset );
+
+			if ( $userId == $resource_owner )
+			{
+				/**
+				 * We have a result
+				 */
+				return TRUE;
+			}
+		}
+
+		/**
+		 * Return the default result.
+		 */
+		return $check;
 	}
 
-	public function Check( $aclRequest, $aclResource, $aclType = 'user', $aclAsset = NULL )
+	/**
+	 * Checl ACL.
+	 *
+	 * This is the main method.
+	 *
+	 * It performs a single check and returns
+	 * 'DENY', 'ALLOW', or FALSE
+	 *
+	 * @param string $aclRequest
+	 * @param string $aclResource
+	 * @param string $aclType
+	 * @param string $aclAsset
+	 *
+	 * @return mixed
+	 */
+	public function CheckAcl( $aclRequest, $aclResource, $aclType = 'user', $aclAsset = NULL )
 	{
 		/**
 		 * @var array
@@ -130,10 +250,43 @@ class Acl extends Library
 		}
 
 		return FALSE;
-
-		//XXX
 	}
 
+	public function GetAclRelations( $userId = NULL )
+	{
+		/**
+		 * @var array
+		 */
+		$values = array( 'bin.group_id', 'group_name' , 'group_level' );
+
+		/**
+		 * @var array
+		 */
+		$options = array();
+
+		if ( !empty( $userId ) )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array ( 'bin.user_id', $userId );
+		}
+
+		/**
+		 * @var mixed
+		 */
+		$data = Core::Database()->Retrieve( $values, $this->_mTable['relations_list'], $options );
+
+		return $data;
+
+	}
+
+	/**
+	 * Get resource owner
+	 *
+	 * @param string $aclResource
+	 * @param string $aclAsset
+	 */
 	public function GetResourceOwner( $aclResource, $aclAsset )
 	{
 		/**
@@ -149,7 +302,7 @@ class Acl extends Library
 		/**
 		 * @var string
 		 */
-		$table = $asset[0];
+		$table = strtolower( $asset[0] );
 
 		/**
 		 * @var string
@@ -177,9 +330,12 @@ class Acl extends Library
 
 		$data = Core::Database()->RetrieveOne( 'bin.owner_id', $table, $options );
 
-		return $data['bin.owner_id'];
+		if ( empty( $data ) )
+		{
+			return FALSE;
+		}
 
-		//XXX
+		return $data['bin.owner_id'];
 	}
 }
 ?>
