@@ -112,9 +112,6 @@ class rw_Extension_Error extends rw_Extension implements rw_iExtension
 	 * Handle error logging and displaying.
 	 * Try to load the output library, error module, and display nice error message.
 	 *
-	 * @todo log to file
-	 * @todo send email
-	 *
 	 * @param mixed $e error object
 	 * @return mixed result
 	 */
