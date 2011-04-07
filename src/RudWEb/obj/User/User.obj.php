@@ -47,6 +47,7 @@ class User extends Object
 		'list' => array(
 			'bin.user_id' => NULL,
 			'user_login' => NULL,
+			'user_status' => NULL,
 	),
 	);
 
@@ -58,5 +59,66 @@ class User extends Object
 	 * @var string
 	 */
 	protected $_mTable = array( 'list' => 'acl_users' );
+
+	public function Login( $userLogin, $userPass, $userRemember = FALSE )
+	{
+		//XXX WORK
+	}
+
+	private function _LoginUser( $userLogin, $userPass )
+	{
+		/**
+		 * @var string
+		 */
+		$user_salt = Core::Security()->GetSalt( $userLogin );
+
+		/**
+		 * @var string
+		 */
+		$user_auth = Core::Security()->GetToken( $user_salt, $userPass );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'user_login', $userLogin );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'user_auth', $user_auth );
+
+		$data = Core::Database()->RetrieveOne( array( 'bin.user_id', 'user_login', 'user_status' ), $this->_mTable['list'], $options );
+
+		if ( empty( $data ) )
+		{
+			return FALSE;
+		}
+
+		if ( 'active' != $data['user_status'] )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * Set object data.
+		 *
+		 * @var array
+		 */
+		$this->mProp['list'] = array_merge( $this->mProp['list'], $data );
+
+		/**
+		 * Set object Id.
+		 *
+		 * @var string
+		 */
+		$this->_mId = $data[$this->_mKey];
+
+		return TRUE;
+	}
+
+	private function _RecordLogin()
+	{
+		//XXX WORK
+	}
 }
 ?>

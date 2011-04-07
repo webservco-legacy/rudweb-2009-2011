@@ -236,7 +236,7 @@ class Database_Mysqli extends Database implements Interface_Database
 					/**
 					 * @var array
 					 */
-					$values[] = "UNHEX('{$this->_mDbLink->real_escape_string( $value )}')";
+					$values[] = "UNHEX('{$this->EscapeString( $value )}')";
 				}
 				else
 				{
@@ -247,7 +247,7 @@ class Database_Mysqli extends Database implements Interface_Database
 					/**
 					 * @var array
 					 */
-					$values[] = "'{$this->_mDbLink->real_escape_string( $value )}'";
+					$values[] = "'{$this->EscapeString( $value )}'";
 				}
 			}
 		}
@@ -350,7 +350,6 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$query = "SELECT {$columns} FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
 
-		//XXX
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		if ( FALSE === $this->_mDbStmt )
@@ -447,7 +446,7 @@ class Database_Mysqli extends Database implements Interface_Database
 				/**
 				 * @var string
 				 */
-				$value = $this->_mDbLink->real_escape_string( $value );
+				$value = $this->EscapeString( $value );
 
 				if ( $this->_IsBinaryField( $key ) )
 				{
@@ -617,7 +616,7 @@ class Database_Mysqli extends Database implements Interface_Database
 				/**
 				 * @var string
 				 */
-				$value = $this->_mDbLink->real_escape_string( $options['conditions'][1] );
+				$value = $this->EscapeString( $options['conditions'][1] );
 
 				/**
 				 * Check binary field
@@ -655,7 +654,7 @@ class Database_Mysqli extends Database implements Interface_Database
 					/**
 					 * @var string
 					 */
-					$value = $this->_mDbLink->real_escape_string( $condition[1] );
+					$value = $this->EscapeString( $condition[1] );
 
 					/**
 					 * Check binary field
@@ -677,7 +676,7 @@ class Database_Mysqli extends Database implements Interface_Database
 						/**
 						 * @var array
 						 */
-						$condition[1] = $this->_mDbLink->real_escape_string( $condition[1] );
+						$condition[1] = $this->EscapeString( $condition[1] );
 
 						$condition[1] = "'{$value}'";
 					}

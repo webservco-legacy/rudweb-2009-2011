@@ -120,6 +120,17 @@ class App extends Library
 			 */
 			$this->_mRequest = Core::Router()->Route();
 
+			/**
+			 * Check if we have sessions enabled.
+			 */
+			if ( 1 == Core::Config()->Get( 'app.sessions' ) )
+			{
+				/**
+				 * Start session.
+				 */
+				Core::Session()->Start();
+			}
+
 			Core::Log()->Write( __( 'Application: Booting complete.', 'RudWEb' ), 'debug' );
 
 			return TRUE;

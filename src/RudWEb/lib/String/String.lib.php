@@ -84,5 +84,25 @@ class String extends Library
 
 		return $check == $needle;
 	}
+
+	/**
+	 * Get first item of a string.
+	 *
+	 * @param string $string
+	 * @param string $separator
+	 *
+	 * @return string
+	 */
+	public function GetFirstItem( $string, $separator = ' ' )
+	{
+		if ( FALSE !== ( $pos = strpos( $string, $separator ) ) )
+		{
+			return substr( $string, 0, $pos );
+		}
+		else
+		{
+			return $string;
+		}
+	}
 }
 ?>

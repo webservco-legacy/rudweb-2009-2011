@@ -228,9 +228,12 @@ class Security extends Library
 		/**
 		 * Check if we should use database connection.
 		 *
+		 * @deprecated all escaping is done in the database library
+		 *
 		 * @var bool
+		 *
+		 * $have_db = ('' != Core::Config()->Get( 'db.type' ) ) ? TRUE : FALSE;
 		 */
-		$have_db = ('' != Core::Config()->Get( 'db.type' ) ) ? TRUE : FALSE;
 
 		/**
 		 * Check if the method is used to filter $_GET request.
@@ -267,14 +270,14 @@ class Security extends Library
 
 		/**
 		 * Check if we have a database connection.
+		 *
+		 * @deprecated all escaping is done in the database library
+		 * if ( FALSE !== $have_db )
 		 */
-		if ( FALSE !== $have_db )
-		{
-			/**
-			 * Use database internal function to filter input.
-			 */
-			$input = Core::Database()->EscapeString( $input );
-		}
+		/**
+		 * Use database internal function to filter input.
+		 * $input = Core::Database()->EscapeString( $input );
+		 */
 
 		/**
 		 * Return result.
@@ -386,6 +389,40 @@ class Security extends Library
 		 * Return result.
 		 */
 		return $string;
+	}
+
+	/**
+	 * Get an assets's security salt.
+	 *
+	 * @param mixed $asset
+	 * @param int $saltLength
+	 *
+	 * @return string
+	 */
+	public function GetSalt( $asset, $saltLength = 20)
+	{
+		return strrev( substr( sha1( $asset ), 1, $saltLength ) );
+	}
+
+	/**
+	 * Get an asset's security token.
+	 *
+	 * If empty asset is provided, a random token is generated.
+	 *
+	 * @param string $salt
+	 * @param mixed $asset
+	 *
+	 * @return string
+	 */
+	public function GetToken( $salt, $asset = NULL )
+	{
+		if ( empty( $asset ) )
+		{
+			$asset = uniqid( rand(), true );
+		}
+
+		return $salt . sha1( $salt . $asset );
+
 	}
 }
 ?>

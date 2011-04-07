@@ -7,6 +7,8 @@
 	<dev>
 		<!-- Application settings -->
 		<app>
+			<!-- Use sessions? -->
+			<sessions>1</sessions>
 		</app>
 		<!-- Output settings -->
 		<output>

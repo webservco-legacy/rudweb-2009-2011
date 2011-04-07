@@ -122,5 +122,21 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInternalType( 'object', Core::User() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function SessionReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Session() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function GeoReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Geo() );
+	}
 }
 ?>

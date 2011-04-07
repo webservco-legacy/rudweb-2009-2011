@@ -102,6 +102,13 @@ class Core
 	protected static $_msRouterObject;
 
 	/**
+	 * Stores the Session object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msSessionObject;
+
+	/**
 	 * Stores the Acl object.
 	 *
 	 * @var mixed
@@ -114,6 +121,13 @@ class Core
 	 * @var unknown_type
 	 */
 	protected static $_msUserObject;
+
+	/**
+	 * Stores the Geo object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msGeoObject;
 
 	/**
 	 * Method to acces the configuration object from everywhere.
@@ -306,6 +320,24 @@ class Core
 	}
 
 	/**
+	 * Method to access the Session object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Session()
+	{
+		if ( NULL == self::$_msSessionObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msSessionObject = Session::GetInstance();
+		}
+
+		return self::$_msSessionObject;
+	}
+
+	/**
 	 * Method to access the Acl object from everywhere.
 	 *
 	 * @return object
@@ -339,6 +371,24 @@ class Core
 		}
 
 		return self::$_msUserObject;
+	}
+
+	/**
+	 * Method to access the Geo object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Geo()
+	{
+		if ( NULL == self::$_msGeoObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msGeoObject = Geo::GetInstance();
+		}
+
+		return self::$_msGeoObject;
 	}
 
 	/**
