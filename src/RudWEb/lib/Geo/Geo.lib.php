@@ -123,7 +123,7 @@ class Geo extends Library
 			}
 		}
 
-		//XXX Make some check here ?
+		//XXX Pehaps make some check here
 		return $_SERVER['REMOTE_ADDR'];
 	}
 

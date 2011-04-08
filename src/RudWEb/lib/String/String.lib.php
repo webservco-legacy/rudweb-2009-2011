@@ -80,7 +80,7 @@ class String extends Library
 		/**
 		 * @var string
 		 */
-		$check = $f_substr($haystack, $f_strlen( $haystack ) - ( $f_strlen( $needle ) ) );
+		$check = $f_substr( $haystack, $f_strlen( $haystack ) - ( $f_strlen( $needle ) ) );
 
 		return $check == $needle;
 	}

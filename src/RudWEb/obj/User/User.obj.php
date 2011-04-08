@@ -52,19 +52,85 @@ class User extends Object
 	);
 
 	/**
+	 * Object vaiable properties
+	 *
+	 * @var array
+	 */
+	public $mVars = array();
+
+	/**
 	 * Object tables.
 	 *
-	 * Use NULL for default.
-	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $_mTable = array( 'list' => 'acl_users' );
 
-	public function Login( $userLogin, $userPass, $userRemember = FALSE )
+	/**
+	 * Initialize the object.
+	 *
+	 * @return bool
+	 */
+	public function Init()
 	{
-		//XXX WORK
+		/**
+		 * @var array
+		 */
+		$this->mVars = array(
+			'ip' => Core::Geo()->GetIp(),
+			'agent' => ( !empty( $_SERVER['HTTP_USER_AGENT'] ) ) ? $_SERVER['HTTP_USER_AGENT'] : NULL,
+			'last_visit' => NULL
+		);
+
+		return TRUE;
 	}
 
+	/**
+	 * Login user.
+	 *
+	 * @param string $userLogin
+	 * @param string $userPass
+	 * @param bool $userRemember
+	 *
+	 * @return bool
+	 */
+	public function Login( $userLogin, $userPass, $userRemember = FALSE )
+	{
+		if ( empty( $this->mVars ) )
+		{
+			$this->Init();
+		}
+
+		/**
+		 * @var bool
+		 */
+		$login = $this->_LoginUser( $userLogin, $userPass );
+
+		$this->_RecordLogin( $this->_mId, $userLogin );
+
+		if ( TRUE !== $login )
+		{
+			return FALSE;
+		}
+
+		if ( FALSE !== $userRemember )
+		{
+			/**
+			 * Add persistent session.
+			 */
+			Core::Session()->AddPersistentSession( $this->_mId, $userLogin );
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Check and login user.
+	 *
+	 * @param string $userLogin
+	 * @param string $userPass
+	 *
+	 * @return bool
+	 */
 	private function _LoginUser( $userLogin, $userPass )
 	{
 		/**
@@ -116,9 +182,39 @@ class User extends Object
 		return TRUE;
 	}
 
-	private function _RecordLogin()
+	/**
+	 * Record login stats.
+	 *
+	 * If login is failed, the user_id will be 00
+	 *
+	 * @param string $userId
+	 * @param string $userLogin
+	 *
+	 * @return bool
+	 */
+	private function _RecordLogin( $userId, $userLogin )
 	{
-		//XXX WORK
+		/**
+		 * @var string
+		 */
+		$user_id = ( !empty( $userId ) ) ? $userId : '00';
+
+		/**
+		 * @var array
+		 */
+		$data = array(
+			'bin.user_id' => $user_id,
+			'user_login' => $userLogin,
+			'user_ip' => $this->mVars['ip'],
+			'user_agent' => $this->mVars['agent'],
+		);
+
+		if ( FALSE !== Core::Database()->Create( $data, 'acl_logins' ) )
+		{
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 }
 ?>

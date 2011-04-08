@@ -154,7 +154,7 @@ class Object extends Library
 		/**
 		 * @var string
 		 */
-		$module_name = array_key_exists( 1, $parts ) ? $parts[1] : $parts[0];
+		$object_name = array_key_exists( 1, $parts ) ? $parts[1] : $parts[0];
 
 		/**
 		 * @var string
@@ -164,7 +164,7 @@ class Object extends Library
 		/**
 		 * @var string
 		 */
-		$cfg_file =  $path_app . 'etc/obj.' . strtolower( $module_name ) . '.cfg.xml';
+		$cfg_file =  $path_app . 'etc/obj.' . strtolower( $object_name ) . '.cfg.xml';
 
 		if ( !is_readable( $cfg_file ) )
 		{

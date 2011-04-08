@@ -37,11 +37,18 @@ if ( !defined( '_RUDWEB' ) )
 class Session extends Library
 {
 	/**
-	 * Session expire time (in seconds)
+	 * Library properties.
 	 *
-	 * @var int
+	 * @var array
 	 */
-	private $_mExpire;
+	private $_mProp = array();
+
+	/**
+	 * Library tables.
+	 *
+	 * @var array
+	 */
+	protected $_mTable = array( 'persistent' => 'acl_persistent' );
 
 	/**
 	 * Implement GetInstance() method.
@@ -60,9 +67,21 @@ class Session extends Library
 		return parent::_GetInstance( $className );
 	}
 
+	/**
+	 * Start session.
+	 *
+	 * @return bool
+	 */
 	public function Start()
 	{
-		$this->_mExpire = Core::Config()->Get( 'session.expire' );
+		$this->_mProp = array(
+			'expire' => Core::Config()->Get( 'session.expire' ),
+			'lifetime' => Core::Config()->Get( 'session.lifetime' ),
+			'path' => Core::Config()->Get( 'session.path' ),
+			'domain' => Core::Config()->Get( 'session.domain' ),
+			'secure' => ( 1 == Core::Config()->Get( 'session.secure' ) ) ? TRUE : FALSE,
+			'httponly' => ( 1 == Core::Config()->Get( 'session.httponly' ) ) ? TRUE : FALSE,
+		);
 
 		/**
 		 * Set cache limiter.
@@ -72,12 +91,12 @@ class Session extends Library
 		/**
 		 * Set cache expire (minutes).
 		 */
-		session_cache_expire( $this->_mExpire / 60 );
+		session_cache_expire( $this->_mProp['expire'] / 60 );
 
 		/**
 		 * Set garbage collector timeout (seconds).
 		 */
-		ini_set( 'session.gc_maxlifetime', $this->_mExpire );
+		ini_set( 'session.gc_maxlifetime', $this->_mProp['expire'] );
 
 		/**
 		 * Set custom session path to application temp directory.
@@ -118,6 +137,78 @@ class Session extends Library
 		 * Return result.
 		 */
 		return TRUE;
+	}
+
+	/**
+	 * Add persistent session.
+	 *
+	 * @param string $userId
+	 * @param string $userLogin
+	 *
+	 * @return bool
+	 */
+	public function AddPersistentSession( $userId, $userLogin )
+	{
+		if ( empty( $userId ) )
+		{
+			return FALSE;
+		}
+
+		if ( empty( $this->_mProp ) )
+		{
+			$this->Start();
+		}
+
+		/**
+		 * @var string
+		 */
+		$user_salt = Core::Security()->GetSalt( $userLogin );
+
+		/**
+		 * @var string
+		 */
+		$persistent_token = Core::Security()->GetToken( $user_salt );
+
+		/**
+		 * @var int
+		 */
+		$lifetime_days = $this->_mProp['lifetime'];
+
+		/**
+		 * @var int
+		 */
+		$persistent_expire = time()+60*60*24*$lifetime_days;
+
+		/**
+		 * @var array
+		 */
+		$data = array(
+			'bin.user_id' => $this->_mId,
+			'persistent_token' => $persistent_token,
+			'persistent_expire' => date( 'Y-m-d H:i:s', $persistent_expire ),
+		);
+
+		if ( FALSE !== Core::Database()->Create( $data, $this->_mTable['persistent'] ) )
+		{
+			/**
+			 * @var string
+			 */
+			$cookie_name = Core::Security()->GetToken( $user_salt, $userLogin );
+
+			/**
+			 * @var string
+			 */
+			$cookie_value = $persistent_token . Core::Security()->GetToken( $user_salt, $persistent_expire );
+
+			/**
+			 * Set cookie
+			 */
+			setcookie( $cookie_name, $cookie_value, $persistent_expire, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 }
 ?>
