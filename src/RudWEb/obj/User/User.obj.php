@@ -224,6 +224,62 @@ class User extends Object
 	}
 
 	/**
+	 * Logout user.
+	 *
+	 * @return bool
+	 */
+	public function Logout()
+	{
+		/**
+		 * Delete all persistent sessions.
+		 */
+		Core::Session()->RemovePersistentSession( $this->_mId );
+
+		/**
+		 * Re-initialize session array.
+		 */
+		$_SESSION = array();
+
+		/**
+		 * Destroy current session.
+		 */
+		session_destroy();
+
+		/**
+		 * Set a dummy session cookie.
+		 */
+		Core::Session()->RemoveCookie( '.session' );
+
+		/**
+		 * Set a dummy persistence cookie.
+		 */
+		Core::Session()->RemoveCookie( '.persistence' );
+
+		/**
+		 * @var array
+		 */
+		$this->mProp = array(
+		'list' => array(
+			'bin.user_id' => NULL,
+			'user_login' => NULL,
+			'user_status' => NULL,
+		),
+		);
+
+		/**
+		 * @var string
+		 */
+		$this->_mId = NULL;
+
+		/**
+		 * Re-initialize object.
+		 */
+		$this->Init();
+
+		return TRUE;
+	}
+
+	/**
 	 * Get user login name.
 	 *
 	 * @param string $userId
@@ -280,7 +336,17 @@ class User extends Object
 		 */
 		$options['conditions'][] = array ( 'user_auth', $user_auth );
 
-		return $this->_SetUserData( $options );
+		if ( FALSE !== $this->_SetUserData( $options ) )
+		{
+			/**
+			 * Keep existing data but get a new session id.
+			 */
+			session_regenerate_id( TRUE );
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	/**

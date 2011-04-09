@@ -137,6 +137,9 @@ class Object extends Library
 
 		if ( 1 == Core::Config()->Get( 'db.binkey' ) )
 		{
+			/**
+			 * @var string
+			 */
 			$this->_mKey = 'bin.' . $this->_mKey;
 		}
 

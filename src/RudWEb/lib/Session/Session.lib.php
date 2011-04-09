@@ -348,15 +348,54 @@ class Session extends Library
 		if ( !empty( $persistentToken ) )
 		{
 			/**
-			 * @var string
+			 * Remove persistence cookie.
 			 */
-			$cookie_name = $this->_GetCookieName();
-
-			/**
-			 * Set cookie
-			 */
-			setcookie( $cookie_name, '', time()-3600, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
+			$this->RemoveCookie( 'persistence' );
 		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Remove cookie
+	 *
+	 * @param string $cookieType
+	 *
+	 * @return bool
+	 */
+	public function RemoveCookie( $cookieType = '.session' )
+	{
+		switch ( $cookieType )
+		{
+			case '.session' :
+				/**
+				 * @var string
+				 */
+				$cookie_name = session_name();
+				break;
+			case '.persistence' :
+				/**
+				 * @var string
+				 */
+				$cookie_name = $this->_GetCookieName();
+				break;
+			default :
+				/**
+				 * @var string
+				 */
+				$cookie_name = $cookieType;
+				break;
+		}
+
+		/**
+		 * Set dummy cookie with expiration date in the past
+		 */
+		setcookie( $cookie_name, '', time()-3600, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
+
+		/**
+		 * Destroy cookie.
+		 */
+		unset ( $_COOKIE[$cookie_name] );
 
 		return TRUE;
 	}
