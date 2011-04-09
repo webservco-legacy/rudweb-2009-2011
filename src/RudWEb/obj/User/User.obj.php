@@ -338,15 +338,7 @@ class User extends Object
 		 */
 		$data = Core::Database()->Count( 'login_id', $this->_mTable['logins'], $options );
 
-		if ( empty( $data ) )
-		{
-			return FALSE;
-		}
-
-		echo '<pre>';
-		var_dump( $timeout );
-		var_dump( $data );
-		exit;
+		return ( !empty( $data ) ) ? $data['total'] : FALSE;
 	}
 
 	/**

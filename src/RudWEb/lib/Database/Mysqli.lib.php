@@ -305,22 +305,54 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$fields = array();
 
-		foreach ( $data as $field )
+		foreach ( $data as $id => $field )
 		{
-			if ( $this->_IsBinaryField( $field ) )
+			/**
+			 * Split the column name by the cast operator.
+			 *
+			 * @var array
+			 */
+			$raw_field = explode( ':', $field );
+
+			/**
+			 * Set column name
+			 *
+			 * @var string
+			 */
+			$col = $raw_field[0];
+
+			if ( $this->_IsBinaryField( $col ) )
 			{
 				/**
 				 * @var array
 				 */
-				$fields[] = $this->_PrepareBinaryField( $field, TRUE );
+				$col = $this->_PrepareBinaryField( $col, TRUE );
 			}
-			else
+
+			/**
+			 * Check if we sould cast the column name.
+			 */
+			if ( !empty( $raw_field[1] ) )
 			{
 				/**
-				 * @var array
+				 * Set column name for the query.
+				 *
+				 * @var string
 				 */
-				$fields[] = $field;
+				$col = "{$col} AS {$raw_field[1]}";
+
+				/**
+				 * Set field name for the result.
+				 *
+				 * @var string
+				 */
+				$data[$id] = $raw_field[1];
 			}
+
+			/**
+			 * @var array
+			 */
+			$fields[] = $col;
 		}
 
 		/**
@@ -572,7 +604,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 *
 		 * @var array
 		 */
-		$result = $this->Retrieve($data, $table, $options);
+		$result = $this->Retrieve( $data, $table, $options );
 
 		return ( empty( $result ) ) ? FALSE : $result[0];
 	}
@@ -586,14 +618,14 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * @var string
 		 */
-		$data = "COUNT( {$data} )";
+		$data = "COUNT( {$data} ):total";
 
 		/**
 		 * Get result.
 		 *
 		 * @var array
 		 */
-		$result = $this->Retrieve($data, $table, $options);
+		$result = $this->Retrieve( $data, $table, $options );
 
 		return ( empty( $result ) ) ? FALSE : $result[0];
 	}
