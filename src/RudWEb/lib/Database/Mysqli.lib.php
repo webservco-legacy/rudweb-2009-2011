@@ -267,6 +267,10 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$query = "INSERT INTO {$table} ({$qf_fields}) VALUES ({$qf_values})";
 
+		Core::Log()->Write( __( 'Database Library: Preparing create query.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( $query, 'debug' );
+
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		if ( FALSE === $this->_mDbStmt )
@@ -349,6 +353,10 @@ class Database_Mysqli extends Database implements Interface_Database
 		 * @var string
 		 */
 		$query = "SELECT {$columns} FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
+
+		Core::Log()->Write( __( 'Database Library: Preparing retrieve query.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( $query, 'debug' );
 
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
@@ -491,6 +499,10 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$query = "UPDATE {$table} SET {$qf_data}{$qf_conditions}{$qf_limit}";
 
+		Core::Log()->Write( __( 'Database Library: Preparing update query.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( $query, 'debug' );
+
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		$this->_mDbStmt->execute();
@@ -528,6 +540,10 @@ class Database_Mysqli extends Database implements Interface_Database
 		$qf_limit = $this->_PrepareLimitString( $options );
 
 		$query = "DELETE FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
+
+		Core::Log()->Write( __( 'Database Library: Preparing delete query.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( $query, 'debug' );
 
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 

@@ -133,6 +133,8 @@ class Session extends Library
 		 */
 		header( 'Cache-Control: max-age=1, s-maxage=1, no-cache, must-revalidate' );
 
+		Core::Log()->Write( __( 'Session library: Started new session.', 'RudWEb' ), 'debug' );
+
 		/**
 		 * Return result.
 		 */
@@ -140,14 +142,103 @@ class Session extends Library
 	}
 
 	/**
+	 * Check persistent session.
+	 *
+	 * @return mixed
+	 */
+	public function CheckPersistentSession()
+	{
+		if ( empty( $this->_mProp ) )
+		{
+			$this->Start();
+		}
+
+		/**
+		 * @var string
+		 */
+		$cookie_name = $this->_GetCookieName();
+
+		if ( empty( $_COOKIE[$cookie_name] ) )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * @var array
+		 */
+		$cookie_value = str_split( $_COOKIE[$cookie_name], 60 );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'persistent_token', $cookie_value[0] );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array( 'persistent_expire', date( 'Y-m-d H:i:s' ), 'gt' );
+
+		/**
+		 * @var array
+		 */
+		$persistence_data = Core::Database()->RetrieveOne( array( 'bin.user_id', 'persistent_expire' ), $this->_mTable['persistent'], $options );
+
+		if ( empty( $persistence_data ) )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * @var string
+		 */
+		$user_id = $persistence_data['bin.user_id'];
+
+		$cookie_expire = date( 'Y-m-d H:i:s', strrev( $cookie_value[1] ) );
+
+		if ( $cookie_expire != $persistence_data['persistent_expire'] )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * Remove old persistent session.
+		 */
+		$this->RemovePersistentSession( $user_id, $cookie_value[0] );
+
+		/**
+		 * @var string
+		 */
+		$user_login = Core::User()->GetLoginName( $user_id );
+
+		/**
+		 * @var string
+		 */
+		$user_salt = Core::Security()->GetSalt( $user_login );
+
+		/**
+		 * @var string
+		 */
+		$persistent_token = Core::Security()->GetToken( $user_salt );
+
+		/**
+		 * Add new persistent session,
+		 * keeping current expire date.
+		 */
+		$this->AddPersistentSession( $user_id, $persistent_token, strtotime( $persistence_data['persistent_expire'] ) );
+
+		return $user_id;
+	}
+
+	/**
 	 * Add persistent session.
 	 *
 	 * @param string $userId
-	 * @param string $userLogin
+	 * @param string $persistentToken
+	 * @param int $persistentExpire
 	 *
 	 * @return bool
 	 */
-	public function AddPersistentSession( $userId, $userLogin )
+	public function AddPersistentSession( $userId, $persistentToken, $persistentExpire = NULL )
 	{
 		if ( empty( $userId ) )
 		{
@@ -159,33 +250,26 @@ class Session extends Library
 			$this->Start();
 		}
 
-		/**
-		 * @var string
-		 */
-		$user_salt = Core::Security()->GetSalt( $userLogin );
+		if ( empty( $persistentExpire ) )
+		{
+			/**
+			 * @var int
+			 */
+			$lifetime_days = $this->_mProp['lifetime'];
 
-		/**
-		 * @var string
-		 */
-		$persistent_token = Core::Security()->GetToken( $user_salt );
-
-		/**
-		 * @var int
-		 */
-		$lifetime_days = $this->_mProp['lifetime'];
-
-		/**
-		 * @var int
-		 */
-		$persistent_expire = time()+60*60*24*$lifetime_days;
+			/**
+			 * @var int
+			 */
+			$persistentExpire = time()+60*60*24*$lifetime_days;
+		}
 
 		/**
 		 * @var array
 		 */
 		$data = array(
-			'bin.user_id' => $this->_mId,
-			'persistent_token' => $persistent_token,
-			'persistent_expire' => date( 'Y-m-d H:i:s', $persistent_expire ),
+			'bin.user_id' => $userId,
+			'persistent_token' => $persistentToken,
+			'persistent_expire' => date( 'Y-m-d H:i:s', $persistentExpire ),
 		);
 
 		if ( FALSE !== Core::Database()->Create( $data, $this->_mTable['persistent'] ) )
@@ -193,22 +277,103 @@ class Session extends Library
 			/**
 			 * @var string
 			 */
-			$cookie_name = Core::Security()->GetToken( $user_salt, $userLogin );
+			$cookie_name = $this->_GetCookieName();
 
 			/**
 			 * @var string
 			 */
-			$cookie_value = $persistent_token . Core::Security()->GetToken( $user_salt, $persistent_expire );
+			$cookie_value = $persistentToken . strrev( $persistentExpire );
 
 			/**
 			 * Set cookie
 			 */
-			setcookie( $cookie_name, $cookie_value, $persistent_expire, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
+			setcookie( $cookie_name, $cookie_value, $persistentExpire, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
 
 			return TRUE;
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Remove persistent session(s).
+	 *
+	 * If a persistent token is given,
+	 * the corresponding cookie is also reset
+	 *
+	 * @param string $userId
+	 * @param string $persistentToken
+	 * @param bool $onlyOld
+	 *
+	 * @return bool
+	 */
+	public function RemovePersistentSession( $userId = NULL, $persistentToken = NULL, $onlyOld = FALSE )
+	{
+		if ( empty( $this->_mProp ) )
+		{
+			$this->Start();
+		}
+
+		/**
+		 * @var array
+		 */
+		$options = array();
+
+		if ( !empty( $userId ) )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array ( 'bin.user_id', $userId );
+		}
+
+		if ( !empty( $persistentToken ) )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array ( 'persistent_token', $persistentToken );
+		}
+
+		if ( FALSE !== $onlyOld )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array( 'persistent_expire', date( 'Y-m-d H:i:s' ), 'lt' );
+		}
+
+		Core::Database()->Delete( $this->_mTable['persistent'], $options );
+
+		if ( !empty( $persistentToken ) )
+		{
+			/**
+			 * @var string
+			 */
+			$cookie_name = $this->_GetCookieName();
+
+			/**
+			 * Set cookie
+			 */
+			setcookie( $cookie_name, '', time()-3600, $this->_mProp['path'], $this->_mProp['domain'], $this->_mProp['secure'], $this->_mProp['httponly'] );
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Get Cookie name.
+	 *
+	 * @return string
+	 */
+	private function _GetCookieName()
+	{
+		/**
+		 * @var string
+		 */
+		$cookie_salt = Core::Security()->GetSalt( Core::Config()->Get( 'path.app' ) );
+
+		return Core::Security()->GetToken( $cookie_salt, Core::Config()->Get( 'url.app' ) );
 	}
 }
 ?>
