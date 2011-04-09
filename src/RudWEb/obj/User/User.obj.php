@@ -306,6 +306,49 @@ class User extends Object
 		return  $data['user_login'];
 	}
 
+	public function GetFailedLogins( $checkType = NULL, $checkAsset = NULL )
+	{
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'bin.user_id', '00' );
+
+		if ( !empty( $checkType ) && !empty( $checkAsset ) )
+		{
+			/**
+			 * @var array
+			 */
+			$options['conditions'][] = array ( $checkType, $checkAsset );
+		}
+
+		/**
+		 * Get timeout expression
+		 *
+		 * @var string
+		 */
+		$timeout = date( 'Y-m-d H:i:s', time() - Core::Config()->Get( 'user.login.timeout' ) * 60 );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'login_date_add', $timeout, 'gte' );
+
+		/**
+		 * @var array
+		 */
+		$data = Core::Database()->Count( 'login_id', $this->_mTable['logins'], $options );
+
+		if ( empty( $data ) )
+		{
+			return FALSE;
+		}
+
+		echo '<pre>';
+		var_dump( $timeout );
+		var_dump( $data );
+		exit;
+	}
+
 	/**
 	 * Check and login user.
 	 *

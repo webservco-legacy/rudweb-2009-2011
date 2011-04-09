@@ -578,6 +578,27 @@ class Database_Mysqli extends Database implements Interface_Database
 	}
 
 	/**
+	 * (non-PHPdoc)
+	 * @see Interface_Database::Count()
+	 */
+	public function Count( $data, $table, $options = array() )
+	{
+		/**
+		 * @var string
+		 */
+		$data = "COUNT( {$data} )";
+
+		/**
+		 * Get result.
+		 *
+		 * @var array
+		 */
+		$result = $this->Retrieve($data, $table, $options);
+
+		return ( empty( $result ) ) ? FALSE : $result[0];
+	}
+
+	/**
 	 * PHP 5.3 fix call_user_func_array + mysqli bind_param
 	 *
 	 * @author http://ca.php.net/manual/en/mysqli-stmt.bind-param.php#96770

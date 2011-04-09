@@ -19,6 +19,8 @@
 			<secure>0</secure>
 			<!-- Set httponly flag? -->
 			<httponly>1</httponly>
+			<!-- Multiple persistent sessions for the same user?  -->
+			<multiple>1</multiple>
 		</session>
 	</dev>
 	<!-- Test Environment -->

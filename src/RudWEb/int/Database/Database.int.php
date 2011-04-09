@@ -142,5 +142,14 @@ interface Interface_Database
 	 * @return mixed
 	 */
 	public function RetrieveOne( $data, $table, $options = array() );
+
+	/**
+	 * Count method.
+	 *
+	 * @param string $data
+	 * @param string $table
+	 * @param array $options
+	 */
+	public function Count( $data, $table, $options = array() );
 }
 ?>
