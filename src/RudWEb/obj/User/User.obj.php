@@ -101,19 +101,72 @@ class User extends Object
 		 *
 		 * @var mixed
 		 */
-		$returning_user = Core::Session()->CheckPersistentSession();
+		$returning_data = Core::Session()->CheckPersistentSession();
 
-		if ( FALSE !== $returning_user )
+		if ( !empty( $returning_data ) )
 		{
+			/**
+			 * @var string
+			 */
+			$user_id = $returning_data[0];
+
+			/**
+			 * Persistent session token.
+			 *
+			 * @var string
+			 */
+			$persistent_token = $returning_data[1];
+
+			/**
+			 * Timestamp of persistent session expiring date.
+			 *
+			 * @var int
+			 */
+			$persistent_expire = $returning_data[2];
+
+			/**
+			 * Check if user is already logged in from another session. XXX
+			 */
+			if ( $this->IsAlreadyLogged( $user_id ) )
+			{
+				return FALSE;
+			}
+
+			/**
+			 * Remove current persistent session.
+			 */
+			Core::Session()->RemovePersistentSession( $user_id, $persistent_token );
+
+			/**
+			 * @var string
+			 */
+			$user_login = $this->GetLoginName( $user_id );
+
+			/**
+			 * @var string
+			 */
+			$user_salt = Core::Security()->GetSalt( $user_login );
+
+			/**
+			 * @var string
+			 */
+			$new_persistent_token = Core::Security()->GetToken( $user_salt );
+
+			/**
+			 * Add new persistent session,
+			 * keeping current expire date.
+			 */
+			Core::Session()->AddPersistentSession( $user_id, $new_persistent_token, $persistent_expire );
+
 			/**
 			 * @var string
 			 */
 			$now = date( 'Y-m-d H:i:s' );
 
 			/**
-			 * Record auto login
+			 * Record auto login.
 			 */
-			$this->_RecordLogin( $returning_user, NULL, $now );
+			$this->_RecordLogin( $user_id, NULL, $now );
 
 			/**
 			 * Set updated stats time
@@ -134,12 +187,12 @@ class User extends Object
 			 *
 			 * @var array
 			 */
-			$_SESSION[__CLASS__]['StatsCurrent']['auto'] = TRUE;
+			$_SESSION[__CLASS__]['StatsCurrent']['auto'] = $new_persistent_token;
 
 			/**
 			 * @var array
 			 */
-			$options['conditions'][] = array ( 'bin.user_id', $returning_user );
+			$options['conditions'][] = array ( 'bin.user_id', $user_id );
 
 			return $this->_SetUserData( $options );
 		}
@@ -173,6 +226,46 @@ class User extends Object
 	}
 
 	/**
+	 * Check if user is already logged in
+	 * in another session.
+	 *
+	 * @param string $userId
+	 *
+	 * @return mixed
+	 */
+	public function IsAlreadyLogged( $userId )
+	{
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'bin.user_id', $userId );
+
+		/**
+		 * Get timeout expression
+		 *
+		 * @var string
+		 */
+		$timeout = date( 'Y-m-d H:i:s', time() - Core::Config()->Get( 'user.login.time' ) * 60 );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][] = array ( 'login_date_add', $timeout, 'gte' );
+
+		/**
+		 * @var array
+		 */
+		$data = Core::Database()->RetrieveOne( array( 'login_date_add' ), $this->_mTable['logins'], $options );
+
+		if ( empty( $data ) )
+		{
+			return FALSE;
+		}
+
+		return  $data['login_date_add'];
+	}
+
+	/**
 	 * Login user.
 	 *
 	 * @param string $userLogin
@@ -187,8 +280,6 @@ class User extends Object
 		{
 			$this->Init();
 		}
-
-		//XXX SECURITY CHECKS
 
 		/**
 		 * @var bool
@@ -231,9 +322,17 @@ class User extends Object
 	public function Logout()
 	{
 		/**
+		 * If multiple persistent sessions per user is activated,
+		 * we will only remove the current persistent session.
+		 *
+		 * @var string
+		 */
+		$persistent_token = ( 1 == Core::Config()->Get( 'session.multiple' ) ) ? $_SESSION[__CLASS__]['StatsCurrent']['auto'] : NULL;
+
+		/**
 		 * Delete all persistent sessions.
 		 */
-		Core::Session()->RemovePersistentSession( $this->_mId );
+		Core::Session()->RemovePersistentSession( $this->_mId, $persistent_token );
 
 		/**
 		 * Re-initialize session array.

@@ -193,6 +193,9 @@ class Session extends Library
 		 */
 		$user_id = $persistence_data['bin.user_id'];
 
+		/**
+		 * @var string
+		 */
 		$cookie_expire = date( 'Y-m-d H:i:s', strrev( $cookie_value[1] ) );
 
 		if ( $cookie_expire != $persistence_data['persistent_expire'] )
@@ -200,33 +203,7 @@ class Session extends Library
 			return FALSE;
 		}
 
-		/**
-		 * Remove old persistent session.
-		 */
-		$this->RemovePersistentSession( $user_id, $cookie_value[0] );
-
-		/**
-		 * @var string
-		 */
-		$user_login = Core::User()->GetLoginName( $user_id );
-
-		/**
-		 * @var string
-		 */
-		$user_salt = Core::Security()->GetSalt( $user_login );
-
-		/**
-		 * @var string
-		 */
-		$persistent_token = Core::Security()->GetToken( $user_salt );
-
-		/**
-		 * Add new persistent session,
-		 * keeping current expire date.
-		 */
-		$this->AddPersistentSession( $user_id, $persistent_token, strtotime( $persistence_data['persistent_expire'] ) );
-
-		return $user_id;
+		return array( $user_id, $cookie_value[0], strtotime( $persistence_data['persistent_expire'] ) );
 	}
 
 	/**
@@ -300,6 +277,9 @@ class Session extends Library
 	 *
 	 * If a persistent token is given,
 	 * the corresponding cookie is also reset
+	 *
+	 * If no persistent token is given,
+	 * all persistentsessions are removed.
 	 *
 	 * @param string $userId
 	 * @param string $persistentToken
