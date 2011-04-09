@@ -78,12 +78,28 @@ abstract class Library
 			if ( function_exists( '__' ) )
 			{
 				/**
-				 * @var string
+				 * Check if loaded classis an object, not a library.
 				 */
-				$inst_msg = sprintf(
-				__( '%s library: Loading.', 'RudWEb' ),
-				$className
-				);
+				if ( property_exists( self::$_msInstance[$className], '_mId' ) )
+				{
+					/**
+					 * @var string
+					 */
+					$inst_msg = sprintf(
+					__( '%s object: Loading.', 'RudWEb' ),
+					$className
+					);
+				}
+				else
+				{
+					/**
+					 * @var string
+					 */
+					$inst_msg = sprintf(
+					__( '%s library: Loading.', 'RudWEb' ),
+					$className
+					);
+				}
 
 				Core::Log()->Write( $inst_msg, 'debug' );
 			}

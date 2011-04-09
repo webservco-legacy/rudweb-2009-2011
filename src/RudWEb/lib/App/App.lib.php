@@ -129,6 +129,13 @@ class App extends Library
 				 * Start session.
 				 */
 				Core::Session()->Start();
+
+				/**
+				 * User object initialization.
+				 */
+				Core::User()->Init();
+
+				Core::Log()->Write( __( 'User object: Initialization complete.', 'RudWEb' ), 'debug' );
 			}
 
 			Core::Log()->Write( __( 'Application: Booting complete.', 'RudWEb' ), 'debug' );
