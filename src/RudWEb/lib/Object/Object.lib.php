@@ -106,7 +106,6 @@ class Object extends Library
 	 * Load configuration file for current library.
 	 *
 	 * Needs to override the Library method.
-	 * This also loads the i18n files.
 	 *
 	 * @param string $className name of the class to load configuration for
 	 *
@@ -135,19 +134,13 @@ class Object extends Library
 		 */
 		$this->_mKey = strtolower( $className ) . '_id';
 
-		if ( 1 == Core::Config()->Get( 'db.binkey' ) )
+		if ( 1 == Core::Config()->Get( 'database.binkey' ) )
 		{
 			/**
 			 * @var string
 			 */
 			$this->_mKey = 'bin.' . $this->_mKey;
 		}
-
-		/**
-		 * Handle module i18n
-		 */
-		Core::I18n()->Add( $className );
-		Core::I18n()->Load( $className );
 
 		/**
 		 * @var array
@@ -157,7 +150,7 @@ class Object extends Library
 		/**
 		 * @var string
 		 */
-		$object_name = array_key_exists( 1, $parts ) ? $parts[1] : $parts[0];
+		$object_name = array_key_exists( 1, $parts ) ? strtolower( $parts[1] ) : strtolower( $parts[0] );
 
 		/**
 		 * @var string
@@ -167,11 +160,39 @@ class Object extends Library
 		/**
 		 * @var string
 		 */
-		$cfg_file =  $path_app . 'etc/obj.' . strtolower( $object_name ) . '.cfg.xml';
+		$cfg_file =  $path_app . 'etc/' . Core::Config()->Get( 'dir.app.obj' ) . '/' . $object_name . '.cfg.xml';
 
 		if ( !is_readable( $cfg_file ) )
 		{
+			if ( function_exists( '__' ) )
+			{
+				/**
+				 * @var string
+				 */
+				$config_msg = sprintf(
+				__( '%s object: Skipping configuration file "%s" (not found).', 'RudWEb' ),
+				$className,
+				$object_name
+				);
+
+				Core::Log()->Write( $config_msg, 'debug' );
+			}
+
 			return FALSE;
+		}
+
+		if ( function_exists( '__' ) )
+		{
+			/**
+			 * @var string
+			 */
+			$config_msg = sprintf(
+			__( '%s object: Loading configuration file "%s".', 'RudWEb' ),
+			$className,
+			$object_name
+			);
+
+			Core::Log()->Write( $config_msg, 'debug' );
 		}
 
 		return Core::Config()->Set( $cfg_file );

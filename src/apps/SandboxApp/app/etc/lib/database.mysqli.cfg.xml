@@ -6,14 +6,13 @@
 	<!-- Development Environment -->
 	<dev>
 		<!-- Database configuration -->
-		<db>
-			<type>MySQLi</type>
+		<database>
 			<host>localhost</host>
 			<port>3306</port>
 			<user>rudweb</user>
 			<password>REDACTED</password>
-			<database>rs_sandbox</database>
-		</db>
+			<database>rs_tcr</database>
+		</database>
 	</dev>
 	<!-- Test Environment -->
 	<test></test>

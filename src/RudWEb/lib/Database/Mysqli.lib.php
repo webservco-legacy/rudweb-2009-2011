@@ -68,10 +68,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	);
 
 	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Database::Connect()
+	 * Setup database connection.
+	 *
+	 * @return bool
 	 */
-	public function Connect()
+	protected function _GetLink()
 	{
 		/**
 		 * Set configuration data.
@@ -116,7 +117,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$db_message = sprintf(
 		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
-		Core::Config()->Get( 'db.type' )
+		Core::Config()->Get( 'database.type' )
 		);
 
 		Core::Log()->Write( $db_message, 'debug' );
@@ -147,7 +148,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * Open database connection if not already opened.
 		 */
-		$this->_GetLink();
+		$this->Connect();
 
 		return $this->_mDbLink->real_escape_string( $string );
 	}
@@ -158,6 +159,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function GetVersion()
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		return $this->_mDbLink->server_info;
 	}
 
@@ -167,6 +173,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function GenerateId()
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		$result = $this->_mDbLink->query( "SELECT REPLACE( UUID(), '-', '' )" );
 
 		$row = $result->fetch_row();
@@ -182,6 +193,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function GetPrimaryKey( $table )
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		/**
 		 * @var string
 		 */
@@ -210,6 +226,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function Create( $data, $table )
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		/**
 		 * @var array
 		 */
@@ -293,6 +314,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function Retrieve( $data, $table, $options = array() )
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		/**
 		 * Needed for result binding.
 		 *
@@ -470,6 +496,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	public function Update( $data, $table, $options = array() )
 	{
 		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
+		/**
 		 * Set default values query fill.
 		 *
 		 * @var string
@@ -551,6 +582,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	public function Delete( $table, $options = array() )
 	{
 		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
+		/**
 		 * Set default condition query fill.
 		 *
 		 * @var string
@@ -593,6 +629,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	public function RetrieveOne( $data, $table, $options = array() )
 	{
 		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
+		/**
 		 * Make sure the limit isset.
 		 *
 		 * @var array
@@ -615,6 +656,11 @@ class Database_Mysqli extends Database implements Interface_Database
 	 */
 	public function Count( $data, $table, $options = array() )
 	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
 		/**
 		 * @var string
 		 */

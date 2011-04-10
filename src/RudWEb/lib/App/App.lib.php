@@ -107,6 +107,20 @@ class App extends Library
 		try
 		{
 			/**
+			 * Add application i18n.
+			 */
+			Core::I18n()->Add( 'App' );
+
+			Core::Log()->Write( sprintf( __( 'I18n library: Added domain %s.', 'RudWEb' ), 'App' ), 'debug' );
+
+			/**
+			 * Load application i18n.
+			 */
+			Core::I18n()->Load( 'App' );
+
+			Core::Log()->Write( sprintf( __( 'I18n library: Loaded domain %s.', 'RudWEb' ), 'App' ), 'debug' );
+
+			/**
 			 * Sanitize requests.
 			 *
 			 * @var array
@@ -317,11 +331,6 @@ class App extends Library
 		 * Set application directories.
 		 */
 		Core::Config()->Set( $path_app . 'etc/dir.cfg.xml' );
-
-		/**
-		 * Set application database settings.
-		 */
-		Core::Config()->Set( $path_app . 'etc/db.cfg.xml' );
 
 		return TRUE;
 	}

@@ -70,7 +70,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	 */
 	public function CustomConfigSetDatabaseTypeRetrunsTrue()
 	{
-		$this->assertTrue( Core::Config()->Set( 'db.type', 'MySQL' ) );
+		$this->assertTrue( Core::Config()->Set( 'database.type', 'MySQL' ) );
 	}
 
 	/**

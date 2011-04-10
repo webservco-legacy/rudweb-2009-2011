@@ -47,14 +47,14 @@
 			<dateformat>Y-m-d H:i:s:u</dateformat>
 		</log>
 
-		<db>
+		<database>
 			<type>MySQL</type>
 			<host>localhost</host>
 			<port>3306</port>
 			<user>rudweb</user>
 			<password>REDACTED</password>
-			<database>rs_sandbox</database>
-		</db>
+			<name>rs_sandbox</name>
+		</database>
 
 		<seo>
 			<full>1</full>

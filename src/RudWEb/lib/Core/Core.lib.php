@@ -226,13 +226,22 @@ class Core
 	 */
 	final public static function Database()
 	{
+		/**
+		 * @var string
+		 */
+		$db_type = self::Config()->Get( 'database.type' );
+
+		/**
+		 * If we have no database type,
+		 * database connection will not be available.
+		 */
+		if ( FALSE === $db_type )
+		{
+			return FALSE;
+		}
+
 		if ( NULL == self::$_msDbObject )
 		{
-			/**
-			 * @var string
-			 */
-			$db_type = self::Config()->Get( 'db.type' );
-
 			if ( FALSE !== strpos( $db_type, '_' ) )
 			{
 				/**
@@ -260,6 +269,13 @@ class Core
 			 * @var object
 			 */
 			self::$_msDbObject = call_user_func( array( $db_class, 'GetInstance' ), $db_class );
+
+			/**
+			 * @var string
+			 */
+			$out_msg = sprintf( __( 'Core library: Database library "%s" loading.', 'RudWEb' ) , $db_class );
+
+			self::Log()->Write( $out_msg, 'debug' );
 		}
 
 		return self::$_msDbObject;

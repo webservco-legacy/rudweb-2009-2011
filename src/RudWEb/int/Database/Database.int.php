@@ -41,13 +41,6 @@ if ( !defined( '_RUDWEB' ) )
 interface Interface_Database
 {
 	/**
-	 * Open database connection.
-	 *
-	 * @return bool
-	 */
-	public function Connect();
-
-	/**
 	 * Close database connection.
 	 *
 	 * @return bool

@@ -226,16 +226,6 @@ class Security extends Library
 		$input = str_replace( $unwanted, '', $input );
 
 		/**
-		 * Check if we should use database connection.
-		 *
-		 * @deprecated all escaping is done in the database library
-		 *
-		 * @var bool
-		 *
-		 * $have_db = ('' != Core::Config()->Get( 'db.type' ) ) ? TRUE : FALSE;
-		 */
-
-		/**
 		 * Check if the method is used to filter $_GET request.
 		 */
 		if ( ( FALSE !== $filterRequest ) )
@@ -267,17 +257,6 @@ class Security extends Library
 			 */
 			$input = $this->DisableTags( $input );
 		}
-
-		/**
-		 * Check if we have a database connection.
-		 *
-		 * @deprecated all escaping is done in the database library
-		 * if ( FALSE !== $have_db )
-		 */
-		/**
-		 * Use database internal function to filter input.
-		 * $input = Core::Database()->EscapeString( $input );
-		 */
 
 		/**
 		 * Return result.

@@ -107,7 +107,7 @@ class Database extends Library
 		/**
 		 * @var array
 		 */
-		$data = Core::Config()->Get( 'db' );
+		$data = Core::Config()->Get( 'database' );
 
 		/**
 		 * @var string
@@ -144,11 +144,11 @@ class Database extends Library
 	 *
 	 * @return bool
 	 */
-	protected function _GetLink()
+	public function Connect()
 	{
 		if ( NULL == $this->_mDbLink )
 		{
-			return $this->Connect();
+			return $this->_GetLink();
 		}
 
 		return TRUE;

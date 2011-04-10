@@ -128,7 +128,7 @@ abstract class Library
 		/**
 		 * @var string
 		 */
-		$config_name = 'lib.' . strtolower( str_replace( '_', '.', $className )) . '.cfg';
+		$config_name = strtolower( str_replace( '_', '.', $className )) . '.cfg';
 
 		/**
 		 * @var string
@@ -138,7 +138,7 @@ abstract class Library
 		/**
 		 * @var string
 		 */
-		$config_file =  $path_app . 'etc/' . $config_name . '.xml';
+		$config_file =  $path_app . 'etc/lib/' . $config_name . '.xml';
 
 		if ( !is_readable( $config_file ) )
 		{

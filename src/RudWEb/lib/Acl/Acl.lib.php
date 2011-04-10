@@ -309,7 +309,7 @@ class Acl extends Library
 		 */
 		$primary_key = Core::Database()->GetPrimaryKey( $table );
 
-		if ( 1 == Core::Config()->Get( 'db.binkey' ) )
+		if ( 1 == Core::Config()->Get( 'database.binkey' ) )
 		{
 			/**
 			 * @var string

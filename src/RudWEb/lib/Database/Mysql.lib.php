@@ -37,10 +37,11 @@ if ( !defined( '_RUDWEB' ) )
 class Database_Mysql extends Database implements Interface_Database
 {
 	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Database::Connect()
+	 * Setup database connection.
+	 *
+	 * @return bool
 	 */
-	public function Connect()
+	protected function _GetLink()
 	{
 		/**
 		 * Set configuration data.
@@ -97,7 +98,7 @@ class Database_Mysql extends Database implements Interface_Database
 		 */
 		$db_message = sprintf(
 		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
-		Core::Config()->Get( 'db.type' )
+		Core::Config()->Get( 'database.type' )
 		);
 
 		Core::Log()->Write( $db_message, 'debug' );
@@ -128,7 +129,7 @@ class Database_Mysql extends Database implements Interface_Database
 		/**
 		 * Open database connection if not already opened.
 		 */
-		$this->_GetLink();
+		$this->Connect();
 
 		return mysql_real_escape_string( $string );
 	}

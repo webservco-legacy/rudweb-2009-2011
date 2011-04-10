@@ -37,10 +37,11 @@ if ( !defined( '_RUDWEB' ) )
 class Database_Pdo extends Database implements Interface_Database
 {
 	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Database::Connect()
+	 * Setup database connection.
+	 *
+	 * @return bool
 	 */
-	public function Connect()
+	protected function _GetLink()
 	{
 		/**
 		 * Set configuration data.
@@ -50,7 +51,7 @@ class Database_Pdo extends Database implements Interface_Database
 		/**
 		 * @var string
 		 */
-		$db_type = Core::Config()->Get( 'db.type' );
+		$db_type = Core::Config()->Get( 'database.type' );
 
 		if ( FALSE !== strpos( $db_type, '_' ) )
 		{
@@ -133,7 +134,7 @@ class Database_Pdo extends Database implements Interface_Database
 		/**
 		 * Open database connection if not already opened.
 		 */
-		$this->_GetLink();
+		$this->Connect();
 
 		return $this->_mDbLink->quote( $string );
 	}
