@@ -107,6 +107,13 @@ class App extends Library
 		try
 		{
 			/**
+			 * Set i18n keywords.
+			 */
+			Core::Config()->SetI18nKeys();
+
+			Core::Log()->Write( __( 'Config library: Setting i18n keys.', 'RudWEb' ), 'debug' );
+
+			/**
 			 * Add application i18n.
 			 */
 			Core::I18n()->Add( 'App' );

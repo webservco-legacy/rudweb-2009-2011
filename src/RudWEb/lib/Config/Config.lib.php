@@ -64,6 +64,13 @@ class Config extends Library
 	private $_mConfigDelimiter = '.';
 
 	/**
+	 * I18n keywords.
+	 *
+	 * @var array
+	 */
+	private $_mI18nKeys = array();
+
+	/**
 	 * Implement GetInstance() method.
 	 *
 	 * This is required for PHP < 5.3 compatibility ( no late static binding )
@@ -78,6 +85,31 @@ class Config extends Library
 		 * Call parent method with current class name as parameter.
 		 */
 		return parent::_GetInstance( $className );
+	}
+
+	/**
+	 * Set I18n keys.
+	 *
+	 * @return bool
+	 */
+	public function SetI18nKeys()
+	{
+		/**
+		 * @var string
+		 */
+		$keys = $this->Get( 'i18n.keys' );
+
+		if ( FALSE == $keys )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * @var array
+		 */
+		$this->_mI18nKeys = explode( ',', $keys );
+
+		return TRUE;
 	}
 
 	/**
@@ -347,7 +379,7 @@ class Config extends Library
 				$key = array_shift( $cfgSetting );
 
 				/**
-				 * Go dwon one element in the configuration array,
+				 * Go down one element in the configuration array,
 				 * and call the method again, with the remaining request.
 				 */
 				return $this->Get( $cfgSetting, $cfg_env, $cfg_array[$key] );
@@ -388,9 +420,43 @@ class Config extends Library
 		if ( array_key_exists( $cfgSetting, $cfg_array ) )
 		{
 			/**
+			 * Check if requested value is empty.
+			 */
+			if ( empty( $cfg_array[$cfgSetting] ) )
+			{
+				return FALSE;
+			}
+
+			/**
+			 * @var bool
+			 */
+			$i18n_support = function_exists( '__' );
+
+			/**
+			 * @var bool
+			 */
+			$i18n_key = in_array( $cfgSetting, $this->_mI18nKeys );
+			
+			echo $cfgSetting . '<br />'; //XXX
+
+			if ( $i18n_support && $i18n_key )
+			{
+				die( $cfgSetting ); //XXX
+				/**
+				* Return i18n requested value.
+				*/
+				return __( $cfg_array[$cfgSetting] );
+			}
+
+			/**
+			 * Return requested value.
+			 */
+			return $cfg_array[$cfgSetting];
+
+			/**
 			 * Return requested value but only if it is not empty.
 			 */
-			return !empty( $cfg_array[$cfgSetting] ) ? $cfg_array[$cfgSetting] : FALSE;
+			//return !empty( $cfg_array[$cfgSetting] ) ? $cfg_array[$cfgSetting] : FALSE;
 		}
 
 		/**
