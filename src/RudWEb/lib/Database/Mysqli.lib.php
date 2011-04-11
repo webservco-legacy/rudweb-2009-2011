@@ -180,6 +180,9 @@ class Database_Mysqli extends Database implements Interface_Database
 
 		$result = $this->_mDbLink->query( "SELECT REPLACE( UUID(), '-', '' )" );
 
+		/**
+		 * @var array
+		 */
 		$row = $result->fetch_row();
 
 		$result->close();
@@ -206,6 +209,9 @@ class Database_Mysqli extends Database implements Interface_Database
 					AND INDEX_SCHEMA='{$this->_mDbDatabase}'
 					AND TABLE_NAME='{$table}'";
 
+		/**
+		 * @var resource
+		 */
 		$result = $this->_mDbLink->query( $query );
 
 		if ( FALSE === $result )
@@ -213,6 +219,9 @@ class Database_Mysqli extends Database implements Interface_Database
 			return FALSE;
 		}
 
+		/**
+		 * @var array
+		 */
 		$row = $result->fetch_row();
 
 		$result->close();
@@ -292,6 +301,9 @@ class Database_Mysqli extends Database implements Interface_Database
 
 		Core::Log()->Write( $query, 'debug' );
 
+		/**
+		 * @var resource
+		 */
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		if ( FALSE === $this->_mDbStmt )
@@ -303,7 +315,10 @@ class Database_Mysqli extends Database implements Interface_Database
 
 		$this->_mDbStmt->close();
 
-		//return $this->_mDbLink->insert_id;
+		/**
+		 * Perhaps needed in the future.
+		 * return $this->_mDbLink->insert_id;
+		 */
 
 		return TRUE;
 	}
@@ -525,12 +540,16 @@ class Database_Mysqli extends Database implements Interface_Database
 					 * @var string
 					 */
 					$key = $this->_PrepareBinaryField( $key );
+
 					/**
 					 * @var string
 					 */
 					$value = "UNHEX('$value')";
 				}
 				else {
+					/**
+					 * @var string
+					 */
 					$value = "'{$value}'";
 				}
 
@@ -541,6 +560,9 @@ class Database_Mysqli extends Database implements Interface_Database
 			}
 		}
 
+		/**
+		 * @var string
+		 */
 		$qf_data .= implode( ', ', $values );
 
 		/**
@@ -607,12 +629,18 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$qf_limit = $this->_PrepareLimitString( $options );
 
+		/**
+		 * @var string
+		 */
 		$query = "DELETE FROM {$table}{$qf_conditions}{$qf_order}{$qf_limit}";
 
 		Core::Log()->Write( __( 'Database Library: Preparing delete query.', 'RudWEb' ), 'debug' );
 
 		Core::Log()->Write( $query, 'debug' );
 
+		/**
+		 * @var resource
+		 */
 		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
 
 		$this->_mDbStmt->execute();
@@ -681,6 +709,8 @@ class Database_Mysqli extends Database implements Interface_Database
 	 *
 	 * @author http://ca.php.net/manual/en/mysqli-stmt.bind-param.php#96770
 	 *
+	 * @todo move to string library or similar, so we can also use it in other places.
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -689,9 +719,16 @@ class Database_Mysqli extends Database implements Interface_Database
 	{
 		if ( strnatcmp( phpversion(), '5.3' ) >= 0 )
 		{
+			/**
+			 * @var array
+			 */
 			$refs = array();
+
 			foreach( $data as $key => $value )
 			{
+				/**
+				 * @var array
+				 */
 				$refs[$key] = &$data[$key];
 			}
 			return $refs;
@@ -719,12 +756,21 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		if ( array_key_exists( 'conditions', $options ) && !empty ( $options['conditions'] ) )
 		{
+			/**
+			 * @var string
+			 */
 			$qf_conditions .= ' WHERE ';
 
+			/**
+			 * @var array
+			 */
 			$conditions = array();
 
 			if ( !is_array( $options['conditions'][0] ) )
 			{
+				/**
+				 * @var string
+				 */
 				$comp_operator = ( array_key_exists( 2, $options['conditions'] ) && array_key_exists( $options['conditions'][2], $this->_mCompOperators ) ) ?
 				$this->_mCompOperators[$options['conditions'][2]] : $this->_mCompOperators['eq'];
 
@@ -763,6 +809,9 @@ class Database_Mysqli extends Database implements Interface_Database
 			{
 				foreach ( $options['conditions'] as $dump => $condition )
 				{
+					/**
+					 * @var string
+					 */
 					$comp_operator = ( array_key_exists(2, $condition) && array_key_exists($condition[2], $this->_mCompOperators ) ) ?
 					$this->_mCompOperators[$condition[2]] : $this->_mCompOperators['eq'];
 
@@ -793,6 +842,9 @@ class Database_Mysqli extends Database implements Interface_Database
 						 */
 						$condition[1] = $this->EscapeString( $condition[1] );
 
+						/**
+						 * @var array
+						 */
 						$condition[1] = "'{$value}'";
 					}
 					/**
@@ -829,6 +881,9 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		if ( array_key_exists( 'order', $options ) && !empty ( $options['order'] ) )
 		{
+			/**
+			 * @var string
+			 */
 			$qf_order .= ' ORDER BY ';
 
 			if ( !is_array( $options['order'] ) )
@@ -850,6 +905,9 @@ class Database_Mysqli extends Database implements Interface_Database
 			}
 			else {
 
+				/**
+				 * @var array
+				 */
 				$ordering = array();
 
 				foreach ( $options['order'] as $order )
@@ -866,14 +924,20 @@ class Database_Mysqli extends Database implements Interface_Database
 							 */
 							$order = $this->_PrepareBinaryField( $order );
 						}
+
 						/**
 						 * @var array
 						 */
 						$ordering[] = "{$order} {$this->_mOrderBy['asc']}";
 					}
-					else {
+					else
+					{
+						/**
+						 * @var string
+						 */
 						$order_by = ( array_key_exists( 1, $order ) && array_key_exists( $order[1], $this->_mOrderBy ) ) ?
 						$this->_mOrderBy[$order[1]] : $this->_mOrderBy['asc'];
+
 						/**
 						 * Check binary field
 						 */
@@ -884,6 +948,7 @@ class Database_Mysqli extends Database implements Interface_Database
 							 */
 							$order[0] = $this->_PrepareBinaryField( $order[0] );
 						}
+
 						/**
 						 * @var array
 						 */
@@ -891,6 +956,9 @@ class Database_Mysqli extends Database implements Interface_Database
 					}
 				}
 
+				/**
+				 * @var string
+				 */
 				$qf_order .= implode( ', ', $ordering );
 			}
 		}
@@ -917,15 +985,24 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		if ( array_key_exists( 'limit', $options ) && !empty ( $options['limit'] ) )
 		{
+			/**
+			 * @var string
+			 */
 			$qf_limit .= ' LIMIT ';
 
 			if ( is_array( $options['limit'] ) )
 			{
+				/**
+				 * @var string
+				 */
 				$qf_limit .= ( array_key_exists( 1, $options['limit'] ) ) ?
 				"{$options['limit'][1]}, {$options['limit'][0]}" : "{$options['limit'][0]}";
 			}
 			else
 			{
+				/**
+				 * @var string
+				 */
 				$qf_limit .= $options['limit'];
 			}
 		}
