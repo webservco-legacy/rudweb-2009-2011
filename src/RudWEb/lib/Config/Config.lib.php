@@ -326,7 +326,7 @@ class Config extends Library
 
 		/**
 		 * Check if request setting is an empty array.
-		 * Additioanl $cfgArray check is required in order
+		 * Additional $cfgArray check is required in order
 		 * not to break recursivity.
 		 */
 		if ( !$cfgArray && is_array( $cfgSetting ) && empty( $cfgSetting ) )
@@ -347,7 +347,7 @@ class Config extends Library
 			/**
 			 * If the configuration array is not really an array, it means the
 			 * recursion has gone too deep and the configuration array variable
-			 * actuallyi contains the requested value.
+			 * actually contains the requested value.
 			 * Also, if there is no request setting set, the full configuration
 			 * for the current environment is retrieved.
 			 *
@@ -420,43 +420,9 @@ class Config extends Library
 		if ( array_key_exists( $cfgSetting, $cfg_array ) )
 		{
 			/**
-			 * Check if requested value is empty.
-			 */
-			if ( empty( $cfg_array[$cfgSetting] ) )
-			{
-				return FALSE;
-			}
-
-			/**
-			 * @var bool
-			 */
-			$i18n_support = function_exists( '__' );
-
-			/**
-			 * @var bool
-			 */
-			$i18n_key = in_array( $cfgSetting, $this->_mI18nKeys );
-			
-			echo $cfgSetting . '<br />'; //XXX
-
-			if ( $i18n_support && $i18n_key )
-			{
-				die( $cfgSetting ); //XXX
-				/**
-				* Return i18n requested value.
-				*/
-				return __( $cfg_array[$cfgSetting] );
-			}
-
-			/**
-			 * Return requested value.
-			 */
-			return $cfg_array[$cfgSetting];
-
-			/**
 			 * Return requested value but only if it is not empty.
 			 */
-			//return !empty( $cfg_array[$cfgSetting] ) ? $cfg_array[$cfgSetting] : FALSE;
+			return !empty( $cfg_array[$cfgSetting] ) ? $cfg_array[$cfgSetting] : FALSE;
 		}
 
 		/**
