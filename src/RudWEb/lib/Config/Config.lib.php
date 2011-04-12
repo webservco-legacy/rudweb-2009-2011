@@ -523,6 +523,31 @@ class Config extends Library
 		if ( is_array( $cfgData ) )
 		{
 			/**
+			 * Check for i18n support.
+			 */
+			if ( function_exists( '__' ) )
+			{
+				/**
+				 * Iterate through i18n keys.
+				 */
+				foreach ( $this->_mI18nKeys as $i18n_key )
+				{
+					/**
+					 * Check if configuration data contains i18n keys.
+					 */
+					if ( array_key_exists( $i18n_key, $cfgData ) && is_string( $cfgData[$i18n_key] ) )
+					{
+						/**
+						 * Translate configuration data.
+						 *
+						 * @var array
+						 */
+						$cfgData[$i18n_key] = __( $cfgData[$i18n_key] );
+					}
+				}
+			}
+
+			/**
 			 * Iterate through it as it may contain further objects.
 			 */
 			return array_map( array( $this, __FUNCTION__ ), $cfgData );
@@ -550,7 +575,7 @@ class Config extends Library
 	{
 		/**
 		 * If data is not an array, trim it.
-		 * Otherwise call teh method recursively.
+		 * Otherwise call the method recursively.
 		 */
 		return ( is_array( $cfgData ) ) ? array_map( array( $this, __FUNCTION__ ), $cfgData ) : trim( $cfgData );
 	}
