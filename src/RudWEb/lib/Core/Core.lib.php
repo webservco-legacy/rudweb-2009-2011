@@ -130,6 +130,13 @@ class Core
 	protected static $_msGeoObject;
 
 	/**
+	 * Stores the Form object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msFormObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -405,6 +412,24 @@ class Core
 		}
 
 		return self::$_msGeoObject;
+	}
+
+	/**
+	 * Method to access the Form object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Form()
+	{
+		if ( NULL == self::$_msFormObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msFormObject = Form::GetInstance();
+		}
+
+		return self::$_msFormObject;
 	}
 
 	/**

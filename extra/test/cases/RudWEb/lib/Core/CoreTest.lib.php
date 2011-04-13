@@ -138,5 +138,13 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInternalType( 'object', Core::Geo() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function FormReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Form() );
+	}
 }
 ?>
