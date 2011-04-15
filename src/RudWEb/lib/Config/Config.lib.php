@@ -71,6 +71,13 @@ class Config extends Library
 	private $_mI18nKeys = array();
 
 	/**
+	 * I18n keywords specific to application.
+	 *
+	 * @var array
+	 */
+	private $_mI18nKeysApp = array();
+
+	/**
 	 * Implement GetInstance() method.
 	 *
 	 * This is required for PHP < 5.3 compatibility ( no late static binding )
@@ -99,15 +106,26 @@ class Config extends Library
 		 */
 		$keys = $this->Get( 'i18n.keys' );
 
-		if ( FALSE == $keys )
+		if ( FALSE !== $keys )
 		{
-			return FALSE;
+			/**
+			 * @var array
+			 */
+			$this->_mI18nKeys = explode( ',', $keys );
 		}
 
 		/**
-		 * @var array
+		 * @var string
 		 */
-		$this->_mI18nKeys = explode( ',', $keys );
+		$keys_app = $this->Get( 'i18n.keys_app' );
+
+		if ( FALSE !== $keys_app )
+		{
+			/**
+			 * @var array
+			 */
+			$this->_mI18nKeysApp = explode( ',', $keys_app );
+		}
 
 		return TRUE;
 	}
@@ -543,6 +561,25 @@ class Config extends Library
 						 * @var array
 						 */
 						$cfgData[$i18n_key] = __( $cfgData[$i18n_key] );
+					}
+				}
+
+				/**
+				 * Iterate through i18n application keys.
+				 */
+				foreach ( $this->_mI18nKeysApp as $i18n_key_app )
+				{
+					/**
+					 * Check if configuration data contains i18n application keys.
+					 */
+					if ( array_key_exists( $i18n_key_app, $cfgData ) && is_string( $cfgData[$i18n_key_app] ) )
+					{
+						/**
+						 * Translate configuration data using the application text domain.
+						 *
+						 * @var array
+						 */
+						$cfgData[$i18n_key_app] = __( $cfgData[$i18n_key_app], 'App' );
 					}
 				}
 			}
