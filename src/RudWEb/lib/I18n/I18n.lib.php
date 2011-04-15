@@ -111,7 +111,7 @@ class I18n extends Library
 		/**
 		 * @var string
 		 */
-		$raw_domain = ( $rawDomain ) ? $rawDomain : 'RudWEb';
+		$raw_domain = ( $rawDomain ) ? $rawDomain : 'Core_RudWEb';
 
 		/**
 		 * @var array
@@ -130,7 +130,7 @@ class I18n extends Library
 		 *
 		 * @var string
 		 */
-		$type = 'Core';
+		$type = 'App';
 
 		/**
 		 * Default domain name.
@@ -160,24 +160,7 @@ class I18n extends Library
 		 */
 		switch ( $type )
 		{
-			case 'App' :
-
-			case 'Module' :
-				/**
-				 * @var string
-				 */
-				$base = 'path.app';
-
-				/**
-				 * @var string
-				 */
-				$dir = 'dir.app.i18n';
-
-				break;
-					
 			case 'Core'	:
-
-			default		:
 				/**
 				 * @var string
 				 */
@@ -187,6 +170,20 @@ class I18n extends Library
 				 * @var string
 				 */
 				$dir = 'dir.core.i18n';
+
+				break;
+
+			case 'App' :
+			default :
+				/**
+				 * @var string
+				 */
+				$base = 'path.app';
+
+				/**
+				 * @var string
+				 */
+				$dir = 'dir.app.i18n';
 
 				break;
 		}

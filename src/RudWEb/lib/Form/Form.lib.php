@@ -135,7 +135,7 @@ class Form extends Library
 		/**
 		 * @var string
 		 */
-		$this->_mMethod = '_' . strtoupper( $method );
+		$this->_mMethod =  $method;
 
 		return TRUE;
 	}
@@ -155,19 +155,6 @@ class Form extends Library
 		foreach ( $formData as $field => $data )
 		{
 			/**
-			 * Check if required title value is missing
-			 */
-			if ( empty( $data['title'] ) )
-			{
-				/**
-				 * @var string
-				 */
-				$err_msg = __( 'Form library: Form field title is required', 'RudWEb' );
-
-				trigger_error( $err_msg );
-			}
-
-			/**
 			 * Set main data.
 			 *
 			 * @var array
@@ -175,11 +162,20 @@ class Form extends Library
 			$this->_mData[$field] = ( !empty( $data['content'] ) ) ? $data['content'] : NULL;
 
 			/**
+			 * Set meta type.
+			 *
+			 * Defaults to 'text'
+			 *
+			 * @var array
+			 */
+			$this->_mMeta[$field]['type'] = ( !empty( $data['type'] ) ) ? $data['type'] : 'text';
+
+			/**
 			 * Set meta title
 			 *
 			 * @var array
 			 */
-			$this->_mMeta[$field]['title'] = $data['title'];
+			$this->_mMeta[$field]['title'] = ( !empty( $data['title'] ) ) ? $data['title'] : NULL;
 
 			/**
 			 * Set meta description
@@ -226,6 +222,16 @@ class Form extends Library
 	}
 
 	/**
+	 * Get form metadata.
+	 *
+	 * @return array
+	 */
+	public function GetMeta()
+	{
+		return $this->_mMeta;
+	}
+
+	/**
 	 * Get form data.
 	 *
 	 * @return array
@@ -258,6 +264,11 @@ class Form extends Library
 	public function Validate()
 	{
 		/**
+		 * Set request data.
+		 */
+		$this->_SetRequestData();
+
+		/**
 		 * Filter form data.
 		 */
 		$this->_Filter();
@@ -280,7 +291,7 @@ class Form extends Library
 					/**
 					 * @var array
 					 */
-					$this->_mErrors[$field][] = sprintf( Core::Config()->Get( 'form.error.required.title' ), $this->_mMeta[$field]['title'] );
+					$this->_mErrors[$field][] = sprintf( Core::Config()->Get( 'form.error.required.text' ), $this->_mMeta[$field]['title'] );
 				}
 			}
 
@@ -349,7 +360,7 @@ class Form extends Library
 							/**
 							 * @var string
 							 */
-							$error_message = Core::Config()->Get( "form.error.{$condition_index}.title" );
+							$error_message = Core::Config()->Get( "form.error.{$condition_index}.text" );
 
 							if ( FALSE !== $error )
 							{
@@ -363,7 +374,7 @@ class Form extends Library
 								/**
 								 * @var array
 								 */
-								$this->_mErrors[$field][] = sprintf( Core::Config()->Get( "form.error.default.title" ), $this->_mMeta[$field]['title'] );
+								$this->_mErrors[$field][] = sprintf( Core::Config()->Get( "form.error.default.text" ), $this->_mMeta[$field]['title'] );
 							}
 						}
 					}
@@ -385,6 +396,11 @@ class Form extends Library
 	private function _SetRequestData()
 	{
 		/**
+		 * @var array
+		 */
+		$request = ('post' == $this->_mMethod) ? $_POST : $_GET;
+
+		/**
 		 * Iterate form data.
 		 */
 		foreach ( $this->_mData as $field => $data )
@@ -392,14 +408,14 @@ class Form extends Library
 			/**
 			 * Check if we have request.
 			 */
-			if ( isset( ${$this->_mMethod}[$field] ) )
+			if ( isset( $request[$field] ) )
 			{
 				/**
 				 * Set form data.
 				 *
 				 * @var array
 				 */
-				$this->_mData[$field] = ${$this->_mMethod}[$field];
+				$this->_mData[$field] = $request[$field];
 			}
 		}
 
@@ -442,7 +458,7 @@ class Form extends Library
 						 *
 						 * @var array
 						 */
-						$this->_mDataFiltered[$filed] = ${$filter}( $data );
+						$this->_mDataFiltered[$field] = ${$filter}( $data );
 					}
 					/**
 					 * Check if filter is a string method
@@ -454,7 +470,7 @@ class Form extends Library
 						 *
 						 * @var array
 						 */
-						$this->_mDataFiltered[$filed] = call_user_func( array( Core::String(), $filter ), $data );
+						$this->_mDataFiltered[$field] = call_user_func( array( Core::String(), $filter ), $data );
 					}
 					else
 					{

@@ -125,7 +125,7 @@ class User extends Object
 			$persistent_expire = $returning_data[2];
 
 			/**
-			 * Check if user is already logged in from another session. XXX
+			 * Check if user is already logged in from another session.
 			 */
 			if ( $this->IsAlreadyLogged( $user_id ) )
 			{
