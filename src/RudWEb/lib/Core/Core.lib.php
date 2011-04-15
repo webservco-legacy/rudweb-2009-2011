@@ -137,6 +137,13 @@ class Core
 	protected static $_msFormObject;
 
 	/**
+	 * Stores the Captcha object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msCaptchaObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -430,6 +437,24 @@ class Core
 		}
 
 		return self::$_msFormObject;
+	}
+	
+	/**
+	 * Method to access the Captcha object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Captcha()
+	{
+		if ( NULL == self::$_msCaptchaObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msCaptchaObject = Captcha::GetInstance();
+		}
+
+		return self::$_msCaptchaObject;
 	}
 
 	/**
