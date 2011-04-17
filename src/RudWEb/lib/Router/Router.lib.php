@@ -221,6 +221,9 @@ class Router extends Library
 	/**
 	 * Perform redirect.
 	 *
+	 * If the locationis NULL, a self redirect will be performed.
+	 * If the location is "/", a homepage redirect will be performed.
+	 *
 	 * @param string $newLocation
 	 *
 	 * @return void
@@ -233,9 +236,22 @@ class Router extends Library
 		}
 
 		/**
+		 * Check if the "home" keyword is present.
+		 */
+		if ( '/' == $newLocation )
+		{
+			/**
+			 * Void the location so we have a home redirect.
+			 *
+			 * @var string
+			 */
+			$newLocation = NULL;
+		}
+
+		/**
 		 * @var string
 		 */
-		$url = Core::Config()->Get( 'usrl.app' ) . $newLocation;
+		$url = Core::Config()->Get( 'url.app' ) . $newLocation;
 
 		/**
 		 * Perform redirect.
@@ -395,6 +411,7 @@ class Router extends Library
 		 * @var string
 		 */
 		$request_string = str_replace( $unwanted, '', $requestString );
+
 
 		/**
 		 * @var string

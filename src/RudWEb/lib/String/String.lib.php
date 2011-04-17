@@ -123,8 +123,9 @@ class String extends Library
 	    "`", "'", '"',
 	    "\b", "\n", "\r", "\t",
 	    "?", "!", "@", "~", "#", "%", "^", "&", "*",
-	    "-", "_", "+", "=", "[", "]",
-	    ":", ";", ",", ".", "|", "\\",
+	    "+", "=", "[", "]",
+	    ":", ";", ",", 
+	    "|", "\\",
 		"{", "}", "(", ")", "\$"
 		);
 
@@ -337,6 +338,38 @@ class String extends Library
 		 * Return result.
 		 */
 		return ( $string !== $captcha ) ? FALSE : TRUE;
+	}
+
+	/**
+	 * Encode URL string.
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function EncodeUrlString( $string )
+	{
+		return strtr( base64_encode( $string ), '+/=', '-_.' );
+	}
+
+	/**
+	 * Decode URL string.
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function DecodeUrlString( $string )
+	{
+		/**
+		 * @var string
+		 */
+		$url_string = base64_decode( strtr( $string, '-_.', '+/=' ) );
+
+		/**
+		 * Return decoded URL string only if valid.
+		 */
+		return preg_match( "/^[a-zA-Z0-9\/\-\_.]+$/", $url_string ) ? $url_string : '/';
 	}
 }
 ?>

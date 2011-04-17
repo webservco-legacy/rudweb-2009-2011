@@ -81,7 +81,6 @@ class App extends Library
 
 		/**
 		 * Initialize internationalization library.
-		 * XXX ADD LOCALE SWITCHING
 		 */
 		Core::I18n()->Init();
 
@@ -156,6 +155,11 @@ class App extends Library
 				 * Start session.
 				 */
 				Core::Session()->Start();
+
+				/**
+				 * Locale session functionality.
+				 */
+				Core::I18n()->SetLocale();
 
 				/**
 				 * User object initialization.

@@ -44,7 +44,21 @@ class I18n extends Library
 	 *
 	 * @var string
 	 */
-	private $_mI18nLocale;
+	private $_mLocale;
+
+	/**
+	 * Stores the list of loaded domains.
+	 *
+	 * @var array
+	 */
+	private $_mDomains = array();
+
+	/**
+	 * Stores the current domain.
+	 *
+	 * @var string
+	 */
+	private $_mDomain;
 
 	/**
 	 * Implement GetInstance() method.
@@ -70,31 +84,112 @@ class I18n extends Library
 	 *
 	 * @param string $i18nLocale
 	 * @param string $defaultDomain
+	 *
+	 * @return bool
 	 */
 	public function Init( $i18nLocale = NULL, $defaultDomain = NULL )
 	{
+		/**
+		 * Set locale data.
+		 */
+		$this->SetLocale( $i18nLocale );
+
+		/**
+		 * Add default domain message catalog.
+		 */
+		$this->Add( $defaultDomain );
+
+		/**
+		 * Load default domain message catalog.
+		 */
+		$this->Load( $defaultDomain );
+
+		return TRUE;
+	}
+
+	/**
+	 * Set locale data.
+	 *
+	 * @param string $i18nLocale
+	 *
+	 * @return bool
+	 */
+	public function SetLocale( $i18nLocale = NULL )
+	{
 		if ( empty( $i18nLocale ) )
 		{
-			$i18nLocale = Core::Config()->Get( 'i18n.locale' );
+			/**
+			 * Check if we have a session.
+			 */
+			if ( !empty( $_SESSION[__CLASS__]['locale'] ) )
+			{
+				/**
+				 * @var string
+				 */
+				$i18nLocale = $_SESSION[__CLASS__]['locale'];
+			}
+			else
+			{
+				/**
+				 * @var string
+				 */
+				$i18nLocale = Core::Config()->Get( 'i18n.locale' );
+			}
+
 		}
 
-		$this->_mI18nLocale = ( $i18nLocale ) ? $i18nLocale : 'en_US';
+		$this->_mLocale = ( $i18nLocale ) ? $i18nLocale : 'en_US';
 
 		/**
 		 * Rumored to allow using a locale regardless on server locale setup.
 		 */
-		putenv("LANGUAGE=" . $this->_mI18nLocale );
+		putenv("LANGUAGE=" . $this->_mLocale );
 
 		/**
 		 * Rumored to be needed on Win.
 		 */
-		putenv("LANG=" . $this->_mI18nLocale );
+		putenv("LANG=" . $this->_mLocale );
 
-		setlocale( LC_ALL, $this->_mI18nLocale );
+		setlocale( LC_ALL, $this->_mLocale );
 
-		$this->Add( $defaultDomain );
+		/**
+		 * Check if we have a session.
+		 */
+		if ( !empty( $_SESSION ) )
+		{
+			/**
+			 * @var array
+			 */
+			$_SESSION[__CLASS__]['locale'] = $this->_mLocale;
+		}
 
-		$this->Load( $defaultDomain );
+		/**
+		 * Check if we have domains already set.
+		 */
+		if ( !empty( $this->_mDomains ) )
+		{
+			/**
+			 * Iterate domains.
+			 */
+			foreach ( $this->_mDomains as $domain => $loaded )
+			{
+				/**
+				 * Add domain.
+				 */
+				$this->Add( $domain );
+			}
+		}
+
+		/**
+		 * Check if we have a domain already loaded.
+		 */
+		if ( !empty( $this->_mDomain ) )
+		{
+			/**
+			 * Re-load the domain.
+			 */
+			$this->Load( $this->_mDomain );
+		}
 
 		return TRUE;
 	}
@@ -203,6 +298,13 @@ class I18n extends Library
 
 		bindtextdomain( $domain, $path );
 
+		/**
+		 * Add domain to list.
+		 *
+		 * @var array
+		 */
+		$this->_mDomains[$domain] = TRUE;
+
 		return TRUE;
 	}
 
@@ -233,14 +335,21 @@ class I18n extends Library
 		textdomain( $domain_name );
 
 		/**
+		 * Set active domain.
+		 *
+		 * @var string
+		 */
+		$this->_mDomain = $domain_name;
+
+		/**
 		 * Check if current locale contains a custom codeset.
 		 */
-		if ( FALSE !== strpos( $this->_mI18nLocale, '.' ) )
+		if ( FALSE !== strpos( $this->_mLocale, '.' ) )
 		{
 			/**
 			 * @var array
 			 */
-			$parts = explode( '.', $this->_mI18nLocale );
+			$parts = explode( '.', $this->_mLocale );
 
 			/**
 			 * @var string
