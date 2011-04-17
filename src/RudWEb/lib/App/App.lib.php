@@ -62,6 +62,11 @@ class App extends Library
 		return parent::_GetInstance( $className );
 	}
 
+	/**
+	 * Boot application.
+	 *
+	 * @return bool
+	 */
 	public function Boot()
 	{
 		/**
@@ -76,6 +81,7 @@ class App extends Library
 
 		/**
 		 * Initialize internationalization library.
+		 * XXX ADD LOCALE SWITCHING
 		 */
 		Core::I18n()->Init();
 
