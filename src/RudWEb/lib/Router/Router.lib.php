@@ -135,6 +135,120 @@ class Router extends Library
 	}
 
 	/**
+	 * Format request query.
+	 *
+	 * Returns key/value or numeric indexed array.
+	 * Request can be in the form 'lorem/ipsum/dolor/sic'.
+	 * If parameter count is not even, the last parameter
+	 * is returned as ['param'] = 'param'.
+	 *
+	 * @param string $requestQuery
+	 * @param bool $returnNumeric return numeric indexed array instead of key/value?
+	 *
+	 * @return array
+	 */
+	public function ParseRequestQuery( $requestQuery, $returnNumeric = FALSE )
+	{
+		/**
+		 * @var array
+		 */
+		$query = array();
+
+		/**
+		 * @var array
+		 */
+		$raw_query = explode( '/', $requestQuery );
+
+		/**
+		 * @var array
+		 */
+		$raw_query = array_diff( $raw_query, array('') );
+
+		if ( FALSE !== $returnNumeric )
+		{
+			return $raw_query;
+		}
+
+		$params = count( $raw_query );
+
+		for( $position = 0; $position < $params; $position += 2 )
+		{
+			/**
+			 * If the data count is not even, set the last value to true.
+			 *
+			 * @var array
+			 */
+			$query[$raw_query[$position]] = ( $position == ( $params - 1 ) ) ?
+			TRUE :
+			$raw_query[$position+1];
+		}
+
+		Core::Log()->Write( __( 'Router library: Parsed request query.', 'RudWEb' ), 'debug' );
+
+		return $query;
+	}
+
+	/**
+	 * Remove fake extension from request.
+	 *
+	 * @param string $request
+	 */
+	public function RemoveFakeExtension( $request )
+	{
+		/**
+		 * @var string
+		 */
+		$extension = Core::Config()->Get( 'seo.extension' );
+
+		/**
+		 * @var bool
+		 */
+		$check = Core::String()->EndsWith( $extension, $request );
+
+		/**
+		 * Check if request ends with the fake extension.
+		 */
+		if ( ( '' != $extension ) && ( FALSE !== $check ) )
+		{
+			Core::Log()->Write( __( 'Router library: Removing fake extension.', 'RudWEb' ), 'debug' );
+
+			return str_replace( $extension, '', $request );
+		}
+
+		return $request;
+	}
+
+	/**
+	 * Perform redirect.
+	 *
+	 * @param string $newLocation
+	 *
+	 * @return void
+	 */
+	public function Redirect ( $newLocation = NULL )
+	{
+		if ( empty( $newLocation ) )
+		{
+			return $this->_RedirectSelf();
+		}
+
+		/**
+		 * @var string
+		 */
+		$url = Core::Config()->Get( 'usrl.app' ) . $newLocation;
+
+		/**
+		 * Perform redirect.
+		 */
+		header( "Location: {$url}" );
+
+		/**
+		 * Stop script execution.
+		 */
+		exit;
+	}
+
+	/**
 	 * Get current request.
 	 *
 	 * @return string
@@ -658,87 +772,43 @@ class Router extends Library
 	}
 
 	/**
-	 * Format request query.
+	 * Perform a self redirect.
 	 *
-	 * Returns key/value or numeric indexed array.
-	 * Request can be in the form 'lorem/ipsum/dolor/sic'.
-	 * If parameter count is not even, the last parameter
-	 * is returned as ['param'] = 'param'.
-	 *
-	 * @param string $requestQuery
-	 * @param bool $returnNumeric return numeric indexed array instead of key/value?
-	 *
-	 * @return array
+	 * @return void
 	 */
-	public function ParseRequestQuery( $requestQuery, $returnNumeric = FALSE )
+	private function _RedirectSelf()
 	{
-		/**
-		 * @var array
-		 */
-		$query = array();
-
-		/**
-		 * @var array
-		 */
-		$raw_query = explode( '/', $requestQuery );
-
-		/**
-		 * @var array
-		 */
-		$raw_query = array_diff( $raw_query, array('') );
-
-		if ( FALSE !== $returnNumeric )
-		{
-			return $raw_query;
-		}
-
-		$params = count( $raw_query );
-
-		for( $position = 0; $position < $params; $position += 2 )
+		if ( !empty( $_SERVER['HTTP_HOST'] ) )
 		{
 			/**
-			 * If the data count is not even, set the last value to true.
-			 *
-			 * @var array
+			 * @var string
 			 */
-			$query[$raw_query[$position]] = ( $position == ( $params - 1 ) ) ?
-			TRUE :
-			$raw_query[$position+1];
+			$url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
-
-		Core::Log()->Write( __( 'Router library: Parsed request query.', 'RudWEb' ), 'debug' );
-
-		return $query;
-	}
-
-	/**
-	 * Remove fake extension from request.
-	 *
-	 * @param string $request
-	 */
-	public function RemoveFakeExtension( $request )
-	{
-		/**
-		 * @var string
-		 */
-		$extension = Core::Config()->Get( 'seo.extension' );
-
-		/**
-		 * @var bool
-		 */
-		$check = Core::String()->EndsWith( $extension, $request );
-
-		/**
-		 * Check if request ends with the fake extension.
-		 */
-		if ( ( '' != $extension ) && ( FALSE !== $check ) )
+		else if ( !empty( $_SERVER['SERVER_NAME'] ) )
 		{
-			Core::Log()->Write( __( 'Router library: Removing fake extension.', 'RudWEb' ), 'debug' );
-
-			return str_replace( $extension, '', $request );
+			/**
+			 * @var string
+			 */
+			$url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+		}
+		else
+		{
+			/**
+			 * @var string
+			 */
+			$url = Core::Config()->Get( 'url.app' );
 		}
 
-		return $request;
+		/**
+		 * Redirect.
+		 */
+		header( "Location: {$url}" );
+
+		/**
+		 * Stop script execution.
+		 */
+		exit;
 	}
 }
 ?>
