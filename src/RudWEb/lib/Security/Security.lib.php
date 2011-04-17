@@ -235,14 +235,14 @@ class Security extends Library
 			 *
 			 * @var string
 			 */
-			$input = $this->RemoveBadChars( $input );
+			$input = Core::String()->RemoveBadChars( $input );
 
 			/**
 			 * Remove tags
 			 *
 			 * @var string.
 			 */
-			$input = $this->StripTags( $input );
+			$input = Core::String()->StripTags( $input );
 		}
 
 		/**
@@ -255,119 +255,13 @@ class Security extends Library
 			 *
 			 * @var string
 			 */
-			$input = $this->DisableTags( $input );
+			$input = Core::String()->DisableTags( $input );
 		}
 
 		/**
 		 * Return result.
 		 */
 		return trim( $input );
-	}
-
-	/**
-	 * Remove known bad characters from a string.
-	 *
-	 * @param string $string input string
-	 *
-	 * @return string
-	 */
-	public function RemoveBadChars( $string )
-	{
-		/**
-		 * Known bad characters.
-		 *
-		 * @var array
-		 */
-		$bad = array(
-	    "`", "'", '"',
-	    "\b", "\n", "\r", "\t",
-	    "?", "!", "@", "~", "#", "%", "^", "&", "*",
-	    "-", "_", "+", "=", "[", "]",
-	    ":", ";", ",", ".", "|", "\\",
-		"{", "}", "(", ")", "\$"
-		);
-
-		/**
-		 * Remove bad chars.
-		 */
-		$string = str_replace( $bad, '', $string );
-
-		/**
-		 * Return result.
-		 */
-		return $string;
-	}
-
-	/**
-	 * Strip tags from string.
-	 *
-	 * @param string $input input
-	 *
-	 * @return string
-	 */
-	public function StripTags( $input )
-	{
-		/**
-		 * Return result.
-		 */
-		return preg_replace( '/<(.|\s)*?\>/', '', $input );
-	}
-
-	/**
-	 * Disable tags from a string.
-	 *
-	 * @param string $string input string
-	 *
-	 * @return string
-	 */
-	public function DisableTags( $string )
-	{
-		/**
-		 * Block <.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '&lt;', '&#60;', $string );
-
-		/**
-		 * Block >.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '&gt;', '&#62;', $string );
-
-		/**
-		 * Block <.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '<', '&#60;', $string );
-
-		/**
-		 * Block >.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '>', '&#62;', $string );
-
-		/**
-		 * Block <.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '%3C', '&#60;', $string );
-
-		/**
-		 * Block >.
-		 *
-		 * @var string
-		 */
-		$string = str_replace( '%3E', '&#62;', $string );
-
-		/**
-		 * Return result.
-		 */
-		return $string;
 	}
 
 	/**

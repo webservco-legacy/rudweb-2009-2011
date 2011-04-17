@@ -438,7 +438,7 @@ class Core
 
 		return self::$_msFormObject;
 	}
-	
+
 	/**
 	 * Method to access the Captcha object from everywhere.
 	 *
@@ -727,19 +727,19 @@ class Core
 
 		$parts = explode( '_', $libraryName );
 
-		$libary_name = end( $parts );
+		$library_name = end( $parts );
 
-		if( !class_exists( $libary_name ) )
+		if( !class_exists( $library_name ) )
 		{
 			/**
 			 * @var string
 			 */
-			$err_msg = sprintf( __( 'Core Library: Class "%s" not found.', 'RudWEb' ), $libary_name );
+			$err_msg = sprintf( __( 'Core Library: Class "%s" not found.', 'RudWEb' ), $library_name );
 
-			trigger_error( $err_msg, 256 );
+			trigger_error( $err_msg );
 		}
 
-		return call_user_func( array( $libary_name, 'GetInstance' ), $libary_name );
+		return call_user_func( array( $library_name, 'GetInstance' ), $library_name );
 	}
 }
 ?>

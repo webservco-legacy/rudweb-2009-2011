@@ -104,5 +104,239 @@ class String extends Library
 			return $string;
 		}
 	}
+
+	/**
+	 * Remove known bad characters from a string.
+	 *
+	 * @param string $string input string
+	 *
+	 * @return string
+	 */
+	public function RemoveBadChars( $string )
+	{
+		/**
+		 * Known bad characters.
+		 *
+		 * @var array
+		 */
+		$bad = array(
+	    "`", "'", '"',
+	    "\b", "\n", "\r", "\t",
+	    "?", "!", "@", "~", "#", "%", "^", "&", "*",
+	    "-", "_", "+", "=", "[", "]",
+	    ":", ";", ",", ".", "|", "\\",
+		"{", "}", "(", ")", "\$"
+		);
+
+		/**
+		 * Remove bad chars.
+		 */
+		$string = str_replace( $bad, '', $string );
+
+		/**
+		 * Return result.
+		 */
+		return $string;
+	}
+
+	/**
+	 * Strip tags from string.
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function StripTags( $string )
+	{
+		/**
+		 * Return result.
+		 */
+		return preg_replace( '/<(.|\s)*?\>/', '', $string );
+	}
+
+	/**
+	 * Disable tags from a string.
+	 *
+	 * @param string $string input string
+	 *
+	 * @return string
+	 */
+	public function DisableTags( $string )
+	{
+		/**
+		 * Block <.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '&lt;', '&#60;', $string );
+
+		/**
+		 * Block >.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '&gt;', '&#62;', $string );
+
+		/**
+		 * Block <.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '<', '&#60;', $string );
+
+		/**
+		 * Block >.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '>', '&#62;', $string );
+
+		/**
+		 * Block <.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '%3C', '&#60;', $string );
+
+		/**
+		 * Block >.
+		 *
+		 * @var string
+		 */
+		$string = str_replace( '%3E', '&#62;', $string );
+
+		/**
+		 * Return result.
+		 */
+		return $string;
+	}
+
+	/**
+	 * Check if string is of minimum length.
+	 *
+	 * @param string $string
+	 * @param int $length
+	 *
+	 * @return bool
+	 */
+	public function HasLengthMin( $string, $length = 0 )
+	{
+		/**
+		 * Set function name.
+		 *
+		 * Check if mbsting extension is available.
+		 *
+		 * @var string
+		 */
+		$f = (function_exists('mb_internal_encoding')) ? 'mb_strlen' : 'strlen';
+
+		/**
+		 * Check data length.
+		 *
+		 * Return result.
+		 */
+		return ( $f( $string ) < $length ) ? FALSE : TRUE;
+	}
+
+	/**
+	 * Check if string is of maximum length.
+	 *
+	 * @param string $string
+	 * @param int $length
+	 *
+	 * @return bool
+	 */
+	public function HasLengthMax( $string, $length = 0 )
+	{
+		/**
+		 * Set function name.
+		 *
+		 * Check if mbsting extension is available.
+		 *
+		 * @var string
+		 */
+		$f = (function_exists('mb_internal_encoding')) ? 'mb_strlen' : 'strlen';
+
+		/**
+		 * Check data length.
+		 *
+		 * Return result.
+		 */
+		return ( $f( $string ) > $length ) ? FALSE : TRUE;
+	}
+
+	/**
+	 * Check if two strings are equal.
+	 *
+	 * @param stirng $string
+	 * @param string $match
+	 *
+	 * @return bool
+	 */
+	public function Equals( $string, $match )
+	{
+		/**
+		 * Check if data is the same as the match.
+		 *
+		 * Return result.
+		 */
+		return ( $string !== $match ) ? FALSE : TRUE;
+	}
+
+	/**
+	 * Check is string contains both letters and numbers.
+	 *
+	 * @param string $string
+	 *
+	 * @return bool
+	 */
+	public function IsAlphanumeric( $string )
+	{
+		/**
+		 * Set condition.
+		 */
+		$match = "/^.*(?=.*\d)(?=.*[A-z]).*$/";
+
+		/**
+		 * Check if data is a valid password.
+		 *
+		 * Return result.
+		 */
+		return ( preg_match( $match, $string) ) ? TRUE : FALSE;
+	}
+
+	/**
+	 * Check if string is a valid email address.
+	 *
+	 * @param string $string
+	 *
+	 * @return bool
+	 */
+	public function IsValidEmail( $string )
+	{
+		return ( filter_var($string, FILTER_VALIDATE_EMAIL) ) ? TRUE : FALSE;
+	}
+
+	/**
+	 * Check if string matches captcha.
+	 *
+	 * @param string $string
+	 *
+	 * @return bool
+	 */
+	public function MatchesCaptcha( $string )
+	{
+		/**
+		 * @var string
+		 */
+		$captcha = Core::Captcha()->GetToken();
+
+		/**
+		 * Check if data is the same as the match.
+		 *
+		 * Return result.
+		 */
+		return ( $string !== $captcha ) ? FALSE : TRUE;
+	}
 }
 ?>

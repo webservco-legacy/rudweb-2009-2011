@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-25 22:52+0200\n"
-"PO-Revision-Date: 2010-10-25 22:52+0200\n"
+"POT-Creation-Date: 2011-04-16 18:50+0200\n"
+"PO-Revision-Date: 2011-04-16 18:50+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -19,30 +19,167 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb\n"
 
+#: lib/Object/Object.lib.php:173
+#, php-format
+msgid "%s object: Skipping configuration file \"%s\" (not found)."
+msgstr "%s object: Skipping configuration file \"%s\" (not found)."
+
+#: lib/Object/Object.lib.php:190
+#, php-format
+msgid "%s object: Loading configuration file \"%s\"."
+msgstr "%s object: Loading configuration file \"%s\"."
+
+#: lib/Error/Error.lib.php:67
+msgid "Error library: Registering as error handler."
+msgstr "Error library: Registering as error handler."
+
+#: lib/Error/Error.lib.php:81
+msgid "Error library: Restoring default error handler."
+msgstr "Error library: Restoring default error handler."
+
+#: lib/Error/Error.lib.php:114
+#: lib/Error/Error.lib.php:144
+msgid "The application made a boo boo."
+msgstr "The application made a boo boo."
+
+#: lib/Error/Error.lib.php:143
+msgid "Error"
+msgstr "Error"
+
+#: lib/Error/Error.lib.php:145
+msgid "But there is no reason to panic."
+msgstr "But there is no reason to panic."
+
+#: lib/Error/Error.lib.php:146
+msgid "The person responsible has been notified."
+msgstr "The person responsible has been notified."
+
+#: lib/Error/Error.lib.php:147
+msgid "Please come back later."
+msgstr "Please come back later."
+
+#: lib/Error/Error.lib.php:148
+#, php-format
+msgid "The friendly server at %s."
+msgstr "The friendly server at %s."
+
+#: lib/Controller/Controller.lib.php:125
+#, php-format
+msgid "Controller library: Module \"%s\" loading."
+msgstr "Controller library: Module \"%s\" loading."
+
+#: lib/Controller/Controller.lib.php:165
+#, php-format
+msgid "Controller library: Output library \"%s\" loading."
+msgstr "Controller library: Output library \"%s\" loading."
+
+#: lib/Module/Module.lib.php:108
+#, php-format
+msgid "%s module: Skipping configuration file \"%s\" (not found)."
+msgstr "%s module: Skipping configuration file \"%s\" (not found)."
+
+#: lib/Module/Module.lib.php:125
+#, php-format
+msgid "%s module: Loading configuration file \"%s\"."
+msgstr "%s module: Loading configuration file \"%s\"."
+
+#: lib/Router/Router.lib.php:98
+msgid "Router library: Initializing routing."
+msgstr "Router library: Initializing routing."
+
+#: lib/Router/Router.lib.php:151
+msgid "Router library: Performing PATH_INFO routing."
+msgstr "Router library: Performing PATH_INFO routing."
+
+#: lib/Router/Router.lib.php:162
+msgid "Router library: Performing ORIG_PATH_INFO routing."
+msgstr "Router library: Performing ORIG_PATH_INFO routing."
+
+#: lib/Router/Router.lib.php:173
+msgid "Router library: Performing REQUEST_URI routing."
+msgstr "Router library: Performing REQUEST_URI routing."
+
+#: lib/Router/Router.lib.php:188
+msgid "Router library: Performing QUERY_STRING routing."
+msgstr "Router library: Performing QUERY_STRING routing."
+
+#: lib/Router/Router.lib.php:375
+msgid "Router library: Parsing custom routes."
+msgstr "Router library: Parsing custom routes."
+
+#: lib/Router/Router.lib.php:387
+msgid "Router library: Empty request. Setting to default."
+msgstr "Router library: Empty request. Setting to default."
+
+#: lib/Router/Router.lib.php:448
+msgid "Router library: Found matching custom route."
+msgstr "Router library: Found matching custom route."
+
+#: lib/Router/Router.lib.php:454
+msgid "Router library: No matching custom route found."
+msgstr "Router library: No matching custom route found."
+
+#: lib/Router/Router.lib.php:481
+msgid "Router library: Setting default route."
+msgstr "Router library: Setting default route."
+
+#: lib/Router/Router.lib.php:490
+msgid "Router library: Setting custom route."
+msgstr "Router library: Setting custom route."
+
+#: lib/Router/Router.lib.php:519
+msgid "Router library: Emptying $_GET array."
+msgstr "Router library: Emptying $_GET array."
+
+#: lib/Router/Router.lib.php:616
+msgid "Router library: Request parsing done."
+msgstr "Router library: Request parsing done."
+
+#: lib/Router/Router.lib.php:653
+msgid "Router library: Request formatting done."
+msgstr "Router library: Request formatting done."
+
+#: lib/Router/Router.lib.php:655
+msgid "Router library: Routing complete."
+msgstr "Router library: Routing complete."
+
+#: lib/Router/Router.lib.php:709
+msgid "Router library: Parsed request query."
+msgstr "Router library: Parsed request query."
+
+#: lib/Router/Router.lib.php:736
+msgid "Router library: Removing fake extension."
+msgstr "Router library: Removing fake extension."
+
 #: lib/Library/Library.lib.php:89
+#, php-format
+msgid "%s object: Loading."
+msgstr "%s object: Loading."
+
+#: lib/Library/Library.lib.php:99
 #, php-format
 msgid "%s library: Loading."
 msgstr "%s library: Loading."
 
-#: lib/Library/Library.lib.php:143
+#: lib/Library/Library.lib.php:151
 #, php-format
 msgid "%s library: Skipping configuration file \"%s\" (not found)."
 msgstr "%s library: Skipping configuration file \"%s\" (not found)."
 
-#: lib/Library/Library.lib.php:161
+#: lib/Library/Library.lib.php:169
 #, php-format
 msgid "%s library: Loading configuration file \"%s\"."
 msgstr "%s library: Loading configuration file \"%s\"."
 
 #: lib/Output/Rudweb.lib.php:53
-#: lib/Output/Smarty.lib.php:53
 #: lib/Output/Phptal.lib.php:53
+#: lib/Output/Smarty.lib.php:53
 msgid "Output library: Initializing output engine object."
 msgstr "Output library: Initializing output engine object."
 
 #: lib/Output/Rudweb.lib.php:89
-#: lib/Output/Smarty.lib.php:121
 #: lib/Output/Phptal.lib.php:113
+#: lib/Output/Smarty.lib.php:121
 msgid "Output library: Rendering template."
 msgstr "Output library: Rendering template."
 
@@ -50,271 +187,221 @@ msgstr "Output library: Rendering template."
 msgid "Output library: Template file not found: "
 msgstr "Output library: Template file not found: "
 
-#: lib/Output/Output.lib.php:102
+#: lib/Output/Phptal.lib.php:171
+#: lib/Output/Output.lib.php:188
+#: lib/Output/Smarty.lib.php:153
+msgid "Output library: Setting data."
+msgstr "Output library: Setting data."
+
+#: lib/Output/Output.lib.php:119
 #, php-format
 msgid "Output library: Skin directory set to \"%s\"."
 msgstr "Output library: Skin directory set to \"%s\"."
 
-#: lib/Output/Output.lib.php:133
+#: lib/Output/Output.lib.php:150
 msgid "Output library: Calling Set() method."
 msgstr "Output library: Calling Set() method."
 
-#: lib/Output/Output.lib.php:143
+#: lib/Output/Output.lib.php:166
 msgid "Output library: Calling output engine Render() method."
 msgstr "Output library: Calling output engine Render() method."
 
-#: lib/Output/Output.lib.php:165
-#: lib/Output/Smarty.lib.php:153
-#: lib/Output/Phptal.lib.php:162
-msgid "Output library: Setting data."
-msgstr "Output library: Setting data."
-
-#: lib/Output/Output.lib.php:185
+#: lib/Output/Output.lib.php:208
 #, php-format
 msgid "Output library: Loading external output engine \"%s\"."
 msgstr "Output library: Loading external output engine \"%s\"."
 
-#: lib/Output/Output.lib.php:202
-#: lib/Output/Output.lib.php:262
+#: lib/Output/Output.lib.php:225
+#: lib/Output/Output.lib.php:285
 #, php-format
 msgid "Output Library: Error loading external output engine \"%s\"."
 msgstr "Output Library: Error loading external output engine \"%s\"."
 
-#: lib/Output/Output.lib.php:205
+#: lib/Output/Output.lib.php:228
 msgid "Configuration file not found."
 msgstr "Configuration file not found."
 
-#: lib/Output/Output.lib.php:247
+#: lib/Output/Output.lib.php:270
 #, php-format
 msgid "Output library: External output engine \"%s\" found in \"%s\" path."
 msgstr "Output library: External output engine \"%s\" found in \"%s\" path."
 
-#: lib/Output/Output.lib.php:265
+#: lib/Output/Output.lib.php:288
 msgid "File not found."
 msgstr "File not found."
 
-#: lib/Security/Security.lib.php:60
+#: lib/Database/Postgresql.lib.php:72
+#: lib/Database/Mysqli.lib.php:101
+#: lib/Database/Mysql.lib.php:70
+msgid "Database library: Error connecting to database management server."
+msgstr "Database library: Error connecting to database management server."
+
+#: lib/Database/Postgresql.lib.php:90
+#: lib/Database/Mysqli.lib.php:119
+#: lib/Database/Mysql.lib.php:100
+#: lib/Database/Pdo.lib.php:108
+#: lib/Database/Sqlite3.lib.php:97
+#, php-format
+msgid "Database library: Database connection opened (driver: %s)."
+msgstr "Database library: Database connection opened (driver: %s)."
+
+#: lib/Database/Mysqli.lib.php:300
+msgid "Database Library: Preparing create query."
+msgstr "Database Library: Preparing create query."
+
+#: lib/Database/Mysqli.lib.php:430
+msgid "Database Library: Preparing retrieve query."
+msgstr "Database Library: Preparing retrieve query."
+
+#: lib/Database/Mysqli.lib.php:587
+msgid "Database Library: Preparing update query."
+msgstr "Database Library: Preparing update query."
+
+#: lib/Database/Mysqli.lib.php:637
+msgid "Database Library: Preparing delete query."
+msgstr "Database Library: Preparing delete query."
+
+#: lib/Database/Mysql.lib.php:82
+#: lib/Database/Sqlite3.lib.php:79
+#, php-format
+msgid "Database library: Error opening database %s."
+msgstr "Database library: Error opening database %s."
+
+#: lib/Database/Sqlite3.lib.php:58
+msgid "Database library: Database file is not readable."
+msgstr "Database library: Database file is not readable."
+
+#: lib/App/App.lib.php:90
+msgid "Application: Booting."
+msgstr "Application: Booting."
+
+#: lib/App/App.lib.php:92
+msgid "Core library: Loading."
+msgstr "Core library: Loading."
+
+#: lib/App/App.lib.php:94
+msgid "Config library: Loading."
+msgstr "Config library: Loading."
+
+#: lib/App/App.lib.php:96
+msgid "Config library: Configuration settings loaded."
+msgstr "Config library: Configuration settings loaded."
+
+#: lib/App/App.lib.php:98
+msgid "I18n library: Loading."
+msgstr "I18n library: Loading."
+
+#: lib/App/App.lib.php:100
+msgid "Log library: Loading."
+msgstr "Log library: Loading."
+
+#: lib/App/App.lib.php:114
+msgid "Config library: Setting i18n keys."
+msgstr "Config library: Setting i18n keys."
+
+#: lib/App/App.lib.php:121
+#, php-format
+msgid "I18n library: Added domain \"%s\"."
+msgstr "I18n library: Added domain \"%s\"."
+
+#: lib/App/App.lib.php:128
+#, php-format
+msgid "I18n library: Loaded domain \"%s\"."
+msgstr "I18n library: Loaded domain \"%s\"."
+
+#: lib/App/App.lib.php:159
+msgid "User object: Initialization complete."
+msgstr "User object: Initialization complete."
+
+#: lib/App/App.lib.php:162
+msgid "Application: Booting complete."
+msgstr "Application: Booting complete."
+
+#: lib/App/App.lib.php:171
+msgid "Application: Booting failed."
+msgstr "Application: Booting failed."
+
+#: lib/App/App.lib.php:185
+msgid "Application: Running dispatcher."
+msgstr "Application: Running dispatcher."
+
+#: lib/App/App.lib.php:198
+#, php-format
+msgid "Application: Module \"%s\" not found."
+msgstr "Application: Module \"%s\" not found."
+
+#: lib/App/App.lib.php:227
+#, php-format
+msgid "Application: Controller \"%s\" not found."
+msgstr "Application: Controller \"%s\" not found."
+
+#: lib/App/App.lib.php:264
+#, php-format
+msgid "Application: Action \"%s\" not found."
+msgstr "Application: Action \"%s\" not found."
+
+#: lib/App/App.lib.php:278
+#, php-format
+msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
+msgstr "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
+
+#: lib/App/App.lib.php:303
+msgid "Application: Dispatcher done."
+msgstr "Application: Dispatcher done."
+
+#: lib/App/App.lib.php:310
+msgid "Application: Shutdown."
+msgstr "Application: Shutdown."
+
+#: lib/App/App.lib.php:391
+msgid "Application: Loading error message."
+msgstr "Application: Loading error message."
+
+#: lib/Security/Security.lib.php:77
 msgid "Security library: Initializing input sanitization."
 msgstr "Security library: Initializing input sanitization."
 
-#: lib/Security/Security.lib.php:81
+#: lib/Security/Security.lib.php:98
 #, php-format
 msgid "Security library: %s GET request sanitized."
 msgid_plural "Security library: %s GET requests sanitized."
 msgstr[0] "Security library: %s GET request sanitized."
 msgstr[1] "Security library: %s GET requests sanitized."
 
-#: lib/Security/Security.lib.php:114
+#: lib/Security/Security.lib.php:130
 #, php-format
 msgid "Security library: %s POST request sanitized."
 msgid_plural "Security library: %s POST requests sanitized."
 msgstr[0] "Security library: %s POST request sanitized."
 msgstr[1] "Security library: %s POST requests sanitized."
 
-#: lib/Security/Security.lib.php:124
+#: lib/Security/Security.lib.php:140
 msgid "Security library: Sanitize complete."
 msgstr "Security library: Sanitize complete."
 
-#: lib/Controller/Controller.lib.php:84
+#: lib/Session/Session.lib.php:136
+msgid "Session library: Started new session."
+msgstr "Session library: Started new session."
+
+#: lib/Form/Form.lib.php:386
 #, php-format
-msgid "Controller library: Module \"%s\" loading."
-msgstr "Controller library: Module \"%s\" loading."
+msgid "Form Library: Validation method \"%s\" not found."
+msgstr "Form Library: Validation method \"%s\" not found."
 
-#: lib/Controller/Controller.lib.php:121
+#: lib/Form/Form.lib.php:489
 #, php-format
-msgid "Controller library: Output library \"%s\" loading."
-msgstr "Controller library: Output library \"%s\" loading."
+msgid "Form Library: Filter method \"%s\" not found."
+msgstr "Form Library: Filter method \"%s\" not found."
 
-#: lib/Error/Error.lib.php:50
-msgid "Error library: Registering as error handler."
-msgstr "Error library: Registering as error handler."
-
-#: lib/Error/Error.lib.php:64
-msgid "Error library: Restoring default error handler."
-msgstr "Error library: Restoring default error handler."
-
-#: lib/Error/Error.lib.php:97
-#: lib/Error/Error.lib.php:127
-msgid "The application made a boo boo."
-msgstr "The application made a boo boo."
-
-#: lib/Error/Error.lib.php:126
-msgid "Error"
-msgstr "Error"
-
-#: lib/Error/Error.lib.php:128
-msgid "But there is no reason to panic."
-msgstr "But there is no reason to panic."
-
-#: lib/Error/Error.lib.php:129
-msgid "The person responsible has been notified."
-msgstr "The person responsible has been notified."
-
-#: lib/Error/Error.lib.php:130
-msgid "Please come back later."
-msgstr "Please come back later."
-
-#: lib/Error/Error.lib.php:131
+#: lib/Core/Core.lib.php:290
 #, php-format
-msgid "The friendly server at %s."
-msgstr "The friendly server at %s."
+msgid "Core library: Database library \"%s\" loading."
+msgstr "Core library: Database library \"%s\" loading."
 
-#: lib/Router/Router.lib.php:81
-msgid "Router library: Initializing routing."
-msgstr "Router library: Initializing routing."
-
-#: lib/Router/Router.lib.php:134
-msgid "Router library: Performing PATH_INFO routing."
-msgstr "Router library: Performing PATH_INFO routing."
-
-#: lib/Router/Router.lib.php:145
-msgid "Router library: Performing ORIG_PATH_INFO routing."
-msgstr "Router library: Performing ORIG_PATH_INFO routing."
-
-#: lib/Router/Router.lib.php:156
-msgid "Router library: Performing REQUEST_URI routing."
-msgstr "Router library: Performing REQUEST_URI routing."
-
-#: lib/Router/Router.lib.php:171
-msgid "Router library: Performing QUERY_STRING routing."
-msgstr "Router library: Performing QUERY_STRING routing."
-
-#: lib/Router/Router.lib.php:338
-msgid "Router library: Parsing custom routes."
-msgstr "Router library: Parsing custom routes."
-
-#: lib/Router/Router.lib.php:350
-msgid "Router library: Empty request. Setting to default."
-msgstr "Router library: Empty request. Setting to default."
-
-#: lib/Router/Router.lib.php:411
-msgid "Router library: Found matching custom route."
-msgstr "Router library: Found matching custom route."
-
-#: lib/Router/Router.lib.php:417
-msgid "Router library: No matching custom route found."
-msgstr "Router library: No matching custom route found."
-
-#: lib/Router/Router.lib.php:437
-msgid "Router library: Setting default route."
-msgstr "Router library: Setting default route."
-
-#: lib/Router/Router.lib.php:446
-msgid "Router library: Setting custom route."
-msgstr "Router library: Setting custom route."
-
-#: lib/Router/Router.lib.php:475
-msgid "Router library: Emptying $_GET array."
-msgstr "Router library: Emptying $_GET array."
-
-#: lib/Router/Router.lib.php:572
-msgid "Router library: Request parsing done."
-msgstr "Router library: Request parsing done."
-
-#: lib/Router/Router.lib.php:609
-msgid "Router library: Request formatting done."
-msgstr "Router library: Request formatting done."
-
-#: lib/Router/Router.lib.php:611
-msgid "Router library: Routing complete."
-msgstr "Router library: Routing complete."
-
-#: lib/Router/Router.lib.php:665
-msgid "Router library: Parsed request query."
-msgstr "Router library: Parsed request query."
-
-#: lib/Router/Router.lib.php:692
-msgid "Router library: Removing fake extension."
-msgstr "Router library: Removing fake extension."
-
-#: lib/App/App.lib.php:69
-msgid "Application: Booting."
-msgstr "Application: Booting."
-
-#: lib/App/App.lib.php:71
-msgid "Core library: Loading."
-msgstr "Core library: Loading."
-
-#: lib/App/App.lib.php:73
-msgid "Config library: Loading."
-msgstr "Config library: Loading."
-
-#: lib/App/App.lib.php:75
-msgid "Config library: Configuration settings loaded."
-msgstr "Config library: Configuration settings loaded."
-
-#: lib/App/App.lib.php:77
-msgid "I18n library: Loading."
-msgstr "I18n library: Loading."
-
-#: lib/App/App.lib.php:79
-msgid "Log library: Loading."
-msgstr "Log library: Loading."
-
-#: lib/App/App.lib.php:102
-msgid "Application: Booting complete."
-msgstr "Application: Booting complete."
-
-#: lib/App/App.lib.php:111
-msgid "Application: Booting failed."
-msgstr "Application: Booting failed."
-
-#: lib/App/App.lib.php:125
-msgid "Application: Running dispatcher."
-msgstr "Application: Running dispatcher."
-
-#: lib/App/App.lib.php:138
+#: lib/Core/Core.lib.php:737
 #, php-format
-msgid "Application: Module \"%s\" not found."
-msgstr "Application: Module \"%s\" not found."
-
-#: lib/App/App.lib.php:161
-#, php-format
-msgid "Application: Controller \"%s\" not found."
-msgstr "Application: Controller \"%s\" not found."
-
-#: lib/App/App.lib.php:187
-#, php-format
-msgid "Application: Action \"%s\" not found."
-msgstr "Application: Action \"%s\" not found."
-
-#: lib/App/App.lib.php:198
-#, php-format
-msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
-msgstr "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
-
-#: lib/App/App.lib.php:223
-msgid "Application: Dispatcher done."
-msgstr "Application: Dispatcher done."
-
-#: lib/App/App.lib.php:230
-msgid "Application: Shutdown."
-msgstr "Application: Shutdown."
-
-#: lib/Database/Mysqli.lib.php:69
-#: lib/Database/Postgresql.lib.php:71
-#: lib/Database/Mysql.lib.php:69
-msgid "Database library: Error connecting to database management server."
-msgstr "Database library: Error connecting to database management server."
-
-#: lib/Database/Mysqli.lib.php:87
-#: lib/Database/Sqlite3.lib.php:96
-#: lib/Database/Postgresql.lib.php:89
-#: lib/Database/Mysql.lib.php:99
-#: lib/Database/Pdo.lib.php:107
-#, php-format
-msgid "Database library: Database connection opened (driver: %s)."
-msgstr "Database library: Database connection opened (driver: %s)."
-
-#: lib/Database/Sqlite3.lib.php:57
-msgid "Database library: Database file is not readable."
-msgstr "Database library: Database file is not readable."
-
-#: lib/Database/Sqlite3.lib.php:78
-#: lib/Database/Mysql.lib.php:81
-#, php-format
-msgid "Database library: Error opening database %s."
-msgstr "Database library: Error opening database %s."
+msgid "Core Library: Class \"%s\" not found."
+msgstr "Core Library: Class \"%s\" not found."
 
 #: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:136
 #: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:144

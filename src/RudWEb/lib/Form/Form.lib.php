@@ -348,7 +348,7 @@ class Form extends Library
 						 *
 						 * @var bool
 						 */
-						$validation = Core::String()->${$condition_function}( $data, $condition_parameter );
+						$validation = Core::String()->$condition_function( $data, $condition_parameter );
 
 						if ( FALSE === $validation )
 						{
@@ -362,7 +362,7 @@ class Form extends Library
 							 */
 							$error_message = Core::Config()->Get( "form.error.{$condition_index}.text" );
 
-							if ( FALSE !== $error )
+							if ( FALSE !== $error_message )
 							{
 								/**
 								 * @var array
@@ -377,6 +377,15 @@ class Form extends Library
 								$this->_mErrors[$field][] = sprintf( Core::Config()->Get( "form.error.default.text" ), $this->_mMeta[$field]['title'] );
 							}
 						}
+					}
+					else
+					{
+						/**
+						 * @var string
+						 */
+						$err_msg = sprintf( __( 'Form Library: Validation method "%s" not found.', 'RudWEb' ), $condition_function );
+
+						trigger_error( $err_msg );
 					}
 				}
 			}
@@ -475,12 +484,11 @@ class Form extends Library
 					else
 					{
 						/**
-						 * Filter did not match any method,
-						 * set the data as is.
-						 *
-						 * @var array
+						 * @var string
 						 */
-						$this->_mDataFiltered[$field] = $data;
+						$err_msg = sprintf( __( 'Form Library: Filter method "%s" not found.', 'RudWEb' ), $filter );
+
+						trigger_error( $err_msg );
 					}
 				}
 			}

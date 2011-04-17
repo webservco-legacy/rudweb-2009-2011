@@ -118,14 +118,14 @@ class App extends Library
 			 */
 			Core::I18n()->Add( 'App' );
 
-			Core::Log()->Write( sprintf( __( 'I18n library: Added domain %s.', 'RudWEb' ), 'App' ), 'debug' );
+			Core::Log()->Write( sprintf( __( 'I18n library: Added domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
 
 			/**
 			 * Load application i18n.
 			 */
 			Core::I18n()->Load( 'App' );
 
-			Core::Log()->Write( sprintf( __( 'I18n library: Loaded domain %s.', 'RudWEb' ), 'App' ), 'debug' );
+			Core::Log()->Write( sprintf( __( 'I18n library: Loaded domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
 
 			/**
 			 * Sanitize requests.
