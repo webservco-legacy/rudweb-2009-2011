@@ -28,6 +28,7 @@
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Geo</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Form</directory>
 	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Captcha</directory>
+	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Mail</directory>
 	    </testsuite>
 	    <testsuite name="RudWEb Objects">
 	    	<directory suffix=".obj.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/obj/User</directory>

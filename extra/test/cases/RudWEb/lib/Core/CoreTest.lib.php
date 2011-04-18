@@ -154,5 +154,13 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInternalType( 'object', Core::Captcha() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function MailReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Mail() );
+	}
 }
 ?>

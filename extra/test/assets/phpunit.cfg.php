@@ -82,6 +82,8 @@ require_once 'RudWEb/lib/Form/Form.lib.php';
 
 require_once 'RudWEb/lib/Form/Captcha.lib.php';
 
+require_once 'RudWEb/lib/Form/Mail.lib.php';
+
 require_once 'RudWEb/obj/User/User.obj.php';
 
 /**

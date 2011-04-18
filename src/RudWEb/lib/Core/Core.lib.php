@@ -144,6 +144,13 @@ class Core
 	protected static $_msCaptchaObject;
 
 	/**
+	 * Stores the Mail object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msMailObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -455,6 +462,24 @@ class Core
 		}
 
 		return self::$_msCaptchaObject;
+	}
+
+	/**
+	 * Method to access the Mail object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Mail()
+	{
+		if ( NULL == self::$_msMailObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msMailObject = Mail::GetInstance();
+		}
+
+		return self::$_msMailObject;
 	}
 
 	/**
