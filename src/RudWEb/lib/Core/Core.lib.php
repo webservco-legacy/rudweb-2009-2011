@@ -151,6 +151,13 @@ class Core
 	protected static $_msMailObject;
 
 	/**
+	 * Stores the Browser object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msBrowserObject;
+
+	/**
 	 * Method to acces the configuration object from everywhere.
 	 *
 	 * @return object
@@ -483,6 +490,24 @@ class Core
 	}
 
 	/**
+	 * Method to access the Browser object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Browser()
+	{
+		if ( NULL == self::$_msBrowserObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msBrowserObject = Browser::GetInstance();
+		}
+
+		return self::$_msBrowserObject;
+	}
+
+	/**
 	 * Load classes.
 	 *
 	 * @param string $ClassName full class name
@@ -750,8 +775,14 @@ class Core
 	{
 		self::Load( $libraryName );
 
+		/**
+		 * @var array
+		 */
 		$parts = explode( '_', $libraryName );
 
+		/**
+		 * @var string
+		 */
 		$library_name = end( $parts );
 
 		if( !class_exists( $library_name ) )
@@ -765,6 +796,11 @@ class Core
 		}
 
 		return call_user_func( array( $library_name, 'GetInstance' ), $library_name );
+	}
+
+	private function Wget()
+	{
+		//XXX Custom implementation for the license system. For general use we will have a separate library.
 	}
 }
 ?>
