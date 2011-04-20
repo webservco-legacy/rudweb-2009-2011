@@ -37,6 +37,11 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Captcha extends Library
 {
+	/**
+	 * Library properties.
+	 *
+	 * @var array
+	 */
 	private $_mProp = array();
 
 	/**

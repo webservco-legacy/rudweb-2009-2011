@@ -798,9 +798,223 @@ class Core
 		return call_user_func( array( $library_name, 'GetInstance' ), $library_name );
 	}
 
-	private function Wget()
+	/**
+	 * Open URL handle.
+	 *
+	 * @param string $url
+	 * @param array $postData
+	 *
+	 * @return mixed
+	 */
+	final private static function _Wget( $url, $postData=array() )
 	{
-		//XXX Custom implementation for the license system. For general use we will have a separate library.
+		/**
+		 * Initialize headers.
+		 *
+		 * @var array
+		 */
+		$headers = array();
+
+		/**
+		 * @var unknown_type
+		 */
+		$headers['User-Agent'] = 'Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2 GTB6 (.NET CLR 3.5.30729)';
+
+		/**
+		 * @var unknown_type
+		 */
+		$headers['Referer'] = Core::Config()->Get( 'url.app' );
+
+		/**
+		 * @var unknown_type
+		 */
+		$headers['Accept-Encoding'] = 'x-compress; x-zip';
+
+		/**
+		 * Parse url.
+		 */
+		preg_match( "~([a-z]*://)?([^:^/]*)(:([0-9]{1,5}))?(/.*)?~i", $url, $url_parts );
+
+		/**
+		 * @var string
+		 */
+		$protocol = $url_parts[1];
+
+		/**
+		 * @var string
+		 */
+		$server = $url_parts[2];
+
+		/**
+		 * @var string
+		 */
+		$port = ( '' != $url_parts[4] ) ? $url_parts[4] : '80';
+
+		/**
+		 * @var string
+		 */
+		$path = ( '' != $url_parts[5] ) ? $url_parts[5] : '/';
+
+		/**
+		 * Open socket.
+		 */
+		$socket = fsockopen( $server, $port );
+
+		/**
+		 * Check if socket was opened successfully.
+		 */
+		if ( !$socket )
+		{
+			/**
+			 * Return result.
+			 */
+			return FALSE;
+		}
+
+		/**
+		 * Set host header.
+		 */
+		$headers['Host'] = $server;
+
+		/**
+		 * Set request.
+		 */
+		$request = ( !empty( $postData ) ) ? "POST $path HTTP/1.0\r\n" : "GET $path HTTP/1.0\r\n";
+
+		/**
+		 * Send request.
+		 */
+		fwrite( $socket, $request );
+
+		/**
+		 * Init post string.
+		 *
+		 * @var string
+		 */
+		$post_string = NULL;
+
+		/**
+		 * Check if we have post data.
+		 */
+		if ( !empty( $postData ) )
+		{
+			/**
+			 * Init post data.
+			 *
+			 * @var array
+			 */
+			$post_data = array();
+
+			/**
+			 * Iterate post data.
+			 */
+			foreach ( $postData as $post_key => $post_value )
+			{
+				/**
+				 * @var array
+				 */
+				$post_data[] = "{$post_key}={$post_value}";
+			}
+
+			/**
+			 * Set post string.
+			 *
+			 * @var string
+			 */
+			$post_string = implode( '&', $post_data );
+
+			/**
+			 * Set content type header.
+			 *
+			 * @var array
+			 */
+			$headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+			/**
+			 * Set content length header.
+			 *
+			 * @var array
+			 */
+			$headers['Content-Length'] = strlen( $post_string );
+		}
+
+		/**
+		 * Iterate headers.
+		 */
+		foreach ( $headers as $header_key => $header_value )
+		{
+			/**
+			 * Send headers.
+			 */
+			fwrite( $socket, "{$header_key}: {$header_value}\r\n" );
+		}
+
+		/**
+		 * Send newline.
+		 */
+		fwrite( $socket, "\r\n" );
+
+		/**
+		 * Check if we have post data.
+		 */
+		if ( !empty( $post_string ) )
+		{
+			/**
+			 * Send post request string.
+			 */
+			fwrite( $socket, $post_string."\r\n" );
+		}
+
+		/**
+		 * Get first line of response.
+		 */
+		$response = fgets( $socket, 1000 );
+
+		/**
+		 * Get status.
+		 */
+		$status = substr( $response, 9, 3);
+
+		while ( trim( $line = fgets( $socket, 1000 ) ) != '' )
+		{
+			if ( '401' == $status && ( 0 === strpos( $line, "WWW-Authenticate: Basic realm=\"" ) ) )
+			{
+				/**
+				 * Close socket
+				 */
+				fclose( $socket );
+
+				/**
+				 * Return result.
+				 */
+				return FALSE;
+			}
+		}
+
+		/**
+		 * Return result.
+		 */
+		return $socket;
+	}
+
+	final private static function _LicSetParams()
+	{
+		//XXX
+	}
+
+	final private static function _LicGet()
+	{
+		//XXX
+	}
+
+	final private static function _LicUpdate()
+	{
+		//XXX
+	}
+
+	final private static function _LicCheck()
+	{
+		//XXX
 	}
 }
 ?>
