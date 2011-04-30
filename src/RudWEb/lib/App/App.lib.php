@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -72,7 +72,7 @@ class App extends Library
 		/**
 		 * Load main configuration settings.
 		 */
-		$this->_InitConfig();
+		Core::Config()->Init();
 
 		/**
 		 * Set timezone.
@@ -323,36 +323,6 @@ class App extends Library
 	}
 
 	/**
-	 * Load main configuration settings.
-	 *
-	 * @return bool
-	 */
-	protected function _InitConfig()
-	{
-		/**
-		 * @var string
-		 */
-		$path_core = Core::Config()->Get( 'path.core' );
-
-		/**
-		 * @var string
-		 */
-		$path_app = Core::Config()->Get( 'path.app' );
-
-		/**
-		 * Set core directories.
-		 */
-		Core::Config()->Set( $path_core . 'etc/dir.cfg.xml' );
-
-		/**
-		 * Set application directories.
-		 */
-		Core::Config()->Set( $path_app . 'etc/dir.cfg.xml' );
-
-		return TRUE;
-	}
-
-	/**
 	 * Initialize application logging.
 	 *
 	 * @return bool
@@ -400,6 +370,9 @@ class App extends Library
 
 		Core::Log()->Write( __( 'Application: Loading error message.', 'RudWEb' ), 'notice' );
 
+		/**
+		 * @var string
+		 */
 		$ctrl_name = 'Controller_Oups_' . $errorController;
 
 		/**
@@ -410,6 +383,9 @@ class App extends Library
 		 */
 		$ctrl_object = call_user_func( array( $ctrl_name, 'GetInstance' ), $ctrl_name );
 
+		/**
+		 * @var string
+		 */
 		$action_name = 'Oups' . $errorType;
 
 		return call_user_func( array( $ctrl_object, $action_name ) );

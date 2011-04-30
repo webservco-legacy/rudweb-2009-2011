@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 19:05+0200\n"
-"PO-Revision-Date: 2011-04-16 19:06+0200\n"
+"POT-Creation-Date: 2011-04-30 19:29+0200\n"
+"PO-Revision-Date: 2011-04-30 19:29+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -37,28 +37,55 @@ msgstr "Biblioteca Error: Înregistrare ca error handler."
 msgid "Error library: Restoring default error handler."
 msgstr "Biblioteca Error: Restaurare error handler implicit."
 
-#: lib/Error/Error.lib.php:114
-#: lib/Error/Error.lib.php:144
-msgid "The application made a boo boo."
-msgstr "Aplicația a facut un boo boo."
+#: lib/Error/Error.lib.php:127
+msgid "The application made a boo boo:"
+msgstr "Aplicația a facut un boo boo:"
 
 #: lib/Error/Error.lib.php:143
+#, php-format
+msgid "Code: %s"
+msgstr "Cod: %s"
+
+#: lib/Error/Error.lib.php:148
+#, php-format
+msgid "Severity: %s"
+msgstr "Gravitate: %s"
+
+#: lib/Error/Error.lib.php:153
+#, php-format
+msgid "File: %s"
+msgstr "Fișier: %s"
+
+#: lib/Error/Error.lib.php:158
+#, php-format
+msgid "Line: %s"
+msgstr "Linie: %s"
+
+#: lib/Error/Error.lib.php:168
+msgid "Trace:"
+msgstr "Trasare:"
+
+#: lib/Error/Error.lib.php:202
 msgid "Error"
 msgstr "Eroare"
 
-#: lib/Error/Error.lib.php:145
+#: lib/Error/Error.lib.php:203
+msgid "The application made a boo boo."
+msgstr "Aplicația a facut un boo boo."
+
+#: lib/Error/Error.lib.php:204
 msgid "But there is no reason to panic."
 msgstr "Dar nu există nici un motiv de panică."
 
-#: lib/Error/Error.lib.php:146
+#: lib/Error/Error.lib.php:205
 msgid "The person responsible has been notified."
 msgstr "Persoana responsabilă a fost notificată."
 
-#: lib/Error/Error.lib.php:147
+#: lib/Error/Error.lib.php:206
 msgid "Please come back later."
 msgstr "Vă rugăm reveniți mai târziu."
 
-#: lib/Error/Error.lib.php:148
+#: lib/Error/Error.lib.php:207
 #, php-format
 msgid "The friendly server at %s."
 msgstr "Serverul prietenos de la %s."
@@ -87,69 +114,69 @@ msgstr "Modulul %s: Încărcare fișier de configurare \"%s\"."
 msgid "Router library: Initializing routing."
 msgstr "Biblioteca Router: Inițializare rutare."
 
-#: lib/Router/Router.lib.php:151
-msgid "Router library: Performing PATH_INFO routing."
-msgstr "Biblioteca Router: Efecturare rutare PATH_INFO."
-
-#: lib/Router/Router.lib.php:162
-msgid "Router library: Performing ORIG_PATH_INFO routing."
-msgstr "Biblioteca Router: Efecturare rutare ORIG_PATH_INFO."
-
-#: lib/Router/Router.lib.php:173
-msgid "Router library: Performing REQUEST_URI routing."
-msgstr "Biblioteca Router: Efecturare rutare REQUEST_URI."
-
-#: lib/Router/Router.lib.php:188
-msgid "Router library: Performing QUERY_STRING routing."
-msgstr "Biblioteca Router: Efecturare rutare QUERY_STRING."
-
-#: lib/Router/Router.lib.php:375
-msgid "Router library: Parsing custom routes."
-msgstr "Biblioteca Router: Parsare rute custom."
-
-#: lib/Router/Router.lib.php:387
-msgid "Router library: Empty request. Setting to default."
-msgstr "Biblioteca Router: Cerere goală. Setare valoare implicită."
-
-#: lib/Router/Router.lib.php:448
-msgid "Router library: Found matching custom route."
-msgstr "Biblioteca Router: Găsit rută custom potrivită."
-
-#: lib/Router/Router.lib.php:454
-msgid "Router library: No matching custom route found."
-msgstr "Biblioteca Router: Nu am găsit nici o rută custom potrivită."
-
-#: lib/Router/Router.lib.php:481
-msgid "Router library: Setting default route."
-msgstr "Biblioteca Router: Setare rută implicită."
-
-#: lib/Router/Router.lib.php:490
-msgid "Router library: Setting custom route."
-msgstr "Biblioteca Router: Setare rută custom."
-
-#: lib/Router/Router.lib.php:519
-msgid "Router library: Emptying $_GET array."
-msgstr "Biblioteca Router: Golire matrice $_GET."
-
-#: lib/Router/Router.lib.php:616
-msgid "Router library: Request parsing done."
-msgstr "Biblioteca Router: Parsare cerere încheiată."
-
-#: lib/Router/Router.lib.php:653
-msgid "Router library: Request formatting done."
-msgstr "Biblioteca Router: Formatare cerere încheiată."
-
-#: lib/Router/Router.lib.php:655
-msgid "Router library: Routing complete."
-msgstr "Biblioteca Router: Rutare încheiată."
-
-#: lib/Router/Router.lib.php:709
+#: lib/Router/Router.lib.php:186
 msgid "Router library: Parsed request query."
 msgstr "Biblioteca Router: Parsare cerere de interogare."
 
-#: lib/Router/Router.lib.php:736
+#: lib/Router/Router.lib.php:213
 msgid "Router library: Removing fake extension."
 msgstr "Biblioteca Router: Înlăturare extensie falsă."
+
+#: lib/Router/Router.lib.php:281
+msgid "Router library: Performing PATH_INFO routing."
+msgstr "Biblioteca Router: Efecturare rutare PATH_INFO."
+
+#: lib/Router/Router.lib.php:292
+msgid "Router library: Performing ORIG_PATH_INFO routing."
+msgstr "Biblioteca Router: Efecturare rutare ORIG_PATH_INFO."
+
+#: lib/Router/Router.lib.php:303
+msgid "Router library: Performing REQUEST_URI routing."
+msgstr "Biblioteca Router: Efecturare rutare REQUEST_URI."
+
+#: lib/Router/Router.lib.php:318
+msgid "Router library: Performing QUERY_STRING routing."
+msgstr "Biblioteca Router: Efecturare rutare QUERY_STRING."
+
+#: lib/Router/Router.lib.php:506
+msgid "Router library: Parsing custom routes."
+msgstr "Biblioteca Router: Parsare rute custom."
+
+#: lib/Router/Router.lib.php:518
+msgid "Router library: Empty request. Setting to default."
+msgstr "Biblioteca Router: Cerere goală. Setare valoare implicită."
+
+#: lib/Router/Router.lib.php:579
+msgid "Router library: Found matching custom route."
+msgstr "Biblioteca Router: Găsit rută custom potrivită."
+
+#: lib/Router/Router.lib.php:585
+msgid "Router library: No matching custom route found."
+msgstr "Biblioteca Router: Nu am găsit nici o rută custom potrivită."
+
+#: lib/Router/Router.lib.php:612
+msgid "Router library: Setting default route."
+msgstr "Biblioteca Router: Setare rută implicită."
+
+#: lib/Router/Router.lib.php:621
+msgid "Router library: Setting custom route."
+msgstr "Biblioteca Router: Setare rută custom."
+
+#: lib/Router/Router.lib.php:650
+msgid "Router library: Emptying $_GET array."
+msgstr "Biblioteca Router: Golire matrice $_GET."
+
+#: lib/Router/Router.lib.php:747
+msgid "Router library: Request parsing done."
+msgstr "Biblioteca Router: Parsare cerere încheiată."
+
+#: lib/Router/Router.lib.php:784
+msgid "Router library: Request formatting done."
+msgstr "Biblioteca Router: Formatare cerere încheiată."
+
+#: lib/Router/Router.lib.php:786
+msgid "Router library: Routing complete."
+msgstr "Biblioteca Router: Rutare încheiată."
 
 #: lib/Library/Library.lib.php:89
 #, php-format
@@ -173,13 +200,11 @@ msgstr "Biblioteca %s: Încărcare fișier de configurare \"%s\"."
 
 #: lib/Output/Rudweb.lib.php:53
 #: lib/Output/Phptal.lib.php:53
-#: lib/Output/Smarty.lib.php:53
 msgid "Output library: Initializing output engine object."
 msgstr "Biblioteca Output: Inițializare obiect motor output."
 
 #: lib/Output/Rudweb.lib.php:89
 #: lib/Output/Phptal.lib.php:113
-#: lib/Output/Smarty.lib.php:121
 msgid "Output library: Rendering template."
 msgstr "Biblioteca Output: Randare template."
 
@@ -189,7 +214,6 @@ msgstr "Biblioteca Output: Fișierul template nu a fost găsit:"
 
 #: lib/Output/Phptal.lib.php:171
 #: lib/Output/Output.lib.php:188
-#: lib/Output/Smarty.lib.php:153
 msgid "Output library: Setting data."
 msgstr "Biblioteca Output: Setare date."
 
@@ -271,89 +295,89 @@ msgstr "Biblioteca Database: Eroare deschidere bază de date %s."
 msgid "Database library: Database file is not readable."
 msgstr "Biblioteca Database: Fișierul bazei de date nu poate fi citit."
 
-#: lib/App/App.lib.php:90
+#: lib/App/App.lib.php:95
 msgid "Application: Booting."
 msgstr "Aplicație: Pornire."
 
-#: lib/App/App.lib.php:92
+#: lib/App/App.lib.php:97
 msgid "Core library: Loading."
 msgstr "Biblioteca Core: Încărcare."
 
-#: lib/App/App.lib.php:94
+#: lib/App/App.lib.php:99
 msgid "Config library: Loading."
 msgstr "Biblioteca Config: Încărcare."
 
-#: lib/App/App.lib.php:96
+#: lib/App/App.lib.php:101
 msgid "Config library: Configuration settings loaded."
 msgstr "Biblioteca Config: Setările de configurație încărcate."
 
-#: lib/App/App.lib.php:98
+#: lib/App/App.lib.php:103
 msgid "I18n library: Loading."
 msgstr "Biblioteca I18n: Încărcare."
 
-#: lib/App/App.lib.php:100
+#: lib/App/App.lib.php:105
 msgid "Log library: Loading."
 msgstr "Biblioteca Log: Încărcare."
 
-#: lib/App/App.lib.php:114
+#: lib/App/App.lib.php:119
 msgid "Config library: Setting i18n keys."
 msgstr "Biblioteca Config: Setare chei i18n."
 
-#: lib/App/App.lib.php:121
+#: lib/App/App.lib.php:126
 #, php-format
 msgid "I18n library: Added domain \"%s\"."
 msgstr "Biblioteca I18n: Adăugat domeniu \"%s\"."
 
-#: lib/App/App.lib.php:128
+#: lib/App/App.lib.php:133
 #, php-format
 msgid "I18n library: Loaded domain \"%s\"."
 msgstr "Biblioteca I18n: Încărcat domeniu \"%s\"."
 
-#: lib/App/App.lib.php:159
+#: lib/App/App.lib.php:169
 msgid "User object: Initialization complete."
 msgstr "Obiectul User: Inițializare completă."
 
-#: lib/App/App.lib.php:162
+#: lib/App/App.lib.php:172
 msgid "Application: Booting complete."
 msgstr "Aplicație: Pornire completă."
 
-#: lib/App/App.lib.php:171
+#: lib/App/App.lib.php:181
 msgid "Application: Booting failed."
 msgstr "Aplicație: Pornire eșuată."
 
-#: lib/App/App.lib.php:185
+#: lib/App/App.lib.php:195
 msgid "Application: Running dispatcher."
 msgstr "Aplicație: Rulare executare."
 
-#: lib/App/App.lib.php:198
+#: lib/App/App.lib.php:208
 #, php-format
 msgid "Application: Module \"%s\" not found."
 msgstr "Aplicație: Modulul \"%s\" nu a fost găsit."
 
-#: lib/App/App.lib.php:227
+#: lib/App/App.lib.php:237
 #, php-format
 msgid "Application: Controller \"%s\" not found."
 msgstr "Aplicație: Controllerul \"%s\" nu a fost găsit."
 
-#: lib/App/App.lib.php:264
+#: lib/App/App.lib.php:274
 #, php-format
 msgid "Application: Action \"%s\" not found."
 msgstr "Aplicație: Acțiunea \"%s\" nu a fost găsită."
 
-#: lib/App/App.lib.php:278
+#: lib/App/App.lib.php:288
 #, php-format
 msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
 msgstr "Aplicatie: Invocare acțiune \"%s\" din \"%s\" (\"%s\")."
 
-#: lib/App/App.lib.php:303
+#: lib/App/App.lib.php:313
 msgid "Application: Dispatcher done."
 msgstr "Aplicație: Executare încheiată."
 
-#: lib/App/App.lib.php:310
+#: lib/App/App.lib.php:320
 msgid "Application: Shutdown."
 msgstr "Aplicație: Închidere."
 
-#: lib/App/App.lib.php:391
+#: lib/App/App.lib.php:371
 msgid "Application: Loading error message."
 msgstr "Aplicatie: Încărcare mesaj de eroare."
 
@@ -381,7 +405,7 @@ msgstr[2] "Biblioteca Security: %s de cereri POST curățate."
 msgid "Security library: Sanitize complete."
 msgstr "Biblioteca Security: Curățare completă."
 
-#: lib/Session/Session.lib.php:136
+#: lib/Session/Session.lib.php:153
 msgid "Session library: Started new session."
 msgstr "Biblioteca Session: Pornire sesiune nouă."
 
@@ -390,20 +414,33 @@ msgstr "Biblioteca Session: Pornire sesiune nouă."
 msgid "Form Library: Validation method \"%s\" not found."
 msgstr "Biblioteca Form: Metoda de validare \"%s\" nu a fost găsită."
 
-#: lib/Form/Form.lib.php:489
+#: lib/Form/Form.lib.php:498
 #, php-format
 msgid "Form Library: Filter method \"%s\" not found."
 msgstr "Biblioteca Form: Metoda de filtrare \"%s\" nu a fost găsită."
 
-#: lib/Core/Core.lib.php:290
+#: lib/Core/Core.lib.php:312
 #, php-format
 msgid "Core library: Database library \"%s\" loading."
 msgstr "Biblioteca Core: Încărcare bibliotecă database \"%s\"."
 
-#: lib/Core/Core.lib.php:737
+#: lib/Core/Core.lib.php:817
 #, php-format
 msgid "Core Library: Class \"%s\" not found."
 msgstr "Biblioteca Controller: Clasa \"%s\" nu a fost găsită."
+
+#: lib/Core/Core.lib.php:1243
+msgid "License Error: Your license key is invalid or expired."
+msgstr "Eroare Licență: Cheia de licență este invalidă sau expirată."
+
+#: lib/Core/Core.lib.php:1255
+#, php-format
+msgid "License Status: %s."
+msgstr "Status Licență: %s."
+
+#: lib/Core/Core.lib.php:1283
+msgid "License Error: Your license key is missing."
+msgstr "Eroare Licență: Cheia de licență lipsește."
 
 #: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:136
 #: /home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n/I18nTest.lib.php:144

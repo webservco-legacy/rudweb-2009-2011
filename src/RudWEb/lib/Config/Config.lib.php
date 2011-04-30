@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -92,6 +92,34 @@ class Config extends Library
 		 * Call parent method with current class name as parameter.
 		 */
 		return parent::_GetInstance( $className );
+	}
+
+	/**
+	 * Load main configuration settings.
+	 */
+	public function Init()
+	{
+		/**
+		 * @var string
+		 */
+		$path_core = $this->Get( 'path.core' );
+
+		/**
+		 * @var string
+		 */
+		$path_app = $this->Get( 'path.app' );
+
+		/**
+		 * Set core directories.
+		 */
+		$this->Set( $path_core . 'etc/dir.cfg.xml' );
+
+		/**
+		 * Set application directories.
+		 */
+		$this->Set( $path_app . 'etc/dir.cfg.xml' );
+
+		return TRUE;
 	}
 
 	/**

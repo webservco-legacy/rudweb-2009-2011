@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -104,31 +104,90 @@ class Error extends Library
 	 */
 	public function Report( $errObject )
 	{
-		$err_code = $errObject->GetCode();
-		$err_severity = $errObject->GetSeverity();
-		$err_message = $errObject->GetMessage();
-		$err_file = $errObject->GetFile();
-		$err_line = $errObject->GetLine();
-		$err_trace = $errObject->GetTraceAsString();
+		/**
+		 * @var array
+		 */
+		$err = array(
+			'code'		=> $errObject->GetCode(),
+			'severity'	=> $errObject->GetSeverity(),
+			'message'	=> $errObject->GetMessage(),
+			'file'		=> $errObject->GetFile(),
+			'line'		=> $errObject->GetLine(),
+			'trace'		=> $errObject->GetTraceAsString(),
+		);
 
-		$msg = __( 'The application made a boo boo.', 'RudWEb' ) . PHP_EOL;
+		/**
+		 * @var array
+		 */
+		$msg = array();
 
-		$msg .= 'Message: ' . $err_message . PHP_EOL;
+		/**
+		 * @var array
+		 */
+		$msg[] = array( __( 'The application made a boo boo:', 'RudWEb' ), 'info' );
 
-		$msg .= '[code ' . $err_code . '] [severity ' . $err_severity . '] ' . PHP_EOL;
+		/**
+		 * @var array
+		 */
+		$msg[] =  array( $err['message'], 'error' );
 
-		$msg .= 'File: ' . $err_file . ' on line ' . $err_line . '.' . PHP_EOL;
-
-		if ( 1 == Core::Config()->Get( 'error.trace' ) )
+		/**
+		 * Severity 512 is reserved for sensitive operations,
+		 * so we show no information apartform the actual message.
+		 */
+		if ( 512 != $err['severity'] )
 		{
-			$msg .= 'Trace:' . PHP_EOL ;
-			$msg .= $err_trace . PHP_EOL;
+			/**
+			 * @var array
+			 */
+			$msg[] = array( sprintf( __( 'Code: %s', 'RudWEb' ) , $err['code'] ), 'debug' );
+
+			/**
+			 * @var array
+			 */
+			$msg[] = array( sprintf( __( 'Severity: %s', 'RudWEb' ) , $err['severity'] ), 'debug' );
+
+			/**
+			 * @var array
+			 */
+			$msg[] = array( sprintf( __( 'File: %s', 'RudWEb' ) , $err['file'] ), 'debug' );
+
+			/**
+			 * @var array
+			 */
+			$msg[] = array( sprintf( __( 'Line: %s', 'RudWEb' ) , $err['line'] ), 'debug' );
+
+			/**
+			 * Check if trace is enabled.
+			 */
+			if ( 1 == Core::Config()->Get( 'error.trace' ) )
+			{
+				/**
+				 * @var array
+				 */
+				$msg[] = array( __( 'Trace:', 'RudWEb' ) . PHP_EOL . $err['trace'], 'debug' );
+			}
 		}
 
-		$msg .= PHP_EOL . 'Execution stopped.';
+		/**
+		 * @var array
+		 */
+		$msg[] = array( 'Execution stopped.', 'info' );
 
-		Core::Log()->Write( $msg , 'error' );
+		/**
+		 * Iterate messages
+		 */
+		foreach ( $msg as $msg_data )
+		{
+			/**
+			 * Write messages to log.
+			 */
+			Core::Log()->Write( $msg_data[0] , $msg_data[1] );
+		}
 
+		/**
+		 * Display friendly error message in browser.
+		 */
 		return $this->_ShowErrorMessage();
 	}
 

@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**

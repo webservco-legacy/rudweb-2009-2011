@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -99,9 +99,26 @@ class Session extends Library
 		ini_set( 'session.gc_maxlifetime', $this->_mProp['expire'] );
 
 		/**
+		 * Sett application temp directory.
+		 *
+		 * @var string
+		 */
+		$temp_path = Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.tmp' ) . '/';
+
+		/**
 		 * Set custom session path to application temp directory.
 		 */
-		ini_set( 'session.save_path', Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.tmp' ) . '/' );
+		ini_set( 'session.save_path', $temp_path );
+
+		/**
+		 * Set custom session path to application temp directory.
+		 */
+		session_save_path( $temp_path );
+
+		/**
+		 * Make sure garbage collector visits us.
+		 */
+		ini_set( 'session.gc_probability', 1 );
 
 		/**
 		 * Start session.

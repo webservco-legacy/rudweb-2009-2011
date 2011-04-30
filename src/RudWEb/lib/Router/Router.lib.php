@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -261,7 +261,7 @@ class Router extends Library
 		/**
 		 * Stop script execution.
 		 */
-		exit;
+		exit();
 	}
 
 	/**
@@ -825,7 +825,7 @@ class Router extends Library
 		/**
 		 * Stop script execution.
 		 */
-		exit;
+		exit();
 	}
 }
 ?>

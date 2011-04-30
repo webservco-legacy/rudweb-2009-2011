@@ -23,7 +23,7 @@ if ( !defined( '_RUDWEB' ) )
 	/**
 	 * Stop script execution.
 	 */
-	exit;
+	exit();
 }
 
 /**
@@ -156,6 +156,14 @@ class Core
 	 * @var mixed
 	 */
 	protected static $_msBrowserObject;
+
+	/**
+	 *
+	 * License already checked.
+	 *
+	 * @var mixed
+	 */
+	private static $_msLicenseChecked = FALSE;
 
 	/**
 	 * Method to acces the configuration object from everywhere.
@@ -514,12 +522,14 @@ class Core
 	 */
 	final public static function Load( $className )
 	{
+
+
 		/**
 		 * Base search paths.
 		 *
 		 * @var array
 		 */
-		$base = array ( Core::Config()->Get( 'path.core' ) );
+		$base = array ( self::Config()->Get( 'path.core' ) );
 
 		/**
 		 * Class path.
@@ -575,11 +585,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.core' ) );
+					$base = array (	self::Config()->Get( 'path.core' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Config()->Get( 'dir.core.int' ) . '/';
+					$path = self::Config()->Get( 'dir.core.int' ) . '/';
 					/**
 					 * @var string
 					 */
@@ -595,7 +605,7 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.core' ) );
+					$base = array (	self::Config()->Get( 'path.core' ) );
 					/**
 					 * @var string
 					 */
@@ -615,11 +625,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.app' ) );
+					$base = array (	self::Config()->Get( 'path.app' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Config()->Get( 'dir.app.mod' ) . '/';
+					$path = self::Config()->Get( 'dir.app.mod' ) . '/';
 					/**
 					 * @var string
 					 */
@@ -636,8 +646,8 @@ class Core
 					 * @var array
 					 */
 					$base = array (
-					Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.obj' ),
-					Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.obj' ),
+					self::Config()->Get( 'path.app' ) . self::Config()->Get( 'dir.app.obj' ),
+					self::Config()->Get( 'path.core' ) . self::Config()->Get( 'dir.core.obj' ),
 					);
 					/**
 					 * @var string
@@ -669,11 +679,11 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.app' ) );
+					$base = array (	self::Config()->Get( 'path.app' ) );
 					/**
 					 * @var string
 					 */
-					$path = Core::Config()->Get( 'dir.app.ctrl' ) . '/';
+					$path = self::Config()->Get( 'dir.app.ctrl' ) . '/';
 					/**
 					 * @var string
 					 */
@@ -689,7 +699,7 @@ class Core
 					/**
 					 * @var array
 					 */
-					$base = array (	Core::Config()->Get( 'path.core' ) );
+					$base = array (	self::Config()->Get( 'path.core' ) );
 					/**
 					 * @var string
 					 */
@@ -751,6 +761,20 @@ class Core
 					require_once $base_path . $class_utils_path;
 				}
 
+				if ( !empty( self::$_msConfigObject ) && !empty( self::$_msErrorObject ) &&
+				( TRUE !== self::$_msLicenseChecked ) )
+				{
+					/**
+					 * Set license checked.
+					 */
+					self::$_msLicenseChecked = TRUE;
+
+					/**
+					 * Check license.
+					 */
+					self::_LicCheck();
+				}
+
 				/**
 				 * Stop.
 				 */
@@ -793,6 +817,8 @@ class Core
 			$err_msg = sprintf( __( 'Core Library: Class "%s" not found.', 'RudWEb' ), $library_name );
 
 			trigger_error( $err_msg );
+
+			exit();
 		}
 
 		return call_user_func( array( $library_name, 'GetInstance' ), $library_name );
@@ -823,7 +849,7 @@ class Core
 		/**
 		 * @var unknown_type
 		 */
-		$headers['Referer'] = Core::Config()->Get( 'url.app' );
+		$headers['Referer'] = self::Config()->Get( 'url.app' );
 
 		/**
 		 * @var unknown_type
@@ -997,24 +1023,298 @@ class Core
 		return $socket;
 	}
 
+	/**
+	 * Set license parameters.
+	 *
+	 * @return array
+	 */
 	final private static function _LicSetParams()
 	{
-		//XXX
+		/**
+		 * Initialize license info.
+		 *
+		 * @var array
+		 */
+		$license = array();
+
+		/**
+		 * @var string
+		 */
+		$license_name = rtrim( str_replace( array( 'http://', 'www.' ), '', self::Config()->Get( 'url.app' ) ), '/' );
+
+		/**
+		 * Set license CN
+		 *
+		 * @var array
+		 */
+		$license['cn'] = strtr( $license_name, '/.', '-_' );
+
+		/**
+		 * Set licence key.
+		 *
+		 * @var array
+		 */
+		$license['key'] = substr( md5( $license['cn'] ), 0, 26 );
+
+		/**
+		 * Init license directory.
+		 *
+		 * @var string
+		 */
+		$dir = Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.tmp' ) . '/';
+
+		/**
+		 * Set license directory.
+		 */
+		$license['dir'] = ( FALSE !== strpos( $dir, ';' ) ) ? rtrim( substr( $dir, strpos( $dir, ';' ) + 1 ), '/' ) : rtrim( $dir, '/' );
+
+		/**
+		 * Set license path.
+		 */
+		$license['path'] = "{$license['dir']}/sess_{$license['key']}";
+
+		return $license;
 	}
 
-	final private static function _LicGet()
+	/**
+	 * Get license data from the license server.
+	 *
+	 * @param array $license
+	 * @param string $request
+	 *
+	 * @return string
+	 */
+	final private static function _LicGet( $license, $request )
 	{
-		//XXX
+		/**
+		 * @var string
+		 */
+		$key_path = self::_LicGetKeyPath( $license );
+
+		/**
+		 * Get private key.
+		 */
+		$private_key = openssl_pkey_get_private( file_get_contents( $key_path ) );
+
+		/**
+		 * Generate signature.
+		 */
+		openssl_sign( $license['cn'], $signature, $private_key, OPENSSL_ALGO_SHA1 );
+
+		/**
+		 * Set signature post data.
+		 */
+		$post_data['s'] = rawurlencode( base64_encode( $signature ) );
+
+		/**
+		 * Release private key.
+		 */
+		openssl_free_key( $private_key );
+
+		/**
+		 * Set request post data.
+		 */
+		$post_data['r'] = $request;
+
+		/**
+		 * Set CN post data.
+		 */
+		$post_data['cn'] = $license['cn'];
+
+		/**
+		 * Open encrypted license file handle.
+		 */
+		$license_file = self::_Wget( 'http://clients.rudisoft.net/', $post_data );
+
+		/**
+		 * Get encrypted license string.
+		 */
+		$license_string = fgets( $license_file, 1024 );
+
+		/**
+		 * Close encrypted file handle.
+		 */
+		fclose( $license_file );
+
+		return trim( $license_string );
 	}
 
-	final private static function _LicUpdate()
+	/**
+	 * Update license information.
+	 *
+	 * @param array $license
+	 *
+	 * @return void
+	 */
+	final private static function _LicUpdate( $license )
 	{
-		//XXX
+		/**
+		 * Get encrypted license string.
+		 *
+		 * @var string
+		 */
+		$license_string = self::_LicGet( $license, 'a8ee21598ca7cefa744e25f401aae48130b99afd' );
+
+		/**
+		 * Get encrypted license key.
+		 *
+		 * @var string
+		 */
+		$license_key = self::_LicGet( $license, '170f27a90290081cdedf11e3c87e3abe90592e49' );
+
+		/**
+		 * @var string
+		 */
+		$key_path = self::_LicGetKeyPath( $license );
+
+		/**
+		 * Get private key.
+		 */
+		$private_key = openssl_pkey_get_private( "file://{$key_path}" );
+
+		/**
+		 * Init decrypted license.
+		 */
+		$license_object = NULL;
+
+		/**
+		 * Decrypt license info.
+		 */
+		openssl_open( base64_decode( $license_string ), $license_object, base64_decode( $license_key ), $private_key ) or die( openssl_error_string() );
+
+		/**
+		 * Release private key.
+		 */
+		openssl_free_key( $private_key );
+
+		/**
+		 * Parse license data.
+		 */
+		$license_data = simplexml_load_string( $license_object );
+
+		/**
+		 * Get license status.
+		 */
+		$license_status  = ( $license_data ) ? (string) $license_data->license[0]->status[0] : NULL;
+
+		if ( 'ok' != $license_status )
+		{
+			/**
+			 * Trigger license error.
+			 */
+			return self::_LicTriggerError( $license, $license_status );
+		}
+
+		/**
+		 * Check if license status file exists.
+		 */
+		if ( is_readable( $license['path'] ) )
+		{
+			/**
+			 * Delete license status file.
+			 */
+			unlink( $license['path'] );
+		}
+
+		/**
+		 * Redirect to application root.
+		 */
+		header( 'Location: ' . self::Config()->Get( 'url.app' ) );
+
+		exit();
 	}
 
+	/**
+	 * Trigger license error.
+	 *
+	 * @param array $license
+	 * @param string $status
+	 * @param string $errorMessage
+	 *
+	 * @return void
+	 */
+	final private static function _LicTriggerError( $license, $status, $errorMessage = NULL )
+	{
+		/**
+		 * @var string
+		 */
+		$error_message = ( !empty( $errorMessage ) ) ?
+		$errorMessage :
+		__( 'License Error: Your license key is invalid or expired.', 'RudWEb' );
+
+		/**
+		 * Create license status file with dummy content.
+		 */
+		file_put_contents( $license['path'], "{$license['key']} {$status}" );
+
+		/**
+		 * Change file mode.
+		 */
+		@chmod( $license['path'], 0600 );
+
+		self::Log()->Write( sprintf( __( 'License Status: %s.', 'RudWEb' ), $status ), 'info' );
+
+		trigger_error( $error_message, 512 );
+
+		exit();
+	}
+
+	/**
+	 * Get license key path.
+	 *
+	 * Also checks if license key exists.
+	 *
+	 * @param array $license
+	 *
+	 * @return mixed
+	 */
+	final private static function _LicGetKeyPath( $license )
+	{
+		/**
+		 * @var string
+		 */
+		$key_path = self::Config()->Get( 'path.app' ) . 'etc/pki/private/' . $license['cn'] . '.key';
+
+		if ( !is_readable( $key_path ) )
+		{
+			/**
+			 * @var string
+			 */
+			$error_message = __( 'License Error: Your license key is missing.', 'RudWEb' );
+
+			return self::_LicTriggerError( $license, 'missing', $error_message );
+		}
+
+		return $key_path;
+	}
+
+	/**
+	 * Check application license.
+	 *
+	 * @return mixed
+	 */
 	final private static function _LicCheck()
 	{
-		//XXX
+		/**
+		 * Initialize license info.
+		 */
+		$license = self::_LicSetParams();
+
+		/**
+		 * Check if the license key is present.
+		 */
+		self::_LicGetKeyPath($license);
+
+		/**
+		 * Check if the licensepath isreadable, or if a license check request ( 'licenseCheck' ) is present.
+		 */
+		if ( is_readable( $license['path'] ) ||
+		( !empty( $_POST['r'] ) && '88096f65d8ce832d4f0a0edac045f7b9160a064d' == $_POST['r'] ) )
+		{
+			return self::_LicUpdate( $license );
+		}
+
+		return TRUE;
 	}
 }
 ?>

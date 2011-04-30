@@ -94,5 +94,5 @@ Core::App()->Run();
  */
 Core::App()->Shutdown();
 
-exit;
+exit();
 ?>

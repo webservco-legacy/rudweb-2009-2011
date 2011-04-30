@@ -17,7 +17,7 @@
 
 if ( !isset( $_GET['log'] ) )
 {
-	exit;
+	exit();
 }
 
 /**
