@@ -522,8 +522,6 @@ class Core
 	 */
 	final public static function Load( $className )
 	{
-
-
 		/**
 		 * Base search paths.
 		 *
