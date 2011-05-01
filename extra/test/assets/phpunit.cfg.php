@@ -86,6 +86,8 @@ require_once 'RudWEb/lib/Mail/Mail.lib.php';
 
 require_once 'RudWEb/lib/Browser/Browser.lib.php';
 
+require_once 'RudWEb/lib/Iceget/Iceget.lib.php';
+
 require_once 'RudWEb/obj/User/User.obj.php';
 
 /**

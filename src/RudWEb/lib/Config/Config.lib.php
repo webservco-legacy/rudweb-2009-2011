@@ -276,28 +276,16 @@ class Config extends Library
 				return $this->Add( $cfgData );
 			}
 			/**
-			 * Assume data is a valid configuration object.
+			 * Otherwise data must be an object or a file path (string.)
 			 */
-			else if ( is_object( $cfgData ) )
+			else
 			{
 				/**
-				 * Parse the configuration object into the data array.
+				 * Process cofiguration data.
 				 *
 				 * @var array
 				 */
-				$cfg_data = $this->_ParseConfigObject( $cfgData );
-			}
-			/**
-			 * Assume data is a string containing the path to a configuration file.
-			 */
-			else if ( is_string( $cfgData ) )
-			{
-				/**
-				 * Parse the configuration file into the data array.
-				 *
-				 * @var array
-				 */
-				$cfg_data = $this->_ParseConfigFile( $cfgData );
+				$cfg_data = $this->Process( $cfgData );
 			}
 
 			/**
@@ -310,6 +298,52 @@ class Config extends Library
 		 * If we got here we have no valid data to store.
 		 */
 		return FALSE;
+	}
+
+	/**
+	 * Process configuration data.
+	 *
+	 * Returns an array from an xml object or path to an xml file.
+	 *
+	 * @param mixed $cfgData
+	 *
+	 * @return array
+	 */
+	public function Process( $cfgData )
+	{
+		/**
+		 * Init processed config data.
+		 *
+		 * @var array
+		 */
+		$cfg_data = array();
+
+		/**
+		 * Assume data is a valid configuration object.
+		 */
+		if ( is_object( $cfgData ) )
+		{
+			/**
+			 * Parse the configuration object into the data array.
+			 *
+			 * @var array
+			 */
+			$cfg_data = $this->_ParseConfigObject( $cfgData );
+		}
+		/**
+		 * Assume data is a string containing the path to a configuration file.
+		 */
+		else if ( is_string( $cfgData ) )
+		{
+			/**
+			 * Parse the configuration file into the data array.
+			 *
+			 * @var array
+			 */
+			$cfg_data = $this->_ParseConfigFile( $cfgData );
+		}
+
+		return $cfg_data;
 	}
 
 	/**
@@ -476,7 +510,6 @@ class Config extends Library
 		 */
 		return FALSE;
 	}
-
 
 	/**
 	 * Parse configuration file.
