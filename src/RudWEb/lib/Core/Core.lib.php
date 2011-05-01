@@ -527,7 +527,7 @@ class Core
 		 *
 		 * @var array
 		 */
-		$base = array ( self::Config()->Get( 'path.core' ) );
+		$base = array ( self::Config()->Get( 'path.core' ), self::Config()->Get( 'path.app' ) );
 
 		/**
 		 * Class path.
