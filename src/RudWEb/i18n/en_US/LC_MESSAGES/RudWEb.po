@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-30 19:24+0200\n"
-"PO-Revision-Date: 2011-04-30 19:24+0200\n"
+"POT-Creation-Date: 2011-05-01 12:33+0200\n"
+"PO-Revision-Date: 2011-05-01 12:34+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisft.net>\n"
 "Language: \n"
@@ -178,6 +178,30 @@ msgstr "Router library: Request formatting done."
 msgid "Router library: Routing complete."
 msgstr "Router library: Routing complete."
 
+#: lib/Iceget/Iceget.lib.php:110
+#, php-format
+msgid "Iceget Library: Station \"%s\" is not broadcasting."
+msgstr "Iceget Library: Station \"%s\" is not broadcasting."
+
+#: lib/Iceget/Iceget.lib.php:124
+msgid "Iceget Library: No Icecast stats URL set."
+msgstr "Iceget Library: No Icecast stats URL set."
+
+#: lib/Iceget/Iceget.lib.php:136
+msgid "Iceget Library: Error opening Icecast stats URL."
+msgstr "Iceget Library: Error opening Icecast stats URL."
+
+#: lib/Iceget/Iceget.lib.php:227
+#, php-format
+msgid "Iceget Library: %s station is broadcasting."
+msgid_plural "Iceget Library: %s stations are broadcasting."
+msgstr[0] "Iceget Library: %s station is broadcasting."
+msgstr[1] "Iceget Library: %s stations are broadcasting."
+
+#: lib/Iceget/Iceget.lib.php:239
+msgid "Iceget Library: No station is broadcasting."
+msgstr "Iceget Library: No station is broadcasting."
+
 #: lib/Library/Library.lib.php:89
 #, php-format
 msgid "%s object: Loading."
@@ -213,7 +237,6 @@ msgid "Output library: Template file not found: "
 msgstr "Output library: Template file not found: "
 
 #: lib/Output/Phptal.lib.php:171
-#: lib/Output/Output.lib.php:188
 msgid "Output library: Setting data."
 msgstr "Output library: Setting data."
 
@@ -422,21 +445,21 @@ msgstr "Form Library: Filter method \"%s\" not found."
 msgid "Core library: Database library \"%s\" loading."
 msgstr "Core library: Database library \"%s\" loading."
 
-#: lib/Core/Core.lib.php:817
+#: lib/Core/Core.lib.php:815
 #, php-format
 msgid "Core Library: Class \"%s\" not found."
 msgstr "Core Library: Class \"%s\" not found."
 
-#: lib/Core/Core.lib.php:1243
+#: lib/Core/Core.lib.php:1241
 msgid "License Error: Your license key is invalid or expired."
 msgstr "License Error: Your license key is invalid or expired."
 
-#: lib/Core/Core.lib.php:1255
+#: lib/Core/Core.lib.php:1253
 #, php-format
 msgid "License Status: %s."
 msgstr "License Status: %s."
 
-#: lib/Core/Core.lib.php:1283
+#: lib/Core/Core.lib.php:1281
 msgid "License Error: Your license key is missing."
 msgstr "License Error: Your license key is missing."
 
