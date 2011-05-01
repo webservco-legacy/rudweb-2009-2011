@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-01 12:43+0200\n"
-"PO-Revision-Date: 2011-05-01 12:43+0200\n"
+"POT-Creation-Date: 2011-05-01 13:40+0200\n"
+"PO-Revision-Date: 2011-05-01 13:44+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -343,23 +343,23 @@ msgstr "Biblioteca I18n: Încărcare."
 msgid "Log library: Loading."
 msgstr "Biblioteca Log: Încărcare."
 
-#: lib/App/App.lib.php:119
+#: lib/App/App.lib.php:148
+msgid "User object: Initialization complete."
+msgstr "Obiectul User: Inițializare completă."
+
+#: lib/App/App.lib.php:156
 msgid "Config library: Setting i18n keys."
 msgstr "Biblioteca Config: Setare chei i18n."
 
-#: lib/App/App.lib.php:126
+#: lib/App/App.lib.php:163
 #, php-format
 msgid "I18n library: Added domain \"%s\"."
 msgstr "Biblioteca I18n: Adăugat domeniu \"%s\"."
 
-#: lib/App/App.lib.php:133
+#: lib/App/App.lib.php:170
 #, php-format
 msgid "I18n library: Loaded domain \"%s\"."
 msgstr "Biblioteca I18n: Încărcat domeniu \"%s\"."
-
-#: lib/App/App.lib.php:169
-msgid "User object: Initialization complete."
-msgstr "Obiectul User: Inițializare completă."
 
 #: lib/App/App.lib.php:172
 msgid "Application: Booting complete."
@@ -391,7 +391,7 @@ msgstr "Aplicație: Acțiunea \"%s\" nu a fost găsită."
 #: lib/App/App.lib.php:288
 #, php-format
 msgid "Application: Calling action \"%s\" from \"%s\" (\"%s\")."
-msgstr "Aplicatie: Invocare acțiune \"%s\" din \"%s\" (\"%s\")."
+msgstr "Aplicație: Invocare acțiune \"%s\" din \"%s\" (\"%s\")."
 
 #: lib/App/App.lib.php:313
 msgid "Application: Dispatcher done."
@@ -403,7 +403,7 @@ msgstr "Aplicație: Închidere."
 
 #: lib/App/App.lib.php:371
 msgid "Application: Loading error message."
-msgstr "Aplicatie: Încărcare mesaj de eroare."
+msgstr "Aplicație: Încărcare mesaj de eroare."
 
 #: lib/Security/Security.lib.php:77
 msgid "Security library: Initializing input sanitization."
@@ -446,7 +446,7 @@ msgstr "Biblioteca Form: Metoda de filtrare \"%s\" nu a fost găsită."
 #: lib/Core/Core.lib.php:312
 #, php-format
 msgid "Core library: Database library \"%s\" loading."
-msgstr "Biblioteca Core: Încărcare bibliotecă database \"%s\"."
+msgstr "Biblioteca Core: Încărcare bibliotecă Database \"%s\"."
 
 #: lib/Core/Core.lib.php:815
 #, php-format

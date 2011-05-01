@@ -138,7 +138,10 @@ class I18n extends Library
 
 		}
 
-		$this->_mLocale = ( $i18nLocale ) ? $i18nLocale : 'en_US';
+		/**
+		 * @var string
+		 */
+		$this->_mLocale = $i18nLocale;
 
 		/**
 		 * Rumored to allow using a locale regardless on server locale setup.
@@ -171,12 +174,12 @@ class I18n extends Library
 			/**
 			 * Iterate domains.
 			 */
-			foreach ( $this->_mDomains as $domain => $loaded )
+			foreach ( $this->_mDomains as $domain => $raw_domain )
 			{
 				/**
 				 * Add domain.
 				 */
-				$this->Add( $domain );
+				$this->Add( $raw_domain );
 			}
 		}
 
@@ -242,7 +245,7 @@ class I18n extends Library
 			/**
 			 * @var string
 			 */
-			$type	= $parts[0];
+			$type = $parts[0];
 
 			/**
 			 * @var string
@@ -303,7 +306,7 @@ class I18n extends Library
 		 *
 		 * @var array
 		 */
-		$this->_mDomains[$domain] = TRUE;
+		$this->_mDomains[$domain] = $raw_domain;
 
 		return TRUE;
 	}

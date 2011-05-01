@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RudWEb $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-01 12:43+0200\n"
-"PO-Revision-Date: 2011-05-01 12:43+0200\n"
+"POT-Creation-Date: 2011-05-01 13:44+0200\n"
+"PO-Revision-Date: 2011-05-01 13:44+0200\n"
 "Last-Translator: Radu Maier <rudisoft@rudisoft.net>\n"
 "Language-Team: RudiSoft.Net <rudisoft@rudisoft.net>\n"
 "Language: \n"
@@ -343,23 +343,23 @@ msgstr "Biblioteca I18n: Incarcare."
 msgid "Log library: Loading."
 msgstr "Biblioteca Log: Incarcare."
 
-#: lib/App/App.lib.php:119
+#: lib/App/App.lib.php:148
+msgid "User object: Initialization complete."
+msgstr "Obiectul User: Initializare completa."
+
+#: lib/App/App.lib.php:156
 msgid "Config library: Setting i18n keys."
 msgstr "Biblioteca Config: Setare chei i18n."
 
-#: lib/App/App.lib.php:126
+#: lib/App/App.lib.php:163
 #, php-format
 msgid "I18n library: Added domain \"%s\"."
 msgstr "Biblioteca I18n: Adaugat domeniu \"%s\"."
 
-#: lib/App/App.lib.php:133
+#: lib/App/App.lib.php:170
 #, php-format
 msgid "I18n library: Loaded domain \"%s\"."
 msgstr "Biblioteca I18n: Incarcat domeniu \"%s\"."
-
-#: lib/App/App.lib.php:169
-msgid "User object: Initialization complete."
-msgstr "Obiectul User: Initializare completa."
 
 #: lib/App/App.lib.php:172
 msgid "Application: Booting complete."
@@ -446,7 +446,7 @@ msgstr "Biblioteca Form: Metoda de filtrare \"%s\" nu a fost gasita."
 #: lib/Core/Core.lib.php:312
 #, php-format
 msgid "Core library: Database library \"%s\" loading."
-msgstr "Biblioteca Core: Incarcare biblioteca database \"%s\"."
+msgstr "Biblioteca Core: Incarcare biblioteca Database \"%s\"."
 
 #: lib/Core/Core.lib.php:815
 #, php-format

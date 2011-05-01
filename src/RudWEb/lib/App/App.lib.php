@@ -112,27 +112,6 @@ class App extends Library
 		try
 		{
 			/**
-			 * Set i18n keywords.
-			 */
-			Core::Config()->SetI18nKeys();
-
-			Core::Log()->Write( __( 'Config library: Setting i18n keys.', 'RudWEb' ), 'debug' );
-
-			/**
-			 * Add application i18n.
-			 */
-			Core::I18n()->Add( 'App' );
-
-			Core::Log()->Write( sprintf( __( 'I18n library: Added domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
-
-			/**
-			 * Load application i18n.
-			 */
-			Core::I18n()->Load( 'App' );
-
-			Core::Log()->Write( sprintf( __( 'I18n library: Loaded domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
-
-			/**
 			 * Sanitize requests.
 			 *
 			 * @var array
@@ -168,6 +147,27 @@ class App extends Library
 
 				Core::Log()->Write( __( 'User object: Initialization complete.', 'RudWEb' ), 'debug' );
 			}
+
+			/**
+			 * Set i18n keywords.
+			 */
+			Core::Config()->SetI18nKeys();
+
+			Core::Log()->Write( __( 'Config library: Setting i18n keys.', 'RudWEb' ), 'debug' );
+
+			/**
+			 * Add application i18n.
+			 */
+			Core::I18n()->Add( 'App' );
+
+			Core::Log()->Write( sprintf( __( 'I18n library: Added domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
+
+			/**
+			 * Load application i18n.
+			 */
+			Core::I18n()->Load( 'App' );
+
+			Core::Log()->Write( sprintf( __( 'I18n library: Loaded domain "%s".', 'RudWEb' ), 'App' ), 'debug' );
 
 			Core::Log()->Write( __( 'Application: Booting complete.', 'RudWEb' ), 'debug' );
 
