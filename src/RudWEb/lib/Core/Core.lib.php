@@ -144,6 +144,13 @@ class Core
 	protected static $_msSessionObject;
 
 	/**
+	 * Stores the SMTP object.
+	 *
+	 * @var mixed
+	 */
+	protected static $_msSmtpObject;
+
+	/**
 	 * Stores the String object.
 	 *
 	 * @var mixed
@@ -477,6 +484,24 @@ class Core
 		}
 
 		return self::$_msSessionObject;
+	}
+
+	/**
+	 * Method to access the SMTP object from everywhere.
+	 *
+	 * @return object
+	 */
+	final public static function Smtp()
+	{
+		if ( NULL == self::$_msSmtpObject )
+		{
+			/**
+			 * @var object
+			 */
+			self::$_msSmtpObject = Smtp::GetInstance();
+		}
+
+		return self::$_msSmtpObject;
 	}
 
 	/**

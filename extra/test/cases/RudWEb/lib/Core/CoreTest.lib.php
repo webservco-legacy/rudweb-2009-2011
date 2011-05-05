@@ -170,5 +170,13 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInternalType( 'object', Core::Browser() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function SmtpReturnsObject()
+	{
+		$this->assertInternalType( 'object', Core::Smtp() );
+	}
 }
 ?>
