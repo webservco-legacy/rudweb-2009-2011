@@ -315,7 +315,7 @@ class String extends Library
 	 */
 	public function IsValidEmail( $string )
 	{
-		return ( filter_var($string, FILTER_VALIDATE_EMAIL) ) ? TRUE : FALSE;
+		return ( filter_var( $string, FILTER_VALIDATE_EMAIL) ) ? TRUE : FALSE;
 	}
 
 	/**

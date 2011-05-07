@@ -37,6 +37,97 @@ if ( !defined( '_RUDWEB' ) )
 class Mail extends Library
 {
 	/**
+	 * Stores mail content type.
+	 *
+	 * @var string
+	 */
+	protected $_mContentType;
+
+	/**
+	 * Stores mail encoding.
+	 *
+	 * @var string
+	 */
+	protected $_mEncoding;
+
+	/**
+	 * Stores mail charset.
+	 *
+	 * @var unknown_type
+	 */
+	protected $_mCharset;
+
+	/**
+	 * Should we use sender envelope?
+	 *
+	 * @var bool
+	 */
+	protected $_mEnvelope;
+
+	/**
+	 * Should we use SMTP?
+	 *
+	 * @var array
+	 */
+	protected $_mSmtp;
+
+	/**
+	 * Stores mail sender.
+	 *
+	 * @var array
+	 */
+	protected $_mMailFrom = array();
+
+	/**
+	 * Stores mail reply-to.
+	 *
+	 * @var array
+	 */
+	protected $_mMailReplyTo = array();
+
+	/**
+	 * Stores mail recipients.
+	 *
+	 * @var array
+	 */
+	protected $_mMailTo = array();
+
+	/**
+	 * Stores mail cc recipients.
+	 *
+	 * @var array
+	 */
+	protected $_mMailCc = array();
+
+	/**
+	 * Stores mail bcc recipients.
+	 *
+	 * @var array
+	 */
+	protected $_mMailBcc = array();
+
+	/**
+	 * Stores mail attachments.
+	 *
+	 * @var array
+	 */
+	protected $_mAttachments = array();
+
+	/**
+	 * Stores mail headers.
+	 *
+	 * @var array
+	 */
+	protected $_mHeaders = array();
+
+	/**
+	 * Stores mail line ending.
+	 *
+	 * @var string
+	 */
+	protected $_mEol;
+
+	/**
 	 * Implement GetInstance() method.
 	 *
 	 * This is required for PHP < 5.3 compatibility ( no late static binding )
@@ -51,6 +142,614 @@ class Mail extends Library
 		 * Call parent method with current class name as parameter.
 		 */
 		return parent::_GetInstance( $className );
+	}
+
+	/**
+	 * Set default data.
+	 *
+	 * @return bool
+	 */
+	public function SetDefaults()
+	{
+		/**
+		 * @var array
+		 */
+		$config = Core::Config()->Get( 'mail' );
+
+		/**
+		 * @var string
+		 */
+		$this->_mContentType = !empty( $config['content_type'] ) ? $config['content_type'] : 'plain';
+
+		/**
+		 * @var string
+		 */
+		$this->_mEncoding = !empty( $config['encoding'] ) ? $config['encoding'] : '7bit';
+
+		/**
+		 * @var string
+		 */
+		$this->_mCharset = !empty( $config['charset'] ) ? $config['charset'] : 'utf-8';
+
+		/**
+		 * @var string
+		 */
+		$this->_mEnvelope = ( 1 == $config['envelope'] ) ? TRUE : FALSE;
+
+		/**
+		 * @var string
+		 */
+		$this->_mSmtp = ( 1 == $config['smtp'] ) ? TRUE : FALSE;
+
+		/**
+		 * @var string
+		 */
+		$this->_mEol = PHP_EOL;
+
+		return TRUE;
+	}
+
+	/**
+	 * Add an email address.
+	 *
+	 * @param string $addEmail
+	 * @param string $addType
+	 * @param string $addName
+	 *
+	 * @return
+	 */
+	public function AddAddress( $addEmail, $addType = 'to', $addName = NULL )
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		if ( FALSE === ( $addEmail = filter_var( $addEmail, FILTER_VALIDATE_EMAIL ) ) )
+		{
+			/**
+			 * @var string
+			 */
+			$msg = sprintf( __( 'Mail Library: Error adding address "%s". Invalid format.', 'RudWEb' ), $addEmail );
+
+			Core::Log()->Write( $msg, 'error' );
+
+			return FALSE;
+		}
+
+		/**
+		 * @var string
+		 */
+		$msg = sprintf( __( 'Mail Library: Adding address of type "%s".', 'RudWEb' ), $addType );
+
+		Core::Log()->Write( $msg, 'debug' );
+
+		switch ( $addType )
+		{
+			case 'from' :
+				/**
+				 * There can be only one...
+				 *
+				 * @var array
+				 */
+				$this->_mMailFrom = array( $addEmail => $addName );
+
+				break;
+
+			case 'replyto' :
+				/**
+				 * There can be only one...
+				 *
+				 * @var array
+				 */
+				$this->_mMailReplyTo = array( $addEmail => $addName );
+
+				break;
+
+			case 'cc' :
+				/**
+				 * @var array
+				 */
+				$this->_mMailCc[$addEmail] = $addName;
+
+				break;
+
+			case 'bcc' :
+				/**
+				 * @var array
+				 */
+				$this->_mMailBcc[$addEmail] = $addName;
+
+				break;
+
+			case 'to' :
+			default :
+				/**
+				 * @var array
+				 */
+				$this->_mMailTo[$addEmail] = $addName;
+
+				break;
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Add attachment.
+	 *
+	 * @param string $attachPath
+	 * @param string $attachType
+	 * @param string $attachName
+	 *
+	 * @return bool
+	 */
+	public function AddAttachment( $attachPath, $attachType = NULL, $attachName = NULL )
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		if ( !is_readable( $attachPath ) )
+		{
+			/**
+			 * @var string
+			 */
+			$msg = sprintf( __( 'Mail Library: Error adding attachment "%s". File not found.', 'RudWEb' ), $attachPath );
+
+			Core::Log()->Write( $msg, 'error' );
+
+			return FALSE;
+		}
+
+		/**
+		 * @var string
+		 */
+		$attach_type = ( !empty( $attachType ) ) ? $attachType : 'application/octet-stream';
+
+		/**
+		 * @var string
+		 */
+		$attach_name = ( !empty( $attachName ) ) ? $attachName : basename( $attachPath );
+
+		/**
+		 * @var array
+		 */
+		$this->_mAttachments[$attachPath] = array( $attach_type, $attach_name );
+
+		/**
+		 * @var string
+		 */
+		$msg = sprintf( __( 'Mail Library: Added attachment "%s".', 'RudWEb' ), $attachPath );
+
+		Core::Log()->Write( $msg, 'debug' );
+
+		return TRUE;
+	}
+
+	/**
+	 * Add header.
+	 *
+	 * @param string $headerName
+	 * @param string $headerValue
+	 *
+	 * @return bool
+	 */
+	public function AddHeader( $headerName, $headerValue )
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		/**
+		 * @var array
+		 */
+		$this->_mHeaders[$headerName] = $headerValue;
+
+		return TRUE;
+	}
+
+	public function Send( $msgSubject, $msgBody )
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		if ( TRUE !== $this->_CheckAddreses() )
+		{
+			Core::Log()->Write( __( 'Mail Library: Error sending mail. One or more required addresses are missing.', 'RudWEb' ), 'error' );
+
+			return FALSE;
+		}
+
+		/**
+		 * Add MIME header.
+		 */
+		$this->AddHeader( 'MIME-Version', '1.0' );
+
+		/**
+		 * @var string
+		 */
+		$msg_body = $this->_GetMessageBody( $msgBody );
+
+		/**
+		 * @var string
+		 */
+		$msg_to = $this->_GetAddress( 'to' );
+
+		/**
+		 * @var string
+		 */
+		$msg_from = $this->_GetAddress( 'from' );
+
+		/**
+		 * We don't need the value, just make sure the header is set.
+		 */
+		$this->_GetAddress( 'replyto' );
+
+		/**
+		 * Check if we have Cc.
+		 */
+		if ( !empty( $this->_mMailCc ) )
+		{
+			/**
+			 * We don't need the value, just make sure the header is set.
+			 */
+			$this->_GetAddress( 'cc' );
+		}
+
+		/**
+		 * Check if we have Bcc.
+		 */
+		if ( !empty( $this->_mMailBcc ) )
+		{
+			/**
+			 * We don't need the value, just make sure the header is set.
+			 */
+			$this->_GetAddress( 'bcc' );
+		}
+
+		/**
+		 * Add application fingerprint.
+		 */
+		$this->AddHeader( 'X-Mailer', 'RudWEb 5 (http://www.RudiSoft.Net)' );
+
+		/**
+		 * @var string
+		 */
+		$msg_from_address = key( $this->_mMailFrom );
+
+		/**
+		 * Check if we should use SMTP instead of regular mail.
+		 */
+		if ( FALSE !== $this->_mSmtp )
+		{
+			/**
+			 * @var array
+			 */
+			$msg_recipients = array_merge( $this->_mMailTo, $this->_mMailCc, $this->_mMailBcc );
+
+			if ( TRUE !== Core::Smtp()->Send( $msg_recipients, $msg_from_address, $msgSubject, $msg_body, $this->_mHeaders ) )
+			{
+				Core::Log()->Write( __( 'Mail Library: Error sending message.', 'RudWEb' ), 'error' );
+
+				return FALSE;
+			}
+
+			Core::Log()->Write( __( 'Mail Library: Message sent successfully.', 'RudWEb' ), 'info' );
+
+			return TRUE;
+		}
+
+		/**
+		 * Set sender.
+		 */
+		ini_set( 'sendmail_from', $msg_from_address );
+
+		/**
+		 * @var string
+		 */
+		$headers = $this->_GetHeaders();
+
+		/**
+		 * @var string
+		 */
+		$envelope = ( FALSE !== $this->_mEnvelope ) ? "-r {$msg_from_address}" : NULL;
+
+		if ( TRUE !== mail( $msg_to, $msgSubject, $msg_body, $headers, $envelope ) )
+		{
+			Core::Log()->Write( __( 'Mail Library: Error sending message.', 'RudWEb' ), 'error' );
+
+			return FALSE;
+		}
+
+		Core::Log()->Write( __( 'Mail Library: Message sent successfully.', 'RudWEb' ), 'info' );
+
+		return TRUE;
+	}
+
+	/**
+	 * Check addresses before sending mail.
+	 *
+	 * @return bool
+	 */
+	private function _CheckAddreses()
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		if ( empty( $this->_mMailTo ) )
+		{
+			/**
+			 * @var array
+			 */
+			$recipient = Core::Config()->Get( 'recipient' );
+
+			if ( empty( $recipient['address'] ) )
+			{
+				Core::Log()->Write( __( 'Mail Library: Error sending mail. You have to set at least one recipient.', 'RudWEb' ), 'error' );
+
+				return FALSE;
+			}
+
+			/**
+			 * Add default recipient.
+			 */
+			$this->AddAddress( $recipient['address'], 'to', $recipient['name'] );
+		}
+
+		if ( empty( $this->_mMailFrom ) )
+		{
+			/**
+			 * @var array
+			 */
+			$sender = Core::Config()->Get( 'sender' );
+
+			if ( empty( $sender['address'] ) )
+			{
+				Core::Log()->Write( __( 'Mail Library: Error sending mail. You have to set sender.', 'RudWEb' ), 'error' );
+
+				return FALSE;
+			}
+
+			/**
+			 * Add default recipient.
+			 */
+			$this->AddAddress( $recipient['address'], 'from', $recipient['name'] );
+		}
+
+		if ( empty( $this->_mMailReplyTo ) )
+		{
+			/**
+			 * @var string
+			 */
+			$reply_to_address = key( $this->_mMailFrom );
+
+			$this->AddAddress( $reply_to_address, 'replyto',  $this->_mMailFrom[$reply_to_address] );
+		}
+
+		return  TRUE;
+	}
+
+	/**
+	 * Get address list formatted for mail.
+	 *
+	 * Also sents corresponding headers.
+	 *
+	 * @param string $addType
+	 *
+	 * @return string
+	 */
+	private function _GetAddress( $addType = 'to' )
+	{
+		switch ( $addType )
+		{
+			case 'from' :
+				/**
+				 * @var array
+				 */
+				$address_data = $this->_mMailFrom;
+
+				/**
+				 * @var string
+				 */
+				$header_type = 'From';
+
+				break;
+
+			case 'replyto' :
+				/**
+				 * @var array
+				 */
+				$address_data = $this->_mMailReplyTo;
+
+				/**
+				 * @var string
+				 */
+				$header_type = 'Reply-To';
+
+				break;
+
+			case 'cc' :
+				/**
+				 * @var array
+				 */
+				$address_data = $this->_mMailCc;
+
+				/**
+				 * @var string
+				 */
+				$header_type = 'Cc';
+
+				break;
+
+			case 'bcc' :
+				/**
+				 * @var array
+				 */
+				$address_data = $this->_mMailBcc;
+
+				/**
+				 * @var string
+				 */
+				$header_type = 'Bcc';
+
+				break;
+
+			case 'to' :
+			default :
+				/**
+				 * @var array
+				 */
+				$address_data = $this->_mMailTo;
+
+				/**
+				 * @var string
+				 */
+				$header_type = 'To';
+
+				break;
+		}
+
+		/**
+		 * @var array
+		 */
+		$data = array();
+
+		foreach ( $address_data as $to => $name )
+		{
+			/**
+			 * @var array
+			 */
+			$data[] = ( !empty( $name ) ) ? "{$name} <{$to}>" : $to;
+		}
+
+		/**
+		 * @var string
+		 */
+		$address = implode( ', ', $data );
+
+		/**
+		 * Add header.
+		 */
+		$this->AddHeader( $header_type , $address );
+
+		return $address;
+	}
+
+	/**
+	 * Format and return mail message body.
+	 *
+	 * Also sets appropriate header.
+	 *
+	 * @param string $msgBody
+	 *
+	 * @return string
+	 */
+	private function _GetMessageBody( $msgBody )
+	{
+		/**
+		 * @var string
+		 */
+		$msg_pre = ( 'html' == $this->_mContentType ) ? "<html><body>{$this->_mEol}" : NULL;
+
+		/**
+		 * @var string
+		 */
+		$msg_suf = ( 'html' == $this->_mContentType ) ? "{$this->_mEol}</body></html>" : NULL;
+
+		/**
+		 * Check if we have attachments.
+		 */
+		if ( !empty( $this->_mAttachments ) )
+		{
+			/**
+			 * @var string
+			 */
+			$attach_boundary = md5( date( 'r', time() ) );
+
+			$this->AddHeader( 'Content-type', "multipart/mixed; boundary=\"{$attach_boundary}\"" );
+
+			/**
+			 * @var string
+			 */
+			$msg_body =	"{$this->_mEol}This is a multi-part message in MIME format.{$this->_mEol}" .
+						"--{$attach_boundary}{$this->_mEol}" .
+						"Content-type:text/{$this->_mContentType}; charset={$this->_mCharset}{$this->_mEol}" .
+						"Content-Transfer-Encoding: {$this->_mEncoding}{$this->_mEol}{$this->_mEol}" .
+						"{$msg_pre}{$msgBody}{$msg_suf}{$this->_mEol}{$this->_mEol}";
+
+			foreach ( $this->_mAttachments as $attach_path => $attach_info )
+			{
+				/**
+				 * @var mixed
+				 */
+				$data = file_get_contents( $attach_path );
+
+				/**
+				 * @var string
+				 */
+				$attach_data = chunk_split( base64_encode( $data ) );
+
+				/**
+				 * @var string
+				 */
+				$msg_body .=	"--{$attach_boundary}{$this->_mEol}" .
+								"Content-Type: {$attach_info[0]}; name=\"{$attach_info[1]}\"{$this->_mEol}" .
+								"Content-Transfer-Encoding: base64{$this->_mEol}" .
+								"Content-Disposition: attachment; filename=\"{$attach_info[1]}\"{$this->_mEol}{$this->_mEol}" .
+								"{$attach_data}{$this->_mEol}{$this->_mEol}";
+			}
+
+			/**
+			 * @var string
+			 */
+			$msg_body .= "--{$attach_boundary}--";
+		}
+		else
+		{
+			$this->AddHeader( 'Content-type', "text/{$this->_mContentType}; charset={$this->_mCharset}" );
+
+			/**
+			 * @var string
+			 */
+			$msg_body = $msg_pre . $msgBody . $msg_suf;
+		}
+
+		return $msg_body;
+	}
+
+	/**
+	 * Get all headers as string
+	 *
+	 * @return string
+	 */
+	private function _GetHeaders()
+	{
+		if ( empty( $this->_mEol ) )
+		{
+			$this->SetDefaults();
+		}
+
+		/**
+		 * @var array
+		 */
+		$headers = array();
+
+		foreach ( $this->_mHeaders as $header_name => $header_value )
+		{
+			/**
+			 * @var array
+			 */
+			$headers[] = "{$header_name}: {$header_value}";
+		}
+
+		return implode( $this->_mEol, $headers ) . $this->_mEol;
 	}
 }
 ?>
