@@ -114,6 +114,20 @@ class Mail extends Library
 	protected $_mAttachments = array();
 
 	/**
+	 * Known attachment types.
+	 *
+	 * @var array
+	 */
+	protected $_mAttachKnown = array();
+
+	/**
+	 * Allowed attachemnt types.
+	 *
+	 * @var array
+	 */
+	protected $_mAttachAllowed = array();
+
+	/**
 	 * Stores mail headers.
 	 *
 	 * @var array
@@ -180,6 +194,38 @@ class Mail extends Library
 		 * @var string
 		 */
 		$this->_mSmtp = ( 1 == $config['smtp'] ) ? TRUE : FALSE;
+
+		/**
+		 * @var array
+		 */
+		$this->_mAttachKnown = array(
+			'bin' => 'application/octet-stream',
+			'gif' => 'image/gif',
+			'jpg' => 'image/jpeg',
+			'png' => 'image/png',
+			'zip' => 'application/zip',
+			'gzip' => 'application/x-gzip',
+			'text' => 'text/plain',
+			'html' => 'text/html',
+			'xml' => 'text/xml',
+			'xhtml' => 'application/xhtml+xml',
+			'pdf' => 'application/pdf',
+			'odt' => 'application/vnd.oasis.opendocument.text',
+			'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
+			'odp' => 'application/vnd.oasis.opendocument.presentation',
+			'odg' => 'application/vnd.oasis.opendocument.graphics',
+			'xls' => 'application/vnd.ms-excel',
+			'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'ppt' => 'application/vnd.ms-powerpoint',
+			'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+			'doc' => 'application/msword',
+			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		);
+
+		/**
+		 * @var array
+		 */
+		$this->_mAttachAllowed = explode( ',', $config['attach'] );
 
 		/**
 		 * @var string
@@ -306,7 +352,37 @@ class Mail extends Library
 		/**
 		 * @var string
 		 */
-		$attach_type = ( !empty( $attachType ) ) ? $attachType : 'application/octet-stream';
+		$attach_type = ( !empty( $attachType ) ) ? $attachType : 'bin';
+
+		/**
+		 * Check if attachment type is allowed.
+		 */
+		if ( !in_array( $attach_type, $this->_mAttachAllowed ) )
+		{
+			/**
+			 * @var string
+			 */
+			$msg = sprintf( __( 'Mail Library: Error adding attachment "%s". Format not allowed.', 'RudWEb' ), $attachPath );
+
+			Core::Log()->Write( $msg, 'error' );
+
+			return FALSE;
+		}
+
+		/**
+		 * Check if attachment type is known.
+		 */
+		if( !array_key_exists( $attach_type, $this->_mAttachKnown ) )
+		{
+			/**
+			 * @var string
+			 */
+			$msg = sprintf( __( 'Mail Library: Error adding attachment "%s". Unknown format.', 'RudWEb' ), $attachPath );
+
+			Core::Log()->Write( $msg, 'error' );
+
+			return FALSE;
+		}
 
 		/**
 		 * @var string
