@@ -135,13 +135,13 @@ class Output_Phptal extends Output implements Interface_Output
 			$this->_mTranslator->SetLanguage( $i18n_locale );
 
 			/**
-			 * @var array
+			 * @var string
 			 */
-			$domain_data = Core::I18n()->GetDomainData( $i18n_domain );
+			$domain_path = Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.i18n' ) . '/';
 
-			$this->_mTranslator->addDomain( $domain_data[0], $domain_data[1] );
+			$this->_mTranslator->addDomain( 'App', $domain_path );
 
-			$this->_mTranslator->useDomain( $domain_data[0] );
+			$this->_mTranslator->useDomain( 'App' );
 		}
 
 		return TRUE;
