@@ -59,7 +59,6 @@ class Module extends Library
 	 * Load configuration file for current library.
 	 *
 	 * Needs to override the Library method.
-	 * This also loads the i18n files.
 	 *
 	 * @param string $className name of the class to load configuration for
 	 *

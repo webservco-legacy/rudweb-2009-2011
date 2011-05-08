@@ -191,26 +191,16 @@ class Output extends Library
 	}
 
 	/**
-	 * Load external output engine.
+	 * Get engine path.
 	 *
-	 * Can be overridden in extending class.
+	 * Returns a valid output engine path, or false if notfound.
 	 *
 	 * @param string $engineName
 	 *
-	 * @return object
+	 * @return bool
 	 */
-	protected function _LoadEngine( $engineName )
+	public function GetEnginePath( $engineName )
 	{
-		/**
-		 * @var string
-		 */
-		$load_msg = sprintf(
-		__( 'Output library: Loading external output engine "%s".', 'RudWEb' ),
-		$engineName
-		);
-
-		Core::Log()->Write( $load_msg, 'debug' );
-
 		/**
 		 * @var array
 		 */
@@ -225,11 +215,15 @@ class Output extends Library
 			__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
 			$engineName
 			);
+
+			/**
+			 * @var string
+			 */
 			$err_msg_b = _( 'Configuration file not found.' );
 
-			trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+			Core::Log()->Write( $err_msg_a . ' ' . $err_msg_b, 'erorr' );
 
-			exit();
+			return FALSE;
 		}
 
 		if ( empty( $engine_config['path'] ) )
@@ -261,8 +255,6 @@ class Output extends Library
 
 			if ( is_readable( $engine_path ) )
 			{
-				require_once $engine_path;
-
 				/**
 				 * @var string
 				 */
@@ -274,22 +266,66 @@ class Output extends Library
 
 				Core::Log()->Write( $path_msg, 'debug' );
 
-				return new $engine_config['class'];
+				return $path . $engine_config['dir'] . '/';
 			}
 		}
+
+		return FALSE;
+	}
+
+	/**
+	 * Load external output engine.
+	 *
+	 * Can be overridden in extending class.
+	 *
+	 * @param string $engineName
+	 *
+	 * @return object
+	 */
+	protected function _LoadEngine( $engineName )
+	{
+		/**
+		 * @var string
+		 */
+		$load_msg = sprintf(
+		__( 'Output library: Loading external output engine "%s".', 'RudWEb' ),
+		$engineName
+		);
+
+		Core::Log()->Write( $load_msg, 'debug' );
+
+		/**
+		 * @var array
+		 */
+		$engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
 
 		/**
 		 * @var string
 		 */
-		$err_msg_a = sprintf(
-		__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
-		$engineName
-		);
-		$err_msg_b = _( 'File not found.' );
+		$engine_path = $this->GetEnginePath( $engineName );
 
-		trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+		if ( FALSE === $engine_path )
+		{
+			/**
+			 * @var string
+			 */
+			$err_msg_a = sprintf(
+			__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
+			$engineName
+			);
+			/**
+			 * @var string
+			 */
+			$err_msg_b = _( 'File not found.' );
 
-		exit();
+			trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+
+			exit();
+		}
+
+		require_once $engine_path .  $engine_config['file'];
+
+		return new $engine_config['class'];
 	}
 }
 ?>

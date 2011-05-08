@@ -37,6 +37,13 @@ if ( !defined( '_RUDWEB' ) )
 class Output_Phptal extends Output implements Interface_Output
 {
 	/**
+	 * Stores the PHPTAL translation object.
+	 *
+	 * @var mixed
+	 */
+	private $_mTranslator;
+
+	/**
 	 * (non-PHPdoc)
 	 * @see Interface_Output::Init()
 	 */
@@ -101,6 +108,42 @@ class Output_Phptal extends Output implements Interface_Output
 		 */
 		$this->_mEngineObject->setPhpCodeDestination( $path_app . $dir_tmp . '/' );
 
+		if ( FALSE !== Core::I18n() )
+		{
+			/**
+			 * @var array
+			 */
+			$engine_path = $this->GetEnginePath( 'PHPTAL' );
+
+			require_once $engine_path . 'PHPTAL/GetTextTranslator.php';
+
+			/**
+			 * @var mixed
+			 */
+			$this->_mTranslator = new PHPTAL_GetTextTranslator();
+
+			/**
+			 * @var string
+			 */
+			$i18n_locale = Core::I18n()->GetLocale();
+
+			/**
+			 * @var string
+			 */
+			$i18n_domain = Core::I18n()->GetDomain();
+
+			$this->_mTranslator->SetLanguage( $i18n_locale );
+
+			/**
+			 * @var array
+			 */
+			$domain_data = Core::I18n()->GetDomainData( $i18n_domain );
+
+			$this->_mTranslator->addDomain( $domain_data[0], $domain_data[1] );
+
+			$this->_mTranslator->useDomain( $domain_data[0] );
+		}
+
 		return TRUE;
 	}
 
@@ -125,6 +168,11 @@ class Output_Phptal extends Output implements Interface_Output
 		try
 		{
 			$this->_mEngineObject->setTemplate( $tpl_file );
+
+			if ( !empty( $this->_mTranslator ) )
+			{
+				$this->_mEngineObject->setTranslator( $this->_mTranslator );
+			}
 
 			if ( FALSE !== $outDisplay )
 			{

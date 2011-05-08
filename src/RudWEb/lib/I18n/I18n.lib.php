@@ -198,6 +198,16 @@ class I18n extends Library
 	}
 
 	/**
+	 * Get current locale.
+	 *
+	 * @return string
+	 */
+	public function GetLocale()
+	{
+		return $this->_mLocale;
+	}
+
+	/**
 	 * Add a new domain message catalog.
 	 *
 	 * @param string $rawDomain
@@ -214,7 +224,98 @@ class I18n extends Library
 		/**
 		 * @var array
 		 */
-		$parts = explode( '_', $raw_domain );
+		$domain_data = $this->GetDomainData( $raw_domain );
+
+		if ( FALSE === $domain_data )
+		{
+			return FALSE;
+		}
+
+		bindtextdomain( $domain_data[0], $domain_data[1] );
+
+		/**
+		 * Add domain to list.
+		 *
+		 * @var array
+		 */
+		$this->_mDomains[$domain_data[0]] = $raw_domain;
+
+		return TRUE;
+	}
+
+	/**
+	 * Load domain message catalog.
+	 *
+	 * @param string $domainName
+	 *
+	 * @return bool
+	 */
+	public function Load( $domainName = NULL )
+	{
+		/**
+		 * @var string
+		 */
+		$domain_name = ( $domainName ) ? $domainName : 'RudWEb';
+
+		/**
+		 * @var array
+		 */
+		$parts = explode( '_', $domain_name );
+
+		/**
+		 * @var string
+		 */
+		$domain_name = ( array_key_exists( 1, $parts ) ) ? $parts[1] : $parts[0];
+
+		textdomain( $domain_name );
+
+		/**
+		 * Set active domain.
+		 *
+		 * @var string
+		 */
+		$this->_mDomain = $domain_name;
+
+		/**
+		 * Check if current locale contains a custom codeset.
+		 */
+		if ( FALSE !== strpos( $this->_mLocale, '.' ) )
+		{
+			/**
+			 * @var array
+			 */
+			$parts = explode( '.', $this->_mLocale );
+
+			/**
+			 * @var string
+			 */
+			$codeset = $parts[1];
+
+			/**
+			 * Set the character encoding for the loaded domain.
+			 */
+			bind_textdomain_codeset( $domain_name, $codeset );
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Get current domain.
+	 *
+	 * @return string
+	 */
+	public function GetDomain()
+	{
+		return $this->_mDomain;
+	}
+
+	public function GetDomainData( $rawDomain = NULL )
+	{
+		/**
+		 * @var array
+		 */
+		$parts = explode( '_', $rawDomain );
 
 		/**
 		 * Init domain base directory.
@@ -299,73 +400,7 @@ class I18n extends Library
 			return FALSE;
 		}
 
-		bindtextdomain( $domain, $path );
-
-		/**
-		 * Add domain to list.
-		 *
-		 * @var array
-		 */
-		$this->_mDomains[$domain] = $raw_domain;
-
-		return TRUE;
-	}
-
-	/**
-	 * Load domain message catalog.
-	 *
-	 * @param string $domainName
-	 *
-	 * @return bool
-	 */
-	public function Load( $domainName = NULL )
-	{
-		/**
-		 * @var string
-		 */
-		$domain_name = ( $domainName ) ? $domainName : 'RudWEb';
-
-		/**
-		 * @var array
-		 */
-		$parts = explode( '_', $domain_name );
-
-		/**
-		 * @var string
-		 */
-		$domain_name = ( array_key_exists( 1, $parts ) ) ? $parts[1] : $parts[0];
-
-		textdomain( $domain_name );
-
-		/**
-		 * Set active domain.
-		 *
-		 * @var string
-		 */
-		$this->_mDomain = $domain_name;
-
-		/**
-		 * Check if current locale contains a custom codeset.
-		 */
-		if ( FALSE !== strpos( $this->_mLocale, '.' ) )
-		{
-			/**
-			 * @var array
-			 */
-			$parts = explode( '.', $this->_mLocale );
-
-			/**
-			 * @var string
-			 */
-			$codeset = $parts[1];
-
-			/**
-			 * Set the character encoding for the loaded domain.
-			 */
-			bind_textdomain_codeset( $domain_name, $codeset );
-		}
-
-		return TRUE;
+		return array( $domain, $path );
 	}
 }
 ?>
