@@ -152,6 +152,21 @@ class Session extends Library
 
 		Core::Log()->Write( __( 'Session library: Started new session.', 'RudWEb' ), 'debug' );
 
+		if ( ( 1 == Core::Config()->Get( 'session.token' ) ) && empty( $_SESSION['token'] ) )
+		{
+			Core::Log()->Write( __( 'Session library: Setting token', 'RudWEb' ), 'debug' );
+
+			/**
+			 * @var string
+			 */
+			$salt = Core::Security()->GetSalt( 'session' );
+
+			/**
+			 * @var array
+			 */
+			$_SESSION['token'] = Core::Security()->GetToken( $salt );
+		}
+
 		/**
 		 * Return result.
 		 */
