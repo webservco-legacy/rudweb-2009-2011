@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Database_Sqlite3
+ * 
  * SQLite3 database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

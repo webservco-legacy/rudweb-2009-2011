@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Geo
+ * 
  * Geolocation library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

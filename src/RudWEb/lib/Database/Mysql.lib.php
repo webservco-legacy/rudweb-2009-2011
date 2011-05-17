@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Database_Mysql
+ * 
  * MySQL database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

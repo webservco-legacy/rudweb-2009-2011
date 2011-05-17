@@ -29,6 +29,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Object
+ * 
  * Object library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

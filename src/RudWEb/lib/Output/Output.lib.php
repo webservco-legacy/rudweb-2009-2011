@@ -29,6 +29,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Output
+ * 
  * Output library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

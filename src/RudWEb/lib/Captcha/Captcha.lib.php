@@ -28,6 +28,8 @@ if ( !defined( '_RUDWEB' ) )
 
 
 /**
+ * Captcha
+ * 
  * Captcha library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

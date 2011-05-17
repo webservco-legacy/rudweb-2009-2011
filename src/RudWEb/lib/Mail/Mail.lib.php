@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Mail
+ * 
  * Mail library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

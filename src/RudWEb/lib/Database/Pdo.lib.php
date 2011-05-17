@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Database_Pdo
+ * 
  * PHP Data Objects library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

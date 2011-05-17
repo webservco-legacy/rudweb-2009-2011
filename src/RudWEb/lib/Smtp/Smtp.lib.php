@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Smtp
+ * 
  * SMTP library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

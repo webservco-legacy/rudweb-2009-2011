@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Security
+ * 
  * Security library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

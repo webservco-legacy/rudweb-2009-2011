@@ -28,6 +28,8 @@ if ( !defined( '_RUDWEB' ) )
 
 
 /**
+ * Browser
+ * 
  * Browser library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

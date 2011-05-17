@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * String
+ * 
  * String library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

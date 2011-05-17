@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Output_Smarty
+ * 
  * Smarty Output library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

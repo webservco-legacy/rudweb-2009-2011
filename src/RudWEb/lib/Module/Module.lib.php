@@ -29,6 +29,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Module
+ * 
  * Module library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Log
+ * 
  * Logging library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

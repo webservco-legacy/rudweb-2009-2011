@@ -29,7 +29,9 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
- * Module library.
+ * Controller
+ * 
+ * Controller library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
  * @package    RudWEb

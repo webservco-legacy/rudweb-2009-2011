@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Session
+ * 
  * Session library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

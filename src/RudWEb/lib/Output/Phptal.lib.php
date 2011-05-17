@@ -27,6 +27,8 @@ if ( !defined( '_RUDWEB' ) )
 }
 
 /**
+ * Output_Phptal
+ * 
  * PHPTAL Output library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
