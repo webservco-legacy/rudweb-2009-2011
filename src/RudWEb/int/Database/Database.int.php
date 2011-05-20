@@ -144,5 +144,14 @@ interface Interface_Database
 	 * @param array $options
 	 */
 	public function Count( $data, $table, $options = array() );
+
+	/**
+	 * Increment a field.
+	 *
+	 * @param string $field
+	 * @param string $table
+	 * @param array $options
+	 */
+	public function Increment( $field, $table, $options = array() );
 }
 ?>

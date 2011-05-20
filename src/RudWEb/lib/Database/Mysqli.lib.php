@@ -28,7 +28,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * Database_Mysqli
- * 
+ *
  * MySQL Improved database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -704,6 +704,49 @@ class Database_Mysqli extends Database implements Interface_Database
 		$result = $this->Retrieve( $data, $table, $options );
 
 		return ( empty( $result ) ) ? FALSE : $result[0];
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Interface_Database::Increment()
+	 */
+	public function Increment( $field, $table, $options = array() )
+	{
+		/**
+		 * Open database connection if not already opened.
+		 */
+		$this->Connect();
+
+		/**
+		 * Set default condition query fill.
+		 *
+		 * @var string
+		 */
+		$qf_conditions = $this->_PrepareConditionsString( $options );
+
+		/**
+		 * Set default limit query fill.
+		 *
+		 * @var string
+		 */
+		$qf_limit = $this->_PrepareLimitString( $options );
+
+		/**
+		 * @var string
+		 */
+		$query = "UPDATE {$table} SET {$field} = $field+1{$qf_conditions}{$qf_limit}";
+
+		Core::Log()->Write( __( 'Database Library: Preparing increment query.', 'RudWEb' ), 'debug' );
+
+		Core::Log()->Write( $query, 'debug' );
+
+		$this->_mDbStmt = $this->_mDbLink->prepare( $query );
+
+		$this->_mDbStmt->execute();
+
+		$this->_mDbStmt->close();
+
+		return $this->_mDbLink->affected_rows;
 	}
 
 	/**
