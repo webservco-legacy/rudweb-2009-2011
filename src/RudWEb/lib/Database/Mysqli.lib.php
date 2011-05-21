@@ -799,7 +799,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * Check if we have any conditions.
 		 */
-		if ( array_key_exists( 'conditions', $options ) && !empty ( $options['conditions'] ) )
+		if ( !empty ( $options['conditions'] ) )
 		{
 			/**
 			 * @var string
@@ -924,7 +924,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * Check if we have ordering.
 		 */
-		if ( array_key_exists( 'order', $options ) && !empty ( $options['order'] ) )
+		if ( !empty ( $options['order'] ) )
 		{
 			/**
 			 * @var string
@@ -1028,7 +1028,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * Check if we have a limit.
 		 */
-		if ( array_key_exists( 'limit', $options ) && !empty ( $options['limit'] ) )
+		if ( !empty ( $options['limit'] ) )
 		{
 			/**
 			 * @var string
