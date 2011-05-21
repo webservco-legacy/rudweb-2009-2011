@@ -1080,7 +1080,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		/**
 		 * @var string
 		 */
-		$field = ltrim( $field, 'bin.' );
+		$field = str_replace( 'bin.', NULL, $field );
 
 		return ( $retrieve ) ? "HEX({$field})" : $field;
 	}
