@@ -153,5 +153,14 @@ interface Interface_Database
 	 * @param array $options
 	 */
 	public function Increment( $field, $table, $options = array() );
+
+	/**
+	 * Get the next value of a field.
+	 *
+	 * @param string $field
+	 * @param string $table
+	 * @param array $options
+	 */
+	public function GetNext( $field, $table, $options = array() );
 }
 ?>

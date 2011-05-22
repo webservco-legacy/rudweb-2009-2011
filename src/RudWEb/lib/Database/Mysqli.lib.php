@@ -446,6 +446,7 @@ class Database_Mysqli extends Database implements Interface_Database
 		 * @var array
 		 */
 		$parameters = array();
+
 		/**
 		 * @var array
 		 */
@@ -747,6 +748,25 @@ class Database_Mysqli extends Database implements Interface_Database
 		$this->_mDbStmt->close();
 
 		return $this->_mDbLink->affected_rows;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Interface_Database::GetNext()
+	 */
+	public function GetNext( $field, $table, $options = array() )
+	{
+		/**
+		 * @var string
+		 */
+		$field = "MAX({$field})+1:next_item";
+
+		/**
+		 * @var mixed
+		 */
+		$result = $this->RetrieveOne( $field, $table, $options );
+
+		return ( !empty( $result['next_item'] ) ) ? $result['next_item'] : 1;
 	}
 
 	/**
