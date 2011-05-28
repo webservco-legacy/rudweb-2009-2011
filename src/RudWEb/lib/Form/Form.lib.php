@@ -29,7 +29,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * Form
- * 
+ *
  * Form handling library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -300,7 +300,7 @@ class Form extends Library
 			/**
 			 * Check if we have conditions for current field.
 			 */
-			if ( !empty( $this->_mConditions[$field] ) )
+			if ( !empty( $this->_mConditions[$field] ) && !empty( $data ) )
 			{
 				/**
 				 * Get conditions.
