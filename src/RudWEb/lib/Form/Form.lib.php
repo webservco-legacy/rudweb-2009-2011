@@ -426,7 +426,7 @@ class Form extends Library
 					/**
 					 * @var array
 					 */
-					$this->_mData[$field] = ( 'on' == $request[$field] ) ? TRUE : FALSE;
+					$this->_mData[$field] = TRUE;
 				}
 				else {
 					/**
