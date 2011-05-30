@@ -30,7 +30,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * Object
- * 
+ *
  * Object library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -205,7 +205,7 @@ class Object extends Library
 	 *
 	 * @param string $id object id
 	 *
-	 * @return mixed
+	 * @return boolean
 	 */
 	public function Get( $id )
 	{
@@ -235,20 +235,22 @@ class Object extends Library
 		/**
 		 * Check if we have data.
 		 */
-		if ( !empty( $data ) )
+		if ( empty( $data ) )
 		{
-			/**
-			 * @var array
-			 */
-			$this->mProp['list'] = $data;
-
-			/**
-			 * Set object Id.
-			 *
-			 * @var string
-			 */
-			$this->_mId = $data[$this->_mKey];
+			return FALSE;
 		}
+
+		/**
+		 * @var array
+		 */
+		$this->mProp['list'] = $data;
+
+		/**
+		 * Set object Id.
+		 *
+		 * @var string
+		 */
+		$this->_mId = $data[$this->_mKey];
 
 		/**
 		 * Get locale data.
