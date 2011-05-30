@@ -669,7 +669,7 @@ class Object extends Library
 		/**
 		 * @var array
 		 */
-		$options['conditions'][1] = array ( 'i18n_locale', $this->mI18nLocale );
+		$options['conditions'][1] = array ( 'i18n_locale', $i18nLocale );
 
 		/**
 		 * @var array
@@ -692,6 +692,141 @@ class Object extends Library
 
 			Core::Database()->Update( $data_save, $this->_mTable['i18n'], $options );
 		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Save single object data.
+	 *
+	 * @param string $propType
+	 * @param string $propName
+	 * @param string $i18nLocale
+	 *
+	 * @return bool
+	 */
+	public function SaveOne( $propType, $propName, $i18nLocale = NULL )
+	{
+		if ( 'i18n' == $propType )
+		{
+			return $this->SaveOneLocaleData( $propType, $propName, $i18nLocale );
+		}
+
+		return $this->SaveOneStoreData( $propType, $propName );
+	}
+
+	/**
+	 * Save single object store data.
+	 *
+	 * @param string $propType
+	 * @param string $propName
+	 *
+	 * @return bool
+	 */
+	public function SaveOneStoreData( $propType, $propName )
+	{
+		/**
+		 * Check if we have a valid object.
+		 */
+		if ( empty( $this->_mId ) )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * Set table to use.
+		 *
+		 * @var string
+		 */
+		$table = ( empty( $this->_mTable['store'] ) ) ? 'list' : 'store';
+
+		/**
+		 * Set properties to use.
+		 *
+		 * @var string
+		 */
+		$prop = ( empty( $this->mProp['store'] ) ) ? 'list' : 'store';
+
+		/**
+		 * Filter out main key.
+		 *
+		 * @var unknown_type
+		 */
+		$data = array( $propName, $this->mProp[$prop][$propName] );
+
+		$options = array( 'conditions' => array ( $this->_mKey, $this->_mId ), 'limit' => 1 );
+
+		Core::Database()->Update( $data, $this->_mTable[$table], $options );
+
+		return TRUE;
+	}
+
+	/**
+	 * Save single object locale data.
+	 *
+	 * @param string $propType
+	 * @param string $propName
+	 * @param string $i18nLocale
+	 *
+	 * @return bool
+	 */
+	public function SaveOneLocaleData( $propType, $propName, $i18nLocale = NULL )
+	{
+		/**
+		 * Check if we have a valid object.
+		 */
+		if ( empty( $this->_mId ) )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * Check if we have locale properties.
+		 */
+		if ( empty( $this->mProp['i18n'] ) )
+		{
+			return FALSE;
+		}
+
+		/**
+		 * Check locale
+		 */
+		if ( empty( $i18nLocale ) )
+		{
+			/**
+			 * @var string
+			 */
+			$i18nLocale = $this->mI18nLocale;
+		}
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][0] = array( 'bin.object_id', $this->_mId );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][1] = array ( 'i18n_locale', $i18nLocale );
+
+		/**
+		 * @var array
+		 */
+		$options['limit'] = 1;
+
+		/**
+		 * Set data.
+		 *
+		 * @var array
+		 */
+		$data_save = array(	'i18n_value' => $this->mProp['i18n'][$propName] );
+
+		/**
+		 * @var array
+		 */
+		$options['conditions'][2] = array ( 'i18n_key', $propName );
+
+		Core::Database()->Update( $data_save, $this->_mTable['i18n'], $options );
 
 		return TRUE;
 	}
