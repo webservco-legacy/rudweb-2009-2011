@@ -28,7 +28,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * String
- * 
+ *
  * String library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -53,6 +53,29 @@ class String extends Library
 		 * Call parent method with current class name as parameter.
 		 */
 		return parent::_GetInstance( $className );
+	}
+
+	/**
+	 * Check if haystack starts with needle.
+	 *
+	 * @param string $needle
+	 * @param string $haystack
+	 * @param bool $ignoreCase
+	 *
+	 * @return bool
+	 */
+	public function StartsWith( $needle, $haystack, $ignoreCase = TRUE )
+	{
+		if ( FALSE !== $ignoreCase )
+		{
+			$f_strpos = ( function_exists( 'mb_stripos' ) ) ? 'mb_stripos' : 'stripos';
+		}
+		else
+		{
+			$f_strpos = ( function_exists( 'mb_strpos' ) ) ? 'mb_strpos' : 'strpos';
+		}
+
+		return 0 === $f_strpos( $haystack, $needle );
 	}
 
 	/**
