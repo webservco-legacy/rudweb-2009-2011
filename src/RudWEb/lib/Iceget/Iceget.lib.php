@@ -30,7 +30,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * Iceget
- * 
+ *
  * Iceget library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>
@@ -239,10 +239,6 @@ class Iceget extends Library
 		$this->_mServerDown = TRUE;
 
 		Core::Log()->Write( __( 'Iceget Library: No station is broadcasting.', 'RudWEb' ), 'warning' );
-
-		/**
-		 * XXX SEND EMAIL
-		 */
 
 		return FALSE;
 	}
