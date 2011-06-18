@@ -30,7 +30,7 @@ if ( !defined( '_RUDWEB' ) )
 
 /**
  * Database
- * 
+ *
  * Database library.
  *
  * @author     Radu Maier <rudisoft@rudisoft.net>

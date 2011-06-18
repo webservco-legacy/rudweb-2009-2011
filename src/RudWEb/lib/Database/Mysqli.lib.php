@@ -129,6 +129,14 @@ class Database_Mysqli extends Database implements Interface_Database
 		 */
 		$this->_mDbLink->set_charset( 'utf8' );
 
+		/**
+		 * Check if we should fic GROUP_CONCAT limit
+		 */
+		if ( 1 == Core::Config()->Get( 'database.fix_gc' ) )
+		{
+			$this->_mDbLink->query( "SET SESSION group_concat_max_len = 1048576" );
+		}
+
 		return TRUE;
 	}
 
