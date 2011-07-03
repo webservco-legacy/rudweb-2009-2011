@@ -56,7 +56,7 @@ class User extends Object
 	 *
 	 * @var array
 	 */
-	protected $_mTable = array( 'list' => 'acl_users', 'logins' => 'acl_logins' );
+	protected $_mTable = array( 'list' => 'acl_users', 'store' => 'tcr_object_user', 'logins' => 'acl_logins' );
 
 	/**
 	 * Initialize the object.
