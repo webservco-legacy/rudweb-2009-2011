@@ -171,7 +171,7 @@ class Config extends Library
 		/**
 		 * Check for valid environment.
 		 */
-		if ( !is_string( $cfgEnv ) )
+		if ( !array_key_exists($cfgEnv, $this->_mConfig) )
 		{
 			/**
 			 * Stop.

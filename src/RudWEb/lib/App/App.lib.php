@@ -317,7 +317,7 @@ class App extends Library
 		 */
 		Core::Error()->Unload();
 
-		Core::Log()->Write( __( 'Application: Shutdown.', 'RudWEb', 'RudWEb' ), 'debug' );
+		Core::Log()->Write( __( 'Application: Shutdown.', 'RudWEb' ), 'debug' );
 
 		return TRUE;
 	}
