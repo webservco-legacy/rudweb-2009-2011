@@ -20,6 +20,7 @@ http://php.net/manual/en/book.gettext.php
 http://mel.melaxis.com/devblog/2005/08/06/localizing-php-web-sites-using-gettext/
 http://www.phpdig.net/ref/rn26.html
 http://stackoverflow.com/questions/3393139/how-to-make-poedit-correctly-parse-custom-ngettext-implementation
+http://stackoverflow.com/questions/3307612/poedit-and-xml-files
 
 Helloworld.po
 /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/mod/Helloworld/
@@ -39,14 +40,20 @@ keywords:
 __
 ___:1,2
 
+
+http://drupal.org/node/17564
+
 ro:
 nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);
 
-en,de,it,hu:
+en,de,it,hu,es:
 nplurals=2; plural=(n != 1);
 
 fr:
 nplurals=2; plural=(n > 1);
+
+es:
+
 
 #errors
 http://snippets.dzone.com/posts/show/1617
