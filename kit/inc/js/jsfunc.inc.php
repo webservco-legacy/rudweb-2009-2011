@@ -56,31 +56,31 @@ http://image-opacity.4wsearch.com/
 the JS code
 */
 function bevisible(cur,which)	{
-	if(document.getElementById) {
-		if (which==0) {
-			if(document.all) {
-				cur.filters.alpha.opacity=100
+    if(document.getElementById) {
+        if (which==0) {
+            if(document.all) {
+                cur.filters.alpha.opacity=100
       }
-			else {
-				cur.style.setProperty("-moz-opacity", 1, "");
+            else {
+                cur.style.setProperty("-moz-opacity", 1, "");
       }
-		}
-		else {
-			if(document.all) {
-				cur.filters.alpha.opacity=80
+        }
+        else {
+            if(document.all) {
+                cur.filters.alpha.opacity=80
       }  
-			else {
-				cur.style.setProperty("-moz-opacity", .8, "");
+            else {
+                cur.style.setProperty("-moz-opacity", .8, "");
       }
-		}
-	}
+        }
+    }
 }
 function limitText(limitField, limitCount, limitNum) {
-	if (limitField.value.length > limitNum) {
-		limitField.value = limitField.value.substring(0, limitNum);
-	} else {
-		limitCount.value = limitNum - limitField.value.length;
-	}
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+    } else {
+        limitCount.value = limitNum - limitField.value.length;
+    }
 }
 function addTag(newvalue,element_to) {
   element_to.value = element_to.value + newvalue + ', ';
