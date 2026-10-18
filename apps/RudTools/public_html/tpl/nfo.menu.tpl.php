@@ -28,56 +28,56 @@
  */
 ?>
 <div id="menu">
-	<div class="toggle">
-		<span>Rudweb <?php echo $this->extObj->extAbout('name'); ?></span>
-		<ul class="l1">
-			<li class="l1">
-				<a href="#a_php" title="PHP Information">PHP Information</a>
-				<ul class="l2">
-					<li class="l2">
-						<a href="#a_php_nfo" onclick="JavaScript:toggle_open('php_nfo');" title="General Information">General Information</a>
-					</li>
-					<li class="l2">
-						<a href="#a_php_ext" onclick="JavaScript:toggle_open('php_ext');" title="Loaded Extensions">Loaded Extensions</a>
-					</li>
-					<li class="l2">
-						<a href="#a_php_ini" onclick="JavaScript:toggle_open('php_ini');" title="Loaded Extensions">PHP Ini Settings</a>
-					</li>
-					<li class="l2">
-						<a href="#a_php_info" onclick="JavaScript:toggle_open('php_info');" title="PHPInfo()">PHPInfo()</a>
-					</li>
-				</ul>
-			</li>
-			<li class="l1">
-				<a href="#a_server" title="Server Information">Server Information</a>
-				<ul class="l2">
-					<li class="l2">
-						<a href="#a_server_nfo"  onclick="JavaScript:toggle_open('server_nfo');" title="General Information">General Information</a>
-					</li>
-					<li class="l2">
-						<a href="#a_server_modules"  onclick="JavaScript:toggle_open('server_modules');" title="Server Modules">Server Modules</a>
-					</li>
-					<li class="l2">
-						<a href="#a_server_info"  onclick="JavaScript:toggle_open('server_info');" title="Server Information">Server Information</a>
-					</li>
-				</ul>
-			</li>
-			<li class="l1">
-				<a href="#a_os" title="OS Information">OS Information</a>
-				<ul class="l2">
-					<li class="l2">
-						<a href="#a_os_nfo" onclick="JavaScript:toggle_open('os_nfo');" title="General Information">General Information</a>
-					</li>
-				</ul>
-			</li>
-			<li class="l1">
-				<a href="#a_fs" title="Filesystem Information">Filesystem Information</a>
-				<ul class="l2">
-					<li class="l2">
-						<a href="#a_fs_nfo" onclick="JavaScript:toggle_open('fs_nfo');" title="General Information">General Information</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+    <div class="toggle">
+        <span>Rudweb <?php echo $this->extObj->extAbout('name'); ?></span>
+        <ul class="l1">
+            <li class="l1">
+                <a href="#a_php" title="PHP Information">PHP Information</a>
+                <ul class="l2">
+                    <li class="l2">
+                        <a href="#a_php_nfo" onclick="JavaScript:toggle_open('php_nfo');" title="General Information">General Information</a>
+                    </li>
+                    <li class="l2">
+                        <a href="#a_php_ext" onclick="JavaScript:toggle_open('php_ext');" title="Loaded Extensions">Loaded Extensions</a>
+                    </li>
+                    <li class="l2">
+                        <a href="#a_php_ini" onclick="JavaScript:toggle_open('php_ini');" title="Loaded Extensions">PHP Ini Settings</a>
+                    </li>
+                    <li class="l2">
+                        <a href="#a_php_info" onclick="JavaScript:toggle_open('php_info');" title="PHPInfo()">PHPInfo()</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="l1">
+                <a href="#a_server" title="Server Information">Server Information</a>
+                <ul class="l2">
+                    <li class="l2">
+                        <a href="#a_server_nfo"  onclick="JavaScript:toggle_open('server_nfo');" title="General Information">General Information</a>
+                    </li>
+                    <li class="l2">
+                        <a href="#a_server_modules"  onclick="JavaScript:toggle_open('server_modules');" title="Server Modules">Server Modules</a>
+                    </li>
+                    <li class="l2">
+                        <a href="#a_server_info"  onclick="JavaScript:toggle_open('server_info');" title="Server Information">Server Information</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="l1">
+                <a href="#a_os" title="OS Information">OS Information</a>
+                <ul class="l2">
+                    <li class="l2">
+                        <a href="#a_os_nfo" onclick="JavaScript:toggle_open('os_nfo');" title="General Information">General Information</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="l1">
+                <a href="#a_fs" title="Filesystem Information">Filesystem Information</a>
+                <ul class="l2">
+                    <li class="l2">
+                        <a href="#a_fs_nfo" onclick="JavaScript:toggle_open('fs_nfo');" title="General Information">General Information</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>

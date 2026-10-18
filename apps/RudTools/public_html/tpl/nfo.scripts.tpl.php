@@ -30,21 +30,21 @@
 <script type="text/javascript">
 //<![CDATA[
 function toggle(elm) {
-	if (document.getElementById(elm).style.display=='none')
-	{
-		document.getElementById(elm).style.display = '';
-	}
-	else
-	{
-		document.getElementById(elm).style.display = 'none';
-	}
+    if (document.getElementById(elm).style.display=='none')
+    {
+        document.getElementById(elm).style.display = '';
+    }
+    else
+    {
+        document.getElementById(elm).style.display = 'none';
+    }
 }
 function toggle_open(elm) {
-	if (document.getElementById(elm).style.display=='none')
-	{
-		document.getElementById(elm).style.display = '';
-	}
-	return true;
+    if (document.getElementById(elm).style.display=='none')
+    {
+        document.getElementById(elm).style.display = '';
+    }
+    return true;
 }
 //]]>
 </script>

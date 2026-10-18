@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -48,138 +48,138 @@ if (!defined('_RW_VALID'))
  */
 interface rw_iDatabase
 {
-	/**
-	 * Initialize database connection.
-	 *
-	 * @return mixed result.
-	 */
-	public function dbConnect();
+    /**
+     * Initialize database connection.
+     *
+     * @return mixed result.
+     */
+    public function dbConnect();
 
-	/**
-	 * Close database connection.
-	 *
-	 * @return mixed result
-	 */
-	public function dbDisconnect();
+    /**
+     * Close database connection.
+     *
+     * @return mixed result
+     */
+    public function dbDisconnect();
 
-	/**
-	 * Escape a string for queries.
-	 *
-	 * @param string $string string to be escaped
-	 * @return string $string escaped string
-	 */
-	public function dbEscapeString($string);
+    /**
+     * Escape a string for queries.
+     *
+     * @param string $string string to be escaped
+     * @return string $string escaped string
+     */
+    public function dbEscapeString($string);
 
-	/**
-	 * Method for raw queries.
-	 *
-	 * Executes a query and returns the result.
-	 * Counts the time the query took and increments the query counter.
-	 *
-	 * @param string $sql Query to be executed
-	 * @param boolean $stats Whether or not to record query data. Default is TRUE
-	 * @return mixed query result
-	 */
-	public function dbQuery($sql, $stats=TRUE);
+    /**
+     * Method for raw queries.
+     *
+     * Executes a query and returns the result.
+     * Counts the time the query took and increments the query counter.
+     *
+     * @param string $sql Query to be executed
+     * @param boolean $stats Whether or not to record query data. Default is TRUE
+     * @return mixed query result
+     */
+    public function dbQuery($sql, $stats=TRUE);
 
-	/**
-	 * Check if there are no tables in database.
-	 *
-	 * @return mixed result
-	 */
-	public function dbIsEmpty();
+    /**
+     * Check if there are no tables in database.
+     *
+     * @return mixed result
+     */
+    public function dbIsEmpty();
 
-	/**
-	 * Method for simple select queries.
-	 *
-	 * Creates sql query based on input and calls dbQuery.
-	 * @param mixed $columns
-	 * @param mixed $table
-	 * @param mixed $condition
-	 * @param mixed $limit
-	 * @return mixed query result
-	 */
-	public function dbSelect($columns, $table, $condition=NULL, $group=NULL, $having=NULL, $order=NULL, $limit=NULL);
+    /**
+     * Method for simple select queries.
+     *
+     * Creates sql query based on input and calls dbQuery.
+     * @param mixed $columns
+     * @param mixed $table
+     * @param mixed $condition
+     * @param mixed $limit
+     * @return mixed query result
+     */
+    public function dbSelect($columns, $table, $condition=NULL, $group=NULL, $having=NULL, $order=NULL, $limit=NULL);
 
-	/**
-	 * Method for data insertion.
-	 *
-	 * @param mixed $table
-	 * @param mixed $columns
-	 * @param mixed $data
-	 * @return mixed query result
-	 */
-	public function dbInsert($table, $columns=NULL, $data);
+    /**
+     * Method for data insertion.
+     *
+     * @param mixed $table
+     * @param mixed $columns
+     * @param mixed $data
+     * @return mixed query result
+     */
+    public function dbInsert($table, $columns=NULL, $data);
 
-	/**
-	 * Method for data update.
-	 *
-	 * @param string $table
-	 * @param mixed $data
-	 * @param mixed $condition
-	 * @param mixed $order
-	 * @param mixed $limit
-	 * @return mixed result
-	 */
-	public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL);
+    /**
+     * Method for data update.
+     *
+     * @param string $table
+     * @param mixed $data
+     * @param mixed $condition
+     * @param mixed $order
+     * @param mixed $limit
+     * @return mixed result
+     */
+    public function dbUpdate($table, $data, $condition=NULL, $order=NULL, $limit=NULL);
 
-	/**
-	 * Method for data deletion
-	 *
-	 * @param mixed $table
-	 * @param mixed $condition
-	 * @param mixed $limit
-	 * @return mixed result
-	 */
-	public function dbDelete($table, $condition=NULL, $order=NULL, $limit=NULL);
+    /**
+     * Method for data deletion
+     *
+     * @param mixed $table
+     * @param mixed $condition
+     * @param mixed $limit
+     * @return mixed result
+     */
+    public function dbDelete($table, $condition=NULL, $order=NULL, $limit=NULL);
 
-	/**
-	 * Returns the number of rows returned by a query result.
-	 *
-	 * @param mixed $result The result of the query.
-	 * @return integer Number of rows
-	 */
-	public function dbNumRows($result);
+    /**
+     * Returns the number of rows returned by a query result.
+     *
+     * @param mixed $result The result of the query.
+     * @return integer Number of rows
+     */
+    public function dbNumRows($result);
 
-	/**
-	 * Returns an associative array corresponding to a fetched row.
-	 *
-	 * @param mixed $result The result of the query.
-	 * @return array
-	 */
-	public function dbFetchArray($result);
+    /**
+     * Returns an associative array corresponding to a fetched row.
+     *
+     * @param mixed $result The result of the query.
+     * @return array
+     */
+    public function dbFetchArray($result);
 
-	/**
-	 * Returns a query result.
-	 *
-	 * @param mixed $result result object
-	 * @param int $row row number
-	 * @param int $field field number
-	 * @return mixed result
-	 */
-	public function dbFetchResult($result, $row, $field);
+    /**
+     * Returns a query result.
+     *
+     * @param mixed $result result object
+     * @param int $row row number
+     * @param int $field field number
+     * @return mixed result
+     */
+    public function dbFetchResult($result, $row, $field);
 
-	/**
-	 * Method for getting the last inserted id.
-	 *
-	 * @return mixed result
-	 */
-	public function dbLastInsertId();
+    /**
+     * Method for getting the last inserted id.
+     *
+     * @return mixed result
+     */
+    public function dbLastInsertId();
 
-	/**
-	 * Current date and time for database queries.
-	 *
-	 * @return string db compatible date time sting
-	 */
-	public function dbNow();
+    /**
+     * Current date and time for database queries.
+     *
+     * @return string db compatible date time sting
+     */
+    public function dbNow();
 
-	/**
-	 * Date and time in the past (minutes).
-	 *
-	 * @param integer $min minutes ago
-	 * @return string db compatible date time sting
-	 */
-	public function dbNowMinAgo($min=0);
+    /**
+     * Date and time in the past (minutes).
+     *
+     * @param integer $min minutes ago
+     * @return string db compatible date time sting
+     */
+    public function dbNowMinAgo($min=0);
 }
 
 /**
@@ -192,167 +192,167 @@ interface rw_iDatabase
  */
 class rw_Database
 {
-	/**
-	 * Database host.
-	 *
-	 * @var mixed host
-	 */
-	protected $dbHost;
+    /**
+     * Database host.
+     *
+     * @var mixed host
+     */
+    protected $dbHost;
 
-	/**
-	 * Database port.
-	 *
-	 * @var mixed port
-	 */
-	protected $dbPort;
+    /**
+     * Database port.
+     *
+     * @var mixed port
+     */
+    protected $dbPort;
 
-	/**
-	 * Database user.
-	 *
-	 * @var mixed user
-	 */
-	protected $dbUser;
+    /**
+     * Database user.
+     *
+     * @var mixed user
+     */
+    protected $dbUser;
 
-	/**
-	 * Database password.
-	 *
-	 * @var mixed password
-	 */
-	protected $dbPass;
+    /**
+     * Database password.
+     *
+     * @var mixed password
+     */
+    protected $dbPass;
 
-	/**
-	 * Database name.
-	 *
-	 * @var mixed name
-	 */
-	protected $dbName;
+    /**
+     * Database name.
+     *
+     * @var mixed name
+     */
+    protected $dbName;
 
-	/**
-	 * Database connection.
-	 *
-	 * @var mixed $_connection connection resource
-	 */
-	protected $_connection;
+    /**
+     * Database connection.
+     *
+     * @var mixed $_connection connection resource
+     */
+    protected $_connection;
 
-	/**
-	 * Execution time of last query.
-	 *
-	 * @var integer $_queryLast last query execution time
-	 */
-	protected $_queryLast = 0;
+    /**
+     * Execution time of last query.
+     *
+     * @var integer $_queryLast last query execution time
+     */
+    protected $_queryLast = 0;
 
-	/**
-	 * Execution time of all queries.
-	 *
-	 * @var integer $_queryTime all queries execution time
-	 */
-	protected $_queryTime  = 0;
+    /**
+     * Execution time of all queries.
+     *
+     * @var integer $_queryTime all queries execution time
+     */
+    protected $_queryTime  = 0;
 
-	/**
-	 * Total queries executed.
-	 *
-	 * @var integer $_queryCount total number of queries
-	 */
-	protected $_queryCount = 0;
+    /**
+     * Total queries executed.
+     *
+     * @var integer $_queryCount total number of queries
+     */
+    protected $_queryCount = 0;
 
-	/**
-	 * Show query string instead of executing.
-	 *
-	 * @var bool $dbDebug
-	 */
-	protected $dbDebug = FALSE;
+    /**
+     * Show query string instead of executing.
+     *
+     * @var bool $dbDebug
+     */
+    protected $dbDebug = FALSE;
 
-	/**
-	 * Constructor.
-	 *
-	 * Sets the database parameters.
-	 *
-	 * @param string $dbHost Database host
-	 * @param string $dbPort Database port
-	 * @param string $dbUser Database username
-	 * @param string $dbPass Database password
-	 * @param string $dbName Database name
-	 * @return mixed opens the connection or returns an error
-	 */
-	public function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName)
-	{
-		/**
-		 * Set database host.
-		 */
-		$this->dbHost = $dbHost;
-		/**
-		 * Set database port.
-		 */
-		$this->dbPort = $dbPort;
-		/**
-		 * Set database user.
-		 */
-		$this->dbUser = $dbUser;
-		/**
-		 * Set database password.
-		 */
-		$this->dbPass = $dbPass;
-		/**
-		 * Set database name.
-		 */
-		$this->dbName = $dbName;
-	}
+    /**
+     * Constructor.
+     *
+     * Sets the database parameters.
+     *
+     * @param string $dbHost Database host
+     * @param string $dbPort Database port
+     * @param string $dbUser Database username
+     * @param string $dbPass Database password
+     * @param string $dbName Database name
+     * @return mixed opens the connection or returns an error
+     */
+    public function __construct($dbHost, $dbPort, $dbUser, $dbPass, $dbName)
+    {
+        /**
+         * Set database host.
+         */
+        $this->dbHost = $dbHost;
+        /**
+         * Set database port.
+         */
+        $this->dbPort = $dbPort;
+        /**
+         * Set database user.
+         */
+        $this->dbUser = $dbUser;
+        /**
+         * Set database password.
+         */
+        $this->dbPass = $dbPass;
+        /**
+         * Set database name.
+         */
+        $this->dbName = $dbName;
+    }
 
-	/**
-	 * Returns last query execution time.
-	 *
-	 * @return float last query time
-	 */
-	public function dbQueryLast()
-	{
-		/**
-		 * Return result.
-		 */
-		return round($this->_queryLast, 5);
-	}
+    /**
+     * Returns last query execution time.
+     *
+     * @return float last query time
+     */
+    public function dbQueryLast()
+    {
+        /**
+         * Return result.
+         */
+        return round($this->_queryLast, 5);
+    }
 
-	/**
-	 * Returns total query execution time.
-	 *
-	 * @return float total query time
-	 */
-	public function dbQueryTime()
-	{
-		/**
-		 * Return result.
-		 */
-		return round($this->_queryTime, 5);
-	}
+    /**
+     * Returns total query execution time.
+     *
+     * @return float total query time
+     */
+    public function dbQueryTime()
+    {
+        /**
+         * Return result.
+         */
+        return round($this->_queryTime, 5);
+    }
 
-	/**
-	 * Returns total number of queries executed.
-	 *
-	 * @return integer total number of queries
-	 */
-	public function dbQueryCount()
-	{
-		/**
-		 * Return result.
-		 */
-		return $this->_queryCount;
-	}
+    /**
+     * Returns total number of queries executed.
+     *
+     * @return integer total number of queries
+     */
+    public function dbQueryCount()
+    {
+        /**
+         * Return result.
+         */
+        return $this->_queryCount;
+    }
 
-	/**
-	 * Enable debug mode.
-	 *
-	 * @return mixed result
-	 */
-	public function dbDebug()
-	{
-		/**
-		 * Enable debug.
-		 */
-		$this->dbDebug = TRUE;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Enable debug mode.
+     *
+     * @return mixed result
+     */
+    public function dbDebug()
+    {
+        /**
+         * Enable debug.
+         */
+        $this->dbDebug = TRUE;
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 /**
  * rw_Database_result
@@ -364,78 +364,78 @@ class rw_Database
  */
 class rw_Database_result
 {
-	/**
-	 * Database object.
-	 *
-	 * @var mixed $_dbObject database object
-	 */
-	protected $_dbObject;
+    /**
+     * Database object.
+     *
+     * @var mixed $_dbObject database object
+     */
+    protected $_dbObject;
 
-	/**
-	 * Query result.
-	 *
-	 * @var mixed $_result result resource
-	 */
-	protected $_result;
+    /**
+     * Query result.
+     *
+     * @var mixed $_result result resource
+     */
+    protected $_result;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param mixed $_dbObject Database object
-	 * @param mixed $_result Query result resource
-	 * @return mixed Sets the variables
-	 */
-	public function __construct($_dbObject, $_result)
-	{
-		/**
-		 * Set database object
-		 */
-		$this->_dbObject = $_dbObject;
-		/**
-		 * Set query result.
-		 */
-		$this->_result = $_result;
-	}
+    /**
+     * Constructor.
+     *
+     * @param mixed $_dbObject Database object
+     * @param mixed $_result Query result resource
+     * @return mixed Sets the variables
+     */
+    public function __construct($_dbObject, $_result)
+    {
+        /**
+         * Set database object
+         */
+        $this->_dbObject = $_dbObject;
+        /**
+         * Set query result.
+         */
+        $this->_result = $_result;
+    }
 
-	/**
-	 * Returns the number of rows returned by a query result.
-	 *
-	 * @return integer Number of rows
-	 */
-	public function dbNumRows()
-	{
-		/**
-		 * Return result.
-		 */
-		return $this->_dbObject->dbNumRows($this->_result);
-	}
+    /**
+     * Returns the number of rows returned by a query result.
+     *
+     * @return integer Number of rows
+     */
+    public function dbNumRows()
+    {
+        /**
+         * Return result.
+         */
+        return $this->_dbObject->dbNumRows($this->_result);
+    }
 
-	/**
-	 * Returns an array corresponding to a fetched row.
-	 *
-	 * @return array
-	 */
-	public function dbFetchArray()
-	{
-		/**
-		 * Return result.
-		 */
-		return $this->_dbObject->dbFetchArray($this->_result);
-	}
+    /**
+     * Returns an array corresponding to a fetched row.
+     *
+     * @return array
+     */
+    public function dbFetchArray()
+    {
+        /**
+         * Return result.
+         */
+        return $this->_dbObject->dbFetchArray($this->_result);
+    }
 
-	/**
-	 * Returns a query result.
-	 *
-	 * @param int $row row number
-	 * @param int $field field number
-	 * @return mixed result
-	 */
-	public function dbFetchResult($row=0, $field=0)
-	{
-		/**
-		 * Return result.
-		 */
-		return $this->_dbObject->dbFetchResult($this->_result, $row, $field);
-	}
+    /**
+     * Returns a query result.
+     *
+     * @param int $row row number
+     * @param int $field field number
+     * @return mixed result
+     */
+    public function dbFetchResult($row=0, $field=0)
+    {
+        /**
+         * Return result.
+         */
+        return $this->_dbObject->dbFetchResult($this->_result, $row, $field);
+    }
 }
 ?>

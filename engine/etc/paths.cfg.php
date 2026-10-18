@@ -32,10 +32,10 @@
  */
 if(!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -43,10 +43,10 @@ if(!defined('_RW_VALID'))
  */
 if(!defined('_CORE_EXT_DIR'))
 {
-	/**
-	 * Set core extensions directory.
-	 */
-	define('_CORE_EXT_DIR', _CORE_DIR . 'ext/');
+    /**
+     * Set core extensions directory.
+     */
+    define('_CORE_EXT_DIR', _CORE_DIR . 'ext/');
 }
 
 /**
@@ -54,10 +54,10 @@ if(!defined('_CORE_EXT_DIR'))
  */
 if(!defined('_CORE_INT_DIR'))
 {
-	/**
-	 * Set core internationalization directory.
-	 */
-	define('_CORE_INT_DIR', _CORE_DIR . 'int/');
+    /**
+     * Set core internationalization directory.
+     */
+    define('_CORE_INT_DIR', _CORE_DIR . 'int/');
 }
 
 /**
@@ -65,10 +65,10 @@ if(!defined('_CORE_INT_DIR'))
  */
 if(!defined('_CORE_LIB_DIR'))
 {
-	/**
-	 * Set core library directory.
-	 */
-	define('_CORE_LIB_DIR', _CORE_DIR . 'lib/');
+    /**
+     * Set core library directory.
+     */
+    define('_CORE_LIB_DIR', _CORE_DIR . 'lib/');
 }
 
 /**
@@ -76,9 +76,9 @@ if(!defined('_CORE_LIB_DIR'))
  */
 if(!defined('_CORE_OPT_DIR'))
 {
-	/**
-	 * Set core 3rdparty directory.
-	 */
-	define('_CORE_OPT_DIR', _CORE_DIR . 'opt/');
+    /**
+     * Set core 3rdparty directory.
+     */
+    define('_CORE_OPT_DIR', _CORE_DIR . 'opt/');
 }
 ?>

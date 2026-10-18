@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -48,120 +48,120 @@ if (!defined('_RW_VALID'))
  */
 class rw_Output_RudWEb implements rw_iOutput
 {
-	/**
-	 * Application skin directory path.
-	 *
-	 * @var string
-	 */
-	private $outSkinDir;
+    /**
+     * Application skin directory path.
+     *
+     * @var string
+     */
+    private $outSkinDir;
 
-	/**
-	 * Output data to be parsed.
-	 *
-	 * @var mixed
-	 */
-	private $outData = array();
+    /**
+     * Output data to be parsed.
+     *
+     * @var mixed
+     */
+    private $outData = array();
 
-	/**
-	 * Constructor.
-	 *
-	 * @return mixed result
-	 */
-	public function __construct()
-	{
-		/**
-		 *
-		 */
-	}
+    /**
+     * Constructor.
+     *
+     * @return mixed result
+     */
+    public function __construct()
+    {
+        /**
+         *
+         */
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see rudweb/lib/out/rw_iOutput#outSkinDir($outSkinDir)
-	 */
-	public function outSkinDir($outSkinDir)
-	{
-		/**
-		 * Set application skin directory path.
-		 */
-		$this->outSkinDir = $outSkinDir;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see rudweb/lib/out/rw_iOutput#outSkinDir($outSkinDir)
+     */
+    public function outSkinDir($outSkinDir)
+    {
+        /**
+         * Set application skin directory path.
+         */
+        $this->outSkinDir = $outSkinDir;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see rudweb/lib/out/rw_iOutput#set($name, $value)
-	 */
-	public function set($name, $value)
-	{
-		/**
-		 * Set output variables.
-		 */
-		$this->outData[$name] = $value;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see rudweb/lib/out/rw_iOutput#set($name, $value)
+     */
+    public function set($name, $value)
+    {
+        /**
+         * Set output variables.
+         */
+        $this->outData[$name] = $value;
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see rudweb/lib/out/rw_iOutput#parse($outTemplate, $outDisplay)
-	 */
-	public function parse($outTemplate, $outDisplay)
-	{
-		/**
-		 * Check if template file exists.
-		 */
-		if (!is_readable($this->outSkinDir.$outTemplate))
-		{
-			/**
-			 * Show error message.
-			 */
-			trigger_error('Output:::NO_TEMPLATE:::'.$outTemplate, 256);
-		}
-		/**
-		 * Turn on output buffering.
-		 */
-		ob_start();
-		/**
-		 * Import output variables.
-		 */
-		extract($this->outData);
-		/**
-		 * Load template file.
-		 */
-		include($this->outSkinDir.$outTemplate);
-		/**
-		 * Get parsed output result from the output buffer.
-		 */
-		$outData = ob_get_contents();
-		/**
-		 * Delete output buffer and turn off output buffering.
-		 */
-		ob_end_clean();
-		/**
-		 * Check if we should send output to browser.
-		 */
-		if ($outDisplay)
-		{
-			/**
-			 * Display output data.
-			 */
-			echo $outData;
-			/**
-			 * Return result.
-			 */
-			return TRUE;
-		}
-		/**
-		 * Return output, don't send it to browser.
-		 */
-		else
-		{
-			/**
-			 * Return output data, don't display it.
-			 */
-			return $outData;
-		}
-	}
+    /**
+     * (non-PHPdoc)
+     * @see rudweb/lib/out/rw_iOutput#parse($outTemplate, $outDisplay)
+     */
+    public function parse($outTemplate, $outDisplay)
+    {
+        /**
+         * Check if template file exists.
+         */
+        if (!is_readable($this->outSkinDir.$outTemplate))
+        {
+            /**
+             * Show error message.
+             */
+            trigger_error('Output:::NO_TEMPLATE:::'.$outTemplate, 256);
+        }
+        /**
+         * Turn on output buffering.
+         */
+        ob_start();
+        /**
+         * Import output variables.
+         */
+        extract($this->outData);
+        /**
+         * Load template file.
+         */
+        include($this->outSkinDir.$outTemplate);
+        /**
+         * Get parsed output result from the output buffer.
+         */
+        $outData = ob_get_contents();
+        /**
+         * Delete output buffer and turn off output buffering.
+         */
+        ob_end_clean();
+        /**
+         * Check if we should send output to browser.
+         */
+        if ($outDisplay)
+        {
+            /**
+             * Display output data.
+             */
+            echo $outData;
+            /**
+             * Return result.
+             */
+            return TRUE;
+        }
+        /**
+         * Return output, don't send it to browser.
+         */
+        else
+        {
+            /**
+             * Return output data, don't display it.
+             */
+            return $outData;
+        }
+    }
 }
 ?>
