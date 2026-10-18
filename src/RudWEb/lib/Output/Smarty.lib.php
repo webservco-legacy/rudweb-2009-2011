@@ -20,10 +20,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -38,123 +38,123 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Output_Smarty extends Output implements Interface_Output
 {
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Output::Init()
-	 */
-	public function Init()
-	{
-		/**
-		 * Check if initialization is already done
-		 */
-		if ( NULL != $this->_mEngineObject )
-		{
-			return FALSE;
-		}
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Output::Init()
+     */
+    public function Init()
+    {
+        /**
+         * Check if initialization is already done
+         */
+        if ( NULL != $this->_mEngineObject )
+        {
+            return FALSE;
+        }
 
-		Core::Log()->Write( __( 'Output library: Initializing output engine object.', 'RudWEb' ), 'debug' );
+        Core::Log()->Write( __( 'Output library: Initializing output engine object.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mSkinDir = Core::Config()->Get( 'output.skin' );
+        /**
+         * @var string
+         */
+        $this->_mSkinDir = Core::Config()->Get( 'output.skin' );
 
-		/**
-		 * @var string
-		 */
-		$path_app = Core::Config()->Get( 'path.app' );
+        /**
+         * @var string
+         */
+        $path_app = Core::Config()->Get( 'path.app' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mSkinPath = $path_app .
-		Core::Config()->Get( 'dir.app.opt' ) . '/' .
-		Core::Config()->Get( 'dir.app.tpl' ) . '/';
+        /**
+         * @var string
+         */
+        $this->_mSkinPath = $path_app .
+        Core::Config()->Get( 'dir.app.opt' ) . '/' .
+        Core::Config()->Get( 'dir.app.tpl' ) . '/';
 
-		/**
-		 * @var string
-		 */
-		$this->_mTemplate = Core::Config()->Get( 'output.template' );
+        /**
+         * @var string
+         */
+        $this->_mTemplate = Core::Config()->Get( 'output.template' );
 
-		/**
-		 * @var extension
-		 */
-		$this->_mExtension = Core::Config()->Get( 'output.extension' );
+        /**
+         * @var extension
+         */
+        $this->_mExtension = Core::Config()->Get( 'output.extension' );
 
-		/**
-		 * @var object
-		 */
-		$this->_mEngineObject = $this->_LoadEngine( 'Smarty' );
+        /**
+         * @var object
+         */
+        $this->_mEngineObject = $this->_LoadEngine( 'Smarty' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mEngineObject->template_dir = $this->_mSkinPath . $this->_mSkinDir;
+        /**
+         * @var string
+         */
+        $this->_mEngineObject->template_dir = $this->_mSkinPath . $this->_mSkinDir;
 
-		/**
-		 * @var string
-		 */
-		$dir_tmp = Core::Config()->Get( 'dir.app.tmp' );
+        /**
+         * @var string
+         */
+        $dir_tmp = Core::Config()->Get( 'dir.app.tmp' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mEngineObject->compile_dir = $path_app . $dir_tmp . '/';
+        /**
+         * @var string
+         */
+        $this->_mEngineObject->compile_dir = $path_app . $dir_tmp . '/';
 
-		/**
-		 * @var string
-		 */
-		$this->_mEngineObject->cache_dir = $path_app . $dir_tmp . '/';
+        /**
+         * @var string
+         */
+        $this->_mEngineObject->cache_dir = $path_app . $dir_tmp . '/';
 
-		/**
-		 * @var string
-		 */
-		$this->_mEngineObject->config_dir = $path_app . $dir_tmp . '/';
+        /**
+         * @var string
+         */
+        $this->_mEngineObject->config_dir = $path_app . $dir_tmp . '/';
 
-		return TRUE;
-	}
+        return TRUE;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Output::Parse()
-	 */
-	public function Render( $outTemplate, $outDisplay = FALSE )
-	{
-		Core::Log()->Write( __( 'Output library: Rendering template.', 'RudWEb' ), 'debug' );
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Output::Parse()
+     */
+    public function Render( $outTemplate, $outDisplay = FALSE )
+    {
+        Core::Log()->Write( __( 'Output library: Rendering template.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * Initialize output engine object.
-		 */
-		$this->Init();
+        /**
+         * Initialize output engine object.
+         */
+        $this->Init();
 
-		/**
-		 * @var string
-		 */
-		$tpl_file = $outTemplate . $this->_mExtension;
+        /**
+         * @var string
+         */
+        $tpl_file = $outTemplate . $this->_mExtension;
 
-		if ( FALSE !== $outDisplay )
-		{
-			return $this->_mEngineObject->display( $tpl_file );
-		}
-		else
-		{
-			return $this->_mEngineObject->fetch( $tpl_file );
-		}
-	}
+        if ( FALSE !== $outDisplay )
+        {
+            return $this->_mEngineObject->display( $tpl_file );
+        }
+        else
+        {
+            return $this->_mEngineObject->fetch( $tpl_file );
+        }
+    }
 
-	/**
-	 * Set output data.
-	 *
-	 * @param string $outName
-	 * @param mixed $outValue
-	 *
-	 * @return bool
-	 */
-	public function Set( $outName, $outValue )
-	{
-		Core::Log()->Write( __( 'Output library: Setting data.', 'RudWEb' ), 'debug' );
+    /**
+     * Set output data.
+     *
+     * @param string $outName
+     * @param mixed $outValue
+     *
+     * @return bool
+     */
+    public function Set( $outName, $outValue )
+    {
+        Core::Log()->Write( __( 'Output library: Setting data.', 'RudWEb' ), 'debug' );
 
-		return $this->_mEngineObject->assign( $outName, $outValue );
-	}
+        return $this->_mEngineObject->assign( $outName, $outValue );
+    }
 }
 ?>

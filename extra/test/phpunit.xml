@@ -6,47 +6,47 @@
         <ini name="include_path" value=".:/usr/share/pear:/usr/share/php:/home/rudisoft/www/projects/RudWEb-5.0/src:/home/rudisoft/www/projects/RudWEb-5.0/extra/test/assets"/>
     </php>
 
- 	<testsuites>
-	    <testsuite name="RudWEb Libraries">
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Config</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Core</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Library</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Error</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Log</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/App</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Database</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/String</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Security</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Router</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Module</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Object</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Controller</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Output</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Session</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Acl</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Geo</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Form</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Captcha</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Mail</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Browser</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Iceget</directory>
-	        <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Smtp</directory>
-	    </testsuite>
-	    <testsuite name="RudWEb Objects">
-	    	<directory suffix=".obj.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/obj/User</directory>
-	    </testsuite>
-	    <testsuite name="RudWEb Misc">
-	        <directory suffix=".php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/misc</directory>
-	    </testsuite>
+    <testsuites>
+        <testsuite name="RudWEb Libraries">
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Config</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Core</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Library</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Error</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/I18n</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Log</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/App</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Database</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/String</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Security</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Router</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Module</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Object</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Controller</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Output</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Session</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Acl</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Geo</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Form</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Captcha</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Mail</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Browser</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Iceget</directory>
+            <directory suffix=".lib.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/lib/Smtp</directory>
+        </testsuite>
+        <testsuite name="RudWEb Objects">
+            <directory suffix=".obj.php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/RudWEb/obj/User</directory>
+        </testsuite>
+        <testsuite name="RudWEb Misc">
+            <directory suffix=".php">/home/rudisoft/www/projects/RudWEb-5.0/extra/test/cases/misc</directory>
+        </testsuite>
     </testsuites>
 
     <logging>
         <log type="coverage-html" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/" charset="UTF-8"
              yui="true" highlight="false"
              lowUpperBound="35" highLowerBound="70"/>
-		<log type="junit" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/logfile.xml" logIncompleteSkipped="false"/>
-		<log type="testdox-html" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.html"/>
-  		<log type="testdox-text" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.txt"/>
+        <log type="junit" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/logfile.xml" logIncompleteSkipped="false"/>
+        <log type="testdox-html" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.html"/>
+        <log type="testdox-text" target="/home/rudisoft/www/projects/RudWEb-5.0/extra/test/results/testdox.txt"/>
     </logging>
 </phpunit>

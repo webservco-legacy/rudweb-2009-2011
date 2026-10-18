@@ -20,10 +20,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -36,7 +36,7 @@ if ( !defined( '_RUDWEB' ) )
  */
 function __( $msg, $domain = NULL )
 {
-	return ( $domain ) ? dgettext( $domain, $msg ) : gettext( $msg );
+    return ( $domain ) ? dgettext( $domain, $msg ) : gettext( $msg );
 }
 
 /**
@@ -49,8 +49,8 @@ function __( $msg, $domain = NULL )
  */
 function ___( $msgSingular, $msgPlural, $msgNumber, $domain )
 {
-	return ( $domain ) ?
-	dngettext( $domain, $msgSingular, $msgPlural, $msgNumber ) :
-	ngettext( $msgSingular, $msgPlural, $msgNumber );
+    return ( $domain ) ?
+    dngettext( $domain, $msgSingular, $msgPlural, $msgNumber ) :
+    ngettext( $msgSingular, $msgPlural, $msgNumber );
 }
 ?>

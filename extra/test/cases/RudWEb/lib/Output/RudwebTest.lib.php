@@ -25,27 +25,27 @@
  */
 class Output_RudwebTest extends PHPUnit_Framework_TestCase
 {
-	/**
-	 * Stores class object.
-	 *
-	 * @var mixed
-	 */
-	private $_mObject;
+    /**
+     * Stores class object.
+     *
+     * @var mixed
+     */
+    private $_mObject;
 
-	/**
-	 * Construct
-	 */
-	public function setUp()
-	{
-		$this->_mObject = Output_Rudweb::GetInstance( 'Output_Rudweb' );
-	}
+    /**
+     * Construct
+     */
+    public function setUp()
+    {
+        $this->_mObject = Output_Rudweb::GetInstance( 'Output_Rudweb' );
+    }
 
-	/**
-	 * @test
-	 */
-	public function GetInstanceReturnsObject()
-	{
-		$this->assertInternalType( 'object', Output_Rudweb::GetInstance( 'Output_Rudweb' ) );
-	}
+    /**
+     * @test
+     */
+    public function GetInstanceReturnsObject()
+    {
+        $this->assertInternalType( 'object', Output_Rudweb::GetInstance( 'Output_Rudweb' ) );
+    }
 }
 ?>

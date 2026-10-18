@@ -22,10 +22,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -40,19 +40,19 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Controller_Helloworld_Hello extends Controller
 {
-	public function World()
-	{
-		/**
-		 * @var array
-		 */
-		$data['title'] = $this->Module()->Hello() . ' ' . __( 'World!' );
+    public function World()
+    {
+        /**
+         * @var array
+         */
+        $data['title'] = $this->Module()->Hello() . ' ' . __( 'World!' );
 
-		$this->Output()->Out( NULL, $data, NULL, NULL, TRUE );
-	}
+        $this->Output()->Out( NULL, $data, NULL, NULL, TRUE );
+    }
 
-	public function HelloWorld()
-	{
-		return __( 'Hello World!' );
-	}
+    public function HelloWorld()
+    {
+        return __( 'Hello World!' );
+    }
 }
 ?>

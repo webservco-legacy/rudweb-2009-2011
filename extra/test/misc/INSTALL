@@ -5,10 +5,10 @@ In order to run the tests please follow these steps:
 - Unpack / copy the misc directory ( or the files in it ) to a web accessible location on your server;
 
 - Adjust settings in "settings.cfg.php";
-	- Make sure you check at least $cfg['work_dir'] to be a server writable path ( default is a direccotry called "temp" in current path );
-	- Optionally adjust the number of files to be created for testing ( default is 30 000 );
-	- Optionally adjust the number of time to run each test case (default is 30 );
-	
+    - Make sure you check at least $cfg['work_dir'] to be a server writable path ( default is a direccotry called "temp" in current path );
+    - Optionally adjust the number of files to be created for testing ( default is 30 000 );
+    - Optionally adjust the number of time to run each test case (default is 30 );
+    
 - Run the tests;
 
 - Make sure you save the log file when indicated;

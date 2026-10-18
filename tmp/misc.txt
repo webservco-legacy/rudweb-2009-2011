@@ -24,7 +24,7 @@ http://stackoverflow.com/questions/3307612/poedit-and-xml-files
 
 Helloworld.po
 /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/mod/Helloworld/
-	/home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld
+    /home/rudisoft/www/projects/RudWEb-5.0/src/apps/SandboxApp/app/ctrl/Helloworld
 
 RudWEb.po
 name/version: RudWEb $Id$

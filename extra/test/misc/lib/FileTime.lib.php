@@ -25,164 +25,164 @@
  */
 class Test_FileTime extends MiscTests
 {
-	/**
-	 * Init.
-	 *
-	 * @param string $work_dir
-	 * @param string $file_count
-	 * @param string $test_count
-	 * @param string $test_class
-	 *
-	 * @return bool
-	 */
-	public static function Init( $workDir = NULL, $fileCount = NULL, $testCount = NULL, $testClass = NULL )
-	{
-		return parent::Init( $workDir, $fileCount, $testCount, __CLASS__ );
-	}
+    /**
+     * Init.
+     *
+     * @param string $work_dir
+     * @param string $file_count
+     * @param string $test_count
+     * @param string $test_class
+     *
+     * @return bool
+     */
+    public static function Init( $workDir = NULL, $fileCount = NULL, $testCount = NULL, $testClass = NULL )
+    {
+        return parent::Init( $workDir, $fileCount, $testCount, __CLASS__ );
+    }
 
-	/**
-	 * Test filemtime().
-	 *
-	 * @param bool $logResults
-	 *
-	 * @return bool
-	 */
-	protected static function _TestMtime( $logResults = TRUE )
-	{
-		/**
-		 * @var int
-		 */
-		$s = microtime( TRUE );
+    /**
+     * Test filemtime().
+     *
+     * @param bool $logResults
+     *
+     * @return bool
+     */
+    protected static function _TestMtime( $logResults = TRUE )
+    {
+        /**
+         * @var int
+         */
+        $s = microtime( TRUE );
 
-		for ( $i = 0; $i < self::$_msFileCount; $i++ )
-		{
-			/**
-			 * @var string
-			 */
-			$f = self::$_msWorkDir . $i . self::$_msFileExt;
+        for ( $i = 0; $i < self::$_msFileCount; $i++ )
+        {
+            /**
+             * @var string
+             */
+            $f = self::$_msWorkDir . $i . self::$_msFileExt;
 
-			/**
-			 * Only load test data, we do nothing with it.
-			 *
-			 * @var int
-			 */
-			$data = filemtime( $f );
-		}
+            /**
+             * Only load test data, we do nothing with it.
+             *
+             * @var int
+             */
+            $data = filemtime( $f );
+        }
 
-		clearstatcache();
+        clearstatcache();
 
-		/**
-		 * @var int
-		 */
-		$e = microtime(  TRUE  );
+        /**
+         * @var int
+         */
+        $e = microtime(  TRUE  );
 
-		/**
-		 * @var float
-		 */
-		$t = round( $e - $s, self::$_msTimeRound );
+        /**
+         * @var float
+         */
+        $t = round( $e - $s, self::$_msTimeRound );
 
-		if ( FALSE !== $logResults )
-		{
-			self::_Log( '['. __FUNCTION__ . '] ' . $t );
-		}
+        if ( FALSE !== $logResults )
+        {
+            self::_Log( '['. __FUNCTION__ . '] ' . $t );
+        }
 
-		return $t;
-	}
+        return $t;
+    }
 
-	/**
-	 * Test filectime().
-	 *
-	 * @param bool $logResults
-	 *
-	 * @return bool
-	 */
-	protected static function _TestCtime( $logResults = TRUE )
-	{
-		/**
-		 * @var int
-		 */
-		$s = microtime( TRUE );
+    /**
+     * Test filectime().
+     *
+     * @param bool $logResults
+     *
+     * @return bool
+     */
+    protected static function _TestCtime( $logResults = TRUE )
+    {
+        /**
+         * @var int
+         */
+        $s = microtime( TRUE );
 
-		for ( $i = 0; $i < self::$_msFileCount; $i++ )
-		{
-			/**
-			 * @var string
-			 */
-			$f = self::$_msWorkDir . $i . self::$_msFileExt;
+        for ( $i = 0; $i < self::$_msFileCount; $i++ )
+        {
+            /**
+             * @var string
+             */
+            $f = self::$_msWorkDir . $i . self::$_msFileExt;
 
-			/**
-			 * Only load test data, we do nothing with it.
-			 *
-			 * @var int
-			 */
-			$data = filectime( $f );
-		}
+            /**
+             * Only load test data, we do nothing with it.
+             *
+             * @var int
+             */
+            $data = filectime( $f );
+        }
 
-		clearstatcache();
+        clearstatcache();
 
-		/**
-		 * @var int
-		 */
-		$e = microtime( TRUE );
+        /**
+         * @var int
+         */
+        $e = microtime( TRUE );
 
-		/**
-		 * @var float
-		 */
-		$t = round( $e - $s, self::$_msTimeRound );
+        /**
+         * @var float
+         */
+        $t = round( $e - $s, self::$_msTimeRound );
 
-		if ( FALSE !== $logResults )
-		{
-			self::_Log( '['. __FUNCTION__ . '] ' . $t );
-		}
+        if ( FALSE !== $logResults )
+        {
+            self::_Log( '['. __FUNCTION__ . '] ' . $t );
+        }
 
-		return $t;
-	}
+        return $t;
+    }
 
-	/**
-	 * Test file_get_contents().
-	 *
-	 * @param bool $logResults
-	 *
-	 * @return bool
-	 */
-	protected static function _TestFileGetContents( $logResults = TRUE )
-	{
-		/**
-		 * @var int
-		 */
-		$s = microtime( TRUE );
+    /**
+     * Test file_get_contents().
+     *
+     * @param bool $logResults
+     *
+     * @return bool
+     */
+    protected static function _TestFileGetContents( $logResults = TRUE )
+    {
+        /**
+         * @var int
+         */
+        $s = microtime( TRUE );
 
-		for ( $i = 0; $i < self::$_msFileCount; $i++ )
-		{
-			/**
-			 * @var string
-			 */
-			$f = self::$_msWorkDir . $i . self::$_msFileExt;
+        for ( $i = 0; $i < self::$_msFileCount; $i++ )
+        {
+            /**
+             * @var string
+             */
+            $f = self::$_msWorkDir . $i . self::$_msFileExt;
 
-			/**
-			 * Only load test data, we do nothing with it.
-			 *
-			 * @var int
-			 */
-			$data = file_get_contents( $f, null, null, null, 10 );
-		}
+            /**
+             * Only load test data, we do nothing with it.
+             *
+             * @var int
+             */
+            $data = file_get_contents( $f, null, null, null, 10 );
+        }
 
-		/**
-		 * @var int
-		 */
-		$e = microtime( TRUE );
+        /**
+         * @var int
+         */
+        $e = microtime( TRUE );
 
-		/**
-		 * @var float
-		 */
-		$t = round( $e - $s, self::$_msTimeRound );
+        /**
+         * @var float
+         */
+        $t = round( $e - $s, self::$_msTimeRound );
 
-		if ( FALSE !== $logResults )
-		{
-			self::_Log( '['. __FUNCTION__ . '] ' . $t );
-		}
+        if ( FALSE !== $logResults )
+        {
+            self::_Log( '['. __FUNCTION__ . '] ' . $t );
+        }
 
-		return $t;
-	}
+        return $t;
+    }
 }
 ?>

@@ -10,13 +10,13 @@
  */
 ?>
 <p>
-	Cleanup complete ( <?php echo $time; ?> s ).
+    Cleanup complete ( <?php echo $time; ?> s ).
 </p>
 
 <p>
-	Thank you!
+    Thank you!
 </p>
 
 <p class="next">
-	&#187; <a class="cont" title="Start again" href="./index.php?step=0">Finished!</a>
+    &#187; <a class="cont" title="Start again" href="./index.php?step=0">Finished!</a>
 </p>

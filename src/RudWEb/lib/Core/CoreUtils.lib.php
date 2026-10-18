@@ -20,10 +20,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -38,8 +38,8 @@ if ( !defined( '_RUDWEB' ) )
  */
 class CoreCompat
 {
-	/**
-	 * Put compatibility methods here.
-	 */
+    /**
+     * Put compatibility methods here.
+     */
 }
 ?>

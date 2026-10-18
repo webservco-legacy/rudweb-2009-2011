@@ -27,64 +27,64 @@ $test_cases = 3;
 
 switch ( $step )
 {
-	case '1' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '1' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		Test_FileTime::LogReset();
+        Test_FileTime::LogReset();
 
-		$time = Test_FileTime::Start( $test_cases );
+        $time = Test_FileTime::Start( $test_cases );
 
-		break;
+        break;
 
-	case '2' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '2' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		$time = Test_FileTime::Run( 'Mtime' );
+        $time = Test_FileTime::Run( 'Mtime' );
 
-		break;
+        break;
 
-	case '3' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '3' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		$time = Test_FileTime::Run( 'Ctime' );
+        $time = Test_FileTime::Run( 'Ctime' );
 
-		break;
+        break;
 
-	case '4' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '4' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		$time = Test_FileTime::Run( 'Filegetcontents' );
+        $time = Test_FileTime::Run( 'Filegetcontents' );
 
-		break;
+        break;
 
-	case '5' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '5' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		$time = Test_FileTime::End();
+        $time = Test_FileTime::End();
 
-		$log_file = Test_FileTime::GetLogFile();
+        $log_file = Test_FileTime::GetLogFile();
 
-		break;
+        break;
 
-	case '6' :
-		Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
+    case '6' :
+        Test_FileTime::Init( $cfg['work_dir'], $cfg['file_count'], $cfg['test_count'] );
 
-		$time = Test_FileTime::End( TRUE );
+        $time = Test_FileTime::End( TRUE );
 
-		break;
+        break;
 
-	case '0' :
-		$go = TRUE;
-		$check['dir'] = TRUE;
-		if ( !is_writable( $cfg['work_dir'] ) )
-		{
-			$check['dir'] = FALSE;
-			$go = FALSE;
-		}
+    case '0' :
+        $go = TRUE;
+        $check['dir'] = TRUE;
+        if ( !is_writable( $cfg['work_dir'] ) )
+        {
+            $check['dir'] = FALSE;
+            $go = FALSE;
+        }
 
-	default :
+    default :
 
-		break;
+        break;
 }
 
 /**

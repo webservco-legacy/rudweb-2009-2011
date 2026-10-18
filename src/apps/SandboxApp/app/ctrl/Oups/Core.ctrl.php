@@ -22,10 +22,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -40,17 +40,17 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Controller_Oups_Core extends Controller
 {
-	public function Oups404()
-	{
-		header('HTTP/1.1 404 Not Found');
+    public function Oups404()
+    {
+        header('HTTP/1.1 404 Not Found');
 
-		echo '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>' .
-		__( 'Error', 'RudWEb' ) . '</title></head><body><h1>' .
-		'404 Not Found' . '</h1><p>' .
-		__( 'Please come back later.', 'RudWEb' ) . '</p><hr><address>' .
-		sprintf( __( 'The friendly server at %s.', 'RudWEb' ), $_SERVER['SERVER_NAME'] ) . '</address></body></html>';
-		
-		return TRUE;
-	}
+        echo '<!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>' .
+        __( 'Error', 'RudWEb' ) . '</title></head><body><h1>' .
+        '404 Not Found' . '</h1><p>' .
+        __( 'Please come back later.', 'RudWEb' ) . '</p><hr><address>' .
+        sprintf( __( 'The friendly server at %s.', 'RudWEb' ), $_SERVER['SERVER_NAME'] ) . '</address></body></html>';
+        
+        return TRUE;
+    }
 }
 ?>

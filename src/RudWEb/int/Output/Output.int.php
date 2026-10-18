@@ -22,10 +22,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -40,21 +40,21 @@ if ( !defined( '_RUDWEB' ) )
  */
 interface Interface_Output
 {
-	/**
-	 * Load output engine object.
-	 *
-	 * @return bool
-	 */
-	public function Init();
+    /**
+     * Load output engine object.
+     *
+     * @return bool
+     */
+    public function Init();
 
-	/**
-	 * Output method.
-	 *
-	 * @param string $outTemplate
-	 * @param bool $outDisplay
-	 *
-	 * @return mixed
-	 */
-	public function Render( $outTemplate, $outDisplay = FALSE );
+    /**
+     * Output method.
+     *
+     * @param string $outTemplate
+     * @param bool $outDisplay
+     *
+     * @return mixed
+     */
+    public function Render( $outTemplate, $outDisplay = FALSE );
 }
 ?>

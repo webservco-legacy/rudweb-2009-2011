@@ -17,13 +17,13 @@
 
 <head>
 
-	<title>{$title}</title>
+    <title>{$title}</title>
 
 </head>
 
 <body id="rudweb-dev">
 
-	<h1>{$title}</h1>
+    <h1>{$title}</h1>
 
 <!-- Smarty was here -->
 

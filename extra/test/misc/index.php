@@ -90,10 +90,10 @@ require_once $cfg['lib_dir'] . $tests[$test] . '.test.php';
 
 if ( FALSE !== $continue )
 {
-	/**
-	 * Load template file for current test / step.
-	 */
-	include $cfg['tpl_dir'] . $tests[$test] . '/step' . $step . '.tpl.php';
+    /**
+     * Load template file for current test / step.
+     */
+    include $cfg['tpl_dir'] . $tests[$test] . '/step' . $step . '.tpl.php';
 }
 
 /**

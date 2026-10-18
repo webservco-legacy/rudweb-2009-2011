@@ -4,179 +4,179 @@
 @import url("reset.css");
 
 #rudtest {
-	background: #cfc;
-	color: #777;
-	font-size: 88%;
-	font-family: Tahoma, Geneva, Kalimati, sans-serif;
-	line-height: 1.4;
+    background: #cfc;
+    color: #777;
+    font-size: 88%;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    line-height: 1.4;
 }
 
 .content {
-	display: block;
-	width: 780px;
-	margin: 0 auto;
+    display: block;
+    width: 780px;
+    margin: 0 auto;
 }
 
 header {
-	margin: 0 auto;
-	padding: 2.5em 0 0 0;
+    margin: 0 auto;
+    padding: 2.5em 0 0 0;
 }
 
 header .content {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 header h1 {
-	font-size: 3.6em;
-	line-height: .6;
-	margin: 0 0 .6em 0;
+    font-size: 3.6em;
+    line-height: .6;
+    margin: 0 0 .6em 0;
 }
 
 #menu {
-	width: 780px;
-	background: #777;
-	color: #ffc;
-	margin-bottom: 2em;
-	overflow: hidden;
-	padding: 0px 0px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+    width: 780px;
+    background: #777;
+    color: #ffc;
+    margin-bottom: 2em;
+    overflow: hidden;
+    padding: 0px 0px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 #menu ul {
-	float: left;
-	list-style: none;
-	margin: 0 auto;
-	width: 500px;
-	list-style: none;
+    float: left;
+    list-style: none;
+    margin: 0 auto;
+    width: 500px;
+    list-style: none;
 }
 
 #menu ul li {
-	float: left;
-	width: auto;
-	display: inline;
-	margin: 0;
-	display: inline;
+    float: left;
+    width: auto;
+    display: inline;
+    margin: 0;
+    display: inline;
 }
 
 #menu ul li a {
-	display: inline-block;
-	padding: 15px 1.5em;
-	text-decoration: none;
+    display: inline-block;
+    padding: 15px 1.5em;
+    text-decoration: none;
 }
 
 #menu ul li:first-child a {
-	border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-webkit-border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	-webkit-border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
 }
 
 #menu ul li a:link,#menu ul li a:visited {
-	text-decoration: none;
-	border: 0;
-	color: #ffc;
+    text-decoration: none;
+    border: 0;
+    color: #ffc;
 }
 
 #menu ul li a.active,#menu ul li a:hover,#menu ul li a:active {
-	text-decoration: none;
-	border: 0;
-	background: #ffc;
-	color: #777;
+    text-decoration: none;
+    border: 0;
+    background: #ffc;
+    color: #777;
 }
 
 #menu a.cancel {
-	float: right;
-	width: auto;
-	margin: 0;
-	border: 0;
-	padding: 15px;
-	color: #ffc;
+    float: right;
+    width: auto;
+    margin: 0;
+    border: 0;
+    padding: 15px;
+    color: #ffc;
 }
 
 #message {
-	width: 740px;
-	background: #ffc;
-	margin-bottom: 2em;
-	overflow: hidden;
-	padding: 20px 20px;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+    width: 740px;
+    background: #ffc;
+    margin-bottom: 2em;
+    overflow: hidden;
+    padding: 20px 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 footer {
-	padding-bottom: 2em;
-	text-align: right;
+    padding-bottom: 2em;
+    text-align: right;
 }
 
 h1,h2,h3 {
-	margin: 10px;
-	letter-spacing: 1px;
+    margin: 10px;
+    letter-spacing: 1px;
 }
 
 h2 {
-	font-size: 1.6em;
+    font-size: 1.6em;
 }
 
 h3 {
-	font-size: 1.3em;
-	font-weight: normal;
+    font-size: 1.3em;
+    font-weight: normal;
 }
 
 #message p,#message ul {
-	margin: 10px;
+    margin: 10px;
 }
 
 li {
-	margin-left: 30px;
+    margin-left: 30px;
 }
 
 .err {
-	color: #900;
-	font-weight: bold;
+    color: #900;
+    font-weight: bold;
 }
 
 .ok {
-	color: #090;
-	font-weight: bold;
+    color: #090;
+    font-weight: bold;
 }
 
 a:link,a:hover,a:visited,a:active {
-	color: #024591;
-	font-weight: bold;
-	text-decoration: none;
-	border-bottom: 1px dashed #024591;
+    color: #024591;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px dashed #024591;
 }
 
 a:hover {
-	border-bottom: 1px dotted #024591;
+    border-bottom: 1px dotted #024591;
 }
 
 .next {
-	text-align: right;
-	font-size: 1.8em;
-	font-weight: normal;
-	color: #024591;
+    text-align: right;
+    font-size: 1.8em;
+    font-weight: normal;
+    color: #024591;
 }
 
 .next a {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .next a.cont:active {
-	color: #ffc;
-	border: 0;
+    color: #ffc;
+    border: 0;
 }
 
 .cancel {
-	text-align: right;
-	margin: 0 10px 0 0;
+    text-align: right;
+    margin: 0 10px 0 0;
 }
 
 .cancel a {
-	font-weight: normal;
+    font-weight: normal;
 }

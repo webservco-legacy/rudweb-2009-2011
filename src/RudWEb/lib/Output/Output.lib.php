@@ -22,10 +22,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -40,294 +40,294 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Output extends Library
 {
-	/**
-	 * Stores the output engine object.
-	 *
-	 * Can also be used to store initialization status (bool)
-	 *
-	 * @var mixed
-	 */
-	protected $_mEngineObject;
+    /**
+     * Stores the output engine object.
+     *
+     * Can also be used to store initialization status (bool)
+     *
+     * @var mixed
+     */
+    protected $_mEngineObject;
 
-	/**
-	 * Stores skin name.
-	 *
-	 * @var string
-	 */
-	protected $_mSkinDir;
+    /**
+     * Stores skin name.
+     *
+     * @var string
+     */
+    protected $_mSkinDir;
 
-	/**
-	 * Stores skin directory path.
-	 *
-	 * @var string
-	 */
-	protected $_mSkinPath;
+    /**
+     * Stores skin directory path.
+     *
+     * @var string
+     */
+    protected $_mSkinPath;
 
-	/**
-	 * Stores template file name.
-	 *
-	 * @var string
-	 */
-	protected $_mTemplate;
+    /**
+     * Stores template file name.
+     *
+     * @var string
+     */
+    protected $_mTemplate;
 
-	/**
-	 * Stores template file extension.
-	 *
-	 * @var string
-	 */
-	protected $_mExtension;
+    /**
+     * Stores template file extension.
+     *
+     * @var string
+     */
+    protected $_mExtension;
 
-	/**
-	 * Stores output data.
-	 *
-	 * @var array
-	 */
-	protected $_mData = array();
+    /**
+     * Stores output data.
+     *
+     * @var array
+     */
+    protected $_mData = array();
 
-	/**
-	 * Implement GetInstance() method.
-	 *
-	 * This is required for PHP < 5.3 compatibility ( no late static binding )
-	 *
-	 * @param string $className class name to instantiate
-	 *
-	 * @return object
-	 */
-	public static function GetInstance( $className = __CLASS__ )
-	{
-		/**
-		 * Call parent method with current class name as parameter.
-		 */
-		return parent::_GetInstance( $className );
-	}
+    /**
+     * Implement GetInstance() method.
+     *
+     * This is required for PHP < 5.3 compatibility ( no late static binding )
+     *
+     * @param string $className class name to instantiate
+     *
+     * @return object
+     */
+    public static function GetInstance( $className = __CLASS__ )
+    {
+        /**
+         * Call parent method with current class name as parameter.
+         */
+        return parent::_GetInstance( $className );
+    }
 
-	/**
-	 * Set skin.
-	 *
-	 * @param string $skinName
-	 *
-	 * @return bool
-	 */
-	final public function SetSkin( $skinName )
-	{
-		/**
-		 * @var string
-		 */
-		$this->_mSkinDir = $skinName;
+    /**
+     * Set skin.
+     *
+     * @param string $skinName
+     *
+     * @return bool
+     */
+    final public function SetSkin( $skinName )
+    {
+        /**
+         * @var string
+         */
+        $this->_mSkinDir = $skinName;
 
-		/**
-		 * @var string
-		 */
-		$msg_skin = sprintf( __( 'Output library: Skin directory set to "%s".', 'RudWEb' ), $skinName );
+        /**
+         * @var string
+         */
+        $msg_skin = sprintf( __( 'Output library: Skin directory set to "%s".', 'RudWEb' ), $skinName );
 
-		Core::Log()->Write( $msg_skin, 'debug' );
+        Core::Log()->Write( $msg_skin, 'debug' );
 
-		return TRUE;
-	}
+        return TRUE;
+    }
 
-	/**
-	 * All in one output method.
-	 *
-	 * Sets data and calls the output engine render method.
-	 *
-	 * @param bool $outDisplay
-	 * @param string $outTemplate
-	 * @param array $outData
-	 *
-	 * @return mixed
-	 */
-	final public function Out( $outTemplate = NULL, $outData = NULL, $outDisplay = FALSE )
-	{
-		/**
-		 * Initialize output engine object.
-		 */
-		$this->Init();
+    /**
+     * All in one output method.
+     *
+     * Sets data and calls the output engine render method.
+     *
+     * @param bool $outDisplay
+     * @param string $outTemplate
+     * @param array $outData
+     *
+     * @return mixed
+     */
+    final public function Out( $outTemplate = NULL, $outData = NULL, $outDisplay = FALSE )
+    {
+        /**
+         * Initialize output engine object.
+         */
+        $this->Init();
 
-		/**
-		 * @var string
-		 */
-		$out_template = $outTemplate ? $outTemplate : $this->_mTemplate;
+        /**
+         * @var string
+         */
+        $out_template = $outTemplate ? $outTemplate : $this->_mTemplate;
 
 
-		Core::Log()->Write( __( 'Output library: Calling Set() method.', 'RudWEb' ), 'debug' );
+        Core::Log()->Write( __( 'Output library: Calling Set() method.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * Check if we actually have data.
-		 */
-		if ( is_array( $outData ) )
-		{
-			foreach ( $outData as $out_name => $out_value )
-			{
-				/**
-				 * Set output data.
-				 */
-				$this->Set( $out_name, $out_value );
-			}
-		}
+        /**
+         * Check if we actually have data.
+         */
+        if ( is_array( $outData ) )
+        {
+            foreach ( $outData as $out_name => $out_value )
+            {
+                /**
+                 * Set output data.
+                 */
+                $this->Set( $out_name, $out_value );
+            }
+        }
 
-		Core::Log()->Write( __( 'Output library: Calling output engine Render() method.', 'RudWEb' ), 'debug' );
+        Core::Log()->Write( __( 'Output library: Calling output engine Render() method.', 'RudWEb' ), 'debug' );
 
-		return $this->Render( $out_template, $outDisplay );
-	}
+        return $this->Render( $out_template, $outDisplay );
+    }
 
-	/**
-	 * Set output data.
-	 *
-	 * Can be overridden in extending class.
-	 *
-	 * @param string $outName
-	 * @param mixed $outValue
-	 *
-	 * @return bool
-	 */
-	public function Set( $outName, $outValue )
-	{
-		/**
-		 * @var array
-		 */
-		$this->_mData[$outName] = $outValue;
+    /**
+     * Set output data.
+     *
+     * Can be overridden in extending class.
+     *
+     * @param string $outName
+     * @param mixed $outValue
+     *
+     * @return bool
+     */
+    public function Set( $outName, $outValue )
+    {
+        /**
+         * @var array
+         */
+        $this->_mData[$outName] = $outValue;
 
-		Core::Log()->Write( __( 'Output library: Setting data.', 'RudWEb' ), 'debug' );
+        Core::Log()->Write( __( 'Output library: Setting data.', 'RudWEb' ), 'debug' );
 
-		return TRUE;
-	}
+        return TRUE;
+    }
 
-	/**
-	 * Get engine path.
-	 *
-	 * Returns a valid output engine path, or false if notfound.
-	 *
-	 * @param string $engineName
-	 *
-	 * @return bool
-	 */
-	public function GetEnginePath( $engineName )
-	{
-		/**
-		 * @var array
-		 */
-		$engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
+    /**
+     * Get engine path.
+     *
+     * Returns a valid output engine path, or false if notfound.
+     *
+     * @param string $engineName
+     *
+     * @return bool
+     */
+    public function GetEnginePath( $engineName )
+    {
+        /**
+         * @var array
+         */
+        $engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
 
-		if ( empty( $engine_config ) )
-		{
-			/**
-			 * @var string
-			 */
-			$err_msg_a = sprintf(
-			__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
-			$engineName
-			);
+        if ( empty( $engine_config ) )
+        {
+            /**
+             * @var string
+             */
+            $err_msg_a = sprintf(
+            __( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
+            $engineName
+            );
 
-			/**
-			 * @var string
-			 */
-			$err_msg_b = _( 'Configuration file not found.' );
+            /**
+             * @var string
+             */
+            $err_msg_b = _( 'Configuration file not found.' );
 
-			Core::Log()->Write( $err_msg_a . ' ' . $err_msg_b, 'erorr' );
+            Core::Log()->Write( $err_msg_a . ' ' . $err_msg_b, 'erorr' );
 
-			return FALSE;
-		}
+            return FALSE;
+        }
 
-		if ( empty( $engine_config['path'] ) )
-		{
-			/**
-			 * @var array
-			 */
-			$engine_paths = array(
-				'Core' => Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.opt' ) . '/',
-				'App' => Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.opt' ) . '/',
-			);
-		}
-		else
-		{
-			/**
-			 * @var array
-			 */
-			$engine_paths = array(
-				'External' => $engine_config['path'],
-			);
-		}
+        if ( empty( $engine_config['path'] ) )
+        {
+            /**
+             * @var array
+             */
+            $engine_paths = array(
+                'Core' => Core::Config()->Get( 'path.core' ) . Core::Config()->Get( 'dir.core.opt' ) . '/',
+                'App' => Core::Config()->Get( 'path.app' ) . Core::Config()->Get( 'dir.app.opt' ) . '/',
+            );
+        }
+        else
+        {
+            /**
+             * @var array
+             */
+            $engine_paths = array(
+                'External' => $engine_config['path'],
+            );
+        }
 
-		foreach ( $engine_paths as $type => $path )
-		{
-			/**
-			 * @var string
-			 */
-			$engine_path = $path . $engine_config['dir'] . '/' . $engine_config['file'];
+        foreach ( $engine_paths as $type => $path )
+        {
+            /**
+             * @var string
+             */
+            $engine_path = $path . $engine_config['dir'] . '/' . $engine_config['file'];
 
-			if ( is_readable( $engine_path ) )
-			{
-				/**
-				 * @var string
-				 */
-				$path_msg = sprintf(
-				__( 'Output library: External output engine "%s" found in "%s" path.', 'RudWEb' ),
-				$engineName,
-				$type
-				);
+            if ( is_readable( $engine_path ) )
+            {
+                /**
+                 * @var string
+                 */
+                $path_msg = sprintf(
+                __( 'Output library: External output engine "%s" found in "%s" path.', 'RudWEb' ),
+                $engineName,
+                $type
+                );
 
-				Core::Log()->Write( $path_msg, 'debug' );
+                Core::Log()->Write( $path_msg, 'debug' );
 
-				return $path . $engine_config['dir'] . '/';
-			}
-		}
+                return $path . $engine_config['dir'] . '/';
+            }
+        }
 
-		return FALSE;
-	}
+        return FALSE;
+    }
 
-	/**
-	 * Load external output engine.
-	 *
-	 * Can be overridden in extending class.
-	 *
-	 * @param string $engineName
-	 *
-	 * @return object
-	 */
-	protected function _LoadEngine( $engineName )
-	{
-		/**
-		 * @var string
-		 */
-		$load_msg = sprintf(
-		__( 'Output library: Loading external output engine "%s".', 'RudWEb' ),
-		$engineName
-		);
+    /**
+     * Load external output engine.
+     *
+     * Can be overridden in extending class.
+     *
+     * @param string $engineName
+     *
+     * @return object
+     */
+    protected function _LoadEngine( $engineName )
+    {
+        /**
+         * @var string
+         */
+        $load_msg = sprintf(
+        __( 'Output library: Loading external output engine "%s".', 'RudWEb' ),
+        $engineName
+        );
 
-		Core::Log()->Write( $load_msg, 'debug' );
+        Core::Log()->Write( $load_msg, 'debug' );
 
-		/**
-		 * @var array
-		 */
-		$engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
+        /**
+         * @var array
+         */
+        $engine_config = Core::Config()->Get( 'output.' . strtolower( $engineName ) );
 
-		/**
-		 * @var string
-		 */
-		$engine_path = $this->GetEnginePath( $engineName );
+        /**
+         * @var string
+         */
+        $engine_path = $this->GetEnginePath( $engineName );
 
-		if ( FALSE === $engine_path )
-		{
-			/**
-			 * @var string
-			 */
-			$err_msg_a = sprintf(
-			__( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
-			$engineName
-			);
-			/**
-			 * @var string
-			 */
-			$err_msg_b = _( 'File not found.' );
+        if ( FALSE === $engine_path )
+        {
+            /**
+             * @var string
+             */
+            $err_msg_a = sprintf(
+            __( 'Output Library: Error loading external output engine "%s".', 'RudWEb' ),
+            $engineName
+            );
+            /**
+             * @var string
+             */
+            $err_msg_b = _( 'File not found.' );
 
-			trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
+            trigger_error( $err_msg_a . ' ' . $err_msg_b, 256 );
 
-			exit();
-		}
+            exit();
+        }
 
-		require_once $engine_path .  $engine_config['file'];
+        require_once $engine_path .  $engine_config['file'];
 
-		return new $engine_config['class'];
-	}
+        return new $engine_config['class'];
+    }
 }
 ?>

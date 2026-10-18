@@ -20,10 +20,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -38,108 +38,108 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Output_Rudweb extends Output implements Interface_Output
 {
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Output::Init()
-	 */
-	public function Init()
-	{
-		/**
-		 * Check if initialization is already done
-		 */
-		if ( NULL != $this->_mEngineObject )
-		{
-			return FALSE;
-		}
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Output::Init()
+     */
+    public function Init()
+    {
+        /**
+         * Check if initialization is already done
+         */
+        if ( NULL != $this->_mEngineObject )
+        {
+            return FALSE;
+        }
 
-		Core::Log()->Write( __( 'Output library: Initializing output engine object.', 'RudWEb' ), 'debug' );
+        Core::Log()->Write( __( 'Output library: Initializing output engine object.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mSkinDir = Core::Config()->Get( 'output.skin' );
+        /**
+         * @var string
+         */
+        $this->_mSkinDir = Core::Config()->Get( 'output.skin' );
 
-		/**
-		 * @var string
-		 */
-		$this->_mSkinPath = Core::Config()->Get( 'path.app' ) .
-		Core::Config()->Get( 'dir.app.opt' ) . '/' .
-		Core::Config()->Get( 'dir.app.tpl' ) . '/';
+        /**
+         * @var string
+         */
+        $this->_mSkinPath = Core::Config()->Get( 'path.app' ) .
+        Core::Config()->Get( 'dir.app.opt' ) . '/' .
+        Core::Config()->Get( 'dir.app.tpl' ) . '/';
 
-		/**
-		 * @var string
-		 */
-		$this->_mTemplate = Core::Config()->Get( 'output.template' );
+        /**
+         * @var string
+         */
+        $this->_mTemplate = Core::Config()->Get( 'output.template' );
 
-		/**
-		 * @var extension
-		 */
-		$this->_mExtension = Core::Config()->Get( 'output.extension' );
+        /**
+         * @var extension
+         */
+        $this->_mExtension = Core::Config()->Get( 'output.extension' );
 
-		$this->_mEngineObject = TRUE;
+        $this->_mEngineObject = TRUE;
 
-		return TRUE;
+        return TRUE;
 
-	}
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Output::Parse()
-	 */
-	public function Render( $outTemplate, $outDisplay = FALSE )
-	{
-		Core::Log()->Write( __( 'Output library: Rendering template.', 'RudWEb' ), 'debug' );
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Output::Parse()
+     */
+    public function Render( $outTemplate, $outDisplay = FALSE )
+    {
+        Core::Log()->Write( __( 'Output library: Rendering template.', 'RudWEb' ), 'debug' );
 
-		/**
-		 * Initialize output engine object.
-		 */
-		$this->Init();
+        /**
+         * Initialize output engine object.
+         */
+        $this->Init();
 
-		/**
-		 * @var string
-		 */
-		$tpl_path = $this->_mSkinPath . $this->_mSkinDir . '/' . $outTemplate . $this->_mExtension;
+        /**
+         * @var string
+         */
+        $tpl_path = $this->_mSkinPath . $this->_mSkinDir . '/' . $outTemplate . $this->_mExtension;
 
-		if ( !is_readable( $tpl_path ) )
-		{
-			trigger_error( __( 'Output library: Template file not found: ' , 'RudWEb' ) . $tpl_path , 256 );
-		}
+        if ( !is_readable( $tpl_path ) )
+        {
+            trigger_error( __( 'Output library: Template file not found: ' , 'RudWEb' ) . $tpl_path , 256 );
+        }
 
-		/**
-		 * Turn on output buffering.
-		 */
-		ob_start();
+        /**
+         * Turn on output buffering.
+         */
+        ob_start();
 
-		/**
-		 * Import output variables.
-		 */
-		extract( $this->_mData );
+        /**
+         * Import output variables.
+         */
+        extract( $this->_mData );
 
-		/**
-		 * Load template file.
-		 */
-		include $tpl_path;
+        /**
+         * Load template file.
+         */
+        include $tpl_path;
 
-		/**
-		 * Get parsed output result from the output buffer.
-		 */
-		$out_data = ob_get_contents();
+        /**
+         * Get parsed output result from the output buffer.
+         */
+        $out_data = ob_get_contents();
 
-		/**
-		 * Delete output buffer and turn off output buffering.
-		 */
-		ob_end_clean();
+        /**
+         * Delete output buffer and turn off output buffering.
+         */
+        ob_end_clean();
 
-		if ( FALSE !== $outDisplay )
-		{
-			echo $out_data;
+        if ( FALSE !== $outDisplay )
+        {
+            echo $out_data;
 
-			return TRUE;
-		}
-		else
-		{
-			return $out_data;
-		}
-	}
+            return TRUE;
+        }
+        else
+        {
+            return $out_data;
+        }
+    }
 }
 ?>

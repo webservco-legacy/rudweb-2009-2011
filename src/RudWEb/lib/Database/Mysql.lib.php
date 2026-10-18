@@ -20,10 +20,10 @@
  */
 if ( !defined( '_RUDWEB' ) )
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit();
+    /**
+     * Stop script execution.
+     */
+    exit();
 }
 
 /**
@@ -38,102 +38,102 @@ if ( !defined( '_RUDWEB' ) )
  */
 class Database_Mysql extends Database implements Interface_Database
 {
-	/**
-	 * Setup database connection.
-	 *
-	 * @return bool
-	 */
-	protected function _GetLink()
-	{
-		/**
-		 * Set configuration data.
-		 */
-		$this->_SetData();
+    /**
+     * Setup database connection.
+     *
+     * @return bool
+     */
+    protected function _GetLink()
+    {
+        /**
+         * Set configuration data.
+         */
+        $this->_SetData();
 
-		/**
-		 * Set MySQL default port if we have no custom port in configuration settings.
-		 *
-		 * @var string
-		 */
-		$db_port = ( '' != $this->_mDbPort ) ? $this->_mDbPort : '3306';
+        /**
+         * Set MySQL default port if we have no custom port in configuration settings.
+         *
+         * @var string
+         */
+        $db_port = ( '' != $this->_mDbPort ) ? $this->_mDbPort : '3306';
 
-		/**
-		 * Set database link identifier.
-		 *
-		 * @var resource
-		 */
-		$db_link = mysql_connect( $this->_mDbHost . ':' . $db_port, $this->_mDbUser, $this->_mDbPassword );
+        /**
+         * Set database link identifier.
+         *
+         * @var resource
+         */
+        $db_link = mysql_connect( $this->_mDbHost . ':' . $db_port, $this->_mDbUser, $this->_mDbPassword );
 
-		if ( !$db_link )
-		{
-			/**
-			 * @var string
-			 */
-			$message = __( 'Database library: Error connecting to database management server.', 'RudWEb' ) . ' ' . mysql_error();
+        if ( !$db_link )
+        {
+            /**
+             * @var string
+             */
+            $message = __( 'Database library: Error connecting to database management server.', 'RudWEb' ) . ' ' . mysql_error();
 
-			trigger_error( $message );
+            trigger_error( $message );
 
-			return FALSE;
-		}
+            return FALSE;
+        }
 
-		if ( TRUE !== mysql_select_db( $this->_mDbDatabase, $db_link ) )
-		{
-			/**
-			 * @var string
-			 */
-			$message = sprintf( __( 'Database library: Error opening database %s.', 'RudWEb' ), $this->_mDbDatabase ) . ' ' . mysql_error();
+        if ( TRUE !== mysql_select_db( $this->_mDbDatabase, $db_link ) )
+        {
+            /**
+             * @var string
+             */
+            $message = sprintf( __( 'Database library: Error opening database %s.', 'RudWEb' ), $this->_mDbDatabase ) . ' ' . mysql_error();
 
-			trigger_error( $message );
+            trigger_error( $message );
 
-			return FALSE;
-		}
+            return FALSE;
+        }
 
-		/**
-		 * Set database link identifier.
-		 *
-		 * @var resource
-		 */
-		$this->_mDbLink = $db_link;
+        /**
+         * Set database link identifier.
+         *
+         * @var resource
+         */
+        $this->_mDbLink = $db_link;
 
-		/**
-		 * @var string
-		 */
-		$db_message = sprintf(
-		__( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
-		Core::Config()->Get( 'database.type' )
-		);
+        /**
+         * @var string
+         */
+        $db_message = sprintf(
+        __( 'Database library: Database connection opened (driver: %s).', 'RudWEb' ),
+        Core::Config()->Get( 'database.type' )
+        );
 
-		Core::Log()->Write( $db_message, 'debug' );
+        Core::Log()->Write( $db_message, 'debug' );
 
-		/**
-		 * UTF Compatibility.
-		 */
-		mysql_set_charset( 'utf8', $this->_mDbLink );
+        /**
+         * UTF Compatibility.
+         */
+        mysql_set_charset( 'utf8', $this->_mDbLink );
 
-		return TRUE;
-	}
+        return TRUE;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Database::Disconnect()
-	 */
-	public function Disconnect()
-	{
-		return mysql_close( $this->_mDbLink );
-	}
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Database::Disconnect()
+     */
+    public function Disconnect()
+    {
+        return mysql_close( $this->_mDbLink );
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Interface_Database::EscapeString()
-	 */
-	public function EscapeString( $string )
-	{
-		/**
-		 * Open database connection if not already opened.
-		 */
-		$this->Connect();
+    /**
+     * (non-PHPdoc)
+     * @see Interface_Database::EscapeString()
+     */
+    public function EscapeString( $string )
+    {
+        /**
+         * Open database connection if not already opened.
+         */
+        $this->Connect();
 
-		return mysql_real_escape_string( $string );
-	}
+        return mysql_real_escape_string( $string );
+    }
 }
 ?>
