@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -85,106 +85,106 @@ $extAbout['Error']['deps']['ext'] = array();
  */
 class rw_Extension_Error extends rw_Extension implements rw_iExtension
 {
-	/**
-	 * Core library object.
-	 *
-	 * @var mixed
-	 */
-	protected $rwCore;
+    /**
+     * Core library object.
+     *
+     * @var mixed
+     */
+    protected $rwCore;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Call parent constructor.
-		 */
-		parent::__construct($extAbout);
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Call parent constructor.
+         */
+        parent::__construct($extAbout);
+    }
 
-	/**
-	 * Main extension functionality.
-	 *
-	 * Handle error logging and displaying.
-	 * Try to load the output library, error module, and display nice error message.
-	 *
-	 * @todo log to file
-	 * @todo send email
-	 *
-	 * @param mixed $e error object
-	 * @return mixed result
-	 */
-	public function rwError($e)
-	{
-		/**
-		 * Attempt to load output extension.
-		 */
-		$this->rwCore->rwLoadLib('Output');
-		/**
-		 * Get error message from error.
-		 */
-		$err = $this->rwCore->rwErr->getError($e);
-		/**
-		 * Check error reporting level.
-		 */
-		$errLvl = error_reporting();
-		/**
-		 * Parse error reporting level.
-		 */
-		switch($errLvl)
-		{
-			/**
-			 * Show errors, but nut full details.
-			 */
-			case 1 : {
-				/**
-				 * Set action.
-				 */
-				$act = 'index';
-				/**
-				 * Stop execution.
-				 */
-				break;
-			}
-			/**
-			 * Show errors and full details.
-			 */
-			case 999 : {
-				/**
-				 * Set action.
-				 */
-				$act = 'core';
-				/**
-				 * Stop execution.
-				 */
-				break;
-			}
-			/**
-			 * Show errors, but not full details.
-			 */
-			default : {
-				/**
-				 * Set action.
-				 */
-				$act = 'index';
-				/**
-				 * Stop execution.
-				 */
-				break;
-			}
-		}
-		/**
-		 * Initialize oups section and try to display message.
-		 */
-		$this->rwCore->rwInitModule('oups', 'core', $act, $err);
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Main extension functionality.
+     *
+     * Handle error logging and displaying.
+     * Try to load the output library, error module, and display nice error message.
+     *
+     * @todo log to file
+     * @todo send email
+     *
+     * @param mixed $e error object
+     * @return mixed result
+     */
+    public function rwError($e)
+    {
+        /**
+         * Attempt to load output extension.
+         */
+        $this->rwCore->rwLoadLib('Output');
+        /**
+         * Get error message from error.
+         */
+        $err = $this->rwCore->rwErr->getError($e);
+        /**
+         * Check error reporting level.
+         */
+        $errLvl = error_reporting();
+        /**
+         * Parse error reporting level.
+         */
+        switch($errLvl)
+        {
+            /**
+             * Show errors, but nut full details.
+             */
+            case 1 : {
+                /**
+                 * Set action.
+                 */
+                $act = 'index';
+                /**
+                 * Stop execution.
+                 */
+                break;
+            }
+            /**
+             * Show errors and full details.
+             */
+            case 999 : {
+                /**
+                 * Set action.
+                 */
+                $act = 'core';
+                /**
+                 * Stop execution.
+                 */
+                break;
+            }
+            /**
+             * Show errors, but not full details.
+             */
+            default : {
+                /**
+                 * Set action.
+                 */
+                $act = 'index';
+                /**
+                 * Stop execution.
+                 */
+                break;
+            }
+        }
+        /**
+         * Initialize oups section and try to display message.
+         */
+        $this->rwCore->rwInitModule('oups', 'core', $act, $err);
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 ?>

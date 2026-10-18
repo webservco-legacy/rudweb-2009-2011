@@ -34,10 +34,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -50,96 +50,96 @@ if (!defined('_RW_VALID'))
  */
 class rw_Loader_Extension
 {
-	/**
-	 * Paths.
-	 *
-	 * @var array
-	 */
-	protected $paths = array();
+    /**
+     * Paths.
+     *
+     * @var array
+     */
+    protected $paths = array();
 
-	/**
-	 * Extension object.
-	 *
-	 * @var mixed
-	 */
-	protected $extObj;
+    /**
+     * Extension object.
+     *
+     * @var mixed
+     */
+    protected $extObj;
 
-	/**
-	 * Constructor.
-	 *
-	 * No functionality yet.
-	 */
-	public function __construct()
-	{
+    /**
+     * Constructor.
+     *
+     * No functionality yet.
+     */
+    public function __construct()
+    {
 
-	}
+    }
 
-	/**
-	 * Set paths.
-	 *
-	 * @param array $paths paths
-	 */
-	protected function _setPaths($paths = array())
-	{
-		/**
-		 * Set paths.
-		 */
-		$this->paths = $paths;
-	}
+    /**
+     * Set paths.
+     *
+     * @param array $paths paths
+     */
+    protected function _setPaths($paths = array())
+    {
+        /**
+         * Set paths.
+         */
+        $this->paths = $paths;
+    }
 
-	protected function _load($ext)
-	{
-		/**
-		 * Parse extension name.
-		 */
-		$ext = ucfirst(strtolower($ext));
-		/**
-		 * Search in set extension dir.
-		 */
-		if (is_readable($this->paths['ext_dir'].$ext.'.ext.php'))
-		{
-			/**
-			 * Load extension.
-			 */
-			require_once($this->paths['ext_dir'].$ext.'.ext.php');
-		}
-		/**
-		 * Extension not found.
-		 */
-		else
-		{
-			/**
-			 * Return result.
-			 */
-			return FALSE;
-		}
-		/**
-		 * Check library dependencies.
-		 */
-		$libDeps = (count($extAbout[$ext]['deps']['lib']) > 0) ? TRUE : FALSE;
-		/**
-		 * Check extension dependencies.
-		 */
-		$extDeps = (count($extAbout[$ext]['deps']['ext']) > 0) ? TRUE : FALSE;
-		/**
-		 * Check if we have dependencies.
-		 */
-		if ($libDeps || $extDeps)
-		{
-			/**
-			 * Return result.
-			 */
-			return FALSE;
-		}
-		/**
-		 * Set extension class name.
-		 */
-		$extClass = 'rw_Extension_'.$ext;
-		/**
-		 * Return loaded extension.
-		 */
-		return new $extClass($extAbout[$ext]);
-	}
+    protected function _load($ext)
+    {
+        /**
+         * Parse extension name.
+         */
+        $ext = ucfirst(strtolower($ext));
+        /**
+         * Search in set extension dir.
+         */
+        if (is_readable($this->paths['ext_dir'].$ext.'.ext.php'))
+        {
+            /**
+             * Load extension.
+             */
+            require_once($this->paths['ext_dir'].$ext.'.ext.php');
+        }
+        /**
+         * Extension not found.
+         */
+        else
+        {
+            /**
+             * Return result.
+             */
+            return FALSE;
+        }
+        /**
+         * Check library dependencies.
+         */
+        $libDeps = (count($extAbout[$ext]['deps']['lib']) > 0) ? TRUE : FALSE;
+        /**
+         * Check extension dependencies.
+         */
+        $extDeps = (count($extAbout[$ext]['deps']['ext']) > 0) ? TRUE : FALSE;
+        /**
+         * Check if we have dependencies.
+         */
+        if ($libDeps || $extDeps)
+        {
+            /**
+             * Return result.
+             */
+            return FALSE;
+        }
+        /**
+         * Set extension class name.
+         */
+        $extClass = 'rw_Extension_'.$ext;
+        /**
+         * Return loaded extension.
+         */
+        return new $extClass($extAbout[$ext]);
+    }
 }
 
 /**
@@ -152,9 +152,9 @@ class rw_Loader_Extension
  */
 interface rw_iExtension
 {
-	/**
-	 *
-	 */
+    /**
+     *
+     */
 }
 
 /**
@@ -167,140 +167,140 @@ interface rw_iExtension
  */
 class rw_Extension
 {
-	/**
-	 * Extension information.
-	 *
-	 * @var array $extAbout
-	 */
-	protected $extAbout = array();
+    /**
+     * Extension information.
+     *
+     * @var array $extAbout
+     */
+    protected $extAbout = array();
 
-	/**
-	 * Constructor.
-	 *
-	 * Sets extension information.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Set extension information.
-		 */
-		$this->extAbout = $extAbout;
-	}
+    /**
+     * Constructor.
+     *
+     * Sets extension information.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Set extension information.
+         */
+        $this->extAbout = $extAbout;
+    }
 
-	/**
-	 * Get extension information.
-	 *
-	 * Returns an information field if specified.
-	 * The whole list otherwise.
-	 *
-	 * @param string $field field to return
-	 * @return array extension information
-	 */
-	public function extAbout($field=NULL)
-	{
-		/**
-		 * Return only a field if specified and valid, or the whole list.
-		 */
-		return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
-	}
+    /**
+     * Get extension information.
+     *
+     * Returns an information field if specified.
+     * The whole list otherwise.
+     *
+     * @param string $field field to return
+     * @return array extension information
+     */
+    public function extAbout($field=NULL)
+    {
+        /**
+         * Return only a field if specified and valid, or the whole list.
+         */
+        return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
+    }
 
-	/**
-	 * Set object value.
-	 *
-	 * Object is passed by reference.
-	 *
-	 * @param string $p object name
-	 * @param mixed $value object
-	 * @return mixed result
-	 */
-	public function setObj($p, &$obj)
-	{
-		/**
-		 * Check if the requested property exists.
-		 */
-		if(property_exists($this, $p))
-		{
-			/**
-			 * Set the object.
-			 */
-			$this->$p = $obj;
-		}
-		/**
-		 * Requested property doesn't exist.
-		 */
-		else
-		{
-			/**
-			 * Display error message.
-			 */
-			trigger_error('Extension:::SET_PROPERTY', 256);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set object value.
+     *
+     * Object is passed by reference.
+     *
+     * @param string $p object name
+     * @param mixed $value object
+     * @return mixed result
+     */
+    public function setObj($p, &$obj)
+    {
+        /**
+         * Check if the requested property exists.
+         */
+        if(property_exists($this, $p))
+        {
+            /**
+             * Set the object.
+             */
+            $this->$p = $obj;
+        }
+        /**
+         * Requested property doesn't exist.
+         */
+        else
+        {
+            /**
+             * Display error message.
+             */
+            trigger_error('Extension:::SET_PROPERTY', 256);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * Set property value.
-	 *
-	 * @param string $p property name
-	 * @param mixed $value property value
-	 * @return mixed result
-	 */
-	public function setValue($p, $value)
-	{
-		/**
-		 * Check if the requested property exists.
-		 */
-		if(property_exists($this, $p))
-		{
-			/**
-			 * Set property value.
-			 */
-			$this->$p = $value;
-		}
-		/**
-		 * Requested property doesn't exist.
-		 */
-		else
-		{
-			/**
-			 * Display error message.
-			 */
-			trigger_error('Extension:::SET_PROPERTY', 256);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set property value.
+     *
+     * @param string $p property name
+     * @param mixed $value property value
+     * @return mixed result
+     */
+    public function setValue($p, $value)
+    {
+        /**
+         * Check if the requested property exists.
+         */
+        if(property_exists($this, $p))
+        {
+            /**
+             * Set property value.
+             */
+            $this->$p = $value;
+        }
+        /**
+         * Requested property doesn't exist.
+         */
+        else
+        {
+            /**
+             * Display error message.
+             */
+            trigger_error('Extension:::SET_PROPERTY', 256);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * Set multiple property values.
-	 *
-	 * @param array $v property/values array
-	 * @return mixd result
-	 */
-	public function setValues($v)
-	{
-		/**
-		 * Parse each request.
-		 */
-		foreach($v as $p=>$value)
-		{
-			/**
-			 * Set property value.
-			 */
-			$this->setvalue($p, $value);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set multiple property values.
+     *
+     * @param array $v property/values array
+     * @return mixd result
+     */
+    public function setValues($v)
+    {
+        /**
+         * Parse each request.
+         */
+        foreach($v as $p=>$value)
+        {
+            /**
+             * Set property value.
+             */
+            $this->setvalue($p, $value);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 ?>

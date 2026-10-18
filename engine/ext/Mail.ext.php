@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -85,264 +85,264 @@ $extAbout['Mail']['deps']['ext'] = array();
  */
 class rw_Extension_Mail extends rw_Extension implements rw_iExtension
 {
-	/**
-	 * Sender name.
-	 *
-	 * @var string
-	 */
-	protected $fromName = NULL;
+    /**
+     * Sender name.
+     *
+     * @var string
+     */
+    protected $fromName = NULL;
 
-	/**
-	 * Sender email address.
-	 *
-	 * @var string
-	 */
-	protected $fromMail = NULL;
+    /**
+     * Sender email address.
+     *
+     * @var string
+     */
+    protected $fromMail = NULL;
 
-	/**
-	 * Receiver data.
-	 *
-	 * array(mail1=>name1, mail2=>name2)
-	 *
-	 * @var array
-	 */
-	protected $toData = array();
+    /**
+     * Receiver data.
+     *
+     * array(mail1=>name1, mail2=>name2)
+     *
+     * @var array
+     */
+    protected $toData = array();
 
-	/**
-	 * Message headers.
-	 *
-	 * @var string
-	 */
-	private $headers;
+    /**
+     * Message headers.
+     *
+     * @var string
+     */
+    private $headers;
 
-	/**
-	 * Message envelope from.
-	 */
-	protected $envFrom = FALSE;
+    /**
+     * Message envelope from.
+     */
+    protected $envFrom = FALSE;
 
-	/**
-	 * Message subject.
-	 *
-	 * @var string.
-	 */
-	protected $subject;
+    /**
+     * Message subject.
+     *
+     * @var string.
+     */
+    protected $subject;
 
-	/**
-	 * Message body.
-	 *
-	 * @var string
-	 */
-	protected $message;
+    /**
+     * Message body.
+     *
+     * @var string
+     */
+    protected $message;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Call parent constructor.
-		 */
-		parent::__construct($extAbout);
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Call parent constructor.
+         */
+        parent::__construct($extAbout);
+    }
 
-	/**
-	 * Main extension functionality.
-	 *
-	 * Send email using already set values.
-	 *
-	 * @param boolean $html whether to use html in mail.
-	 * @return mixed result
-	 */
-	public function rwMail($html=TRUE)
-	{
-		/**
-		 * Check if required data is set.
-		 */
-		$this->_checkForData();
-		/**
-		 * Set message headers.
-		 */
-		$this->_setHeaders($html);
-		/**
-		 * Set sender.
-		 */
-		ini_set('sendmail_from',$this->_getSender());
-		/**
-		 * Format message to html if required.
-		 */
-		$this->message = ($html) ? '<html><body>'.$this->message.'</body></html>' : $this->message;
-		/**
-		 * Set envelope from.
-		 */
-		$envFrom = ($this->envFrom) ? '-r '.$this->_getSender() : NULL;
-		/**
-		 * Try to send email and return result.
-		 */
-		return (@mail($this->_getRecipient(), $this->subject, $this->message, $this->headers, $envFrom)) ? TRUE : FALSE;
-	}
+    /**
+     * Main extension functionality.
+     *
+     * Send email using already set values.
+     *
+     * @param boolean $html whether to use html in mail.
+     * @return mixed result
+     */
+    public function rwMail($html=TRUE)
+    {
+        /**
+         * Check if required data is set.
+         */
+        $this->_checkForData();
+        /**
+         * Set message headers.
+         */
+        $this->_setHeaders($html);
+        /**
+         * Set sender.
+         */
+        ini_set('sendmail_from',$this->_getSender());
+        /**
+         * Format message to html if required.
+         */
+        $this->message = ($html) ? '<html><body>'.$this->message.'</body></html>' : $this->message;
+        /**
+         * Set envelope from.
+         */
+        $envFrom = ($this->envFrom) ? '-r '.$this->_getSender() : NULL;
+        /**
+         * Try to send email and return result.
+         */
+        return (@mail($this->_getRecipient(), $this->subject, $this->message, $this->headers, $envFrom)) ? TRUE : FALSE;
+    }
 
-	/**
-	 * Set message headers.
-	 *
-	 * @param boolean $html whether to use html in mail.
-	 * @return mixed result
-	 */
-	private function _setHeaders($html)
-	{
-		/**
-		 * Initialize headers. MIME and content-type.
-		 */
-		$h  = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/';
-		/**
-		 * Check is we shoud set output as html and set it.
-		 */
-		$h .= ($html) ? 'html' : 'plain';
-		/**
-		 * Set charset and add a new line.
-		 */
-		$h .= '; charset=utf-8' . "\r\n";
-		/**
-		 * Initialize recipinet data.
-		 */
-		$h .= 'To: ';
-		/**
-		 * Set recipient data.
-		 */
-		$h .= $this->_getRecipient();
-		/**
-		 * Add a new line.
-		 */
-		$h .= "\r\n";
-		/**
-		 * Initialize sender data.
-		 */
-		$h .= 'From: ';
-		/**
-		 * Set sender data.
-		 */
-		$h .= $this->_getSender();
-		/**
-		 * Add a new line.
-		 */
-		$h .= "\r\n";
-		/**
-		 * Initilize reply data.
-		 */
-		$h .= 'Reply-To: ';
-		/**
-		 * Set reply data.
-		 */
-		$h .= $this->_getSender();
-		/**
-		 * Add a new line.
-		 */
-		$h .= "\r\n";
-		/**
-		 * Set the headers.
-		 */
-		$this->headers = $h;
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set message headers.
+     *
+     * @param boolean $html whether to use html in mail.
+     * @return mixed result
+     */
+    private function _setHeaders($html)
+    {
+        /**
+         * Initialize headers. MIME and content-type.
+         */
+        $h  = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/';
+        /**
+         * Check is we shoud set output as html and set it.
+         */
+        $h .= ($html) ? 'html' : 'plain';
+        /**
+         * Set charset and add a new line.
+         */
+        $h .= '; charset=utf-8' . "\r\n";
+        /**
+         * Initialize recipinet data.
+         */
+        $h .= 'To: ';
+        /**
+         * Set recipient data.
+         */
+        $h .= $this->_getRecipient();
+        /**
+         * Add a new line.
+         */
+        $h .= "\r\n";
+        /**
+         * Initialize sender data.
+         */
+        $h .= 'From: ';
+        /**
+         * Set sender data.
+         */
+        $h .= $this->_getSender();
+        /**
+         * Add a new line.
+         */
+        $h .= "\r\n";
+        /**
+         * Initilize reply data.
+         */
+        $h .= 'Reply-To: ';
+        /**
+         * Set reply data.
+         */
+        $h .= $this->_getSender();
+        /**
+         * Add a new line.
+         */
+        $h .= "\r\n";
+        /**
+         * Set the headers.
+         */
+        $this->headers = $h;
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * Get message recipient(s).
-	 *
-	 * Format data as a string.
-	 *
-	 * @return string message recipients
-	 */
-	private function _getRecipient()
-	{
-		/**
-		 * Count recipients.
-		 */
-		$toData = count($this->toData);
-		/**
-		 * Start counter.
-		 */
-		$to = 1;
-		/**
-		 * Initialize string.
-		 */
-		$r = '';
-		/**
-		 * Process each recipient.
-		 */
-		foreach($this->toData as $toMail => $toName)
-		{
-			/**
-			 * Check if we have recipient name and set string accordingly.
-			 */
-			$r .= ($toName) ? $toName .' <'.$toMail.'>' : $toMail;
-			/**
-			 * If this is not the last recipient, add acomma and space.
-			 */
-			$r .= ($to != $toData) ? ', ' : '';
-			/**
-			 * Increment counter.
-			 */
-			$to++;
-		}
-		/**
-		 * Return formatted recipients string.
-		 */
-		return $r;
-	}
+    /**
+     * Get message recipient(s).
+     *
+     * Format data as a string.
+     *
+     * @return string message recipients
+     */
+    private function _getRecipient()
+    {
+        /**
+         * Count recipients.
+         */
+        $toData = count($this->toData);
+        /**
+         * Start counter.
+         */
+        $to = 1;
+        /**
+         * Initialize string.
+         */
+        $r = '';
+        /**
+         * Process each recipient.
+         */
+        foreach($this->toData as $toMail => $toName)
+        {
+            /**
+             * Check if we have recipient name and set string accordingly.
+             */
+            $r .= ($toName) ? $toName .' <'.$toMail.'>' : $toMail;
+            /**
+             * If this is not the last recipient, add acomma and space.
+             */
+            $r .= ($to != $toData) ? ', ' : '';
+            /**
+             * Increment counter.
+             */
+            $to++;
+        }
+        /**
+         * Return formatted recipients string.
+         */
+        return $r;
+    }
 
-	/**
-	 * Get message sender.
-	 *
-	 * Format data as a string.
-	 *
-	 * @return string message sender
-	 */
-	private function _getSender()
-	{
-		/**
-		 * Return formatted sender string.
-		 */
-		return ($this->fromName)? $this->fromName.' <'.$this->fromMail.'>' : $this->fromMail;
-	}
+    /**
+     * Get message sender.
+     *
+     * Format data as a string.
+     *
+     * @return string message sender
+     */
+    private function _getSender()
+    {
+        /**
+         * Return formatted sender string.
+         */
+        return ($this->fromName)? $this->fromName.' <'.$this->fromMail.'>' : $this->fromMail;
+    }
 
-	/**
-	 * Check if required data is set.
-	 *
-	 * @return mixed result
-	 */
-	private function _checkForData()
-	{
-		/**
-		 * Check if sender mail is set.
-		 */
-		if((!$this->fromMail)
-		/**
-		 * Check if we have any recipients.
-		 */
-		|| (!is_array($this->toData))
-		/*
-		 * Check if subject is set.
-		 */
-		|| (!$this->subject)
-		/**
-		 * Check if message is set.
-		 */
-		|| (!$this->message))
-		{
-			/**
-			 * Display error message.
-			 */
-			trigger_error('Extension:::MAIL_INFO', 256);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Check if required data is set.
+     *
+     * @return mixed result
+     */
+    private function _checkForData()
+    {
+        /**
+         * Check if sender mail is set.
+         */
+        if((!$this->fromMail)
+        /**
+         * Check if we have any recipients.
+         */
+        || (!is_array($this->toData))
+        /*
+         * Check if subject is set.
+         */
+        || (!$this->subject)
+        /**
+         * Check if message is set.
+         */
+        || (!$this->message))
+        {
+            /**
+             * Display error message.
+             */
+            trigger_error('Extension:::MAIL_INFO', 256);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 ?>

@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -85,73 +85,73 @@ $extAbout['Session']['deps']['ext'] = array();
  */
 class rw_Extension_Session extends rw_Extension implements rw_iExtension
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Call parent constructor.
-		 */
-		parent::__construct($extAbout);
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Call parent constructor.
+         */
+        parent::__construct($extAbout);
+    }
 
-	/**
-	 * Main extension functionality.
-	 *
-	 * Initialize session data.
-	 *
-	 * @return mixed result
-	 */
-	public function rwSession()
-	{
-		/**
-		 * Set cache limiter.
-		 */
-		session_cache_limiter('public, must-revalidate');
-		/**
-		 * Set cache expire to 10 hours (600 minutes).
-		 */
-		session_cache_expire(600);
-		/**
-		 * Set garbage collector timeout to 10 hours (36000 seconds).
-		 */
-		ini_set("session.gc_maxlifetime","36000");
-		/**
-		 * Set custom session path to application temp directory.
-		 */
-		ini_set("session.save_path",_APP_TMP_DIR);
-		/**
-		 * Start session.
-		 */
-		session_start();
-		/**
-		 * Header entity tag.
-		 */
-		header("ETag: PUB" . time());
-		/**
-		 * Header last modified tag.
-		 */
-		header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()-10) . " GMT");
-		/**
-		 * Header expires tag.
-		 */
-		header("Expires: " . gmdate("D, d M Y H:i:s", time() + 5) . " GMT");
-		/**
-		 * Header pragma tag.
-		 */
-		header("Pragma: no-cache");
-		/**
-		 * Header cache control tag.
-		 */
-		header("Cache-Control: max-age=1, s-maxage=1, no-cache, must-revalidate");
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Main extension functionality.
+     *
+     * Initialize session data.
+     *
+     * @return mixed result
+     */
+    public function rwSession()
+    {
+        /**
+         * Set cache limiter.
+         */
+        session_cache_limiter('public, must-revalidate');
+        /**
+         * Set cache expire to 10 hours (600 minutes).
+         */
+        session_cache_expire(600);
+        /**
+         * Set garbage collector timeout to 10 hours (36000 seconds).
+         */
+        ini_set("session.gc_maxlifetime","36000");
+        /**
+         * Set custom session path to application temp directory.
+         */
+        ini_set("session.save_path",_APP_TMP_DIR);
+        /**
+         * Start session.
+         */
+        session_start();
+        /**
+         * Header entity tag.
+         */
+        header("ETag: PUB" . time());
+        /**
+         * Header last modified tag.
+         */
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()-10) . " GMT");
+        /**
+         * Header expires tag.
+         */
+        header("Expires: " . gmdate("D, d M Y H:i:s", time() + 5) . " GMT");
+        /**
+         * Header pragma tag.
+         */
+        header("Pragma: no-cache");
+        /**
+         * Header cache control tag.
+         */
+        header("Cache-Control: max-age=1, s-maxage=1, no-cache, must-revalidate");
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 ?>
