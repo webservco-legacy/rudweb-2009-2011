@@ -42,70 +42,70 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 {
-	/**
-	 * Constructor
-	 *
-	 * Set module information and call parent constructor
-	 */
-	public function __construct($appCore)
-	{
-		/**
-		 * Module info
-		 */
-		$about['name'] = 'blank';
-		$about['desc'] = 'Blank module.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg'] = array();
-		$about['deps']['ext'] = array();
-		$about['deps']['mod'] = array();
-		/**
-		 * These must be declared
-		 */
-		$out['skin'] = array();
-		$out['skin']['meta'] = array();
-		$out['cnt'] = array();
-		/**
-		 * Module default content
-		 *
-		 * $out['type'] added by default in parent class
-		 * $out['skin']['dir'] added by default in parent class
-		 * $out['skin']['tpl'] added by default in parent class
-		 * $out['skin']['title'] added by default in parent class
-		 * $out['skin']['meta'] added by default in parent class
-		 * $out['skin']['lang'] added by default in parent class
-		 * $out['skin']['langAdm'] added by default in parent class
-		 */
-		$out['type'] = 'Smarty';
-		$out['cnt']['dir'] = 'content';
-		$out['cnt']['tpl'] = 'blank';
-		$out['cnt']['content'] = array();
-		/**
-		 * Call parent constructor
-		 */
-		parent::__construct($about, $out, $appCore);
-		$intl = $this->modAppCore->rwActivateExt('Intl');
-		$this->modOut['skin']['langs'] = $intl->intlMenu();
-	}
-	/**
-	 * Default module functionality
-	 *
-	 * @return mixed result
-	 */
-	public function _default()
-	{
-		return $this->modOut;
-	}
-	/**
-	 * Some other module functionality
-	 */
-	public function test()
-	{
-		$this->modOut['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - Test Action';
-		return $this->modOut;
-	}
+    /**
+     * Constructor
+     *
+     * Set module information and call parent constructor
+     */
+    public function __construct($appCore)
+    {
+        /**
+         * Module info
+         */
+        $about['name'] = 'blank';
+        $about['desc'] = 'Blank module.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg'] = array();
+        $about['deps']['ext'] = array();
+        $about['deps']['mod'] = array();
+        /**
+         * These must be declared
+         */
+        $out['skin'] = array();
+        $out['skin']['meta'] = array();
+        $out['cnt'] = array();
+        /**
+         * Module default content
+         *
+         * $out['type'] added by default in parent class
+         * $out['skin']['dir'] added by default in parent class
+         * $out['skin']['tpl'] added by default in parent class
+         * $out['skin']['title'] added by default in parent class
+         * $out['skin']['meta'] added by default in parent class
+         * $out['skin']['lang'] added by default in parent class
+         * $out['skin']['langAdm'] added by default in parent class
+         */
+        $out['type'] = 'Smarty';
+        $out['cnt']['dir'] = 'content';
+        $out['cnt']['tpl'] = 'blank';
+        $out['cnt']['content'] = array();
+        /**
+         * Call parent constructor
+         */
+        parent::__construct($about, $out, $appCore);
+        $intl = $this->modAppCore->rwActivateExt('Intl');
+        $this->modOut['skin']['langs'] = $intl->intlMenu();
+    }
+    /**
+     * Default module functionality
+     *
+     * @return mixed result
+     */
+    public function _default()
+    {
+        return $this->modOut;
+    }
+    /**
+     * Some other module functionality
+     */
+    public function test()
+    {
+        $this->modOut['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - Test Action';
+        return $this->modOut;
+    }
 }
 ?>
