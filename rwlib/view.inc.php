@@ -45,117 +45,117 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class app_Viewer
 {
-	public $cnt = array();
-	public $atpl = array();
-	public function __construct($cnt, $atpl=array())
-	{
-		$this->cnt = $cnt;
-		$this->atpl = $atpl;
-	}
-	public function _display()
-	{
-		switch($this->cnt['type'])
-		{
-			case 'text' :
-				{
-					$this->_displayText($this->cnt['skin'], $this->atpl);
-					break;
-				}
-			case 'image' :
-				{
-					$this->_displayImage($this->cnt['image']);
-					break;
-				}
-			default :
-				{
-					break;
-				}
-		}
-	}
-	public function _displayText($vars, $atpl=array())
-	{
-		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
-		$skinObj = rw_Skin::_load(_APP_TPL);
-		$skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
-		if($vars['dir'] != '')
-		{
-			$skin_dir .= '/'.$vars['dir'];
-		}
-		$skinObj->skindir($skin_dir);
-		$skinObj->compile_id = $vars['dir'];
+    public $cnt = array();
+    public $atpl = array();
+    public function __construct($cnt, $atpl=array())
+    {
+        $this->cnt = $cnt;
+        $this->atpl = $atpl;
+    }
+    public function _display()
+    {
+        switch($this->cnt['type'])
+        {
+            case 'text' :
+                {
+                    $this->_displayText($this->cnt['skin'], $this->atpl);
+                    break;
+                }
+            case 'image' :
+                {
+                    $this->_displayImage($this->cnt['image']);
+                    break;
+                }
+            default :
+                {
+                    break;
+                }
+        }
+    }
+    public function _displayText($vars, $atpl=array())
+    {
+        if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
+        $skinObj = rw_Skin::_load(_APP_TPL);
+        $skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
+        if($vars['dir'] != '')
+        {
+            $skin_dir .= '/'.$vars['dir'];
+        }
+        $skinObj->skindir($skin_dir);
+        $skinObj->compile_id = $vars['dir'];
 
-		$totalAtpl = count($atpl);
-		if($totalAtpl > 0)
-		{
-			$atplObj = rw_Skin::_load(_APP_TPL);
-			$atplObj->skindir($skin_dir);
-			$atplObj->compile_id = $vars['dir'];
-			foreach($atpl as $atplTitle=>$atplVars)
-			{
-				if(array_key_exists(0, $atplVars))
-				{
-					$tc = count($atplVars);
-					$mainContent = '';
-					for($i=0;$i<$tc;$i++)
-					{
-						$totalAtplVars = count($atplVars[$i]['vars']);
-						if($totalAtplVars > 0)
-						{
-							foreach($atplVars[$i]['vars'] as $name=>$value)
-							{
-								//$atplObj->compile_id = $atplVars[$i]['dir'];
-								$atplObj->set($name, $value);
-							}
-						}
-						$atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl';
-						$mainContent .= $atplObj->parse($atplTpl);
-						$skinObj->set($atplTitle, $mainContent);
-					}
-				}
-				else
-				{
-					$totalAtplVars = count($atplVars['vars']);
-					if($totalAtplVars > 0)
-					{
-						foreach($atplVars['vars'] as $name=>$value)
-						{
-							//$atplObj->compile_id = $atplVars['dir'];
-							$atplObj->set($name, $value);
-						}
-					}
-					$atplTpl = ($atplVars['dir'] != '') ? $atplVars['dir'].'/'.$atplVars['tpl'].'.tpl' : $atplVars['tpl'].'.tpl';
-					$skinObj->set($atplTitle, $atplObj->parse($atplTpl));
-				}
-			}
-		}
-		$varsNew = array_diff_key($vars, array('tpl'=>''));
-		$totalVars = count($varsNew);
-		if($totalVars > 0)
-		{
-			foreach($varsNew as $name=>$value)
-			{
-				$skinObj->set($name, $value);
-			}
-		}
-		return $skinObj->view($vars['tpl'].'.tpl');
-	}
-	public function _displayImage($image)
-	{
-		switch($image['type'])
-		{
-			case 'png' :
-				{
-					header("Content-type: image/png");
-					header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-					header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-					break;
-				}
-			default :
-				{
-					break;
-				}
-		}
-		echo base64_decode($image['data']);
-	}
+        $totalAtpl = count($atpl);
+        if($totalAtpl > 0)
+        {
+            $atplObj = rw_Skin::_load(_APP_TPL);
+            $atplObj->skindir($skin_dir);
+            $atplObj->compile_id = $vars['dir'];
+            foreach($atpl as $atplTitle=>$atplVars)
+            {
+                if(array_key_exists(0, $atplVars))
+                {
+                    $tc = count($atplVars);
+                    $mainContent = '';
+                    for($i=0;$i<$tc;$i++)
+                    {
+                        $totalAtplVars = count($atplVars[$i]['vars']);
+                        if($totalAtplVars > 0)
+                        {
+                            foreach($atplVars[$i]['vars'] as $name=>$value)
+                            {
+                                //$atplObj->compile_id = $atplVars[$i]['dir'];
+                                $atplObj->set($name, $value);
+                            }
+                        }
+                        $atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl';
+                        $mainContent .= $atplObj->parse($atplTpl);
+                        $skinObj->set($atplTitle, $mainContent);
+                    }
+                }
+                else
+                {
+                    $totalAtplVars = count($atplVars['vars']);
+                    if($totalAtplVars > 0)
+                    {
+                        foreach($atplVars['vars'] as $name=>$value)
+                        {
+                            //$atplObj->compile_id = $atplVars['dir'];
+                            $atplObj->set($name, $value);
+                        }
+                    }
+                    $atplTpl = ($atplVars['dir'] != '') ? $atplVars['dir'].'/'.$atplVars['tpl'].'.tpl' : $atplVars['tpl'].'.tpl';
+                    $skinObj->set($atplTitle, $atplObj->parse($atplTpl));
+                }
+            }
+        }
+        $varsNew = array_diff_key($vars, array('tpl'=>''));
+        $totalVars = count($varsNew);
+        if($totalVars > 0)
+        {
+            foreach($varsNew as $name=>$value)
+            {
+                $skinObj->set($name, $value);
+            }
+        }
+        return $skinObj->view($vars['tpl'].'.tpl');
+    }
+    public function _displayImage($image)
+    {
+        switch($image['type'])
+        {
+            case 'png' :
+                {
+                    header("Content-type: image/png");
+                    header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+                    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+                    break;
+                }
+            default :
+                {
+                    break;
+                }
+        }
+        echo base64_decode($image['data']);
+    }
 }
 ?>

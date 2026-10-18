@@ -36,71 +36,71 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 class rw_Mod_blank extends rw_Mod_global implements rw_iMod
 {
-	/**
-	 * Constructor
-	 *
-	 * Set module information and call parent constructor
-	 */
-	public function __construct($appCore)
-	{
-		/**
-		 * Module info
-		 */
-		$about['name'] = 'blank';
-		$about['desc'] = 'Blank module.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg'] = array();
-		$about['deps']['ext'] = array();
-		$about['deps']['mod'] = array();
-		/**
-		 * These must be declared
-		 */
-		$cnt['skin'] = array();
-		$cnt['skin']['meta'] = array();
-		$cnt['cnt'] = array();
-		/**
-		 * Module default content
-		 *
-		 * $cnt['type'] added by default in parent class
-		 * $cnt['skin']['dir'] added by default in parent class
-		 * $cnt['skin']['tpl'] added by default in parent class
-		 * $cnt['skin']['title'] added by default in parent class
-		 * $cnt['skin']['meta'] added by default in parent class
-		 * $cnt['skin']['lang'] added by default in parent class
-		 * $cnt['skin']['langAdm'] added by default in parent class
-		 */
-		$cnt['skin']['dir'] = '';
-		$cnt['skin']['tpl'] = 'layout';
-		$cnt['cnt']['dir'] = 'content';
-		$cnt['cnt']['tpl'] = 'blank';
-		$cnt['cnt']['content'] = array();
-		/**
-		 * Call parent constructor
-		 */
-		parent::__construct($about, $cnt, $appCore);
-		$intl = $this->modAppCore->rwActivateExt('Intl');
+    /**
+     * Constructor
+     *
+     * Set module information and call parent constructor
+     */
+    public function __construct($appCore)
+    {
+        /**
+         * Module info
+         */
+        $about['name'] = 'blank';
+        $about['desc'] = 'Blank module.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg'] = array();
+        $about['deps']['ext'] = array();
+        $about['deps']['mod'] = array();
+        /**
+         * These must be declared
+         */
+        $cnt['skin'] = array();
+        $cnt['skin']['meta'] = array();
+        $cnt['cnt'] = array();
+        /**
+         * Module default content
+         *
+         * $cnt['type'] added by default in parent class
+         * $cnt['skin']['dir'] added by default in parent class
+         * $cnt['skin']['tpl'] added by default in parent class
+         * $cnt['skin']['title'] added by default in parent class
+         * $cnt['skin']['meta'] added by default in parent class
+         * $cnt['skin']['lang'] added by default in parent class
+         * $cnt['skin']['langAdm'] added by default in parent class
+         */
+        $cnt['skin']['dir'] = '';
+        $cnt['skin']['tpl'] = 'layout';
+        $cnt['cnt']['dir'] = 'content';
+        $cnt['cnt']['tpl'] = 'blank';
+        $cnt['cnt']['content'] = array();
+        /**
+         * Call parent constructor
+         */
+        parent::__construct($about, $cnt, $appCore);
+        $intl = $this->modAppCore->rwActivateExt('Intl');
     $this->modCnt['skin']['langs'] = $intl->intlMenu();
-	}
-	/**
-	 * Default module functionality
-	 *
-	 * @return mixed result
-	 */
-	public function _default()
-	{
-		return $this->modCnt;
-	}
-	/**
-	 * Some other module functionality
-	 */
-	public function test()
-	{
-		$this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - Test Action';
-		return $this->modCnt;
-	}
+    }
+    /**
+     * Default module functionality
+     *
+     * @return mixed result
+     */
+    public function _default()
+    {
+        return $this->modCnt;
+    }
+    /**
+     * Some other module functionality
+     */
+    public function test()
+    {
+        $this->modCnt['skin']['title'] = $this->modLang['MOD']['TITLE'] . ' - Test Action';
+        return $this->modCnt;
+    }
 }
 ?>

@@ -45,46 +45,46 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Skin_smarty extends Smarty implements rw_iSkin
 {
-	/**
-	 * Constructor
-	 */
-	function __construct()
-	{
-		parent::__construct();
-	}
-	/**
-	 * Sets the skin directory
-	 */
-	public function skindir($skindir)
-	{
-		$this->template_dir = $skindir;
-		$this->compile_dir = _APP_DIR_TMP;
-		$this->cache_dir = _APP_DIR_TMP;
-		$this->config_dir = _APP_DIR_TMP;
-	}
-	/**
-	 * Method for setting variables
-	 *
-	 */
-	function set($name, $value)
-	{
-		return $this->assign($name, $value);
-	}
-	/**
-	 * Method for parsing template
-	 *
-	 */
-	function parse($template)
-	{
-		return $this->fetch($template);
-	}
-	/**
-	 * Method for displaying results
-	 *
-	 */
-	function view($template)
-	{
-		return $this->display($template);
-	}
+    /**
+     * Constructor
+     */
+    function __construct()
+    {
+        parent::__construct();
+    }
+    /**
+     * Sets the skin directory
+     */
+    public function skindir($skindir)
+    {
+        $this->template_dir = $skindir;
+        $this->compile_dir = _APP_DIR_TMP;
+        $this->cache_dir = _APP_DIR_TMP;
+        $this->config_dir = _APP_DIR_TMP;
+    }
+    /**
+     * Method for setting variables
+     *
+     */
+    function set($name, $value)
+    {
+        return $this->assign($name, $value);
+    }
+    /**
+     * Method for parsing template
+     *
+     */
+    function parse($template)
+    {
+        return $this->fetch($template);
+    }
+    /**
+     * Method for displaying results
+     *
+     */
+    function view($template)
+    {
+        return $this->display($template);
+    }
 }
 ?>

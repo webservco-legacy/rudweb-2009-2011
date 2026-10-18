@@ -45,12 +45,12 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 interface rw_iExt
 {
-	/**
-	 * Method for displaying information about the extension
-	 *
-	 * @return mixed information about the extension
-	 */
-	public function extAbout();
+    /**
+     * Method for displaying information about the extension
+     *
+     * @return mixed information about the extension
+     */
+    public function extAbout();
 }
 /**
  * rw_Ext_global
@@ -63,42 +63,42 @@ interface rw_iExt
  */
 class rw_Ext_global
 {
-	/**
-	 * Set extension info
-	 */
-	public $extAbout = array();
-	/**
-	 * Application core object
-	 *
-	 * @var mixed
-	 */
-	public $extCore = NULL;
-	/**
-	 * Database connection
-	 *
-	 * @var mixed
-	 */
-	public $extDb = NULL;
-	/**
-	 * Load the extension and set it to global or local
-	 *
-	 * @param aray $extAbout extension information
-	 * @return mixed result of loading
-	 */
-	public function __construct($extAbout, $appCore)
-	{
-		$this->extAbout = $extAbout;
-		$this->extCore = $appCore;
-		$this->extDb = _APP_CFG_DATABASE ? $this->extCore->rwDbConnect() : NULL;
-	}
-	/**
-	 * Method for displaying information about the extension
-	 *
-	 * @return mixed information about the extension
-	 */
-	public function extAbout()
-	{
-		return $this->extAbout;
-	}
+    /**
+     * Set extension info
+     */
+    public $extAbout = array();
+    /**
+     * Application core object
+     *
+     * @var mixed
+     */
+    public $extCore = NULL;
+    /**
+     * Database connection
+     *
+     * @var mixed
+     */
+    public $extDb = NULL;
+    /**
+     * Load the extension and set it to global or local
+     *
+     * @param aray $extAbout extension information
+     * @return mixed result of loading
+     */
+    public function __construct($extAbout, $appCore)
+    {
+        $this->extAbout = $extAbout;
+        $this->extCore = $appCore;
+        $this->extDb = _APP_CFG_DATABASE ? $this->extCore->rwDbConnect() : NULL;
+    }
+    /**
+     * Method for displaying information about the extension
+     *
+     * @return mixed information about the extension
+     */
+    public function extAbout()
+    {
+        return $this->extAbout;
+    }
 }
 ?>

@@ -40,26 +40,26 @@ define('_RW_VALID', TRUE);
  */
 if(is_readable('./inc/ctrl.inc.php'))
 {
-	require_once('./inc/ctrl.inc.php');
+    require_once('./inc/ctrl.inc.php');
 }
 else
 {
-	require_once('./404.php');
-	exit;
+    require_once('./404.php');
+    exit;
 }
 /**
  * Load viewer
  */
 try
 {
-	if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
-	$viewer = new app_Viewer($cnt, $atpl);
-	$viewer->_display();
+    if(is_readable(_RW_DIR_LIB.'view.inc.php')) {require_once(_RW_DIR_LIB.'view.inc.php');} else {trigger_error('viewer missing', E_USER_ERROR);}
+    $viewer = new app_Viewer($cnt, $atpl);
+    $viewer->_display();
 }
 catch (Exception $e)
 {
-	echo $appCore->rwErr($e);
-	exit;
+    echo $appCore->rwErr($e);
+    exit;
 }
 /**
  * Restore error handler

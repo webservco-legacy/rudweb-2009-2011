@@ -47,7 +47,7 @@ $extClass = 'rw_Ext_'.$extName;
 require_once(_RW_DIR_LIB.'ext.inc.php');
 if(is_file(_APP_EXT_GLOBAL_DIR.$extName.'.ext.php'))
 {
-	require_once(_APP_EXT_GLOBAL_DIR.$extName.'.ext.php');
+    require_once(_APP_EXT_GLOBAL_DIR.$extName.'.ext.php');
 }
 $class = 'rw_Ext_'.$extName;
 

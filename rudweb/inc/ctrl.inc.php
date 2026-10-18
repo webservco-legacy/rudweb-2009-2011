@@ -40,125 +40,125 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 $cfg = array();
 if(is_readable('./cfg/cfg.ini'))
 {
-	/**
-	 * Parse configuration file
-	 */
-	$cfg = parse_ini_file('./cfg/cfg.ini', TRUE);
-	/**
-	 * Report application errors
-	 *
-	 */
-	define('_APP_CFG_ERRORS',$cfg['Config']['Errors'] ? TRUE : FALSE);
-	/**
-	 * Use database
-	 *
-	 */
-	define('_APP_CFG_DATABASE',$cfg['Config']['Database'] ? TRUE : FALSE);
-	/**
-	 * Use sessions and users
-	 *
-	 */
-	define('_APP_CFG_SESSIONS',$cfg['Config']['Sessions'] ? TRUE : FALSE);
-	/**
-	 * Use user authentication
-	 *
-	 */
-	define('_APP_CFG_USERS',$cfg['Config']['Users'] ? TRUE : FALSE);
-	/**
-	 * Use fake file extension for URL's
-	 *
-	 */
-	define('_APP_CFG_FAKEXT',$cfg['Config']['Fakext'] ? TRUE : FALSE);
-	/**
-	 * Engine path
-	 *
-	 */
-	define('_RW_DIR',$cfg['Paths']['Engine']);
-	/**
-	 * Application path
-	 *
-	 */
-	define('_APP_DIR',$cfg['Paths']['App']);
-	/**
-	 * Application URL
-	 *
-	 */
-	define('_APP_WWW',$cfg['Paths']['AppURL']);
-	/**
-	 * Full SEO
-	 *
-	 */
-	define('_APP_INDEX',$cfg['Defaults']['FullSEO'] ? '' : 'index.php/');
-	/**
-	 * Database type
-	 *
-	 */
-	define('_APP_DB_TYPE',$cfg['Database']['Type']);
-	/**
-	 * Database host
-	 *
-	 */
-	define('_APP_DB_HOST',$cfg['Database']['Host']);
-	/**
-	 * Database port
-	 *
-	 */
-	define('_APP_DB_PORT',$cfg['Database']['Port']);
-	/**
-	 * Database user
-	 *
-	 */
-	define('_APP_DB_USER',$cfg['Database']['User']);
-	/**
-	 * Database password
-	 *
-	 */
-	define('_APP_DB_PASS',$cfg['Database']['Pass']);
-	/**
-	 * Database name
-	 *
-	 */
-	define('_APP_DB_NAME',$cfg['Database']['Name']);
-	/**
-	 * Application name
-	 *
-	 */
-	define('_APP_NAME',$cfg['AppInfo']['Name']);
-	/**
-	 * Application author
-	 *
-	 */
-	define('_APP_AUTH',$cfg['AppInfo']['Author']);
-	/**
-	 * Application prefix
-	 *
-	 */
-	define('_APP_PRE',$cfg['AppInfo']['Prefix']);
-	/**
-	 * Default language
-	 *
-	 */
-	define('_APP_LANG',$cfg['Defaults']['Language']);
-	/**
-	 * Default template engine
-	 *
-	 */
-	define('_APP_TPL',$cfg['Defaults']['TemplateEngine']);
-	/**
-	 * Default skin
-	 *
-	 */
-	define('_APP_SKIN',$cfg['Defaults']['Skin']);
-	/**
-	 * Default time zone
-	 *
-	 */
-	define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
+    /**
+     * Parse configuration file
+     */
+    $cfg = parse_ini_file('./cfg/cfg.ini', TRUE);
+    /**
+     * Report application errors
+     *
+     */
+    define('_APP_CFG_ERRORS',$cfg['Config']['Errors'] ? TRUE : FALSE);
+    /**
+     * Use database
+     *
+     */
+    define('_APP_CFG_DATABASE',$cfg['Config']['Database'] ? TRUE : FALSE);
+    /**
+     * Use sessions and users
+     *
+     */
+    define('_APP_CFG_SESSIONS',$cfg['Config']['Sessions'] ? TRUE : FALSE);
+    /**
+     * Use user authentication
+     *
+     */
+    define('_APP_CFG_USERS',$cfg['Config']['Users'] ? TRUE : FALSE);
+    /**
+     * Use fake file extension for URL's
+     *
+     */
+    define('_APP_CFG_FAKEXT',$cfg['Config']['Fakext'] ? TRUE : FALSE);
+    /**
+     * Engine path
+     *
+     */
+    define('_RW_DIR',$cfg['Paths']['Engine']);
+    /**
+     * Application path
+     *
+     */
+    define('_APP_DIR',$cfg['Paths']['App']);
+    /**
+     * Application URL
+     *
+     */
+    define('_APP_WWW',$cfg['Paths']['AppURL']);
+    /**
+     * Full SEO
+     *
+     */
+    define('_APP_INDEX',$cfg['Defaults']['FullSEO'] ? '' : 'index.php/');
+    /**
+     * Database type
+     *
+     */
+    define('_APP_DB_TYPE',$cfg['Database']['Type']);
+    /**
+     * Database host
+     *
+     */
+    define('_APP_DB_HOST',$cfg['Database']['Host']);
+    /**
+     * Database port
+     *
+     */
+    define('_APP_DB_PORT',$cfg['Database']['Port']);
+    /**
+     * Database user
+     *
+     */
+    define('_APP_DB_USER',$cfg['Database']['User']);
+    /**
+     * Database password
+     *
+     */
+    define('_APP_DB_PASS',$cfg['Database']['Pass']);
+    /**
+     * Database name
+     *
+     */
+    define('_APP_DB_NAME',$cfg['Database']['Name']);
+    /**
+     * Application name
+     *
+     */
+    define('_APP_NAME',$cfg['AppInfo']['Name']);
+    /**
+     * Application author
+     *
+     */
+    define('_APP_AUTH',$cfg['AppInfo']['Author']);
+    /**
+     * Application prefix
+     *
+     */
+    define('_APP_PRE',$cfg['AppInfo']['Prefix']);
+    /**
+     * Default language
+     *
+     */
+    define('_APP_LANG',$cfg['Defaults']['Language']);
+    /**
+     * Default template engine
+     *
+     */
+    define('_APP_TPL',$cfg['Defaults']['TemplateEngine']);
+    /**
+     * Default skin
+     *
+     */
+    define('_APP_SKIN',$cfg['Defaults']['Skin']);
+    /**
+     * Default time zone
+     *
+     */
+    define('_APP_TIMEZONE',$cfg['Defaults']['TimeZone']);
 }
 else
 {
-	require_once('./404.php');
-	exit;
+    require_once('./404.php');
+    exit;
 }
 /**
  * Extensions
@@ -169,24 +169,24 @@ $exts = array_keys($cfg['Extensions']);
  */
 if(is_readable(_RW_DIR.'rwc.inc.php'))
 {
-	require_once(_RW_DIR.'rwc.inc.php');
+    require_once(_RW_DIR.'rwc.inc.php');
 }
 else
 {
-	require_once('./404.php');
-	exit;
+    require_once('./404.php');
+    exit;
 }
 /**
  * Core
  */
 if(is_readable(_APP_DIR_INC.'app.inc.php'))
 {
-	require_once(_APP_DIR_INC.'app.inc.php');
+    require_once(_APP_DIR_INC.'app.inc.php');
 }
 else
 {
-	require_once('./404.php');
-	exit;
+    require_once('./404.php');
+    exit;
 }
 /**
  * Initialize main application core
@@ -196,202 +196,202 @@ $appCore->rwInit($exts);
 
 try
 {
-	/**
-	 * Initialize content
-	 */
-	$cnt1 = array();
-	/**
-	 * Set localized defaults for current language
-	 */
-	$ln = (_APP_CFG_SESSIONS && $_SESSION[_APP_PRE.'_usr_lang']) ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
-	$cfg2 = array();
-	if(is_readable('./cfg/cfg.'.$ln.'.ini'))
-	{
-		/**
-		 * Parse configuration file
-		 */
-		$cfg2 = parse_ini_file('./cfg/cfg.'.$ln.'.ini', TRUE);
-	}
-	/**
-	 * Default content type
-	 */
-	define('_APP_CONTENT_TYPE',$cfg2['Language']['ContentType'] ? $cfg2['Language']['ContentType'] : 'page');
-	/**
-	 * Default content id
-	 */
-	define('_APP_CONTENT_ID', $cfg2['Language']['ContentId'] ? $cfg2['Language']['ContentId'] : 'index');
-	/**
-	 * Default page content type
-	 */
-	$cnt1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
-	/**
-	 * Main layout template directory.
-	 */
-	$cnt1['skin']['dir'] = $cfg['Defaults']['SkinDir'] ? $cfg['Defaults']['SkinDir'] : '';
-	/**
-	 * Main layout template file
-	 */
-	$cnt1['skin']['tpl'] = $cfg['Defaults']['SkinTpl'] ? $cfg['Defaults']['SkinTpl'] : 'layout';
-	/**
-	 * Main layout page title
-	 */
-	$cnt1['skin']['title'] = $cfg2['Language']['PageTitle'] ? $cfg2['Language']['PageTitle'] : '';
-	/**
-	 * Meta Data
-	 */
-	$cnt1['skin']['meta'] = array();
-	/**
-	 * Meta Subject
-	 */
-	$cnt1['skin']['meta']['subject'] = $cfg2['Language']['MetaSubject'] ? $cfg2['Language']['MetaSubject'] : _APP_NAME;
-	/**
-	 * Meta Description
-	 */
-	$cnt1['skin']['meta']['description'] = $cfg2['Language']['MetaDescription'] ? $cfg2['Language']['MetaDescription'] : _APP_NAME;
-	/**
-	 * Meta Keywords
-	 */
-	$cnt1['skin']['meta']['keywords'] = $cfg2['Language']['MetaKeywords'] ? $cfg2['Language']['MetaKeywords'] : _APP_NAME;
-	/**
-	 * Meta Copyright
-	 */
-	$cnt1['skin']['meta']['copyright'] = $cfg2['Language']['MetaCopyright'] ? $cfg2['Language']['MetaCopyright'] : _APP_AUTH;
-	/**
-	 * Meta Designer
-	 */
-	$cnt1['skin']['meta']['designer'] = $cfg2['Language']['MetaDesigner'] ? $cfg2['Language']['MetaDesigner'] : _APP_AUTH;
-	/**
-	 * Meta Publisher
-	 */
-	$cnt1['skin']['meta']['publisher'] = $cfg2['Language']['MetaPublisher'] ? $cfg2['Language']['MetaPublisher'] : _APP_AUTH;
-	/**
-	 * Meta Author
-	 */
-	$cnt1['skin']['meta']['author'] = $cfg2['Language']['MetaAuthor'] ? $cfg2['Language']['MetaAuthor'] : _APP_AUTH;
-	/**
-	 * Initialize actual content
-	 */
-	$cnt1['cnt'] = array();
-	/**
-	 * Initialize content id
-	 */
-	$cnt1['id'] = 0;
-	/**
-	 * Page content
-	 */
-	$cnt2 = $appCore->appProcess();
-	/**
-	 * Merge content data
-	 */
-	$cnt = array_merge($cnt1, $cnt2);
-	$cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
-	$cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
-	/**
-	 * Global additional templates
-	 */
-	$atpl = array();
-	/**
-	 * If normal content, set it,
-	 * and also set additional templates
-	 */
-	if($cnt['type'] == 'text')
-	{
-		/**
-		 * Menu
-		 */
-		$atpl['menu'] = array();
-		$atpl['menu']['dir'] = '';
-		$atpl['menu']['tpl'] = 'menu';
-		$atpl['menu']['vars'] = array();
-		$atpl['menu']['vars']['lang'] = $appCore->rwLang();
-		$atpl['menu']['vars']['langAdm'] = $appCore->rwLangAdm();
-		/**
-		 * Dynamic content menu
-		 */
-		$atpl['menu']['vars']['cntMenu'] = NULL;
-		if(array_key_exists('cntMenu', $appCore->ext))
-		{
-			/**
-			 * If extension is present, attempt to load dynamic menu
-			 */
-			$cntMenuObj = $appCore->rwActivateExt('cntMenu');
-			$atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu($cnt['id']);
-		}
-		/**
-		 * Actual content
-		 */
-		$atpl['content'] = array();
-		/**
-		 * Check for multiple content items
-		 */
-		if(array_key_exists(0, $cnt['cnt']))
-		{
-			foreach($cnt['cnt'] as $index=>$data)
-			{
-				if($appCore->rwCheckInt($index))
-				{
-					/**
-					 * Multiple content items
-					 */
-					$atpl['content'][$index] = array();
-					$atpl['content'][$index]['dir'] = $cnt['cnt'][$index]['dir'];
-					$atpl['content'][$index]['tpl'] = $cnt['cnt'][$index]['tpl'];
-					$atpl['content'][$index]['vars']['cnt'] = $cnt['cnt'][$index]['content'];
-					$atpl['content'][$index]['vars']['lang'] = $appCore->rwLang();
-					$atpl['content'][$index]['vars']['langAdm'] = $appCore->rwLangAdm();
-					$atpl['content'][$index]['vars']['usr_status'] = $appCore->rwUsrStatus();
-				}
-			}
-		}
-		else
-		{
-			/**
-			 * Only one content item
-			 */
-			$atpl['content'][0] = array();
-			$atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
-			$atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
-			$atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
-			$atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
-			$atpl['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
-			$atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
-		}
-		/**
-		 * Footer
-		 */
-		$atpl['footer'] = array();
-		$atpl['footer']['dir'] = '';
-		$atpl['footer']['tpl'] = 'footer';
-		$atpl['footer']['vars'] = array();
-		$atpl['footer']['vars']['lang'] = $appCore->rwLang();
-		$atpl['footer']['vars']['langAdm'] = $appCore->rwLangAdm();
-		/**
-		 * Load custom configuration
-		 */
-		if(is_readable(_APP_DIR.'cfg/atpl.inc.php'))
-		{
-			require_once(_APP_DIR.'cfg/atpl.inc.php');
-		}
-		/**
-		 * Override additional templates
-		 */
-		if(array_key_exists('atpl', $cnt))
-		{
-			$a_tpl = array('menu', 'content', 'footer');
-			foreach($a_tpl as $name=>$value)
-			{
-				if(array_key_exists($value, $cnt['atpl']))
-				{
-					$atpl[$value] = array();
-					$atpl[$value] = $cnt['atpl'][$value];
-				}
-			}
-		}
-	}
+    /**
+     * Initialize content
+     */
+    $cnt1 = array();
+    /**
+     * Set localized defaults for current language
+     */
+    $ln = (_APP_CFG_SESSIONS && $_SESSION[_APP_PRE.'_usr_lang']) ? $_SESSION[_APP_PRE.'_usr_lang'] : _APP_LANG;
+    $cfg2 = array();
+    if(is_readable('./cfg/cfg.'.$ln.'.ini'))
+    {
+        /**
+         * Parse configuration file
+         */
+        $cfg2 = parse_ini_file('./cfg/cfg.'.$ln.'.ini', TRUE);
+    }
+    /**
+     * Default content type
+     */
+    define('_APP_CONTENT_TYPE',$cfg2['Language']['ContentType'] ? $cfg2['Language']['ContentType'] : 'page');
+    /**
+     * Default content id
+     */
+    define('_APP_CONTENT_ID', $cfg2['Language']['ContentId'] ? $cfg2['Language']['ContentId'] : 'index');
+    /**
+     * Default page content type
+     */
+    $cnt1['type'] = $cfg['Defaults']['CntType'] ? $cfg['Defaults']['CntType'] : 'text';
+    /**
+     * Main layout template directory.
+     */
+    $cnt1['skin']['dir'] = $cfg['Defaults']['SkinDir'] ? $cfg['Defaults']['SkinDir'] : '';
+    /**
+     * Main layout template file
+     */
+    $cnt1['skin']['tpl'] = $cfg['Defaults']['SkinTpl'] ? $cfg['Defaults']['SkinTpl'] : 'layout';
+    /**
+     * Main layout page title
+     */
+    $cnt1['skin']['title'] = $cfg2['Language']['PageTitle'] ? $cfg2['Language']['PageTitle'] : '';
+    /**
+     * Meta Data
+     */
+    $cnt1['skin']['meta'] = array();
+    /**
+     * Meta Subject
+     */
+    $cnt1['skin']['meta']['subject'] = $cfg2['Language']['MetaSubject'] ? $cfg2['Language']['MetaSubject'] : _APP_NAME;
+    /**
+     * Meta Description
+     */
+    $cnt1['skin']['meta']['description'] = $cfg2['Language']['MetaDescription'] ? $cfg2['Language']['MetaDescription'] : _APP_NAME;
+    /**
+     * Meta Keywords
+     */
+    $cnt1['skin']['meta']['keywords'] = $cfg2['Language']['MetaKeywords'] ? $cfg2['Language']['MetaKeywords'] : _APP_NAME;
+    /**
+     * Meta Copyright
+     */
+    $cnt1['skin']['meta']['copyright'] = $cfg2['Language']['MetaCopyright'] ? $cfg2['Language']['MetaCopyright'] : _APP_AUTH;
+    /**
+     * Meta Designer
+     */
+    $cnt1['skin']['meta']['designer'] = $cfg2['Language']['MetaDesigner'] ? $cfg2['Language']['MetaDesigner'] : _APP_AUTH;
+    /**
+     * Meta Publisher
+     */
+    $cnt1['skin']['meta']['publisher'] = $cfg2['Language']['MetaPublisher'] ? $cfg2['Language']['MetaPublisher'] : _APP_AUTH;
+    /**
+     * Meta Author
+     */
+    $cnt1['skin']['meta']['author'] = $cfg2['Language']['MetaAuthor'] ? $cfg2['Language']['MetaAuthor'] : _APP_AUTH;
+    /**
+     * Initialize actual content
+     */
+    $cnt1['cnt'] = array();
+    /**
+     * Initialize content id
+     */
+    $cnt1['id'] = 0;
+    /**
+     * Page content
+     */
+    $cnt2 = $appCore->appProcess();
+    /**
+     * Merge content data
+     */
+    $cnt = array_merge($cnt1, $cnt2);
+    $cnt['skin'] = array_merge($cnt1['skin'], $cnt2['skin']);
+    $cnt['cnt'] = array_merge($cnt1['cnt'], $cnt2['cnt']);
+    /**
+     * Global additional templates
+     */
+    $atpl = array();
+    /**
+     * If normal content, set it,
+     * and also set additional templates
+     */
+    if($cnt['type'] == 'text')
+    {
+        /**
+         * Menu
+         */
+        $atpl['menu'] = array();
+        $atpl['menu']['dir'] = '';
+        $atpl['menu']['tpl'] = 'menu';
+        $atpl['menu']['vars'] = array();
+        $atpl['menu']['vars']['lang'] = $appCore->rwLang();
+        $atpl['menu']['vars']['langAdm'] = $appCore->rwLangAdm();
+        /**
+         * Dynamic content menu
+         */
+        $atpl['menu']['vars']['cntMenu'] = NULL;
+        if(array_key_exists('cntMenu', $appCore->ext))
+        {
+            /**
+             * If extension is present, attempt to load dynamic menu
+             */
+            $cntMenuObj = $appCore->rwActivateExt('cntMenu');
+            $atpl['menu']['vars']['cntMenu'] = $cntMenuObj->makeCntMenu($cnt['id']);
+        }
+        /**
+         * Actual content
+         */
+        $atpl['content'] = array();
+        /**
+         * Check for multiple content items
+         */
+        if(array_key_exists(0, $cnt['cnt']))
+        {
+            foreach($cnt['cnt'] as $index=>$data)
+            {
+                if($appCore->rwCheckInt($index))
+                {
+                    /**
+                     * Multiple content items
+                     */
+                    $atpl['content'][$index] = array();
+                    $atpl['content'][$index]['dir'] = $cnt['cnt'][$index]['dir'];
+                    $atpl['content'][$index]['tpl'] = $cnt['cnt'][$index]['tpl'];
+                    $atpl['content'][$index]['vars']['cnt'] = $cnt['cnt'][$index]['content'];
+                    $atpl['content'][$index]['vars']['lang'] = $appCore->rwLang();
+                    $atpl['content'][$index]['vars']['langAdm'] = $appCore->rwLangAdm();
+                    $atpl['content'][$index]['vars']['usr_status'] = $appCore->rwUsrStatus();
+                }
+            }
+        }
+        else
+        {
+            /**
+             * Only one content item
+             */
+            $atpl['content'][0] = array();
+            $atpl['content'][0]['dir'] = $cnt['cnt']['dir'];
+            $atpl['content'][0]['tpl'] = $cnt['cnt']['tpl'];
+            $atpl['content'][0]['vars']['cnt'] = $cnt['cnt']['content'];
+            $atpl['content'][0]['vars']['lang'] = $appCore->rwLang();
+            $atpl['content'][0]['vars']['langAdm'] = $appCore->rwLangAdm();
+            $atpl['content'][0]['vars']['usr_status'] = $appCore->rwUsrStatus();
+        }
+        /**
+         * Footer
+         */
+        $atpl['footer'] = array();
+        $atpl['footer']['dir'] = '';
+        $atpl['footer']['tpl'] = 'footer';
+        $atpl['footer']['vars'] = array();
+        $atpl['footer']['vars']['lang'] = $appCore->rwLang();
+        $atpl['footer']['vars']['langAdm'] = $appCore->rwLangAdm();
+        /**
+         * Load custom configuration
+         */
+        if(is_readable(_APP_DIR.'cfg/atpl.inc.php'))
+        {
+            require_once(_APP_DIR.'cfg/atpl.inc.php');
+        }
+        /**
+         * Override additional templates
+         */
+        if(array_key_exists('atpl', $cnt))
+        {
+            $a_tpl = array('menu', 'content', 'footer');
+            foreach($a_tpl as $name=>$value)
+            {
+                if(array_key_exists($value, $cnt['atpl']))
+                {
+                    $atpl[$value] = array();
+                    $atpl[$value] = $cnt['atpl'][$value];
+                }
+            }
+        }
+    }
 }
 catch (Exception $e)
 {
-	echo $appCore->rwErr($e);
-	exit;
+    echo $appCore->rwErr($e);
+    exit;
 }
 ?>

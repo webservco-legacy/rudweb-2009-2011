@@ -45,22 +45,22 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 function _selfRedirect($add=NULL, $remove=NULL)
 {
-	$add = ($add != NULL) ? '/'.$add : '';
-	if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
-	{
-		$redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].$add;
-	}
-	else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
-	{
-		$redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'].$add;
-	}
-	else
-	{
-		$redirect = _APP_URL;
-	}
-	$redirect = ($remove != NULL) ? substr($redirect, 0, strlen($redirect)-(strlen(strstr($redirect,$remove))+1)) : $redirect;
-	$redirect .= $add;
-	header("Location: ".$redirect);
-	exit;
+    $add = ($add != NULL) ? '/'.$add : '';
+    if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != '')
+    {
+        $redirect = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].$add;
+    }
+    else if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != '')
+    {
+        $redirect = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'].$add;
+    }
+    else
+    {
+        $redirect = _APP_URL;
+    }
+    $redirect = ($remove != NULL) ? substr($redirect, 0, strlen($redirect)-(strlen(strstr($redirect,$remove))+1)) : $redirect;
+    $redirect .= $add;
+    header("Location: ".$redirect);
+    exit;
 }
 ?>

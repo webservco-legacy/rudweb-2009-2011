@@ -44,257 +44,257 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
 
 class rw_Ext_Thumb extends rw_Ext_global implements rw_iExt
 {
-	/**
-	 * Cache directory for thumbnails
-	 *
-	 * @var string
-	 */
-	public $cacheDir;
-	/**
-	 * Maximum thumbnail size (width or height)
-	 *
-	 * @var integer;
-	 */
-	public $maxSize = '80';
-	/**
-	 * Thumbnail image format
-	 *
-	 * 3 - png
-	 * 2 - jpg
-	 * 1 - gif
-	 *
-	 * @var integer
-	 */
-	public $thumbFormat = 3;
-	/**
-	 * Thumbnail file name suffix
-	 *
-	 * @var string
-	 */
-	public $thumbSuffix = NULL;
-	/**
-	 * Use file extension for thumbnail file
-	 *
-	 * @var boolean
-	 */
-	public $thumbUseExt = FALSE;
-	/**
-	 * File extension for thumbnail file
-	 *
-	 * @var string
-	 */
-	public $thumbExt = NULL;
-	/**
-	 * Constructor
-	 * Set extension information and call parent constructor
-	 *
-	 */
-	function __construct($appCore)
-	{
-		/**
-		 * Extension info
-		 */
-		$about['name'] = 'Thumb';
-		$about['desc'] = 'Create image thumbnails.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg'] = array();
-		$about['deps']['ext'] = array();
-		parent::__construct($about, $appCore);
-	}
-	/**
-	 * Main extension functionality
-	 *
-	 * @return mixed result
-	 */
-	function thumb($img=NULL)
-	{
-		/**
-		 * No image specified
-		 */
-		if($img == NULL) {trigger_error('Image file not specified', E_USER_ERROR); exit;}
-		/**
-		 * File not found
-		 */
-		else if(!is_file($img)) {trigger_error('Image file not found', E_USER_ERROR); exit;}
-		/**
-		 * Set new image name
-		 */
-		$newimage_name= md5_file($img).$this->thumbSuffix;
-		/**
-		 * Set new image full path
-		 */
-		$this->thumbExt = $this->thumbUseExt ? image_type_to_extension($this->thumbFormat, TRUE) : NULL;
-		$cached = $this->cacheDir.$newimage_name.$this->thumbExt;
-		/**
-		 * If thumbnail doesn't already exist, attempt to create it.
-		 */
-		if(!is_readable($cached)) {
-			/**
-			 * Start output buffering
-			 */
-			ob_start();
-			/**
-			 * Get original image info
-			 */
-			list($old_width, $old_height, $old_type) = getimagesize($img);
-			/**
-			 * Create raw image from original source
-			 */
-			switch ($old_type) {
-				case "1": {$new_image = imagecreatefromgif($img) ; break;}
-				case "2": {$new_image = imagecreatefromjpeg($img); break;}
-				case "3": {$new_image = imagecreatefrompng($img); break;}
-				default: {trigger_error('Image type not supported', E_USER_ERROR); break;}
-			}
-			/**
-			 * Resize functionality
-			 */
-			if ($old_width > $old_height) {
-				/**
-				 * Landscape image
-				 */
-				$new_width  = $this->maxSize;
-				$new_height = ($old_height * $this->maxSize) / $old_width;
-			}
-			else if ($old_width < $old_height) {
-				/**
-				 * Portrait image
-				 */
-				$new_width  = ($old_width * $this->maxSize) / $old_height;
-				$new_height = $this->maxSize;
-			}
-			else if ($old_width == $old_height) {
-				/**
-				 * Square image
-				 */
-				$new_width  = $this->maxSize;
-				$new_height = $this->maxSize;
-			}
-			/**
-			 * Create a new blank image with the new dimensions
-			 */
-			$newsizeimage = imagecreatetruecolor($new_width, $new_height);
-			/**
-			 * Copy raw image to new resized one
-			 */
-			imagecopyresampled($newsizeimage, $new_image, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
-			/**
-			 * Output image.
-			 * We're not really outputting it as we are in a buffer.
-			 * If you want to output it, remove the buffer lines and put this on the next line:
-			 * header("Content-type: image/jpeg");
-			 */
-			switch($this->thumbFormat)
-			{
-				case 3  :
-					{
-						/**
-						 * Create PNG image with best compression
-						 */
-						imagepng($newsizeimage, NULL, 9); break;
-					}
-				case 2  :
-					{
-						/**
-						 * Create JPEG image with best quality
-						 */
-						imagejpeg($newsizeimage, NULL, 100); break;
-					}
-				case 1  :
-					{
-						/**
-						 * Create GIF
-						 */
-						imagegif($newsizeimage); break;
-					}
-				default :
-					{
-						/**
-						 * Create PNG image with best compression
-						 */
-						imagepng($newsizeimage, NULL, 9); break;
-					}
-			}
-			/**
-			 * Capture output to string
-			 */
-			$image = ob_get_contents();
-			/**
-			 * End capture
-			 */
-			ob_end_clean();
-			/**
-			 * Remove created image from memory (we still have it in the $image string)
-			 */
-			imagedestroy($newsizeimage);
-			/**
-			 * Create new thumbnail file, write the image from the string, and close the file.
-			 * "w" = open for writing only, place the file pointer at the beginning of the file, truncate the file to zero length,
-			 * try to create the file if not exist.
-			 * "b" = force binary mode
-			 */
-			$fh = fopen($cached, "wb");
-			fwrite($fh, $image);
-			fclose($fh);
-		}
-		/**
-		 * If everything is ok, return the thumbnail name.
-		 */
-		return $newimage_name;
-	}
-	/**
-	 * Set cache directory
-	 *
-	 * @param string $cacheDir directory path
-	 * @return mixed result
-	 */
-	public function set_cacheDir($cacheDir)
-	{
-		$this->cacheDir = $cacheDir;
-	}
-	/**
-	 * Set max thumbnail size
-	 *
-	 * @param integer $maxSize maximum image size
-	 * @return mixed result
-	 */
-	public function set_maxSize($maxSize)
-	{
-		$this->maxSize = $maxSize;
-	}
-	/**
-	 * Set output file type
-	 *
-	 * @param integer $thumbFormat image format
-	 * @return mixed result
-	 */
-	public function set_thumbFormat($thumbFormat)
-	{
-		$this->thumbFormat = $thumbFormat;
-	}
-	/**
-	 * Set thumbnail file name suffix
-	 *
-	 * @param string $thumbSuffix suffix
-	 */
-	public function set_thumbSuffix($thumbSuffix)
-	{
-		$this->thumbSuffix = $thumbSuffix;
-	}
-	/**
-	 * Set wether or not to use
-	 * an extension to the thumbnail
-	 * file name
-	 *
-	 * @param unknown_type $thumbUseExt
-	 */
-	public function set_thumbUseExt($thumbUseExt)
-	{
-		$this->thumbUseExt = $thumbUseExt;
-	}
+    /**
+     * Cache directory for thumbnails
+     *
+     * @var string
+     */
+    public $cacheDir;
+    /**
+     * Maximum thumbnail size (width or height)
+     *
+     * @var integer;
+     */
+    public $maxSize = '80';
+    /**
+     * Thumbnail image format
+     *
+     * 3 - png
+     * 2 - jpg
+     * 1 - gif
+     *
+     * @var integer
+     */
+    public $thumbFormat = 3;
+    /**
+     * Thumbnail file name suffix
+     *
+     * @var string
+     */
+    public $thumbSuffix = NULL;
+    /**
+     * Use file extension for thumbnail file
+     *
+     * @var boolean
+     */
+    public $thumbUseExt = FALSE;
+    /**
+     * File extension for thumbnail file
+     *
+     * @var string
+     */
+    public $thumbExt = NULL;
+    /**
+     * Constructor
+     * Set extension information and call parent constructor
+     *
+     */
+    function __construct($appCore)
+    {
+        /**
+         * Extension info
+         */
+        $about['name'] = 'Thumb';
+        $about['desc'] = 'Create image thumbnails.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg'] = array();
+        $about['deps']['ext'] = array();
+        parent::__construct($about, $appCore);
+    }
+    /**
+     * Main extension functionality
+     *
+     * @return mixed result
+     */
+    function thumb($img=NULL)
+    {
+        /**
+         * No image specified
+         */
+        if($img == NULL) {trigger_error('Image file not specified', E_USER_ERROR); exit;}
+        /**
+         * File not found
+         */
+        else if(!is_file($img)) {trigger_error('Image file not found', E_USER_ERROR); exit;}
+        /**
+         * Set new image name
+         */
+        $newimage_name= md5_file($img).$this->thumbSuffix;
+        /**
+         * Set new image full path
+         */
+        $this->thumbExt = $this->thumbUseExt ? image_type_to_extension($this->thumbFormat, TRUE) : NULL;
+        $cached = $this->cacheDir.$newimage_name.$this->thumbExt;
+        /**
+         * If thumbnail doesn't already exist, attempt to create it.
+         */
+        if(!is_readable($cached)) {
+            /**
+             * Start output buffering
+             */
+            ob_start();
+            /**
+             * Get original image info
+             */
+            list($old_width, $old_height, $old_type) = getimagesize($img);
+            /**
+             * Create raw image from original source
+             */
+            switch ($old_type) {
+                case "1": {$new_image = imagecreatefromgif($img) ; break;}
+                case "2": {$new_image = imagecreatefromjpeg($img); break;}
+                case "3": {$new_image = imagecreatefrompng($img); break;}
+                default: {trigger_error('Image type not supported', E_USER_ERROR); break;}
+            }
+            /**
+             * Resize functionality
+             */
+            if ($old_width > $old_height) {
+                /**
+                 * Landscape image
+                 */
+                $new_width  = $this->maxSize;
+                $new_height = ($old_height * $this->maxSize) / $old_width;
+            }
+            else if ($old_width < $old_height) {
+                /**
+                 * Portrait image
+                 */
+                $new_width  = ($old_width * $this->maxSize) / $old_height;
+                $new_height = $this->maxSize;
+            }
+            else if ($old_width == $old_height) {
+                /**
+                 * Square image
+                 */
+                $new_width  = $this->maxSize;
+                $new_height = $this->maxSize;
+            }
+            /**
+             * Create a new blank image with the new dimensions
+             */
+            $newsizeimage = imagecreatetruecolor($new_width, $new_height);
+            /**
+             * Copy raw image to new resized one
+             */
+            imagecopyresampled($newsizeimage, $new_image, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
+            /**
+             * Output image.
+             * We're not really outputting it as we are in a buffer.
+             * If you want to output it, remove the buffer lines and put this on the next line:
+             * header("Content-type: image/jpeg");
+             */
+            switch($this->thumbFormat)
+            {
+                case 3  :
+                    {
+                        /**
+                         * Create PNG image with best compression
+                         */
+                        imagepng($newsizeimage, NULL, 9); break;
+                    }
+                case 2  :
+                    {
+                        /**
+                         * Create JPEG image with best quality
+                         */
+                        imagejpeg($newsizeimage, NULL, 100); break;
+                    }
+                case 1  :
+                    {
+                        /**
+                         * Create GIF
+                         */
+                        imagegif($newsizeimage); break;
+                    }
+                default :
+                    {
+                        /**
+                         * Create PNG image with best compression
+                         */
+                        imagepng($newsizeimage, NULL, 9); break;
+                    }
+            }
+            /**
+             * Capture output to string
+             */
+            $image = ob_get_contents();
+            /**
+             * End capture
+             */
+            ob_end_clean();
+            /**
+             * Remove created image from memory (we still have it in the $image string)
+             */
+            imagedestroy($newsizeimage);
+            /**
+             * Create new thumbnail file, write the image from the string, and close the file.
+             * "w" = open for writing only, place the file pointer at the beginning of the file, truncate the file to zero length,
+             * try to create the file if not exist.
+             * "b" = force binary mode
+             */
+            $fh = fopen($cached, "wb");
+            fwrite($fh, $image);
+            fclose($fh);
+        }
+        /**
+         * If everything is ok, return the thumbnail name.
+         */
+        return $newimage_name;
+    }
+    /**
+     * Set cache directory
+     *
+     * @param string $cacheDir directory path
+     * @return mixed result
+     */
+    public function set_cacheDir($cacheDir)
+    {
+        $this->cacheDir = $cacheDir;
+    }
+    /**
+     * Set max thumbnail size
+     *
+     * @param integer $maxSize maximum image size
+     * @return mixed result
+     */
+    public function set_maxSize($maxSize)
+    {
+        $this->maxSize = $maxSize;
+    }
+    /**
+     * Set output file type
+     *
+     * @param integer $thumbFormat image format
+     * @return mixed result
+     */
+    public function set_thumbFormat($thumbFormat)
+    {
+        $this->thumbFormat = $thumbFormat;
+    }
+    /**
+     * Set thumbnail file name suffix
+     *
+     * @param string $thumbSuffix suffix
+     */
+    public function set_thumbSuffix($thumbSuffix)
+    {
+        $this->thumbSuffix = $thumbSuffix;
+    }
+    /**
+     * Set wether or not to use
+     * an extension to the thumbnail
+     * file name
+     *
+     * @param unknown_type $thumbUseExt
+     */
+    public function set_thumbUseExt($thumbUseExt)
+    {
+        $this->thumbUseExt = $thumbUseExt;
+    }
 }
 ?>
