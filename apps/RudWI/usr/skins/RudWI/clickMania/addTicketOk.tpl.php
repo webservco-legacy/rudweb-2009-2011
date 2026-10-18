@@ -28,30 +28,30 @@
  */
 ?>
 
-		<div id="win_ticket_add" class="win">
-			<div class="win_top">
-				<div class="win_tt">
-					<h1><?php echo $lang['ADD']; ?></h1>
-					<div class="btn_cls"></div>
-					<!--<div class="btn_max"></div>-->
-					<!--<div class="btn_min"></div>-->
-					<!--<div class="btn_mov"></div>-->
-				</div>
-			</div>
-			
-			<div class="win_mid">
-				<div class="win_ct_pre">
-					<div class="win_ct">
-						<?php echo $lang['ADD_OK']; ?>
-					</div>
-				</div>
-			</div>
-			
-			<div class="win_bot">
-				<div class="win_st_pre">
-					<div class="win_st">
-					</div>
-				</div>
-				<div class="btn_res"></div>
-			</div>
-		</div>
+        <div id="win_ticket_add" class="win">
+            <div class="win_top">
+                <div class="win_tt">
+                    <h1><?php echo $lang['ADD']; ?></h1>
+                    <div class="btn_cls"></div>
+                    <!--<div class="btn_max"></div>-->
+                    <!--<div class="btn_min"></div>-->
+                    <!--<div class="btn_mov"></div>-->
+                </div>
+            </div>
+            
+            <div class="win_mid">
+                <div class="win_ct_pre">
+                    <div class="win_ct">
+                        <?php echo $lang['ADD_OK']; ?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="win_bot">
+                <div class="win_st_pre">
+                    <div class="win_st">
+                    </div>
+                </div>
+                <div class="btn_res"></div>
+            </div>
+        </div>

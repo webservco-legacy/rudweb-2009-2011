@@ -28,4 +28,4 @@
  */
 ?>
 <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jQuery/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/icons.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/icons.js"></script>

@@ -31,21 +31,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>" lang="<?php echo $_SESSION[_APP_PRE.'_usr']['ln']?>">
 <head>
-	<?php echo $header; ?>
+    <?php echo $header; ?>
 </head>
 <body>
-	<div id="interface">
-		<div id="taskbar">
-			<div id="start">
-				<?php echo $menu; ?>
-			</div>
-		</div>
-		
-		<div id="reload" class="icon">
-			<div class="name">Reload</div>
-		</div>
-		<?php echo $content; ?>
-	</div>
-	<?php echo $footer; ?>
+    <div id="interface">
+        <div id="taskbar">
+            <div id="start">
+                <?php echo $menu; ?>
+            </div>
+        </div>
+        
+        <div id="reload" class="icon">
+            <div class="name">Reload</div>
+        </div>
+        <?php echo $content; ?>
+    </div>
+    <?php echo $footer; ?>
 </body>
 </html>

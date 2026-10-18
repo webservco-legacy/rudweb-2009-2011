@@ -37,20 +37,20 @@ define('_RW_VALID', TRUE);
  */
 if(is_readable('./sys/app.inc.php'))
 {
-	/**
-	 * Load controller
-	 */
-	require_once('./sys/app.inc.php');
+    /**
+     * Load controller
+     */
+    require_once('./sys/app.inc.php');
 }
 else
 {
-	/**
-	 * Display "Not Found" page
-	 */
-	require_once('./var/err/404.php');
-	/**
-	 * Stop script execution
-	 */
-	exit;
+    /**
+     * Display "Not Found" page
+     */
+    require_once('./var/err/404.php');
+    /**
+     * Stop script execution
+     */
+    exit;
 }
 ?>

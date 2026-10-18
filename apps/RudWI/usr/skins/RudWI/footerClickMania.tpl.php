@@ -27,14 +27,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 ?>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jQuery/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jquery.windows-engine.rud.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/queryLoader/queryLoader.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/windows.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/menu.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/icons.js"></script>
-	<script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/clickMania.js"></script>
-	<script type="text/javascript" language="JavaScript">
-		//QueryLoader.selectorPreload = "#interface";
-		//QueryLoader.init();
-	</script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jQuery/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/jquery.windows-engine.rud.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/queryLoader/queryLoader.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/windows.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/menu.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/icons.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo _APP_USR_WWW; ?>scripts/clickMania.js"></script>
+    <script type="text/javascript" language="JavaScript">
+        //QueryLoader.selectorPreload = "#interface";
+        //QueryLoader.init();
+    </script>

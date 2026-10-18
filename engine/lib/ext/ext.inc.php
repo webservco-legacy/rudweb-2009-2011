@@ -32,14 +32,14 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Display "Not Found" page.
+     */
+    require_once('./var/err/404.php');
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -52,9 +52,9 @@ if (!defined('_RW_VALID'))
  */
 interface rw_iExtension
 {
-	/**
-	 *
-	 */
+    /**
+     *
+     */
 }
 
 /**
@@ -67,140 +67,140 @@ interface rw_iExtension
  */
 class rw_Extension
 {
-	/**
-	 * Extension information.
-	 *
-	 * @var array $extAbout
-	 */
-	protected $extAbout = array();
+    /**
+     * Extension information.
+     *
+     * @var array $extAbout
+     */
+    protected $extAbout = array();
 
-	/**
-	 * Constructor.
-	 *
-	 * Sets extension information.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Set extension information.
-		 */
-		$this->extAbout = $extAbout;
-	}
+    /**
+     * Constructor.
+     *
+     * Sets extension information.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Set extension information.
+         */
+        $this->extAbout = $extAbout;
+    }
 
-	/**
-	 * Get extension information.
-	 *
-	 * Returns an information field if specified.
-	 * The whole list otherwise.
-	 *
-	 * @param string $field field to return
-	 * @return array extension information
-	 */
-	protected function extAbout($field=NULL)
-	{
-		/**
-		 * Return only a field if specified and valid, or the whole list.
-		 */
-		return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
-	}
+    /**
+     * Get extension information.
+     *
+     * Returns an information field if specified.
+     * The whole list otherwise.
+     *
+     * @param string $field field to return
+     * @return array extension information
+     */
+    protected function extAbout($field=NULL)
+    {
+        /**
+         * Return only a field if specified and valid, or the whole list.
+         */
+        return ($field && array_key_exists($field, $this->extAbout)) ? $this->extAbout[$field] : $this->extAbout;
+    }
 
-	/**
-	 * Set object value.
-	 *
-	 * Object is passed by reference.
-	 *
-	 * @param string $p object name
-	 * @param mixed $value object
-	 * @return mixed result
-	 */
-	public function setObj($p, &$obj)
-	{
-		/**
-		 * Check if the requested property exists.
-		 */
-		if(property_exists($this, $p))
-		{
-			/**
-			 * Set the object.
-			 */
-			$this->$p = $obj;
-		}
-		/**
-		 * Requested property doesn't exist.
-		 */
-		else
-		{
-			/**
-			 * Display error message.
-			 */
-			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set object value.
+     *
+     * Object is passed by reference.
+     *
+     * @param string $p object name
+     * @param mixed $value object
+     * @return mixed result
+     */
+    public function setObj($p, &$obj)
+    {
+        /**
+         * Check if the requested property exists.
+         */
+        if(property_exists($this, $p))
+        {
+            /**
+             * Set the object.
+             */
+            $this->$p = $obj;
+        }
+        /**
+         * Requested property doesn't exist.
+         */
+        else
+        {
+            /**
+             * Display error message.
+             */
+            trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * Set property value.
-	 *
-	 * @param string $p property name
-	 * @param mixed $value property value
-	 * @return mixed result
-	 */
-	public function setValue($p, $value)
-	{
-		/**
-		 * Check if the requested property exists.
-		 */
-		if(property_exists($this, $p))
-		{
-			/**
-			 * Set property value.
-			 */
-			$this->$p = $value;
-		}
-		/**
-		 * Requested property doesn't exist.
-		 */
-		else
-		{
-			/**
-			 * Display error message.
-			 */
-			trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set property value.
+     *
+     * @param string $p property name
+     * @param mixed $value property value
+     * @return mixed result
+     */
+    public function setValue($p, $value)
+    {
+        /**
+         * Check if the requested property exists.
+         */
+        if(property_exists($this, $p))
+        {
+            /**
+             * Set property value.
+             */
+            $this->$p = $value;
+        }
+        /**
+         * Requested property doesn't exist.
+         */
+        else
+        {
+            /**
+             * Display error message.
+             */
+            trigger_error('Extension::Ilegal Action. Tried to set a property that does not exist or is not accessible.', 256);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 
-	/**
-	 * Set multiple property values.
-	 *
-	 * @param array $v property/values array
-	 * @return mixd result
-	 */
-	public function setValues($v)
-	{
-		/**
-		 * Parse each request.
-		 */
-		foreach($v as $p=>$value)
-		{
-			/**
-			 * Set property value.
-			 */
-			$this->setvalue($p, $value);
-		}
-		/**
-		 * Return result.
-		 */
-		return TRUE;
-	}
+    /**
+     * Set multiple property values.
+     *
+     * @param array $v property/values array
+     * @return mixd result
+     */
+    public function setValues($v)
+    {
+        /**
+         * Parse each request.
+         */
+        foreach($v as $p=>$value)
+        {
+            /**
+             * Set property value.
+             */
+            $this->setvalue($p, $value);
+        }
+        /**
+         * Return result.
+         */
+        return TRUE;
+    }
 }
 ?>

@@ -25,23 +25,23 @@
  */
  
 .QOverlay {
-	/*background-color: #000000;*/
-	z-index: 9999;
-	
-	filter:alpha(opacity=50);
-	-moz-opacity:0.5;
-	-khtml-opacity: 0.5;
-	opacity: 0.5;
-	
-	/*background: transparent;*/
-	/*
-	background-image: url(../trans.png);
-	background-repeat: repeat;
-	*/
+    /*background-color: #000000;*/
+    z-index: 9999;
+    
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    
+    /*background: transparent;*/
+    /*
+    background-image: url(../trans.png);
+    background-repeat: repeat;
+    */
 
 }
 
 .QLoader {
-	background-color: #006666;
-	height: 1px;
+    background-color: #006666;
+    height: 1px;
 }

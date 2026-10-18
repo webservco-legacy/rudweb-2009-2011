@@ -28,43 +28,43 @@
  */
 ?>
 
-		<div id="win_ticket_add" class="win">
-			<div class="win_top">
-				<div class="win_tt">
-					<h1><?php echo $lang['LIST']; ?> - <?php echo $lang['WEEK']; ?> <?php echo $week; ?></h1>
-					<div class="btn_cls"></div>
-					<!--<div class="btn_max"></div>-->
-					<!--<div class="btn_min"></div>-->
-					<!--<div class="btn_mov"></div>-->
-				</div>
-			</div>
-			
-			<div class="win_mid">
-				<div class="win_ct_pre">
-					<div class="win_ct">
-						<br />
-						<?php 
-						if (count($ticket) > 0)
-						{
-							foreach ($ticket as $t)
-							{
-								echo $t;
-							}
-						}
-						else
-						{
-							echo $lang['NOT'];	
-						}
-						?>
-					</div>
-				</div>
-			</div>
-			
-			<div class="win_bot">
-				<div class="win_st_pre">
-					<div class="win_st">
-					</div>
-				</div>
-				<div class="btn_res"></div>
-			</div>
-		</div>
+        <div id="win_ticket_add" class="win">
+            <div class="win_top">
+                <div class="win_tt">
+                    <h1><?php echo $lang['LIST']; ?> - <?php echo $lang['WEEK']; ?> <?php echo $week; ?></h1>
+                    <div class="btn_cls"></div>
+                    <!--<div class="btn_max"></div>-->
+                    <!--<div class="btn_min"></div>-->
+                    <!--<div class="btn_mov"></div>-->
+                </div>
+            </div>
+            
+            <div class="win_mid">
+                <div class="win_ct_pre">
+                    <div class="win_ct">
+                        <br />
+                        <?php 
+                        if (count($ticket) > 0)
+                        {
+                            foreach ($ticket as $t)
+                            {
+                                echo $t;
+                            }
+                        }
+                        else
+                        {
+                            echo $lang['NOT'];	
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="win_bot">
+                <div class="win_st_pre">
+                    <div class="win_st">
+                    </div>
+                </div>
+                <div class="btn_res"></div>
+            </div>
+        </div>

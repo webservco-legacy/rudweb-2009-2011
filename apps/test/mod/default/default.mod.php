@@ -33,14 +33,14 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Display "Not Found" page.
+     */
+    require_once('./var/err/404.php');
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -94,33 +94,33 @@ $modAbout['default']['deps']['mod'] = array();
  */
 class rw_Module_default extends rw_Module implements rw_iModule
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param array $modAbout module information
-	 * @param mixed $rwCore core engine object
-	 * @param mixed $modLocation module location
-	 * @param mixed $modRequest module request query
-	 * @return mixed result
-	 */
-	public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
-	{
-		/**
-		 * Call parent constructor.
-		 */
-		parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $modAbout module information
+     * @param mixed $rwCore core engine object
+     * @param mixed $modLocation module location
+     * @param mixed $modRequest module request query
+     * @return mixed result
+     */
+    public function __construct($modAbout, $rwCore, $modLocation, $modRequest)
+    {
+        /**
+         * Call parent constructor.
+         */
+        parent::__construct($modAbout, $rwCore, $modLocation, $modRequest);
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see rudweb/lib/mod/rw_iModule#index()
-	 */
-	public function index()
-	{
-		/**
-		 * Test direct output.
-		 */
-		echo 'Hello World!';
-	}
+    /**
+     * (non-PHPdoc)
+     * @see rudweb/lib/mod/rw_iModule#index()
+     */
+    public function index()
+    {
+        /**
+         * Test direct output.
+         */
+        echo 'Hello World!';
+    }
 }
 ?>

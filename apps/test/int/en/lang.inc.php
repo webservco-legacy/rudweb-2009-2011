@@ -32,14 +32,14 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Display "Not Found" page.
+     */
+    require_once('./var/err/404.php');
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 $langApp['SOME_STUFF'] = 'Some Application Stuff.';

@@ -26,35 +26,35 @@
  
 /* ********** ********** ********** ********** ********** ICONS START ********** ********** ********** ********** ********** */
 #interface div.icon{
-	min-width: 32px;
-	min-height: 32px;
-	padding: 0px 14px 8px;
-	border: 1px solid transparent;
-	margin: 0pt auto;
-	text-align: left;
-	position: absolute;
-	display: none;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0px 14px 8px;
+    border: 1px solid transparent;
+    margin: 0pt auto;
+    text-align: left;
+    position: absolute;
+    display: none;
 }
 #interface div.icon:hover{
-	background-color: #ccc !Important;
-	border: 1px solid #3b567e;
+    background-color: #ccc !Important;
+    border: 1px solid #3b567e;
 }
 #interface div.icon.active{
-	background-color: #0a2c5e !Important;
-	border: 1px solid #3b567e;
+    background-color: #0a2c5e !Important;
+    border: 1px solid #3b567e;
 }
 #interface div.icon div.name{
-	margin-top: 38px;
-	text-align: center;
-	font-size: 90%;
-	color: #fff;
+    margin-top: 38px;
+    text-align: center;
+    font-size: 90%;
+    color: #fff;
 }
 
 #interface #reload{
-	background: transparent url(../images/ico_int/reload.png) no-repeat scroll center 4px;
-	/*
-	top: 32px;
-	left: 32px;
-	*/
+    background: transparent url(../images/ico_int/reload.png) no-repeat scroll center 4px;
+    /*
+    top: 32px;
+    left: 32px;
+    */
 }
 /* ********** ********** ********** ********** ********** ICONS END ********** ********** ********** ********** ********** */

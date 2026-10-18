@@ -25,11 +25,11 @@
  */
  
 body {
-	behavior: url('./styles/csshover3.htc');
+    behavior: url('./styles/csshover3.htc');
 }
 
 /*
 img, div {
-	behavior: url('./styles/iepngfix.htc');
+    behavior: url('./styles/iepngfix.htc');
 }
 */

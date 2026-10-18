@@ -58,320 +58,320 @@ $.fn.newWindow = function(options){
 
     var defaults = {
         windowTitle : "",
-		content: "",
-		ajaxURL: "",
+        content: "",
+        ajaxURL: "",
         width : 200,
         height : 200,
         posx : 50,
         posy : 50,
-		onDragBegin: null,
-		onDragEnd: null,
-		onResizeBegin: null,
-		onResizeEnd: null,
-		onAjaxContentLoaded: null,
+        onDragBegin: null,
+        onDragEnd: null,
+        onResizeBegin: null,
+        onResizeEnd: null,
+        onAjaxContentLoaded: null,
         statusBar: true,
-		moveButton: true,
-		moveIcon: "",
-		minimizeButton: true,
-		minimizeIcon: "",
-		maximizeButton: true,
-		maximizeIcon: "",
-		closeButton: true,
-		closeIcon: '',
-		draggable: true,
-		resizeable: true,
-		resizeIcon: "",
-		windowType: "standard"
+        moveButton: true,
+        moveIcon: "",
+        minimizeButton: true,
+        minimizeIcon: "",
+        maximizeButton: true,
+        maximizeIcon: "",
+        closeButton: true,
+        closeIcon: '',
+        draggable: true,
+        resizeable: true,
+        resizeIcon: "",
+        windowType: "standard"
     };
   
     var options = $.extend(defaults, options);
     
     $windowContainer = $('<div class="win"></div>');
-	$windowTop = $('<div class="win_top"></div>');
+    $windowTop = $('<div class="win_top"></div>');
     $windowTitleBar = $('<div class="win_tt"></div>');        
     $windowTitleHTML = $('<h1></h1>');        
     $windowMinimizeButton = $('<div class="btn_min"></div>');
-	$windowMaximizeButton = $('<div class="btn_max"></div>');
-	$windowMoveButton = $('<div class="btn_mov"></div>');
-	$windowCloseButton = $('<div class="btn_cls"></div>');
-	$windowContent = $('<div class="win_mid"><div class="win_ct_pre"><div class="win_ct">&#160;</div></div></div>');
-	$windowStatusBar = $('<div class="win_bot"><div class="win_st_pre"><div class="win_st">&#160;</div></div></div>');
-	$windowResizeIcon = $('<div class="btn_res"></div>');
-	
-	if(options.windowType=="video" || options.windowType=="iframe")
-	  $windowContent.css("overflow","hidden");
-	
-	var setFocus = function($obj){
-	    $obj.css("z-index",jqWindowsEngineZIndex++);
-	}
-	
-	var resize = function($obj, width, height){
-	    
-		width = parseInt(width);
-		height = parseInt(height);
-		
-		$obj.attr("lastWidth",width)
-		    .attr("lastHeight",height);
-		
-		cheight = height-42;
-		width = width+"px";
-		height = height+"px";
-		cheight = cheight+"px";
-		
-		$obj.css("width", width)
-	        .css("height", height);
-		$obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").css("height", cheight); /*XXX*/
-		
-		if(options.windowType=="video"){
-		  $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("embed").css("width", width)
-	               .css("height", height);
-		  $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("object").css("width", width)
-	               .css("height", height);
-		  $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children().children("embed").css("width", width)
-	               .css("height", height);
-		  $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children().children("object").css("width", width)
-	               .css("height", height);
-		}
-		
+    $windowMaximizeButton = $('<div class="btn_max"></div>');
+    $windowMoveButton = $('<div class="btn_mov"></div>');
+    $windowCloseButton = $('<div class="btn_cls"></div>');
+    $windowContent = $('<div class="win_mid"><div class="win_ct_pre"><div class="win_ct">&#160;</div></div></div>');
+    $windowStatusBar = $('<div class="win_bot"><div class="win_st_pre"><div class="win_st">&#160;</div></div></div>');
+    $windowResizeIcon = $('<div class="btn_res"></div>');
+    
+    if(options.windowType=="video" || options.windowType=="iframe")
+      $windowContent.css("overflow","hidden");
+    
+    var setFocus = function($obj){
+        $obj.css("z-index",jqWindowsEngineZIndex++);
+    }
+    
+    var resize = function($obj, width, height){
+        
+        width = parseInt(width);
+        height = parseInt(height);
+        
+        $obj.attr("lastWidth",width)
+            .attr("lastHeight",height);
+        
+        cheight = height-42;
+        width = width+"px";
+        height = height+"px";
+        cheight = cheight+"px";
+        
+        $obj.css("width", width)
+            .css("height", height);
+        $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").css("height", cheight); /*XXX*/
+        
+        if(options.windowType=="video"){
+          $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("embed").css("width", width)
+                   .css("height", height);
+          $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("object").css("width", width)
+                   .css("height", height);
+          $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children().children("embed").css("width", width)
+                   .css("height", height);
+          $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children().children("object").css("width", width)
+                   .css("height", height);
+        }
+        
         if(options.windowType=="iframe")		
-	      $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("iframe").css("width", width)
-	               .css("height", height);
-				   
-	}
-	
-	var move = function($obj, x, y){
-	    
-		x = parseInt(x);
-		y = parseInt(y);
-		
-		$obj.attr("lastX",x)
-		    .attr("lastY",y);
-		
+          $obj.children(".win_mid").children(".win_ct_pre").children(".win_ct").children("iframe").css("width", width)
+                   .css("height", height);
+                   
+    }
+    
+    var move = function($obj, x, y){
+        
+        x = parseInt(x);
+        y = parseInt(y);
+        
+        $obj.attr("lastX",x)
+            .attr("lastY",y);
+        
         x = x+"px";
-		y = y+"px";		
-			
-		$obj.css("left", x)
-	        .css("top", y);
-	}
+        y = y+"px";		
+            
+        $obj.css("left", x)
+            .css("top", y);
+    }
 
-	var dragging = function(e, $obj){
-	    if(options.draggable){
-		e = e ? e : window.event;
-	    var newx = parseInt($obj.css("left")) + (e.clientX - lastMouseX);
+    var dragging = function(e, $obj){
+        if(options.draggable){
+        e = e ? e : window.event;
+        var newx = parseInt($obj.css("left")) + (e.clientX - lastMouseX);
         var newy = parseInt($obj.css("top")) + (e.clientY - lastMouseY);
-	    lastMouseX = e.clientX;
-	    lastMouseY = e.clientY;
-	  
-	    if(newx > 0 && newx < ($(window).width() - parseInt($obj.css("width"))))/*XXX*/
-		{
-			if(newy > 0 && newy < ($(window).height() - parseInt($obj.css("height")) - 45))
-			{
-				move($obj,newx,newy);
-			}
-		}
-		}
-	};
-	
-	var resizing = function(e, $obj){
-	  
-	  e = e ? e : window.event;
-	  var w = parseInt($obj.css("width"));
-	  var h = parseInt($obj.css("height"));
-	  w = w<100 ? 100 : w;
-	  h = h<50 ? 50 : h;
-	  var neww = w + (e.clientX - lastMouseX);
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      
+        if(newx > 0 && newx < ($(window).width() - parseInt($obj.css("width"))))/*XXX*/
+        {
+            if(newy > 0 && newy < ($(window).height() - parseInt($obj.css("height")) - 45))
+            {
+                move($obj,newx,newy);
+            }
+        }
+        }
+    };
+    
+    var resizing = function(e, $obj){
+      
+      e = e ? e : window.event;
+      var w = parseInt($obj.css("width"));
+      var h = parseInt($obj.css("height"));
+      w = w<100 ? 100 : w;
+      h = h<50 ? 50 : h;
+      var neww = w + (e.clientX - lastMouseX);
       var newh = h + (e.clientY - lastMouseY);
-	  lastMouseX = e.clientX;
-	  lastMouseY = e.clientY;
-	  
-	  resize($obj, neww, newh);
-	};
-	
-	
-	$windowMoveButton.bind('mousedown', function(e){
-	    $obj = $(e.target).parent().parent().parent();
-		setFocus($obj);
-		
-	    if($obj.attr("state") == "normal"){
-	        e = e ? e : window.event;
-		    lastMouseX = e.clientX;
-		    lastMouseY = e.clientY;
-		    
-		    $(document).bind('mousemove', function(e){
-			    dragging(e, $obj);
-		    });
-		    
-			
-		    $(document).bind('mouseup', function(e){
-				if(options.onDragEnd != null)options.onDragEnd();
-				$(document).unbind('mousemove');
-				$(document).unbind('mouseup');
-		    });
-			
-			if(options.onDragBegin != null)options.onDragBegin();
-	    }
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      
+      resize($obj, neww, newh);
+    };
+    
+    
+    $windowMoveButton.bind('mousedown', function(e){
+        $obj = $(e.target).parent().parent().parent();
+        setFocus($obj);
+        
+        if($obj.attr("state") == "normal"){
+            e = e ? e : window.event;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+            
+            $(document).bind('mousemove', function(e){
+                dragging(e, $obj);
+            });
+            
+            
+            $(document).bind('mouseup', function(e){
+                if(options.onDragEnd != null)options.onDragEnd();
+                $(document).unbind('mousemove');
+                $(document).unbind('mouseup');
+            });
+            
+            if(options.onDragBegin != null)options.onDragBegin();
+        }
     });
-	
-	$windowResizeIcon.bind('mousedown', function(e){
-		$obj = $(e.target).parent().parent();
-		setFocus($obj);
-		
-		if($obj.attr("state") == "normal"){
-			e = e ? e : window.event;
-			lastMouseX = e.clientX;
-			lastMouseY = e.clientY;
+    
+    $windowResizeIcon.bind('mousedown', function(e){
+        $obj = $(e.target).parent().parent();
+        setFocus($obj);
+        
+        if($obj.attr("state") == "normal"){
+            e = e ? e : window.event;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
 
-			$(document).bind('mousemove', function(e){
-				resizing(e, $obj);
-			});
+            $(document).bind('mousemove', function(e){
+                resizing(e, $obj);
+            });
 
-			$(document).bind('mouseup', function(e){
-				if(options.onResizeEnd != null)options.onResizeEnd();
-				$(document).unbind('mousemove');
-				$(document).unbind('mouseup');
-			});
-			
-			if(options.onResizeBegin != null)options.onResizeBegin();
-		}
-	  
+            $(document).bind('mouseup', function(e){
+                if(options.onResizeEnd != null)options.onResizeEnd();
+                $(document).unbind('mousemove');
+                $(document).unbind('mouseup');
+            });
+            
+            if(options.onResizeBegin != null)options.onResizeBegin();
+        }
+      
     });
-	
-	$windowMinimizeButton.bind('click', function(e){
-	    $obj = $(e.target).parent().parent().parent();
-		setFocus($obj);
-		if($obj.attr("state") == "normal"){
-	        $(e.target).parent().parent().next().slideToggle("slow");
-		}
+    
+    $windowMinimizeButton.bind('click', function(e){
+        $obj = $(e.target).parent().parent().parent();
+        setFocus($obj);
+        if($obj.attr("state") == "normal"){
+            $(e.target).parent().parent().next().slideToggle("slow");
+        }
     });
-	
-	$windowMaximizeButton.bind('click', function(e){
-	  $obj = $(e.target).parent().parent().parent();
-	  setFocus($obj);
-	  if($obj.attr("state") == "normal"){
-		  if(options.windowType=="standard"){
-		    $obj.animate({
-		      top: "5px",
-			  left: "5px",
-			  width: $(window).width()-15,
-			  height: $(window).height()-45
-		    },"slow");
-		  }
-		  else{
-			tmpx = $obj.attr("lastX");
-		    tmpy = $obj.attr("lastY");
-			tmpwidth = $obj.attr("lastWidth");
-		    tmpheight = $obj.attr("lastHeight");
-			move($obj, 5, 5);
-		    resize($obj,$(window).width()-15,$(window).height()-45);
-			$obj.attr("lastX",tmpx);
-		    $obj.attr("lastY",tmpy);
-			$obj.attr("lastWidth",tmpwidth);
-		    $obj.attr("lastHeight",tmpheight);
-		  }
-		  $obj.attr("state","maximized")
-	  }
-	  else if($obj.attr("state") == "maximized"){
-	    if(options.windowType=="standard"){ 
-		  $obj.animate({
-		    top: $obj.attr("lastY"),
-			left: $obj.attr("lastX"),
-			width: $obj.attr("lastWidth"),
-			height: $obj.attr("lastHeight")
-		  },"slow");
-		}
-		else{
-		  resize($obj,$obj.attr("lastWidth"),$obj.attr("lastHeight"));
-		  move($obj,$obj.attr("lastX"),$obj.attr("lastY"));
-		}
-		$obj.attr("state","normal")
-	  }
-	  
+    
+    $windowMaximizeButton.bind('click', function(e){
+      $obj = $(e.target).parent().parent().parent();
+      setFocus($obj);
+      if($obj.attr("state") == "normal"){
+          if(options.windowType=="standard"){
+            $obj.animate({
+              top: "5px",
+              left: "5px",
+              width: $(window).width()-15,
+              height: $(window).height()-45
+            },"slow");
+          }
+          else{
+            tmpx = $obj.attr("lastX");
+            tmpy = $obj.attr("lastY");
+            tmpwidth = $obj.attr("lastWidth");
+            tmpheight = $obj.attr("lastHeight");
+            move($obj, 5, 5);
+            resize($obj,$(window).width()-15,$(window).height()-45);
+            $obj.attr("lastX",tmpx);
+            $obj.attr("lastY",tmpy);
+            $obj.attr("lastWidth",tmpwidth);
+            $obj.attr("lastHeight",tmpheight);
+          }
+          $obj.attr("state","maximized")
+      }
+      else if($obj.attr("state") == "maximized"){
+        if(options.windowType=="standard"){ 
+          $obj.animate({
+            top: $obj.attr("lastY"),
+            left: $obj.attr("lastX"),
+            width: $obj.attr("lastWidth"),
+            height: $obj.attr("lastHeight")
+          },"slow");
+        }
+        else{
+          resize($obj,$obj.attr("lastWidth"),$obj.attr("lastHeight"));
+          move($obj,$obj.attr("lastX"),$obj.attr("lastY"));
+        }
+        $obj.attr("state","normal")
+      }
+      
     });
-	
-	$windowCloseButton.bind('click', function(e){
-	  $(e.target).parent().parent().parent().fadeOut();
-	  $(e.target).parent().parent().parent().children(".win_ct").html("");
+    
+    $windowCloseButton.bind('click', function(e){
+      $(e.target).parent().parent().parent().fadeOut();
+      $(e.target).parent().parent().parent().children(".win_ct").html("");
     });
-	
-	$windowContent.click(function(e){
+    
+    $windowContent.click(function(e){
       setFocus($(e.target).parent());
     });
-	$windowStatusBar.click(function(e){
+    $windowStatusBar.click(function(e){
       setFocus($(e.target).parent());
     });
-	
-	move($windowContainer,options.posx,options.posy);
-	resize($windowContainer,options.width,options.height);
-	$windowContainer.attr("state","normal");
-	
-	$windowTitleHTML.append(options.windowTitle);
-	$windowTitleBar.append($windowTitleHTML);
-	
-	//$windowTitleBar.append($windowTitleHTML);
-	//$windowTitleBar.append(options.windowTitle);
-	
-	
-	
-	if(options.closeButton)  
-	    $windowTitleBar.append($windowCloseButton);
-	if(options.maximizeButton)
-	    $windowTitleBar.append($windowMaximizeButton);
-	if(options.minimizeButton)
-	    $windowTitleBar.append($windowMinimizeButton);
-	if(options.moveButton)
-	    $windowTitleBar.append($windowMoveButton);
-	
-	if(options.resizeable)
-	    $windowStatusBar.append($windowResizeIcon);
-	
-	$windowTop.append($windowTitleBar)
-	$windowContainer.append($windowTop)
-	//$windowContainer.append($windowTitleBar)
-	$windowContainer.append($windowContent)
-	
-	if(options.statusBar)
-	    $windowContainer.append($windowStatusBar);
-	
-	$windowContainer.css("display","none");
-	
-	return this.each(function(index) {
-		var $this = $(this);      	
-		
-		$windowMoveButton.html(options.moveIcon);
-		$windowMinimizeButton.html(options.minimizeIcon);
-		$windowMaximizeButton.html(options.maximizeIcon);
-		$windowCloseButton.html(options.closeIcon);
-		$windowResizeIcon.html(options.resizeIcon);
-		
-		$this.data("window",$windowContainer);
-		$('body').append($windowContainer);
-		
-		$this.click(function(event){
-			event.preventDefault();   
-			$window = $this.data("window")
-			if(options.ajaxURL != ""){ 
+    
+    move($windowContainer,options.posx,options.posy);
+    resize($windowContainer,options.width,options.height);
+    $windowContainer.attr("state","normal");
+    
+    $windowTitleHTML.append(options.windowTitle);
+    $windowTitleBar.append($windowTitleHTML);
+    
+    //$windowTitleBar.append($windowTitleHTML);
+    //$windowTitleBar.append(options.windowTitle);
+    
+    
+    
+    if(options.closeButton)  
+        $windowTitleBar.append($windowCloseButton);
+    if(options.maximizeButton)
+        $windowTitleBar.append($windowMaximizeButton);
+    if(options.minimizeButton)
+        $windowTitleBar.append($windowMinimizeButton);
+    if(options.moveButton)
+        $windowTitleBar.append($windowMoveButton);
+    
+    if(options.resizeable)
+        $windowStatusBar.append($windowResizeIcon);
+    
+    $windowTop.append($windowTitleBar)
+    $windowContainer.append($windowTop)
+    //$windowContainer.append($windowTitleBar)
+    $windowContainer.append($windowContent)
+    
+    if(options.statusBar)
+        $windowContainer.append($windowStatusBar);
+    
+    $windowContainer.css("display","none");
+    
+    return this.each(function(index) {
+        var $this = $(this);      	
+        
+        $windowMoveButton.html(options.moveIcon);
+        $windowMinimizeButton.html(options.minimizeIcon);
+        $windowMaximizeButton.html(options.maximizeIcon);
+        $windowCloseButton.html(options.closeIcon);
+        $windowResizeIcon.html(options.resizeIcon);
+        
+        $this.data("window",$windowContainer);
+        $('body').append($windowContainer);
+        
+        $this.click(function(event){
+            event.preventDefault();   
+            $window = $this.data("window")
+            if(options.ajaxURL != ""){ 
 
-				 $.ajax({
-				   type: "GET",
-				   url: options.ajaxURL,
-				   dataType: "html",
-				   //data: "header=variable",
-				   success: function(data){
-					 $window.children(".win_mid").children(".win_ct_pre").children(".win_ct").html(data);
-					 
-					 if(options.onAjaxContentLoaded != null) options.onAjaxContentLoaded(); 
-				   }
-				 });
-		    
-			}
-			else $window.children(".win_mid").children(".win_ct_pre").children(".win_ct").html(options.content);
-			
-			if(!options.draggable)
-			    $window.children(".win_top").css("cursor","default");
-			setFocus($window);
+                 $.ajax({
+                   type: "GET",
+                   url: options.ajaxURL,
+                   dataType: "html",
+                   //data: "header=variable",
+                   success: function(data){
+                     $window.children(".win_mid").children(".win_ct_pre").children(".win_ct").html(data);
+                     
+                     if(options.onAjaxContentLoaded != null) options.onAjaxContentLoaded(); 
+                   }
+                 });
+            
+            }
+            else $window.children(".win_mid").children(".win_ct_pre").children(".win_ct").html(options.content);
+            
+            if(!options.draggable)
+                $window.children(".win_top").css("cursor","default");
+            setFocus($window);
             $window.fadeIn();			
-		});
-	});
+        });
+    });
 
   
 }})(jQuery);

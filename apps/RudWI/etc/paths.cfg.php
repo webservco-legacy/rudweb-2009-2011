@@ -32,14 +32,14 @@
  */
 if(!defined('_RW_VALID'))
 {
-	/**
-	 * Display "Not Found" page.
-	 */
-	require_once('./var/err/404.php');
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Display "Not Found" page.
+     */
+    require_once('./var/err/404.php');
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -47,10 +47,10 @@ if(!defined('_RW_VALID'))
  */
 if(!defined('_APP_EXT_DIR'))
 {
-	/**
-	 * Set application extensions directory.
-	 */
-	define('_APP_EXT_DIR', _APP_DIR . 'ext/');
+    /**
+     * Set application extensions directory.
+     */
+    define('_APP_EXT_DIR', _APP_DIR . 'ext/');
 }
 
 /**
@@ -58,10 +58,10 @@ if(!defined('_APP_EXT_DIR'))
  */
 if(!defined('_APP_INT_DIR'))
 {
-	/**
-	 * Set application internationalization directory.
-	 */
-	define('_APP_INT_DIR', _APP_DIR . 'int/');
+    /**
+     * Set application internationalization directory.
+     */
+    define('_APP_INT_DIR', _APP_DIR . 'int/');
 }
 
 /**
@@ -69,10 +69,10 @@ if(!defined('_APP_INT_DIR'))
  */
 if(!defined('_APP_MOD_DIR'))
 {
-	/**
-	 * Set application modules directory.
-	 */
-	define('_APP_MOD_DIR', _APP_DIR . 'mod/');
+    /**
+     * Set application modules directory.
+     */
+    define('_APP_MOD_DIR', _APP_DIR . 'mod/');
 }
 
 /**
@@ -80,10 +80,10 @@ if(!defined('_APP_MOD_DIR'))
  */
 if(!defined('_APP_OPT_DIR'))
 {
-	/**
-	 * Set application 3rdparty directory.
-	 */
-	define('_APP_OPT_DIR', _APP_DIR . 'opt/');
+    /**
+     * Set application 3rdparty directory.
+     */
+    define('_APP_OPT_DIR', _APP_DIR . 'opt/');
 }
 
 /**
@@ -91,10 +91,10 @@ if(!defined('_APP_OPT_DIR'))
  */
 if(!defined('_APP_TMP_DIR'))
 {
-	/**
-	 * Set application temp directory.
-	 */
-	define('_APP_TMP_DIR', _APP_DIR . 'tmp/');
+    /**
+     * Set application temp directory.
+     */
+    define('_APP_TMP_DIR', _APP_DIR . 'tmp/');
 }
 
 /**
@@ -102,10 +102,10 @@ if(!defined('_APP_TMP_DIR'))
  */
 if(!defined('_APP_SKIN_DIR'))
 {
-	/**
-	 * Set application skins directory.
-	 */
-	define('_APP_SKIN_DIR', _APP_DIR . 'usr/skins/');
+    /**
+     * Set application skins directory.
+     */
+    define('_APP_SKIN_DIR', _APP_DIR . 'usr/skins/');
 }
 
 /**
@@ -113,10 +113,10 @@ if(!defined('_APP_SKIN_DIR'))
  */
 if(!defined('_APP_SKIN_WWW'))
 {
-	/**
-	 * Set application skins url path.
-	 */
-	define('_APP_SKIN_WWW', _APP_WWW . 'usr/skins/');
+    /**
+     * Set application skins url path.
+     */
+    define('_APP_SKIN_WWW', _APP_WWW . 'usr/skins/');
 }
 
 /**
@@ -124,9 +124,9 @@ if(!defined('_APP_SKIN_WWW'))
  */
 if(!defined('_APP_USR_WWW'))
 {
-	/**
-	 * Set application usr (web accessible 3rdparty) directory.
-	 */
-	define('_APP_USR_WWW', _APP_WWW . 'usr/');
+    /**
+     * Set application usr (web accessible 3rdparty) directory.
+     */
+    define('_APP_USR_WWW', _APP_WWW . 'usr/');
 }
 ?>
