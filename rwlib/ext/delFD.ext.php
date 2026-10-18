@@ -49,113 +49,113 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Ext_delFD extends rw_Ext_global implements rw_iExt
 {
-	/**
-	 * Declare statistics
-	 */
-	public $stats = array();
-	/**
-	 * Constructor
-	 *
-	 * Initialize statistics.
-	 * Set extension information and call parent constructor.
-	 *
-	 * @return null
-	 */
-	public function __construct($appCore)
-	{
-		/**
-		 * Total directories processed
-		 */
-		$this->stats['dirs']  = 0;
-		/**
-		 * Total files processed
-		 */
-		$this->stats['files'] = 0;
-		/**
-		 * Total size processed
-		 */
-		$this->stats['size']  = 0;
-		/**
-		 * Extension info
-		 */
-		$about['name'] = 'delFD';
-		$about['desc'] = 'Delete files and directories.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg'] = array();
-		$about['deps']['ext'] = array();
-		parent::__construct($about, $appCore);
-	}
-	/**
-	 * Main extension functionality
-	 *
-	 * @param string $dir path to initial directory
-	 * @param int $age number of seconds a file is considered old and deleted
-	 * @param boolean $subdirs whether or not to delete files also from subdirectories
-	 * @param boolean $deldirs whether or not to delete the subdirectories
-	 * @return boolean result
-	 */
-	public function delFD($dir, $age=0, $subdirs=TRUE, $deldirs=TRUE)
-	{
-		if(is_dir($dir))
-		{
-			if($dh = opendir($dir))
-			{
-				while (FALSE !== ($file = readdir($dh)))
-				{
-					if($file != '.' && $file != '..')
-					{
-						if(is_file($dir.$file) && (filemtime($dir.$file) < (time()-$age)))
-						{
-							$this->stats['size'] += filesize($dir.$file);
-							unlink($dir.$file);
-							$this->stats['files']++;
-						}
-						else if(is_dir($dir.$file))
-						{
-							if($subdirs)
-							{
-								$subdir = $dir.basename($file) . '/';
-								$this->delFD($subdir, $age, $subdirs, $deldirs);
-								$this->stats['dirs']++;
-							}
-							if($deldirs && $age == 0)
-							{
-								rmdir($dir.$file);
-							}
-						}
-					}
-				}
-				closedir($dh);
-			}
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
-	}
-	/**
-	 * Show statistics
-	 *
-	 * @return array statistics
-	 */
-	function showStats()
-	{
-		return $this->stats;
-	}
-	/*
-	 * Reset statistics
-	 *
-	 * @return boolean result
-	 */
-	function resetStats()
-	{
-		$this->stats['dirs'] = 0;
-		$this->stats['files'] = 0;
-		$this->stats['size'] = 0;
-	}
+    /**
+     * Declare statistics
+     */
+    public $stats = array();
+    /**
+     * Constructor
+     *
+     * Initialize statistics.
+     * Set extension information and call parent constructor.
+     *
+     * @return null
+     */
+    public function __construct($appCore)
+    {
+        /**
+         * Total directories processed
+         */
+        $this->stats['dirs']  = 0;
+        /**
+         * Total files processed
+         */
+        $this->stats['files'] = 0;
+        /**
+         * Total size processed
+         */
+        $this->stats['size']  = 0;
+        /**
+         * Extension info
+         */
+        $about['name'] = 'delFD';
+        $about['desc'] = 'Delete files and directories.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg'] = array();
+        $about['deps']['ext'] = array();
+        parent::__construct($about, $appCore);
+    }
+    /**
+     * Main extension functionality
+     *
+     * @param string $dir path to initial directory
+     * @param int $age number of seconds a file is considered old and deleted
+     * @param boolean $subdirs whether or not to delete files also from subdirectories
+     * @param boolean $deldirs whether or not to delete the subdirectories
+     * @return boolean result
+     */
+    public function delFD($dir, $age=0, $subdirs=TRUE, $deldirs=TRUE)
+    {
+        if(is_dir($dir))
+        {
+            if($dh = opendir($dir))
+            {
+                while (FALSE !== ($file = readdir($dh)))
+                {
+                    if($file != '.' && $file != '..')
+                    {
+                        if(is_file($dir.$file) && (filemtime($dir.$file) < (time()-$age)))
+                        {
+                            $this->stats['size'] += filesize($dir.$file);
+                            unlink($dir.$file);
+                            $this->stats['files']++;
+                        }
+                        else if(is_dir($dir.$file))
+                        {
+                            if($subdirs)
+                            {
+                                $subdir = $dir.basename($file) . '/';
+                                $this->delFD($subdir, $age, $subdirs, $deldirs);
+                                $this->stats['dirs']++;
+                            }
+                            if($deldirs && $age == 0)
+                            {
+                                rmdir($dir.$file);
+                            }
+                        }
+                    }
+                }
+                closedir($dh);
+            }
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
+    /**
+     * Show statistics
+     *
+     * @return array statistics
+     */
+    function showStats()
+    {
+        return $this->stats;
+    }
+    /*
+     * Reset statistics
+     *
+     * @return boolean result
+     */
+    function resetStats()
+    {
+        $this->stats['dirs'] = 0;
+        $this->stats['files'] = 0;
+        $this->stats['size'] = 0;
+    }
 }
 ?>

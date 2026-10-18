@@ -42,77 +42,77 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Skin_rudweb implements rw_iSkin
 {
-	/**
-	 * Skin directory
-	 *
-	 * @var string $skindir Skin directory
-	 */
-	public $skindir;
-	/**
-	 * Skin variables
-	 *
-	 * @var mixed $skinvars Skin variables
-	 */
-	public $skinvars;
-	/**
-	 * Constructor
-	 *
-	 * @param string $skindir Skin directory
-	 * @return mixed
-	 */
-	public function __construct($skindir = null)
-	{
-		$this->skindir = $skindir;
-		$this->skinvars = array();
-	}
-	/**
-	 * Sets the skin dir
-	 */
-	public function skindir($skindir)
-	{
-		$this->skindir = $skindir;
-	}
-	/**
-	 * Sets a skin variable
-	 *
-	 * @param sting $name Variable name
-	 * @param mixed $value Variable value
-	 * @return mixed
-	 */
-	public function set($name, $value)
-	{
-		$this->skinvars[$name] = $value;
-	}
-	/**
-	 * Parses the skin file
-	 *
-	 * @param string $skinfile Skin file
-	 * @return mixed
-	 */
-	public function parse($skinfile, $display=FALSE)
-	{
-		extract($this->skinvars);
-		ob_start();
-		include ($this->skindir . '/' . $skinfile);
-		$out = ob_get_contents();
-		ob_end_clean();
+    /**
+     * Skin directory
+     *
+     * @var string $skindir Skin directory
+     */
+    public $skindir;
+    /**
+     * Skin variables
+     *
+     * @var mixed $skinvars Skin variables
+     */
+    public $skinvars;
+    /**
+     * Constructor
+     *
+     * @param string $skindir Skin directory
+     * @return mixed
+     */
+    public function __construct($skindir = null)
+    {
+        $this->skindir = $skindir;
+        $this->skinvars = array();
+    }
+    /**
+     * Sets the skin dir
+     */
+    public function skindir($skindir)
+    {
+        $this->skindir = $skindir;
+    }
+    /**
+     * Sets a skin variable
+     *
+     * @param sting $name Variable name
+     * @param mixed $value Variable value
+     * @return mixed
+     */
+    public function set($name, $value)
+    {
+        $this->skinvars[$name] = $value;
+    }
+    /**
+     * Parses the skin file
+     *
+     * @param string $skinfile Skin file
+     * @return mixed
+     */
+    public function parse($skinfile, $display=FALSE)
+    {
+        extract($this->skinvars);
+        ob_start();
+        include ($this->skindir . '/' . $skinfile);
+        $out = ob_get_contents();
+        ob_end_clean();
 
-		if($display)
-		{
-			echo $out;
-			return true;
-		}
-		else
-		{
-			return $out;
-		}
-	}
-	/**
-	 * Displays results
-	 */
-	public function view($skinfile)
-	{
-		$this->parse($skinfile, TRUE);
-	}
+        if($display)
+        {
+            echo $out;
+            return true;
+        }
+        else
+        {
+            return $out;
+        }
+    }
+    /**
+     * Displays results
+     */
+    public function view($skinfile)
+    {
+        $this->parse($skinfile, TRUE);
+    }
 }
 ?>

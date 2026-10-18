@@ -42,32 +42,32 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 interface rw_iSkin
 {
-	/**
-	 * Constructor interface
-	 */
-	function __construct();
-	/**
-	 * Sets skin variables
-	 *
-	 * @param mixed $name Variable name
-	 * @param mixed $value Variable value
-	 * @return mixed Result
-	 */
-	function set($name, $value);
-	/**
-	 * Parses template file
-	 *
-	 * @param mixed $template Template file to be parsed
-	 * @return mixed Result
-	 */
-	function parse($template);
-	/**
-	 * Displays template file
-	 *
-	 * @param mixed $template Template file to be displayed
-	 * @return mixed Result
-	 */
-	function view($template);
+    /**
+     * Constructor interface
+     */
+    function __construct();
+    /**
+     * Sets skin variables
+     *
+     * @param mixed $name Variable name
+     * @param mixed $value Variable value
+     * @return mixed Result
+     */
+    function set($name, $value);
+    /**
+     * Parses template file
+     *
+     * @param mixed $template Template file to be parsed
+     * @return mixed Result
+     */
+    function parse($template);
+    /**
+     * Displays template file
+     *
+     * @param mixed $template Template file to be displayed
+     * @return mixed Result
+     */
+    function view($template);
 }
 /**
  * rw_Skin
@@ -79,62 +79,62 @@ interface rw_iSkin
  */
 class rw_Skin
 {
-	/**
-	 * Load template engine
-	 *
-	 * @param string $tplEngine
-	 * @return mixed template engine object
-	 */
-	static function _load($tplEngine = null)
-	{
-		/**
-		 * Allowed skin engines
-		 */
-		$tplEngines = array();
-		$tplEngines['Smarty']['path'] = 'Smarty.class.php';
+    /**
+     * Load template engine
+     *
+     * @param string $tplEngine
+     * @return mixed template engine object
+     */
+    static function _load($tplEngine = null)
+    {
+        /**
+         * Allowed skin engines
+         */
+        $tplEngines = array();
+        $tplEngines['Smarty']['path'] = 'Smarty.class.php';
 
-		if(array_key_exists($tplEngine, $tplEngines))
-		{
-			/**
-			 * Internal skin engine class name
-			 */
-			$skinClass = 'rw_Skin_'.$tplEngine;
-			/**
-			 * External skin engine path
-			 */
-			$tplEnginePath = $tplEngines[$tplEngine]['path'];
-			/**
-			 * Include external skin engine file
-			 */
-			if(is_file(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
-			{
-				require_once(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
-			}
-			else if(is_file(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
-			{
-				require_once(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
-			}
-			else
-			{
-				trigger_error('<u>Template Engine Error</u>: Template engine '.$tplEngine . ' is missing.');
-			}
+        if(array_key_exists($tplEngine, $tplEngines))
+        {
+            /**
+             * Internal skin engine class name
+             */
+            $skinClass = 'rw_Skin_'.$tplEngine;
+            /**
+             * External skin engine path
+             */
+            $tplEnginePath = $tplEngines[$tplEngine]['path'];
+            /**
+             * Include external skin engine file
+             */
+            if(is_file(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
+            {
+                require_once(_APP_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
+            }
+            else if(is_file(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath))
+            {
+                require_once(_RW_DIR.'3rdparty/'.$tplEngine.'/'.$tplEnginePath);
+            }
+            else
+            {
+                trigger_error('<u>Template Engine Error</u>: Template engine '.$tplEngine . ' is missing.');
+            }
 
-			require_once(_RW_DIR_LIB_SKIN.'skin.'.$tplEngine.'.inc.php');
-		}
-		else {
-			/**
-			 * Default skin engine
-			 */
-			$skinClass = 'rw_Skin_rudweb';
-			/**
-			 * Include internal skin engine class
-			 */
-			require_once(_RW_DIR_LIB_SKIN.'skin.rudweb.inc.php');
-		}
-		/**
-		 * Return skin engine class
-		 */
-		return new $skinClass();
-	}
+            require_once(_RW_DIR_LIB_SKIN.'skin.'.$tplEngine.'.inc.php');
+        }
+        else {
+            /**
+             * Default skin engine
+             */
+            $skinClass = 'rw_Skin_rudweb';
+            /**
+             * Include internal skin engine class
+             */
+            require_once(_RW_DIR_LIB_SKIN.'skin.rudweb.inc.php');
+        }
+        /**
+         * Return skin engine class
+         */
+        return new $skinClass();
+    }
 }
 ?>

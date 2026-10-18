@@ -42,85 +42,85 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Ext_Captcha extends rw_Ext_global implements rw_iExt
 {
-	/**
-	 * Constructor
-	 * Set extension information and call parent constructor
-	 *
-	 */
-	public function __construct($appCore)
-	{
-		/**
-		 * Extension info
-		 */
-		$about['name'] = 'Captcha';
-		$about['desc'] = 'Captcha generation and verification.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg']  = array();
-		$about['deps']['cfg'][]  = 'Sessions';
-		$about['deps']['ext']  = array();
-		$about['deps']['ext'][]  = 'Sessions';
-		parent::__construct($about, $appCore);
-	}
-	/**
-	 * Generate captcha image
-	 *
-	 * @return string $im captcha image as a string
-	 */
-	public function display()
-	{
-		if(isset($_SESSION[_APP_PRE.'_token']))
-		{
-			ob_start();
-			$captcha = str_split(strtoupper($_SESSION[_APP_PRE.'_token']), 1);
+    /**
+     * Constructor
+     * Set extension information and call parent constructor
+     *
+     */
+    public function __construct($appCore)
+    {
+        /**
+         * Extension info
+         */
+        $about['name'] = 'Captcha';
+        $about['desc'] = 'Captcha generation and verification.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg']  = array();
+        $about['deps']['cfg'][]  = 'Sessions';
+        $about['deps']['ext']  = array();
+        $about['deps']['ext'][]  = 'Sessions';
+        parent::__construct($about, $appCore);
+    }
+    /**
+     * Generate captcha image
+     *
+     * @return string $im captcha image as a string
+     */
+    public function display()
+    {
+        if(isset($_SESSION[_APP_PRE.'_token']))
+        {
+            ob_start();
+            $captcha = str_split(strtoupper($_SESSION[_APP_PRE.'_token']), 1);
 
-			$img = imagecreatetruecolor(70, 18);
+            $img = imagecreatetruecolor(70, 18);
 
-			$bgc = imagecolorallocate($img, 0xff, 0xff, 0xff);
-			$fgc = imagecolorallocate($img, 0x99, 0x99, 0x99);
+            $bgc = imagecolorallocate($img, 0xff, 0xff, 0xff);
+            $fgc = imagecolorallocate($img, 0x99, 0x99, 0x99);
 
-			$font = _RW_DIR_LIB . '3rdparty/ttf/' . 'VeraMono.ttf';
+            $font = _RW_DIR_LIB . '3rdparty/ttf/' . 'VeraMono.ttf';
 
-			imagefill($img, 0, 0, $bgc);
+            imagefill($img, 0, 0, $bgc);
 
-			imagettftext($img, 12, 10, 3, 16, $fgc, $font, $captcha['4']);
-			imagettftext($img, 12, -30, 13, 12, $fgc, $font, $captcha['3']);
-			imagettftext($img, 12, 10, 30, 16, $fgc, $font, $captcha['2']);
-			imagettftext($img, 12, -10, 40, 14, $fgc, $font, $captcha['1']);
-			imagettftext($img, 12, 10, 58, 16, $fgc, $font, $captcha['0']);
+            imagettftext($img, 12, 10, 3, 16, $fgc, $font, $captcha['4']);
+            imagettftext($img, 12, -30, 13, 12, $fgc, $font, $captcha['3']);
+            imagettftext($img, 12, 10, 30, 16, $fgc, $font, $captcha['2']);
+            imagettftext($img, 12, -10, 40, 14, $fgc, $font, $captcha['1']);
+            imagettftext($img, 12, 10, 58, 16, $fgc, $font, $captcha['0']);
 
-			imagepng($img);
-			$image = ob_get_contents();
-			imagedestroy($img);
-			ob_end_clean();
+            imagepng($img);
+            $image = ob_get_contents();
+            imagedestroy($img);
+            ob_end_clean();
 
-			$im['type'] = 'png';
-			$im['data'] = base64_encode($image);
+            $im['type'] = 'png';
+            $im['data'] = base64_encode($image);
 
-			return $im;
-		}
-	}
-	/**
-	 * Verify captcha
-	 *
-	 * @param string $captcha Captcha to verify
-	 * @return boolean result of verification
-	 */
-	public function verify($captcha)
-	{
-		$verif = str_split($_SESSION[_APP_PRE.'_token'], 5);
-		$verif = strtoupper(strrev($verif[0]));
-		if($captcha == $verif)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+            return $im;
+        }
+    }
+    /**
+     * Verify captcha
+     *
+     * @param string $captcha Captcha to verify
+     * @return boolean result of verification
+     */
+    public function verify($captcha)
+    {
+        $verif = str_split($_SESSION[_APP_PRE.'_token'], 5);
+        $verif = strtoupper(strrev($verif[0]));
+        if($captcha == $verif)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 }
 ?>

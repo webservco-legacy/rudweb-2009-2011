@@ -42,16 +42,16 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 interface rw_iMod
 {
-	/**
-	 * Method for displaying information about the module
-	 *
-	 * @return mixed information about the module
-	 */
-	public function modAbout();
-	/**
-	 * Default module functionality
-	 */
-	public function _default();
+    /**
+     * Method for displaying information about the module
+     *
+     * @return mixed information about the module
+     */
+    public function modAbout();
+    /**
+     * Default module functionality
+     */
+    public function _default();
 }
 /**
  * rw_Mod_global
@@ -63,95 +63,95 @@ interface rw_iMod
  */
 class rw_Mod_global
 {
-	/**
-	 * Set module info
-	 *
-	 * @var array
-	 */
-	public $modAbout = array();
-	/**
-	 * Application core object
-	 *
-	 * @var mixed
-	 */
-	public $modAppCore = NULL;
-	/**
-	 * Internationalization
-	 *
-	 * @var array
-	 */
-	public $modLang = array();
-	/**
-	 * Internationalization (admin)
-	 *
-	 * @var array
-	 */
-	public $modLangAdm = array();
-	/**
-	 * Database connection
-	 *
-	 * @var mixed
-	 */
-	public $modDb = NULL;
-	/**
-	 * Default output values
-	 *
-	 * @var array
-	 */
-	public $modOut = array();
-	/**
-	 * Load the module
-	 *
-	 * @param mixed $appCore Application core object
-	 * @return mixed result of loading
-	 */
-	public function __construct($modAbout, $modOut, $appCore)
-	{
-		$this->modAbout = $modAbout;
-		$this->modAppCore = $appCore;
-		$this->modLang = $this->modAppCore->rwLang();
-		$this->modLangAdm = $this->modAppCore->rwLangAdm();
-		$this->modDb = $this->modAppCore->rwDb();
-		/**
-		 * Default values.
-		 * These can be overridden by modules
-		 */
-		$out1['type'] = 'rudweb';
-		$out1['skin'] = array();
-		$out1['skin']['dir'] = '';
-		$out1['skin']['tpl'] = 'layout';
-		$out1['skin']['title'] = $this->modLang['MOD']['TITLE'];
-		$out1['skin']['meta'] = array();
-		$out1['skin']['meta']['subject'] = _APP_NAME;
-		$out1['skin']['meta']['description'] = _APP_NAME;
-		$out1['skin']['meta']['keywords'] = _APP_NAME;
-		$out1['skin']['meta']['copyright'] = _APP_AUTH;
-		$out1['skin']['meta']['designer'] = _APP_AUTH;
-		$out1['skin']['meta']['publisher'] = _APP_AUTH;
-		$out1['skin']['meta']['author'] = _APP_AUTH;
-		$out1['skin']['lang'] = $this->modLang;
-		$out1['skin']['langAdm'] = $this->modLangAdm;
-		$out1['cnt'] = array();
-		/**
-		 * Join with values from module.
-		 */
-		$out = array_merge($out1, $modOut);
-		$out['skin'] = array_merge($out1['skin'], $modOut['skin']);
-		$out['skin']['meta'] = array_merge($out1['skin']['meta'], $modOut['skin']['meta']);
-		$out['cnt'] = array_merge($out1['cnt'], $modOut['cnt']);
-		/**
-		 * Set default values
-		 */
-		$this->modOut = $out;
-	}
-	/**
-	 * Method for displaying information about the module
-	 *
-	 * @return mixed information about the module
-	 */
-	public function modAbout()
-	{
-		return $this->modAbout;
-	}
+    /**
+     * Set module info
+     *
+     * @var array
+     */
+    public $modAbout = array();
+    /**
+     * Application core object
+     *
+     * @var mixed
+     */
+    public $modAppCore = NULL;
+    /**
+     * Internationalization
+     *
+     * @var array
+     */
+    public $modLang = array();
+    /**
+     * Internationalization (admin)
+     *
+     * @var array
+     */
+    public $modLangAdm = array();
+    /**
+     * Database connection
+     *
+     * @var mixed
+     */
+    public $modDb = NULL;
+    /**
+     * Default output values
+     *
+     * @var array
+     */
+    public $modOut = array();
+    /**
+     * Load the module
+     *
+     * @param mixed $appCore Application core object
+     * @return mixed result of loading
+     */
+    public function __construct($modAbout, $modOut, $appCore)
+    {
+        $this->modAbout = $modAbout;
+        $this->modAppCore = $appCore;
+        $this->modLang = $this->modAppCore->rwLang();
+        $this->modLangAdm = $this->modAppCore->rwLangAdm();
+        $this->modDb = $this->modAppCore->rwDb();
+        /**
+         * Default values.
+         * These can be overridden by modules
+         */
+        $out1['type'] = 'rudweb';
+        $out1['skin'] = array();
+        $out1['skin']['dir'] = '';
+        $out1['skin']['tpl'] = 'layout';
+        $out1['skin']['title'] = $this->modLang['MOD']['TITLE'];
+        $out1['skin']['meta'] = array();
+        $out1['skin']['meta']['subject'] = _APP_NAME;
+        $out1['skin']['meta']['description'] = _APP_NAME;
+        $out1['skin']['meta']['keywords'] = _APP_NAME;
+        $out1['skin']['meta']['copyright'] = _APP_AUTH;
+        $out1['skin']['meta']['designer'] = _APP_AUTH;
+        $out1['skin']['meta']['publisher'] = _APP_AUTH;
+        $out1['skin']['meta']['author'] = _APP_AUTH;
+        $out1['skin']['lang'] = $this->modLang;
+        $out1['skin']['langAdm'] = $this->modLangAdm;
+        $out1['cnt'] = array();
+        /**
+         * Join with values from module.
+         */
+        $out = array_merge($out1, $modOut);
+        $out['skin'] = array_merge($out1['skin'], $modOut['skin']);
+        $out['skin']['meta'] = array_merge($out1['skin']['meta'], $modOut['skin']['meta']);
+        $out['cnt'] = array_merge($out1['cnt'], $modOut['cnt']);
+        /**
+         * Set default values
+         */
+        $this->modOut = $out;
+    }
+    /**
+     * Method for displaying information about the module
+     *
+     * @return mixed information about the module
+     */
+    public function modAbout()
+    {
+        return $this->modAbout;
+    }
 }
 ?>

@@ -42,166 +42,166 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class app_Viewer
 {
-	/**
-	 * Output data
-	 *
-	 * @var array
-	 */
-	public $out = array();
-	/**
-	 * Additional template data
-	 *
-	 * @var array
-	 */
-	public $atpl = array();
-	/**
-	 * Set class variables.
-	 *
-	 * @param array $out
-	 * @param array $atpl
-	 */
-	public function __construct($out, $atpl=array())
-	{
-		$this->out = $out;
-		$this->atpl = $atpl;
-	}
-	/**
-	 * Choose what to display.
-	 *
-	 * Pass it on to the next method
-	 *
-	 */
-	public function display()
-	{
-		switch($this->out['type'])
-		{
-			case 'Smarty' :
-			case 'rudweb' :
-				{
-					$this->_outTpl($this->out['skin'], $this->atpl, $this->out['type']);
-					break;
-				}
-			case 'image' :
-				{
-					$this->_outImg($this->out['image']);
-					break;
-				}
-			default :
-				{
-					break;
-				}
-		}
-	}
+    /**
+     * Output data
+     *
+     * @var array
+     */
+    public $out = array();
+    /**
+     * Additional template data
+     *
+     * @var array
+     */
+    public $atpl = array();
+    /**
+     * Set class variables.
+     *
+     * @param array $out
+     * @param array $atpl
+     */
+    public function __construct($out, $atpl=array())
+    {
+        $this->out = $out;
+        $this->atpl = $atpl;
+    }
+    /**
+     * Choose what to display.
+     *
+     * Pass it on to the next method
+     *
+     */
+    public function display()
+    {
+        switch($this->out['type'])
+        {
+            case 'Smarty' :
+            case 'rudweb' :
+                {
+                    $this->_outTpl($this->out['skin'], $this->atpl, $this->out['type']);
+                    break;
+                }
+            case 'image' :
+                {
+                    $this->_outImg($this->out['image']);
+                    break;
+                }
+            default :
+                {
+                    break;
+                }
+        }
+    }
 
-	/**
-	 * HTML + Template output
-	 *
-	 * @param array $vars
-	 * @param array $atpl
-	 * @param string $tpl
-	 * @return mixed data to be displayed
-	 */
-	private function _outTpl($vars, $atpl=array(), $tpl='rudweb')
-	{
-		/**
-		 * Load template engine
-		 */
-		if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
-		$skinObj = rw_Skin::_load($tpl);
-		/**
-		 * Get skin directory
-		 */
-		$skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
-		if($vars['dir'] != '')
-		{
-			$skin_dir .= '/'.$vars['dir'];
-		}
-		/**
-		 * Set skin directory
-		 */
-		$skinObj->skindir($skin_dir);
-		/**
-		 * Set compile_id
-		 */
-		$skinObj->compile_id = $vars['dir'];
+    /**
+     * HTML + Template output
+     *
+     * @param array $vars
+     * @param array $atpl
+     * @param string $tpl
+     * @return mixed data to be displayed
+     */
+    private function _outTpl($vars, $atpl=array(), $tpl='rudweb')
+    {
+        /**
+         * Load template engine
+         */
+        if(is_readable(_RW_DIR_LIB_SKIN.'skin.inc.php')) {require_once(_RW_DIR_LIB_SKIN.'skin.inc.php');} else {require_once('./index.php'); exit;}
+        $skinObj = rw_Skin::_load($tpl);
+        /**
+         * Get skin directory
+         */
+        $skin_dir = _APP_CFG_SESSIONS ? $_SESSION[_APP_PRE.'_skin_dir'] : _APP_DIR_SKINS._APP_SKIN;
+        if($vars['dir'] != '')
+        {
+            $skin_dir .= '/'.$vars['dir'];
+        }
+        /**
+         * Set skin directory
+         */
+        $skinObj->skindir($skin_dir);
+        /**
+         * Set compile_id
+         */
+        $skinObj->compile_id = $vars['dir'];
 
-		$totalAtpl = count($atpl);
-		if($totalAtpl > 0)
-		{
-			$atplObj = rw_Skin::_load($tpl);
-			$atplObj->skindir($skin_dir);
-			$atplObj->compile_id = $vars['dir'];
-			foreach($atpl as $atplTitle=>$atplVars)
-			{
-				if(array_key_exists(0, $atplVars))
-				{
-					$tc = count($atplVars);
-					$mainContent = '';
-					for($i=0;$i<$tc;$i++)
-					{
-						$totalAtplVars = count($atplVars[$i]['vars']);
-						if($totalAtplVars > 0)
-						{
-							foreach($atplVars[$i]['vars'] as $name=>$value)
-							{
-								/**
-								 * deprecated
-								 * $atplObj->compile_id = $atplVars[$i]['dir'];
-								 */
-								$atplObj->set($name, $value);
-							}
-						}
-						$atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl';
-						$mainContent .= $atplObj->parse($atplTpl);
-						$skinObj->set($atplTitle, $mainContent);
-					}
-				}
-				else
-				{
-					$totalAtplVars = count($atplVars['vars']);
-					if($totalAtplVars > 0)
-					{
-						foreach($atplVars['vars'] as $name=>$value)
-						{
-							/**
-							 * deprecated
-							 * $atplObj->compile_id = $atplVars['dir'];
-							 */
-							$atplObj->set($name, $value);
-						}
-					}
-					$atplTpl = ($atplVars['dir'] != '') ? $atplVars['dir'].'/'.$atplVars['tpl'].'.tpl' : $atplVars['tpl'].'.tpl';
-					$skinObj->set($atplTitle, $atplObj->parse($atplTpl));
-				}
-			}
-		}
+        $totalAtpl = count($atpl);
+        if($totalAtpl > 0)
+        {
+            $atplObj = rw_Skin::_load($tpl);
+            $atplObj->skindir($skin_dir);
+            $atplObj->compile_id = $vars['dir'];
+            foreach($atpl as $atplTitle=>$atplVars)
+            {
+                if(array_key_exists(0, $atplVars))
+                {
+                    $tc = count($atplVars);
+                    $mainContent = '';
+                    for($i=0;$i<$tc;$i++)
+                    {
+                        $totalAtplVars = count($atplVars[$i]['vars']);
+                        if($totalAtplVars > 0)
+                        {
+                            foreach($atplVars[$i]['vars'] as $name=>$value)
+                            {
+                                /**
+                                 * deprecated
+                                 * $atplObj->compile_id = $atplVars[$i]['dir'];
+                                 */
+                                $atplObj->set($name, $value);
+                            }
+                        }
+                        $atplTpl = ($atplVars[$i]['dir'] != '') ? $atplVars[$i]['dir'].'/'.$atplVars[$i]['tpl'].'.tpl' : $atplVars[$i]['tpl'].'.tpl';
+                        $mainContent .= $atplObj->parse($atplTpl);
+                        $skinObj->set($atplTitle, $mainContent);
+                    }
+                }
+                else
+                {
+                    $totalAtplVars = count($atplVars['vars']);
+                    if($totalAtplVars > 0)
+                    {
+                        foreach($atplVars['vars'] as $name=>$value)
+                        {
+                            /**
+                             * deprecated
+                             * $atplObj->compile_id = $atplVars['dir'];
+                             */
+                            $atplObj->set($name, $value);
+                        }
+                    }
+                    $atplTpl = ($atplVars['dir'] != '') ? $atplVars['dir'].'/'.$atplVars['tpl'].'.tpl' : $atplVars['tpl'].'.tpl';
+                    $skinObj->set($atplTitle, $atplObj->parse($atplTpl));
+                }
+            }
+        }
 
-		$varsNew = array_diff_key($vars, array('tpl'=>''));
-		$totalVars = count($varsNew);
-		if($totalVars > 0)
-		{
-			foreach($varsNew as $name=>$value)
-			{
-				$skinObj->set($name, $value);
-			}
-		}
-		return $skinObj->view($vars['tpl'].'.tpl');
-	}
-	/**
-	 * Image Output
-	 *
-	 * Valid image types:
-	 * gif, jpeg, png
-	 * note: only tested with png
-	 *
-	 * @param array $img image data
-	 */
-	private function _outImg($img)
-	{
-		header("Content-type: image/".$img['type']);
-		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-		echo base64_decode($img['data']);
-	}
+        $varsNew = array_diff_key($vars, array('tpl'=>''));
+        $totalVars = count($varsNew);
+        if($totalVars > 0)
+        {
+            foreach($varsNew as $name=>$value)
+            {
+                $skinObj->set($name, $value);
+            }
+        }
+        return $skinObj->view($vars['tpl'].'.tpl');
+    }
+    /**
+     * Image Output
+     *
+     * Valid image types:
+     * gif, jpeg, png
+     * note: only tested with png
+     *
+     * @param array $img image data
+     */
+    private function _outImg($img)
+    {
+        header("Content-type: image/".$img['type']);
+        header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+        echo base64_decode($img['data']);
+    }
 }
 ?>

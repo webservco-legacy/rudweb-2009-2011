@@ -42,72 +42,72 @@ if(!defined('_RW_VALID')) {require_once('./index.php'); exit;}
  */
 class rw_Ext_Intl extends rw_Ext_global implements rw_iExt
 {
-	/**
-	 * Constructor
-	 * Set extension information and call parent constructor
-	 *
-	 */
-	function __construct($appCore)
-	{
-		/**
-		 * Extension info
-		 */
-		$about['name'] = 'Intl';
-		$about['desc'] = 'Provide internationalization functionality.';
-		$about['ver']  = '$Revision$';
-		$about['auth'] = 'Radu Maier';
-		$about['web']  = 'http://www.rudisoft.net';
-		$about['mail'] = 'rudisoft@rudisoft.net';
-		$about['deps'] = array();
-		$about['deps']['cfg'] = array();
-		$about['deps']['cfg'][] = 'Sessions';
-		$about['deps']['ext'] = array();
-		$about['deps']['ext'][]  = 'Sessions';
-		parent::__construct($about, $appCore);
-	}
-	/**
-	 * Create data for language menu
-	 *
-	 * @return array language menu
-	 */
-	public function intlMenu($type='usr', $target=NULL)
-	{
-		$list     = $this->extCore->rwLsDir(_APP_DIR_LANG);
-		$langList = $list['d'];
-		$total    = count($langList);
-		$langs    = array();
-		$typeList = array('usr', 'adm', 'cnt');
-		$type = (in_array($type, $typeList)) ? $type : 'usr';
-		switch($type)
-		{
-			case 'cnt' :
-				{
-					$action = 'setContent';
-					break;
-				}
-			case 'adm' :
-				{
-					$action = 'setSessionAdm';
-					break;
-				}
-			case 'usr' :
-				{
+    /**
+     * Constructor
+     * Set extension information and call parent constructor
+     *
+     */
+    function __construct($appCore)
+    {
+        /**
+         * Extension info
+         */
+        $about['name'] = 'Intl';
+        $about['desc'] = 'Provide internationalization functionality.';
+        $about['ver']  = '$Revision$';
+        $about['auth'] = 'Radu Maier';
+        $about['web']  = 'http://www.rudisoft.net';
+        $about['mail'] = 'rudisoft@rudisoft.net';
+        $about['deps'] = array();
+        $about['deps']['cfg'] = array();
+        $about['deps']['cfg'][] = 'Sessions';
+        $about['deps']['ext'] = array();
+        $about['deps']['ext'][]  = 'Sessions';
+        parent::__construct($about, $appCore);
+    }
+    /**
+     * Create data for language menu
+     *
+     * @return array language menu
+     */
+    public function intlMenu($type='usr', $target=NULL)
+    {
+        $list     = $this->extCore->rwLsDir(_APP_DIR_LANG);
+        $langList = $list['d'];
+        $total    = count($langList);
+        $langs    = array();
+        $typeList = array('usr', 'adm', 'cnt');
+        $type = (in_array($type, $typeList)) ? $type : 'usr';
+        switch($type)
+        {
+            case 'cnt' :
+                {
+                    $action = 'setContent';
+                    break;
+                }
+            case 'adm' :
+                {
+                    $action = 'setSessionAdm';
+                    break;
+                }
+            case 'usr' :
+                {
 
-				}
-			default :
-				{
-					$action = 'setSession';
-					break;
-				}
-		}
-		for($i=0;$i<$total;$i++)
-		{
-			$red = $target ? '/red/'.$target : '';
-			$langs[$i]['link'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? 0 : 1;
-			$langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? '' : _APP_URL.'module/intl/action/'.$action.'/ln/'.$langList[$i].$red;
-			$langs[$i]['lang'] = $langList[$i];
-		}
-		return $langs;
-	}
+                }
+            default :
+                {
+                    $action = 'setSession';
+                    break;
+                }
+        }
+        for($i=0;$i<$total;$i++)
+        {
+            $red = $target ? '/red/'.$target : '';
+            $langs[$i]['link'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? 0 : 1;
+            $langs[$i]['url'] = ($langList[$i] == $_SESSION[_APP_PRE.'_'.$type.'_lang']) ? '' : _APP_URL.'module/intl/action/'.$action.'/ln/'.$langList[$i].$red;
+            $langs[$i]['lang'] = $langList[$i];
+        }
+        return $langs;
+    }
 }
 ?>
