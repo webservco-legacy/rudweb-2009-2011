@@ -32,10 +32,10 @@
  */
 if (!defined('_RW_VALID'))
 {
-	/**
-	 * Stop script execution.
-	 */
-	exit;
+    /**
+     * Stop script execution.
+     */
+    exit;
 }
 
 /**
@@ -85,98 +85,98 @@ $extAbout['Filesystem']['deps']['ext'] = array();
  */
 class rw_Extension_Filesystem extends rw_Extension implements rw_iExtension
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param array $extAbout
-	 * @return mixed result
-	 */
-	public function __construct($extAbout)
-	{
-		/**
-		 * Call parent constructor.
-		 */
-		parent::__construct($extAbout);
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $extAbout
+     * @return mixed result
+     */
+    public function __construct($extAbout)
+    {
+        /**
+         * Call parent constructor.
+         */
+        parent::__construct($extAbout);
+    }
 
-	/**
-	 * Get file mime.
-	 *
-	 * Try to get the mime of the file using various methods.
-	 * I feverything failes, the default "application/octet-stream" is returned.
-	 *
-	 * @param $file file path to check
-	 * @return mixed result
-	 */
-	public function getFileMime($file)
-	{
-		/**
-		 * Set default mime.
-		 */
-		$mime = 'application/octet-stream';
-		/**
-		 * Check for mime_content_type.
-		 */
-		if(function_exists('mime_content_type'))
-		{
-			/**
-			 * Return result.
-			 */
-			return mime_content_type($file);
-		}
-		/**
-		 * Check for Fileinfo extension.
-		 */
-		if(function_exists('finfo_open'))
-		{
-			/**
-			 * Init fileinfo.
-			 */
-			$finfo = new finfo(FILEINFO_MIME);
-			/**
-			 * Check if action was sucessfull.
-			 */
-			if($finfo)
-			{
-				/**
-				 * Get information.
-				 */
-				$nfo = explode(';', $finfo->file($file));
-				/**
-				 * Return result.
-				 */
-				return trim($nfo[0]);
-			}
-		}
-		/**
-		 * Check for exif_imagetype.
-		 */
-		if(function_exists('exif_imagetype'))
-		{
-			/**
-			 * Return result.
-			 */
-			return image_type_to_mime_type(exif_imagetype($file));
-		}
-		/**
-		 * Check for getimagesize.
-		 */
-		if(function_exists('getimagesize'))
-		{
-			/**
-			 * Get information.
-			 */
-			$nfo = getimagesize($file);
-			/**
-			 * Return result.
-			 */
-			return $nfo['mime'];
-		}
-		/**
-		 * If we got here, everything failed.
-		 * Return default mime.
-		 */
-		return $mime;
-	}
+    /**
+     * Get file mime.
+     *
+     * Try to get the mime of the file using various methods.
+     * I feverything failes, the default "application/octet-stream" is returned.
+     *
+     * @param $file file path to check
+     * @return mixed result
+     */
+    public function getFileMime($file)
+    {
+        /**
+         * Set default mime.
+         */
+        $mime = 'application/octet-stream';
+        /**
+         * Check for mime_content_type.
+         */
+        if(function_exists('mime_content_type'))
+        {
+            /**
+             * Return result.
+             */
+            return mime_content_type($file);
+        }
+        /**
+         * Check for Fileinfo extension.
+         */
+        if(function_exists('finfo_open'))
+        {
+            /**
+             * Init fileinfo.
+             */
+            $finfo = new finfo(FILEINFO_MIME);
+            /**
+             * Check if action was sucessfull.
+             */
+            if($finfo)
+            {
+                /**
+                 * Get information.
+                 */
+                $nfo = explode(';', $finfo->file($file));
+                /**
+                 * Return result.
+                 */
+                return trim($nfo[0]);
+            }
+        }
+        /**
+         * Check for exif_imagetype.
+         */
+        if(function_exists('exif_imagetype'))
+        {
+            /**
+             * Return result.
+             */
+            return image_type_to_mime_type(exif_imagetype($file));
+        }
+        /**
+         * Check for getimagesize.
+         */
+        if(function_exists('getimagesize'))
+        {
+            /**
+             * Get information.
+             */
+            $nfo = getimagesize($file);
+            /**
+             * Return result.
+             */
+            return $nfo['mime'];
+        }
+        /**
+         * If we got here, everything failed.
+         * Return default mime.
+         */
+        return $mime;
+    }
 }
 ?>
